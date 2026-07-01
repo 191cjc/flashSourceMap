@@ -1,0 +1,422 @@
+package mx.core
+{
+   import flash.display.Loader;
+   import flash.events.ErrorEvent;
+   import flash.events.Event;
+   import flash.events.IOErrorEvent;
+   import flash.events.ProgressEvent;
+   import flash.events.SecurityErrorEvent;
+   import flash.net.URLRequest;
+   import flash.system.ApplicationDomain;
+   import flash.system.LoaderContext;
+   import mx.events.RSLEvent;
+   import mx.utils.LoaderUtil;
+   
+   use namespace mx_internal;
+   
+   public class RSLItem
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      public var urlRequest:URLRequest;
+      
+      public var total:uint = 0;
+      
+      public var loaded:uint = 0;
+      
+      public var rootURL:String;
+      
+      protected var chainedProgressHandler:Function;
+      
+      protected var chainedCompleteHandler:Function;
+      
+      protected var chainedIOErrorHandler:Function;
+      
+      protected var chainedSecurityErrorHandler:Function;
+      
+      protected var chainedRSLErrorHandler:Function;
+      
+      private var completed:Boolean = false;
+      
+      private var errorText:String;
+      
+      protected var moduleFactory:IFlexModuleFactory;
+      
+      protected var url:String;
+      
+      public function RSLItem(param1:String, param2:String = null, param3:IFlexModuleFactory = null)
+      {
+         method
+            name null
+            flag HAS_OPTIONAL
+            param QName(PackageNamespace(""),"String")
+            param QName(PackageNamespace(""),"String")
+            param QName(PackageNamespace("mx.core"),"IFlexModuleFactory")
+            optional Null()
+            optional Null()
+            returns null
+            
+            body
+               maxstack 2
+               localcount 4
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  getlocal0
+                  getlocal1
+                  initproperty QName(ProtectedNamespace("mx.core:RSLItem"),"url")
+                  getlocal0
+                  getlocal2
+                  initproperty QName(PackageNamespace(""),"rootURL")
+                  getlocal0
+                  getlocal3
+                  initproperty QName(ProtectedNamespace("mx.core:RSLItem"),"moduleFactory")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function load(param1:Function, param2:Function, param3:Function, param4:Function, param5:Function) : void
+      {
+         trait method QName(PackageNamespace(""),"load")
+            dispid 0
+            method
+               name null
+               param QName(PackageNamespace(""),"Function")
+               param QName(PackageNamespace(""),"Function")
+               param QName(PackageNamespace(""),"Function")
+               param QName(PackageNamespace(""),"Function")
+               param QName(PackageNamespace(""),"Function")
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 5
+                  localcount 8
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getlocal1
+                     initproperty QName(ProtectedNamespace("mx.core:RSLItem"),"chainedProgressHandler")
+                     getlocal0
+                     getlocal2
+                     initproperty QName(ProtectedNamespace("mx.core:RSLItem"),"chainedCompleteHandler")
+                     getlocal0
+                     getlocal3
+                     initproperty QName(ProtectedNamespace("mx.core:RSLItem"),"chainedIOErrorHandler")
+                     getlocal0
+                     getlocal 4
+                     initproperty QName(ProtectedNamespace("mx.core:RSLItem"),"chainedSecurityErrorHandler")
+                     getlocal0
+                     getlocal 5
+                     initproperty QName(ProtectedNamespace("mx.core:RSLItem"),"chainedRSLErrorHandler")
+                     findpropstrict QName(PackageNamespace("flash.display"),"Loader")
+                     constructprop QName(PackageNamespace("flash.display"),"Loader"), 0
+                     coerce QName(PackageNamespace("flash.display"),"Loader")
+                     setlocal 6
+                     findpropstrict QName(PackageNamespace("flash.system"),"LoaderContext")
+                     constructprop QName(PackageNamespace("flash.system"),"LoaderContext"), 0
+                     coerce QName(PackageNamespace("flash.system"),"LoaderContext")
+                     setlocal 7
+                     getlocal0
+                     findpropstrict QName(PackageNamespace("flash.net"),"URLRequest")
+                     getlex QName(PackageNamespace("mx.utils"),"LoaderUtil")
+                     getlocal0
+                     getproperty QName(PackageNamespace(""),"rootURL")
+                     getlocal0
+                     getproperty QName(ProtectedNamespace("mx.core:RSLItem"),"url")
+                     callproperty QName(PackageNamespace(""),"createAbsoluteURL"), 2
+                     constructprop QName(PackageNamespace("flash.net"),"URLRequest"), 1
+                     initproperty QName(PackageNamespace(""),"urlRequest")
+                     getlocal 6
+                     getproperty QName(PackageNamespace(""),"contentLoaderInfo")
+                     getlex QName(PackageNamespace("flash.events"),"ProgressEvent")
+                     getproperty QName(PackageNamespace(""),"PROGRESS")
+                     getlocal0
+                     getproperty QName(PackageNamespace(""),"itemProgressHandler")
+                     callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                     getlocal 6
+                     getproperty QName(PackageNamespace(""),"contentLoaderInfo")
+                     getlex QName(PackageNamespace("flash.events"),"Event")
+                     getproperty QName(PackageNamespace(""),"COMPLETE")
+                     getlocal0
+                     getproperty QName(PackageNamespace(""),"itemCompleteHandler")
+                     callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                     getlocal 6
+                     getproperty QName(PackageNamespace(""),"contentLoaderInfo")
+                     getlex QName(PackageNamespace("flash.events"),"IOErrorEvent")
+                     getproperty QName(PackageNamespace(""),"IO_ERROR")
+                     getlocal0
+                     getproperty QName(PackageNamespace(""),"itemErrorHandler")
+                     callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                     getlocal 6
+                     getproperty QName(PackageNamespace(""),"contentLoaderInfo")
+                     getlex QName(PackageNamespace("flash.events"),"SecurityErrorEvent")
+                     getproperty QName(PackageNamespace(""),"SECURITY_ERROR")
+                     getlocal0
+                     getproperty QName(PackageNamespace(""),"itemErrorHandler")
+                     callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                     getlocal0
+                     getproperty QName(ProtectedNamespace("mx.core:RSLItem"),"moduleFactory")
+                     pushnull
+                     ifeq ofs00b9
+                     getlocal 7
+                     getlocal0
+                     getproperty QName(ProtectedNamespace("mx.core:RSLItem"),"moduleFactory")
+                     callproperty QName(Namespace("mx.core:IFlexModuleFactory"),"info"), 0
+                     pushstring "currentDomain"
+                     getproperty MultinameL([PrivateNamespace(null,"52"),ProtectedNamespace("mx.core:RSLItem"),PackageNamespace(""),PackageNamespace("mx.core"),PrivateNamespace(null,"154"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("mx.core:RSLItem")])
+                     setproperty QName(PackageNamespace(""),"applicationDomain")
+                     jump ofs00c3
+            ofs00b9:
+                     getlocal 7
+                     getlex QName(PackageNamespace("flash.system"),"ApplicationDomain")
+                     getproperty QName(PackageNamespace(""),"currentDomain")
+                     setproperty QName(PackageNamespace(""),"applicationDomain")
+            ofs00c3:
+                     getlocal 6
+                     getlocal0
+                     getproperty QName(PackageNamespace(""),"urlRequest")
+                     getlocal 7
+                     callpropvoid QName(PackageNamespace(""),"load"), 2
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function itemProgressHandler(param1:ProgressEvent) : void
+         {
+            trait method QName(PackageNamespace(""),"itemProgressHandler")
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace("flash.events"),"ProgressEvent")
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 2
+                     localcount 2
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        getlocal1
+                        getproperty QName(PackageNamespace(""),"bytesLoaded")
+                        initproperty QName(PackageNamespace(""),"loaded")
+                        getlocal0
+                        getlocal1
+                        getproperty QName(PackageNamespace(""),"bytesTotal")
+                        initproperty QName(PackageNamespace(""),"total")
+                        getlocal0
+                        getproperty QName(ProtectedNamespace("mx.core:RSLItem"),"chainedProgressHandler")
+                        pushnull
+                        ifeq ofs0021
+                        getlocal0
+                        getlocal1
+                        callpropvoid QName(ProtectedNamespace("mx.core:RSLItem"),"chainedProgressHandler"), 1
+               ofs0021:
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function itemCompleteHandler(param1:Event) : void
+            {
+               trait method QName(PackageNamespace(""),"itemCompleteHandler")
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace("flash.events"),"Event")
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 2
+                        localcount 2
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           pushtrue
+                           initproperty QName(PrivateNamespace(null,"52"),"completed")
+                           getlocal0
+                           getproperty QName(ProtectedNamespace("mx.core:RSLItem"),"chainedCompleteHandler")
+                           pushnull
+                           ifeq ofs0016
+                           getlocal0
+                           getlocal1
+                           callpropvoid QName(ProtectedNamespace("mx.core:RSLItem"),"chainedCompleteHandler"), 1
+                  ofs0016:
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function itemErrorHandler(param1:ErrorEvent) : void
+               {
+                  trait method QName(PackageNamespace(""),"itemErrorHandler")
+                     dispid 0
+                     method
+                        name null
+                        param QName(PackageNamespace("flash.events"),"ErrorEvent")
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 3
+                           localcount 2
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              findpropstrict QName(PackageNamespace(""),"decodeURI")
+                              getlocal1
+                              getproperty QName(PackageNamespace(""),"text")
+                              callproperty QName(PackageNamespace(""),"decodeURI"), 1
+                              initproperty QName(PrivateNamespace(null,"52"),"errorText")
+                              getlocal0
+                              pushtrue
+                              initproperty QName(PrivateNamespace(null,"52"),"completed")
+                              getlocal0
+                              pushbyte 0
+                              initproperty QName(PackageNamespace(""),"loaded")
+                              getlocal0
+                              pushbyte 0
+                              initproperty QName(PackageNamespace(""),"total")
+                              findpropstrict QName(PackageNamespace(""),"trace")
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"52"),"errorText")
+                              callpropvoid QName(PackageNamespace(""),"trace"), 1
+                              getlocal1
+                              getproperty QName(PackageNamespace(""),"type")
+                              getlex QName(PackageNamespace("flash.events"),"IOErrorEvent")
+                              getproperty QName(PackageNamespace(""),"IO_ERROR")
+                              equals
+                              dup
+                              iffalse ofs0045
+                              pop
+                              getlocal0
+                              getproperty QName(ProtectedNamespace("mx.core:RSLItem"),"chainedIOErrorHandler")
+                              pushnull
+                              equals
+                              not
+                     ofs0045:
+                              iffalse ofs0053
+                              getlocal0
+                              getlocal1
+                              callpropvoid QName(ProtectedNamespace("mx.core:RSLItem"),"chainedIOErrorHandler"), 1
+                              jump ofs009a
+                     ofs0053:
+                              getlocal1
+                              getproperty QName(PackageNamespace(""),"type")
+                              getlex QName(PackageNamespace("flash.events"),"SecurityErrorEvent")
+                              getproperty QName(PackageNamespace(""),"SECURITY_ERROR")
+                              equals
+                              dup
+                              iffalse ofs006b
+                              pop
+                              getlocal0
+                              getproperty QName(ProtectedNamespace("mx.core:RSLItem"),"chainedSecurityErrorHandler")
+                              pushnull
+                              equals
+                              not
+                     ofs006b:
+                              iffalse ofs0079
+                              getlocal0
+                              getlocal1
+                              callpropvoid QName(ProtectedNamespace("mx.core:RSLItem"),"chainedSecurityErrorHandler"), 1
+                              jump ofs009a
+                     ofs0079:
+                              getlocal1
+                              getproperty QName(PackageNamespace(""),"type")
+                              getlex QName(PackageNamespace("mx.events"),"RSLEvent")
+                              getproperty QName(PackageNamespace(""),"RSL_ERROR")
+                              equals
+                              dup
+                              iffalse ofs0090
+                              pop
+                              getlocal0
+                              getproperty QName(ProtectedNamespace("mx.core:RSLItem"),"chainedRSLErrorHandler")
+                              pushnull
+                              equals
+                              not
+                     ofs0090:
+                              iffalse ofs009a
+                              getlocal0
+                              getlocal1
+                              callpropvoid QName(ProtectedNamespace("mx.core:RSLItem"),"chainedRSLErrorHandler"), 1
+                     ofs009a:
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+               }
+            }
+            
+            method
+               name null
+               returns null
+               
+               body
+                  maxstack 2
+                  localcount 1
+                  initscopedepth 1
+                  maxscopedepth 3
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     findpropstrict Multiname("RSLItem",[PackageNamespace("mx.core")])
+                     getlex QName(PackageNamespace(""),"Object")
+                     pushscope
+                     getlex QName(PackageNamespace(""),"Object")
+                     newclass 179
+                     popscope
+                     initproperty QName(PackageNamespace("mx.core"),"RSLItem")
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+            

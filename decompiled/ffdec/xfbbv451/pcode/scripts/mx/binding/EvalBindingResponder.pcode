@@ -1,0 +1,148 @@
+package mx.binding
+{
+   import mx.core.mx_internal;
+   import mx.rpc.IResponder;
+   
+   use namespace mx_internal;
+   
+   public class EvalBindingResponder implements IResponder
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var binding:Binding;
+      
+      private var object:Object;
+      
+      public function EvalBindingResponder(param1:Binding, param2:Object)
+      {
+         method
+            name null
+            param QName(PackageNamespace("mx.binding"),"Binding")
+            param QName(PackageNamespace(""),"Object")
+            returns null
+            
+            body
+               maxstack 2
+               localcount 3
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  getlocal0
+                  getlocal1
+                  initproperty QName(PrivateNamespace(null,"70"),"binding")
+                  getlocal0
+                  getlocal2
+                  initproperty QName(PrivateNamespace(null,"70"),"object")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function result(param1:Object) : void
+      {
+         trait method QName(PackageNamespace(""),"result")
+            dispid 0
+            method
+               name null
+               param QName(PackageNamespace(""),"Object")
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 2
+                  localcount 2
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"70"),"binding")
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"70"),"object")
+                     callpropvoid QName(PackageNamespace(""),"execute"), 1
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function fault(param1:Object) : void
+         {
+            trait method QName(PackageNamespace(""),"fault")
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace(""),"Object")
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 1
+                     localcount 2
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+         }
+      }
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 1
+            maxscopedepth 3
+            
+            code
+               getlocal0
+               pushscope
+               findpropstrict Multiname("EvalBindingResponder",[PackageNamespace("mx.binding")])
+               getlex QName(PackageNamespace(""),"Object")
+               pushscope
+               getlex QName(PackageNamespace(""),"Object")
+               newclass 239
+               popscope
+               initproperty QName(PackageNamespace("mx.binding"),"EvalBindingResponder")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      

@@ -1,0 +1,765 @@
+package hotpointgame.gzhujiemian
+{
+   import hotpointgame.Control.*;
+   import hotpointgame.common.*;
+   import hotpointgame.gaction.CAction;
+   import hotpointgame.grole.*;
+   import hotpointgame.models.goods.Goods;
+   
+   public class GunSlot
+   {
+      
+      private static var clipNum:VT;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 3
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(PrivateNamespace(null,"133"),"clipNum")
+               getlex Multiname("VT",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot"),PackageNamespace("hotpointgame.common")])
+               getlex Multiname("GS",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot"),PackageNamespace("hotpointgame.common")])
+               getproperty Multiname("a100",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+               callproperty Multiname("createVT",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 1
+               setproperty QName(PrivateNamespace(null,"133"),"clipNum")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var _mWeapon:Goods = null;
+      
+      private var _blimit:VT;
+      
+      private var _bcur:VT;
+      
+      private var gjAction:CAction;
+      
+      private var tjAction:CAction;
+      
+      public function GunSlot()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 3
+               localcount 1
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  getlex Multiname("VT",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot"),PackageNamespace("hotpointgame.common")])
+                  pushbyte 0
+                  callproperty Multiname("createVT",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 1
+                  initproperty QName(PrivateNamespace(null,"133"),"_blimit")
+                  getlocal0
+                  getlex Multiname("VT",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot"),PackageNamespace("hotpointgame.common")])
+                  pushbyte 0
+                  callproperty Multiname("createVT",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 1
+                  initproperty QName(PrivateNamespace(null,"133"),"_bcur")
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function getAction(param1:String) : CAction
+      {
+         trait method QName(PackageNamespace(""),"getAction")
+            dispid 0
+            method
+               name null
+               param QName(PackageNamespace(""),"String")
+               returns QName(PackageNamespace("hotpointgame.gaction"),"CAction")
+               
+               body
+                  maxstack 2
+                  localcount 2
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal1
+                     pushstring "场景枪攻击"
+                     ifne ofs0010
+                     getlocal0
+                     getproperty Multiname("gjAction",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                     returnvalue
+            ofs0010:
+                     getlocal0
+                     getproperty Multiname("tjAction",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function startGJ(param1:String) : Boolean
+         {
+            trait method QName(PackageNamespace(""),"startGJ")
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace(""),"String")
+                  returns QName(PackageNamespace(""),"Boolean")
+                  
+                  body
+                     maxstack 3
+                     localcount 2
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        getproperty Multiname("bcur",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                        pushbyte 0
+                        ifnle ofs000f
+                        pushfalse
+                        returnvalue
+               ofs000f:
+                        getlocal1
+                        pushstring "场景枪跳击"
+                        equals
+                        not
+                        dup
+                        iftrue ofs002a
+                        pop
+                        getlocal0
+                        getproperty Multiname("tjAction",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                        callproperty Multiname("getName",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 0
+                        pushstring "抖动"
+                        equals
+                        not
+               ofs002a:
+                        iffalse ofs0041
+                        getlocal0
+                        getlocal0
+                        getproperty Multiname("bcur",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                        getlex Multiname("GS",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot"),PackageNamespace("hotpointgame.common")])
+                        getproperty Multiname("a1",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                        subtract
+                        initproperty Multiname("bcur",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+               ofs0041:
+                        pushtrue
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function iskeyGJ() : Boolean
+            {
+               trait method QName(PackageNamespace(""),"iskeyGJ")
+                  dispid 0
+                  method
+                     name null
+                     returns QName(PackageNamespace(""),"Boolean")
+                     
+                     body
+                        maxstack 3
+                        localcount 1
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           getproperty Multiname("bcur",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                           pushbyte 0
+                           ifnle ofs000f
+                           pushfalse
+                           returnvalue
+                  ofs000f:
+                           getlocal0
+                           getlocal0
+                           getproperty Multiname("bcur",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                           getlex Multiname("GS",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot"),PackageNamespace("hotpointgame.common")])
+                           getproperty Multiname("a1",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                           subtract
+                           initproperty Multiname("bcur",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                           pushtrue
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function changeLevelClearGun() : void
+               {
+                  trait method QName(PackageNamespace(""),"changeLevelClearGun")
+                     dispid 0
+                     method
+                        name null
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 2
+                           localcount 1
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              pushnull
+                              initproperty Multiname("mWeapon",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                              getlocal0
+                              getproperty Multiname("gjAction",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                              pushnull
+                              ifeq ofs0022
+                              getlocal0
+                              getproperty Multiname("gjAction",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                              callpropvoid Multiname("exit",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 0
+                              getlocal0
+                              pushnull
+                              initproperty Multiname("gjAction",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                     ofs0022:
+                              getlocal0
+                              getproperty Multiname("tjAction",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                              pushnull
+                              ifeq ofs003c
+                              getlocal0
+                              getproperty Multiname("tjAction",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                              callpropvoid Multiname("exit",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 0
+                              getlocal0
+                              pushnull
+                              initproperty Multiname("tjAction",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                     ofs003c:
+                              getlocal0
+                              pushbyte 0
+                              initproperty Multiname("blimit",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                              getlocal0
+                              pushbyte 0
+                              initproperty Multiname("bcur",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function pickGun(param1:Goods) : Boolean
+                  {
+                     trait method QName(PackageNamespace(""),"pickGun")
+                        dispid 0
+                        method
+                           name null
+                           param QName(PackageNamespace("hotpointgame.models.goods"),"Goods")
+                           returns QName(PackageNamespace(""),"Boolean")
+                           
+                           body
+                              maxstack 3
+                              localcount 2
+                              initscopedepth 4
+                              maxscopedepth 5
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal0
+                                 getproperty Multiname("mWeapon",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                 pushnull
+                                 ifeq ofs000e
+                                 pushfalse
+                                 returnvalue
+                        ofs000e:
+                                 getlocal0
+                                 getlocal1
+                                 initproperty Multiname("mWeapon",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                 getlocal0
+                                 getlex Multiname("RoleActionManger",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot"),PackageNamespace("hotpointgame.grole")])
+                                 getlocal1
+                                 callproperty Multiname("getCj1",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 0
+                                 callproperty Multiname("getMapGunActionByName",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 1
+                                 initproperty Multiname("gjAction",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                 getlocal0
+                                 getlex Multiname("RoleActionManger",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot"),PackageNamespace("hotpointgame.grole")])
+                                 getlocal1
+                                 callproperty Multiname("getCj2",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 0
+                                 callproperty Multiname("getMapGunActionByName",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 1
+                                 initproperty Multiname("tjAction",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                 getlex Multiname("FlowInterface",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot"),PackageNamespace("hotpointgame.Control")])
+                                 callproperty Multiname("getJobByRole",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 0
+                                 getlex Multiname("GS",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot"),PackageNamespace("hotpointgame.common")])
+                                 getproperty Multiname("a1",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                 ifne ofs006b
+                                 getlocal0
+                                 getlocal1
+                                 callproperty Multiname("getBombNumMax",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 0
+                                 initproperty Multiname("blimit",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                 getlocal0
+                                 getlocal1
+                                 callproperty Multiname("getBombNum",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 0
+                                 initproperty Multiname("bcur",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                 jump ofs0081
+                        ofs006b:
+                                 getlocal0
+                                 getlocal1
+                                 callproperty Multiname("isDefense",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 0
+                                 initproperty Multiname("blimit",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                 getlocal0
+                                 getlocal1
+                                 callproperty Multiname("isAttAlter",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 0
+                                 initproperty Multiname("bcur",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                        ofs0081:
+                                 pushtrue
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public function pickClip(param1:int) : Boolean
+                     {
+                        trait method QName(PackageNamespace(""),"pickClip")
+                           dispid 0
+                           method
+                              name null
+                              param QName(PackageNamespace(""),"int")
+                              returns QName(PackageNamespace(""),"Boolean")
+                              
+                              body
+                                 maxstack 3
+                                 localcount 2
+                                 initscopedepth 4
+                                 maxscopedepth 5
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlex Multiname("FlowInterface",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot"),PackageNamespace("hotpointgame.Control")])
+                                    callproperty Multiname("getJobByRole",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 0
+                                    getlex Multiname("GS",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot"),PackageNamespace("hotpointgame.common")])
+                                    getproperty Multiname("a1",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                    ifeq ofs0022
+                                    getlex Multiname("clipNum",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                    callproperty Multiname("getValue",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 0
+                                    convert_i
+                                    setlocal1
+                           ofs0022:
+                                    getlocal0
+                                    getproperty Multiname("mWeapon",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                    pushnull
+                                    ifne ofs002e
+                                    pushfalse
+                                    returnvalue
+                           ofs002e:
+                                    getlocal0
+                                    getlocal0
+                                    getproperty Multiname("bcur",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                    getlocal1
+                                    add
+                                    initproperty Multiname("bcur",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                    getlocal0
+                                    getproperty Multiname("bcur",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                    getlocal0
+                                    getproperty Multiname("blimit",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                    ifngt ofs0052
+                                    getlocal0
+                                    getlocal0
+                                    getproperty Multiname("blimit",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                    initproperty Multiname("bcur",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                           ofs0052:
+                                    pushtrue
+                                    returnvalue
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        public function pickClipByfor(param1:int) : Boolean
+                        {
+                           trait method QName(PackageNamespace(""),"pickClipByfor")
+                              dispid 0
+                              method
+                                 name null
+                                 param QName(PackageNamespace(""),"int")
+                                 returns QName(PackageNamespace(""),"Boolean")
+                                 
+                                 body
+                                    maxstack 3
+                                    localcount 2
+                                    initscopedepth 4
+                                    maxscopedepth 5
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlex Multiname("FlowInterface",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot"),PackageNamespace("hotpointgame.Control")])
+                                       callproperty Multiname("getJobByRole",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 0
+                                       getlex Multiname("GS",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot"),PackageNamespace("hotpointgame.common")])
+                                       getproperty Multiname("a1",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                       ifeq ofs0022
+                                       getlex Multiname("clipNum",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                       callproperty Multiname("getValue",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 0
+                                       convert_i
+                                       setlocal1
+                              ofs0022:
+                                       getlocal0
+                                       getproperty Multiname("mWeapon",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                       pushnull
+                                       ifne ofs002e
+                                       pushfalse
+                                       returnvalue
+                              ofs002e:
+                                       getlocal0
+                                       getproperty Multiname("bcur",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                       getlocal0
+                                       getproperty Multiname("blimit",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                       ifne ofs003e
+                                       pushfalse
+                                       returnvalue
+                              ofs003e:
+                                       getlocal0
+                                       getlocal0
+                                       getproperty Multiname("bcur",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                       getlocal1
+                                       add
+                                       initproperty Multiname("bcur",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                       getlocal0
+                                       getproperty Multiname("bcur",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                       getlocal0
+                                       getproperty Multiname("blimit",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                       ifngt ofs0062
+                                       getlocal0
+                                       getlocal0
+                                       getproperty Multiname("blimit",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                       initproperty Multiname("bcur",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                              ofs0062:
+                                       pushtrue
+                                       returnvalue
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           public function remove() : void
+                           {
+                              trait method QName(PackageNamespace(""),"remove")
+                                 dispid 0
+                                 method
+                                    name null
+                                    returns QName(PackageNamespace(""),"void")
+                                    
+                                    body
+                                       maxstack 2
+                                       localcount 1
+                                       initscopedepth 4
+                                       maxscopedepth 5
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlocal0
+                                          pushnull
+                                          initproperty Multiname("mWeapon",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                          getlocal0
+                                          getproperty Multiname("gjAction",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                          pushnull
+                                          ifeq ofs0022
+                                          getlocal0
+                                          getproperty Multiname("gjAction",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                          callpropvoid Multiname("exit",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 0
+                                          getlocal0
+                                          pushnull
+                                          initproperty Multiname("gjAction",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                 ofs0022:
+                                          getlocal0
+                                          getproperty Multiname("tjAction",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                          pushnull
+                                          ifeq ofs003c
+                                          getlocal0
+                                          getproperty Multiname("tjAction",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                          callpropvoid Multiname("exit",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 0
+                                          getlocal0
+                                          pushnull
+                                          initproperty Multiname("tjAction",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                 ofs003c:
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              public function lostGun() : void
+                              {
+                                 trait method QName(PackageNamespace(""),"lostGun")
+                                    dispid 0
+                                    method
+                                       name null
+                                       returns QName(PackageNamespace(""),"void")
+                                       
+                                       body
+                                          maxstack 2
+                                          localcount 1
+                                          initscopedepth 4
+                                          maxscopedepth 5
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlocal0
+                                             pushnull
+                                             initproperty Multiname("mWeapon",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                             getlocal0
+                                             getproperty Multiname("gjAction",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                             callpropvoid Multiname("exit",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 0
+                                             getlocal0
+                                             getproperty Multiname("tjAction",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                             callpropvoid Multiname("exit",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 0
+                                             getlocal0
+                                             pushnull
+                                             initproperty Multiname("gjAction",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                             getlocal0
+                                             pushnull
+                                             initproperty Multiname("tjAction",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                             getlocal0
+                                             pushbyte 0
+                                             initproperty Multiname("blimit",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                             getlocal0
+                                             pushbyte 0
+                                             initproperty Multiname("bcur",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                             returnvoid
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 public function isHaveGun() : Boolean
+                                 {
+                                    trait method QName(PackageNamespace(""),"isHaveGun")
+                                       dispid 0
+                                       method
+                                          name null
+                                          returns QName(PackageNamespace(""),"Boolean")
+                                          
+                                          body
+                                             maxstack 2
+                                             localcount 1
+                                             initscopedepth 4
+                                             maxscopedepth 5
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                getlocal0
+                                                getproperty Multiname("mWeapon",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                                pushnull
+                                                ifeq ofs000e
+                                                pushtrue
+                                                returnvalue
+                                       ofs000e:
+                                                pushfalse
+                                                returnvalue
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    public function get blimit() : int
+                                    {
+                                       trait getter QName(PackageNamespace(""),"blimit")
+                                          dispid 0
+                                          method
+                                             name null
+                                             returns QName(PackageNamespace(""),"int")
+                                             
+                                             body
+                                                maxstack 1
+                                                localcount 1
+                                                initscopedepth 4
+                                                maxscopedepth 5
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   getlocal0
+                                                   getproperty Multiname("_blimit",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                                   callproperty Multiname("getValue",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 0
+                                                   returnvalue
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                       
+                                       public function set blimit(param1:int) : void
+                                       {
+                                          trait setter QName(PackageNamespace(""),"blimit")
+                                             dispid 0
+                                             method
+                                                name null
+                                                param QName(PackageNamespace(""),"int")
+                                                returns QName(PackageNamespace(""),"void")
+                                                
+                                                body
+                                                   maxstack 2
+                                                   localcount 2
+                                                   initscopedepth 4
+                                                   maxscopedepth 5
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      getlocal0
+                                                      getproperty Multiname("_blimit",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                                      getlocal1
+                                                      callpropvoid Multiname("setValue",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 1
+                                                      returnvoid
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                          }
+                                          
+                                          public function get bcur() : int
+                                          {
+                                             trait getter QName(PackageNamespace(""),"bcur")
+                                                dispid 0
+                                                method
+                                                   name null
+                                                   returns QName(PackageNamespace(""),"int")
+                                                   
+                                                   body
+                                                      maxstack 1
+                                                      localcount 1
+                                                      initscopedepth 4
+                                                      maxscopedepth 5
+                                                      
+                                                      code
+                                                         getlocal0
+                                                         pushscope
+                                                         getlocal0
+                                                         getproperty Multiname("_bcur",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                                         callproperty Multiname("getValue",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 0
+                                                         returnvalue
+                                                      end ; code
+                                                   end ; body
+                                                end ; method
+                                             }
+                                             
+                                             public function set bcur(param1:int) : void
+                                             {
+                                                trait setter QName(PackageNamespace(""),"bcur")
+                                                   dispid 0
+                                                   method
+                                                      name null
+                                                      param QName(PackageNamespace(""),"int")
+                                                      returns QName(PackageNamespace(""),"void")
+                                                      
+                                                      body
+                                                         maxstack 2
+                                                         localcount 2
+                                                         initscopedepth 4
+                                                         maxscopedepth 5
+                                                         
+                                                         code
+                                                            getlocal0
+                                                            pushscope
+                                                            getlocal0
+                                                            getproperty Multiname("_bcur",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                                            getlocal1
+                                                            callpropvoid Multiname("setValue",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")]), 1
+                                                            returnvoid
+                                                         end ; code
+                                                      end ; body
+                                                   end ; method
+                                                }
+                                                
+                                                public function get mWeapon() : Goods
+                                                {
+                                                   trait getter QName(PackageNamespace(""),"mWeapon")
+                                                      dispid 0
+                                                      method
+                                                         name null
+                                                         returns QName(PackageNamespace("hotpointgame.models.goods"),"Goods")
+                                                         
+                                                         body
+                                                            maxstack 1
+                                                            localcount 1
+                                                            initscopedepth 4
+                                                            maxscopedepth 5
+                                                            
+                                                            code
+                                                               getlocal0
+                                                               pushscope
+                                                               getlocal0
+                                                               getproperty Multiname("_mWeapon",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                                               returnvalue
+                                                            end ; code
+                                                         end ; body
+                                                      end ; method
+                                                   }
+                                                   
+                                                   public function set mWeapon(param1:Goods) : void
+                                                   {
+                                                      trait setter QName(PackageNamespace(""),"mWeapon")
+                                                         dispid 0
+                                                         method
+                                                            name null
+                                                            param QName(PackageNamespace("hotpointgame.models.goods"),"Goods")
+                                                            returns QName(PackageNamespace(""),"void")
+                                                            
+                                                            body
+                                                               maxstack 2
+                                                               localcount 2
+                                                               initscopedepth 4
+                                                               maxscopedepth 5
+                                                               
+                                                               code
+                                                                  getlocal0
+                                                                  pushscope
+                                                                  getlocal0
+                                                                  getlocal1
+                                                                  initproperty Multiname("_mWeapon",[PrivateNamespace(null,"133"),PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gzhujiemian:GunSlot"),StaticProtectedNs("hotpointgame.gzhujiemian:GunSlot")])
+                                                                  returnvoid
+                                                               end ; code
+                                                            end ; body
+                                                         end ; method
+                                                      }
+                                                   }
+                                                }
+                                                
+                                                method
+                                                   name null
+                                                   returns null
+                                                   
+                                                   body
+                                                      maxstack 2
+                                                      localcount 1
+                                                      initscopedepth 1
+                                                      maxscopedepth 3
+                                                      
+                                                      code
+                                                         getlocal0
+                                                         pushscope
+                                                         findpropstrict Multiname("GunSlot",[PackageNamespace("hotpointgame.gzhujiemian")])
+                                                         getlex QName(PackageNamespace(""),"Object")
+                                                         pushscope
+                                                         getlex Multiname("Object",[PrivateNamespace(null,"655"),PackageNamespace(""),PackageNamespace("hotpointgame.gzhujiemian"),PackageInternalNs("hotpointgame.gzhujiemian"),Namespace("http://adobe.com/AS3/2006/builtin")])
+                                                         newclass 206
+                                                         popscope
+                                                         initproperty QName(PackageNamespace("hotpointgame.gzhujiemian"),"GunSlot")
+                                                         returnvoid
+                                                      end ; code
+                                                   end ; body
+                                                end ; method
+                                                

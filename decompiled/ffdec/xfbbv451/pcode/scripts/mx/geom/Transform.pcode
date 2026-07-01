@@ -1,0 +1,979 @@
+package mx.geom
+{
+   import flash.display.DisplayObject;
+   import flash.display.Shape;
+   import flash.geom.ColorTransform;
+   import flash.geom.Matrix;
+   import flash.geom.Matrix3D;
+   import flash.geom.PerspectiveProjection;
+   import flash.geom.Rectangle;
+   import flash.geom.Transform;
+   import mx.core.ILayoutElement;
+   import mx.core.IVisualElement;
+   import mx.core.mx_internal;
+   
+   use namespace mx_internal;
+   
+   public class Transform extends flash.geom.Transform
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 4
+            maxscopedepth 5
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      mx_internal var applyColorTransformAlpha:Boolean = false;
+      
+      mx_internal var applyMatrix:Boolean = false;
+      
+      mx_internal var applyMatrix3D:Boolean = false;
+      
+      private var _target:IVisualElement;
+      
+      public function Transform(param1:DisplayObject = null)
+      {
+         method
+            name null
+            flag HAS_OPTIONAL
+            param QName(PackageNamespace("flash.display"),"DisplayObject")
+            optional Null()
+            returns null
+            
+            body
+               maxstack 2
+               localcount 2
+               initscopedepth 5
+               maxscopedepth 6
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal1
+                  pushnull
+                  ifne ofs0012
+                  findpropstrict QName(PackageNamespace("flash.display"),"Shape")
+                  constructprop QName(PackageNamespace("flash.display"),"Shape"), 0
+                  coerce QName(PackageNamespace("flash.display"),"DisplayObject")
+                  setlocal1
+         ofs0012:
+                  getlocal0
+                  getlocal1
+                  constructsuper 1
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      override public function set colorTransform(param1:ColorTransform) : void
+      {
+         trait setter QName(PackageNamespace(""),"colorTransform")
+            flag OVERRIDE
+            dispid 0
+            method
+               name null
+               param QName(PackageNamespace("flash.geom"),"ColorTransform")
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 3
+                  localcount 3
+                  initscopedepth 5
+                  maxscopedepth 6
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getproperty QName(PackageNamespace(""),"target")
+                     convert_b
+                     dup
+                     iffalse ofs0015
+                     pop
+                     pushstring "$transform"
+                     getlocal0
+                     getproperty QName(PackageNamespace(""),"target")
+                     in
+            ofs0015:
+                     iffalse ofs002e
+                     getlocal0
+                     getproperty QName(PackageNamespace(""),"target")
+                     pushstring "$transform"
+                     getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                     pushstring "colorTransform"
+                     getlocal1
+                     setproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                     jump ofs0061
+            ofs002e:
+                     getlocal0
+                     getproperty QName(PackageNamespace(""),"target")
+                     convert_b
+                     dup
+                     iffalse ofs0041
+                     pop
+                     pushstring "setColorTransform"
+                     getlocal0
+                     getproperty QName(PackageNamespace(""),"target")
+                     in
+            ofs0041:
+                     iffalse ofs005c
+                     getlocal0
+                     getproperty QName(PackageNamespace(""),"target")
+                     dup
+                     setlocal2
+                     pushstring "setColorTransform"
+                     getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                     getlocal2
+                     getlocal1
+                     call 1
+                     pop
+                     kill 2
+                     jump ofs0061
+            ofs005c:
+                     getlocal0
+                     getlocal1
+                     setsuper QName(PackageNamespace(""),"colorTransform")
+            ofs0061:
+                     getlocal0
+                     pushtrue
+                     initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"applyColorTransformAlpha")
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         override public function get colorTransform() : ColorTransform
+         {
+            trait getter QName(PackageNamespace(""),"colorTransform")
+               flag OVERRIDE
+               dispid 0
+               method
+                  name null
+                  returns QName(PackageNamespace("flash.geom"),"ColorTransform")
+                  
+                  body
+                     maxstack 2
+                     localcount 1
+                     initscopedepth 5
+                     maxscopedepth 6
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"target")
+                        convert_b
+                        dup
+                        iffalse ofs0015
+                        pop
+                        pushstring "$transform"
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"target")
+                        in
+               ofs0015:
+                        iffalse ofs002a
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"target")
+                        pushstring "$transform"
+                        getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                        pushstring "colorTransform"
+                        getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                        returnvalue
+               ofs002a:
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"target")
+                        coerce_a
+                        convert_b
+                        dup
+                        iffalse ofs0040
+                        pop
+                        pushstring "displayObject"
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"target")
+                        in
+                        coerce_a
+                        convert_b
+               ofs0040:
+                        dup
+                        iffalse ofs0053
+                        pop
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"target")
+                        pushstring "displayObject"
+                        getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                        pushnull
+                        equals
+                        not
+               ofs0053:
+                        iffalse ofs006e
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"target")
+                        pushstring "displayObject"
+                        getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                        pushstring "transform"
+                        getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                        pushstring "colorTransform"
+                        getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                        returnvalue
+               ofs006e:
+                        getlocal0
+                        getsuper QName(PackageNamespace(""),"colorTransform")
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            override public function get concatenatedColorTransform() : ColorTransform
+            {
+               trait getter QName(PackageNamespace(""),"concatenatedColorTransform")
+                  flag OVERRIDE
+                  dispid 0
+                  method
+                     name null
+                     returns QName(PackageNamespace("flash.geom"),"ColorTransform")
+                     
+                     body
+                        maxstack 2
+                        localcount 1
+                        initscopedepth 5
+                        maxscopedepth 6
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           getproperty QName(PackageNamespace(""),"target")
+                           convert_b
+                           dup
+                           iffalse ofs0015
+                           pop
+                           pushstring "$transform"
+                           getlocal0
+                           getproperty QName(PackageNamespace(""),"target")
+                           in
+                  ofs0015:
+                           iffalse ofs002a
+                           getlocal0
+                           getproperty QName(PackageNamespace(""),"target")
+                           pushstring "$transform"
+                           getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                           pushstring "concatenatedColorTransform"
+                           getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                           returnvalue
+                  ofs002a:
+                           getlocal0
+                           getproperty QName(PackageNamespace(""),"target")
+                           coerce_a
+                           convert_b
+                           dup
+                           iffalse ofs0040
+                           pop
+                           pushstring "displayObject"
+                           getlocal0
+                           getproperty QName(PackageNamespace(""),"target")
+                           in
+                           coerce_a
+                           convert_b
+                  ofs0040:
+                           dup
+                           iffalse ofs0053
+                           pop
+                           getlocal0
+                           getproperty QName(PackageNamespace(""),"target")
+                           pushstring "displayObject"
+                           getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                           pushnull
+                           equals
+                           not
+                  ofs0053:
+                           iffalse ofs006e
+                           getlocal0
+                           getproperty QName(PackageNamespace(""),"target")
+                           pushstring "displayObject"
+                           getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                           pushstring "transform"
+                           getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                           pushstring "concatenatedColorTransform"
+                           getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                           returnvalue
+                  ofs006e:
+                           getlocal0
+                           getsuper QName(PackageNamespace(""),"concatenatedColorTransform")
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               override public function get concatenatedMatrix() : Matrix
+               {
+                  trait getter QName(PackageNamespace(""),"concatenatedMatrix")
+                     flag OVERRIDE
+                     dispid 0
+                     method
+                        name null
+                        returns QName(PackageNamespace("flash.geom"),"Matrix")
+                        
+                        body
+                           maxstack 2
+                           localcount 1
+                           initscopedepth 5
+                           maxscopedepth 6
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              getproperty QName(PackageNamespace(""),"target")
+                              convert_b
+                              dup
+                              iffalse ofs0015
+                              pop
+                              pushstring "$transform"
+                              getlocal0
+                              getproperty QName(PackageNamespace(""),"target")
+                              in
+                     ofs0015:
+                              iffalse ofs002a
+                              getlocal0
+                              getproperty QName(PackageNamespace(""),"target")
+                              pushstring "$transform"
+                              getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                              pushstring "concatenatedMatrix"
+                              getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                              returnvalue
+                     ofs002a:
+                              getlocal0
+                              getproperty QName(PackageNamespace(""),"target")
+                              coerce_a
+                              convert_b
+                              dup
+                              iffalse ofs0040
+                              pop
+                              pushstring "displayObject"
+                              getlocal0
+                              getproperty QName(PackageNamespace(""),"target")
+                              in
+                              coerce_a
+                              convert_b
+                     ofs0040:
+                              dup
+                              iffalse ofs0053
+                              pop
+                              getlocal0
+                              getproperty QName(PackageNamespace(""),"target")
+                              pushstring "displayObject"
+                              getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                              pushnull
+                              equals
+                              not
+                     ofs0053:
+                              iffalse ofs006e
+                              getlocal0
+                              getproperty QName(PackageNamespace(""),"target")
+                              pushstring "displayObject"
+                              getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                              pushstring "transform"
+                              getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                              pushstring "concatenatedMatrix"
+                              getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                              returnvalue
+                     ofs006e:
+                              getlocal0
+                              getsuper QName(PackageNamespace(""),"concatenatedMatrix")
+                              returnvalue
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  override public function set matrix(param1:Matrix) : void
+                  {
+                     trait setter QName(PackageNamespace(""),"matrix")
+                        flag OVERRIDE
+                        dispid 0
+                        method
+                           name null
+                           param QName(PackageNamespace("flash.geom"),"Matrix")
+                           returns QName(PackageNamespace(""),"void")
+                           
+                           body
+                              maxstack 3
+                              localcount 2
+                              initscopedepth 5
+                              maxscopedepth 6
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal0
+                                 getproperty QName(PackageNamespace(""),"target")
+                                 getlex QName(PackageNamespace("mx.core"),"ILayoutElement")
+                                 istypelate
+                                 dup
+                                 iffalse ofs0014
+                                 pop
+                                 getlocal1
+                                 pushnull
+                                 equals
+                                 not
+                        ofs0014:
+                                 iffalse ofs002d
+                                 findpropstrict QName(PackageNamespace("mx.core"),"ILayoutElement")
+                                 getlocal0
+                                 getproperty QName(PackageNamespace(""),"target")
+                                 callproperty QName(PackageNamespace("mx.core"),"ILayoutElement"), 1
+                                 getlocal1
+                                 pushtrue
+                                 callpropvoid QName(Namespace("mx.core:ILayoutElement"),"setLayoutMatrix"), 2
+                                 jump ofs0032
+                        ofs002d:
+                                 getlocal0
+                                 getlocal1
+                                 setsuper QName(PackageNamespace(""),"matrix")
+                        ofs0032:
+                                 getlocal0
+                                 getlocal1
+                                 pushnull
+                                 equals
+                                 not
+                                 initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"applyMatrix")
+                                 getlocal0
+                                 pushfalse
+                                 initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"applyMatrix3D")
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     override public function get matrix() : Matrix
+                     {
+                        trait getter QName(PackageNamespace(""),"matrix")
+                           flag OVERRIDE
+                           dispid 0
+                           method
+                              name null
+                              returns QName(PackageNamespace("flash.geom"),"Matrix")
+                              
+                              body
+                                 maxstack 2
+                                 localcount 1
+                                 initscopedepth 5
+                                 maxscopedepth 6
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlocal0
+                                    getproperty QName(PackageNamespace(""),"target")
+                                    getlex QName(PackageNamespace("mx.core"),"ILayoutElement")
+                                    istypelate
+                                    iffalse ofs001e
+                                    findpropstrict QName(PackageNamespace("mx.core"),"ILayoutElement")
+                                    getlocal0
+                                    getproperty QName(PackageNamespace(""),"target")
+                                    callproperty QName(PackageNamespace("mx.core"),"ILayoutElement"), 1
+                                    callproperty QName(Namespace("mx.core:ILayoutElement"),"getLayoutMatrix"), 0
+                                    returnvalue
+                           ofs001e:
+                                    getlocal0
+                                    getsuper QName(PackageNamespace(""),"matrix")
+                                    returnvalue
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        override public function set matrix3D(param1:Matrix3D) : *
+                        {
+                           trait setter QName(PackageNamespace(""),"matrix3D")
+                              flag OVERRIDE
+                              dispid 0
+                              method
+                                 name null
+                                 param QName(PackageNamespace("flash.geom"),"Matrix3D")
+                                 returns null
+                                 
+                                 body
+                                    maxstack 3
+                                    localcount 2
+                                    initscopedepth 5
+                                    maxscopedepth 6
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlocal0
+                                       getproperty QName(PackageNamespace(""),"target")
+                                       getlex QName(PackageNamespace("mx.core"),"ILayoutElement")
+                                       istypelate
+                                       dup
+                                       iffalse ofs0014
+                                       pop
+                                       getlocal1
+                                       pushnull
+                                       equals
+                                       not
+                              ofs0014:
+                                       iffalse ofs002d
+                                       findpropstrict QName(PackageNamespace("mx.core"),"ILayoutElement")
+                                       getlocal0
+                                       getproperty QName(PackageNamespace(""),"target")
+                                       callproperty QName(PackageNamespace("mx.core"),"ILayoutElement"), 1
+                                       getlocal1
+                                       pushtrue
+                                       callpropvoid QName(Namespace("mx.core:ILayoutElement"),"setLayoutMatrix3D"), 2
+                                       jump ofs0032
+                              ofs002d:
+                                       getlocal0
+                                       getlocal1
+                                       setsuper QName(PackageNamespace(""),"matrix3D")
+                              ofs0032:
+                                       getlocal0
+                                       getlocal1
+                                       pushnull
+                                       equals
+                                       not
+                                       initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"applyMatrix3D")
+                                       getlocal0
+                                       pushfalse
+                                       initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"applyMatrix")
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           override public function get matrix3D() : Matrix3D
+                           {
+                              trait getter QName(PackageNamespace(""),"matrix3D")
+                                 flag OVERRIDE
+                                 dispid 0
+                                 method
+                                    name null
+                                    returns QName(PackageNamespace("flash.geom"),"Matrix3D")
+                                    
+                                    body
+                                       maxstack 2
+                                       localcount 1
+                                       initscopedepth 5
+                                       maxscopedepth 6
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlocal0
+                                          getproperty QName(PackageNamespace(""),"target")
+                                          getlex QName(PackageNamespace("mx.core"),"ILayoutElement")
+                                          istypelate
+                                          iffalse ofs001e
+                                          findpropstrict QName(PackageNamespace("mx.core"),"ILayoutElement")
+                                          getlocal0
+                                          getproperty QName(PackageNamespace(""),"target")
+                                          callproperty QName(PackageNamespace("mx.core"),"ILayoutElement"), 1
+                                          callproperty QName(Namespace("mx.core:ILayoutElement"),"getLayoutMatrix3D"), 0
+                                          returnvalue
+                                 ofs001e:
+                                          getlocal0
+                                          getsuper QName(PackageNamespace(""),"matrix3D")
+                                          returnvalue
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              override public function set perspectiveProjection(param1:PerspectiveProjection) : void
+                              {
+                                 trait setter QName(PackageNamespace(""),"perspectiveProjection")
+                                    flag OVERRIDE
+                                    dispid 0
+                                    method
+                                       name null
+                                       param QName(PackageNamespace("flash.geom"),"PerspectiveProjection")
+                                       returns QName(PackageNamespace(""),"void")
+                                       
+                                       body
+                                          maxstack 2
+                                          localcount 3
+                                          initscopedepth 5
+                                          maxscopedepth 6
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlocal0
+                                             getsuper QName(PackageNamespace(""),"perspectiveProjection")
+                                             coerce QName(PackageNamespace("flash.geom"),"PerspectiveProjection")
+                                             setlocal2
+                                             getlocal0
+                                             getlocal1
+                                             setsuper QName(PackageNamespace(""),"perspectiveProjection")
+                                             returnvoid
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 override public function get perspectiveProjection() : PerspectiveProjection
+                                 {
+                                    trait getter QName(PackageNamespace(""),"perspectiveProjection")
+                                       flag OVERRIDE
+                                       dispid 0
+                                       method
+                                          name null
+                                          returns QName(PackageNamespace("flash.geom"),"PerspectiveProjection")
+                                          
+                                          body
+                                             maxstack 2
+                                             localcount 1
+                                             initscopedepth 5
+                                             maxscopedepth 6
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                getlocal0
+                                                getproperty QName(PackageNamespace(""),"target")
+                                                convert_b
+                                                dup
+                                                iffalse ofs0015
+                                                pop
+                                                pushstring "$transform"
+                                                getlocal0
+                                                getproperty QName(PackageNamespace(""),"target")
+                                                in
+                                       ofs0015:
+                                                iffalse ofs002a
+                                                getlocal0
+                                                getproperty QName(PackageNamespace(""),"target")
+                                                pushstring "$transform"
+                                                getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                                                pushstring "perspectiveProjection"
+                                                getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                                                returnvalue
+                                       ofs002a:
+                                                getlocal0
+                                                getproperty QName(PackageNamespace(""),"target")
+                                                coerce_a
+                                                convert_b
+                                                dup
+                                                iffalse ofs0040
+                                                pop
+                                                pushstring "displayObject"
+                                                getlocal0
+                                                getproperty QName(PackageNamespace(""),"target")
+                                                in
+                                                coerce_a
+                                                convert_b
+                                       ofs0040:
+                                                dup
+                                                iffalse ofs0053
+                                                pop
+                                                getlocal0
+                                                getproperty QName(PackageNamespace(""),"target")
+                                                pushstring "displayObject"
+                                                getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                                                pushnull
+                                                equals
+                                                not
+                                       ofs0053:
+                                                iffalse ofs006e
+                                                getlocal0
+                                                getproperty QName(PackageNamespace(""),"target")
+                                                pushstring "displayObject"
+                                                getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                                                pushstring "transform"
+                                                getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                                                pushstring "perspectiveProjection"
+                                                getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                                                returnvalue
+                                       ofs006e:
+                                                getlocal0
+                                                getsuper QName(PackageNamespace(""),"perspectiveProjection")
+                                                returnvalue
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    override public function get pixelBounds() : Rectangle
+                                    {
+                                       trait getter QName(PackageNamespace(""),"pixelBounds")
+                                          flag OVERRIDE
+                                          dispid 0
+                                          method
+                                             name null
+                                             returns QName(PackageNamespace("flash.geom"),"Rectangle")
+                                             
+                                             body
+                                                maxstack 2
+                                                localcount 1
+                                                initscopedepth 5
+                                                maxscopedepth 6
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   getlocal0
+                                                   getproperty QName(PackageNamespace(""),"target")
+                                                   convert_b
+                                                   dup
+                                                   iffalse ofs0015
+                                                   pop
+                                                   pushstring "$transform"
+                                                   getlocal0
+                                                   getproperty QName(PackageNamespace(""),"target")
+                                                   in
+                                          ofs0015:
+                                                   iffalse ofs002a
+                                                   getlocal0
+                                                   getproperty QName(PackageNamespace(""),"target")
+                                                   pushstring "$transform"
+                                                   getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                                                   pushstring "pixelBounds"
+                                                   getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                                                   returnvalue
+                                          ofs002a:
+                                                   getlocal0
+                                                   getproperty QName(PackageNamespace(""),"target")
+                                                   coerce_a
+                                                   convert_b
+                                                   dup
+                                                   iffalse ofs0040
+                                                   pop
+                                                   pushstring "displayObject"
+                                                   getlocal0
+                                                   getproperty QName(PackageNamespace(""),"target")
+                                                   in
+                                                   coerce_a
+                                                   convert_b
+                                          ofs0040:
+                                                   dup
+                                                   iffalse ofs0053
+                                                   pop
+                                                   getlocal0
+                                                   getproperty QName(PackageNamespace(""),"target")
+                                                   pushstring "displayObject"
+                                                   getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                                                   pushnull
+                                                   equals
+                                                   not
+                                          ofs0053:
+                                                   iffalse ofs006e
+                                                   getlocal0
+                                                   getproperty QName(PackageNamespace(""),"target")
+                                                   pushstring "displayObject"
+                                                   getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                                                   pushstring "transform"
+                                                   getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                                                   pushstring "pixelBounds"
+                                                   getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                                                   returnvalue
+                                          ofs006e:
+                                                   getlocal0
+                                                   getsuper QName(PackageNamespace(""),"pixelBounds")
+                                                   returnvalue
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                       
+                                       public function set target(param1:IVisualElement) : void
+                                       {
+                                          trait setter QName(PackageNamespace(""),"target")
+                                             dispid 0
+                                             method
+                                                name null
+                                                param QName(PackageNamespace("mx.core"),"IVisualElement")
+                                                returns QName(PackageNamespace(""),"void")
+                                                
+                                                body
+                                                   maxstack 2
+                                                   localcount 2
+                                                   initscopedepth 5
+                                                   maxscopedepth 6
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      getlocal1
+                                                      getlocal0
+                                                      getproperty QName(PrivateNamespace(null,"35"),"_target")
+                                                      ifstricteq ofs0010
+                                                      getlocal0
+                                                      getlocal1
+                                                      initproperty QName(PrivateNamespace(null,"35"),"_target")
+                                             ofs0010:
+                                                      returnvoid
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                          }
+                                          
+                                          public function get target() : IVisualElement
+                                          {
+                                             trait getter QName(PackageNamespace(""),"target")
+                                                dispid 0
+                                                method
+                                                   name null
+                                                   returns QName(PackageNamespace("mx.core"),"IVisualElement")
+                                                   
+                                                   body
+                                                      maxstack 1
+                                                      localcount 1
+                                                      initscopedepth 5
+                                                      maxscopedepth 6
+                                                      
+                                                      code
+                                                         getlocal0
+                                                         pushscope
+                                                         getlocal0
+                                                         getproperty QName(PrivateNamespace(null,"35"),"_target")
+                                                         returnvalue
+                                                      end ; code
+                                                   end ; body
+                                                end ; method
+                                             }
+                                             
+                                             override public function getRelativeMatrix3D(param1:DisplayObject) : Matrix3D
+                                             {
+                                                trait method QName(PackageNamespace(""),"getRelativeMatrix3D")
+                                                   flag OVERRIDE
+                                                   dispid 0
+                                                   method
+                                                      name null
+                                                      param QName(PackageNamespace("flash.display"),"DisplayObject")
+                                                      returns QName(PackageNamespace("flash.geom"),"Matrix3D")
+                                                      
+                                                      body
+                                                         maxstack 3
+                                                         localcount 3
+                                                         initscopedepth 5
+                                                         maxscopedepth 6
+                                                         
+                                                         code
+                                                            getlocal0
+                                                            pushscope
+                                                            getlocal0
+                                                            getproperty QName(PackageNamespace(""),"target")
+                                                            convert_b
+                                                            dup
+                                                            iffalse ofs0015
+                                                            pop
+                                                            pushstring "$transform"
+                                                            getlocal0
+                                                            getproperty QName(PackageNamespace(""),"target")
+                                                            in
+                                                   ofs0015:
+                                                            iffalse ofs0032
+                                                            getlocal0
+                                                            getproperty QName(PackageNamespace(""),"target")
+                                                            pushstring "$transform"
+                                                            getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                                                            dup
+                                                            setlocal2
+                                                            pushstring "getRelativeMatrix3D"
+                                                            getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                                                            getlocal2
+                                                            getlocal1
+                                                            call 1
+                                                            kill 2
+                                                            returnvalue
+                                                   ofs0032:
+                                                            getlocal0
+                                                            getproperty QName(PackageNamespace(""),"target")
+                                                            coerce_a
+                                                            convert_b
+                                                            dup
+                                                            iffalse ofs0048
+                                                            pop
+                                                            pushstring "displayObject"
+                                                            getlocal0
+                                                            getproperty QName(PackageNamespace(""),"target")
+                                                            in
+                                                            coerce_a
+                                                            convert_b
+                                                   ofs0048:
+                                                            dup
+                                                            iffalse ofs005b
+                                                            pop
+                                                            getlocal0
+                                                            getproperty QName(PackageNamespace(""),"target")
+                                                            pushstring "displayObject"
+                                                            getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                                                            pushnull
+                                                            equals
+                                                            not
+                                                   ofs005b:
+                                                            iffalse ofs007e
+                                                            getlocal0
+                                                            getproperty QName(PackageNamespace(""),"target")
+                                                            pushstring "displayObject"
+                                                            getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                                                            pushstring "transform"
+                                                            getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                                                            dup
+                                                            setlocal2
+                                                            pushstring "getRelativeMatrix3D"
+                                                            getproperty MultinameL([PrivateNamespace(null,"35"),PackageNamespace(""),PrivateNamespace(null,"139"),PackageNamespace("mx.geom"),PackageInternalNs("mx.geom"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),ProtectedNamespace("mx.geom:Transform"),StaticProtectedNs("mx.geom:Transform"),StaticProtectedNs("flash.geom:Transform")])
+                                                            getlocal2
+                                                            getlocal1
+                                                            call 1
+                                                            kill 2
+                                                            returnvalue
+                                                   ofs007e:
+                                                            getlocal0
+                                                            getlocal1
+                                                            callsuper QName(PackageNamespace(""),"getRelativeMatrix3D"), 1
+                                                            returnvalue
+                                                         end ; code
+                                                      end ; body
+                                                   end ; method
+                                                }
+                                             }
+                                          }
+                                          
+                                          method
+                                             name null
+                                             returns null
+                                             
+                                             body
+                                                maxstack 2
+                                                localcount 1
+                                                initscopedepth 1
+                                                maxscopedepth 4
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   findpropstrict Multiname("Transform",[PackageNamespace("mx.geom")])
+                                                   getlex QName(PackageNamespace(""),"Object")
+                                                   pushscope
+                                                   getlex QName(PackageNamespace("flash.geom"),"Transform")
+                                                   pushscope
+                                                   getlex QName(PackageNamespace("flash.geom"),"Transform")
+                                                   newclass 106
+                                                   popscope
+                                                   popscope
+                                                   initproperty QName(PackageNamespace("mx.geom"),"Transform")
+                                                   returnvoid
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                          

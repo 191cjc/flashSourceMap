@@ -1,0 +1,1833 @@
+package mx.core
+{
+   import flash.display.DisplayObjectContainer;
+   import flash.events.Event;
+   import flash.geom.Point;
+   import flash.system.ApplicationDomain;
+   
+   use namespace mx_internal;
+   
+   public class SpriteAsset extends FlexSprite implements IFlexAsset, IFlexDisplayObject, IBorder, ILayoutDirectionElement
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      private static var FlexVersionClass:Class;
+      
+      private static var MatrixUtilClass:Class;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 9
+            maxscopedepth 10
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var layoutFeaturesClass:Class;
+      
+      private var layoutFeatures:IAssetLayoutFeatures;
+      
+      private var _height:Number;
+      
+      private var _layoutDirection:String = "ltr";
+      
+      private var _measuredHeight:Number;
+      
+      private var _measuredWidth:Number;
+      
+      public function SpriteAsset()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 4
+               localcount 2
+               initscopedepth 10
+               maxscopedepth 11
+               
+               code
+                  getlocal0
+                  pushscope
+                  pushnull
+                  coerce QName(PackageNamespace("flash.system"),"ApplicationDomain")
+                  setlocal1
+                  getlocal0
+                  constructsuper 0
+                  getlocal0
+                  getlocal0
+                  getproperty QName(PackageNamespace(""),"width")
+                  initproperty QName(PrivateNamespace(null,"10"),"_measuredWidth")
+                  getlocal0
+                  getlocal0
+                  getproperty QName(PackageNamespace(""),"height")
+                  initproperty QName(PrivateNamespace(null,"10"),"_measuredHeight")
+                  getlex QName(PrivateNamespace(null,"10"),"FlexVersionClass")
+                  pushnull
+                  ifne ofs0048
+                  getlex QName(PackageNamespace("flash.system"),"ApplicationDomain")
+                  getproperty QName(PackageNamespace(""),"currentDomain")
+                  coerce QName(PackageNamespace("flash.system"),"ApplicationDomain")
+                  setlocal1
+                  getlocal1
+                  pushstring "mx.core::FlexVersion"
+                  callproperty QName(PackageNamespace(""),"hasDefinition"), 1
+                  iffalse ofs0048
+                  findproperty QName(PrivateNamespace(null,"10"),"FlexVersionClass")
+                  findpropstrict QName(PackageNamespace(""),"Class")
+                  getlocal1
+                  pushstring "mx.core::FlexVersion"
+                  callproperty QName(PackageNamespace(""),"getDefinition"), 1
+                  callproperty QName(PackageNamespace(""),"Class"), 1
+                  setproperty QName(PrivateNamespace(null,"10"),"FlexVersionClass")
+         ofs0048:
+                  getlex QName(PrivateNamespace(null,"10"),"FlexVersionClass")
+                  convert_b
+                  dup
+                  iffalse ofs0065
+                  pop
+                  getlex QName(PrivateNamespace(null,"10"),"FlexVersionClass")
+                  pushstring "compatibilityVersion"
+                  getproperty MultinameL([PrivateNamespace(null,"10"),PackageNamespace(""),PrivateNamespace(null,"116"),PackageNamespace("mx.core"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.core:SpriteAsset"),StaticProtectedNs("mx.core:SpriteAsset"),StaticProtectedNs("mx.core:FlexSprite"),StaticProtectedNs("flash.display:Sprite"),StaticProtectedNs("flash.display:DisplayObjectContainer"),StaticProtectedNs("flash.display:InteractiveObject"),StaticProtectedNs("flash.display:DisplayObject"),StaticProtectedNs("flash.events:EventDispatcher")])
+                  getlex QName(PrivateNamespace(null,"10"),"FlexVersionClass")
+                  pushstring "VERSION_4_0"
+                  getproperty MultinameL([PrivateNamespace(null,"10"),PackageNamespace(""),PrivateNamespace(null,"116"),PackageNamespace("mx.core"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.core:SpriteAsset"),StaticProtectedNs("mx.core:SpriteAsset"),StaticProtectedNs("mx.core:FlexSprite"),StaticProtectedNs("flash.display:Sprite"),StaticProtectedNs("flash.display:DisplayObjectContainer"),StaticProtectedNs("flash.display:InteractiveObject"),StaticProtectedNs("flash.display:DisplayObject"),StaticProtectedNs("flash.events:EventDispatcher")])
+                  greaterequals
+         ofs0065:
+                  iffalse ofs0077
+                  getlocal0
+                  getlex QName(PackageNamespace("flash.events"),"Event")
+                  getproperty QName(PackageNamespace(""),"ADDED")
+                  getlocal0
+                  getproperty QName(PrivateNamespace(null,"10"),"addedHandler")
+                  callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+         ofs0077:
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      override public function get x() : Number
+      {
+         trait getter QName(PackageNamespace(""),"x")
+            flag OVERRIDE
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace(""),"Number")
+               
+               body
+                  maxstack 2
+                  localcount 1
+                  initscopedepth 10
+                  maxscopedepth 11
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                     pushnull
+                     ifne ofs0014
+                     getlocal0
+                     getsuper QName(PackageNamespace(""),"x")
+                     convert_d
+                     jump ofs001c
+            ofs0014:
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                     getproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutX")
+                     convert_d
+            ofs001c:
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         override public function set x(param1:Number) : void
+         {
+            trait setter QName(PackageNamespace(""),"x")
+               flag OVERRIDE
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace(""),"Number")
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 2
+                     localcount 2
+                     initscopedepth 10
+                     maxscopedepth 11
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"x")
+                        getlocal1
+                        ifne ofs000c
+                        returnvoid
+               ofs000c:
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                        pushnull
+                        ifne ofs001e
+                        getlocal0
+                        getlocal1
+                        setsuper QName(PackageNamespace(""),"x")
+                        jump ofs002b
+               ofs001e:
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                        getlocal1
+                        setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutX")
+                        getlocal0
+                        callpropvoid QName(PrivateNamespace(null,"10"),"validateTransformMatrix"), 0
+               ofs002b:
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            override public function get y() : Number
+            {
+               trait getter QName(PackageNamespace(""),"y")
+                  flag OVERRIDE
+                  dispid 0
+                  method
+                     name null
+                     returns QName(PackageNamespace(""),"Number")
+                     
+                     body
+                        maxstack 2
+                        localcount 1
+                        initscopedepth 10
+                        maxscopedepth 11
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                           pushnull
+                           ifne ofs0014
+                           getlocal0
+                           getsuper QName(PackageNamespace(""),"y")
+                           convert_d
+                           jump ofs001c
+                  ofs0014:
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                           getproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutY")
+                           convert_d
+                  ofs001c:
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               override public function set y(param1:Number) : void
+               {
+                  trait setter QName(PackageNamespace(""),"y")
+                     flag OVERRIDE
+                     dispid 0
+                     method
+                        name null
+                        param QName(PackageNamespace(""),"Number")
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 2
+                           localcount 2
+                           initscopedepth 10
+                           maxscopedepth 11
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              getproperty QName(PackageNamespace(""),"y")
+                              getlocal1
+                              ifne ofs000c
+                              returnvoid
+                     ofs000c:
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                              pushnull
+                              ifne ofs001e
+                              getlocal0
+                              getlocal1
+                              setsuper QName(PackageNamespace(""),"y")
+                              jump ofs002b
+                     ofs001e:
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                              getlocal1
+                              setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutY")
+                              getlocal0
+                              callpropvoid QName(PrivateNamespace(null,"10"),"validateTransformMatrix"), 0
+                     ofs002b:
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  override public function get z() : Number
+                  {
+                     trait getter QName(PackageNamespace(""),"z")
+                        flag OVERRIDE
+                        dispid 0
+                        method
+                           name null
+                           returns QName(PackageNamespace(""),"Number")
+                           
+                           body
+                              maxstack 2
+                              localcount 1
+                              initscopedepth 10
+                              maxscopedepth 11
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                 pushnull
+                                 ifne ofs0014
+                                 getlocal0
+                                 getsuper QName(PackageNamespace(""),"z")
+                                 convert_d
+                                 jump ofs001c
+                        ofs0014:
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                 getproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutZ")
+                                 convert_d
+                        ofs001c:
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     override public function set z(param1:Number) : void
+                     {
+                        trait setter QName(PackageNamespace(""),"z")
+                           flag OVERRIDE
+                           dispid 0
+                           method
+                              name null
+                              param QName(PackageNamespace(""),"Number")
+                              returns QName(PackageNamespace(""),"void")
+                              
+                              body
+                                 maxstack 2
+                                 localcount 2
+                                 initscopedepth 10
+                                 maxscopedepth 11
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlocal0
+                                    getproperty QName(PackageNamespace(""),"z")
+                                    getlocal1
+                                    ifne ofs000c
+                                    returnvoid
+                           ofs000c:
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                    pushnull
+                                    ifne ofs001e
+                                    getlocal0
+                                    getlocal1
+                                    setsuper QName(PackageNamespace(""),"z")
+                                    jump ofs002b
+                           ofs001e:
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                    getlocal1
+                                    setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutZ")
+                                    getlocal0
+                                    callpropvoid QName(PrivateNamespace(null,"10"),"validateTransformMatrix"), 0
+                           ofs002b:
+                                    returnvoid
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        override public function get width() : Number
+                        {
+                           trait getter QName(PackageNamespace(""),"width")
+                              flag OVERRIDE
+                              dispid 0
+                              method
+                                 name null
+                                 returns QName(PackageNamespace(""),"Number")
+                                 
+                                 body
+                                    maxstack 5
+                                    localcount 3
+                                    initscopedepth 10
+                                    maxscopedepth 11
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       pushnull
+                                       coerce QName(PackageNamespace("flash.geom"),"Point")
+                                       setlocal1
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                       pushnull
+                                       ifne ofs0014
+                                       getlocal0
+                                       getsuper QName(PackageNamespace(""),"width")
+                                       returnvalue
+                              ofs0014:
+                                       getlex QName(PrivateNamespace(null,"10"),"MatrixUtilClass")
+                                       pushnull
+                                       ifeq ofs0040
+                                       getlex QName(PrivateNamespace(null,"10"),"MatrixUtilClass")
+                                       dup
+                                       setlocal2
+                                       pushstring "transformSize"
+                                       getproperty MultinameL([PrivateNamespace(null,"10"),PackageNamespace(""),PrivateNamespace(null,"116"),PackageNamespace("mx.core"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.core:SpriteAsset"),StaticProtectedNs("mx.core:SpriteAsset"),StaticProtectedNs("mx.core:FlexSprite"),StaticProtectedNs("flash.display:Sprite"),StaticProtectedNs("flash.display:DisplayObjectContainer"),StaticProtectedNs("flash.display:InteractiveObject"),StaticProtectedNs("flash.display:DisplayObject"),StaticProtectedNs("flash.events:EventDispatcher")])
+                                       getlocal2
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                       getproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutWidth")
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"10"),"_height")
+                                       getlex QName(PackageNamespace(""),"transform")
+                                       getproperty QName(PackageNamespace(""),"matrix")
+                                       call 3
+                                       kill 2
+                                       coerce QName(PackageNamespace("flash.geom"),"Point")
+                                       setlocal1
+                              ofs0040:
+                                       getlocal1
+                                       iffalse ofs004e
+                                       getlocal1
+                                       getproperty QName(PackageNamespace(""),"x")
+                                       convert_d
+                                       jump ofs0053
+                              ofs004e:
+                                       getlocal0
+                                       getsuper QName(PackageNamespace(""),"width")
+                                       convert_d
+                              ofs0053:
+                                       returnvalue
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           override public function set width(param1:Number) : void
+                           {
+                              trait setter QName(PackageNamespace(""),"width")
+                                 flag OVERRIDE
+                                 dispid 0
+                                 method
+                                    name null
+                                    param QName(PackageNamespace(""),"Number")
+                                    returns QName(PackageNamespace(""),"void")
+                                    
+                                    body
+                                       maxstack 3
+                                       localcount 2
+                                       initscopedepth 10
+                                       maxscopedepth 11
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlocal0
+                                          getproperty QName(PackageNamespace(""),"width")
+                                          getlocal1
+                                          ifne ofs000c
+                                          returnvoid
+                                 ofs000c:
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                          pushnull
+                                          ifne ofs001e
+                                          getlocal0
+                                          getlocal1
+                                          setsuper QName(PackageNamespace(""),"width")
+                                          jump ofs004a
+                                 ofs001e:
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                          getlocal1
+                                          setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutWidth")
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                          getlocal0
+                                          getproperty QName(PackageNamespace(""),"measuredWidth")
+                                          pushbyte 0
+                                          ifeq ofs003f
+                                          getlocal1
+                                          getlocal0
+                                          getproperty QName(PackageNamespace(""),"measuredWidth")
+                                          divide
+                                          convert_d
+                                          jump ofs0042
+                                 ofs003f:
+                                          pushbyte 0
+                                          convert_d
+                                 ofs0042:
+                                          setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutScaleX")
+                                          getlocal0
+                                          callpropvoid QName(PrivateNamespace(null,"10"),"validateTransformMatrix"), 0
+                                 ofs004a:
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              override public function get height() : Number
+                              {
+                                 trait getter QName(PackageNamespace(""),"height")
+                                    flag OVERRIDE
+                                    dispid 0
+                                    method
+                                       name null
+                                       returns QName(PackageNamespace(""),"Number")
+                                       
+                                       body
+                                          maxstack 5
+                                          localcount 3
+                                          initscopedepth 10
+                                          maxscopedepth 11
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             pushnull
+                                             coerce QName(PackageNamespace("flash.geom"),"Point")
+                                             setlocal1
+                                             getlocal0
+                                             getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                             pushnull
+                                             ifne ofs0014
+                                             getlocal0
+                                             getsuper QName(PackageNamespace(""),"height")
+                                             returnvalue
+                                    ofs0014:
+                                             getlex QName(PrivateNamespace(null,"10"),"MatrixUtilClass")
+                                             pushnull
+                                             ifeq ofs0040
+                                             getlex QName(PrivateNamespace(null,"10"),"MatrixUtilClass")
+                                             dup
+                                             setlocal2
+                                             pushstring "transformSize"
+                                             getproperty MultinameL([PrivateNamespace(null,"10"),PackageNamespace(""),PrivateNamespace(null,"116"),PackageNamespace("mx.core"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.core:SpriteAsset"),StaticProtectedNs("mx.core:SpriteAsset"),StaticProtectedNs("mx.core:FlexSprite"),StaticProtectedNs("flash.display:Sprite"),StaticProtectedNs("flash.display:DisplayObjectContainer"),StaticProtectedNs("flash.display:InteractiveObject"),StaticProtectedNs("flash.display:DisplayObject"),StaticProtectedNs("flash.events:EventDispatcher")])
+                                             getlocal2
+                                             getlocal0
+                                             getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                             getproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutWidth")
+                                             getlocal0
+                                             getproperty QName(PrivateNamespace(null,"10"),"_height")
+                                             getlex QName(PackageNamespace(""),"transform")
+                                             getproperty QName(PackageNamespace(""),"matrix")
+                                             call 3
+                                             kill 2
+                                             coerce QName(PackageNamespace("flash.geom"),"Point")
+                                             setlocal1
+                                    ofs0040:
+                                             getlocal1
+                                             iffalse ofs004e
+                                             getlocal1
+                                             getproperty QName(PackageNamespace(""),"y")
+                                             convert_d
+                                             jump ofs0053
+                                    ofs004e:
+                                             getlocal0
+                                             getsuper QName(PackageNamespace(""),"height")
+                                             convert_d
+                                    ofs0053:
+                                             returnvalue
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 override public function set height(param1:Number) : void
+                                 {
+                                    trait setter QName(PackageNamespace(""),"height")
+                                       flag OVERRIDE
+                                       dispid 0
+                                       method
+                                          name null
+                                          param QName(PackageNamespace(""),"Number")
+                                          returns QName(PackageNamespace(""),"void")
+                                          
+                                          body
+                                             maxstack 3
+                                             localcount 2
+                                             initscopedepth 10
+                                             maxscopedepth 11
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                getlocal0
+                                                getproperty QName(PackageNamespace(""),"height")
+                                                getlocal1
+                                                ifne ofs000c
+                                                returnvoid
+                                       ofs000c:
+                                                getlocal0
+                                                getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                pushnull
+                                                ifne ofs001e
+                                                getlocal0
+                                                getlocal1
+                                                setsuper QName(PackageNamespace(""),"height")
+                                                jump ofs0047
+                                       ofs001e:
+                                                getlocal0
+                                                getlocal1
+                                                initproperty QName(PrivateNamespace(null,"10"),"_height")
+                                                getlocal0
+                                                getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                getlocal0
+                                                getproperty QName(PackageNamespace(""),"measuredHeight")
+                                                pushbyte 0
+                                                ifeq ofs003c
+                                                getlocal1
+                                                getlocal0
+                                                getproperty QName(PackageNamespace(""),"measuredHeight")
+                                                divide
+                                                convert_d
+                                                jump ofs003f
+                                       ofs003c:
+                                                pushbyte 0
+                                                convert_d
+                                       ofs003f:
+                                                setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutScaleY")
+                                                getlocal0
+                                                callpropvoid QName(PrivateNamespace(null,"10"),"validateTransformMatrix"), 0
+                                       ofs0047:
+                                                returnvoid
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    override public function get rotationX() : Number
+                                    {
+                                       trait getter QName(PackageNamespace(""),"rotationX")
+                                          flag OVERRIDE
+                                          dispid 0
+                                          method
+                                             name null
+                                             returns QName(PackageNamespace(""),"Number")
+                                             
+                                             body
+                                                maxstack 2
+                                                localcount 1
+                                                initscopedepth 10
+                                                maxscopedepth 11
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   getlocal0
+                                                   getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                   pushnull
+                                                   ifne ofs0014
+                                                   getlocal0
+                                                   getsuper QName(PackageNamespace(""),"rotationX")
+                                                   convert_d
+                                                   jump ofs001c
+                                          ofs0014:
+                                                   getlocal0
+                                                   getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                   getproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutRotationX")
+                                                   convert_d
+                                          ofs001c:
+                                                   returnvalue
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                       
+                                       override public function set rotationX(param1:Number) : void
+                                       {
+                                          trait setter QName(PackageNamespace(""),"rotationX")
+                                             flag OVERRIDE
+                                             dispid 0
+                                             method
+                                                name null
+                                                param QName(PackageNamespace(""),"Number")
+                                                returns QName(PackageNamespace(""),"void")
+                                                
+                                                body
+                                                   maxstack 2
+                                                   localcount 2
+                                                   initscopedepth 10
+                                                   maxscopedepth 11
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      getlocal0
+                                                      getproperty QName(PackageNamespace(""),"rotationX")
+                                                      getlocal1
+                                                      ifne ofs000c
+                                                      returnvoid
+                                             ofs000c:
+                                                      getlocal0
+                                                      getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                      pushnull
+                                                      ifne ofs001e
+                                                      getlocal0
+                                                      getlocal1
+                                                      setsuper QName(PackageNamespace(""),"rotationX")
+                                                      jump ofs002b
+                                             ofs001e:
+                                                      getlocal0
+                                                      getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                      getlocal1
+                                                      setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutRotationX")
+                                                      getlocal0
+                                                      callpropvoid QName(PrivateNamespace(null,"10"),"validateTransformMatrix"), 0
+                                             ofs002b:
+                                                      returnvoid
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                          }
+                                          
+                                          override public function get rotationY() : Number
+                                          {
+                                             trait getter QName(PackageNamespace(""),"rotationY")
+                                                flag OVERRIDE
+                                                dispid 0
+                                                method
+                                                   name null
+                                                   returns QName(PackageNamespace(""),"Number")
+                                                   
+                                                   body
+                                                      maxstack 2
+                                                      localcount 1
+                                                      initscopedepth 10
+                                                      maxscopedepth 11
+                                                      
+                                                      code
+                                                         getlocal0
+                                                         pushscope
+                                                         getlocal0
+                                                         getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                         pushnull
+                                                         ifne ofs0014
+                                                         getlocal0
+                                                         getsuper QName(PackageNamespace(""),"rotationY")
+                                                         convert_d
+                                                         jump ofs001c
+                                                ofs0014:
+                                                         getlocal0
+                                                         getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                         getproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutRotationY")
+                                                         convert_d
+                                                ofs001c:
+                                                         returnvalue
+                                                      end ; code
+                                                   end ; body
+                                                end ; method
+                                             }
+                                             
+                                             override public function set rotationY(param1:Number) : void
+                                             {
+                                                trait setter QName(PackageNamespace(""),"rotationY")
+                                                   flag OVERRIDE
+                                                   dispid 0
+                                                   method
+                                                      name null
+                                                      param QName(PackageNamespace(""),"Number")
+                                                      returns QName(PackageNamespace(""),"void")
+                                                      
+                                                      body
+                                                         maxstack 2
+                                                         localcount 2
+                                                         initscopedepth 10
+                                                         maxscopedepth 11
+                                                         
+                                                         code
+                                                            getlocal0
+                                                            pushscope
+                                                            getlocal0
+                                                            getproperty QName(PackageNamespace(""),"rotationY")
+                                                            getlocal1
+                                                            ifne ofs000c
+                                                            returnvoid
+                                                   ofs000c:
+                                                            getlocal0
+                                                            getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                            pushnull
+                                                            ifne ofs001e
+                                                            getlocal0
+                                                            getlocal1
+                                                            setsuper QName(PackageNamespace(""),"rotationY")
+                                                            jump ofs002b
+                                                   ofs001e:
+                                                            getlocal0
+                                                            getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                            getlocal1
+                                                            setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutRotationY")
+                                                            getlocal0
+                                                            callpropvoid QName(PrivateNamespace(null,"10"),"validateTransformMatrix"), 0
+                                                   ofs002b:
+                                                            returnvoid
+                                                         end ; code
+                                                      end ; body
+                                                   end ; method
+                                                }
+                                                
+                                                override public function get rotationZ() : Number
+                                                {
+                                                   trait getter QName(PackageNamespace(""),"rotationZ")
+                                                      flag OVERRIDE
+                                                      dispid 0
+                                                      method
+                                                         name null
+                                                         returns QName(PackageNamespace(""),"Number")
+                                                         
+                                                         body
+                                                            maxstack 2
+                                                            localcount 1
+                                                            initscopedepth 10
+                                                            maxscopedepth 11
+                                                            
+                                                            code
+                                                               getlocal0
+                                                               pushscope
+                                                               getlocal0
+                                                               getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                               pushnull
+                                                               ifne ofs0014
+                                                               getlocal0
+                                                               getsuper QName(PackageNamespace(""),"rotationZ")
+                                                               convert_d
+                                                               jump ofs001c
+                                                      ofs0014:
+                                                               getlocal0
+                                                               getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                               getproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutRotationZ")
+                                                               convert_d
+                                                      ofs001c:
+                                                               returnvalue
+                                                            end ; code
+                                                         end ; body
+                                                      end ; method
+                                                   }
+                                                   
+                                                   override public function set rotationZ(param1:Number) : void
+                                                   {
+                                                      trait setter QName(PackageNamespace(""),"rotationZ")
+                                                         flag OVERRIDE
+                                                         dispid 0
+                                                         method
+                                                            name null
+                                                            param QName(PackageNamespace(""),"Number")
+                                                            returns QName(PackageNamespace(""),"void")
+                                                            
+                                                            body
+                                                               maxstack 2
+                                                               localcount 2
+                                                               initscopedepth 10
+                                                               maxscopedepth 11
+                                                               
+                                                               code
+                                                                  getlocal0
+                                                                  pushscope
+                                                                  getlocal0
+                                                                  getproperty QName(PackageNamespace(""),"rotationZ")
+                                                                  getlocal1
+                                                                  ifne ofs000c
+                                                                  returnvoid
+                                                         ofs000c:
+                                                                  getlocal0
+                                                                  getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                  pushnull
+                                                                  ifne ofs001e
+                                                                  getlocal0
+                                                                  getlocal1
+                                                                  setsuper QName(PackageNamespace(""),"rotationZ")
+                                                                  jump ofs002b
+                                                         ofs001e:
+                                                                  getlocal0
+                                                                  getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                  getlocal1
+                                                                  setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutRotationZ")
+                                                                  getlocal0
+                                                                  callpropvoid QName(PrivateNamespace(null,"10"),"validateTransformMatrix"), 0
+                                                         ofs002b:
+                                                                  returnvoid
+                                                               end ; code
+                                                            end ; body
+                                                         end ; method
+                                                      }
+                                                      
+                                                      override public function get rotation() : Number
+                                                      {
+                                                         trait getter QName(PackageNamespace(""),"rotation")
+                                                            flag OVERRIDE
+                                                            dispid 0
+                                                            method
+                                                               name null
+                                                               returns QName(PackageNamespace(""),"Number")
+                                                               
+                                                               body
+                                                                  maxstack 2
+                                                                  localcount 1
+                                                                  initscopedepth 10
+                                                                  maxscopedepth 11
+                                                                  
+                                                                  code
+                                                                     getlocal0
+                                                                     pushscope
+                                                                     getlocal0
+                                                                     getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                     pushnull
+                                                                     ifne ofs0014
+                                                                     getlocal0
+                                                                     getsuper QName(PackageNamespace(""),"rotation")
+                                                                     convert_d
+                                                                     jump ofs001c
+                                                            ofs0014:
+                                                                     getlocal0
+                                                                     getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                     getproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutRotationZ")
+                                                                     convert_d
+                                                            ofs001c:
+                                                                     returnvalue
+                                                                  end ; code
+                                                               end ; body
+                                                            end ; method
+                                                         }
+                                                         
+                                                         override public function set rotation(param1:Number) : void
+                                                         {
+                                                            trait setter QName(PackageNamespace(""),"rotation")
+                                                               flag OVERRIDE
+                                                               dispid 0
+                                                               method
+                                                                  name null
+                                                                  param QName(PackageNamespace(""),"Number")
+                                                                  returns QName(PackageNamespace(""),"void")
+                                                                  
+                                                                  body
+                                                                     maxstack 2
+                                                                     localcount 2
+                                                                     initscopedepth 10
+                                                                     maxscopedepth 11
+                                                                     
+                                                                     code
+                                                                        getlocal0
+                                                                        pushscope
+                                                                        getlocal0
+                                                                        getproperty QName(PackageNamespace(""),"rotation")
+                                                                        getlocal1
+                                                                        ifne ofs000c
+                                                                        returnvoid
+                                                               ofs000c:
+                                                                        getlocal0
+                                                                        getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                        pushnull
+                                                                        ifne ofs001e
+                                                                        getlocal0
+                                                                        getlocal1
+                                                                        setsuper QName(PackageNamespace(""),"rotation")
+                                                                        jump ofs002b
+                                                               ofs001e:
+                                                                        getlocal0
+                                                                        getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                        getlocal1
+                                                                        setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutRotationZ")
+                                                                        getlocal0
+                                                                        callpropvoid QName(PrivateNamespace(null,"10"),"validateTransformMatrix"), 0
+                                                               ofs002b:
+                                                                        returnvoid
+                                                                     end ; code
+                                                                  end ; body
+                                                               end ; method
+                                                            }
+                                                            
+                                                            override public function get scaleX() : Number
+                                                            {
+                                                               trait getter QName(PackageNamespace(""),"scaleX")
+                                                                  flag OVERRIDE
+                                                                  dispid 0
+                                                                  method
+                                                                     name null
+                                                                     returns QName(PackageNamespace(""),"Number")
+                                                                     
+                                                                     body
+                                                                        maxstack 2
+                                                                        localcount 1
+                                                                        initscopedepth 10
+                                                                        maxscopedepth 11
+                                                                        
+                                                                        code
+                                                                           getlocal0
+                                                                           pushscope
+                                                                           getlocal0
+                                                                           getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                           pushnull
+                                                                           ifne ofs0014
+                                                                           getlocal0
+                                                                           getsuper QName(PackageNamespace(""),"scaleX")
+                                                                           convert_d
+                                                                           jump ofs001c
+                                                                  ofs0014:
+                                                                           getlocal0
+                                                                           getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                           getproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutScaleX")
+                                                                           convert_d
+                                                                  ofs001c:
+                                                                           returnvalue
+                                                                        end ; code
+                                                                     end ; body
+                                                                  end ; method
+                                                               }
+                                                               
+                                                               override public function set scaleX(param1:Number) : void
+                                                               {
+                                                                  trait setter QName(PackageNamespace(""),"scaleX")
+                                                                     flag OVERRIDE
+                                                                     dispid 0
+                                                                     method
+                                                                        name null
+                                                                        param QName(PackageNamespace(""),"Number")
+                                                                        returns QName(PackageNamespace(""),"void")
+                                                                        
+                                                                        body
+                                                                           maxstack 3
+                                                                           localcount 2
+                                                                           initscopedepth 10
+                                                                           maxscopedepth 11
+                                                                           
+                                                                           code
+                                                                              getlocal0
+                                                                              pushscope
+                                                                              getlocal0
+                                                                              getproperty QName(PackageNamespace(""),"scaleX")
+                                                                              getlocal1
+                                                                              ifne ofs000c
+                                                                              returnvoid
+                                                                     ofs000c:
+                                                                              getlocal0
+                                                                              getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                              pushnull
+                                                                              ifne ofs001e
+                                                                              getlocal0
+                                                                              getlocal1
+                                                                              setsuper QName(PackageNamespace(""),"scaleX")
+                                                                              jump ofs003f
+                                                                     ofs001e:
+                                                                              getlocal0
+                                                                              getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                              getlocal1
+                                                                              setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutScaleX")
+                                                                              getlocal0
+                                                                              getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                              getlex QName(PackageNamespace(""),"Math")
+                                                                              getlocal1
+                                                                              callproperty QName(PackageNamespace(""),"abs"), 1
+                                                                              getlocal0
+                                                                              getproperty QName(PackageNamespace(""),"measuredWidth")
+                                                                              multiply
+                                                                              setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutWidth")
+                                                                              getlocal0
+                                                                              callpropvoid QName(PrivateNamespace(null,"10"),"validateTransformMatrix"), 0
+                                                                     ofs003f:
+                                                                              returnvoid
+                                                                           end ; code
+                                                                        end ; body
+                                                                     end ; method
+                                                                  }
+                                                                  
+                                                                  override public function get scaleY() : Number
+                                                                  {
+                                                                     trait getter QName(PackageNamespace(""),"scaleY")
+                                                                        flag OVERRIDE
+                                                                        dispid 0
+                                                                        method
+                                                                           name null
+                                                                           returns QName(PackageNamespace(""),"Number")
+                                                                           
+                                                                           body
+                                                                              maxstack 2
+                                                                              localcount 1
+                                                                              initscopedepth 10
+                                                                              maxscopedepth 11
+                                                                              
+                                                                              code
+                                                                                 getlocal0
+                                                                                 pushscope
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                                 pushnull
+                                                                                 ifne ofs0014
+                                                                                 getlocal0
+                                                                                 getsuper QName(PackageNamespace(""),"scaleY")
+                                                                                 convert_d
+                                                                                 jump ofs001c
+                                                                        ofs0014:
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                                 getproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutScaleY")
+                                                                                 convert_d
+                                                                        ofs001c:
+                                                                                 returnvalue
+                                                                              end ; code
+                                                                           end ; body
+                                                                        end ; method
+                                                                     }
+                                                                     
+                                                                     override public function set scaleY(param1:Number) : void
+                                                                     {
+                                                                        trait setter QName(PackageNamespace(""),"scaleY")
+                                                                           flag OVERRIDE
+                                                                           dispid 0
+                                                                           method
+                                                                              name null
+                                                                              param QName(PackageNamespace(""),"Number")
+                                                                              returns QName(PackageNamespace(""),"void")
+                                                                              
+                                                                              body
+                                                                                 maxstack 3
+                                                                                 localcount 2
+                                                                                 initscopedepth 10
+                                                                                 maxscopedepth 11
+                                                                                 
+                                                                                 code
+                                                                                    getlocal0
+                                                                                    pushscope
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"scaleY")
+                                                                                    getlocal1
+                                                                                    ifne ofs000c
+                                                                                    returnvoid
+                                                                           ofs000c:
+                                                                                    getlocal0
+                                                                                    getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                                    pushnull
+                                                                                    ifne ofs001e
+                                                                                    getlocal0
+                                                                                    getlocal1
+                                                                                    setsuper QName(PackageNamespace(""),"scaleY")
+                                                                                    jump ofs003c
+                                                                           ofs001e:
+                                                                                    getlocal0
+                                                                                    getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                                    getlocal1
+                                                                                    setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutScaleY")
+                                                                                    getlocal0
+                                                                                    getlex QName(PackageNamespace(""),"Math")
+                                                                                    getlocal1
+                                                                                    callproperty QName(PackageNamespace(""),"abs"), 1
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"measuredHeight")
+                                                                                    multiply
+                                                                                    initproperty QName(PrivateNamespace(null,"10"),"_height")
+                                                                                    getlocal0
+                                                                                    callpropvoid QName(PrivateNamespace(null,"10"),"validateTransformMatrix"), 0
+                                                                           ofs003c:
+                                                                                    returnvoid
+                                                                                 end ; code
+                                                                              end ; body
+                                                                           end ; method
+                                                                        }
+                                                                        
+                                                                        override public function get scaleZ() : Number
+                                                                        {
+                                                                           trait getter QName(PackageNamespace(""),"scaleZ")
+                                                                              flag OVERRIDE
+                                                                              dispid 0
+                                                                              method
+                                                                                 name null
+                                                                                 returns QName(PackageNamespace(""),"Number")
+                                                                                 
+                                                                                 body
+                                                                                    maxstack 2
+                                                                                    localcount 1
+                                                                                    initscopedepth 10
+                                                                                    maxscopedepth 11
+                                                                                    
+                                                                                    code
+                                                                                       getlocal0
+                                                                                       pushscope
+                                                                                       getlocal0
+                                                                                       getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                                       pushnull
+                                                                                       ifne ofs0014
+                                                                                       getlocal0
+                                                                                       getsuper QName(PackageNamespace(""),"scaleZ")
+                                                                                       convert_d
+                                                                                       jump ofs001c
+                                                                              ofs0014:
+                                                                                       getlocal0
+                                                                                       getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                                       getproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutScaleZ")
+                                                                                       convert_d
+                                                                              ofs001c:
+                                                                                       returnvalue
+                                                                                    end ; code
+                                                                                 end ; body
+                                                                              end ; method
+                                                                           }
+                                                                           
+                                                                           override public function set scaleZ(param1:Number) : void
+                                                                           {
+                                                                              trait setter QName(PackageNamespace(""),"scaleZ")
+                                                                                 flag OVERRIDE
+                                                                                 dispid 0
+                                                                                 method
+                                                                                    name null
+                                                                                    param QName(PackageNamespace(""),"Number")
+                                                                                    returns QName(PackageNamespace(""),"void")
+                                                                                    
+                                                                                    body
+                                                                                       maxstack 2
+                                                                                       localcount 2
+                                                                                       initscopedepth 10
+                                                                                       maxscopedepth 11
+                                                                                       
+                                                                                       code
+                                                                                          getlocal0
+                                                                                          pushscope
+                                                                                          getlocal0
+                                                                                          getproperty QName(PackageNamespace(""),"scaleZ")
+                                                                                          getlocal1
+                                                                                          ifne ofs000c
+                                                                                          returnvoid
+                                                                                 ofs000c:
+                                                                                          getlocal0
+                                                                                          getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                                          pushnull
+                                                                                          ifne ofs001e
+                                                                                          getlocal0
+                                                                                          getlocal1
+                                                                                          setsuper QName(PackageNamespace(""),"scaleZ")
+                                                                                          jump ofs002b
+                                                                                 ofs001e:
+                                                                                          getlocal0
+                                                                                          getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                                          getlocal1
+                                                                                          setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutScaleZ")
+                                                                                          getlocal0
+                                                                                          callpropvoid QName(PrivateNamespace(null,"10"),"validateTransformMatrix"), 0
+                                                                                 ofs002b:
+                                                                                          returnvoid
+                                                                                       end ; code
+                                                                                    end ; body
+                                                                                 end ; method
+                                                                              }
+                                                                              
+                                                                              public function get layoutDirection() : String
+                                                                              {
+                                                                                 trait getter QName(PackageNamespace(""),"layoutDirection")
+                                                                                    dispid 0
+                                                                                    method
+                                                                                       name null
+                                                                                       returns QName(PackageNamespace(""),"String")
+                                                                                       
+                                                                                       body
+                                                                                          maxstack 1
+                                                                                          localcount 1
+                                                                                          initscopedepth 10
+                                                                                          maxscopedepth 11
+                                                                                          
+                                                                                          code
+                                                                                             getlocal0
+                                                                                             pushscope
+                                                                                             getlocal0
+                                                                                             getproperty QName(PrivateNamespace(null,"10"),"_layoutDirection")
+                                                                                             returnvalue
+                                                                                          end ; code
+                                                                                       end ; body
+                                                                                    end ; method
+                                                                                 }
+                                                                                 
+                                                                                 public function set layoutDirection(param1:String) : void
+                                                                                 {
+                                                                                    trait setter QName(PackageNamespace(""),"layoutDirection")
+                                                                                       dispid 0
+                                                                                       method
+                                                                                          name null
+                                                                                          param QName(PackageNamespace(""),"String")
+                                                                                          returns QName(PackageNamespace(""),"void")
+                                                                                          
+                                                                                          body
+                                                                                             maxstack 2
+                                                                                             localcount 2
+                                                                                             initscopedepth 10
+                                                                                             maxscopedepth 11
+                                                                                             
+                                                                                             code
+                                                                                                getlocal0
+                                                                                                pushscope
+                                                                                                getlocal1
+                                                                                                getlocal0
+                                                                                                getproperty QName(PrivateNamespace(null,"10"),"_layoutDirection")
+                                                                                                ifne ofs000c
+                                                                                                returnvoid
+                                                                                       ofs000c:
+                                                                                                getlocal0
+                                                                                                getlocal1
+                                                                                                initproperty QName(PrivateNamespace(null,"10"),"_layoutDirection")
+                                                                                                getlocal0
+                                                                                                callpropvoid QName(PackageNamespace(""),"invalidateLayoutDirection"), 0
+                                                                                                returnvoid
+                                                                                             end ; code
+                                                                                          end ; body
+                                                                                       end ; method
+                                                                                    }
+                                                                                    
+                                                                                    public function get measuredHeight() : Number
+                                                                                    {
+                                                                                       trait getter QName(PackageNamespace(""),"measuredHeight")
+                                                                                          dispid 0
+                                                                                          method
+                                                                                             name null
+                                                                                             returns QName(PackageNamespace(""),"Number")
+                                                                                             
+                                                                                             body
+                                                                                                maxstack 1
+                                                                                                localcount 1
+                                                                                                initscopedepth 10
+                                                                                                maxscopedepth 11
+                                                                                                
+                                                                                                code
+                                                                                                   getlocal0
+                                                                                                   pushscope
+                                                                                                   getlocal0
+                                                                                                   getproperty QName(PrivateNamespace(null,"10"),"_measuredHeight")
+                                                                                                   returnvalue
+                                                                                                end ; code
+                                                                                             end ; body
+                                                                                          end ; method
+                                                                                       }
+                                                                                       
+                                                                                       public function get measuredWidth() : Number
+                                                                                       {
+                                                                                          trait getter QName(PackageNamespace(""),"measuredWidth")
+                                                                                             dispid 0
+                                                                                             method
+                                                                                                name null
+                                                                                                returns QName(PackageNamespace(""),"Number")
+                                                                                                
+                                                                                                body
+                                                                                                   maxstack 1
+                                                                                                   localcount 1
+                                                                                                   initscopedepth 10
+                                                                                                   maxscopedepth 11
+                                                                                                   
+                                                                                                   code
+                                                                                                      getlocal0
+                                                                                                      pushscope
+                                                                                                      getlocal0
+                                                                                                      getproperty QName(PrivateNamespace(null,"10"),"_measuredWidth")
+                                                                                                      returnvalue
+                                                                                                   end ; code
+                                                                                                end ; body
+                                                                                             end ; method
+                                                                                          }
+                                                                                          
+                                                                                          public function get borderMetrics() : EdgeMetrics
+                                                                                          {
+                                                                                             trait getter QName(PackageNamespace(""),"borderMetrics")
+                                                                                                dispid 0
+                                                                                                method
+                                                                                                   name null
+                                                                                                   returns QName(PackageNamespace("mx.core"),"EdgeMetrics")
+                                                                                                   
+                                                                                                   body
+                                                                                                      maxstack 7
+                                                                                                      localcount 1
+                                                                                                      initscopedepth 10
+                                                                                                      maxscopedepth 11
+                                                                                                      
+                                                                                                      code
+                                                                                                         getlocal0
+                                                                                                         pushscope
+                                                                                                         getlex QName(PackageNamespace(""),"scale9Grid")
+                                                                                                         pushnull
+                                                                                                         ifne ofs0010
+                                                                                                         getlex QName(PackageNamespace("mx.core"),"EdgeMetrics")
+                                                                                                         getproperty QName(PackageNamespace(""),"EMPTY")
+                                                                                                         returnvalue
+                                                                                                ofs0010:
+                                                                                                         findpropstrict QName(PackageNamespace("mx.core"),"EdgeMetrics")
+                                                                                                         getlex QName(PackageNamespace(""),"scale9Grid")
+                                                                                                         getproperty QName(PackageNamespace(""),"left")
+                                                                                                         getlex QName(PackageNamespace(""),"scale9Grid")
+                                                                                                         getproperty QName(PackageNamespace(""),"top")
+                                                                                                         getlex QName(PackageNamespace(""),"Math")
+                                                                                                         getlocal0
+                                                                                                         getproperty QName(PackageNamespace(""),"measuredWidth")
+                                                                                                         getlex QName(PackageNamespace(""),"scale9Grid")
+                                                                                                         getproperty QName(PackageNamespace(""),"right")
+                                                                                                         subtract
+                                                                                                         callproperty QName(PackageNamespace(""),"ceil"), 1
+                                                                                                         getlex QName(PackageNamespace(""),"Math")
+                                                                                                         getlocal0
+                                                                                                         getproperty QName(PackageNamespace(""),"measuredHeight")
+                                                                                                         getlex QName(PackageNamespace(""),"scale9Grid")
+                                                                                                         getproperty QName(PackageNamespace(""),"bottom")
+                                                                                                         subtract
+                                                                                                         callproperty QName(PackageNamespace(""),"ceil"), 1
+                                                                                                         constructprop QName(PackageNamespace("mx.core"),"EdgeMetrics"), 4
+                                                                                                         returnvalue
+                                                                                                      end ; code
+                                                                                                   end ; body
+                                                                                                end ; method
+                                                                                             }
+                                                                                             
+                                                                                             public function invalidateLayoutDirection() : void
+                                                                                             {
+                                                                                                trait method QName(PackageNamespace(""),"invalidateLayoutDirection")
+                                                                                                   dispid 0
+                                                                                                   method
+                                                                                                      name null
+                                                                                                      returns QName(PackageNamespace(""),"void")
+                                                                                                      
+                                                                                                      body
+                                                                                                         maxstack 3
+                                                                                                         localcount 3
+                                                                                                         initscopedepth 10
+                                                                                                         maxscopedepth 11
+                                                                                                         
+                                                                                                         code
+                                                                                                            getlocal0
+                                                                                                            pushscope
+                                                                                                            pushfalse
+                                                                                                            setlocal2
+                                                                                                            getlex QName(PackageNamespace(""),"parent")
+                                                                                                            coerce QName(PackageNamespace("flash.display"),"DisplayObjectContainer")
+                                                                                                            setlocal1
+                                                                                                            jump ofs00ab
+                                                                                                   ofs000e:
+                                                                                                            label
+                                                                                                            getlocal1
+                                                                                                            getlex QName(PackageNamespace("mx.core"),"ILayoutDirectionElement")
+                                                                                                            istypelate
+                                                                                                            iffalse ofs00a4
+                                                                                                            getlocal0
+                                                                                                            getproperty QName(PrivateNamespace(null,"10"),"_layoutDirection")
+                                                                                                            pushnull
+                                                                                                            equals
+                                                                                                            not
+                                                                                                            dup
+                                                                                                            iffalse ofs0033
+                                                                                                            pop
+                                                                                                            findpropstrict QName(PackageNamespace("mx.core"),"ILayoutDirectionElement")
+                                                                                                            getlocal1
+                                                                                                            callproperty QName(PackageNamespace("mx.core"),"ILayoutDirectionElement"), 1
+                                                                                                            getproperty QName(Namespace("mx.core:ILayoutDirectionElement"),"layoutDirection")
+                                                                                                            pushnull
+                                                                                                            equals
+                                                                                                            not
+                                                                                                   ofs0033:
+                                                                                                            dup
+                                                                                                            iffalse ofs004a
+                                                                                                            pop
+                                                                                                            getlocal0
+                                                                                                            getproperty QName(PrivateNamespace(null,"10"),"_layoutDirection")
+                                                                                                            findpropstrict QName(PackageNamespace("mx.core"),"ILayoutDirectionElement")
+                                                                                                            getlocal1
+                                                                                                            callproperty QName(PackageNamespace("mx.core"),"ILayoutDirectionElement"), 1
+                                                                                                            getproperty QName(Namespace("mx.core:ILayoutDirectionElement"),"layoutDirection")
+                                                                                                            equals
+                                                                                                            not
+                                                                                                   ofs004a:
+                                                                                                            convert_b
+                                                                                                            setlocal2
+                                                                                                            getlocal2
+                                                                                                            convert_b
+                                                                                                            dup
+                                                                                                            iffalse ofs005a
+                                                                                                            pop
+                                                                                                            getlocal0
+                                                                                                            getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                                                            pushnull
+                                                                                                            equals
+                                                                                                   ofs005a:
+                                                                                                            iffalse ofs007d
+                                                                                                            getlocal0
+                                                                                                            callpropvoid QName(PrivateNamespace(null,"10"),"initAdvancedLayoutFeatures"), 0
+                                                                                                            getlocal0
+                                                                                                            getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                                                            pushnull
+                                                                                                            ifeq ofs0079
+                                                                                                            getlocal0
+                                                                                                            getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                                                            getlocal2
+                                                                                                            setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"mirror")
+                                                                                                            getlocal0
+                                                                                                            callpropvoid QName(PrivateNamespace(null,"10"),"validateTransformMatrix"), 0
+                                                                                                   ofs0079:
+                                                                                                            jump ofs00a0
+                                                                                                   ofs007d:
+                                                                                                            getlocal2
+                                                                                                            not
+                                                                                                            dup
+                                                                                                            iffalse ofs008a
+                                                                                                            pop
+                                                                                                            getlocal0
+                                                                                                            getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                                                            convert_b
+                                                                                                   ofs008a:
+                                                                                                            iffalse ofs00a0
+                                                                                                            getlocal0
+                                                                                                            getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                                                            getlocal2
+                                                                                                            setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"mirror")
+                                                                                                            getlocal0
+                                                                                                            callpropvoid QName(PrivateNamespace(null,"10"),"validateTransformMatrix"), 0
+                                                                                                            getlocal0
+                                                                                                            pushnull
+                                                                                                            initproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                                                   ofs00a0:
+                                                                                                            jump ofs00b0
+                                                                                                   ofs00a4:
+                                                                                                            getlocal1
+                                                                                                            getproperty QName(PackageNamespace(""),"parent")
+                                                                                                            coerce QName(PackageNamespace("flash.display"),"DisplayObjectContainer")
+                                                                                                            setlocal1
+                                                                                                   ofs00ab:
+                                                                                                            getlocal1
+                                                                                                            iftrue ofs000e
+                                                                                                   ofs00b0:
+                                                                                                            returnvoid
+                                                                                                         end ; code
+                                                                                                      end ; body
+                                                                                                   end ; method
+                                                                                                }
+                                                                                                
+                                                                                                public function move(param1:Number, param2:Number) : void
+                                                                                                {
+                                                                                                   trait method QName(PackageNamespace(""),"move")
+                                                                                                      dispid 0
+                                                                                                      method
+                                                                                                         name null
+                                                                                                         param QName(PackageNamespace(""),"Number")
+                                                                                                         param QName(PackageNamespace(""),"Number")
+                                                                                                         returns QName(PackageNamespace(""),"void")
+                                                                                                         
+                                                                                                         body
+                                                                                                            maxstack 2
+                                                                                                            localcount 3
+                                                                                                            initscopedepth 10
+                                                                                                            maxscopedepth 11
+                                                                                                            
+                                                                                                            code
+                                                                                                               getlocal0
+                                                                                                               pushscope
+                                                                                                               getlocal0
+                                                                                                               getlocal1
+                                                                                                               setproperty QName(PackageNamespace(""),"x")
+                                                                                                               getlocal0
+                                                                                                               getlocal2
+                                                                                                               setproperty QName(PackageNamespace(""),"y")
+                                                                                                               returnvoid
+                                                                                                            end ; code
+                                                                                                         end ; body
+                                                                                                      end ; method
+                                                                                                   }
+                                                                                                   
+                                                                                                   public function setActualSize(param1:Number, param2:Number) : void
+                                                                                                   {
+                                                                                                      trait method QName(PackageNamespace(""),"setActualSize")
+                                                                                                         dispid 0
+                                                                                                         method
+                                                                                                            name null
+                                                                                                            param QName(PackageNamespace(""),"Number")
+                                                                                                            param QName(PackageNamespace(""),"Number")
+                                                                                                            returns QName(PackageNamespace(""),"void")
+                                                                                                            
+                                                                                                            body
+                                                                                                               maxstack 2
+                                                                                                               localcount 3
+                                                                                                               initscopedepth 10
+                                                                                                               maxscopedepth 11
+                                                                                                               
+                                                                                                               code
+                                                                                                                  getlocal0
+                                                                                                                  pushscope
+                                                                                                                  getlocal0
+                                                                                                                  getlocal1
+                                                                                                                  initproperty QName(PackageNamespace(""),"width")
+                                                                                                                  getlocal0
+                                                                                                                  getlocal2
+                                                                                                                  initproperty QName(PackageNamespace(""),"height")
+                                                                                                                  returnvoid
+                                                                                                               end ; code
+                                                                                                            end ; body
+                                                                                                         end ; method
+                                                                                                      }
+                                                                                                      
+                                                                                                      private function addedHandler(param1:Event) : void
+                                                                                                      {
+                                                                                                         trait method QName(PrivateNamespace(null,"10"),"addedHandler")
+                                                                                                            dispid 0
+                                                                                                            method
+                                                                                                               name null
+                                                                                                               param QName(PackageNamespace("flash.events"),"Event")
+                                                                                                               returns QName(PackageNamespace(""),"void")
+                                                                                                               
+                                                                                                               body
+                                                                                                                  maxstack 1
+                                                                                                                  localcount 2
+                                                                                                                  initscopedepth 10
+                                                                                                                  maxscopedepth 11
+                                                                                                                  
+                                                                                                                  code
+                                                                                                                     getlocal0
+                                                                                                                     pushscope
+                                                                                                                     getlocal0
+                                                                                                                     callpropvoid QName(PackageNamespace(""),"invalidateLayoutDirection"), 0
+                                                                                                                     returnvoid
+                                                                                                                  end ; code
+                                                                                                               end ; body
+                                                                                                            end ; method
+                                                                                                         }
+                                                                                                         
+                                                                                                         private function initAdvancedLayoutFeatures() : void
+                                                                                                         {
+                                                                                                            trait method QName(PrivateNamespace(null,"10"),"initAdvancedLayoutFeatures")
+                                                                                                               dispid 0
+                                                                                                               method
+                                                                                                                  name null
+                                                                                                                  returns QName(PackageNamespace(""),"void")
+                                                                                                                  
+                                                                                                                  body
+                                                                                                                     maxstack 4
+                                                                                                                     localcount 3
+                                                                                                                     initscopedepth 10
+                                                                                                                     maxscopedepth 11
+                                                                                                                     
+                                                                                                                     code
+                                                                                                                        getlocal0
+                                                                                                                        pushscope
+                                                                                                                        pushnull
+                                                                                                                        coerce QName(PackageNamespace("flash.system"),"ApplicationDomain")
+                                                                                                                        setlocal1
+                                                                                                                        pushnull
+                                                                                                                        coerce QName(PackageNamespace("mx.core"),"IAssetLayoutFeatures")
+                                                                                                                        setlocal2
+                                                                                                                        getlocal0
+                                                                                                                        getproperty QName(PrivateNamespace(null,"10"),"layoutFeaturesClass")
+                                                                                                                        pushnull
+                                                                                                                        ifne ofs0060
+                                                                                                                        getlex QName(PackageNamespace("flash.system"),"ApplicationDomain")
+                                                                                                                        getproperty QName(PackageNamespace(""),"currentDomain")
+                                                                                                                        coerce QName(PackageNamespace("flash.system"),"ApplicationDomain")
+                                                                                                                        setlocal1
+                                                                                                                        getlocal1
+                                                                                                                        pushstring "mx.core::AdvancedLayoutFeatures"
+                                                                                                                        callproperty QName(PackageNamespace(""),"hasDefinition"), 1
+                                                                                                                        iffalse ofs0039
+                                                                                                                        getlocal0
+                                                                                                                        findpropstrict QName(PackageNamespace(""),"Class")
+                                                                                                                        getlocal1
+                                                                                                                        pushstring "mx.core::AdvancedLayoutFeatures"
+                                                                                                                        callproperty QName(PackageNamespace(""),"getDefinition"), 1
+                                                                                                                        callproperty QName(PackageNamespace(""),"Class"), 1
+                                                                                                                        initproperty QName(PrivateNamespace(null,"10"),"layoutFeaturesClass")
+                                                                                                               ofs0039:
+                                                                                                                        getlex QName(PrivateNamespace(null,"10"),"MatrixUtilClass")
+                                                                                                                        pushnull
+                                                                                                                        ifne ofs0060
+                                                                                                                        getlocal1
+                                                                                                                        pushstring "mx.utils::MatrixUtil"
+                                                                                                                        callproperty QName(PackageNamespace(""),"hasDefinition"), 1
+                                                                                                                        iffalse ofs0060
+                                                                                                                        findproperty QName(PrivateNamespace(null,"10"),"MatrixUtilClass")
+                                                                                                                        findpropstrict QName(PackageNamespace(""),"Class")
+                                                                                                                        getlocal1
+                                                                                                                        pushstring "mx.utils::MatrixUtil"
+                                                                                                                        callproperty QName(PackageNamespace(""),"getDefinition"), 1
+                                                                                                                        callproperty QName(PackageNamespace(""),"Class"), 1
+                                                                                                                        setproperty QName(PrivateNamespace(null,"10"),"MatrixUtilClass")
+                                                                                                               ofs0060:
+                                                                                                                        getlocal0
+                                                                                                                        getproperty QName(PrivateNamespace(null,"10"),"layoutFeaturesClass")
+                                                                                                                        pushnull
+                                                                                                                        ifeq ofs00cf
+                                                                                                                        getlocal0
+                                                                                                                        constructprop QName(PrivateNamespace(null,"10"),"layoutFeaturesClass"), 0
+                                                                                                                        coerce QName(PackageNamespace("mx.core"),"IAssetLayoutFeatures")
+                                                                                                                        setlocal2
+                                                                                                                        getlocal2
+                                                                                                                        getlocal0
+                                                                                                                        getproperty QName(PackageNamespace(""),"scaleX")
+                                                                                                                        setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutScaleX")
+                                                                                                                        getlocal2
+                                                                                                                        getlocal0
+                                                                                                                        getproperty QName(PackageNamespace(""),"scaleY")
+                                                                                                                        setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutScaleY")
+                                                                                                                        getlocal2
+                                                                                                                        getlocal0
+                                                                                                                        getproperty QName(PackageNamespace(""),"scaleZ")
+                                                                                                                        setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutScaleZ")
+                                                                                                                        getlocal2
+                                                                                                                        getlocal0
+                                                                                                                        getproperty QName(PackageNamespace(""),"rotationX")
+                                                                                                                        setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutRotationX")
+                                                                                                                        getlocal2
+                                                                                                                        getlocal0
+                                                                                                                        getproperty QName(PackageNamespace(""),"rotationY")
+                                                                                                                        setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutRotationY")
+                                                                                                                        getlocal2
+                                                                                                                        getlocal0
+                                                                                                                        getproperty QName(PackageNamespace(""),"rotation")
+                                                                                                                        setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutRotationZ")
+                                                                                                                        getlocal2
+                                                                                                                        getlocal0
+                                                                                                                        getproperty QName(PackageNamespace(""),"x")
+                                                                                                                        setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutX")
+                                                                                                                        getlocal2
+                                                                                                                        getlocal0
+                                                                                                                        getproperty QName(PackageNamespace(""),"y")
+                                                                                                                        setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutY")
+                                                                                                                        getlocal2
+                                                                                                                        getlocal0
+                                                                                                                        getproperty QName(PackageNamespace(""),"z")
+                                                                                                                        setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutZ")
+                                                                                                                        getlocal2
+                                                                                                                        getlocal0
+                                                                                                                        getproperty QName(PackageNamespace(""),"width")
+                                                                                                                        setproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"layoutWidth")
+                                                                                                                        getlocal0
+                                                                                                                        getlocal0
+                                                                                                                        getproperty QName(PackageNamespace(""),"height")
+                                                                                                                        initproperty QName(PrivateNamespace(null,"10"),"_height")
+                                                                                                                        getlocal0
+                                                                                                                        getlocal2
+                                                                                                                        initproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                                                               ofs00cf:
+                                                                                                                        returnvoid
+                                                                                                                     end ; code
+                                                                                                                  end ; body
+                                                                                                               end ; method
+                                                                                                            }
+                                                                                                            
+                                                                                                            private function validateTransformMatrix() : void
+                                                                                                            {
+                                                                                                               trait method QName(PrivateNamespace(null,"10"),"validateTransformMatrix")
+                                                                                                                  dispid 0
+                                                                                                                  method
+                                                                                                                     name null
+                                                                                                                     returns QName(PackageNamespace(""),"void")
+                                                                                                                     
+                                                                                                                     body
+                                                                                                                        maxstack 2
+                                                                                                                        localcount 1
+                                                                                                                        initscopedepth 10
+                                                                                                                        maxscopedepth 11
+                                                                                                                        
+                                                                                                                        code
+                                                                                                                           getlocal0
+                                                                                                                           pushscope
+                                                                                                                           getlocal0
+                                                                                                                           getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                                                                           pushnull
+                                                                                                                           ifeq ofs0036
+                                                                                                                           getlocal0
+                                                                                                                           getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                                                                           getproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"is3D")
+                                                                                                                           iffalse ofs0028
+                                                                                                                           getlocal0
+                                                                                                                           getsuper QName(PackageNamespace(""),"transform")
+                                                                                                                           getlocal0
+                                                                                                                           getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                                                                           getproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"computedMatrix3D")
+                                                                                                                           setproperty QName(PackageNamespace(""),"matrix3D")
+                                                                                                                           jump ofs0036
+                                                                                                                  ofs0028:
+                                                                                                                           getlocal0
+                                                                                                                           getsuper QName(PackageNamespace(""),"transform")
+                                                                                                                           getlocal0
+                                                                                                                           getproperty QName(PrivateNamespace(null,"10"),"layoutFeatures")
+                                                                                                                           getproperty QName(Namespace("mx.core:IAssetLayoutFeatures"),"computedMatrix")
+                                                                                                                           setproperty QName(PackageNamespace(""),"matrix")
+                                                                                                                  ofs0036:
+                                                                                                                           returnvoid
+                                                                                                                        end ; code
+                                                                                                                     end ; body
+                                                                                                                  end ; method
+                                                                                                               }
+                                                                                                            }
+                                                                                                         }
+                                                                                                         
+                                                                                                         method
+                                                                                                            name null
+                                                                                                            returns null
+                                                                                                            
+                                                                                                            body
+                                                                                                               maxstack 2
+                                                                                                               localcount 1
+                                                                                                               initscopedepth 1
+                                                                                                               maxscopedepth 9
+                                                                                                               
+                                                                                                               code
+                                                                                                                  getlocal0
+                                                                                                                  pushscope
+                                                                                                                  findpropstrict Multiname("SpriteAsset",[PackageNamespace("mx.core")])
+                                                                                                                  getlex QName(PackageNamespace(""),"Object")
+                                                                                                                  pushscope
+                                                                                                                  getlex QName(PackageNamespace("flash.events"),"EventDispatcher")
+                                                                                                                  pushscope
+                                                                                                                  getlex QName(PackageNamespace("flash.display"),"DisplayObject")
+                                                                                                                  pushscope
+                                                                                                                  getlex QName(PackageNamespace("flash.display"),"InteractiveObject")
+                                                                                                                  pushscope
+                                                                                                                  getlex QName(PackageNamespace("flash.display"),"DisplayObjectContainer")
+                                                                                                                  pushscope
+                                                                                                                  getlex QName(PackageNamespace("flash.display"),"Sprite")
+                                                                                                                  pushscope
+                                                                                                                  getlex QName(PackageNamespace("mx.core"),"FlexSprite")
+                                                                                                                  pushscope
+                                                                                                                  getlex QName(PackageNamespace("mx.core"),"FlexSprite")
+                                                                                                                  newclass 18
+                                                                                                                  popscope
+                                                                                                                  popscope
+                                                                                                                  popscope
+                                                                                                                  popscope
+                                                                                                                  popscope
+                                                                                                                  popscope
+                                                                                                                  popscope
+                                                                                                                  initproperty QName(PackageNamespace("mx.core"),"SpriteAsset")
+                                                                                                                  returnvoid
+                                                                                                               end ; code
+                                                                                                            end ; body
+                                                                                                         end ; method
+                                                                                                         

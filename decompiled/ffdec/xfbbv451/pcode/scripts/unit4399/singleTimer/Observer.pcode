@@ -1,0 +1,332 @@
+package unit4399.singleTimer
+{
+   public class Observer
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var _notify:Function;
+      
+      private var _context:Object;
+      
+      private var _arags:Array;
+      
+      public function Observer(param1:Function = null, param2:Object = null, param3:Array = null)
+      {
+         method
+            name null
+            flag HAS_OPTIONAL
+            param QName(PackageNamespace(""),"Function")
+            param QName(PackageNamespace(""),"Object")
+            param QName(PackageNamespace(""),"Array")
+            optional Null()
+            optional Null()
+            optional Null()
+            returns null
+            
+            body
+               maxstack 2
+               localcount 4
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  getlocal0
+                  getlocal1
+                  callpropvoid QName(PackageNamespace(""),"setNotifyMethod"), 1
+                  getlocal0
+                  getlocal2
+                  callpropvoid QName(PackageNamespace(""),"setNotifyContext"), 1
+                  getlocal0
+                  getlocal3
+                  callpropvoid QName(PackageNamespace(""),"setNotifyArags"), 1
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function notifyObserver(param1:int) : void
+      {
+         trait method QName(PackageNamespace(""),"notifyObserver")
+            dispid 0
+            method
+               name null
+               param QName(PackageNamespace(""),"int")
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 4
+                  localcount 2
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"9"),"_context")
+                     pushnull
+                     ifne ofs0019
+                     findpropstrict QName(PackageNamespace(""),"ArgumentError")
+                     getlex QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskRunErrorType")
+                     getproperty QName(PackageNamespace(""),"OBSERVER_NOT_CONTEXT")
+                     constructprop QName(PackageNamespace(""),"ArgumentError"), 1
+                     throw
+            ofs0019:
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"9"),"_notify")
+                     pushnull
+                     ifne ofs0030
+                     findpropstrict QName(PackageNamespace(""),"ArgumentError")
+                     getlex QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskRunErrorType")
+                     getproperty QName(PackageNamespace(""),"OBSERVER_NOT_FUNC")
+                     constructprop QName(PackageNamespace(""),"ArgumentError"), 1
+                     throw
+            ofs0030:
+                     getlocal0
+                     callproperty QName(PrivateNamespace(null,"9"),"getNotifyMethod"), 0
+                     getlocal0
+                     callproperty QName(PrivateNamespace(null,"9"),"getNotifyContext"), 0
+                     getlocal1
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"9"),"_arags")
+                     newarray 2
+                     callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"apply"), 2
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function setNotifyMethod(param1:Function) : void
+         {
+            trait method QName(PackageNamespace(""),"setNotifyMethod")
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace(""),"Function")
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 2
+                     localcount 2
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        getlocal1
+                        initproperty QName(PrivateNamespace(null,"9"),"_notify")
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function setNotifyContext(param1:Object) : void
+            {
+               trait method QName(PackageNamespace(""),"setNotifyContext")
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace(""),"Object")
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 2
+                        localcount 2
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           getlocal1
+                           initproperty QName(PrivateNamespace(null,"9"),"_context")
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function setNotifyArags(param1:Array) : void
+               {
+                  trait method QName(PackageNamespace(""),"setNotifyArags")
+                     dispid 0
+                     method
+                        name null
+                        param QName(PackageNamespace(""),"Array")
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 2
+                           localcount 2
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              getlocal1
+                              initproperty QName(PrivateNamespace(null,"9"),"_arags")
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function compareNotifyContext(param1:Object) : Boolean
+                  {
+                     trait method QName(PackageNamespace(""),"compareNotifyContext")
+                        dispid 0
+                        method
+                           name null
+                           param QName(PackageNamespace(""),"Object")
+                           returns QName(PackageNamespace(""),"Boolean")
+                           
+                           body
+                              maxstack 2
+                              localcount 2
+                              initscopedepth 4
+                              maxscopedepth 5
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal1
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"9"),"_context")
+                                 strictequals
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     private function getNotifyMethod() : Function
+                     {
+                        trait method QName(PrivateNamespace(null,"9"),"getNotifyMethod")
+                           dispid 0
+                           method
+                              name null
+                              returns QName(PackageNamespace(""),"Function")
+                              
+                              body
+                                 maxstack 1
+                                 localcount 1
+                                 initscopedepth 4
+                                 maxscopedepth 5
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"9"),"_notify")
+                                    returnvalue
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        private function getNotifyContext() : Object
+                        {
+                           trait method QName(PrivateNamespace(null,"9"),"getNotifyContext")
+                              dispid 0
+                              method
+                                 name null
+                                 returns QName(PackageNamespace(""),"Object")
+                                 
+                                 body
+                                    maxstack 1
+                                    localcount 1
+                                    initscopedepth 4
+                                    maxscopedepth 5
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"9"),"_context")
+                                       returnvalue
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           private function getNotifyArags() : Array
+                           {
+                              trait method QName(PrivateNamespace(null,"9"),"getNotifyArags")
+                                 dispid 0
+                                 method
+                                    name null
+                                    returns QName(PackageNamespace(""),"Array")
+                                    
+                                    body
+                                       maxstack 1
+                                       localcount 1
+                                       initscopedepth 4
+                                       maxscopedepth 5
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"9"),"_arags")
+                                          returnvalue
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                           }
+                        }
+                        
+                        method
+                           name null
+                           returns null
+                           
+                           body
+                              maxstack 2
+                              localcount 1
+                              initscopedepth 1
+                              maxscopedepth 3
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 findpropstrict Multiname("Observer",[PackageNamespace("unit4399.singleTimer")])
+                                 getlex QName(PackageNamespace(""),"Object")
+                                 pushscope
+                                 getlex QName(PackageNamespace(""),"Object")
+                                 newclass 24
+                                 popscope
+                                 initproperty QName(PackageNamespace("unit4399.singleTimer"),"Observer")
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                        

@@ -1,0 +1,912 @@
+package unit4399.road.loader
+{
+   import flash.display.Loader;
+   import flash.events.ErrorEvent;
+   import flash.events.Event;
+   import flash.events.IOErrorEvent;
+   import flash.events.SecurityErrorEvent;
+   import flash.net.URLLoader;
+   import flash.net.URLLoaderDataFormat;
+   import flash.net.URLRequest;
+   import flash.system.LoaderContext;
+   import flash.utils.ByteArray;
+   
+   public class DisplayLoader extends Loader implements ILoader
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 8
+            maxscopedepth 9
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      protected var _url:URLRequest;
+      
+      public var isSuccess:Boolean;
+      
+      private var _bytesLoader:URLLoader;
+      
+      private var _func:Function;
+      
+      private var _tryTime:int;
+      
+      private var _starting:Boolean;
+      
+      private var _hadTryTime:int;
+      
+      public function DisplayLoader(param1:String, param2:Function = null)
+      {
+         method
+            name null
+            flag HAS_OPTIONAL
+            param QName(PackageNamespace(""),"String")
+            param QName(PackageNamespace(""),"Function")
+            optional Null()
+            returns null
+            
+            body
+               maxstack 3
+               localcount 3
+               initscopedepth 9
+               maxscopedepth 10
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  getlocal0
+                  findpropstrict QName(PackageNamespace("flash.net"),"URLRequest")
+                  getlocal1
+                  constructprop QName(PackageNamespace("flash.net"),"URLRequest"), 1
+                  initproperty QName(ProtectedNamespace("unit4399.road.loader:DisplayLoader"),"_url")
+                  getlocal0
+                  getproperty QName(PackageNamespace(""),"contentLoaderInfo")
+                  getlex QName(PackageNamespace("flash.events"),"Event")
+                  getproperty QName(PackageNamespace(""),"COMPLETE")
+                  getlocal0
+                  getproperty QName(PrivateNamespace(null,"6"),"__completed")
+                  callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                  getlocal0
+                  getproperty QName(PackageNamespace(""),"contentLoaderInfo")
+                  getlex QName(PackageNamespace("flash.events"),"IOErrorEvent")
+                  getproperty QName(PackageNamespace(""),"IO_ERROR")
+                  getlocal0
+                  getproperty QName(PrivateNamespace(null,"6"),"__error")
+                  callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                  getlocal0
+                  getproperty QName(PackageNamespace(""),"contentLoaderInfo")
+                  getlex QName(PackageNamespace("flash.events"),"SecurityErrorEvent")
+                  getproperty QName(PackageNamespace(""),"SECURITY_ERROR")
+                  getlocal0
+                  getproperty QName(PrivateNamespace(null,"6"),"__error")
+                  callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                  getlocal0
+                  pushfalse
+                  initproperty QName(PackageNamespace(""),"isSuccess")
+                  getlocal0
+                  pushbyte 1
+                  initproperty QName(PrivateNamespace(null,"6"),"_hadTryTime")
+                  getlocal0
+                  getlocal2
+                  initproperty QName(PrivateNamespace(null,"6"),"_func")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      protected function onError(param1:Event) : void
+      {
+         trait method QName(ProtectedNamespace("unit4399.road.loader:DisplayLoader"),"onError")
+            dispid 0
+            method
+               name null
+               param QName(PackageNamespace("flash.events"),"Event")
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 3
+                  localcount 2
+                  initscopedepth 9
+                  maxscopedepth 10
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"6"),"_func")
+                     pushnull
+                     ifeq ofs0012
+                     getlocal0
+                     pushnull
+                     getlocal1
+                     callpropvoid QName(PrivateNamespace(null,"6"),"_func"), 2
+            ofs0012:
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function dispose() : void
+         {
+            trait method QName(PackageNamespace(""),"dispose")
+               dispid 0
+               method
+                  name null
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 3
+                     localcount 1
+                     initscopedepth 9
+                     maxscopedepth 10
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        callpropvoid QName(PackageNamespace(""),"cancel"), 0
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"contentLoaderInfo")
+                        getlex QName(PackageNamespace("flash.events"),"Event")
+                        getproperty QName(PackageNamespace(""),"COMPLETE")
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"6"),"__completed")
+                        callpropvoid QName(PackageNamespace(""),"removeEventListener"), 2
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"contentLoaderInfo")
+                        getlex QName(PackageNamespace("flash.events"),"IOErrorEvent")
+                        getproperty QName(PackageNamespace(""),"IO_ERROR")
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"6"),"__error")
+                        callpropvoid QName(PackageNamespace(""),"removeEventListener"), 2
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"contentLoaderInfo")
+                        getlex QName(PackageNamespace("flash.events"),"SecurityErrorEvent")
+                        getproperty QName(PackageNamespace(""),"SECURITY_ERROR")
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"6"),"__error")
+                        callpropvoid QName(PackageNamespace(""),"removeEventListener"), 2
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"6"),"_bytesLoader")
+                        iffalse ofs0077
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"6"),"_bytesLoader")
+                        getlex QName(PackageNamespace("flash.events"),"Event")
+                        getproperty QName(PackageNamespace(""),"COMPLETE")
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"6"),"__bytesLoadComplete")
+                        callpropvoid QName(PackageNamespace(""),"removeEventListener"), 2
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"6"),"_bytesLoader")
+                        getlex QName(PackageNamespace("flash.events"),"IOErrorEvent")
+                        getproperty QName(PackageNamespace(""),"IO_ERROR")
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"6"),"__error")
+                        callpropvoid QName(PackageNamespace(""),"removeEventListener"), 2
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"6"),"_bytesLoader")
+                        getlex QName(PackageNamespace("flash.events"),"SecurityErrorEvent")
+                        getproperty QName(PackageNamespace(""),"SECURITY_ERROR")
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"6"),"__error")
+                        callpropvoid QName(PackageNamespace(""),"removeEventListener"), 2
+               ofs0077:
+                        getlocal0
+                        pushnull
+                        initproperty QName(PrivateNamespace(null,"6"),"_func")
+                        findpropstrict QName(PackageNamespace(""),"unload")
+                        callpropvoid QName(PackageNamespace(""),"unload"), 0
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function isStarted() : Boolean
+            {
+               trait method QName(PackageNamespace(""),"isStarted")
+                  dispid 0
+                  method
+                     name null
+                     returns QName(PackageNamespace(""),"Boolean")
+                     
+                     body
+                        maxstack 1
+                        localcount 1
+                        initscopedepth 9
+                        maxscopedepth 10
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"6"),"_starting")
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               protected function onCanceled() : void
+               {
+                  trait method QName(ProtectedNamespace("unit4399.road.loader:DisplayLoader"),"onCanceled")
+                     dispid 0
+                     method
+                        name null
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 1
+                           localcount 1
+                           initscopedepth 9
+                           maxscopedepth 10
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  private function __bytesLoadError(param1:Event) : void
+                  {
+                     trait method QName(PrivateNamespace(null,"6"),"__bytesLoadError")
+                        dispid 0
+                        method
+                           name null
+                           param QName(PackageNamespace("flash.events"),"Event")
+                           returns QName(PackageNamespace(""),"void")
+                           
+                           body
+                              maxstack 2
+                              localcount 2
+                              initscopedepth 9
+                              maxscopedepth 10
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal0
+                                 getlocal1
+                                 callpropvoid QName(PrivateNamespace(null,"6"),"__error"), 1
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public function loadSync(param1:Function = null, param2:int = 1) : void
+                     {
+                        trait method QName(PackageNamespace(""),"loadSync")
+                           dispid 0
+                           method
+                              name null
+                              flag HAS_OPTIONAL
+                              param QName(PackageNamespace(""),"Function")
+                              param QName(PackageNamespace(""),"int")
+                              optional Null()
+                              optional Integer(1)
+                              returns QName(PackageNamespace(""),"void")
+                              
+                              body
+                                 maxstack 2
+                                 localcount 3
+                                 initscopedepth 9
+                                 maxscopedepth 10
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlocal1
+                                    pushnull
+                                    ifeq ofs0012
+                                    getlocal0
+                                    getlocal1
+                                    initproperty QName(PrivateNamespace(null,"6"),"_func")
+                                    getlocal0
+                                    getlocal2
+                                    initproperty QName(PrivateNamespace(null,"6"),"_tryTime")
+                           ofs0012:
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"6"),"_starting")
+                                    iftrue ofs003b
+                                    getlex QName(PackageNamespace("unit4399.road.loader"),"LoaderManager")
+                                    getlocal0
+                                    callproperty QName(PackageNamespace(""),"canStart"), 1
+                                    iffalse ofs0033
+                                    getlocal0
+                                    getlocal0
+                                    getproperty QName(ProtectedNamespace("unit4399.road.loader:DisplayLoader"),"_url")
+                                    callpropvoid QName(PackageNamespace(""),"load"), 1
+                                    jump ofs003b
+                           ofs0033:
+                                    getlex QName(PackageNamespace("unit4399.road.loader"),"LoaderManager")
+                                    getlocal0
+                                    callpropvoid QName(PackageNamespace(""),"manageLoader"), 1
+                           ofs003b:
+                                    returnvoid
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        public function get callBack() : Function
+                        {
+                           trait getter QName(PackageNamespace(""),"callBack")
+                              dispid 0
+                              method
+                                 name null
+                                 returns QName(PackageNamespace(""),"Function")
+                                 
+                                 body
+                                    maxstack 1
+                                    localcount 1
+                                    initscopedepth 9
+                                    maxscopedepth 10
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"6"),"_func")
+                                       returnvalue
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           public function get tryTime() : int
+                           {
+                              trait getter QName(PackageNamespace(""),"tryTime")
+                                 dispid 0
+                                 method
+                                    name null
+                                    returns QName(PackageNamespace(""),"int")
+                                    
+                                    body
+                                       maxstack 1
+                                       localcount 1
+                                       initscopedepth 9
+                                       maxscopedepth 10
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"6"),"_tryTime")
+                                          returnvalue
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              private function __bytesLoadComplete(param1:Event) : void
+                              {
+                                 trait method QName(PrivateNamespace(null,"6"),"__bytesLoadComplete")
+                                    dispid 0
+                                    method
+                                       name null
+                                       param QName(PackageNamespace("flash.events"),"Event")
+                                       returns QName(PackageNamespace(""),"void")
+                                       
+                                       body
+                                          maxstack 4
+                                          localcount 2
+                                          initscopedepth 9
+                                          maxscopedepth 10
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlex QName(PackageNamespace("unit4399.road.loader"),"LoaderManager")
+                                             getlocal0
+                                             getproperty QName(ProtectedNamespace("unit4399.road.loader:DisplayLoader"),"_url")
+                                             getproperty QName(PackageNamespace(""),"url")
+                                             getlocal0
+                                             getproperty QName(PrivateNamespace(null,"6"),"_bytesLoader")
+                                             getproperty QName(PackageNamespace(""),"data")
+                                             getlex QName(PackageNamespace("flash.utils"),"ByteArray")
+                                             astypelate
+                                             pushtrue
+                                             callpropvoid QName(PackageNamespace(""),"cacheFile"), 3
+                                             findpropstrict QName(PackageNamespace(""),"loadBytes")
+                                             getlocal0
+                                             getproperty QName(PrivateNamespace(null,"6"),"_bytesLoader")
+                                             getproperty QName(PackageNamespace(""),"data")
+                                             getlex QName(PackageNamespace("flash.utils"),"ByteArray")
+                                             astypelate
+                                             callpropvoid QName(PackageNamespace(""),"loadBytes"), 1
+                                             getlocal0
+                                             pushnull
+                                             initproperty QName(PrivateNamespace(null,"6"),"_bytesLoader")
+                                             returnvoid
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 private function __completed(param1:Event) : void
+                                 {
+                                    trait method QName(PrivateNamespace(null,"6"),"__completed")
+                                       dispid 0
+                                       method
+                                          name null
+                                          flag NEED_ACTIVATION
+                                          param QName(PackageNamespace("flash.events"),"Event")
+                                          returns QName(PackageNamespace(""),"void")
+                                          
+                                          body
+                                             maxstack 3
+                                             localcount 4
+                                             initscopedepth 10
+                                             maxscopedepth 15
+                                             trait slot QName(PackageInternalNs("unit4399.road.loader"),"event")
+                                                slotid 1
+                                                type QName(PackageNamespace("flash.events"),"Event")
+                                             end ; trait
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                newactivation
+                                                dup
+                                                setlocal2
+                                                pushscope
+                                                getscopeobject 1
+                                                getlocal1
+                                                setslot 1
+                                       ofs000b:
+                                                getlocal0
+                                                pushfalse
+                                                initproperty QName(PrivateNamespace(null,"6"),"_starting")
+                                                getlex QName(PackageNamespace("unit4399.road.loader"),"LoaderManager")
+                                                getlocal0
+                                                callpropvoid QName(PackageNamespace(""),"EndLoader"), 1
+                                                getlocal0
+                                                pushtrue
+                                                initproperty QName(PackageNamespace(""),"isSuccess")
+                                                getlocal0
+                                                getscopeobject 1
+                                                getslot 1
+                                                callpropvoid QName(ProtectedNamespace("unit4399.road.loader:DisplayLoader"),"onCompleted"), 1
+                                       ofs0026:
+                                                jump ofs0064
+                                       ofs002a:
+                                                getlocal0
+                                                pushscope
+                                                getlocal2
+                                                pushscope
+                                                newcatch 0
+                                                dup
+                                                setlocal3
+                                                dup
+                                                pushscope
+                                                swap
+                                                setslot 1
+                                                findproperty QName(PrivateNamespace(null,"6"),"_starting")
+                                                pushfalse
+                                                initproperty QName(PrivateNamespace(null,"6"),"_starting")
+                                                getlex QName(PackageNamespace("unit4399.road.loader"),"LoaderManager")
+                                                getlocal0
+                                                callpropvoid QName(PackageNamespace(""),"EndLoader"), 1
+                                                findproperty QName(PackageNamespace(""),"isSuccess")
+                                                pushfalse
+                                                initproperty QName(PackageNamespace(""),"isSuccess")
+                                                findpropstrict QName(ProtectedNamespace("unit4399.road.loader:DisplayLoader"),"onError")
+                                                findpropstrict QName(PackageNamespace("flash.events"),"ErrorEvent")
+                                                getlex QName(PackageNamespace("flash.events"),"ErrorEvent")
+                                                getproperty QName(PackageNamespace(""),"ERROR")
+                                                constructprop QName(PackageNamespace("flash.events"),"ErrorEvent"), 1
+                                                callpropvoid QName(ProtectedNamespace("unit4399.road.loader:DisplayLoader"),"onError"), 1
+                                                popscope
+                                                kill 3
+                                       ofs0064:
+                                                returnvoid
+                                             end ; code
+                                             try from ofs000b to ofs0026 target ofs002a type QName(PackageNamespace(""),"Error") name QName(PackageNamespace(""),"err") end
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    protected function onCompleted(param1:Event) : void
+                                    {
+                                       trait method QName(ProtectedNamespace("unit4399.road.loader:DisplayLoader"),"onCompleted")
+                                          dispid 0
+                                          method
+                                             name null
+                                             param QName(PackageNamespace("flash.events"),"Event")
+                                             returns QName(PackageNamespace(""),"void")
+                                             
+                                             body
+                                                maxstack 3
+                                                localcount 2
+                                                initscopedepth 9
+                                                maxscopedepth 10
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   getlocal0
+                                                   getproperty QName(PrivateNamespace(null,"6"),"_func")
+                                                   pushnull
+                                                   ifeq ofs0012
+                                                   getlocal0
+                                                   getlocal0
+                                                   getlocal1
+                                                   callpropvoid QName(PrivateNamespace(null,"6"),"_func"), 2
+                                          ofs0012:
+                                                   returnvoid
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                       
+                                       override public function load(param1:URLRequest, param2:LoaderContext = null) : void
+                                       {
+                                          trait method QName(PackageNamespace(""),"load")
+                                             flag OVERRIDE
+                                             dispid 0
+                                             method
+                                                name null
+                                                flag HAS_OPTIONAL
+                                                param QName(PackageNamespace("flash.net"),"URLRequest")
+                                                param QName(PackageNamespace("flash.system"),"LoaderContext")
+                                                optional Null()
+                                                returns QName(PackageNamespace(""),"void")
+                                                
+                                                body
+                                                   maxstack 3
+                                                   localcount 6
+                                                   initscopedepth 9
+                                                   maxscopedepth 10
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      getlocal0
+                                                      pushtrue
+                                                      initproperty QName(PrivateNamespace(null,"6"),"_starting")
+                                                      getlocal0
+                                                      dup
+                                                      setlocal 4
+                                                      getproperty QName(PrivateNamespace(null,"6"),"_tryTime")
+                                                      increment_i
+                                                      setlocal 5
+                                                      getlocal 4
+                                                      getlocal 5
+                                                      setproperty QName(PrivateNamespace(null,"6"),"_tryTime")
+                                                      kill 5
+                                                      kill 4
+                                                      getlex QName(PackageNamespace("unit4399.road.loader"),"LoaderManager")
+                                                      getlocal1
+                                                      getproperty QName(PackageNamespace(""),"url")
+                                                      pushtrue
+                                                      callproperty QName(PackageNamespace(""),"loadCachedFile"), 2
+                                                      coerce QName(PackageNamespace("flash.utils"),"ByteArray")
+                                                      setlocal3
+                                                      getlocal3
+                                                      iffalse ofs0047
+                                                      getlocal3
+                                                      getproperty QName(PackageNamespace(""),"bytesAvailable")
+                                                      pushbyte 0
+                                                      ifngt ofs0043
+                                                      findpropstrict QName(PackageNamespace(""),"loadBytes")
+                                                      getlocal3
+                                                      getlocal2
+                                                      callpropvoid QName(PackageNamespace(""),"loadBytes"), 2
+                                             ofs0043:
+                                                      jump ofs009c
+                                             ofs0047:
+                                                      getlocal0
+                                                      findpropstrict QName(PackageNamespace("flash.net"),"URLLoader")
+                                                      constructprop QName(PackageNamespace("flash.net"),"URLLoader"), 0
+                                                      initproperty QName(PrivateNamespace(null,"6"),"_bytesLoader")
+                                                      getlocal0
+                                                      getproperty QName(PrivateNamespace(null,"6"),"_bytesLoader")
+                                                      getlex QName(PackageNamespace("flash.net"),"URLLoaderDataFormat")
+                                                      getproperty QName(PackageNamespace(""),"BINARY")
+                                                      setproperty QName(PackageNamespace(""),"dataFormat")
+                                                      getlocal0
+                                                      getproperty QName(PrivateNamespace(null,"6"),"_bytesLoader")
+                                                      getlex QName(PackageNamespace("flash.events"),"Event")
+                                                      getproperty QName(PackageNamespace(""),"COMPLETE")
+                                                      getlocal0
+                                                      getproperty QName(PrivateNamespace(null,"6"),"__bytesLoadComplete")
+                                                      callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                                                      getlocal0
+                                                      getproperty QName(PrivateNamespace(null,"6"),"_bytesLoader")
+                                                      getlex QName(PackageNamespace("flash.events"),"IOErrorEvent")
+                                                      getproperty QName(PackageNamespace(""),"IO_ERROR")
+                                                      getlocal0
+                                                      getproperty QName(PrivateNamespace(null,"6"),"__error")
+                                                      callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                                                      getlocal0
+                                                      getproperty QName(PrivateNamespace(null,"6"),"_bytesLoader")
+                                                      getlex QName(PackageNamespace("flash.events"),"SecurityErrorEvent")
+                                                      getproperty QName(PackageNamespace(""),"SECURITY_ERROR")
+                                                      getlocal0
+                                                      getproperty QName(PrivateNamespace(null,"6"),"__error")
+                                                      callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                                                      getlocal0
+                                                      getproperty QName(PrivateNamespace(null,"6"),"_bytesLoader")
+                                                      getlocal1
+                                                      callpropvoid QName(PackageNamespace(""),"load"), 1
+                                             ofs009c:
+                                                      returnvoid
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                          }
+                                          
+                                          private function __error(param1:Event) : void
+                                          {
+                                             trait method QName(PrivateNamespace(null,"6"),"__error")
+                                                dispid 0
+                                                method
+                                                   name null
+                                                   flag NEED_ACTIVATION
+                                                   param QName(PackageNamespace("flash.events"),"Event")
+                                                   returns QName(PackageNamespace(""),"void")
+                                                   
+                                                   body
+                                                      maxstack 3
+                                                      localcount 4
+                                                      initscopedepth 10
+                                                      maxscopedepth 15
+                                                      trait slot QName(PackageInternalNs("unit4399.road.loader"),"event")
+                                                         slotid 1
+                                                         type QName(PackageNamespace("flash.events"),"Event")
+                                                      end ; trait
+                                                      
+                                                      code
+                                                         getlocal0
+                                                         pushscope
+                                                         newactivation
+                                                         dup
+                                                         setlocal2
+                                                         pushscope
+                                                         getscopeobject 1
+                                                         getlocal1
+                                                         setslot 1
+                                                ofs000b:
+                                                         getlocal0
+                                                         getscopeobject 1
+                                                         getslot 1
+                                                         callproperty QName(PrivateNamespace(null,"6"),"tryAdd"), 1
+                                                         iffalse ofs0021
+                                                         getlocal0
+                                                         getlocal0
+                                                         getproperty QName(ProtectedNamespace("unit4399.road.loader:DisplayLoader"),"_url")
+                                                         callpropvoid QName(PackageNamespace(""),"load"), 1
+                                                ofs0021:
+                                                         jump ofs005f
+                                                ofs0025:
+                                                         getlocal0
+                                                         pushscope
+                                                         getlocal2
+                                                         pushscope
+                                                         newcatch 0
+                                                         dup
+                                                         setlocal3
+                                                         dup
+                                                         pushscope
+                                                         swap
+                                                         setslot 1
+                                                         findproperty QName(PrivateNamespace(null,"6"),"_starting")
+                                                         pushfalse
+                                                         initproperty QName(PrivateNamespace(null,"6"),"_starting")
+                                                         getlex QName(PackageNamespace("unit4399.road.loader"),"LoaderManager")
+                                                         getlocal0
+                                                         callpropvoid QName(PackageNamespace(""),"EndLoader"), 1
+                                                         findproperty QName(PackageNamespace(""),"isSuccess")
+                                                         pushfalse
+                                                         initproperty QName(PackageNamespace(""),"isSuccess")
+                                                         findpropstrict QName(ProtectedNamespace("unit4399.road.loader:DisplayLoader"),"onError")
+                                                         findpropstrict QName(PackageNamespace("flash.events"),"ErrorEvent")
+                                                         getlex QName(PackageNamespace("flash.events"),"ErrorEvent")
+                                                         getproperty QName(PackageNamespace(""),"ERROR")
+                                                         constructprop QName(PackageNamespace("flash.events"),"ErrorEvent"), 1
+                                                         callpropvoid QName(ProtectedNamespace("unit4399.road.loader:DisplayLoader"),"onError"), 1
+                                                         popscope
+                                                         kill 3
+                                                ofs005f:
+                                                         returnvoid
+                                                      end ; code
+                                                      try from ofs000b to ofs0021 target ofs0025 type QName(PackageNamespace(""),"Error") name QName(PackageNamespace(""),"err") end
+                                                   end ; body
+                                                end ; method
+                                             }
+                                             
+                                             private function tryAdd(param1:Event) : Boolean
+                                             {
+                                                trait method QName(PrivateNamespace(null,"6"),"tryAdd")
+                                                   dispid 0
+                                                   method
+                                                      name null
+                                                      param QName(PackageNamespace("flash.events"),"Event")
+                                                      returns QName(PackageNamespace(""),"Boolean")
+                                                      
+                                                      body
+                                                         maxstack 2
+                                                         localcount 2
+                                                         initscopedepth 9
+                                                         maxscopedepth 10
+                                                         
+                                                         code
+                                                            getlocal0
+                                                            pushscope
+                                                            getlocal0
+                                                            getproperty QName(PrivateNamespace(null,"6"),"_tryTime")
+                                                            getlocal0
+                                                            getproperty QName(PrivateNamespace(null,"6"),"_hadTryTime")
+                                                            ifnge ofs0028
+                                                            getlocal0
+                                                            pushfalse
+                                                            initproperty QName(PrivateNamespace(null,"6"),"_starting")
+                                                            getlex QName(PackageNamespace("unit4399.road.loader"),"LoaderManager")
+                                                            getlocal0
+                                                            callpropvoid QName(PackageNamespace(""),"EndLoader"), 1
+                                                            getlocal0
+                                                            pushfalse
+                                                            initproperty QName(PackageNamespace(""),"isSuccess")
+                                                            getlocal0
+                                                            getlocal1
+                                                            callpropvoid QName(ProtectedNamespace("unit4399.road.loader:DisplayLoader"),"onError"), 1
+                                                            pushfalse
+                                                            returnvalue
+                                                   ofs0028:
+                                                            pushtrue
+                                                            returnvalue
+                                                         end ; code
+                                                      end ; body
+                                                   end ; method
+                                                }
+                                                
+                                                override public function close() : void
+                                                {
+                                                   trait method QName(PackageNamespace(""),"close")
+                                                      flag OVERRIDE
+                                                      dispid 0
+                                                      method
+                                                         name null
+                                                         returns QName(PackageNamespace(""),"void")
+                                                         
+                                                         body
+                                                            maxstack 3
+                                                            localcount 1
+                                                            initscopedepth 9
+                                                            maxscopedepth 10
+                                                            
+                                                            code
+                                                               getlocal0
+                                                               pushscope
+                                                               getlocal0
+                                                               pushfalse
+                                                               initproperty QName(PrivateNamespace(null,"6"),"_starting")
+                                                               getlocal0
+                                                               getproperty QName(PrivateNamespace(null,"6"),"_bytesLoader")
+                                                               iffalse ofs004b
+                                                               getlocal0
+                                                               getproperty QName(PrivateNamespace(null,"6"),"_bytesLoader")
+                                                               getlex QName(PackageNamespace("flash.events"),"Event")
+                                                               getproperty QName(PackageNamespace(""),"COMPLETE")
+                                                               getlocal0
+                                                               getproperty QName(PrivateNamespace(null,"6"),"__bytesLoadComplete")
+                                                               callpropvoid QName(PackageNamespace(""),"removeEventListener"), 2
+                                                               getlocal0
+                                                               getproperty QName(PrivateNamespace(null,"6"),"_bytesLoader")
+                                                               getlex QName(PackageNamespace("flash.events"),"IOErrorEvent")
+                                                               getproperty QName(PackageNamespace(""),"IO_ERROR")
+                                                               getlocal0
+                                                               getproperty QName(PrivateNamespace(null,"6"),"__error")
+                                                               callpropvoid QName(PackageNamespace(""),"removeEventListener"), 2
+                                                               getlocal0
+                                                               getproperty QName(PrivateNamespace(null,"6"),"_bytesLoader")
+                                                               getlex QName(PackageNamespace("flash.events"),"SecurityErrorEvent")
+                                                               getproperty QName(PackageNamespace(""),"SECURITY_ERROR")
+                                                               getlocal0
+                                                               getproperty QName(PrivateNamespace(null,"6"),"__error")
+                                                               callpropvoid QName(PackageNamespace(""),"removeEventListener"), 2
+                                                               getlocal0
+                                                               getproperty QName(PrivateNamespace(null,"6"),"_bytesLoader")
+                                                               callpropvoid QName(PackageNamespace(""),"close"), 0
+                                                      ofs004b:
+                                                               returnvoid
+                                                            end ; code
+                                                         end ; body
+                                                      end ; method
+                                                   }
+                                                   
+                                                   public function cancel() : void
+                                                   {
+                                                      trait method QName(PackageNamespace(""),"cancel")
+                                                         dispid 0
+                                                         method
+                                                            name null
+                                                            returns QName(PackageNamespace(""),"void")
+                                                            
+                                                            body
+                                                               maxstack 2
+                                                               localcount 1
+                                                               initscopedepth 9
+                                                               maxscopedepth 10
+                                                               
+                                                               code
+                                                                  getlocal0
+                                                                  pushscope
+                                                                  getlex QName(PackageNamespace("unit4399.road.loader"),"LoaderManager")
+                                                                  getlocal0
+                                                                  callpropvoid QName(PackageNamespace(""),"CancelLoader"), 1
+                                                                  getlocal0
+                                                                  getproperty QName(PrivateNamespace(null,"6"),"_starting")
+                                                                  iffalse ofs0017
+                                                                  getlocal0
+                                                                  callpropvoid QName(PackageNamespace(""),"close"), 0
+                                                         ofs0017:
+                                                                  getlocal0
+                                                                  callpropvoid QName(ProtectedNamespace("unit4399.road.loader:DisplayLoader"),"onCanceled"), 0
+                                                                  returnvoid
+                                                               end ; code
+                                                            end ; body
+                                                         end ; method
+                                                      }
+                                                   }
+                                                }
+                                                
+                                                method
+                                                   name null
+                                                   returns null
+                                                   
+                                                   body
+                                                      maxstack 2
+                                                      localcount 1
+                                                      initscopedepth 1
+                                                      maxscopedepth 8
+                                                      
+                                                      code
+                                                         getlocal0
+                                                         pushscope
+                                                         findpropstrict Multiname("DisplayLoader",[PackageNamespace("unit4399.road.loader")])
+                                                         getlex QName(PackageNamespace(""),"Object")
+                                                         pushscope
+                                                         getlex QName(PackageNamespace("flash.events"),"EventDispatcher")
+                                                         pushscope
+                                                         getlex QName(PackageNamespace("flash.display"),"DisplayObject")
+                                                         pushscope
+                                                         getlex QName(PackageNamespace("flash.display"),"InteractiveObject")
+                                                         pushscope
+                                                         getlex QName(PackageNamespace("flash.display"),"DisplayObjectContainer")
+                                                         pushscope
+                                                         getlex QName(PackageNamespace("flash.display"),"Loader")
+                                                         pushscope
+                                                         getlex QName(PackageNamespace("flash.display"),"Loader")
+                                                         newclass 16
+                                                         popscope
+                                                         popscope
+                                                         popscope
+                                                         popscope
+                                                         popscope
+                                                         popscope
+                                                         initproperty QName(PackageNamespace("unit4399.road.loader"),"DisplayLoader")
+                                                         returnvoid
+                                                      end ; code
+                                                   end ; body
+                                                end ; method
+                                                

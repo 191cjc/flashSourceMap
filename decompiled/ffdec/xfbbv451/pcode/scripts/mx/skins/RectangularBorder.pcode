@@ -1,0 +1,1045 @@
+package mx.skins
+{
+   import flash.display.DisplayObject;
+   import flash.display.Graphics;
+   import flash.display.Loader;
+   import flash.display.LoaderInfo;
+   import flash.display.Shape;
+   import flash.events.ErrorEvent;
+   import flash.events.Event;
+   import flash.events.IOErrorEvent;
+   import flash.geom.Rectangle;
+   import flash.net.URLRequest;
+   import flash.system.ApplicationDomain;
+   import flash.system.LoaderContext;
+   import flash.utils.getDefinitionByName;
+   import mx.core.EdgeMetrics;
+   import mx.core.FlexLoader;
+   import mx.core.FlexShape;
+   import mx.core.IChildList;
+   import mx.core.IContainer;
+   import mx.core.IRawChildrenContainer;
+   import mx.core.IRectangularBorder;
+   import mx.core.mx_internal;
+   import mx.resources.IResourceManager;
+   import mx.resources.ResourceManager;
+   import mx.styles.ISimpleStyleClient;
+   
+   use namespace mx_internal;
+   
+   public class RectangularBorder extends Border implements IRectangularBorder
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 9
+            maxscopedepth 10
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var backgroundImageStyle:Object;
+      
+      private var backgroundImageWidth:Number;
+      
+      private var backgroundImageHeight:Number;
+      
+      private var resourceManager:IResourceManager;
+      
+      private var backgroundImage:DisplayObject;
+      
+      private var _backgroundImageBounds:Rectangle;
+      
+      public function RectangularBorder()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 3
+               localcount 1
+               initscopedepth 10
+               maxscopedepth 11
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  getlex QName(PackageNamespace("mx.resources"),"ResourceManager")
+                  callproperty QName(PackageNamespace(""),"getInstance"), 0
+                  initproperty QName(PrivateNamespace(null,"14"),"resourceManager")
+                  getlocal0
+                  constructsuper 0
+                  findpropstrict QName(PackageNamespace(""),"addEventListener")
+                  getlex QName(PackageNamespace("flash.events"),"Event")
+                  getproperty QName(PackageNamespace(""),"REMOVED")
+                  getlocal0
+                  getproperty QName(PrivateNamespace(null,"14"),"removedHandler")
+                  callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function get hasBackgroundImage() : Boolean
+      {
+         trait getter QName(PackageNamespace(""),"hasBackgroundImage")
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace(""),"Boolean")
+               
+               body
+                  maxstack 2
+                  localcount 1
+                  initscopedepth 10
+                  maxscopedepth 11
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"14"),"backgroundImage")
+                     pushnull
+                     equals
+                     not
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function get backgroundImageBounds() : Rectangle
+         {
+            trait getter QName(PackageNamespace(""),"backgroundImageBounds")
+               dispid 0
+               method
+                  name null
+                  returns QName(PackageNamespace("flash.geom"),"Rectangle")
+                  
+                  body
+                     maxstack 1
+                     localcount 1
+                     initscopedepth 10
+                     maxscopedepth 11
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"14"),"_backgroundImageBounds")
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function set backgroundImageBounds(param1:Rectangle) : void
+            {
+               trait setter QName(PackageNamespace(""),"backgroundImageBounds")
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace("flash.geom"),"Rectangle")
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 2
+                        localcount 2
+                        initscopedepth 10
+                        maxscopedepth 11
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"14"),"_backgroundImageBounds")
+                           convert_b
+                           dup
+                           iffalse ofs000f
+                           pop
+                           getlocal1
+                           convert_b
+                  ofs000f:
+                           dup
+                           iffalse ofs001f
+                           pop
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"14"),"_backgroundImageBounds")
+                           getlocal1
+                           callproperty QName(PackageNamespace(""),"equals"), 1
+                           convert_b
+                  ofs001f:
+                           iffalse ofs0024
+                           returnvoid
+                  ofs0024:
+                           getlocal0
+                           getlocal1
+                           initproperty QName(PrivateNamespace(null,"14"),"_backgroundImageBounds")
+                           findpropstrict QName(PackageNamespace(""),"invalidateDisplayList")
+                           callpropvoid QName(PackageNamespace(""),"invalidateDisplayList"), 0
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               override protected function updateDisplayList(param1:Number, param2:Number) : void
+               {
+                  trait method QName(ProtectedNamespace("mx.skins:RectangularBorder"),"updateDisplayList")
+                     flag OVERRIDE
+                     dispid 0
+                     method
+                        name null
+                        param QName(PackageNamespace(""),"Number")
+                        param QName(PackageNamespace(""),"Number")
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 4
+                           localcount 10
+                           initscopedepth 10
+                           maxscopedepth 13
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              pushnull
+                              coerce QName(PackageNamespace(""),"Class")
+                              setlocal 4
+                              pushnull
+                              coerce QName(PackageNamespace("flash.display"),"DisplayObject")
+                              setlocal 5
+                              pushnull
+                              coerce QName(PackageNamespace("flash.display"),"Loader")
+                              setlocal 6
+                              pushnull
+                              coerce QName(PackageNamespace("flash.system"),"LoaderContext")
+                              setlocal 7
+                              pushnull
+                              coerce_s
+                              setlocal 8
+                              getlex QName(PackageNamespace(""),"parent")
+                              iftrue ofs0024
+                              returnvoid
+                     ofs0024:
+                              findpropstrict QName(PackageNamespace(""),"getStyle")
+                              pushstring "backgroundImage"
+                              callproperty QName(PackageNamespace(""),"getStyle"), 1
+                              coerce QName(PackageNamespace(""),"Object")
+                              setlocal3
+                              getlocal3
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"14"),"backgroundImageStyle")
+                              ifeq ofs0158
+                              getlocal0
+                              pushnull
+                              callpropvoid QName(PrivateNamespace(null,"14"),"removedHandler"), 1
+                              getlocal0
+                              getlocal3
+                              initproperty QName(PrivateNamespace(null,"14"),"backgroundImageStyle")
+                              getlocal3
+                              convert_b
+                              dup
+                              iffalse ofs0052
+                              pop
+                              getlocal3
+                              getlex QName(PackageNamespace(""),"Class")
+                              astypelate
+                              convert_b
+                     ofs0052:
+                              iffalse ofs006d
+                              findpropstrict QName(PackageNamespace(""),"Class")
+                              getlocal3
+                              callproperty QName(PackageNamespace(""),"Class"), 1
+                              coerce QName(PackageNamespace(""),"Class")
+                              setlocal 4
+                              getlocal0
+                              getlocal 4
+                              construct 0
+                              callpropvoid QName(PrivateNamespace(null,"14"),"initBackgroundImage"), 1
+                              jump ofs0158
+                     ofs006d:
+                              getlocal3
+                              convert_b
+                              dup
+                              iffalse ofs0079
+                              pop
+                              getlocal3
+                              getlex QName(PackageNamespace(""),"String")
+                              istypelate
+                     ofs0079:
+                              iffalse ofs0135
+                     ofs007d:
+                              findpropstrict QName(PackageNamespace(""),"Class")
+                              findpropstrict QName(PackageNamespace("flash.utils"),"getDefinitionByName")
+                              findpropstrict QName(PackageNamespace(""),"String")
+                              getlocal3
+                              callproperty QName(PackageNamespace(""),"String"), 1
+                              callproperty QName(PackageNamespace("flash.utils"),"getDefinitionByName"), 1
+                              callproperty QName(PackageNamespace(""),"Class"), 1
+                              coerce QName(PackageNamespace(""),"Class")
+                              setlocal 4
+                     ofs0093:
+                              jump ofs00a6
+                     ofs0097:
+                              getlocal0
+                              pushscope
+                              newcatch 0
+                              dup
+                              setlocal 9
+                              dup
+                              pushscope
+                              swap
+                              setslot 1
+                              popscope
+                              kill 9
+                     ofs00a6:
+                              getlocal 4
+                              iffalse ofs00bf
+                              getlocal 4
+                              construct 0
+                              coerce QName(PackageNamespace("flash.display"),"DisplayObject")
+                              setlocal 5
+                              getlocal0
+                              getlocal 5
+                              callpropvoid QName(PrivateNamespace(null,"14"),"initBackgroundImage"), 1
+                              jump ofs0131
+                     ofs00bf:
+                              findpropstrict QName(PackageNamespace("mx.core"),"FlexLoader")
+                              constructprop QName(PackageNamespace("mx.core"),"FlexLoader"), 0
+                              coerce QName(PackageNamespace("flash.display"),"Loader")
+                              dup
+                              setlocal 6
+                              getproperty QName(PackageNamespace(""),"contentLoaderInfo")
+                              getlex QName(PackageNamespace("flash.events"),"Event")
+                              getproperty QName(PackageNamespace(""),"COMPLETE")
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"14"),"completeEventHandler")
+                              callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                              getlocal 6
+                              getproperty QName(PackageNamespace(""),"contentLoaderInfo")
+                              getlex QName(PackageNamespace("flash.events"),"IOErrorEvent")
+                              getproperty QName(PackageNamespace(""),"IO_ERROR")
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"14"),"errorEventHandler")
+                              callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                              getlocal 6
+                              getproperty QName(PackageNamespace(""),"contentLoaderInfo")
+                              getlex QName(PackageNamespace("flash.events"),"ErrorEvent")
+                              getproperty QName(PackageNamespace(""),"ERROR")
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"14"),"errorEventHandler")
+                              callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                              findpropstrict QName(PackageNamespace("flash.system"),"LoaderContext")
+                              constructprop QName(PackageNamespace("flash.system"),"LoaderContext"), 0
+                              coerce QName(PackageNamespace("flash.system"),"LoaderContext")
+                              dup
+                              setlocal 7
+                              findpropstrict QName(PackageNamespace("flash.system"),"ApplicationDomain")
+                              getlex QName(PackageNamespace("flash.system"),"ApplicationDomain")
+                              getproperty QName(PackageNamespace(""),"currentDomain")
+                              constructprop QName(PackageNamespace("flash.system"),"ApplicationDomain"), 1
+                              setproperty QName(PackageNamespace(""),"applicationDomain")
+                              getlocal 6
+                              findpropstrict QName(PackageNamespace("flash.net"),"URLRequest")
+                              findpropstrict QName(PackageNamespace(""),"String")
+                              getlocal3
+                              callproperty QName(PackageNamespace(""),"String"), 1
+                              constructprop QName(PackageNamespace("flash.net"),"URLRequest"), 1
+                              getlocal 7
+                              callpropvoid QName(PackageNamespace(""),"load"), 2
+                     ofs0131:
+                              jump ofs0158
+                     ofs0135:
+                              getlocal3
+                              iffalse ofs0158
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"14"),"resourceManager")
+                              pushstring "skins"
+                              pushstring "notLoaded"
+                              getlocal3
+                              newarray 1
+                              callproperty QName(Namespace("mx.resources:IResourceManager"),"getString"), 3
+                              coerce_s
+                              setlocal 8
+                              findpropstrict QName(PackageNamespace(""),"Error")
+                              getlocal 8
+                              constructprop QName(PackageNamespace(""),"Error"), 1
+                              throw
+                     ofs0158:
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"14"),"backgroundImage")
+                              iffalse ofs0165
+                              getlocal0
+                              callpropvoid QName(PackageNamespace(""),"layoutBackgroundImage"), 0
+                     ofs0165:
+                              returnvoid
+                           end ; code
+                           try from ofs007d to ofs0093 target ofs0097 type QName(PackageNamespace(""),"Error") name QName(PackageNamespace(""),"e") end
+                        end ; body
+                     end ; method
+                  }
+                  
+                  private function initBackgroundImage(param1:DisplayObject) : void
+                  {
+                     trait method QName(PrivateNamespace(null,"14"),"initBackgroundImage")
+                        dispid 0
+                        method
+                           name null
+                           param QName(PackageNamespace("flash.display"),"DisplayObject")
+                           returns QName(PackageNamespace(""),"void")
+                           
+                           body
+                              maxstack 4
+                              localcount 5
+                              initscopedepth 10
+                              maxscopedepth 11
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal0
+                                 getlocal1
+                                 initproperty QName(PrivateNamespace(null,"14"),"backgroundImage")
+                                 getlocal1
+                                 getlex QName(PackageNamespace("flash.display"),"Loader")
+                                 istypelate
+                                 iffalse ofs0038
+                                 getlocal0
+                                 findpropstrict QName(PackageNamespace("flash.display"),"Loader")
+                                 getlocal1
+                                 callproperty QName(PackageNamespace("flash.display"),"Loader"), 1
+                                 getproperty QName(PackageNamespace(""),"contentLoaderInfo")
+                                 getproperty QName(PackageNamespace(""),"width")
+                                 initproperty QName(PrivateNamespace(null,"14"),"backgroundImageWidth")
+                                 getlocal0
+                                 findpropstrict QName(PackageNamespace("flash.display"),"Loader")
+                                 getlocal1
+                                 callproperty QName(PackageNamespace("flash.display"),"Loader"), 1
+                                 getproperty QName(PackageNamespace(""),"contentLoaderInfo")
+                                 getproperty QName(PackageNamespace(""),"height")
+                                 initproperty QName(PrivateNamespace(null,"14"),"backgroundImageHeight")
+                                 jump ofs0065
+                        ofs0038:
+                                 getlocal0
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"14"),"backgroundImage")
+                                 getproperty QName(PackageNamespace(""),"width")
+                                 initproperty QName(PrivateNamespace(null,"14"),"backgroundImageWidth")
+                                 getlocal0
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"14"),"backgroundImage")
+                                 getproperty QName(PackageNamespace(""),"height")
+                                 initproperty QName(PrivateNamespace(null,"14"),"backgroundImageHeight")
+                                 getlocal1
+                                 getlex QName(PackageNamespace("mx.styles"),"ISimpleStyleClient")
+                                 istypelate
+                                 iffalse ofs0065
+                                 findpropstrict QName(PackageNamespace("mx.styles"),"ISimpleStyleClient")
+                                 getlocal1
+                                 callproperty QName(PackageNamespace("mx.styles"),"ISimpleStyleClient"), 1
+                                 getlex QName(PackageNamespace(""),"styleName")
+                                 setproperty QName(Namespace("mx.styles:ISimpleStyleClient"),"styleName")
+                        ofs0065:
+                                 getlex QName(PackageNamespace(""),"parent")
+                                 getlex QName(PackageNamespace("mx.core"),"IRawChildrenContainer")
+                                 istypelate
+                                 iffalse ofs0083
+                                 findpropstrict QName(PackageNamespace("mx.core"),"IRawChildrenContainer")
+                                 getlex QName(PackageNamespace(""),"parent")
+                                 callproperty QName(PackageNamespace("mx.core"),"IRawChildrenContainer"), 1
+                                 getproperty QName(Namespace("mx.core:IRawChildrenContainer"),"rawChildren")
+                                 coerce QName(PackageNamespace("mx.core"),"IChildList")
+                                 jump ofs008d
+                        ofs0083:
+                                 findpropstrict QName(PackageNamespace("mx.core"),"IChildList")
+                                 getlex QName(PackageNamespace(""),"parent")
+                                 callproperty QName(PackageNamespace("mx.core"),"IChildList"), 1
+                                 coerce QName(PackageNamespace("mx.core"),"IChildList")
+                        ofs008d:
+                                 coerce QName(PackageNamespace("mx.core"),"IChildList")
+                                 setlocal2
+                                 findpropstrict QName(PackageNamespace("mx.core"),"FlexShape")
+                                 constructprop QName(PackageNamespace("mx.core"),"FlexShape"), 0
+                                 coerce QName(PackageNamespace("flash.display"),"Shape")
+                                 setlocal3
+                                 getlocal3
+                                 pushstring "backgroundMask"
+                                 setproperty QName(PackageNamespace(""),"name")
+                                 getlocal3
+                                 pushbyte 0
+                                 setproperty QName(PackageNamespace(""),"x")
+                                 getlocal3
+                                 pushbyte 0
+                                 setproperty QName(PackageNamespace(""),"y")
+                                 getlocal2
+                                 getlocal3
+                                 callpropvoid QName(Namespace("mx.core:IChildList"),"addChild"), 1
+                                 getlocal2
+                                 getlocal0
+                                 callproperty QName(Namespace("mx.core:IChildList"),"getChildIndex"), 1
+                                 convert_i
+                                 setlocal 4
+                                 getlocal2
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"14"),"backgroundImage")
+                                 getlocal 4
+                                 pushbyte 1
+                                 add
+                                 callpropvoid QName(Namespace("mx.core:IChildList"),"addChildAt"), 2
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"14"),"backgroundImage")
+                                 getlocal3
+                                 setproperty QName(PackageNamespace(""),"mask")
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public function layoutBackgroundImage() : void
+                     {
+                        trait method QName(PackageNamespace(""),"layoutBackgroundImage")
+                           dispid 0
+                           method
+                              name null
+                              returns QName(PackageNamespace(""),"void")
+                              
+                              body
+                                 maxstack 5
+                                 localcount 16
+                                 initscopedepth 10
+                                 maxscopedepth 11
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    pushnan
+                                    setlocal 4
+                                    pushnan
+                                    setlocal 5
+                                    pushnan
+                                    setlocal 7
+                                    pushnan
+                                    setlocal 8
+                                    pushnan
+                                    setlocal 14
+                                    pushnull
+                                    coerce QName(PackageNamespace("flash.display"),"Graphics")
+                                    setlocal 15
+                                    getlex QName(PackageNamespace(""),"parent")
+                                    coerce QName(PackageNamespace("flash.display"),"DisplayObject")
+                                    setlocal1
+                                    getlocal1
+                                    getlex QName(PackageNamespace("mx.core"),"IContainer")
+                                    istypelate
+                                    iffalse ofs0033
+                                    findpropstrict QName(PackageNamespace("mx.core"),"IContainer")
+                                    getlocal1
+                                    callproperty QName(PackageNamespace("mx.core"),"IContainer"), 1
+                                    getproperty QName(Namespace("mx.core:IContainer"),"viewMetrics")
+                                    coerce QName(PackageNamespace("mx.core"),"EdgeMetrics")
+                                    jump ofs0038
+                           ofs0033:
+                                    getlex QName(PackageNamespace(""),"borderMetrics")
+                                    coerce QName(PackageNamespace("mx.core"),"EdgeMetrics")
+                           ofs0038:
+                                    coerce QName(PackageNamespace("mx.core"),"EdgeMetrics")
+                                    setlocal2
+                                    findpropstrict QName(PackageNamespace(""),"getStyle")
+                                    pushstring "backgroundAttachment"
+                                    callproperty QName(PackageNamespace(""),"getStyle"), 1
+                                    pushstring "fixed"
+                                    equals
+                                    not
+                                    setlocal3
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"14"),"_backgroundImageBounds")
+                                    iffalse ofs006b
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"14"),"_backgroundImageBounds")
+                                    getproperty QName(PackageNamespace(""),"width")
+                                    convert_d
+                                    setlocal 4
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"14"),"_backgroundImageBounds")
+                                    getproperty QName(PackageNamespace(""),"height")
+                                    convert_d
+                                    setlocal 5
+                                    jump ofs008b
+                           ofs006b:
+                                    getlex QName(PackageNamespace(""),"width")
+                                    getlocal2
+                                    getproperty QName(PackageNamespace(""),"left")
+                                    subtract
+                                    getlocal2
+                                    getproperty QName(PackageNamespace(""),"right")
+                                    subtract
+                                    convert_d
+                                    setlocal 4
+                                    getlex QName(PackageNamespace(""),"height")
+                                    getlocal2
+                                    getproperty QName(PackageNamespace(""),"top")
+                                    subtract
+                                    getlocal2
+                                    getproperty QName(PackageNamespace(""),"bottom")
+                                    subtract
+                                    convert_d
+                                    setlocal 5
+                           ofs008b:
+                                    getlocal0
+                                    callproperty QName(PrivateNamespace(null,"14"),"getBackgroundSize"), 0
+                                    convert_d
+                                    setlocal 6
+                                    findpropstrict QName(PackageNamespace(""),"isNaN")
+                                    getlocal 6
+                                    callproperty QName(PackageNamespace(""),"isNaN"), 1
+                                    iffalse ofs00ae
+                                    pushbyte 1
+                                    convert_d
+                                    setlocal 7
+                                    pushbyte 1
+                                    convert_d
+                                    setlocal 8
+                                    jump ofs00cf
+                           ofs00ae:
+                                    getlocal 6
+                                    pushdouble 0.01
+                                    multiply
+                                    convert_d
+                                    dup
+                                    setlocal 14
+                                    getlocal 4
+                                    multiply
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"14"),"backgroundImageWidth")
+                                    divide
+                                    convert_d
+                                    setlocal 7
+                                    getlocal 14
+                                    getlocal 5
+                                    multiply
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"14"),"backgroundImageHeight")
+                                    divide
+                                    convert_d
+                                    setlocal 8
+                           ofs00cf:
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"14"),"backgroundImage")
+                                    getlocal 7
+                                    setproperty QName(PackageNamespace(""),"scaleX")
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"14"),"backgroundImage")
+                                    getlocal 8
+                                    setproperty QName(PackageNamespace(""),"scaleY")
+                                    getlex QName(PackageNamespace(""),"Math")
+                                    pushdouble 0.5
+                                    getlocal 4
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"14"),"backgroundImageWidth")
+                                    getlocal 7
+                                    multiply
+                                    subtract
+                                    multiply
+                                    callproperty QName(PackageNamespace(""),"round"), 1
+                                    convert_d
+                                    setlocal 9
+                                    getlex QName(PackageNamespace(""),"Math")
+                                    pushdouble 0.5
+                                    getlocal 5
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"14"),"backgroundImageHeight")
+                                    getlocal 8
+                                    multiply
+                                    subtract
+                                    multiply
+                                    callproperty QName(PackageNamespace(""),"round"), 1
+                                    convert_d
+                                    setlocal 10
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"14"),"backgroundImage")
+                                    getlocal2
+                                    getproperty QName(PackageNamespace(""),"left")
+                                    setproperty QName(PackageNamespace(""),"x")
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"14"),"backgroundImage")
+                                    getlocal2
+                                    getproperty QName(PackageNamespace(""),"top")
+                                    setproperty QName(PackageNamespace(""),"y")
+                                    findpropstrict QName(PackageNamespace("flash.display"),"Shape")
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"14"),"backgroundImage")
+                                    getproperty QName(PackageNamespace(""),"mask")
+                                    callproperty QName(PackageNamespace("flash.display"),"Shape"), 1
+                                    coerce QName(PackageNamespace("flash.display"),"Shape")
+                                    dup
+                                    setlocal 11
+                                    getlocal2
+                                    getproperty QName(PackageNamespace(""),"left")
+                                    setproperty QName(PackageNamespace(""),"x")
+                                    getlocal 11
+                                    getlocal2
+                                    getproperty QName(PackageNamespace(""),"top")
+                                    setproperty QName(PackageNamespace(""),"y")
+                                    getlocal3
+                                    convert_b
+                                    dup
+                                    iffalse ofs0155
+                                    pop
+                                    getlocal1
+                                    getlex QName(PackageNamespace("mx.core"),"IContainer")
+                                    istypelate
+                           ofs0155:
+                                    iffalse ofs0177
+                                    getlocal 9
+                                    findpropstrict QName(PackageNamespace("mx.core"),"IContainer")
+                                    getlocal1
+                                    callproperty QName(PackageNamespace("mx.core"),"IContainer"), 1
+                                    getproperty QName(Namespace("mx.core:IContainer"),"horizontalScrollPosition")
+                                    subtract
+                                    convert_d
+                                    setlocal 9
+                                    getlocal 10
+                                    findpropstrict QName(PackageNamespace("mx.core"),"IContainer")
+                                    getlocal1
+                                    callproperty QName(PackageNamespace("mx.core"),"IContainer"), 1
+                                    getproperty QName(Namespace("mx.core:IContainer"),"verticalScrollPosition")
+                                    subtract
+                                    convert_d
+                                    setlocal 10
+                           ofs0177:
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"14"),"backgroundImage")
+                                    findpropstrict QName(PackageNamespace(""),"getStyle")
+                                    pushstring "backgroundAlpha"
+                                    callproperty QName(PackageNamespace(""),"getStyle"), 1
+                                    setproperty QName(PackageNamespace(""),"alpha")
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"14"),"backgroundImage")
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"14"),"backgroundImage")
+                                    getproperty QName(PackageNamespace(""),"x")
+                                    getlocal 9
+                                    add
+                                    setproperty QName(PackageNamespace(""),"x")
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"14"),"backgroundImage")
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"14"),"backgroundImage")
+                                    getproperty QName(PackageNamespace(""),"y")
+                                    getlocal 10
+                                    add
+                                    setproperty QName(PackageNamespace(""),"y")
+                                    getlex QName(PackageNamespace(""),"width")
+                                    getlocal2
+                                    getproperty QName(PackageNamespace(""),"left")
+                                    subtract
+                                    getlocal2
+                                    getproperty QName(PackageNamespace(""),"right")
+                                    subtract
+                                    convert_d
+                                    setlocal 12
+                                    getlex QName(PackageNamespace(""),"height")
+                                    getlocal2
+                                    getproperty QName(PackageNamespace(""),"top")
+                                    subtract
+                                    getlocal2
+                                    getproperty QName(PackageNamespace(""),"bottom")
+                                    subtract
+                                    convert_d
+                                    setlocal 13
+                                    getlocal 11
+                                    getproperty QName(PackageNamespace(""),"width")
+                                    getlocal 12
+                                    equals
+                                    not
+                                    dup
+                                    iftrue ofs01e2
+                                    pop
+                                    getlocal 11
+                                    getproperty QName(PackageNamespace(""),"height")
+                                    getlocal 13
+                                    equals
+                                    not
+                           ofs01e2:
+                                    iffalse ofs020f
+                                    getlocal 11
+                                    getproperty QName(PackageNamespace(""),"graphics")
+                                    coerce QName(PackageNamespace("flash.display"),"Graphics")
+                                    dup
+                                    setlocal 15
+                                    callpropvoid QName(PackageNamespace(""),"clear"), 0
+                                    getlocal 15
+                                    pushint 16777215
+                                    callpropvoid QName(PackageNamespace(""),"beginFill"), 1
+                                    getlocal 15
+                                    pushbyte 0
+                                    dup
+                                    getlocal 12
+                                    getlocal 13
+                                    callpropvoid QName(PackageNamespace(""),"drawRect"), 4
+                                    getlocal 15
+                                    callpropvoid QName(PackageNamespace(""),"endFill"), 0
+                           ofs020f:
+                                    returnvoid
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        private function getBackgroundSize() : Number
+                        {
+                           trait method QName(PrivateNamespace(null,"14"),"getBackgroundSize")
+                              dispid 0
+                              method
+                                 name null
+                                 returns QName(PackageNamespace(""),"Number")
+                                 
+                                 body
+                                    maxstack 4
+                                    localcount 4
+                                    initscopedepth 10
+                                    maxscopedepth 11
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       pushbyte 0
+                                       setlocal3
+                                       getlex QName(PackageNamespace(""),"NaN")
+                                       convert_d
+                                       setlocal1
+                                       findpropstrict QName(PackageNamespace(""),"getStyle")
+                                       pushstring "backgroundSize"
+                                       callproperty QName(PackageNamespace(""),"getStyle"), 1
+                                       coerce QName(PackageNamespace(""),"Object")
+                                       setlocal2
+                                       getlocal2
+                                       convert_b
+                                       dup
+                                       iffalse ofs0023
+                                       pop
+                                       getlocal2
+                                       getlex QName(PackageNamespace(""),"String")
+                                       istypelate
+                              ofs0023:
+                                       iffalse ofs0047
+                                       getlocal2
+                                       pushstring "%"
+                                       callproperty Multiname("indexOf",[PrivateNamespace(null,"14"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"121"),PackageNamespace("mx.skins"),PackageInternalNs("mx.skins"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.skins:RectangularBorder"),StaticProtectedNs("mx.skins:RectangularBorder"),StaticProtectedNs("mx.skins:Border"),StaticProtectedNs("mx.skins:ProgrammaticSkin"),StaticProtectedNs("mx.core:FlexShape"),StaticProtectedNs("flash.display:Shape"),StaticProtectedNs("flash.display:DisplayObject"),StaticProtectedNs("flash.events:EventDispatcher")]), 1
+                                       convert_i
+                                       setlocal3
+                                       getlocal3
+                                       pushbyte -1
+                                       ifeq ofs0047
+                                       findpropstrict QName(PackageNamespace(""),"Number")
+                                       getlocal2
+                                       pushbyte 0
+                                       getlocal3
+                                       callproperty Multiname("substr",[PrivateNamespace(null,"14"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"121"),PackageNamespace("mx.skins"),PackageInternalNs("mx.skins"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.skins:RectangularBorder"),StaticProtectedNs("mx.skins:RectangularBorder"),StaticProtectedNs("mx.skins:Border"),StaticProtectedNs("mx.skins:ProgrammaticSkin"),StaticProtectedNs("mx.core:FlexShape"),StaticProtectedNs("flash.display:Shape"),StaticProtectedNs("flash.display:DisplayObject"),StaticProtectedNs("flash.events:EventDispatcher")]), 2
+                                       callproperty QName(PackageNamespace(""),"Number"), 1
+                                       convert_d
+                                       setlocal1
+                              ofs0047:
+                                       getlocal1
+                                       returnvalue
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           private function errorEventHandler(param1:Event) : void
+                           {
+                              trait method QName(PrivateNamespace(null,"14"),"errorEventHandler")
+                                 dispid 0
+                                 method
+                                    name null
+                                    param QName(PackageNamespace("flash.events"),"Event")
+                                    returns QName(PackageNamespace(""),"void")
+                                    
+                                    body
+                                       maxstack 1
+                                       localcount 2
+                                       initscopedepth 10
+                                       maxscopedepth 11
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              private function completeEventHandler(param1:Event) : void
+                              {
+                                 trait method QName(PrivateNamespace(null,"14"),"completeEventHandler")
+                                    dispid 0
+                                    method
+                                       name null
+                                       param QName(PackageNamespace("flash.events"),"Event")
+                                       returns QName(PackageNamespace(""),"void")
+                                       
+                                       body
+                                          maxstack 3
+                                          localcount 3
+                                          initscopedepth 10
+                                          maxscopedepth 11
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlex QName(PackageNamespace(""),"parent")
+                                             iftrue ofs000a
+                                             returnvoid
+                                    ofs000a:
+                                             findpropstrict QName(PackageNamespace("flash.display"),"DisplayObject")
+                                             findpropstrict QName(PackageNamespace("flash.display"),"LoaderInfo")
+                                             getlocal1
+                                             getproperty QName(PackageNamespace(""),"target")
+                                             callproperty QName(PackageNamespace("flash.display"),"LoaderInfo"), 1
+                                             getproperty QName(PackageNamespace(""),"loader")
+                                             callproperty QName(PackageNamespace("flash.display"),"DisplayObject"), 1
+                                             coerce QName(PackageNamespace("flash.display"),"DisplayObject")
+                                             setlocal2
+                                             getlocal0
+                                             getlocal2
+                                             callpropvoid QName(PrivateNamespace(null,"14"),"initBackgroundImage"), 1
+                                             getlocal0
+                                             callpropvoid QName(PackageNamespace(""),"layoutBackgroundImage"), 0
+                                             findpropstrict QName(PackageNamespace(""),"dispatchEvent")
+                                             getlocal1
+                                             callproperty QName(PackageNamespace(""),"clone"), 0
+                                             callpropvoid QName(PackageNamespace(""),"dispatchEvent"), 1
+                                             returnvoid
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 private function removedHandler(param1:Event) : void
+                                 {
+                                    trait method QName(PrivateNamespace(null,"14"),"removedHandler")
+                                       dispid 0
+                                       method
+                                          name null
+                                          param QName(PackageNamespace("flash.events"),"Event")
+                                          returns QName(PackageNamespace(""),"void")
+                                          
+                                          body
+                                             maxstack 2
+                                             localcount 3
+                                             initscopedepth 10
+                                             maxscopedepth 11
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                pushnull
+                                                coerce QName(PackageNamespace("mx.core"),"IChildList")
+                                                setlocal2
+                                                getlocal0
+                                                getproperty QName(PrivateNamespace(null,"14"),"backgroundImage")
+                                                iffalse ofs0053
+                                                getlex QName(PackageNamespace(""),"parent")
+                                                getlex QName(PackageNamespace("mx.core"),"IRawChildrenContainer")
+                                                istypelate
+                                                iffalse ofs002c
+                                                findpropstrict QName(PackageNamespace("mx.core"),"IRawChildrenContainer")
+                                                getlex QName(PackageNamespace(""),"parent")
+                                                callproperty QName(PackageNamespace("mx.core"),"IRawChildrenContainer"), 1
+                                                getproperty QName(Namespace("mx.core:IRawChildrenContainer"),"rawChildren")
+                                                coerce QName(PackageNamespace("mx.core"),"IChildList")
+                                                jump ofs0036
+                                       ofs002c:
+                                                findpropstrict QName(PackageNamespace("mx.core"),"IChildList")
+                                                getlex QName(PackageNamespace(""),"parent")
+                                                callproperty QName(PackageNamespace("mx.core"),"IChildList"), 1
+                                                coerce QName(PackageNamespace("mx.core"),"IChildList")
+                                       ofs0036:
+                                                coerce QName(PackageNamespace("mx.core"),"IChildList")
+                                                setlocal2
+                                                getlocal2
+                                                getlocal0
+                                                getproperty QName(PrivateNamespace(null,"14"),"backgroundImage")
+                                                getproperty QName(PackageNamespace(""),"mask")
+                                                callpropvoid QName(Namespace("mx.core:IChildList"),"removeChild"), 1
+                                                getlocal2
+                                                getlocal0
+                                                getproperty QName(PrivateNamespace(null,"14"),"backgroundImage")
+                                                callpropvoid QName(Namespace("mx.core:IChildList"),"removeChild"), 1
+                                                getlocal0
+                                                pushnull
+                                                initproperty QName(PrivateNamespace(null,"14"),"backgroundImage")
+                                       ofs0053:
+                                                returnvoid
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                 }
+                              }
+                              
+                              method
+                                 name null
+                                 returns null
+                                 
+                                 body
+                                    maxstack 2
+                                    localcount 1
+                                    initscopedepth 1
+                                    maxscopedepth 9
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       findpropstrict Multiname("RectangularBorder",[PackageNamespace("mx.skins")])
+                                       getlex QName(PackageNamespace(""),"Object")
+                                       pushscope
+                                       getlex QName(PackageNamespace("flash.events"),"EventDispatcher")
+                                       pushscope
+                                       getlex QName(PackageNamespace("flash.display"),"DisplayObject")
+                                       pushscope
+                                       getlex QName(PackageNamespace("flash.display"),"Shape")
+                                       pushscope
+                                       getlex QName(PackageNamespace("mx.core"),"FlexShape")
+                                       pushscope
+                                       getlex QName(PackageNamespace("mx.skins"),"ProgrammaticSkin")
+                                       pushscope
+                                       getlex QName(PackageNamespace("mx.skins"),"Border")
+                                       pushscope
+                                       getlex QName(PackageNamespace("mx.skins"),"Border")
+                                       newclass 39
+                                       popscope
+                                       popscope
+                                       popscope
+                                       popscope
+                                       popscope
+                                       popscope
+                                       popscope
+                                       initproperty QName(PackageNamespace("mx.skins"),"RectangularBorder")
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method
+                              

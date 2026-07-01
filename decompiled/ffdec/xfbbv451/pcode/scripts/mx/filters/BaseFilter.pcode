@@ -1,0 +1,117 @@
+package mx.filters
+{
+   import flash.events.Event;
+   import flash.events.EventDispatcher;
+   import flash.events.IEventDispatcher;
+   
+   public class BaseFilter extends EventDispatcher
+   {
+      
+      public static const CHANGE:String = "change";
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 4
+            maxscopedepth 5
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(PackageNamespace(""),"CHANGE")
+               pushstring "change"
+               initproperty QName(PackageNamespace(""),"CHANGE")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      public function BaseFilter(param1:IEventDispatcher = null)
+      {
+         method
+            name null
+            flag HAS_OPTIONAL
+            param QName(PackageNamespace("flash.events"),"IEventDispatcher")
+            optional Null()
+            returns null
+            
+            body
+               maxstack 2
+               localcount 2
+               initscopedepth 5
+               maxscopedepth 6
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  getlocal1
+                  constructsuper 1
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function notifyFilterChanged() : void
+      {
+         trait method QName(PackageNamespace(""),"notifyFilterChanged")
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 3
+                  localcount 1
+                  initscopedepth 5
+                  maxscopedepth 6
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     findpropstrict QName(PackageNamespace(""),"dispatchEvent")
+                     findpropstrict QName(PackageNamespace("flash.events"),"Event")
+                     getlex QName(PackageNamespace(""),"CHANGE")
+                     constructprop QName(PackageNamespace("flash.events"),"Event"), 1
+                     callpropvoid QName(PackageNamespace(""),"dispatchEvent"), 1
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+      }
+   }
+   
+   method
+      name null
+      returns null
+      
+      body
+         maxstack 2
+         localcount 1
+         initscopedepth 1
+         maxscopedepth 4
+         
+         code
+            getlocal0
+            pushscope
+            findpropstrict Multiname("BaseFilter",[PackageNamespace("mx.filters")])
+            getlex QName(PackageNamespace(""),"Object")
+            pushscope
+            getlex QName(PackageNamespace("flash.events"),"EventDispatcher")
+            pushscope
+            getlex QName(PackageNamespace("flash.events"),"EventDispatcher")
+            newclass 108
+            popscope
+            popscope
+            initproperty QName(PackageNamespace("mx.filters"),"BaseFilter")
+            returnvoid
+         end ; code
+      end ; body
+   end ; method
+   

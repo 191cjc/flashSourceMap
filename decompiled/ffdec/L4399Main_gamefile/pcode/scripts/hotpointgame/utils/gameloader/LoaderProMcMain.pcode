@@ -1,0 +1,733 @@
+package hotpointgame.utils.gameloader
+{
+   import flash.display.*;
+   import flash.events.*;
+   import flash.net.*;
+   import flash.text.*;
+   import hotpointgame.Control.*;
+   import hotpointgame.ginit.*;
+   import hotpointgame.utils.*;
+   
+   public class LoaderProMcMain extends LoaderProMc
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 4
+            maxscopedepth 5
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var lmc:MovieClip;
+      
+      private var preloadmc:MovieClip;
+      
+      private var pretext:TextField;
+      
+      private var haibaojinum:int = 0;
+      
+      private var haibaoMc:MovieClip;
+      
+      private var btnT:int = 3;
+      
+      private var btnc:int = 1;
+      
+      private var mcM:McBtnLianDong;
+      
+      private var tishijinum:int = 0;
+      
+      private var tishiarr:Array;
+      
+      public function LoaderProMcMain(param1:MovieClip)
+      {
+         method
+            name null
+            param QName(PackageNamespace("flash.display"),"MovieClip")
+            returns null
+            
+            body
+               maxstack 11
+               localcount 3
+               initscopedepth 5
+               maxscopedepth 6
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  pushstring "随着等级的提升将会出现更多功能"
+                  pushstring "银河商店每次刷新时都要记得去看看，好东西大都出现在那里"
+                  pushstring "难度越高的关卡获得的金币、成就点数与经验都会越多"
+                  pushstring "副本关卡里获得的奖励将会是普通关卡的好几倍"
+                  pushstring "幸运彩罐能够开出许多你意想不到的东西"
+                  pushstring "游戏中有许多隐藏元素，如果你认真探索的话都会有惊喜发现"
+                  pushstring "前期要多买一些太阳碎片，这样等到强化系统开放时会对你很有帮助"
+                  pushstring "在关卡内发现的隐藏元素越多，通关时获得的经验、金币与成就点数奖励就越多"
+                  pushstring "通关时的战斗成绩越好，获得的经验、金币与成就点数奖励就越多"
+                  pushstring "游戏后期利用五行相克的原理能够更加容易的打倒怪物"
+                  newarray 10
+                  initproperty QName(PrivateNamespace(null,"209"),"tishiarr")
+                  getlocal0
+                  constructsuper 0
+                  getlocal0
+                  getlocal1
+                  initproperty Multiname("lmc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  getlocal0
+                  getlocal0
+                  getproperty Multiname("lmc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  pushstring "preloader"
+                  getproperty MultinameL([PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  getlex Multiname("MovieClip",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("flash.display")])
+                  astypelate
+                  initproperty Multiname("preloadmc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  getlocal0
+                  getlocal0
+                  getproperty Multiname("lmc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  pushstring "pretext"
+                  getproperty MultinameL([PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  getlex Multiname("TextField",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("flash.text")])
+                  astypelate
+                  initproperty Multiname("pretext",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  getlocal0
+                  getproperty Multiname("preloadmc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  pushbyte 1
+                  callpropvoid Multiname("gotoAndStop",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 1
+                  getlocal0
+                  getlocal0
+                  getproperty Multiname("lmc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  pushstring "jiazaihaibao"
+                  getproperty MultinameL([PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  initproperty Multiname("haibaoMc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  getlocal0
+                  getproperty Multiname("haibaoMc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  getlocal0
+                  getproperty Multiname("btnc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  callpropvoid Multiname("gotoAndStop",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 1
+                  getlocal0
+                  findpropstrict Multiname("McBtnLianDong",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("hotpointgame.ginit")])
+                  constructprop Multiname("McBtnLianDong",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("hotpointgame.ginit")]), 0
+                  initproperty Multiname("mcM",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  pushbyte 1
+                  setlocal2
+                  jump ofs00c0
+         ofs009c:
+                  label
+                  getlocal0
+                  getproperty Multiname("mcM",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  findpropstrict Multiname("McBtn",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("hotpointgame.ginit")])
+                  getlocal0
+                  getproperty Multiname("lmc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  pushstring "jiazaihaibaoanniu"
+                  getlocal2
+                  add
+                  getproperty MultinameL([PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  constructprop Multiname("McBtn",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("hotpointgame.ginit")]), 1
+                  callpropvoid Multiname("addBtnLianDong",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 1
+                  inclocal_i 2
+         ofs00c0:
+                  getlocal2
+                  getlocal0
+                  getproperty Multiname("btnT",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  ifle ofs009c
+                  getlocal0
+                  getproperty Multiname("mcM",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  pushstring "jiazaihaibaoanniu1"
+                  callpropvoid Multiname("btnByClick",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 1
+                  getlocal0
+                  getproperty Multiname("mcM",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  findpropstrict Multiname("McBtn",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("hotpointgame.ginit")])
+                  getlocal0
+                  getproperty Multiname("lmc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  pushstring "jiazaifanzhi"
+                  getproperty MultinameL([PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  constructprop Multiname("McBtn",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("hotpointgame.ginit")]), 1
+                  callpropvoid Multiname("addBtnNoLian",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 1
+                  getlocal0
+                  getproperty Multiname("mcM",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  findpropstrict Multiname("McBtn",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("hotpointgame.ginit")])
+                  getlocal0
+                  getproperty Multiname("lmc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  pushstring "jiazaijinrulunt"
+                  getproperty MultinameL([PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  constructprop Multiname("McBtn",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("hotpointgame.ginit")]), 1
+                  callpropvoid Multiname("addBtnNoLian",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 1
+                  getlocal0
+                  getproperty Multiname("mcM",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  findpropstrict Multiname("McBtn",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("hotpointgame.ginit")])
+                  getlocal0
+                  getproperty Multiname("lmc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  pushstring "jiazaigxnr"
+                  getproperty MultinameL([PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  constructprop Multiname("McBtn",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("hotpointgame.ginit")]), 1
+                  callpropvoid Multiname("addBtnNoLian",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 1
+                  getlocal0
+                  getproperty Multiname("mcM",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  findpropstrict Multiname("McBtn",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("hotpointgame.ginit")])
+                  getlocal0
+                  getproperty Multiname("lmc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  pushstring "jiazaihaibaochup"
+                  getproperty MultinameL([PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  constructprop Multiname("McBtn",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("hotpointgame.ginit")]), 1
+                  callpropvoid Multiname("addBtnNoLian",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 1
+                  getlocal0
+                  getproperty Multiname("lmc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  getlex Multiname("MouseEvent",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("flash.events")])
+                  getproperty Multiname("CLICK",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  getlocal0
+                  getproperty Multiname("lmcclickH",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  callpropvoid Multiname("addEventListener",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 2
+                  getlex Multiname("GM",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("hotpointgame.Control")])
+                  getproperty Multiname("einit",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  getlocal0
+                  getproperty Multiname("lmc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                  callpropvoid Multiname("addChild",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 1
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      override public function gmUpdate(param1:String, param2:int) : void
+      {
+         trait method QName(PackageNamespace(""),"gmUpdate")
+            flag OVERRIDE
+            dispid 0
+            method
+               name null
+               param QName(PackageNamespace(""),"String")
+               param QName(PackageNamespace(""),"int")
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 6
+                  localcount 5
+                  initscopedepth 5
+                  maxscopedepth 6
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     dup
+                     setlocal3
+                     getproperty Multiname("haibaojinum",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     increment_i
+                     setlocal 4
+                     getlocal3
+                     getlocal 4
+                     setproperty Multiname("haibaojinum",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     kill 4
+                     kill 3
+                     getlocal2
+                     pushbyte 0
+                     ifnle ofs0021
+                     pushbyte 1
+                     setlocal2
+            ofs0021:
+                     getlocal2
+                     pushbyte 100
+                     ifngt ofs002b
+                     pushbyte 100
+                     setlocal2
+            ofs002b:
+                     getlocal0
+                     getproperty Multiname("pretext",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     getlocal1
+                     setproperty Multiname("text",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     getlocal0
+                     getproperty Multiname("preloadmc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     getlocal2
+                     callpropvoid Multiname("gotoAndStop",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 1
+                     getlocal0
+                     dup
+                     setlocal3
+                     getproperty Multiname("tishijinum",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     increment_i
+                     setlocal 4
+                     getlocal3
+                     getlocal 4
+                     setproperty Multiname("tishijinum",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     kill 4
+                     kill 3
+                     getlocal0
+                     getproperty Multiname("tishijinum",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     pushshort 1000
+                     modulo
+                     pushbyte 0
+                     ifne ofs00a1
+                     getlocal0
+                     getproperty Multiname("lmc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     pushstring "xiaotishi"
+                     getproperty MultinameL([PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     getlex Multiname("TextField",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("flash.text")])
+                     astypelate
+                     pushstring ""
+                     getlocal0
+                     getproperty Multiname("tishiarr",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     findpropstrict Multiname("int",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     getlex Multiname("Math",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     callproperty Multiname("random",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 0
+                     getlocal0
+                     getproperty Multiname("tishiarr",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     getproperty Multiname("length",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     multiply
+                     callproperty Multiname("int",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 1
+                     getproperty MultinameL([PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     add
+                     setproperty Multiname("text",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+            ofs00a1:
+                     getlocal0
+                     getproperty Multiname("haibaojinum",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     pushshort 500
+                     ifngt ofs0104
+                     getlocal0
+                     pushbyte 0
+                     initproperty Multiname("haibaojinum",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     getlocal0
+                     getproperty Multiname("btnc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     getlocal0
+                     getproperty Multiname("btnT",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     ifne ofs00cd
+                     getlocal0
+                     pushbyte 1
+                     initproperty Multiname("btnc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     jump ofs00e2
+            ofs00cd:
+                     getlocal0
+                     dup
+                     setlocal3
+                     getproperty Multiname("btnc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     increment_i
+                     setlocal 4
+                     getlocal3
+                     getlocal 4
+                     setproperty Multiname("btnc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     kill 4
+                     kill 3
+            ofs00e2:
+                     getlocal0
+                     getproperty Multiname("haibaoMc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     getlocal0
+                     getproperty Multiname("btnc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     callpropvoid Multiname("gotoAndStop",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 1
+                     getlocal0
+                     getproperty Multiname("mcM",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     pushstring "jiazaihaibaoanniu"
+                     getlocal0
+                     getproperty Multiname("btnc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                     add
+                     callpropvoid Multiname("btnByClick",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 1
+            ofs0104:
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         private function lmcclickH(param1:MouseEvent) : void
+         {
+            trait method QName(PrivateNamespace(null,"209"),"lmcclickH")
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace("flash.events"),"MouseEvent")
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 3
+                     localcount 8
+                     initscopedepth 5
+                     maxscopedepth 6
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        pushnull
+                        coerce QName(PackageNamespace("flash.net"),"URLRequest")
+                        setlocal2
+                        pushnull
+                        coerce QName(PackageNamespace("flash.net"),"URLRequest")
+                        setlocal3
+                        pushnull
+                        coerce QName(PackageNamespace("flash.net"),"URLRequest")
+                        setlocal 4
+                        pushnull
+                        coerce_s
+                        setlocal 5
+                        pushnull
+                        coerce QName(PackageNamespace("flash.net"),"URLRequest")
+                        setlocal 6
+                        getlocal1
+                        getproperty Multiname("target",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        getproperty Multiname("name",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        pushnull
+                        ifeq ofs02f4
+                        jump ofs0243
+               ofs002e:
+                        label
+                        findpropstrict Multiname("URLRequest",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("flash.net")])
+                        pushstring "http://my.4399.com/forums-thread-tagid-81881-id-34766953.html"
+                        constructprop Multiname("URLRequest",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("flash.net")]), 1
+                        coerce QName(PackageNamespace("flash.net"),"URLRequest")
+                        setlocal2
+                        findpropstrict Multiname("navigateToURL",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("flash.net")])
+                        getlocal2
+                        pushstring "_blank"
+                        callpropvoid Multiname("navigateToURL",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("flash.net")]), 2
+                        jump ofs02f4
+               ofs0050:
+                        label
+                        findpropstrict Multiname("URLRequest",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("flash.net")])
+                        pushstring "http://my.4399.com/forums-mtag-tagid-81881.html"
+                        constructprop Multiname("URLRequest",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("flash.net")]), 1
+                        coerce QName(PackageNamespace("flash.net"),"URLRequest")
+                        setlocal3
+                        findpropstrict Multiname("navigateToURL",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("flash.net")])
+                        getlocal3
+                        pushstring "_blank"
+                        callpropvoid Multiname("navigateToURL",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("flash.net")]), 2
+                        jump ofs02f4
+               ofs0072:
+                        label
+                        findpropstrict Multiname("URLRequest",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("flash.net")])
+                        getlex Multiname("UTools",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("hotpointgame.utils")])
+                        getproperty Multiname("updateUrl",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        constructprop Multiname("URLRequest",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("flash.net")]), 1
+                        coerce QName(PackageNamespace("flash.net"),"URLRequest")
+                        setlocal 4
+                        findpropstrict Multiname("navigateToURL",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("flash.net")])
+                        getlocal 4
+                        pushstring "_blank"
+                        callpropvoid Multiname("navigateToURL",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("flash.net")]), 2
+                        jump ofs02f4
+               ofs009b:
+                        label
+                        jump ofs00e3
+               ofs00a0:
+                        label
+                        getlex Multiname("UTools",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("hotpointgame.utils")])
+                        getproperty Multiname("updateUrl1",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        coerce_s
+                        setlocal 5
+                        jump ofs0144
+               ofs00b0:
+                        label
+                        getlex Multiname("UTools",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("hotpointgame.utils")])
+                        getproperty Multiname("updateUrl2",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        coerce_s
+                        setlocal 5
+                        jump ofs0144
+               ofs00c0:
+                        label
+                        getlex Multiname("UTools",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("hotpointgame.utils")])
+                        getproperty Multiname("updateUrl3",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        coerce_s
+                        setlocal 5
+                        jump ofs0144
+               ofs00d0:
+                        label
+                        pushstring "http://my.4399.com/forums-thread-tagid-81881-id-39250516.html"
+                        setlocal 5
+                        jump ofs0144
+               ofs00da:
+                        label
+                        jump ofs0144
+                        jump ofs00e3
+               ofs00e3:
+                        getlocal0
+                        getproperty Multiname("btnc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        setlocal 7
+                        pushbyte 1
+                        getlocal 7
+                        ifstrictne ofs00f8
+                        pushbyte 0
+                        jump ofs012e
+               ofs00f8:
+                        pushbyte 2
+                        getlocal 7
+                        ifstrictne ofs0106
+                        pushbyte 1
+                        jump ofs012e
+               ofs0106:
+                        pushbyte 3
+                        getlocal 7
+                        ifstrictne ofs0114
+                        pushbyte 2
+                        jump ofs012e
+               ofs0114:
+                        pushbyte 4
+                        getlocal 7
+                        ifstrictne ofs0122
+                        pushbyte 3
+                        jump ofs012e
+               ofs0122:
+                        jump ofs012c
+                        pushbyte 4
+                        jump ofs012c
+               ofs012c:
+                        pushbyte 4
+               ofs012e:
+                        kill 7
+                        lookupswitch ofs00da, [ofs00a0, ofs00b0, ofs00c0, ofs00d0, ofs00da]
+               ofs0144:
+                        findpropstrict Multiname("URLRequest",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("flash.net")])
+                        getlocal 5
+                        constructprop Multiname("URLRequest",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("flash.net")]), 1
+                        coerce QName(PackageNamespace("flash.net"),"URLRequest")
+                        setlocal 6
+                        findpropstrict Multiname("navigateToURL",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("flash.net")])
+                        getlocal 6
+                        pushstring "_blank"
+                        callpropvoid Multiname("navigateToURL",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("flash.net")]), 2
+                        jump ofs02f4
+               ofs0166:
+                        label
+                        getlocal0
+                        pushbyte 1
+                        initproperty Multiname("btnc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        getlocal0
+                        getproperty Multiname("haibaoMc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        getlocal0
+                        getproperty Multiname("btnc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        callpropvoid Multiname("gotoAndStop",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 1
+                        getlocal0
+                        getproperty Multiname("mcM",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        pushstring "jiazaihaibaoanniu"
+                        getlocal0
+                        getproperty Multiname("btnc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        add
+                        callpropvoid Multiname("btnByClick",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 1
+                        getlocal0
+                        pushbyte 0
+                        initproperty Multiname("haibaojinum",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        jump ofs02f4
+               ofs019b:
+                        label
+                        getlocal0
+                        pushbyte 2
+                        initproperty Multiname("btnc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        getlocal0
+                        getproperty Multiname("haibaoMc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        getlocal0
+                        getproperty Multiname("btnc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        callpropvoid Multiname("gotoAndStop",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 1
+                        getlocal0
+                        getproperty Multiname("mcM",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        pushstring "jiazaihaibaoanniu"
+                        getlocal0
+                        getproperty Multiname("btnc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        add
+                        callpropvoid Multiname("btnByClick",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 1
+                        getlocal0
+                        pushbyte 0
+                        initproperty Multiname("haibaojinum",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        jump ofs02f4
+               ofs01d0:
+                        label
+                        getlocal0
+                        pushbyte 3
+                        initproperty Multiname("btnc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        getlocal0
+                        getproperty Multiname("haibaoMc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        getlocal0
+                        getproperty Multiname("btnc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        callpropvoid Multiname("gotoAndStop",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 1
+                        getlocal0
+                        getproperty Multiname("mcM",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        pushstring "jiazaihaibaoanniu"
+                        getlocal0
+                        getproperty Multiname("btnc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        add
+                        callpropvoid Multiname("btnByClick",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 1
+                        getlocal0
+                        pushbyte 0
+                        initproperty Multiname("haibaojinum",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        jump ofs02f4
+               ofs0205:
+                        label
+                        getlocal0
+                        pushbyte 4
+                        initproperty Multiname("btnc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        getlocal0
+                        getproperty Multiname("haibaoMc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        getlocal0
+                        getproperty Multiname("btnc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        callpropvoid Multiname("gotoAndStop",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 1
+                        getlocal0
+                        getproperty Multiname("mcM",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        pushstring "jiazaihaibaoanniu"
+                        getlocal0
+                        getproperty Multiname("btnc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        add
+                        callpropvoid Multiname("btnByClick",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 1
+                        getlocal0
+                        pushbyte 0
+                        initproperty Multiname("haibaojinum",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        jump ofs02f4
+               ofs023a:
+                        label
+                        jump ofs02f4
+                        jump ofs0243
+               ofs0243:
+                        getlocal1
+                        getproperty Multiname("target",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        getproperty Multiname("name",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                        setlocal 7
+                        pushstring "jiazaifanzhi"
+                        getlocal 7
+                        ifstrictne ofs025d
+                        pushbyte 0
+                        jump ofs02d2
+               ofs025d:
+                        pushstring "jiazaijinrulunt"
+                        getlocal 7
+                        ifstrictne ofs026c
+                        pushbyte 1
+                        jump ofs02d2
+               ofs026c:
+                        pushstring "jiazaigxnr"
+                        getlocal 7
+                        ifstrictne ofs027b
+                        pushbyte 2
+                        jump ofs02d2
+               ofs027b:
+                        pushstring "jiazaihaibaochup"
+                        getlocal 7
+                        ifstrictne ofs028a
+                        pushbyte 3
+                        jump ofs02d2
+               ofs028a:
+                        pushstring "jiazaihaibaoanniu1"
+                        getlocal 7
+                        ifstrictne ofs0299
+                        pushbyte 4
+                        jump ofs02d2
+               ofs0299:
+                        pushstring "jiazaihaibaoanniu2"
+                        getlocal 7
+                        ifstrictne ofs02a8
+                        pushbyte 5
+                        jump ofs02d2
+               ofs02a8:
+                        pushstring "jiazaihaibaoanniu3"
+                        getlocal 7
+                        ifstrictne ofs02b7
+                        pushbyte 6
+                        jump ofs02d2
+               ofs02b7:
+                        pushstring "jiazaihaibaoanniu4"
+                        getlocal 7
+                        ifstrictne ofs02c6
+                        pushbyte 7
+                        jump ofs02d2
+               ofs02c6:
+                        jump ofs02d0
+                        pushbyte 8
+                        jump ofs02d0
+               ofs02d0:
+                        pushbyte 8
+               ofs02d2:
+                        kill 7
+                        lookupswitch ofs023a, [ofs002e, ofs0050, ofs0072, ofs009b, ofs0166, ofs019b, ofs01d0, ofs0205, ofs023a]
+               ofs02f4:
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            override public function remove() : void
+            {
+               trait method QName(PackageNamespace(""),"remove")
+                  flag OVERRIDE
+                  dispid 0
+                  method
+                     name null
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 3
+                        localcount 1
+                        initscopedepth 5
+                        maxscopedepth 6
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           pushnull
+                           initproperty Multiname("preloadmc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                           getlocal0
+                           pushnull
+                           initproperty Multiname("pretext",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                           getlocal0
+                           pushnull
+                           initproperty Multiname("haibaoMc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                           getlocal0
+                           getproperty Multiname("mcM",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                           callpropvoid Multiname("remove",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 0
+                           getlocal0
+                           pushnull
+                           initproperty Multiname("mcM",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                           getlocal0
+                           getproperty Multiname("lmc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                           getlex Multiname("MouseEvent",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("flash.events")])
+                           getproperty Multiname("CLICK",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                           getlocal0
+                           getproperty Multiname("lmcclickH",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                           callpropvoid Multiname("removeEventListener",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 2
+                           getlex Multiname("GM",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc"),PackageNamespace("hotpointgame.Control")])
+                           getproperty Multiname("einit",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                           getlocal0
+                           getproperty Multiname("lmc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                           callpropvoid Multiname("removeChild",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")]), 1
+                           getlocal0
+                           pushnull
+                           initproperty Multiname("lmc",[PrivateNamespace(null,"209"),PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMcMain"),StaticProtectedNs("hotpointgame.utils.gameloader:LoaderProMc")])
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+            }
+         }
+         
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 2
+               localcount 1
+               initscopedepth 1
+               maxscopedepth 4
+               
+               code
+                  getlocal0
+                  pushscope
+                  findpropstrict Multiname("LoaderProMcMain",[PackageNamespace("hotpointgame.utils.gameloader")])
+                  getlex QName(PackageNamespace(""),"Object")
+                  pushscope
+                  getlex QName(PackageNamespace("hotpointgame.utils.gameloader"),"LoaderProMc")
+                  pushscope
+                  getlex Multiname("LoaderProMc",[PrivateNamespace(null,"755"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin")])
+                  newclass 298
+                  popscope
+                  popscope
+                  initproperty QName(PackageNamespace("hotpointgame.utils.gameloader"),"LoaderProMcMain")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+         

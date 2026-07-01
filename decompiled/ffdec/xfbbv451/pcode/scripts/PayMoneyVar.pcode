@@ -1,0 +1,208 @@
+package
+{
+   public class PayMoneyVar
+   {
+      
+      public static var instance:PayMoneyVar;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var _money:Object;
+      
+      private var _balance:Object;
+      
+      public function PayMoneyVar()
+      {
+         method
+            name null
+            returns QName(PackageNamespace(""),"void")
+            
+            body
+               maxstack 2
+               localcount 1
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  getglobalscope
+                  getslot 1
+                  getproperty QName(PackageNamespace(""),"instance")
+                  pushnull
+                  ifeq ofs001b
+                  findpropstrict QName(PackageNamespace(""),"Error")
+                  pushstring "只能实例一次！"
+                  constructprop QName(PackageNamespace(""),"Error"), 1
+                  throw
+         ofs001b:
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public static function getInstance() : PayMoneyVar
+      {
+         trait method QName(PackageNamespace(""),"getInstance")
+            flag FINAL
+            dispid 3
+            method
+               name null
+               returns QName(PackageNamespace(""),"PayMoneyVar")
+               
+               body
+                  maxstack 2
+                  localcount 1
+                  initscopedepth 3
+                  maxscopedepth 4
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlex QName(PackageNamespace(""),"instance")
+                     pushnull
+                     ifne ofs0013
+                     findproperty QName(PackageNamespace(""),"instance")
+                     getlocal0
+                     construct 0
+                     setproperty QName(PackageNamespace(""),"instance")
+            ofs0013:
+                     getlex QName(PackageNamespace(""),"instance")
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function set money(param1:int) : void
+         {
+            trait setter QName(PackageNamespace(""),"money")
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace(""),"int")
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 2
+                     localcount 3
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlex QName(PackageNamespace(""),"Math")
+                        getlocal1
+                        callproperty QName(PackageNamespace(""),"abs"), 1
+                        convert_i
+                        setlocal1
+                        pushstring "value"
+                        getlocal1
+                        newobject 1
+                        coerce QName(PackageNamespace(""),"Object")
+                        setlocal2
+                        pushstring "value"
+                        getlocal2
+                        getproperty Multiname("value",[PrivateNamespace(null,"5"),PackageNamespace(""),PrivateNamespace(null,"113"),PackageInternalNs(""),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("PayMoneyVar"),StaticProtectedNs("PayMoneyVar")])
+                        newobject 1
+                        coerce QName(PackageNamespace(""),"Object")
+                        setlocal2
+                        getlocal0
+                        getlocal2
+                        initproperty QName(PrivateNamespace(null,"5"),"_money")
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function get money() : int
+            {
+               trait getter QName(PackageNamespace(""),"money")
+                  dispid 0
+                  method
+                     name null
+                     returns QName(PackageNamespace(""),"int")
+                     
+                     body
+                        maxstack 2
+                        localcount 2
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"5"),"_money")
+                           pushnull
+                           ifne ofs000e
+                           pushbyte 0
+                           returnvalue
+                  ofs000e:
+                           findpropstrict QName(PackageNamespace(""),"Object")
+                           constructprop QName(PackageNamespace(""),"Object"), 0
+                           coerce QName(PackageNamespace(""),"Object")
+                           setlocal1
+                           getlocal1
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"5"),"_money")
+                           getproperty Multiname("value",[PrivateNamespace(null,"5"),PackageNamespace(""),PrivateNamespace(null,"113"),PackageInternalNs(""),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("PayMoneyVar"),StaticProtectedNs("PayMoneyVar")])
+                           setproperty Multiname("value",[PrivateNamespace(null,"5"),PackageNamespace(""),PrivateNamespace(null,"113"),PackageInternalNs(""),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("PayMoneyVar"),StaticProtectedNs("PayMoneyVar")])
+                           findpropstrict QName(PackageNamespace(""),"int")
+                           getlocal1
+                           getproperty Multiname("value",[PrivateNamespace(null,"5"),PackageNamespace(""),PrivateNamespace(null,"113"),PackageInternalNs(""),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("PayMoneyVar"),StaticProtectedNs("PayMoneyVar")])
+                           callproperty QName(PackageNamespace(""),"int"), 1
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+            }
+         }
+         
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 2
+               localcount 1
+               initscopedepth 1
+               maxscopedepth 3
+               
+               code
+                  getlocal0
+                  pushscope
+                  getscopeobject 0
+                  getlex QName(PackageNamespace(""),"Object")
+                  pushscope
+                  getlex QName(PackageNamespace(""),"Object")
+                  newclass 5
+                  popscope
+                  initproperty QName(PackageNamespace(""),"PayMoneyVar")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+         

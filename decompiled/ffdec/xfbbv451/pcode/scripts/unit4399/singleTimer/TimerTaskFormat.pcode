@@ -1,0 +1,681 @@
+package unit4399.singleTimer
+{
+   public class TimerTaskFormat
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var _isUse:Boolean;
+      
+      private var _runInterval:int;
+      
+      private var _id:int;
+      
+      private var _curCount:int;
+      
+      private var _totalCount:int;
+      
+      private var _observer:Observer;
+      
+      private var _curRunTime:int;
+      
+      public function TimerTaskFormat(param1:int = -1, param2:int = -1, param3:int = -1, param4:Object = null, param5:Function = null, param6:Array = null)
+      {
+         method
+            name null
+            flag HAS_OPTIONAL
+            param QName(PackageNamespace(""),"int")
+            param QName(PackageNamespace(""),"int")
+            param QName(PackageNamespace(""),"int")
+            param QName(PackageNamespace(""),"Object")
+            param QName(PackageNamespace(""),"Function")
+            param QName(PackageNamespace(""),"Array")
+            optional Integer(-1)
+            optional Integer(-1)
+            optional Integer(-1)
+            optional Null()
+            optional Null()
+            optional Null()
+            returns null
+            
+            body
+               maxstack 2
+               localcount 7
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  getlocal0
+                  getlocal1
+                  initproperty QName(PrivateNamespace(null,"5"),"_runInterval")
+                  getlocal0
+                  getlocal1
+                  initproperty QName(PrivateNamespace(null,"5"),"_curRunTime")
+                  getlocal0
+                  getlocal2
+                  initproperty QName(PrivateNamespace(null,"5"),"_id")
+                  getlocal0
+                  getlocal3
+                  initproperty QName(PrivateNamespace(null,"5"),"_totalCount")
+                  getlocal0
+                  pushbyte 0
+                  initproperty QName(PrivateNamespace(null,"5"),"_curCount")
+                  getlocal0
+                  getproperty QName(PrivateNamespace(null,"5"),"_observer")
+                  pushnull
+                  ifne ofs0033
+                  getlocal0
+                  findpropstrict QName(PackageNamespace("unit4399.singleTimer"),"Observer")
+                  constructprop QName(PackageNamespace("unit4399.singleTimer"),"Observer"), 0
+                  initproperty QName(PrivateNamespace(null,"5"),"_observer")
+         ofs0033:
+                  getlocal0
+                  getproperty QName(PrivateNamespace(null,"5"),"_observer")
+                  getlocal 5
+                  callpropvoid QName(PackageNamespace(""),"setNotifyMethod"), 1
+                  getlocal0
+                  getproperty QName(PrivateNamespace(null,"5"),"_observer")
+                  getlocal 4
+                  callpropvoid QName(PackageNamespace(""),"setNotifyContext"), 1
+                  getlocal0
+                  getproperty QName(PrivateNamespace(null,"5"),"_observer")
+                  getlocal 6
+                  callpropvoid QName(PackageNamespace(""),"setNotifyArags"), 1
+                  getlocal0
+                  getproperty QName(PrivateNamespace(null,"5"),"_id")
+                  pushbyte -1
+                  ifeq ofs0064
+                  getlocal0
+                  pushtrue
+                  initproperty QName(PrivateNamespace(null,"5"),"_isUse")
+                  jump ofs0069
+         ofs0064:
+                  getlocal0
+                  pushfalse
+                  initproperty QName(PrivateNamespace(null,"5"),"_isUse")
+         ofs0069:
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function setDisable() : void
+      {
+         trait method QName(PackageNamespace(""),"setDisable")
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 2
+                  localcount 1
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     pushfalse
+                     initproperty QName(PrivateNamespace(null,"5"),"_isUse")
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"5"),"_observer")
+                     pushnull
+                     callpropvoid QName(PackageNamespace(""),"setNotifyArags"), 1
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"5"),"_observer")
+                     pushnull
+                     callpropvoid QName(PackageNamespace(""),"setNotifyContext"), 1
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"5"),"_observer")
+                     pushnull
+                     callpropvoid QName(PackageNamespace(""),"setNotifyMethod"), 1
+                     getlocal0
+                     pushbyte -1
+                     initproperty QName(PrivateNamespace(null,"5"),"_totalCount")
+                     getlocal0
+                     pushbyte 0
+                     initproperty QName(PrivateNamespace(null,"5"),"_curCount")
+                     getlocal0
+                     pushbyte 0
+                     initproperty QName(PrivateNamespace(null,"5"),"_curRunTime")
+                     getlocal0
+                     pushbyte -1
+                     initproperty QName(PrivateNamespace(null,"5"),"_id")
+                     getlocal0
+                     pushbyte -1
+                     initproperty QName(PrivateNamespace(null,"5"),"_runInterval")
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function notifyObserver() : void
+         {
+            trait method QName(PackageNamespace(""),"notifyObserver")
+               dispid 0
+               method
+                  name null
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 2
+                     localcount 1
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"5"),"_observer")
+                        pushnull
+                        ifne ofs0019
+                        findpropstrict QName(PackageNamespace(""),"ArgumentError")
+                        getlex QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskRunErrorType")
+                        getproperty QName(PackageNamespace(""),"RUN_FUNC_ERROR")
+                        constructprop QName(PackageNamespace(""),"ArgumentError"), 1
+                        throw
+               ofs0019:
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"5"),"_observer")
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"5"),"_curCount")
+                        callpropvoid QName(PackageNamespace(""),"notifyObserver"), 1
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function addRunTime(param1:int) : Boolean
+            {
+               trait method QName(PackageNamespace(""),"addRunTime")
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace(""),"int")
+                     returns QName(PackageNamespace(""),"Boolean")
+                     
+                     body
+                        maxstack 3
+                        localcount 4
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"5"),"_curRunTime")
+                           getlocal1
+                           subtract
+                           initproperty QName(PrivateNamespace(null,"5"),"_curRunTime")
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"5"),"_curRunTime")
+                           pushbyte 0
+                           ifnle ofs0051
+                           getlocal0
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"5"),"_runInterval")
+                           initproperty QName(PrivateNamespace(null,"5"),"_curRunTime")
+                           getlocal0
+                           dup
+                           setlocal2
+                           getproperty QName(PrivateNamespace(null,"5"),"_curCount")
+                           increment_i
+                           setlocal3
+                           getlocal2
+                           getlocal3
+                           setproperty QName(PrivateNamespace(null,"5"),"_curCount")
+                           kill 3
+                           kill 2
+                           getlocal0
+                           callpropvoid QName(PackageNamespace(""),"notifyObserver"), 0
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"5"),"_totalCount")
+                           pushbyte -1
+                           equals
+                           not
+                           dup
+                           iffalse ofs004b
+                           pop
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"5"),"_curCount")
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"5"),"_totalCount")
+                           greaterequals
+                  ofs004b:
+                           iffalse ofs0051
+                           pushtrue
+                           returnvalue
+                  ofs0051:
+                           pushfalse
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function set runInterval(param1:int) : void
+               {
+                  trait setter QName(PackageNamespace(""),"runInterval")
+                     dispid 0
+                     method
+                        name null
+                        param QName(PackageNamespace(""),"int")
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 2
+                           localcount 2
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              getlocal1
+                              initproperty QName(PrivateNamespace(null,"5"),"_runInterval")
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function get runInterval() : int
+                  {
+                     trait getter QName(PackageNamespace(""),"runInterval")
+                        dispid 0
+                        method
+                           name null
+                           returns QName(PackageNamespace(""),"int")
+                           
+                           body
+                              maxstack 1
+                              localcount 1
+                              initscopedepth 4
+                              maxscopedepth 5
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"5"),"_runInterval")
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public function set id(param1:int) : void
+                     {
+                        trait setter QName(PackageNamespace(""),"id")
+                           dispid 0
+                           method
+                              name null
+                              param QName(PackageNamespace(""),"int")
+                              returns QName(PackageNamespace(""),"void")
+                              
+                              body
+                                 maxstack 2
+                                 localcount 2
+                                 initscopedepth 4
+                                 maxscopedepth 5
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlocal0
+                                    getlocal1
+                                    initproperty QName(PrivateNamespace(null,"5"),"_id")
+                                    returnvoid
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        public function get id() : int
+                        {
+                           trait getter QName(PackageNamespace(""),"id")
+                              dispid 0
+                              method
+                                 name null
+                                 returns QName(PackageNamespace(""),"int")
+                                 
+                                 body
+                                    maxstack 1
+                                    localcount 1
+                                    initscopedepth 4
+                                    maxscopedepth 5
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"5"),"_id")
+                                       returnvalue
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           public function set isUse(param1:Boolean) : void
+                           {
+                              trait setter QName(PackageNamespace(""),"isUse")
+                                 dispid 0
+                                 method
+                                    name null
+                                    param QName(PackageNamespace(""),"Boolean")
+                                    returns QName(PackageNamespace(""),"void")
+                                    
+                                    body
+                                       maxstack 2
+                                       localcount 2
+                                       initscopedepth 4
+                                       maxscopedepth 5
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlocal0
+                                          getlocal1
+                                          initproperty QName(PrivateNamespace(null,"5"),"_isUse")
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              public function get isUse() : Boolean
+                              {
+                                 trait getter QName(PackageNamespace(""),"isUse")
+                                    dispid 0
+                                    method
+                                       name null
+                                       returns QName(PackageNamespace(""),"Boolean")
+                                       
+                                       body
+                                          maxstack 1
+                                          localcount 1
+                                          initscopedepth 4
+                                          maxscopedepth 5
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlocal0
+                                             getproperty QName(PrivateNamespace(null,"5"),"_isUse")
+                                             returnvalue
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 public function set curCount(param1:int) : void
+                                 {
+                                    trait setter QName(PackageNamespace(""),"curCount")
+                                       dispid 0
+                                       method
+                                          name null
+                                          param QName(PackageNamespace(""),"int")
+                                          returns QName(PackageNamespace(""),"void")
+                                          
+                                          body
+                                             maxstack 2
+                                             localcount 2
+                                             initscopedepth 4
+                                             maxscopedepth 5
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                getlocal0
+                                                getlocal1
+                                                initproperty QName(PrivateNamespace(null,"5"),"_curCount")
+                                                returnvoid
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    public function get curCount() : int
+                                    {
+                                       trait getter QName(PackageNamespace(""),"curCount")
+                                          dispid 0
+                                          method
+                                             name null
+                                             returns QName(PackageNamespace(""),"int")
+                                             
+                                             body
+                                                maxstack 1
+                                                localcount 1
+                                                initscopedepth 4
+                                                maxscopedepth 5
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   getlocal0
+                                                   getproperty QName(PrivateNamespace(null,"5"),"_curCount")
+                                                   returnvalue
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                       
+                                       public function set totalCount(param1:int) : void
+                                       {
+                                          trait setter QName(PackageNamespace(""),"totalCount")
+                                             dispid 0
+                                             method
+                                                name null
+                                                param QName(PackageNamespace(""),"int")
+                                                returns QName(PackageNamespace(""),"void")
+                                                
+                                                body
+                                                   maxstack 2
+                                                   localcount 2
+                                                   initscopedepth 4
+                                                   maxscopedepth 5
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      getlocal0
+                                                      getlocal1
+                                                      initproperty QName(PrivateNamespace(null,"5"),"_totalCount")
+                                                      returnvoid
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                          }
+                                          
+                                          public function get totalCount() : int
+                                          {
+                                             trait getter QName(PackageNamespace(""),"totalCount")
+                                                dispid 0
+                                                method
+                                                   name null
+                                                   returns QName(PackageNamespace(""),"int")
+                                                   
+                                                   body
+                                                      maxstack 1
+                                                      localcount 1
+                                                      initscopedepth 4
+                                                      maxscopedepth 5
+                                                      
+                                                      code
+                                                         getlocal0
+                                                         pushscope
+                                                         getlocal0
+                                                         getproperty QName(PrivateNamespace(null,"5"),"_totalCount")
+                                                         returnvalue
+                                                      end ; code
+                                                   end ; body
+                                                end ; method
+                                             }
+                                             
+                                             public function set notifyMethod(param1:Function) : void
+                                             {
+                                                trait setter QName(PackageNamespace(""),"notifyMethod")
+                                                   dispid 0
+                                                   method
+                                                      name null
+                                                      param QName(PackageNamespace(""),"Function")
+                                                      returns QName(PackageNamespace(""),"void")
+                                                      
+                                                      body
+                                                         maxstack 2
+                                                         localcount 2
+                                                         initscopedepth 4
+                                                         maxscopedepth 5
+                                                         
+                                                         code
+                                                            getlocal0
+                                                            pushscope
+                                                            getlocal0
+                                                            getproperty QName(PrivateNamespace(null,"5"),"_observer")
+                                                            pushnull
+                                                            ifne ofs0016
+                                                            getlocal0
+                                                            findpropstrict QName(PackageNamespace("unit4399.singleTimer"),"Observer")
+                                                            constructprop QName(PackageNamespace("unit4399.singleTimer"),"Observer"), 0
+                                                            initproperty QName(PrivateNamespace(null,"5"),"_observer")
+                                                   ofs0016:
+                                                            getlocal0
+                                                            getproperty QName(PrivateNamespace(null,"5"),"_observer")
+                                                            getlocal1
+                                                            callpropvoid QName(PackageNamespace(""),"setNotifyMethod"), 1
+                                                            returnvoid
+                                                         end ; code
+                                                      end ; body
+                                                   end ; method
+                                                }
+                                                
+                                                public function set notifyContext(param1:Object) : void
+                                                {
+                                                   trait setter QName(PackageNamespace(""),"notifyContext")
+                                                      dispid 0
+                                                      method
+                                                         name null
+                                                         param QName(PackageNamespace(""),"Object")
+                                                         returns QName(PackageNamespace(""),"void")
+                                                         
+                                                         body
+                                                            maxstack 2
+                                                            localcount 2
+                                                            initscopedepth 4
+                                                            maxscopedepth 5
+                                                            
+                                                            code
+                                                               getlocal0
+                                                               pushscope
+                                                               getlocal0
+                                                               getproperty QName(PrivateNamespace(null,"5"),"_observer")
+                                                               pushnull
+                                                               ifne ofs0016
+                                                               getlocal0
+                                                               findpropstrict QName(PackageNamespace("unit4399.singleTimer"),"Observer")
+                                                               constructprop QName(PackageNamespace("unit4399.singleTimer"),"Observer"), 0
+                                                               initproperty QName(PrivateNamespace(null,"5"),"_observer")
+                                                      ofs0016:
+                                                               getlocal0
+                                                               getproperty QName(PrivateNamespace(null,"5"),"_observer")
+                                                               getlocal1
+                                                               callpropvoid QName(PackageNamespace(""),"setNotifyContext"), 1
+                                                               returnvoid
+                                                            end ; code
+                                                         end ; body
+                                                      end ; method
+                                                   }
+                                                   
+                                                   public function set notifyArags(param1:Array) : void
+                                                   {
+                                                      trait setter QName(PackageNamespace(""),"notifyArags")
+                                                         dispid 0
+                                                         method
+                                                            name null
+                                                            param QName(PackageNamespace(""),"Array")
+                                                            returns QName(PackageNamespace(""),"void")
+                                                            
+                                                            body
+                                                               maxstack 2
+                                                               localcount 2
+                                                               initscopedepth 4
+                                                               maxscopedepth 5
+                                                               
+                                                               code
+                                                                  getlocal0
+                                                                  pushscope
+                                                                  getlocal0
+                                                                  getproperty QName(PrivateNamespace(null,"5"),"_observer")
+                                                                  pushnull
+                                                                  ifne ofs0016
+                                                                  getlocal0
+                                                                  findpropstrict QName(PackageNamespace("unit4399.singleTimer"),"Observer")
+                                                                  constructprop QName(PackageNamespace("unit4399.singleTimer"),"Observer"), 0
+                                                                  initproperty QName(PrivateNamespace(null,"5"),"_observer")
+                                                         ofs0016:
+                                                                  getlocal0
+                                                                  getproperty QName(PrivateNamespace(null,"5"),"_observer")
+                                                                  getlocal1
+                                                                  callpropvoid QName(PackageNamespace(""),"setNotifyArags"), 1
+                                                                  returnvoid
+                                                               end ; code
+                                                            end ; body
+                                                         end ; method
+                                                      }
+                                                   }
+                                                }
+                                                
+                                                method
+                                                   name null
+                                                   returns null
+                                                   
+                                                   body
+                                                      maxstack 2
+                                                      localcount 1
+                                                      initscopedepth 1
+                                                      maxscopedepth 3
+                                                      
+                                                      code
+                                                         getlocal0
+                                                         pushscope
+                                                         findpropstrict Multiname("TimerTaskFormat",[PackageNamespace("unit4399.singleTimer")])
+                                                         getlex QName(PackageNamespace(""),"Object")
+                                                         pushscope
+                                                         getlex QName(PackageNamespace(""),"Object")
+                                                         newclass 14
+                                                         popscope
+                                                         initproperty QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskFormat")
+                                                         returnvoid
+                                                      end ; code
+                                                   end ; body
+                                                end ; method
+                                                

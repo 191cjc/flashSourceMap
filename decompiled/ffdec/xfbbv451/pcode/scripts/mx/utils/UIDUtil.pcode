@@ -1,0 +1,1220 @@
+package mx.utils
+{
+   import flash.utils.ByteArray;
+   import flash.utils.Dictionary;
+   import mx.core.IPropertyChangeNotifier;
+   import mx.core.IUIComponent;
+   import mx.core.IUID;
+   import mx.core.mx_internal;
+   
+   use namespace mx_internal;
+   
+   public class UIDUtil
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      private static const ALPHA_CHAR_CODES:Array;
+      
+      private static var uidDictionary:Dictionary;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 17
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               findproperty QName(PrivateNamespace(null,"106"),"ALPHA_CHAR_CODES")
+               pushbyte 48
+               pushbyte 49
+               pushbyte 50
+               pushbyte 51
+               pushbyte 52
+               pushbyte 53
+               pushbyte 54
+               pushbyte 55
+               pushbyte 56
+               pushbyte 57
+               pushbyte 65
+               pushbyte 66
+               pushbyte 67
+               pushbyte 68
+               pushbyte 69
+               pushbyte 70
+               newarray 16
+               initproperty QName(PrivateNamespace(null,"106"),"ALPHA_CHAR_CODES")
+               findproperty QName(PrivateNamespace(null,"106"),"uidDictionary")
+               findpropstrict QName(PackageNamespace("flash.utils"),"Dictionary")
+               pushtrue
+               constructprop QName(PackageNamespace("flash.utils"),"Dictionary"), 1
+               setproperty QName(PrivateNamespace(null,"106"),"uidDictionary")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      public function UIDUtil()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 1
+               localcount 1
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public static function createUID() : String
+      {
+         trait method QName(PackageNamespace(""),"createUID")
+            flag FINAL
+            dispid 3
+            method
+               name null
+               returns QName(PackageNamespace(""),"String")
+               
+               body
+                  maxstack 6
+                  localcount 9
+                  initscopedepth 3
+                  maxscopedepth 4
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     pushbyte 0
+                     setlocal3
+                     pushbyte 0
+                     setlocal 4
+                     findpropstrict QName(PackageNamespace(""),"Array")
+                     pushbyte 36
+                     constructprop QName(PackageNamespace(""),"Array"), 1
+                     coerce QName(PackageNamespace(""),"Array")
+                     setlocal1
+                     pushbyte 0
+                     setlocal2
+                     pushbyte 0
+                     setlocal3
+                     jump ofs0044
+            ofs001d:
+                     label
+                     getlocal1
+                     getlocal2
+                     dup
+                     increment_i
+                     setlocal2
+                     dup
+                     setlocal 7
+                     getlex QName(PrivateNamespace(null,"106"),"ALPHA_CHAR_CODES")
+                     getlex QName(PackageNamespace(""),"Math")
+                     getlex QName(PackageNamespace(""),"Math")
+                     callproperty QName(PackageNamespace(""),"random"), 0
+                     pushbyte 16
+                     multiply
+                     callproperty QName(PackageNamespace(""),"floor"), 1
+                     getproperty MultinameL([PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                     setproperty MultinameL([PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                     kill 7
+                     inclocal_i 3
+            ofs0044:
+                     getlocal3
+                     pushbyte 8
+                     iflt ofs001d
+                     pushbyte 0
+                     setlocal3
+                     jump ofs009b
+            ofs0052:
+                     label
+                     getlocal1
+                     getlocal2
+                     dup
+                     increment_i
+                     setlocal2
+                     dup
+                     setlocal 7
+                     pushbyte 45
+                     setproperty MultinameL([PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                     pushbyte 0
+                     setlocal 4
+                     jump ofs008f
+            ofs0068:
+                     label
+                     getlocal1
+                     getlocal2
+                     dup
+                     increment_i
+                     setlocal2
+                     dup
+                     setlocal 8
+                     getlex QName(PrivateNamespace(null,"106"),"ALPHA_CHAR_CODES")
+                     getlex QName(PackageNamespace(""),"Math")
+                     getlex QName(PackageNamespace(""),"Math")
+                     callproperty QName(PackageNamespace(""),"random"), 0
+                     pushbyte 16
+                     multiply
+                     callproperty QName(PackageNamespace(""),"floor"), 1
+                     getproperty MultinameL([PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                     setproperty MultinameL([PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                     kill 8
+                     inclocal_i 4
+            ofs008f:
+                     getlocal 4
+                     pushbyte 4
+                     iflt ofs0068
+                     kill 7
+                     inclocal_i 3
+            ofs009b:
+                     getlocal3
+                     pushbyte 3
+                     iflt ofs0052
+                     getlocal1
+                     getlocal2
+                     dup
+                     increment_i
+                     setlocal2
+                     dup
+                     setlocal 7
+                     pushbyte 45
+                     setproperty MultinameL([PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                     findpropstrict QName(PackageNamespace(""),"Date")
+                     constructprop QName(PackageNamespace(""),"Date"), 0
+                     callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"getTime"), 0
+                     convert_d
+                     setlocal 5
+                     pushstring "0000000"
+                     getlocal 5
+                     pushbyte 16
+                     callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"toString"), 1
+                     callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"toUpperCase"), 0
+                     add
+                     pushbyte -8
+                     callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"substr"), 1
+                     coerce_s
+                     setlocal 6
+                     pushbyte 0
+                     setlocal3
+                     jump ofs00f2
+            ofs00db:
+                     label
+                     getlocal1
+                     getlocal2
+                     dup
+                     increment_i
+                     setlocal2
+                     dup
+                     setlocal 8
+                     getlocal 6
+                     getlocal3
+                     callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"charCodeAt"), 1
+                     setproperty MultinameL([PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                     kill 8
+                     inclocal_i 3
+            ofs00f2:
+                     getlocal3
+                     pushbyte 8
+                     iflt ofs00db
+                     pushbyte 0
+                     setlocal3
+                     jump ofs0127
+            ofs0100:
+                     label
+                     getlocal1
+                     getlocal2
+                     dup
+                     increment_i
+                     setlocal2
+                     dup
+                     setlocal 8
+                     getlex QName(PrivateNamespace(null,"106"),"ALPHA_CHAR_CODES")
+                     getlex QName(PackageNamespace(""),"Math")
+                     getlex QName(PackageNamespace(""),"Math")
+                     callproperty QName(PackageNamespace(""),"random"), 0
+                     pushbyte 16
+                     multiply
+                     callproperty QName(PackageNamespace(""),"floor"), 1
+                     getproperty MultinameL([PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                     setproperty MultinameL([PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                     kill 8
+                     inclocal_i 3
+            ofs0127:
+                     getlocal3
+                     pushbyte 4
+                     iflt ofs0100
+                     getlex QName(PackageNamespace(""),"String")
+                     getproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"fromCharCode")
+                     pushnull
+                     getlocal1
+                     callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"apply"), 2
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public static function fromByteArray(param1:ByteArray) : String
+         {
+            trait method QName(PackageNamespace(""),"fromByteArray")
+               flag FINAL
+               dispid 4
+               method
+                  name null
+                  param QName(PackageNamespace("flash.utils"),"ByteArray")
+                  returns QName(PackageNamespace(""),"String")
+                  
+                  body
+                     maxstack 5
+                     localcount 8
+                     initscopedepth 3
+                     maxscopedepth 4
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        pushnull
+                        coerce QName(PackageNamespace(""),"Array")
+                        setlocal2
+                        pushbyte 0
+                        convert_u
+                        setlocal3
+                        pushbyte 0
+                        convert_u
+                        setlocal 4
+                        pushbyte 0
+                        setlocal 5
+                        getlocal1
+                        pushnull
+                        equals
+                        not
+                        dup
+                        iffalse ofs0024
+                        pop
+                        getlocal1
+                        getproperty QName(PackageNamespace(""),"length")
+                        pushbyte 16
+                        greaterequals
+               ofs0024:
+                        dup
+                        iffalse ofs0031
+                        pop
+                        getlocal1
+                        getproperty QName(PackageNamespace(""),"bytesAvailable")
+                        pushbyte 16
+                        greaterequals
+               ofs0031:
+                        iffalse ofs00e2
+                        findpropstrict QName(PackageNamespace(""),"Array")
+                        pushbyte 36
+                        constructprop QName(PackageNamespace(""),"Array"), 1
+                        coerce QName(PackageNamespace(""),"Array")
+                        setlocal2
+                        pushbyte 0
+                        convert_u
+                        setlocal3
+                        pushbyte 0
+                        convert_u
+                        setlocal 4
+                        jump ofs00ce
+               ofs004c:
+                        label
+                        getlocal 4
+                        pushbyte 4
+                        equals
+                        dup
+                        iftrue ofs005d
+                        pop
+                        getlocal 4
+                        pushbyte 6
+                        equals
+               ofs005d:
+                        dup
+                        iftrue ofs0068
+                        pop
+                        getlocal 4
+                        pushbyte 8
+                        equals
+               ofs0068:
+                        dup
+                        iftrue ofs0073
+                        pop
+                        getlocal 4
+                        pushbyte 10
+                        equals
+               ofs0073:
+                        iffalse ofs0088
+                        getlocal2
+                        getlocal3
+                        convert_d
+                        dup
+                        increment
+                        convert_u
+                        setlocal3
+                        dup
+                        setlocal 6
+                        pushbyte 45
+                        setproperty MultinameL([PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                        kill 6
+               ofs0088:
+                        getlocal1
+                        callproperty QName(PackageNamespace(""),"readByte"), 0
+                        convert_i
+                        setlocal 5
+                        getlocal2
+                        getlocal3
+                        convert_d
+                        dup
+                        increment
+                        convert_u
+                        setlocal3
+                        dup
+                        setlocal 6
+                        getlex QName(PrivateNamespace(null,"106"),"ALPHA_CHAR_CODES")
+                        getlocal 5
+                        pushshort 240
+                        bitand
+                        pushbyte 4
+                        urshift
+                        getproperty MultinameL([PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                        setproperty MultinameL([PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                        getlocal2
+                        getlocal3
+                        convert_d
+                        dup
+                        increment
+                        convert_u
+                        setlocal3
+                        dup
+                        setlocal 7
+                        getlex QName(PrivateNamespace(null,"106"),"ALPHA_CHAR_CODES")
+                        getlocal 5
+                        pushbyte 15
+                        bitand
+                        getproperty MultinameL([PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                        setproperty MultinameL([PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                        kill 7
+                        kill 6
+                        getlocal 4
+                        increment
+                        convert_u
+                        setlocal 4
+               ofs00ce:
+                        getlocal 4
+                        pushbyte 16
+                        iflt ofs004c
+                        getlex QName(PackageNamespace(""),"String")
+                        getproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"fromCharCode")
+                        pushnull
+                        getlocal2
+                        callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"apply"), 2
+                        returnvalue
+               ofs00e2:
+                        pushnull
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public static function isUID(param1:String) : Boolean
+            {
+               trait method QName(PackageNamespace(""),"isUID")
+                  flag FINAL
+                  dispid 5
+                  method
+                     name null
+                     param QName(PackageNamespace(""),"String")
+                     returns QName(PackageNamespace(""),"Boolean")
+                     
+                     body
+                        maxstack 2
+                        localcount 4
+                        initscopedepth 3
+                        maxscopedepth 4
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           pushbyte 0
+                           convert_u
+                           setlocal2
+                           pushnan
+                           setlocal3
+                           getlocal1
+                           pushnull
+                           equals
+                           not
+                           dup
+                           iffalse ofs0019
+                           pop
+                           getlocal1
+                           getproperty QName(PackageNamespace(""),"length")
+                           pushbyte 36
+                           equals
+                  ofs0019:
+                           iffalse ofs0096
+                           pushbyte 0
+                           convert_u
+                           setlocal2
+                           jump ofs008d
+                  ofs0025:
+                           label
+                           getlocal1
+                           getlocal2
+                           callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"charCodeAt"), 1
+                           convert_d
+                           setlocal3
+                           getlocal2
+                           pushbyte 8
+                           equals
+                           dup
+                           iftrue ofs003c
+                           pop
+                           getlocal2
+                           pushbyte 13
+                           equals
+                  ofs003c:
+                           dup
+                           iftrue ofs0046
+                           pop
+                           getlocal2
+                           pushbyte 18
+                           equals
+                  ofs0046:
+                           dup
+                           iftrue ofs0050
+                           pop
+                           getlocal2
+                           pushbyte 23
+                           equals
+                  ofs0050:
+                           iffalse ofs0061
+                           getlocal3
+                           pushbyte 45
+                           ifeq ofs005d
+                           pushfalse
+                           returnvalue
+                  ofs005d:
+                           jump ofs0089
+                  ofs0061:
+                           getlocal3
+                           pushbyte 48
+                           lessthan
+                           dup
+                           iftrue ofs006f
+                           pop
+                           getlocal3
+                           pushbyte 70
+                           greaterthan
+                  ofs006f:
+                           dup
+                           iftrue ofs0083
+                           pop
+                           getlocal3
+                           pushbyte 57
+                           greaterthan
+                           dup
+                           iffalse ofs0083
+                           pop
+                           getlocal3
+                           pushbyte 65
+                           lessthan
+                  ofs0083:
+                           iffalse ofs0089
+                           pushfalse
+                           returnvalue
+                  ofs0089:
+                           getlocal2
+                           increment
+                           convert_u
+                           setlocal2
+                  ofs008d:
+                           getlocal2
+                           pushbyte 36
+                           iflt ofs0025
+                           pushtrue
+                           returnvalue
+                  ofs0096:
+                           pushfalse
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public static function toByteArray(param1:String) : ByteArray
+               {
+                  trait method QName(PackageNamespace(""),"toByteArray")
+                     flag FINAL
+                     dispid 6
+                     method
+                        name null
+                        param QName(PackageNamespace(""),"String")
+                        returns QName(PackageNamespace("flash.utils"),"ByteArray")
+                        
+                        body
+                           maxstack 3
+                           localcount 7
+                           initscopedepth 3
+                           maxscopedepth 4
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              pushnull
+                              coerce QName(PackageNamespace("flash.utils"),"ByteArray")
+                              setlocal2
+                              pushbyte 0
+                              convert_u
+                              setlocal3
+                              pushnull
+                              coerce_s
+                              setlocal 4
+                              pushbyte 0
+                              convert_u
+                              setlocal 5
+                              pushbyte 0
+                              convert_u
+                              setlocal 6
+                              findpropstrict QName(PackageNamespace(""),"isUID")
+                              getlocal1
+                              callproperty QName(PackageNamespace(""),"isUID"), 1
+                              iffalse ofs0090
+                              findpropstrict QName(PackageNamespace("flash.utils"),"ByteArray")
+                              constructprop QName(PackageNamespace("flash.utils"),"ByteArray"), 0
+                              coerce QName(PackageNamespace("flash.utils"),"ByteArray")
+                              setlocal2
+                              pushbyte 0
+                              convert_u
+                              setlocal3
+                              jump ofs007f
+                     ofs0034:
+                              label
+                              getlocal1
+                              getlocal3
+                              callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"charAt"), 1
+                              coerce_s
+                              dup
+                              setlocal 4
+                              pushstring "-"
+                              ifne ofs004a
+                              jump ofs007b
+                     ofs004a:
+                              findpropstrict QName(PrivateNamespace(null,"106"),"getDigit")
+                              getlocal 4
+                              callproperty QName(PrivateNamespace(null,"106"),"getDigit"), 1
+                              convert_u
+                              setlocal 5
+                              getlocal3
+                              increment
+                              convert_u
+                              setlocal3
+                              findpropstrict QName(PrivateNamespace(null,"106"),"getDigit")
+                              getlocal1
+                              getlocal3
+                              callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"charAt"), 1
+                              callproperty QName(PrivateNamespace(null,"106"),"getDigit"), 1
+                              convert_u
+                              setlocal 6
+                              getlocal2
+                              getlocal 5
+                              pushbyte 4
+                              lshift
+                              getlocal 6
+                              bitor
+                              pushshort 255
+                              bitand
+                              callpropvoid QName(PackageNamespace(""),"writeByte"), 1
+                     ofs007b:
+                              getlocal3
+                              increment
+                              convert_u
+                              setlocal3
+                     ofs007f:
+                              getlocal3
+                              getlocal1
+                              getproperty QName(PackageNamespace(""),"length")
+                              iflt ofs0034
+                              getlocal2
+                              pushbyte 0
+                              setproperty QName(PackageNamespace(""),"position")
+                              getlocal2
+                              returnvalue
+                     ofs0090:
+                              pushnull
+                              returnvalue
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public static function getUID(param1:Object) : String
+                  {
+                     trait method QName(PackageNamespace(""),"getUID")
+                        flag FINAL
+                        dispid 7
+                        method
+                           name null
+                           flag NEED_ACTIVATION
+                           param QName(PackageNamespace(""),"Object")
+                           returns QName(PackageNamespace(""),"String")
+                           
+                           body
+                              maxstack 5
+                              localcount 4
+                              initscopedepth 4
+                              maxscopedepth 9
+                              trait slot QName(PackageInternalNs("mx.utils"),"item")
+                                 slotid 1
+                                 type QName(PackageNamespace(""),"Object")
+                              end ; trait
+                              trait slot QName(PackageInternalNs("mx.utils"),"result")
+                                 slotid 2
+                                 type QName(PackageNamespace(""),"String")
+                              end ; trait
+                              trait slot QName(PackageInternalNs("mx.utils"),"xitem")
+                                 slotid 3
+                                 type QName(PackageNamespace(""),"XML")
+                              end ; trait
+                              trait slot QName(PackageInternalNs("mx.utils"),"nodeKind")
+                                 slotid 4
+                                 type QName(PackageNamespace(""),"String")
+                              end ; trait
+                              trait slot QName(PackageInternalNs("mx.utils"),"notificationFunction")
+                                 slotid 5
+                                 type QName(PackageNamespace(""),"Function")
+                              end ; trait
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 newactivation
+                                 dup
+                                 setlocal2
+                                 pushscope
+                                 getscopeobject 1
+                                 pushnull
+                                 coerce_s
+                                 setslot 2
+                                 getscopeobject 1
+                                 pushnull
+                                 coerce QName(PackageNamespace(""),"XML")
+                                 setslot 3
+                                 getscopeobject 1
+                                 pushnull
+                                 coerce_s
+                                 setslot 4
+                                 getscopeobject 1
+                                 pushnull
+                                 coerce QName(PackageNamespace(""),"Function")
+                                 setslot 5
+                                 getscopeobject 1
+                                 getlocal1
+                                 setslot 1
+                                 getscopeobject 1
+                                 pushnull
+                                 coerce_s
+                                 setslot 2
+                                 getscopeobject 1
+                                 getslot 1
+                                 pushnull
+                                 ifne ofs003a
+                                 getscopeobject 1
+                                 getslot 2
+                                 returnvalue
+                        ofs003a:
+                                 getscopeobject 1
+                                 getslot 1
+                                 getlex QName(PackageNamespace("mx.core"),"IUID")
+                                 istypelate
+                                 iffalse ofs0095
+                                 getscopeobject 1
+                                 findpropstrict QName(PackageNamespace("mx.core"),"IUID")
+                                 getscopeobject 1
+                                 getslot 1
+                                 callproperty QName(PackageNamespace("mx.core"),"IUID"), 1
+                                 getproperty QName(Namespace("mx.core:IUID"),"uid")
+                                 coerce_s
+                                 setslot 2
+                                 getscopeobject 1
+                                 getslot 2
+                                 pushnull
+                                 equals
+                                 dup
+                                 iftrue ofs006f
+                                 pop
+                                 getscopeobject 1
+                                 getslot 2
+                                 getproperty QName(PackageNamespace(""),"length")
+                                 pushbyte 0
+                                 equals
+                        ofs006f:
+                                 iffalse ofs0091
+                                 getscopeobject 1
+                                 findpropstrict QName(PackageNamespace(""),"createUID")
+                                 callproperty QName(PackageNamespace(""),"createUID"), 0
+                                 coerce_s
+                                 setslot 2
+                                 findpropstrict QName(PackageNamespace("mx.core"),"IUID")
+                                 getscopeobject 1
+                                 getslot 1
+                                 callproperty QName(PackageNamespace("mx.core"),"IUID"), 1
+                                 getscopeobject 1
+                                 getslot 2
+                                 setproperty QName(Namespace("mx.core:IUID"),"uid")
+                        ofs0091:
+                                 jump ofs0293
+                        ofs0095:
+                                 getscopeobject 1
+                                 getslot 1
+                                 getlex QName(PackageNamespace("mx.core"),"IPropertyChangeNotifier")
+                                 istypelate
+                                 dup
+                                 iffalse ofs00ab
+                                 pop
+                                 getscopeobject 1
+                                 getslot 1
+                                 getlex QName(PackageNamespace("mx.core"),"IUIComponent")
+                                 istypelate
+                                 not
+                        ofs00ab:
+                                 iffalse ofs00fe
+                                 getscopeobject 1
+                                 findpropstrict QName(PackageNamespace("mx.core"),"IPropertyChangeNotifier")
+                                 getscopeobject 1
+                                 getslot 1
+                                 callproperty QName(PackageNamespace("mx.core"),"IPropertyChangeNotifier"), 1
+                                 getproperty QName(Namespace("mx.core:IUID"),"uid")
+                                 coerce_s
+                                 setslot 2
+                                 getscopeobject 1
+                                 getslot 2
+                                 pushnull
+                                 equals
+                                 dup
+                                 iftrue ofs00d8
+                                 pop
+                                 getscopeobject 1
+                                 getslot 2
+                                 getproperty QName(PackageNamespace(""),"length")
+                                 pushbyte 0
+                                 equals
+                        ofs00d8:
+                                 iffalse ofs00fa
+                                 getscopeobject 1
+                                 findpropstrict QName(PackageNamespace(""),"createUID")
+                                 callproperty QName(PackageNamespace(""),"createUID"), 0
+                                 coerce_s
+                                 setslot 2
+                                 findpropstrict QName(PackageNamespace("mx.core"),"IPropertyChangeNotifier")
+                                 getscopeobject 1
+                                 getslot 1
+                                 callproperty QName(PackageNamespace("mx.core"),"IPropertyChangeNotifier"), 1
+                                 getscopeobject 1
+                                 getslot 2
+                                 setproperty QName(Namespace("mx.core:IUID"),"uid")
+                        ofs00fa:
+                                 jump ofs0293
+                        ofs00fe:
+                                 getscopeobject 1
+                                 getslot 1
+                                 getlex QName(PackageNamespace(""),"String")
+                                 istypelate
+                                 iffalse ofs0111
+                                 getscopeobject 1
+                                 getslot 1
+                                 getlex QName(PackageNamespace(""),"String")
+                                 astypelate
+                                 returnvalue
+                        ofs0111:
+                                 getscopeobject 1
+                                 getslot 1
+                                 getlex QName(PackageNamespace(""),"XMLList")
+                                 istypelate
+                                 dup
+                                 iffalse ofs0128
+                                 pop
+                                 getscopeobject 1
+                                 getslot 1
+                                 getproperty Multiname("length",[PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                                 pushbyte 1
+                                 equals
+                        ofs0128:
+                                 iffalse ofs013b
+                                 getscopeobject 1
+                                 getscopeobject 1
+                                 getslot 1
+                                 pushbyte 0
+                                 getproperty MultinameL([PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                                 coerce QName(PackageNamespace(""),"Object")
+                                 setslot 1
+                        ofs013b:
+                                 getscopeobject 1
+                                 getslot 1
+                                 getlex QName(PackageNamespace(""),"XML")
+                                 istypelate
+                                 iffalse ofs01fa
+                                 getscopeobject 1
+                                 findpropstrict QName(PackageNamespace(""),"XML")
+                                 getscopeobject 1
+                                 getslot 1
+                                 callproperty QName(PackageNamespace(""),"XML"), 1
+                                 coerce QName(PackageNamespace(""),"XML")
+                                 setslot 3
+                                 getscopeobject 1
+                                 getscopeobject 1
+                                 getslot 3
+                                 callproperty Multiname("nodeKind",[PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")]), 0
+                                 coerce_s
+                                 setslot 4
+                                 getscopeobject 1
+                                 getslot 4
+                                 pushstring "text"
+                                 equals
+                                 dup
+                                 iftrue ofs017c
+                                 pop
+                                 getscopeobject 1
+                                 getslot 4
+                                 pushstring "attribute"
+                                 equals
+                        ofs017c:
+                                 iffalse ofs0189
+                                 getscopeobject 1
+                                 getslot 3
+                                 callproperty Multiname("toString",[PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")]), 0
+                                 returnvalue
+                        ofs0189:
+                                 getscopeobject 1
+                                 getscopeobject 1
+                                 getslot 3
+                                 callproperty Multiname("notification",[PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")]), 0
+                                 coerce QName(PackageNamespace(""),"Function")
+                                 setslot 5
+                                 getscopeobject 1
+                                 getslot 5
+                                 getlex QName(PackageNamespace(""),"Function")
+                                 istypelate
+                                 iftrue ofs01bb
+                                 getscopeobject 1
+                                 getlex QName(PackageNamespace("mx.utils"),"XMLNotifier")
+                                 callproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"initializeXMLForNotification"), 0
+                                 coerce QName(PackageNamespace(""),"Function")
+                                 setslot 5
+                                 getscopeobject 1
+                                 getslot 3
+                                 getscopeobject 1
+                                 getslot 5
+                                 callpropvoid Multiname("setNotification",[PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")]), 1
+                        ofs01bb:
+                                 getscopeobject 1
+                                 getslot 5
+                                 pushstring "uid"
+                                 getproperty MultinameL([PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                                 getlex QName(PackageNamespace(""),"undefined")
+                                 ifne ofs01e7
+                                 getscopeobject 1
+                                 getscopeobject 1
+                                 getslot 5
+                                 pushstring "uid"
+                                 findpropstrict QName(PackageNamespace(""),"createUID")
+                                 callproperty QName(PackageNamespace(""),"createUID"), 0
+                                 dup
+                                 setlocal3
+                                 setproperty MultinameL([PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                                 getlocal3
+                                 kill 3
+                                 coerce_s
+                                 setslot 2
+                        ofs01e7:
+                                 getscopeobject 1
+                                 getscopeobject 1
+                                 getslot 5
+                                 pushstring "uid"
+                                 getproperty MultinameL([PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                                 coerce_s
+                                 setslot 2
+                                 jump ofs0272
+                        ofs01fa:
+                                 pushstring "mx_internal_uid"
+                                 getscopeobject 1
+                                 getslot 1
+                                 in
+                                 iffalse ofs020e
+                                 getscopeobject 1
+                                 getslot 1
+                                 getproperty Multiname("mx_internal_uid",[PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                                 returnvalue
+                        ofs020e:
+                                 pushstring "uid"
+                                 getscopeobject 1
+                                 getslot 1
+                                 in
+                                 iffalse ofs0222
+                                 getscopeobject 1
+                                 getslot 1
+                                 getproperty Multiname("uid",[PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                                 returnvalue
+                        ofs0222:
+                                 getscopeobject 1
+                                 getlex QName(PrivateNamespace(null,"106"),"uidDictionary")
+                                 getscopeobject 1
+                                 getslot 1
+                                 getproperty MultinameL([PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                                 coerce_s
+                                 setslot 2
+                                 getscopeobject 1
+                                 getslot 2
+                                 iftrue ofs0272
+                                 getscopeobject 1
+                                 findpropstrict QName(PackageNamespace(""),"createUID")
+                                 callproperty QName(PackageNamespace(""),"createUID"), 0
+                                 coerce_s
+                                 setslot 2
+                        ofs0245:
+                                 getscopeobject 1
+                                 getslot 1
+                                 getscopeobject 1
+                                 getslot 2
+                                 setproperty Multiname("mx_internal_uid",[PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                        ofs0250:
+                                 jump ofs0272
+                        ofs0254:
+                                 getlocal0
+                                 pushscope
+                                 getlocal2
+                                 pushscope
+                                 newcatch 0
+                                 dup
+                                 setlocal3
+                                 dup
+                                 pushscope
+                                 swap
+                                 setslot 1
+                                 getlex QName(PrivateNamespace(null,"106"),"uidDictionary")
+                                 getscopeobject 1
+                                 getslot 1
+                                 getscopeobject 1
+                                 getslot 2
+                                 setproperty MultinameL([PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")])
+                                 popscope
+                                 kill 3
+                        ofs0272:
+                                 jump ofs0293
+                        ofs0276:
+                                 getlocal0
+                                 pushscope
+                                 getlocal2
+                                 pushscope
+                                 newcatch 1
+                                 dup
+                                 setlocal3
+                                 dup
+                                 pushscope
+                                 swap
+                                 setslot 1
+                                 getscopeobject 1
+                                 getscopeobject 1
+                                 getslot 1
+                                 callproperty Multiname("toString",[PrivateNamespace(null,"106"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"157"),PackageNamespace("mx.utils"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:UIDUtil"),StaticProtectedNs("mx.utils:UIDUtil")]), 0
+                                 coerce_s
+                                 setslot 2
+                                 popscope
+                                 kill 3
+                        ofs0293:
+                                 getscopeobject 1
+                                 getslot 2
+                                 returnvalue
+                              end ; code
+                              try from ofs0245 to ofs0250 target ofs0254 type QName(PackageNamespace(""),"Error") name QName(PackageNamespace(""),"e") end
+                              try from ofs0111 to ofs0272 target ofs0276 type QName(PackageNamespace(""),"Error") name QName(PackageNamespace(""),"e") end
+                           end ; body
+                        end ; method
+                     }
+                     
+                     private static function getDigit(param1:String) : uint
+                     {
+                        trait method QName(PrivateNamespace(null,"106"),"getDigit")
+                           flag FINAL
+                           dispid 8
+                           method
+                              name null
+                              param QName(PackageNamespace(""),"String")
+                              returns QName(PackageNamespace(""),"uint")
+                              
+                              body
+                                 maxstack 2
+                                 localcount 3
+                                 initscopedepth 3
+                                 maxscopedepth 4
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    jump ofs002a
+                           ofs0006:
+                                    label
+                                    pushbyte 10
+                                    returnvalue
+                           ofs000a:
+                                    label
+                                    pushbyte 11
+                                    returnvalue
+                           ofs000e:
+                                    label
+                                    pushbyte 12
+                                    returnvalue
+                           ofs0012:
+                                    label
+                                    pushbyte 13
+                                    returnvalue
+                           ofs0016:
+                                    label
+                                    pushbyte 14
+                                    returnvalue
+                           ofs001a:
+                                    label
+                                    pushbyte 15
+                                    returnvalue
+                           ofs001e:
+                                    label
+                                    findpropstrict QName(PackageNamespace(""),"uint")
+                                    getlocal1
+                                    constructprop QName(PackageNamespace(""),"uint"), 1
+                                    returnvalue
+                                    jump ofs002a
+                           ofs002a:
+                                    getlocal1
+                                    setlocal2
+                                    pushstring "A"
+                                    getlocal2
+                                    ifstrictne ofs003a
+                                    pushbyte 0
+                                    jump ofs00e0
+                           ofs003a:
+                                    pushstring "a"
+                                    getlocal2
+                                    ifstrictne ofs0048
+                                    pushbyte 1
+                                    jump ofs00e0
+                           ofs0048:
+                                    pushstring "B"
+                                    getlocal2
+                                    ifstrictne ofs0056
+                                    pushbyte 2
+                                    jump ofs00e0
+                           ofs0056:
+                                    pushstring "b"
+                                    getlocal2
+                                    ifstrictne ofs0064
+                                    pushbyte 3
+                                    jump ofs00e0
+                           ofs0064:
+                                    pushstring "C"
+                                    getlocal2
+                                    ifstrictne ofs0072
+                                    pushbyte 4
+                                    jump ofs00e0
+                           ofs0072:
+                                    pushstring "c"
+                                    getlocal2
+                                    ifstrictne ofs0080
+                                    pushbyte 5
+                                    jump ofs00e0
+                           ofs0080:
+                                    pushstring "D"
+                                    getlocal2
+                                    ifstrictne ofs008e
+                                    pushbyte 6
+                                    jump ofs00e0
+                           ofs008e:
+                                    pushstring "d"
+                                    getlocal2
+                                    ifstrictne ofs009c
+                                    pushbyte 7
+                                    jump ofs00e0
+                           ofs009c:
+                                    pushstring "E"
+                                    getlocal2
+                                    ifstrictne ofs00aa
+                                    pushbyte 8
+                                    jump ofs00e0
+                           ofs00aa:
+                                    pushstring "e"
+                                    getlocal2
+                                    ifstrictne ofs00b8
+                                    pushbyte 9
+                                    jump ofs00e0
+                           ofs00b8:
+                                    pushstring "F"
+                                    getlocal2
+                                    ifstrictne ofs00c6
+                                    pushbyte 10
+                                    jump ofs00e0
+                           ofs00c6:
+                                    pushstring "f"
+                                    getlocal2
+                                    ifstrictne ofs00d4
+                                    pushbyte 11
+                                    jump ofs00e0
+                           ofs00d4:
+                                    jump ofs00de
+                                    pushbyte 12
+                                    jump ofs00de
+                           ofs00de:
+                                    pushbyte 12
+                           ofs00e0:
+                                    kill 2
+                                    lookupswitch ofs001e, [ofs0006, ofs0006, ofs000a, ofs000a, ofs000e, ofs000e, ofs0012, ofs0012, ofs0016, ofs0016, ofs001a, ofs001a, ofs001e]
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                     }
+                  }
+                  
+                  method
+                     name null
+                     returns null
+                     
+                     body
+                        maxstack 2
+                        localcount 1
+                        initscopedepth 1
+                        maxscopedepth 3
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           findpropstrict Multiname("UIDUtil",[PackageNamespace("mx.utils")])
+                           getlex QName(PackageNamespace(""),"Object")
+                           pushscope
+                           getlex QName(PackageNamespace(""),"Object")
+                           newclass 186
+                           popscope
+                           initproperty QName(PackageNamespace("mx.utils"),"UIDUtil")
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+                  

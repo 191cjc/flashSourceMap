@@ -1,0 +1,999 @@
+package mx.skins.halo
+{
+   import flash.display.Graphics;
+   import mx.core.mx_internal;
+   import mx.skins.ProgrammaticSkin;
+   import mx.styles.CSSStyleDeclaration;
+   import mx.styles.IStyleClient;
+   import mx.utils.GraphicsUtil;
+   
+   use namespace mx_internal;
+   
+   public class HaloFocusRect extends ProgrammaticSkin implements IStyleClient
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 8
+            maxscopedepth 9
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var _focusColor:Number;
+      
+      public function HaloFocusRect()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 1
+               localcount 1
+               initscopedepth 9
+               maxscopedepth 10
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function get className() : String
+      {
+         trait getter QName(PackageNamespace(""),"className")
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace(""),"String")
+               
+               body
+                  maxstack 1
+                  localcount 1
+                  initscopedepth 9
+                  maxscopedepth 10
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     pushstring "HaloFocusRect"
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function get inheritingStyles() : Object
+         {
+            trait getter QName(PackageNamespace(""),"inheritingStyles")
+               dispid 0
+               method
+                  name null
+                  returns QName(PackageNamespace(""),"Object")
+                  
+                  body
+                     maxstack 1
+                     localcount 1
+                     initscopedepth 9
+                     maxscopedepth 10
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlex QName(PackageNamespace(""),"styleName")
+                        getproperty Multiname("inheritingStyles",[PrivateNamespace(null,"16"),PackageNamespace(""),PrivateNamespace(null,"122"),PackageNamespace("mx.skins.halo"),PackageInternalNs("mx.skins.halo"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.skins.halo:HaloFocusRect"),StaticProtectedNs("mx.skins.halo:HaloFocusRect"),StaticProtectedNs("mx.skins:ProgrammaticSkin"),StaticProtectedNs("mx.core:FlexShape"),StaticProtectedNs("flash.display:Shape"),StaticProtectedNs("flash.display:DisplayObject"),StaticProtectedNs("flash.events:EventDispatcher")])
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function set inheritingStyles(param1:Object) : void
+            {
+               trait setter QName(PackageNamespace(""),"inheritingStyles")
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace(""),"Object")
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 1
+                        localcount 2
+                        initscopedepth 9
+                        maxscopedepth 10
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function get nonInheritingStyles() : Object
+               {
+                  trait getter QName(PackageNamespace(""),"nonInheritingStyles")
+                     dispid 0
+                     method
+                        name null
+                        returns QName(PackageNamespace(""),"Object")
+                        
+                        body
+                           maxstack 1
+                           localcount 1
+                           initscopedepth 9
+                           maxscopedepth 10
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlex QName(PackageNamespace(""),"styleName")
+                              getproperty Multiname("nonInheritingStyles",[PrivateNamespace(null,"16"),PackageNamespace(""),PrivateNamespace(null,"122"),PackageNamespace("mx.skins.halo"),PackageInternalNs("mx.skins.halo"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.skins.halo:HaloFocusRect"),StaticProtectedNs("mx.skins.halo:HaloFocusRect"),StaticProtectedNs("mx.skins:ProgrammaticSkin"),StaticProtectedNs("mx.core:FlexShape"),StaticProtectedNs("flash.display:Shape"),StaticProtectedNs("flash.display:DisplayObject"),StaticProtectedNs("flash.events:EventDispatcher")])
+                              returnvalue
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function set nonInheritingStyles(param1:Object) : void
+                  {
+                     trait setter QName(PackageNamespace(""),"nonInheritingStyles")
+                        dispid 0
+                        method
+                           name null
+                           param QName(PackageNamespace(""),"Object")
+                           returns QName(PackageNamespace(""),"void")
+                           
+                           body
+                              maxstack 1
+                              localcount 2
+                              initscopedepth 9
+                              maxscopedepth 10
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public function get styleDeclaration() : CSSStyleDeclaration
+                     {
+                        trait getter QName(PackageNamespace(""),"styleDeclaration")
+                           dispid 0
+                           method
+                              name null
+                              returns QName(PackageNamespace("mx.styles"),"CSSStyleDeclaration")
+                              
+                              body
+                                 maxstack 2
+                                 localcount 1
+                                 initscopedepth 9
+                                 maxscopedepth 10
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    findpropstrict QName(PackageNamespace("mx.styles"),"CSSStyleDeclaration")
+                                    getlex QName(PackageNamespace(""),"styleName")
+                                    callproperty QName(PackageNamespace("mx.styles"),"CSSStyleDeclaration"), 1
+                                    returnvalue
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        public function set styleDeclaration(param1:CSSStyleDeclaration) : void
+                        {
+                           trait setter QName(PackageNamespace(""),"styleDeclaration")
+                              dispid 0
+                              method
+                                 name null
+                                 param QName(PackageNamespace("mx.styles"),"CSSStyleDeclaration")
+                                 returns QName(PackageNamespace(""),"void")
+                                 
+                                 body
+                                    maxstack 1
+                                    localcount 2
+                                    initscopedepth 9
+                                    maxscopedepth 10
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           override protected function updateDisplayList(param1:Number, param2:Number) : void
+                           {
+                              trait method QName(ProtectedNamespace("mx.skins.halo:HaloFocusRect"),"updateDisplayList")
+                                 flag OVERRIDE
+                                 dispid 0
+                                 method
+                                    name null
+                                    param QName(PackageNamespace(""),"Number")
+                                    param QName(PackageNamespace(""),"Number")
+                                    returns QName(PackageNamespace(""),"void")
+                                    
+                                    body
+                                       maxstack 16
+                                       localcount 18
+                                       initscopedepth 9
+                                       maxscopedepth 10
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          pushnan
+                                          setlocal 12
+                                          pushnan
+                                          setlocal 13
+                                          pushnan
+                                          setlocal 14
+                                          pushnan
+                                          setlocal 15
+                                          pushnan
+                                          setlocal 16
+                                          pushnan
+                                          setlocal 17
+                                          getlocal0
+                                          getlocal1
+                                          getlocal2
+                                          callsupervoid QName(ProtectedNamespace("mx.skins:ProgrammaticSkin"),"updateDisplayList"), 2
+                                          getlocal0
+                                          pushstring "focusBlendMode"
+                                          callproperty QName(PackageNamespace(""),"getStyle"), 1
+                                          coerce_s
+                                          setlocal3
+                                          getlocal0
+                                          pushstring "focusAlpha"
+                                          callproperty QName(PackageNamespace(""),"getStyle"), 1
+                                          convert_d
+                                          setlocal 4
+                                          getlocal0
+                                          pushstring "focusColor"
+                                          callproperty QName(PackageNamespace(""),"getStyle"), 1
+                                          convert_d
+                                          setlocal 5
+                                          getlocal0
+                                          pushstring "cornerRadius"
+                                          callproperty QName(PackageNamespace(""),"getStyle"), 1
+                                          convert_d
+                                          setlocal 6
+                                          getlocal0
+                                          pushstring "focusThickness"
+                                          callproperty QName(PackageNamespace(""),"getStyle"), 1
+                                          convert_d
+                                          setlocal 7
+                                          getlocal0
+                                          pushstring "focusRoundedCorners"
+                                          callproperty QName(PackageNamespace(""),"getStyle"), 1
+                                          coerce_s
+                                          setlocal 8
+                                          getlocal0
+                                          pushstring "themeColor"
+                                          callproperty QName(PackageNamespace(""),"getStyle"), 1
+                                          convert_d
+                                          setlocal 9
+                                          getlocal 5
+                                          convert_d
+                                          setlocal 10
+                                          findpropstrict QName(PackageNamespace(""),"isNaN")
+                                          getlocal 10
+                                          callproperty QName(PackageNamespace(""),"isNaN"), 1
+                                          iffalse ofs007e
+                                          getlocal 9
+                                          convert_d
+                                          setlocal 10
+                                 ofs007e:
+                                          getlex QName(PackageNamespace(""),"graphics")
+                                          coerce QName(PackageNamespace("flash.display"),"Graphics")
+                                          dup
+                                          setlocal 11
+                                          callpropvoid QName(PackageNamespace(""),"clear"), 0
+                                          getlocal3
+                                          iffalse ofs0096
+                                          findproperty QName(PackageNamespace(""),"blendMode")
+                                          getlocal3
+                                          initproperty QName(PackageNamespace(""),"blendMode")
+                                 ofs0096:
+                                          getlocal 8
+                                          pushstring "tl tr bl br"
+                                          equals
+                                          not
+                                          dup
+                                          iffalse ofs00a8
+                                          pop
+                                          getlocal 6
+                                          pushbyte 0
+                                          greaterthan
+                                 ofs00a8:
+                                          iffalse ofs02f2
+                                          pushbyte 0
+                                          convert_d
+                                          setlocal 12
+                                          pushbyte 0
+                                          convert_d
+                                          setlocal 13
+                                          pushbyte 0
+                                          convert_d
+                                          setlocal 14
+                                          pushbyte 0
+                                          convert_d
+                                          setlocal 15
+                                          getlocal 6
+                                          getlocal 7
+                                          add
+                                          convert_d
+                                          setlocal 16
+                                          getlocal 8
+                                          pushstring "tl"
+                                          callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"indexOf"), 1
+                                          pushbyte 0
+                                          ifnge ofs00dc
+                                          getlocal 16
+                                          convert_d
+                                          setlocal 12
+                                 ofs00dc:
+                                          getlocal 8
+                                          pushstring "tr"
+                                          callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"indexOf"), 1
+                                          pushbyte 0
+                                          ifnge ofs00f0
+                                          getlocal 16
+                                          convert_d
+                                          setlocal 14
+                                 ofs00f0:
+                                          getlocal 8
+                                          pushstring "bl"
+                                          callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"indexOf"), 1
+                                          pushbyte 0
+                                          ifnge ofs0104
+                                          getlocal 16
+                                          convert_d
+                                          setlocal 13
+                                 ofs0104:
+                                          getlocal 8
+                                          pushstring "br"
+                                          callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"indexOf"), 1
+                                          pushbyte 0
+                                          ifnge ofs0118
+                                          getlocal 16
+                                          convert_d
+                                          setlocal 15
+                                 ofs0118:
+                                          getlocal 11
+                                          getlocal 10
+                                          getlocal 4
+                                          callpropvoid QName(PackageNamespace(""),"beginFill"), 2
+                                          getlex QName(PackageNamespace("mx.utils"),"GraphicsUtil")
+                                          getlocal 11
+                                          pushbyte 0
+                                          dup
+                                          getlocal1
+                                          getlocal2
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          getlocal 12
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          getlocal 14
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          getlocal 13
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          getlocal 15
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          callpropvoid QName(PackageNamespace(""),"drawRoundRectComplex2"), 15
+                                          getlocal 12
+                                          iffalse ofs0157
+                                          getlocal 6
+                                          convert_d
+                                          jump ofs015a
+                                 ofs0157:
+                                          pushbyte 0
+                                          convert_d
+                                 ofs015a:
+                                          convert_d
+                                          setlocal 12
+                                          getlocal 14
+                                          iffalse ofs016a
+                                          getlocal 6
+                                          convert_d
+                                          jump ofs016d
+                                 ofs016a:
+                                          pushbyte 0
+                                          convert_d
+                                 ofs016d:
+                                          convert_d
+                                          setlocal 14
+                                          getlocal 13
+                                          iffalse ofs017d
+                                          getlocal 6
+                                          convert_d
+                                          jump ofs0180
+                                 ofs017d:
+                                          pushbyte 0
+                                          convert_d
+                                 ofs0180:
+                                          convert_d
+                                          setlocal 13
+                                          getlocal 15
+                                          iffalse ofs0190
+                                          getlocal 6
+                                          convert_d
+                                          jump ofs0193
+                                 ofs0190:
+                                          pushbyte 0
+                                          convert_d
+                                 ofs0193:
+                                          convert_d
+                                          setlocal 15
+                                          getlex QName(PackageNamespace("mx.utils"),"GraphicsUtil")
+                                          getlocal 11
+                                          getlocal 7
+                                          getlocal 7
+                                          getlocal1
+                                          pushbyte 2
+                                          getlocal 7
+                                          multiply
+                                          subtract
+                                          getlocal2
+                                          pushbyte 2
+                                          getlocal 7
+                                          multiply
+                                          subtract
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          getlocal 12
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          getlocal 14
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          getlocal 13
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          getlocal 15
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          callpropvoid QName(PackageNamespace(""),"drawRoundRectComplex2"), 15
+                                          getlocal 11
+                                          callpropvoid QName(PackageNamespace(""),"endFill"), 0
+                                          getlocal 6
+                                          getlocal 7
+                                          pushbyte 2
+                                          divide
+                                          add
+                                          convert_d
+                                          setlocal 16
+                                          getlocal 12
+                                          iffalse ofs01e9
+                                          getlocal 16
+                                          convert_d
+                                          jump ofs01ec
+                                 ofs01e9:
+                                          pushbyte 0
+                                          convert_d
+                                 ofs01ec:
+                                          convert_d
+                                          setlocal 12
+                                          getlocal 14
+                                          iffalse ofs01fc
+                                          getlocal 16
+                                          convert_d
+                                          jump ofs01ff
+                                 ofs01fc:
+                                          pushbyte 0
+                                          convert_d
+                                 ofs01ff:
+                                          convert_d
+                                          setlocal 14
+                                          getlocal 13
+                                          iffalse ofs020f
+                                          getlocal 16
+                                          convert_d
+                                          jump ofs0212
+                                 ofs020f:
+                                          pushbyte 0
+                                          convert_d
+                                 ofs0212:
+                                          convert_d
+                                          setlocal 13
+                                          getlocal 15
+                                          iffalse ofs0222
+                                          getlocal 16
+                                          convert_d
+                                          jump ofs0225
+                                 ofs0222:
+                                          pushbyte 0
+                                          convert_d
+                                 ofs0225:
+                                          convert_d
+                                          setlocal 15
+                                          getlocal 11
+                                          getlocal 10
+                                          getlocal 4
+                                          callpropvoid QName(PackageNamespace(""),"beginFill"), 2
+                                          getlex QName(PackageNamespace("mx.utils"),"GraphicsUtil")
+                                          getlocal 11
+                                          getlocal 7
+                                          pushbyte 2
+                                          divide
+                                          getlocal 7
+                                          pushbyte 2
+                                          divide
+                                          getlocal1
+                                          getlocal 7
+                                          subtract
+                                          getlocal2
+                                          getlocal 7
+                                          subtract
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          getlocal 12
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          getlocal 14
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          getlocal 13
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          getlocal 15
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          callpropvoid QName(PackageNamespace(""),"drawRoundRectComplex2"), 15
+                                          getlocal 12
+                                          iffalse ofs0274
+                                          getlocal 6
+                                          convert_d
+                                          jump ofs0277
+                                 ofs0274:
+                                          pushbyte 0
+                                          convert_d
+                                 ofs0277:
+                                          convert_d
+                                          setlocal 12
+                                          getlocal 14
+                                          iffalse ofs0287
+                                          getlocal 6
+                                          convert_d
+                                          jump ofs028a
+                                 ofs0287:
+                                          pushbyte 0
+                                          convert_d
+                                 ofs028a:
+                                          convert_d
+                                          setlocal 14
+                                          getlocal 13
+                                          iffalse ofs029a
+                                          getlocal 6
+                                          convert_d
+                                          jump ofs029d
+                                 ofs029a:
+                                          pushbyte 0
+                                          convert_d
+                                 ofs029d:
+                                          convert_d
+                                          setlocal 13
+                                          getlocal 15
+                                          iffalse ofs02ad
+                                          getlocal 6
+                                          convert_d
+                                          jump ofs02b0
+                                 ofs02ad:
+                                          pushbyte 0
+                                          convert_d
+                                 ofs02b0:
+                                          convert_d
+                                          setlocal 15
+                                          getlex QName(PackageNamespace("mx.utils"),"GraphicsUtil")
+                                          getlocal 11
+                                          getlocal 7
+                                          getlocal 7
+                                          getlocal1
+                                          pushbyte 2
+                                          getlocal 7
+                                          multiply
+                                          subtract
+                                          getlocal2
+                                          pushbyte 2
+                                          getlocal 7
+                                          multiply
+                                          subtract
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          getlocal 12
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          getlocal 14
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          getlocal 13
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          getlocal 15
+                                          getlex QName(PackageNamespace(""),"NaN")
+                                          callpropvoid QName(PackageNamespace(""),"drawRoundRectComplex2"), 15
+                                          getlocal 11
+                                          callpropvoid QName(PackageNamespace(""),"endFill"), 0
+                                          jump ofs03c0
+                                 ofs02f2:
+                                          getlocal 11
+                                          getlocal 10
+                                          getlocal 4
+                                          callpropvoid QName(PackageNamespace(""),"beginFill"), 2
+                                          getlocal 6
+                                          pushbyte 0
+                                          greaterthan
+                                          iffalse ofs030f
+                                          getlocal 6
+                                          getlocal 7
+                                          add
+                                          coerce_a
+                                          jump ofs0312
+                                 ofs030f:
+                                          pushbyte 0
+                                          coerce_a
+                                 ofs0312:
+                                          pushbyte 2
+                                          multiply
+                                          convert_d
+                                          setlocal 17
+                                          getlocal 11
+                                          pushbyte 0
+                                          dup
+                                          getlocal1
+                                          getlocal2
+                                          getlocal 17
+                                          getlocal 17
+                                          callpropvoid QName(PackageNamespace(""),"drawRoundRect"), 6
+                                          getlocal 6
+                                          pushbyte 2
+                                          multiply
+                                          convert_d
+                                          setlocal 17
+                                          getlocal 11
+                                          getlocal 7
+                                          getlocal 7
+                                          getlocal1
+                                          pushbyte 2
+                                          getlocal 7
+                                          multiply
+                                          subtract
+                                          getlocal2
+                                          pushbyte 2
+                                          getlocal 7
+                                          multiply
+                                          subtract
+                                          getlocal 17
+                                          getlocal 17
+                                          callpropvoid QName(PackageNamespace(""),"drawRoundRect"), 6
+                                          getlocal 11
+                                          callpropvoid QName(PackageNamespace(""),"endFill"), 0
+                                          getlocal 11
+                                          getlocal 10
+                                          getlocal 4
+                                          callpropvoid QName(PackageNamespace(""),"beginFill"), 2
+                                          getlocal 6
+                                          pushbyte 0
+                                          greaterthan
+                                          iffalse ofs0371
+                                          getlocal 6
+                                          getlocal 7
+                                          pushbyte 2
+                                          divide
+                                          add
+                                          coerce_a
+                                          jump ofs0374
+                                 ofs0371:
+                                          pushbyte 0
+                                          coerce_a
+                                 ofs0374:
+                                          pushbyte 2
+                                          multiply
+                                          convert_d
+                                          setlocal 17
+                                          getlocal 11
+                                          getlocal 7
+                                          pushbyte 2
+                                          divide
+                                          getlocal 7
+                                          pushbyte 2
+                                          divide
+                                          getlocal1
+                                          getlocal 7
+                                          subtract
+                                          getlocal2
+                                          getlocal 7
+                                          subtract
+                                          getlocal 17
+                                          getlocal 17
+                                          callpropvoid QName(PackageNamespace(""),"drawRoundRect"), 6
+                                          getlocal 6
+                                          pushbyte 2
+                                          multiply
+                                          convert_d
+                                          setlocal 17
+                                          getlocal 11
+                                          getlocal 7
+                                          getlocal 7
+                                          getlocal1
+                                          pushbyte 2
+                                          getlocal 7
+                                          multiply
+                                          subtract
+                                          getlocal2
+                                          pushbyte 2
+                                          getlocal 7
+                                          multiply
+                                          subtract
+                                          getlocal 17
+                                          getlocal 17
+                                          callpropvoid QName(PackageNamespace(""),"drawRoundRect"), 6
+                                          getlocal 11
+                                          callpropvoid QName(PackageNamespace(""),"endFill"), 0
+                                 ofs03c0:
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              override public function getStyle(param1:String) : *
+                              {
+                                 trait method QName(PackageNamespace(""),"getStyle")
+                                    flag OVERRIDE
+                                    dispid 0
+                                    method
+                                       name null
+                                       param QName(PackageNamespace(""),"String")
+                                       returns null
+                                       
+                                       body
+                                          maxstack 2
+                                          localcount 2
+                                          initscopedepth 9
+                                          maxscopedepth 10
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlocal1
+                                             pushstring "focusColor"
+                                             equals
+                                             iffalse ofs0014
+                                             getlocal0
+                                             getproperty QName(PrivateNamespace(null,"16"),"_focusColor")
+                                             coerce_a
+                                             jump ofs001b
+                                    ofs0014:
+                                             getlocal0
+                                             getlocal1
+                                             callsuper QName(PackageNamespace(""),"getStyle"), 1
+                                             coerce_a
+                                    ofs001b:
+                                             returnvalue
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 public function setStyle(param1:String, param2:*) : void
+                                 {
+                                    trait method QName(PackageNamespace(""),"setStyle")
+                                       dispid 0
+                                       method
+                                          name null
+                                          param QName(PackageNamespace(""),"String")
+                                          param null
+                                          returns QName(PackageNamespace(""),"void")
+                                          
+                                          body
+                                             maxstack 2
+                                             localcount 3
+                                             initscopedepth 9
+                                             maxscopedepth 10
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                getlocal1
+                                                pushstring "focusColor"
+                                                ifne ofs000f
+                                                getlocal0
+                                                getlocal2
+                                                initproperty QName(PrivateNamespace(null,"16"),"_focusColor")
+                                       ofs000f:
+                                                returnvoid
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    public function clearStyle(param1:String) : void
+                                    {
+                                       trait method QName(PackageNamespace(""),"clearStyle")
+                                          dispid 0
+                                          method
+                                             name null
+                                             param QName(PackageNamespace(""),"String")
+                                             returns QName(PackageNamespace(""),"void")
+                                             
+                                             body
+                                                maxstack 2
+                                                localcount 2
+                                                initscopedepth 9
+                                                maxscopedepth 10
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   getlocal1
+                                                   pushstring "focusColor"
+                                                   ifne ofs0011
+                                                   getlocal0
+                                                   getlex QName(PackageNamespace(""),"NaN")
+                                                   initproperty QName(PrivateNamespace(null,"16"),"_focusColor")
+                                          ofs0011:
+                                                   returnvoid
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                       
+                                       public function getClassStyleDeclarations() : Array
+                                       {
+                                          trait method QName(PackageNamespace(""),"getClassStyleDeclarations")
+                                             dispid 0
+                                             method
+                                                name null
+                                                returns QName(PackageNamespace(""),"Array")
+                                                
+                                                body
+                                                   maxstack 1
+                                                   localcount 1
+                                                   initscopedepth 9
+                                                   maxscopedepth 10
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      newarray 0
+                                                      returnvalue
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                          }
+                                          
+                                          public function notifyStyleChangeInChildren(param1:String, param2:Boolean) : void
+                                          {
+                                             trait method QName(PackageNamespace(""),"notifyStyleChangeInChildren")
+                                                dispid 0
+                                                method
+                                                   name null
+                                                   param QName(PackageNamespace(""),"String")
+                                                   param QName(PackageNamespace(""),"Boolean")
+                                                   returns QName(PackageNamespace(""),"void")
+                                                   
+                                                   body
+                                                      maxstack 1
+                                                      localcount 3
+                                                      initscopedepth 9
+                                                      maxscopedepth 10
+                                                      
+                                                      code
+                                                         getlocal0
+                                                         pushscope
+                                                         returnvoid
+                                                      end ; code
+                                                   end ; body
+                                                end ; method
+                                             }
+                                             
+                                             public function regenerateStyleCache(param1:Boolean) : void
+                                             {
+                                                trait method QName(PackageNamespace(""),"regenerateStyleCache")
+                                                   dispid 0
+                                                   method
+                                                      name null
+                                                      param QName(PackageNamespace(""),"Boolean")
+                                                      returns QName(PackageNamespace(""),"void")
+                                                      
+                                                      body
+                                                         maxstack 1
+                                                         localcount 2
+                                                         initscopedepth 9
+                                                         maxscopedepth 10
+                                                         
+                                                         code
+                                                            getlocal0
+                                                            pushscope
+                                                            returnvoid
+                                                         end ; code
+                                                      end ; body
+                                                   end ; method
+                                                }
+                                                
+                                                public function registerEffects(param1:Array) : void
+                                                {
+                                                   trait method QName(PackageNamespace(""),"registerEffects")
+                                                      dispid 0
+                                                      method
+                                                         name null
+                                                         param QName(PackageNamespace(""),"Array")
+                                                         returns QName(PackageNamespace(""),"void")
+                                                         
+                                                         body
+                                                            maxstack 1
+                                                            localcount 2
+                                                            initscopedepth 9
+                                                            maxscopedepth 10
+                                                            
+                                                            code
+                                                               getlocal0
+                                                               pushscope
+                                                               returnvoid
+                                                            end ; code
+                                                         end ; body
+                                                      end ; method
+                                                   }
+                                                }
+                                             }
+                                             
+                                             method
+                                                name null
+                                                returns null
+                                                
+                                                body
+                                                   maxstack 2
+                                                   localcount 1
+                                                   initscopedepth 1
+                                                   maxscopedepth 8
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      findpropstrict Multiname("HaloFocusRect",[PackageNamespace("mx.skins.halo")])
+                                                      getlex QName(PackageNamespace(""),"Object")
+                                                      pushscope
+                                                      getlex QName(PackageNamespace("flash.events"),"EventDispatcher")
+                                                      pushscope
+                                                      getlex QName(PackageNamespace("flash.display"),"DisplayObject")
+                                                      pushscope
+                                                      getlex QName(PackageNamespace("flash.display"),"Shape")
+                                                      pushscope
+                                                      getlex QName(PackageNamespace("mx.core"),"FlexShape")
+                                                      pushscope
+                                                      getlex QName(PackageNamespace("mx.skins"),"ProgrammaticSkin")
+                                                      pushscope
+                                                      getlex QName(PackageNamespace("mx.skins"),"ProgrammaticSkin")
+                                                      newclass 42
+                                                      popscope
+                                                      popscope
+                                                      popscope
+                                                      popscope
+                                                      popscope
+                                                      popscope
+                                                      initproperty QName(PackageNamespace("mx.skins.halo"),"HaloFocusRect")
+                                                      returnvoid
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                             

@@ -1,0 +1,560 @@
+package hotpointgame.utils.gameloader
+{
+   import flash.display.*;
+   import flash.events.*;
+   import flash.net.*;
+   import flash.system.*;
+   
+   public class SwfLoader
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var _load:Loader;
+      
+      private var _loaderContext:LoaderContext;
+      
+      private var _complete:Function;
+      
+      private var _ioError:Function;
+      
+      private var _progress:Function;
+      
+      public function SwfLoader()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 1
+               localcount 1
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  getlocal0
+                  callpropvoid Multiname("init",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")]), 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function loadSwf(param1:*) : void
+      {
+         trait method QName(PackageNamespace(""),"loadSwf")
+            dispid 0
+            method
+               name null
+               param null
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 2
+                  localcount 2
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal1
+                     getlex Multiname("String",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                     istypelate
+                     iffalse ofs0015
+                     getlocal0
+                     getlocal1
+                     callpropvoid Multiname("urlLoad",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")]), 1
+                     jump ofs0033
+            ofs0015:
+                     getlocal1
+                     getlex Multiname("Class",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                     istypelate
+                     iffalse ofs0028
+                     getlocal0
+                     getlocal1
+                     callpropvoid Multiname("byteArrayLoad",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")]), 1
+                     jump ofs0033
+            ofs0028:
+                     findpropstrict Multiname("Error",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                     pushstring "SwfLoader 不支持的类型"
+                     constructprop Multiname("Error",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")]), 1
+                     throw
+            ofs0033:
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         private function urlLoad(param1:String) : void
+         {
+            trait method QName(PrivateNamespace(null,"61"),"urlLoad")
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace(""),"String")
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 3
+                     localcount 2
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        getproperty Multiname("_load",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                        findpropstrict Multiname("URLRequest",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader"),PackageNamespace("flash.net")])
+                        getlocal1
+                        constructprop Multiname("URLRequest",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader"),PackageNamespace("flash.net")]), 1
+                        getlocal0
+                        getproperty Multiname("_loaderContext",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                        callpropvoid Multiname("load",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")]), 2
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            private function byteArrayLoad(param1:Class) : void
+            {
+               trait method QName(PrivateNamespace(null,"61"),"byteArrayLoad")
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace(""),"Class")
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 2
+                        localcount 2
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           getproperty Multiname("_load",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                           getlocal1
+                           construct 0
+                           callpropvoid Multiname("loadBytes",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")]), 1
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               private function init() : void
+               {
+                  trait method QName(PrivateNamespace(null,"61"),"init")
+                     dispid 0
+                     method
+                        name null
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 3
+                           localcount 1
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              findpropstrict Multiname("Loader",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader"),PackageNamespace("flash.display")])
+                              constructprop Multiname("Loader",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader"),PackageNamespace("flash.display")]), 0
+                              initproperty Multiname("_load",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                              getlocal0
+                              findpropstrict Multiname("LoaderContext",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader"),PackageNamespace("flash.system")])
+                              constructprop Multiname("LoaderContext",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader"),PackageNamespace("flash.system")]), 0
+                              initproperty Multiname("_loaderContext",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                              getlocal0
+                              getproperty Multiname("_load",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                              getproperty Multiname("contentLoaderInfo",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                              getlex Multiname("Event",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader"),PackageNamespace("flash.events")])
+                              getproperty Multiname("COMPLETE",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                              getlocal0
+                              getproperty Multiname("completeHandler",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                              callpropvoid Multiname("addEventListener",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")]), 2
+                              getlocal0
+                              getproperty Multiname("_load",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                              getproperty Multiname("contentLoaderInfo",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                              getlex Multiname("IOErrorEvent",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader"),PackageNamespace("flash.events")])
+                              getproperty Multiname("IO_ERROR",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                              getlocal0
+                              getproperty Multiname("ioErrorHandler",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                              callpropvoid Multiname("addEventListener",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")]), 2
+                              getlocal0
+                              getproperty Multiname("_load",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                              getproperty Multiname("contentLoaderInfo",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                              getlex Multiname("ProgressEvent",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader"),PackageNamespace("flash.events")])
+                              getproperty Multiname("PROGRESS",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                              getlocal0
+                              getproperty Multiname("progressHandler",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                              callpropvoid Multiname("addEventListener",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")]), 2
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function getDisplayO() : MovieClip
+                  {
+                     trait method QName(PackageNamespace(""),"getDisplayO")
+                        dispid 0
+                        method
+                           name null
+                           returns QName(PackageNamespace("flash.display"),"MovieClip")
+                           
+                           body
+                              maxstack 2
+                              localcount 1
+                              initscopedepth 4
+                              maxscopedepth 5
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal0
+                                 getproperty Multiname("_load",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                 getproperty Multiname("content",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                 getlex Multiname("MovieClip",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader"),PackageNamespace("flash.display")])
+                                 astypelate
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public function getClass(param1:String) : Object
+                     {
+                        trait method QName(PackageNamespace(""),"getClass")
+                           dispid 0
+                           method
+                              name null
+                              param QName(PackageNamespace(""),"String")
+                              returns QName(PackageNamespace(""),"Object")
+                              
+                              body
+                                 maxstack 2
+                                 localcount 2
+                                 initscopedepth 4
+                                 maxscopedepth 5
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlocal0
+                                    getproperty Multiname("_load",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                    getproperty Multiname("contentLoaderInfo",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                    getproperty Multiname("applicationDomain",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                    getlocal1
+                                    callproperty Multiname("getDefinition",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")]), 1
+                                    returnvalue
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        private function completeHandler(param1:Event) : void
+                        {
+                           trait method QName(PrivateNamespace(null,"61"),"completeHandler")
+                              dispid 0
+                              method
+                                 name null
+                                 param QName(PackageNamespace("flash.events"),"Event")
+                                 returns QName(PackageNamespace(""),"void")
+                                 
+                                 body
+                                    maxstack 2
+                                    localcount 2
+                                    initscopedepth 4
+                                    maxscopedepth 5
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlocal0
+                                       getproperty Multiname("_complete",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                       pushnull
+                                       ifeq ofs0011
+                                       getlocal0
+                                       getlocal1
+                                       callpropvoid Multiname("_complete",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")]), 1
+                              ofs0011:
+                                       getlocal0
+                                       callpropvoid Multiname("deleteMe",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")]), 0
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           private function ioErrorHandler(param1:IOErrorEvent) : void
+                           {
+                              trait method QName(PrivateNamespace(null,"61"),"ioErrorHandler")
+                                 dispid 0
+                                 method
+                                    name null
+                                    param QName(PackageNamespace("flash.events"),"IOErrorEvent")
+                                    returns QName(PackageNamespace(""),"void")
+                                    
+                                    body
+                                       maxstack 3
+                                       localcount 2
+                                       initscopedepth 4
+                                       maxscopedepth 5
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlocal0
+                                          getproperty Multiname("_ioError",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                          pushnull
+                                          ifeq ofs0011
+                                          getlocal0
+                                          getlocal1
+                                          callpropvoid Multiname("_ioError",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")]), 1
+                                 ofs0011:
+                                          getlocal0
+                                          callpropvoid Multiname("deleteMe",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")]), 0
+                                          findpropstrict Multiname("Error",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                          pushstring "SwfLoader is error!:"
+                                          getlocal1
+                                          callproperty Multiname("toString",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")]), 0
+                                          add
+                                          constructprop Multiname("Error",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")]), 1
+                                          throw
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              private function progressHandler(param1:ProgressEvent) : void
+                              {
+                                 trait method QName(PrivateNamespace(null,"61"),"progressHandler")
+                                    dispid 0
+                                    method
+                                       name null
+                                       param QName(PackageNamespace("flash.events"),"ProgressEvent")
+                                       returns QName(PackageNamespace(""),"void")
+                                       
+                                       body
+                                          maxstack 3
+                                          localcount 2
+                                          initscopedepth 4
+                                          maxscopedepth 5
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlocal0
+                                             getproperty Multiname("_progress",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                             pushnull
+                                             ifeq ofs001c
+                                             getlocal0
+                                             getlocal1
+                                             getproperty Multiname("bytesLoaded",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                             getlocal1
+                                             getproperty Multiname("bytesTotal",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                             divide
+                                             pushbyte 100
+                                             multiply
+                                             callpropvoid Multiname("_progress",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")]), 1
+                                    ofs001c:
+                                             returnvoid
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 private function deleteMe() : void
+                                 {
+                                    trait method QName(PrivateNamespace(null,"61"),"deleteMe")
+                                       dispid 0
+                                       method
+                                          name null
+                                          returns QName(PackageNamespace(""),"void")
+                                          
+                                          body
+                                             maxstack 3
+                                             localcount 1
+                                             initscopedepth 4
+                                             maxscopedepth 5
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                getlocal0
+                                                getproperty Multiname("_load",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                                getproperty Multiname("contentLoaderInfo",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                                getlex Multiname("Event",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader"),PackageNamespace("flash.events")])
+                                                getproperty Multiname("COMPLETE",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                                getlocal0
+                                                getproperty Multiname("completeHandler",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                                callpropvoid Multiname("removeEventListener",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")]), 2
+                                                getlocal0
+                                                getproperty Multiname("_load",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                                getproperty Multiname("contentLoaderInfo",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                                getlex Multiname("IOErrorEvent",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader"),PackageNamespace("flash.events")])
+                                                getproperty Multiname("IO_ERROR",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                                getlocal0
+                                                getproperty Multiname("ioErrorHandler",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                                callpropvoid Multiname("removeEventListener",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")]), 2
+                                                getlocal0
+                                                getproperty Multiname("_load",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                                getproperty Multiname("contentLoaderInfo",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                                getlex Multiname("ProgressEvent",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader"),PackageNamespace("flash.events")])
+                                                getproperty Multiname("PROGRESS",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                                getlocal0
+                                                getproperty Multiname("progressHandler",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                                callpropvoid Multiname("removeEventListener",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")]), 2
+                                                getlocal0
+                                                pushnull
+                                                initproperty Multiname("_complete",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                                getlocal0
+                                                pushnull
+                                                initproperty Multiname("_ioError",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                                getlocal0
+                                                pushnull
+                                                initproperty Multiname("_progress",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                                returnvoid
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    public function set progress(param1:Function) : void
+                                    {
+                                       trait setter QName(PackageNamespace(""),"progress")
+                                          dispid 0
+                                          method
+                                             name null
+                                             param QName(PackageNamespace(""),"Function")
+                                             returns QName(PackageNamespace(""),"void")
+                                             
+                                             body
+                                                maxstack 2
+                                                localcount 2
+                                                initscopedepth 4
+                                                maxscopedepth 5
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   getlocal0
+                                                   getlocal1
+                                                   initproperty Multiname("_progress",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                                   returnvoid
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                       
+                                       public function set ioError(param1:Function) : void
+                                       {
+                                          trait setter QName(PackageNamespace(""),"ioError")
+                                             dispid 0
+                                             method
+                                                name null
+                                                param QName(PackageNamespace(""),"Function")
+                                                returns QName(PackageNamespace(""),"void")
+                                                
+                                                body
+                                                   maxstack 2
+                                                   localcount 2
+                                                   initscopedepth 4
+                                                   maxscopedepth 5
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      getlocal0
+                                                      getlocal1
+                                                      initproperty Multiname("_ioError",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                                      returnvoid
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                          }
+                                          
+                                          public function set complete(param1:Function) : void
+                                          {
+                                             trait setter QName(PackageNamespace(""),"complete")
+                                                dispid 0
+                                                method
+                                                   name null
+                                                   param QName(PackageNamespace(""),"Function")
+                                                   returns QName(PackageNamespace(""),"void")
+                                                   
+                                                   body
+                                                      maxstack 2
+                                                      localcount 2
+                                                      initscopedepth 4
+                                                      maxscopedepth 5
+                                                      
+                                                      code
+                                                         getlocal0
+                                                         pushscope
+                                                         getlocal0
+                                                         getlocal1
+                                                         initproperty Multiname("_complete",[PrivateNamespace(null,"61"),PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.utils.gameloader:SwfLoader"),StaticProtectedNs("hotpointgame.utils.gameloader:SwfLoader")])
+                                                         returnvoid
+                                                      end ; code
+                                                   end ; body
+                                                end ; method
+                                             }
+                                          }
+                                       }
+                                       
+                                       method
+                                          name null
+                                          returns null
+                                          
+                                          body
+                                             maxstack 2
+                                             localcount 1
+                                             initscopedepth 1
+                                             maxscopedepth 3
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                findpropstrict Multiname("SwfLoader",[PackageNamespace("hotpointgame.utils.gameloader")])
+                                                getlex QName(PackageNamespace(""),"Object")
+                                                pushscope
+                                                getlex Multiname("Object",[PrivateNamespace(null,"492"),PackageNamespace(""),PackageNamespace("hotpointgame.utils.gameloader"),PackageInternalNs("hotpointgame.utils.gameloader"),Namespace("http://adobe.com/AS3/2006/builtin")])
+                                                newclass 74
+                                                popscope
+                                                initproperty QName(PackageNamespace("hotpointgame.utils.gameloader"),"SwfLoader")
+                                                returnvoid
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                       

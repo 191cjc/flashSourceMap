@@ -1,0 +1,368 @@
+package mx.styles
+{
+   public class CSSCondition
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var _kind:String;
+      
+      private var _value:String;
+      
+      public function CSSCondition(param1:String, param2:String)
+      {
+         method
+            name null
+            param QName(PackageNamespace(""),"String")
+            param QName(PackageNamespace(""),"String")
+            returns null
+            
+            body
+               maxstack 2
+               localcount 3
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  getlocal0
+                  getlocal1
+                  initproperty QName(PrivateNamespace(null,"12"),"_kind")
+                  getlocal0
+                  getlocal2
+                  initproperty QName(PrivateNamespace(null,"12"),"_value")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function get kind() : String
+      {
+         trait getter QName(PackageNamespace(""),"kind")
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace(""),"String")
+               
+               body
+                  maxstack 1
+                  localcount 1
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"12"),"_kind")
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function get specificity() : int
+         {
+            trait getter QName(PackageNamespace(""),"specificity")
+               dispid 0
+               method
+                  name null
+                  returns QName(PackageNamespace(""),"int")
+                  
+                  body
+                     maxstack 2
+                     localcount 1
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"kind")
+                        getlex QName(PackageNamespace("mx.styles"),"CSSConditionKind")
+                        getproperty QName(PackageNamespace(""),"ID")
+                        ifne ofs0013
+                        pushbyte 100
+                        returnvalue
+               ofs0013:
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"kind")
+                        getlex QName(PackageNamespace("mx.styles"),"CSSConditionKind")
+                        getproperty QName(PackageNamespace(""),"CLASS")
+                        ifne ofs0024
+                        pushbyte 10
+                        returnvalue
+               ofs0024:
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"kind")
+                        getlex QName(PackageNamespace("mx.styles"),"CSSConditionKind")
+                        getproperty QName(PackageNamespace(""),"PSEUDO")
+                        ifne ofs0035
+                        pushbyte 10
+                        returnvalue
+               ofs0035:
+                        pushbyte 0
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function get value() : String
+            {
+               trait getter QName(PackageNamespace(""),"value")
+                  dispid 0
+                  method
+                     name null
+                     returns QName(PackageNamespace(""),"String")
+                     
+                     body
+                        maxstack 1
+                        localcount 1
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"12"),"_value")
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function matchesStyleClient(param1:IAdvancedStyleClient) : Boolean
+               {
+                  trait method QName(PackageNamespace(""),"matchesStyleClient")
+                     dispid 0
+                     method
+                        name null
+                        param QName(PackageNamespace("mx.styles"),"IAdvancedStyleClient")
+                        returns QName(PackageNamespace(""),"Boolean")
+                        
+                        body
+                           maxstack 3
+                           localcount 5
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              pushnull
+                              coerce QName(PackageNamespace(""),"Array")
+                              setlocal3
+                              pushbyte 0
+                              convert_u
+                              setlocal 4
+                              pushfalse
+                              setlocal2
+                              getlocal0
+                              getproperty QName(PackageNamespace(""),"kind")
+                              getlex QName(PackageNamespace("mx.styles"),"CSSConditionKind")
+                              getproperty QName(PackageNamespace(""),"CLASS")
+                              ifne ofs0078
+                              getlocal1
+                              getproperty QName(Namespace("mx.styles:ISimpleStyleClient"),"styleName")
+                              pushnull
+                              equals
+                              not
+                              dup
+                              iffalse ofs002f
+                              pop
+                              getlocal1
+                              getproperty QName(Namespace("mx.styles:ISimpleStyleClient"),"styleName")
+                              getlex QName(PackageNamespace(""),"String")
+                              istypelate
+                     ofs002f:
+                              iffalse ofs0074
+                              getlocal1
+                              getproperty QName(Namespace("mx.styles:ISimpleStyleClient"),"styleName")
+                              getlex QName(PackageNamespace(""),"RegExp")
+                              pushstring "\\s+"
+                              construct 1
+                              callproperty Multiname("split",[PrivateNamespace(null,"12"),PackageNamespace(""),PackageNamespace("mx.styles"),PrivateNamespace(null,"118"),PackageInternalNs("mx.styles"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.styles:CSSCondition"),StaticProtectedNs("mx.styles:CSSCondition")]), 1
+                              coerce QName(PackageNamespace(""),"Array")
+                              setlocal3
+                              pushbyte 0
+                              convert_u
+                              setlocal 4
+                              jump ofs006a
+                     ofs004f:
+                              label
+                              getlocal3
+                              getlocal 4
+                              getproperty MultinameL([PrivateNamespace(null,"12"),PackageNamespace(""),PackageNamespace("mx.styles"),PrivateNamespace(null,"118"),PackageInternalNs("mx.styles"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.styles:CSSCondition"),StaticProtectedNs("mx.styles:CSSCondition")])
+                              getlocal0
+                              getproperty QName(PackageNamespace(""),"value")
+                              ifne ofs0064
+                              pushtrue
+                              setlocal2
+                              jump ofs0074
+                     ofs0064:
+                              getlocal 4
+                              increment
+                              convert_u
+                              setlocal 4
+                     ofs006a:
+                              getlocal 4
+                              getlocal3
+                              getproperty QName(PackageNamespace(""),"length")
+                              iflt ofs004f
+                     ofs0074:
+                              jump ofs00b5
+                     ofs0078:
+                              getlocal0
+                              getproperty QName(PackageNamespace(""),"kind")
+                              getlex QName(PackageNamespace("mx.styles"),"CSSConditionKind")
+                              getproperty QName(PackageNamespace(""),"ID")
+                              ifne ofs0098
+                              getlocal1
+                              getproperty QName(Namespace("mx.styles:IAdvancedStyleClient"),"id")
+                              getlocal0
+                              getproperty QName(PackageNamespace(""),"value")
+                              ifne ofs0094
+                              pushtrue
+                              setlocal2
+                     ofs0094:
+                              jump ofs00b5
+                     ofs0098:
+                              getlocal0
+                              getproperty QName(PackageNamespace(""),"kind")
+                              getlex QName(PackageNamespace("mx.styles"),"CSSConditionKind")
+                              getproperty QName(PackageNamespace(""),"PSEUDO")
+                              ifne ofs00b5
+                              getlocal1
+                              getlocal0
+                              getproperty QName(PackageNamespace(""),"value")
+                              callproperty QName(Namespace("mx.styles:IAdvancedStyleClient"),"matchesCSSState"), 1
+                              iffalse ofs00b5
+                              pushtrue
+                              setlocal2
+                     ofs00b5:
+                              getlocal2
+                              returnvalue
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function toString() : String
+                  {
+                     trait method QName(PackageNamespace(""),"toString")
+                        dispid 0
+                        method
+                           name null
+                           returns QName(PackageNamespace(""),"String")
+                           
+                           body
+                              maxstack 2
+                              localcount 2
+                              initscopedepth 4
+                              maxscopedepth 5
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 pushnull
+                                 coerce_s
+                                 setlocal1
+                                 getlocal0
+                                 getproperty QName(PackageNamespace(""),"kind")
+                                 getlex QName(PackageNamespace("mx.styles"),"CSSConditionKind")
+                                 getproperty QName(PackageNamespace(""),"CLASS")
+                                 ifne ofs0021
+                                 pushstring "."
+                                 getlocal0
+                                 getproperty QName(PackageNamespace(""),"value")
+                                 add
+                                 coerce_s
+                                 setlocal1
+                                 jump ofs005c
+                        ofs0021:
+                                 getlocal0
+                                 getproperty QName(PackageNamespace(""),"kind")
+                                 getlex QName(PackageNamespace("mx.styles"),"CSSConditionKind")
+                                 getproperty QName(PackageNamespace(""),"ID")
+                                 ifne ofs003d
+                                 pushstring "#"
+                                 getlocal0
+                                 getproperty QName(PackageNamespace(""),"value")
+                                 add
+                                 coerce_s
+                                 setlocal1
+                                 jump ofs005c
+                        ofs003d:
+                                 getlocal0
+                                 getproperty QName(PackageNamespace(""),"kind")
+                                 getlex QName(PackageNamespace("mx.styles"),"CSSConditionKind")
+                                 getproperty QName(PackageNamespace(""),"PSEUDO")
+                                 ifne ofs0059
+                                 pushstring ":"
+                                 getlocal0
+                                 getproperty QName(PackageNamespace(""),"value")
+                                 add
+                                 coerce_s
+                                 setlocal1
+                                 jump ofs005c
+                        ofs0059:
+                                 pushstring ""
+                                 setlocal1
+                        ofs005c:
+                                 getlocal1
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                  }
+               }
+               
+               method
+                  name null
+                  returns null
+                  
+                  body
+                     maxstack 2
+                     localcount 1
+                     initscopedepth 1
+                     maxscopedepth 3
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        findpropstrict Multiname("CSSCondition",[PackageNamespace("mx.styles")])
+                        getlex QName(PackageNamespace(""),"Object")
+                        pushscope
+                        getlex QName(PackageNamespace(""),"Object")
+                        newclass 30
+                        popscope
+                        initproperty QName(PackageNamespace("mx.styles"),"CSSCondition")
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+               

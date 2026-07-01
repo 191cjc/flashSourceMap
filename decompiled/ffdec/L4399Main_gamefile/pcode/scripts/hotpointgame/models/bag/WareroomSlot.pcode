@@ -1,0 +1,879 @@
+package hotpointgame.models.bag
+{
+   import hotpointgame.common.*;
+   import hotpointgame.models.goods.Goods;
+   import hotpointgame.utils.*;
+   import hotpointgame.views.vipPanel.*;
+   
+   public class WareroomSlot extends Bag
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 4
+            maxscopedepth 5
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var roomBag:Array;
+      
+      private var goldMax:VT;
+      
+      private var goldCurr:VT;
+      
+      public var addBo:VT;
+      
+      public function WareroomSlot()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 3
+               localcount 1
+               initscopedepth 5
+               maxscopedepth 6
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  newarray 0
+                  initproperty QName(PrivateNamespace(null,"214"),"roomBag")
+                  getlocal0
+                  getlex Multiname("VT",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                  getlex Multiname("GS",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                  getproperty Multiname("a12",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                  callproperty Multiname("createVT",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                  initproperty QName(PrivateNamespace(null,"214"),"goldMax")
+                  getlocal0
+                  getlex Multiname("VT",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                  pushbyte 0
+                  callproperty Multiname("createVT",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                  initproperty QName(PrivateNamespace(null,"214"),"goldCurr")
+                  getlocal0
+                  getlex Multiname("VT",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                  getlex Multiname("GS",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                  getproperty Multiname("a0",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                  callproperty Multiname("createVT",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                  initproperty QName(PackageNamespace(""),"addBo")
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public static function createEquipSlot() : WareroomSlot
+      {
+         trait method QName(PackageNamespace(""),"createEquipSlot")
+            flag FINAL
+            dispid 3
+            method
+               name null
+               returns QName(PackageNamespace("hotpointgame.models.bag"),"WareroomSlot")
+               
+               body
+                  maxstack 3
+                  localcount 2
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     construct 0
+                     coerce QName(PackageNamespace("hotpointgame.models.bag"),"WareroomSlot")
+                     setlocal1
+                     getlocal1
+                     getlex Multiname("GS",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                     getproperty Multiname("a100",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                     getlex Multiname("GS",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                     getproperty Multiname("a50",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                     add
+                     callpropvoid Multiname("setBagNum",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                     getlocal1
+                     getlex Multiname("GS",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                     getproperty Multiname("a31",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                     callpropvoid Multiname("setKeyNum",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                     getlocal1
+                     callpropvoid Multiname("initBag",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                     getlocal1
+                     callpropvoid Multiname("initSmallBag",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                     getlocal1
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         override public function save() : Object
+         {
+            trait method QName(PackageNamespace(""),"save")
+               flag OVERRIDE
+               dispid 0
+               method
+                  name null
+                  returns QName(PackageNamespace(""),"Object")
+                  
+                  body
+                     maxstack 3
+                     localcount 6
+                     initscopedepth 5
+                     maxscopedepth 6
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        pushnull
+                        coerce QName(PackageNamespace("hotpointgame.models.bag"),"Gird")
+                        setlocal3
+                        findpropstrict Multiname("Object",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                        constructprop Multiname("Object",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                        coerce QName(PackageNamespace(""),"Object")
+                        setlocal1
+                        findpropstrict Multiname("Array",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                        constructprop Multiname("Array",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                        coerce QName(PackageNamespace(""),"Array")
+                        setlocal2
+                        findpropstrict Multiname("isKzDb",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                        callproperty Multiname("isKzDb",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                        iffalse ofs00ad
+                        pushbyte 0
+                        setlocal 4
+                        getlex Multiname("_bagArr",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                        coerce_a
+                        setlocal 5
+                        jump ofs007e
+               ofs003a:
+                        label
+                        getlocal 5
+                        getlocal 4
+                        nextvalue
+                        coerce QName(PackageNamespace("hotpointgame.models.bag"),"Gird")
+                        setlocal3
+                        getlocal3
+                        callproperty Multiname("getGoods",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                        pushnull
+                        equals
+                        not
+                        dup
+                        iftrue ofs0061
+                        pop
+                        getlocal3
+                        callproperty Multiname("getKey",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                        getlex Multiname("GS",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                        getproperty Multiname("a0",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                        equals
+               ofs0061:
+                        iffalse ofs0075
+                        getlocal2
+                        getlocal3
+                        callproperty Multiname("save",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                        callpropvoid Multiname("push",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                        jump ofs007e
+               ofs0075:
+                        getlocal2
+                        pushstring "null"
+                        callpropvoid Multiname("push",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+               ofs007e:
+                        hasnext2 5, 4
+                        iftrue ofs003a
+                        kill 5
+                        kill 4
+                        getlocal1
+                        pushstring "bg"
+                        getlocal2
+                        setproperty MultinameL([PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                        getlocal1
+                        pushstring "ad"
+                        getlocal0
+                        getproperty Multiname("addBo",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                        callproperty Multiname("getValue",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                        setproperty MultinameL([PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                        findpropstrict Multiname("bfBag",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                        callpropvoid Multiname("bfBag",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+               ofs00ad:
+                        getlocal1
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            override public function readData(param1:Object = null) : void
+            {
+               trait method QName(PackageNamespace(""),"readData")
+                  flag OVERRIDE
+                  dispid 0
+                  method
+                     name null
+                     flag HAS_OPTIONAL
+                     param QName(PackageNamespace(""),"Object")
+                     optional Null()
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 3
+                        localcount 7
+                        initscopedepth 5
+                        maxscopedepth 6
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           pushundefined
+                           coerce_a
+                           setlocal3
+                           pushbyte 0
+                           convert_u
+                           setlocal 4
+                           getlex Multiname("bagArr",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                           pushbyte 0
+                           setproperty Multiname("length",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                           getlocal1
+                           pushstring "bg"
+                           getproperty MultinameL([PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                           coerce QName(PackageNamespace(""),"Array")
+                           setlocal2
+                           pushbyte 0
+                           setlocal 5
+                           getlocal2
+                           coerce_a
+                           setlocal 6
+                           jump ofs0064
+                  ofs002b:
+                           label
+                           getlocal 6
+                           getlocal 5
+                           nextvalue
+                           coerce_a
+                           setlocal3
+                           getlocal3
+                           pushstring "null"
+                           ifeq ofs0052
+                           getlex Multiname("bagArr",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                           getlex Multiname("Gird",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                           getlocal3
+                           callproperty Multiname("readData",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                           callpropvoid Multiname("push",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                           jump ofs0064
+                  ofs0052:
+                           getlex Multiname("bagArr",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                           getlex Multiname("Gird",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                           callproperty Multiname("creatGird",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                           callpropvoid Multiname("push",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                  ofs0064:
+                           hasnext2 6, 5
+                           iftrue ofs002b
+                           kill 6
+                           kill 5
+                           getlocal1
+                           pushstring "ad"
+                           getproperty MultinameL([PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                           pushnull
+                           ifne ofs00c6
+                           pushbyte 0
+                           convert_u
+                           setlocal 4
+                           jump ofs009e
+                  ofs0085:
+                           label
+                           getlex Multiname("bagArr",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                           getlex Multiname("Gird",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                           callproperty Multiname("creatGird",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                           callpropvoid Multiname("push",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                           getlocal 4
+                           increment
+                           convert_u
+                           setlocal 4
+                  ofs009e:
+                           getlocal 4
+                           getlex Multiname("GS",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                           getproperty Multiname("a60",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                           iflt ofs0085
+                           findpropstrict Multiname("bfBag",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                           callpropvoid Multiname("bfBag",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                           findpropstrict Multiname("openBag",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                           getlex Multiname("GS",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                           getproperty Multiname("a30",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                           callpropvoid Multiname("openBag",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                  ofs00c6:
+                           findpropstrict Multiname("bfBag",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                           callpropvoid Multiname("bfBag",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function initSmallBag() : void
+               {
+                  trait method QName(PackageNamespace(""),"initSmallBag")
+                     dispid 0
+                     method
+                        name null
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 4
+                           localcount 3
+                           initscopedepth 5
+                           maxscopedepth 6
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              getproperty Multiname("roomBag",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                              pushbyte 0
+                              setproperty Multiname("length",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                              getlex Multiname("DeepCopyUtil",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag"),PackageNamespace("hotpointgame.utils")])
+                              findpropstrict Multiname("getBagArr",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                              callproperty Multiname("getBagArr",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                              callproperty Multiname("clone",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                              coerce QName(PackageNamespace(""),"Array")
+                              setlocal1
+                              pushbyte 0
+                              convert_u
+                              setlocal2
+                              jump ofs0049
+                     ofs002a:
+                              label
+                              getlocal0
+                              getproperty Multiname("roomBag",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                              getlocal1
+                              pushbyte 0
+                              getlex Multiname("GS",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                              getproperty Multiname("a30",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                              callproperty Multiname("splice",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 2
+                              callpropvoid Multiname("push",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                              getlocal2
+                              increment
+                              convert_u
+                              setlocal2
+                     ofs0049:
+                              getlocal2
+                              pushbyte 5
+                              iflt ofs002a
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function getSmallBagByState(param1:Number) : Array
+                  {
+                     trait method QName(PackageNamespace(""),"getSmallBagByState")
+                        dispid 0
+                        method
+                           name null
+                           param QName(PackageNamespace(""),"Number")
+                           returns QName(PackageNamespace(""),"Array")
+                           
+                           body
+                              maxstack 2
+                              localcount 2
+                              initscopedepth 5
+                              maxscopedepth 6
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal0
+                                 getproperty Multiname("roomBag",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                 getlocal1
+                                 getproperty MultinameL([PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public function zhenliFunction() : Boolean
+                     {
+                        trait method QName(PackageNamespace(""),"zhenliFunction")
+                           dispid 0
+                           method
+                              name null
+                              returns QName(PackageNamespace(""),"Boolean")
+                              
+                              body
+                                 maxstack 10
+                                 localcount 16
+                                 initscopedepth 5
+                                 maxscopedepth 6
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    pushnull
+                                    coerce QName(PackageNamespace("hotpointgame.models.goods"),"Goods")
+                                    setlocal 5
+                                    pushnull
+                                    coerce QName(PackageNamespace("hotpointgame.models.bag"),"Gird")
+                                    setlocal 9
+                                    pushnull
+                                    coerce QName(PackageNamespace(""),"Array")
+                                    setlocal 10
+                                    pushnull
+                                    coerce QName(PackageNamespace(""),"Array")
+                                    setlocal 11
+                                    pushnull
+                                    coerce QName(PackageNamespace("hotpointgame.models.bag"),"Gird")
+                                    setlocal 12
+                                    pushnull
+                                    coerce QName(PackageNamespace(""),"Object")
+                                    setlocal 13
+                                    getlex Multiname("DeepCopyUtil",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag"),PackageNamespace("hotpointgame.utils")])
+                                    findpropstrict Multiname("getBagArr",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    callproperty Multiname("getBagArr",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                                    callproperty Multiname("clone",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                                    coerce QName(PackageNamespace(""),"Array")
+                                    setlocal1
+                                    newarray 0
+                                    coerce QName(PackageNamespace(""),"Array")
+                                    setlocal2
+                                    newarray 0
+                                    coerce QName(PackageNamespace(""),"Array")
+                                    setlocal3
+                                    newarray 0
+                                    coerce QName(PackageNamespace(""),"Array")
+                                    setlocal 4
+                                    newarray 0
+                                    coerce QName(PackageNamespace(""),"Array")
+                                    setlocal 6
+                                    newarray 0
+                                    coerce QName(PackageNamespace(""),"Array")
+                                    setlocal 7
+                                    pushbyte 0
+                                    convert_u
+                                    setlocal 8
+                                    jump ofs00c3
+                           ofs005a:
+                                    label
+                                    getlocal1
+                                    getlocal 8
+                                    getproperty MultinameL([PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    getlex Multiname("Gird",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    astypelate
+                                    coerce QName(PackageNamespace("hotpointgame.models.bag"),"Gird")
+                                    dup
+                                    setlocal 12
+                                    callproperty Multiname("getGoods",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                                    coerce QName(PackageNamespace("hotpointgame.models.goods"),"Goods")
+                                    dup
+                                    setlocal 5
+                                    pushnull
+                                    ifeq ofs0087
+                                    getlocal2
+                                    getlocal 12
+                                    callpropvoid Multiname("push",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                                    jump ofs00bd
+                           ofs0087:
+                                    getlocal 12
+                                    callproperty Multiname("getKey",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                                    getlex Multiname("GS",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    getproperty Multiname("a0",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    ifne ofs00a7
+                                    getlocal 6
+                                    getlocal 12
+                                    callpropvoid Multiname("push",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                                    jump ofs00bd
+                           ofs00a7:
+                                    getlocal 12
+                                    callproperty Multiname("getKey",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                                    pushbyte -1
+                                    ifne ofs00bd
+                                    getlocal 7
+                                    getlocal 12
+                                    callpropvoid Multiname("push",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                           ofs00bd:
+                                    getlocal 8
+                                    increment
+                                    convert_u
+                                    setlocal 8
+                           ofs00c3:
+                                    getlocal 8
+                                    getlocal1
+                                    getproperty Multiname("length",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    iflt ofs005a
+                                    pushbyte 0
+                                    setlocal 14
+                                    getlocal2
+                                    coerce_a
+                                    setlocal 15
+                                    jump ofs0129
+                           ofs00da:
+                                    label
+                                    getlocal 15
+                                    getlocal 14
+                                    nextvalue
+                                    coerce QName(PackageNamespace("hotpointgame.models.bag"),"Gird")
+                                    dup
+                                    setlocal 9
+                                    callproperty Multiname("getGoods",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                                    coerce QName(PackageNamespace("hotpointgame.models.goods"),"Goods")
+                                    setlocal 5
+                                    pushstring "girdObj"
+                                    getlocal 9
+                                    pushstring "类型"
+                                    getlocal 5
+                                    callproperty Multiname("getType",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                                    pushstring "小类型"
+                                    getlocal 5
+                                    callproperty Multiname("getSmallType",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                                    pushstring "等级"
+                                    getlocal 5
+                                    callproperty Multiname("getUseLevel",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                                    pushstring "颜色"
+                                    getlocal 5
+                                    callproperty Multiname("getColor",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                                    newobject 5
+                                    coerce QName(PackageNamespace(""),"Object")
+                                    setlocal 13
+                                    getlocal3
+                                    getlocal 13
+                                    callpropvoid Multiname("push",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                           ofs0129:
+                                    hasnext2 15, 14
+                                    iftrue ofs00da
+                                    kill 15
+                                    kill 14
+                                    pushstring "类型"
+                                    pushstring "小类型"
+                                    pushstring "等级"
+                                    pushstring "颜色"
+                                    newarray 4
+                                    coerce QName(PackageNamespace(""),"Array")
+                                    setlocal 10
+                                    getlex Multiname("Array",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    getproperty Multiname("NUMERIC",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    getlex Multiname("Array",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    getproperty Multiname("NUMERIC",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    getlex Multiname("Array",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    getproperty Multiname("DESCENDING",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    getlex Multiname("Array",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    getproperty Multiname("NUMERIC",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    bitor
+                                    getlex Multiname("Array",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    getproperty Multiname("DESCENDING",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    getlex Multiname("Array",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    getproperty Multiname("NUMERIC",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    bitor
+                                    newarray 4
+                                    coerce QName(PackageNamespace(""),"Array")
+                                    setlocal 11
+                                    getlocal3
+                                    getlocal 10
+                                    getlocal 11
+                                    callpropvoid Multiname("sortOn",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 2
+                                    pushbyte 0
+                                    convert_u
+                                    setlocal 8
+                                    jump ofs01af
+                           ofs0191:
+                                    label
+                                    getlocal 4
+                                    getlocal3
+                                    getlocal 8
+                                    getproperty MultinameL([PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    getproperty Multiname("girdObj",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    getlex Multiname("Gird",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    astypelate
+                                    callpropvoid Multiname("push",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                                    getlocal 8
+                                    increment
+                                    convert_u
+                                    setlocal 8
+                           ofs01af:
+                                    getlocal 8
+                                    getlocal3
+                                    getproperty Multiname("length",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    iflt ofs0191
+                                    pushbyte 0
+                                    convert_u
+                                    setlocal 8
+                                    jump ofs01de
+                           ofs01c3:
+                                    label
+                                    getlocal 4
+                                    getlocal 6
+                                    getlocal 8
+                                    getproperty MultinameL([PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    getlex Multiname("Gird",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    astypelate
+                                    callpropvoid Multiname("push",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                                    getlocal 8
+                                    increment
+                                    convert_u
+                                    setlocal 8
+                           ofs01de:
+                                    getlocal 8
+                                    getlocal 6
+                                    getproperty Multiname("length",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    iflt ofs01c3
+                                    pushbyte 0
+                                    convert_u
+                                    setlocal 8
+                                    jump ofs020e
+                           ofs01f3:
+                                    label
+                                    getlocal 4
+                                    getlocal 7
+                                    getlocal 8
+                                    getproperty MultinameL([PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    getlex Multiname("Gird",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    astypelate
+                                    callpropvoid Multiname("push",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                                    getlocal 8
+                                    increment
+                                    convert_u
+                                    setlocal 8
+                           ofs020e:
+                                    getlocal 8
+                                    getlocal 7
+                                    getproperty Multiname("length",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    iflt ofs01f3
+                                    findpropstrict Multiname("addNewBag",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                    getlocal 4
+                                    callproperty Multiname("addNewBag",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                                    returnvalue
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        public function getGoldMax() : Number
+                        {
+                           trait method QName(PackageNamespace(""),"getGoldMax")
+                              dispid 0
+                              method
+                                 name null
+                                 returns QName(PackageNamespace(""),"Number")
+                                 
+                                 body
+                                    maxstack 3
+                                    localcount 1
+                                    initscopedepth 5
+                                    maxscopedepth 6
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlocal0
+                                       getproperty Multiname("goldMax",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                       getlex Multiname("GS",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                       getproperty Multiname("a12",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                       callpropvoid Multiname("setValue",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                                       getlex Multiname("VipData",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag"),PackageNamespace("hotpointgame.views.vipPanel")])
+                                       getproperty Multiname("vip",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                       callproperty Multiname("getValue",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                                       pushbyte -1
+                                       ifeq ofs007e
+                                       getlex Multiname("VipData",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag"),PackageNamespace("hotpointgame.views.vipPanel")])
+                                       getproperty Multiname("vip",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                       callproperty Multiname("getValue",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                                       getlex Multiname("GS",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                       getproperty Multiname("a1",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                       ifne ofs0061
+                                       getlocal0
+                                       getproperty Multiname("goldMax",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                       getlocal0
+                                       getproperty Multiname("goldMax",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                       callproperty Multiname("getValue",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                                       getlex Multiname("GS",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                       getproperty Multiname("a5",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                       add
+                                       callpropvoid Multiname("setValue",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                                       jump ofs007e
+                              ofs0061:
+                                       getlocal0
+                                       getproperty Multiname("goldMax",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                       getlocal0
+                                       getproperty Multiname("goldMax",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                       callproperty Multiname("getValue",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                                       getlex Multiname("GS",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                       getproperty Multiname("a10",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                       add
+                                       callpropvoid Multiname("setValue",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                              ofs007e:
+                                       getlocal0
+                                       getproperty Multiname("goldMax",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                       callproperty Multiname("getValue",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                                       returnvalue
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           public function getGoldCurr() : Number
+                           {
+                              trait method QName(PackageNamespace(""),"getGoldCurr")
+                                 dispid 0
+                                 method
+                                    name null
+                                    returns QName(PackageNamespace(""),"Number")
+                                    
+                                    body
+                                       maxstack 1
+                                       localcount 1
+                                       initscopedepth 5
+                                       maxscopedepth 6
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlocal0
+                                          getproperty Multiname("goldCurr",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                          callproperty Multiname("getValue",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                                          returnvalue
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              public function setGoldCurr(param1:Number) : void
+                              {
+                                 trait method QName(PackageNamespace(""),"setGoldCurr")
+                                    dispid 0
+                                    method
+                                       name null
+                                       param QName(PackageNamespace(""),"Number")
+                                       returns QName(PackageNamespace(""),"void")
+                                       
+                                       body
+                                          maxstack 3
+                                          localcount 2
+                                          initscopedepth 5
+                                          maxscopedepth 6
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlocal0
+                                             getproperty Multiname("goldCurr",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                             getlocal0
+                                             getproperty Multiname("goldCurr",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                             callproperty Multiname("getValue",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                                             getlocal1
+                                             add
+                                             callpropvoid Multiname("setValue",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                                             returnvoid
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 public function readGoldCurr(param1:Number) : void
+                                 {
+                                    trait method QName(PackageNamespace(""),"readGoldCurr")
+                                       dispid 0
+                                       method
+                                          name null
+                                          param QName(PackageNamespace(""),"Number")
+                                          returns QName(PackageNamespace(""),"void")
+                                          
+                                          body
+                                             maxstack 2
+                                             localcount 2
+                                             initscopedepth 5
+                                             maxscopedepth 6
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                getlocal0
+                                                getproperty Multiname("goldCurr",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                                getlocal1
+                                                callpropvoid Multiname("setValue",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 1
+                                                returnvoid
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    public function getGoldSx() : Number
+                                    {
+                                       trait method QName(PackageNamespace(""),"getGoldSx")
+                                          dispid 0
+                                          method
+                                             name null
+                                             returns QName(PackageNamespace(""),"Number")
+                                             
+                                             body
+                                                maxstack 2
+                                                localcount 1
+                                                initscopedepth 5
+                                                maxscopedepth 6
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   getlocal0
+                                                   callproperty Multiname("getGoldMax",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                                                   getlocal0
+                                                   callproperty Multiname("getGoldCurr",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                                                   subtract
+                                                   findpropstrict Multiname("getNoKey",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                                   callproperty Multiname("getNoKey",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                                                   ifnlt ofs002a
+                                                   getlocal0
+                                                   callproperty Multiname("getGoldMax",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                                                   getlocal0
+                                                   callproperty Multiname("getGoldCurr",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                                                   subtract
+                                                   returnvalue
+                                          ofs002a:
+                                                   findpropstrict Multiname("getNoKey",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")])
+                                                   callproperty Multiname("getNoKey",[PrivateNamespace(null,"214"),PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:WareroomSlot"),StaticProtectedNs("hotpointgame.models.bag:Bag")]), 0
+                                                   returnvalue
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                    }
+                                 }
+                                 
+                                 method
+                                    name null
+                                    returns null
+                                    
+                                    body
+                                       maxstack 2
+                                       localcount 1
+                                       initscopedepth 1
+                                       maxscopedepth 4
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          findpropstrict Multiname("WareroomSlot",[PackageNamespace("hotpointgame.models.bag")])
+                                          getlex QName(PackageNamespace(""),"Object")
+                                          pushscope
+                                          getlex QName(PackageNamespace("hotpointgame.models.bag"),"Bag")
+                                          pushscope
+                                          getlex Multiname("Bag",[PackageNamespace("hotpointgame.models.bag"),PrivateNamespace(null,"762"),PackageNamespace(""),PackageInternalNs("hotpointgame.models.bag"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common")])
+                                          newclass 304
+                                          popscope
+                                          popscope
+                                          initproperty QName(PackageNamespace("hotpointgame.models.bag"),"WareroomSlot")
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                                 

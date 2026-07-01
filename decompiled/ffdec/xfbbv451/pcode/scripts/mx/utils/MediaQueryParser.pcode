@@ -1,0 +1,1079 @@
+package mx.utils
+{
+   import flash.system.Capabilities;
+   import mx.core.IFlexModuleFactory;
+   import mx.core.mx_internal;
+   
+   use namespace mx_internal;
+   
+   public class MediaQueryParser
+   {
+      
+      public static var platformMap:Object;
+      
+      private static var _instance:MediaQueryParser;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 13
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(PackageNamespace(""),"platformMap")
+               pushstring "AND"
+               pushstring "android"
+               pushstring "IOS"
+               pushstring "ios"
+               pushstring "MAC"
+               pushstring "macintosh"
+               pushstring "WIN"
+               pushstring "windows"
+               pushstring "LNX"
+               pushstring "linux"
+               pushstring "QNX"
+               pushstring "qnx"
+               newobject 6
+               setproperty QName(PackageNamespace(""),"platformMap")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      mx_internal var goodQueries:Object;
+      
+      mx_internal var badQueries:Object;
+      
+      public var type:String = "screen";
+      
+      public var applicationDpi:Number;
+      
+      public var osPlatform:String;
+      
+      public function MediaQueryParser(param1:IFlexModuleFactory = null)
+      {
+         method
+            name null
+            flag HAS_OPTIONAL
+            param QName(PackageNamespace("mx.core"),"IFlexModuleFactory")
+            optional Null()
+            returns null
+            
+            body
+               maxstack 3
+               localcount 2
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  newobject 0
+                  initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"goodQueries")
+                  getlocal0
+                  newobject 0
+                  initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"badQueries")
+                  getlocal0
+                  constructsuper 0
+                  getlocal0
+                  getlex QName(PackageNamespace("mx.utils"),"DensityUtil")
+                  callproperty QName(PackageNamespace(""),"getRuntimeDPI"), 0
+                  initproperty QName(PackageNamespace(""),"applicationDpi")
+                  getlocal1
+                  iffalse ofs0040
+                  getlocal1
+                  callproperty QName(Namespace("mx.core:IFlexModuleFactory"),"info"), 0
+                  pushstring "applicationDPI"
+                  getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                  pushnull
+                  ifeq ofs0040
+                  getlocal0
+                  getlocal1
+                  callproperty QName(Namespace("mx.core:IFlexModuleFactory"),"info"), 0
+                  pushstring "applicationDPI"
+                  getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                  initproperty QName(PackageNamespace(""),"applicationDpi")
+         ofs0040:
+                  getlocal0
+                  getlocal0
+                  callproperty QName(PrivateNamespace(null,"57"),"getPlatform"), 0
+                  initproperty QName(PackageNamespace(""),"osPlatform")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public static function get instance() : MediaQueryParser
+      {
+         trait getter QName(PackageNamespace(""),"instance")
+            flag FINAL
+            dispid 3
+            method
+               name null
+               returns QName(PackageNamespace("mx.utils"),"MediaQueryParser")
+               
+               body
+                  maxstack 1
+                  localcount 1
+                  initscopedepth 3
+                  maxscopedepth 4
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlex QName(PrivateNamespace(null,"57"),"_instance")
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public static function set instance(param1:MediaQueryParser) : void
+         {
+            trait setter QName(PackageNamespace(""),"instance")
+               flag FINAL
+               dispid 4
+               method
+                  name null
+                  param QName(PackageNamespace("mx.utils"),"MediaQueryParser")
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 2
+                     localcount 2
+                     initscopedepth 3
+                     maxscopedepth 4
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlex QName(PrivateNamespace(null,"57"),"_instance")
+                        iftrue ofs0010
+                        findproperty QName(PrivateNamespace(null,"57"),"_instance")
+                        getlocal1
+                        setproperty QName(PrivateNamespace(null,"57"),"_instance")
+               ofs0010:
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function parse(param1:String) : Boolean
+            {
+               trait method QName(PackageNamespace(""),"parse")
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace(""),"String")
+                     returns QName(PackageNamespace(""),"Boolean")
+                     
+                     body
+                        maxstack 3
+                        localcount 10
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           pushfalse
+                           setlocal 5
+                           pushnull
+                           coerce_s
+                           setlocal 6
+                           pushfalse
+                           setlocal 7
+                           pushnull
+                           coerce QName(PackageNamespace(""),"Array")
+                           setlocal 8
+                           pushbyte 0
+                           setlocal 9
+                           getlex QName(PackageNamespace("mx.utils"),"StringUtil")
+                           getlocal1
+                           callproperty QName(PackageNamespace(""),"trim"), 1
+                           coerce_s
+                           setlocal1
+                           getlocal1
+                           callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"toLowerCase"), 0
+                           coerce_s
+                           setlocal1
+                           getlocal1
+                           pushstring ""
+                           ifne ofs002f
+                           pushtrue
+                           returnvalue
+                  ofs002f:
+                           getlocal1
+                           pushstring "all"
+                           ifne ofs0039
+                           pushtrue
+                           returnvalue
+                  ofs0039:
+                           getlocal0
+                           getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"goodQueries")
+                           getlocal1
+                           getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                           iffalse ofs0047
+                           pushtrue
+                           returnvalue
+                  ofs0047:
+                           getlocal0
+                           getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"badQueries")
+                           getlocal1
+                           getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                           iffalse ofs0055
+                           pushfalse
+                           returnvalue
+                  ofs0055:
+                           getlocal1
+                           pushstring ", "
+                           callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"split"), 1
+                           coerce QName(PackageNamespace(""),"Array")
+                           setlocal2
+                           getlocal2
+                           getproperty QName(PackageNamespace(""),"length")
+                           convert_i
+                           setlocal3
+                           pushbyte 0
+                           setlocal 4
+                           jump ofs0165
+                  ofs006e:
+                           label
+                           getlocal2
+                           getlocal 4
+                           getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                           coerce_s
+                           setlocal 6
+                           pushfalse
+                           setlocal 7
+                           getlocal 6
+                           pushstring "only "
+                           callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"indexOf"), 1
+                           pushbyte 0
+                           ifne ofs0095
+                           getlocal 6
+                           pushbyte 5
+                           callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"substr"), 1
+                           coerce_s
+                           setlocal 6
+                  ofs0095:
+                           getlocal 6
+                           pushstring "not "
+                           callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"indexOf"), 1
+                           pushbyte 0
+                           ifne ofs00b2
+                           pushtrue
+                           setlocal 7
+                           getlocal 6
+                           pushbyte 4
+                           callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"substr"), 1
+                           coerce_s
+                           setlocal 6
+                  ofs00b2:
+                           getlocal0
+                           getlocal 6
+                           callproperty QName(PrivateNamespace(null,"57"),"tokenizeMediaQuery"), 1
+                           coerce QName(PackageNamespace(""),"Array")
+                           dup
+                           setlocal 8
+                           getproperty QName(PackageNamespace(""),"length")
+                           convert_i
+                           setlocal 9
+                           getlocal 8
+                           pushbyte 0
+                           getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                           pushstring "all"
+                           equals
+                           dup
+                           iftrue ofs00e1
+                           pop
+                           getlocal 8
+                           pushbyte 0
+                           getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                           getlocal0
+                           getproperty QName(PackageNamespace(""),"type")
+                           equals
+                  ofs00e1:
+                           iffalse ofs0152
+                           getlocal 9
+                           pushbyte 1
+                           equals
+                           dup
+                           iffalse ofs00f3
+                           pop
+                           getlocal 7
+                           not
+                  ofs00f3:
+                           iffalse ofs0102
+                           getlocal0
+                           getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"goodQueries")
+                           getlocal1
+                           pushtrue
+                           setproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                           pushtrue
+                           returnvalue
+                  ofs0102:
+                           getlocal 9
+                           pushbyte 2
+                           ifne ofs010c
+                           pushfalse
+                           returnvalue
+                  ofs010c:
+                           getlocal 8
+                           callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"shift"), 0
+                           getlocal 8
+                           callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"shift"), 0
+                           getlocal0
+                           getlocal 8
+                           callproperty QName(PrivateNamespace(null,"57"),"evalExpressions"), 1
+                           convert_b
+                           dup
+                           setlocal 5
+                           convert_b
+                           dup
+                           iffalse ofs012d
+                           pop
+                           getlocal 7
+                           not
+                  ofs012d:
+                           dup
+                           iftrue ofs013f
+                           pop
+                           getlocal 5
+                           not
+                           dup
+                           iffalse ofs013f
+                           pop
+                           getlocal 7
+                           convert_b
+                  ofs013f:
+                           iffalse ofs014e
+                           getlocal0
+                           getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"goodQueries")
+                           getlocal1
+                           pushtrue
+                           setproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                           pushtrue
+                           returnvalue
+                  ofs014e:
+                           jump ofs0163
+                  ofs0152:
+                           getlocal 7
+                           iffalse ofs0163
+                           getlocal0
+                           getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"goodQueries")
+                           getlocal1
+                           pushtrue
+                           setproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                           pushtrue
+                           returnvalue
+                  ofs0163:
+                           inclocal_i 4
+                  ofs0165:
+                           getlocal 4
+                           getlocal3
+                           iflt ofs006e
+                           getlocal0
+                           getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"badQueries")
+                           getlocal1
+                           pushtrue
+                           setproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                           pushfalse
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               private function tokenizeMediaQuery(param1:String) : Array
+               {
+                  trait method QName(PrivateNamespace(null,"57"),"tokenizeMediaQuery")
+                     dispid 0
+                     method
+                        name null
+                        param QName(PackageNamespace(""),"String")
+                        returns QName(PackageNamespace(""),"Array")
+                        
+                        body
+                           maxstack 3
+                           localcount 12
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              pushnull
+                              coerce_s
+                              setlocal 9
+                              newarray 0
+                              coerce QName(PackageNamespace(""),"Array")
+                              setlocal2
+                              getlocal1
+                              pushstring "("
+                              callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"indexOf"), 1
+                              convert_i
+                              setlocal3
+                              getlocal3
+                              pushbyte 0
+                              ifne ofs0030
+                              getlocal2
+                              pushstring "all"
+                              callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 1
+                              getlocal2
+                              pushstring "and"
+                              callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 1
+                              jump ofs003b
+                     ofs0030:
+                              getlocal3
+                              pushbyte -1
+                              ifne ofs003b
+                              getlocal1
+                              newarray 1
+                              returnvalue
+                     ofs003b:
+                              pushbyte 0
+                              setlocal 4
+                              pushfalse
+                              setlocal 5
+                              getlocal1
+                              getproperty QName(PackageNamespace(""),"length")
+                              convert_i
+                              setlocal 6
+                              newarray 0
+                              coerce QName(PackageNamespace(""),"Array")
+                              setlocal 7
+                              pushbyte 0
+                              setlocal 8
+                              jump ofs0179
+                     ofs0057:
+                              label
+                              getlocal1
+                              getlocal 8
+                              callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"charAt"), 1
+                              coerce_s
+                              setlocal 9
+                              getlex QName(PackageNamespace("mx.utils"),"StringUtil")
+                              getlocal 9
+                              callproperty QName(PackageNamespace(""),"isWhitespace"), 1
+                              convert_b
+                              dup
+                              iffalse ofs007a
+                              pop
+                              getlocal 7
+                              getproperty QName(PackageNamespace(""),"length")
+                              pushbyte 0
+                              equals
+                     ofs007a:
+                              iffalse ofs0086
+                              jump ofs0177
+                              jump ofs0086
+                     ofs0086:
+                              getlocal 9
+                              pushstring "/"
+                              equals
+                              dup
+                              iffalse ofs0098
+                              pop
+                              getlocal 8
+                              getlocal 6
+                              decrement
+                              lessthan
+                     ofs0098:
+                              dup
+                              iffalse ofs00ac
+                              pop
+                              getlocal1
+                              getlocal 8
+                              pushbyte 1
+                              add
+                              callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"charAt"), 1
+                              pushstring "*"
+                              equals
+                     ofs00ac:
+                              iffalse ofs00b9
+                              pushtrue
+                              setlocal 5
+                              inclocal_i 8
+                              jump ofs0177
+                     ofs00b9:
+                              getlocal 5
+                              iffalse ofs00f6
+                              getlocal 9
+                              pushstring "*"
+                              equals
+                              dup
+                              iffalse ofs00d1
+                              pop
+                              getlocal 8
+                              getlocal 6
+                              decrement
+                              lessthan
+                     ofs00d1:
+                              dup
+                              iffalse ofs00e5
+                              pop
+                              getlocal1
+                              getlocal 8
+                              pushbyte 1
+                              add
+                              callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"charAt"), 1
+                              pushstring "/"
+                              equals
+                     ofs00e5:
+                              iffalse ofs00ee
+                              pushfalse
+                              setlocal 5
+                              inclocal_i 8
+                     ofs00ee:
+                              jump ofs0177
+                              jump ofs00f6
+                     ofs00f6:
+                              getlocal 9
+                              pushstring "("
+                              ifne ofs0105
+                              inclocal_i 4
+                              jump ofs011f
+                     ofs0105:
+                              getlocal 9
+                              pushstring ")"
+                              ifne ofs0117
+                              getlocal 4
+                              decrement_i
+                              setlocal 4
+                              jump ofs011f
+                     ofs0117:
+                              getlocal 7
+                              getlocal 9
+                              callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 1
+                     ofs011f:
+                              getlocal 4
+                              pushbyte 0
+                              equals
+                              dup
+                              iffalse ofs0140
+                              pop
+                              getlex QName(PackageNamespace("mx.utils"),"StringUtil")
+                              getlocal 9
+                              callproperty QName(PackageNamespace(""),"isWhitespace"), 1
+                              convert_b
+                              dup
+                              iftrue ofs0140
+                              pop
+                              getlocal 9
+                              pushstring ")"
+                              equals
+                     ofs0140:
+                              iffalse ofs0177
+                              getlocal 9
+                              pushstring ")"
+                              ifeq ofs0163
+                              getlocal 7
+                              dup
+                              setlocal 10
+                              getproperty QName(PackageNamespace(""),"length")
+                              decrement
+                              setlocal 11
+                              getlocal 10
+                              getlocal 11
+                              setproperty QName(PackageNamespace(""),"length")
+                              kill 11
+                              kill 10
+                     ofs0163:
+                              getlocal2
+                              getlocal 7
+                              pushstring ""
+                              callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"join"), 1
+                              callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 1
+                              getlocal 7
+                              pushbyte 0
+                              setproperty QName(PackageNamespace(""),"length")
+                     ofs0177:
+                              inclocal_i 8
+                     ofs0179:
+                              getlocal 8
+                              getlocal 6
+                              iflt ofs0057
+                              getlocal2
+                              returnvalue
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  private function evalExpressions(param1:Array) : Boolean
+                  {
+                     trait method QName(PrivateNamespace(null,"57"),"evalExpressions")
+                        dispid 0
+                        method
+                           name null
+                           param QName(PackageNamespace(""),"Array")
+                           returns QName(PackageNamespace(""),"Boolean")
+                           
+                           body
+                              maxstack 6
+                              localcount 8
+                              initscopedepth 4
+                              maxscopedepth 5
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 pushnull
+                                 coerce_s
+                                 setlocal 4
+                                 pushnull
+                                 coerce QName(PackageNamespace(""),"Array")
+                                 setlocal 5
+                                 pushfalse
+                                 setlocal 6
+                                 pushfalse
+                                 setlocal 7
+                                 getlocal1
+                                 getproperty QName(PackageNamespace(""),"length")
+                                 convert_i
+                                 setlocal2
+                                 pushbyte 0
+                                 setlocal3
+                                 jump ofs018c
+                        ofs001e:
+                                 label
+                                 getlocal1
+                                 getlocal3
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 coerce_s
+                                 dup
+                                 setlocal 4
+                                 pushstring "and"
+                                 ifne ofs0033
+                                 jump ofs018a
+                        ofs0033:
+                                 getlocal 4
+                                 pushstring ":"
+                                 callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"split"), 1
+                                 coerce QName(PackageNamespace(""),"Array")
+                                 setlocal 5
+                                 pushfalse
+                                 setlocal 6
+                                 pushfalse
+                                 setlocal 7
+                                 getlocal 5
+                                 pushbyte 0
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 pushstring "min-"
+                                 callproperty Multiname("indexOf",[PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")]), 1
+                                 pushbyte 0
+                                 ifne ofs0075
+                                 pushtrue
+                                 setlocal 6
+                                 getlocal 5
+                                 pushbyte 0
+                                 getlocal 5
+                                 pushbyte 0
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 pushbyte 4
+                                 callproperty Multiname("substr",[PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")]), 1
+                                 setproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 jump ofs00a0
+                        ofs0075:
+                                 getlocal 5
+                                 pushbyte 0
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 pushstring "max-"
+                                 callproperty Multiname("indexOf",[PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")]), 1
+                                 pushbyte 0
+                                 ifne ofs00a0
+                                 pushtrue
+                                 setlocal 7
+                                 getlocal 5
+                                 pushbyte 0
+                                 getlocal 5
+                                 pushbyte 0
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 pushbyte 4
+                                 callproperty Multiname("substr",[PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")]), 1
+                                 setproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                        ofs00a0:
+                                 getlocal 5
+                                 pushbyte 0
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 pushstring "-"
+                                 callproperty Multiname("indexOf",[PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")]), 1
+                                 pushbyte 0
+                                 ifngt ofs00c7
+                                 getlocal 5
+                                 pushbyte 0
+                                 getlocal0
+                                 getlocal 5
+                                 pushbyte 0
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 callproperty QName(PrivateNamespace(null,"57"),"deHyphenate"), 1
+                                 setproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                        ofs00c7:
+                                 getlocal 5
+                                 getproperty QName(PackageNamespace(""),"length")
+                                 pushbyte 1
+                                 ifne ofs00e1
+                                 getlocal 5
+                                 pushbyte 0
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 getlocal0
+                                 in
+                                 iftrue ofs00e1
+                                 pushfalse
+                                 returnvalue
+                        ofs00e1:
+                                 getlocal 5
+                                 getproperty QName(PackageNamespace(""),"length")
+                                 pushbyte 2
+                                 ifne ofs018a
+                                 getlocal 5
+                                 pushbyte 0
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 getlocal0
+                                 in
+                                 iftrue ofs00fb
+                                 pushfalse
+                                 returnvalue
+                        ofs00fb:
+                                 getlocal 6
+                                 iffalse ofs012e
+                                 getlocal0
+                                 getlocal 5
+                                 pushbyte 0
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 getlocal0
+                                 getlocal 5
+                                 pushbyte 1
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 getlocal0
+                                 getlocal 5
+                                 pushbyte 0
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 typeof
+                                 callproperty QName(PrivateNamespace(null,"57"),"normalize"), 2
+                                 ifnlt ofs012a
+                                 pushfalse
+                                 returnvalue
+                        ofs012a:
+                                 jump ofs018a
+                        ofs012e:
+                                 getlocal 7
+                                 iffalse ofs0161
+                                 getlocal0
+                                 getlocal 5
+                                 pushbyte 0
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 getlocal0
+                                 getlocal 5
+                                 pushbyte 1
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 getlocal0
+                                 getlocal 5
+                                 pushbyte 0
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 typeof
+                                 callproperty QName(PrivateNamespace(null,"57"),"normalize"), 2
+                                 ifngt ofs015d
+                                 pushfalse
+                                 returnvalue
+                        ofs015d:
+                                 jump ofs018a
+                        ofs0161:
+                                 getlocal0
+                                 getlocal 5
+                                 pushbyte 0
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 getlocal0
+                                 getlocal 5
+                                 pushbyte 1
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 getlocal0
+                                 getlocal 5
+                                 pushbyte 0
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                 typeof
+                                 callproperty QName(PrivateNamespace(null,"57"),"normalize"), 2
+                                 ifeq ofs018a
+                                 pushfalse
+                                 returnvalue
+                        ofs018a:
+                                 inclocal_i 3
+                        ofs018c:
+                                 getlocal3
+                                 getlocal2
+                                 iflt ofs001e
+                                 pushtrue
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     private function normalize(param1:String, param2:String) : Object
+                     {
+                        trait method QName(PrivateNamespace(null,"57"),"normalize")
+                           dispid 0
+                           method
+                              name null
+                              param QName(PackageNamespace(""),"String")
+                              param QName(PackageNamespace(""),"String")
+                              returns QName(PackageNamespace(""),"Object")
+                              
+                              body
+                                 maxstack 4
+                                 localcount 4
+                                 initscopedepth 4
+                                 maxscopedepth 5
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    pushbyte 0
+                                    setlocal3
+                                    getlocal1
+                                    pushbyte 0
+                                    callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"charAt"), 1
+                                    pushstring " "
+                                    ifne ofs001c
+                                    getlocal1
+                                    pushbyte 1
+                                    callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"substr"), 1
+                                    coerce_s
+                                    setlocal1
+                           ofs001c:
+                                    getlocal2
+                                    pushstring "number"
+                                    ifne ofs004a
+                                    getlocal1
+                                    pushstring "dpi"
+                                    callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"indexOf"), 1
+                                    convert_i
+                                    setlocal3
+                                    getlocal3
+                                    pushbyte -1
+                                    ifeq ofs003f
+                                    getlocal1
+                                    pushbyte 0
+                                    getlocal3
+                                    callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"substr"), 2
+                                    coerce_s
+                                    setlocal1
+                           ofs003f:
+                                    findpropstrict QName(PackageNamespace(""),"Number")
+                                    getlocal1
+                                    callproperty QName(PackageNamespace(""),"Number"), 1
+                                    returnvalue
+                                    jump ofs004a
+                           ofs004a:
+                                    getlocal2
+                                    pushstring "int"
+                                    ifne ofs0058
+                                    findpropstrict QName(PackageNamespace(""),"int")
+                                    getlocal1
+                                    callproperty QName(PackageNamespace(""),"int"), 1
+                                    returnvalue
+                           ofs0058:
+                                    getlocal2
+                                    pushstring "string"
+                                    ifne ofs009c
+                                    getlocal1
+                                    pushstring "\""
+                                    callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"indexOf"), 1
+                                    pushbyte 0
+                                    ifne ofs009c
+                                    getlocal1
+                                    pushstring "\""
+                                    callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"lastIndexOf"), 1
+                                    getlocal1
+                                    getproperty QName(PackageNamespace(""),"length")
+                                    decrement
+                                    ifne ofs0093
+                                    getlocal1
+                                    pushbyte 1
+                                    getlocal1
+                                    getproperty QName(PackageNamespace(""),"length")
+                                    pushbyte 2
+                                    subtract
+                                    callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"substr"), 2
+                                    coerce_s
+                                    setlocal1
+                                    jump ofs009c
+                           ofs0093:
+                                    getlocal1
+                                    pushbyte 1
+                                    callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"substr"), 1
+                                    coerce_s
+                                    setlocal1
+                           ofs009c:
+                                    getlocal1
+                                    returnvalue
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        private function deHyphenate(param1:String) : String
+                        {
+                           trait method QName(PrivateNamespace(null,"57"),"deHyphenate")
+                              dispid 0
+                              method
+                                 name null
+                                 param QName(PackageNamespace(""),"String")
+                                 returns QName(PackageNamespace(""),"String")
+                                 
+                                 body
+                                    maxstack 4
+                                    localcount 5
+                                    initscopedepth 4
+                                    maxscopedepth 5
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       pushnull
+                                       coerce_s
+                                       setlocal3
+                                       pushnull
+                                       coerce_s
+                                       setlocal 4
+                                       getlocal1
+                                       pushstring "-"
+                                       callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"indexOf"), 1
+                                       convert_i
+                                       setlocal2
+                                       jump ofs0057
+                              ofs0017:
+                                       label
+                                       getlocal1
+                                       getlocal2
+                                       pushbyte 1
+                                       add
+                                       callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"substr"), 1
+                                       coerce_s
+                                       setlocal3
+                                       getlocal1
+                                       pushbyte 0
+                                       getlocal2
+                                       callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"substr"), 2
+                                       coerce_s
+                                       setlocal1
+                                       getlocal3
+                                       pushbyte 0
+                                       callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"charAt"), 1
+                                       coerce_s
+                                       dup
+                                       setlocal 4
+                                       callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"toUpperCase"), 0
+                                       coerce_s
+                                       setlocal 4
+                                       getlocal1
+                                       getlocal 4
+                                       getlocal3
+                                       pushbyte 1
+                                       callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"substr"), 1
+                                       add
+                                       add
+                                       coerce_s
+                                       setlocal1
+                                       getlocal1
+                                       pushstring "-"
+                                       callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"indexOf"), 1
+                                       convert_i
+                                       setlocal2
+                              ofs0057:
+                                       getlocal2
+                                       pushbyte 0
+                                       ifgt ofs0017
+                                       getlocal1
+                                       returnvalue
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           private function getPlatform() : String
+                           {
+                              trait method QName(PrivateNamespace(null,"57"),"getPlatform")
+                                 dispid 0
+                                 method
+                                    name null
+                                    returns QName(PackageNamespace(""),"String")
+                                    
+                                    body
+                                       maxstack 3
+                                       localcount 2
+                                       initscopedepth 4
+                                       maxscopedepth 5
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlex QName(PackageNamespace("flash.system"),"Capabilities")
+                                          getproperty QName(PackageNamespace(""),"version")
+                                          pushbyte 0
+                                          pushbyte 3
+                                          callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"substr"), 2
+                                          coerce_s
+                                          setlocal1
+                                          getlex QName(PackageNamespace(""),"platformMap")
+                                          getlocal1
+                                          callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"hasOwnProperty"), 1
+                                          iffalse ofs0029
+                                          getlex QName(PackageNamespace(""),"platformMap")
+                                          getlocal1
+                                          getproperty MultinameL([PrivateNamespace(null,"57"),PackageNamespace(""),PackageNamespace("mx.utils"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"159"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:MediaQueryParser"),StaticProtectedNs("mx.utils:MediaQueryParser")])
+                                          getlex QName(PackageNamespace(""),"String")
+                                          astypelate
+                                          returnvalue
+                                 ofs0029:
+                                          getlocal1
+                                          callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"toLowerCase"), 0
+                                          returnvalue
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                           }
+                        }
+                        
+                        method
+                           name null
+                           returns null
+                           
+                           body
+                              maxstack 2
+                              localcount 1
+                              initscopedepth 1
+                              maxscopedepth 3
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 findpropstrict Multiname("MediaQueryParser",[PackageNamespace("mx.utils")])
+                                 getlex QName(PackageNamespace(""),"Object")
+                                 pushscope
+                                 getlex QName(PackageNamespace(""),"Object")
+                                 newclass 193
+                                 popscope
+                                 initproperty QName(PackageNamespace("mx.utils"),"MediaQueryParser")
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                        

@@ -1,0 +1,1120 @@
+package mx.utils
+{
+   import flash.events.Event;
+   import flash.events.EventDispatcher;
+   import flash.utils.IDataInput;
+   import flash.utils.IDataOutput;
+   import flash.utils.IExternalizable;
+   import flash.utils.Proxy;
+   import flash.utils.flash_proxy;
+   import flash.utils.getQualifiedClassName;
+   import mx.core.IPropertyChangeNotifier;
+   import mx.events.PropertyChangeEvent;
+   import mx.events.PropertyChangeEventKind;
+   
+   use namespace object_proxy;
+   use namespace flash_proxy;
+   
+   [Bindable("propertyChange")]
+   public dynamic class ObjectProxy extends Proxy implements IExternalizable, IPropertyChangeNotifier
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 4
+            maxscopedepth 5
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      protected var dispatcher:EventDispatcher;
+      
+      protected var notifiers:Object;
+      
+      protected var proxyClass:Class;
+      
+      protected var propertyList:Array;
+      
+      private var _proxyLevel:int;
+      
+      private var _item:Object;
+      
+      private var _type:QName;
+      
+      private var _id:String;
+      
+      public function ObjectProxy(param1:Object = null, param2:String = null, param3:int = -1)
+      {
+         method
+            name null
+            flag HAS_OPTIONAL
+            param QName(PackageNamespace(""),"Object")
+            param QName(PackageNamespace(""),"String")
+            param QName(PackageNamespace(""),"int")
+            optional Null()
+            optional Null()
+            optional Integer(-1)
+            returns null
+            
+            body
+               maxstack 3
+               localcount 4
+               initscopedepth 5
+               maxscopedepth 6
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  getlex QName(PackageNamespace("mx.utils"),"ObjectProxy")
+                  initproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"proxyClass")
+                  getlocal0
+                  constructsuper 0
+                  getlocal1
+                  iftrue ofs0016
+                  newobject 0
+                  coerce QName(PackageNamespace(""),"Object")
+                  setlocal1
+         ofs0016:
+                  getlocal0
+                  getlocal1
+                  initproperty QName(PrivateNamespace(null,"25"),"_item")
+                  getlocal0
+                  getlocal3
+                  initproperty QName(PrivateNamespace(null,"25"),"_proxyLevel")
+                  getlocal0
+                  newobject 0
+                  initproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"notifiers")
+                  getlocal0
+                  findpropstrict QName(PackageNamespace("flash.events"),"EventDispatcher")
+                  getlocal0
+                  constructprop QName(PackageNamespace("flash.events"),"EventDispatcher"), 1
+                  initproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"dispatcher")
+                  getlocal2
+                  iffalse ofs003c
+                  getlocal0
+                  getlocal2
+                  initproperty QName(PrivateNamespace(null,"25"),"_id")
+         ofs003c:
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      object_proxy function get object() : Object
+      {
+         trait getter QName(Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),"object")
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace(""),"Object")
+               
+               body
+                  maxstack 1
+                  localcount 1
+                  initscopedepth 5
+                  maxscopedepth 6
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"25"),"_item")
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         object_proxy function get type() : QName
+         {
+            trait getter QName(Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),"type")
+               dispid 0
+               method
+                  name null
+                  returns QName(PackageNamespace(""),"QName")
+                  
+                  body
+                     maxstack 1
+                     localcount 1
+                     initscopedepth 5
+                     maxscopedepth 6
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"25"),"_type")
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            object_proxy function set type(param1:QName) : void
+            {
+               trait setter QName(Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),"type")
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace(""),"QName")
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 2
+                        localcount 2
+                        initscopedepth 5
+                        maxscopedepth 6
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           getlocal1
+                           initproperty QName(PrivateNamespace(null,"25"),"_type")
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function get uid() : String
+               {
+                  trait getter QName(PackageNamespace(""),"uid")
+                     dispid 0
+                     method
+                        name null
+                        returns QName(PackageNamespace(""),"String")
+                        
+                        body
+                           maxstack 2
+                           localcount 1
+                           initscopedepth 5
+                           maxscopedepth 6
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"25"),"_id")
+                              pushnull
+                              ifstrictne ofs0016
+                              getlocal0
+                              getlex QName(PackageNamespace("mx.utils"),"UIDUtil")
+                              callproperty QName(PackageNamespace(""),"createUID"), 0
+                              initproperty QName(PrivateNamespace(null,"25"),"_id")
+                     ofs0016:
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"25"),"_id")
+                              returnvalue
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function set uid(param1:String) : void
+                  {
+                     trait setter QName(PackageNamespace(""),"uid")
+                        dispid 0
+                        method
+                           name null
+                           param QName(PackageNamespace(""),"String")
+                           returns QName(PackageNamespace(""),"void")
+                           
+                           body
+                              maxstack 2
+                              localcount 2
+                              initscopedepth 5
+                              maxscopedepth 6
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal0
+                                 getlocal1
+                                 initproperty QName(PrivateNamespace(null,"25"),"_id")
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     override flash_proxy function getProperty(param1:*) : *
+                     {
+                        trait method QName(Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),"getProperty")
+                           flag OVERRIDE
+                           dispid 0
+                           method
+                              name null
+                              param null
+                              returns null
+                              
+                              body
+                                 maxstack 3
+                                 localcount 3
+                                 initscopedepth 5
+                                 maxscopedepth 6
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    pushundefined
+                                    coerce_a
+                                    setlocal2
+                                    getlocal0
+                                    getproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"notifiers")
+                                    getlocal1
+                                    callproperty Multiname("toString",[PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")]), 0
+                                    getproperty MultinameL([PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")])
+                                    iffalse ofs001e
+                                    getlocal0
+                                    getproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"notifiers")
+                                    getlocal1
+                                    getproperty MultinameL([PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")])
+                                    returnvalue
+                           ofs001e:
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"25"),"_item")
+                                    getlocal1
+                                    getproperty MultinameL([PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")])
+                                    coerce_a
+                                    setlocal2
+                                    getlocal2
+                                    iffalse ofs0052
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"25"),"_proxyLevel")
+                                    pushbyte 0
+                                    equals
+                                    dup
+                                    iftrue ofs0043
+                                    pop
+                                    getlex QName(PackageNamespace("mx.utils"),"ObjectUtil")
+                                    getlocal2
+                                    callproperty QName(PackageNamespace(""),"isSimple"), 1
+                                    convert_b
+                           ofs0043:
+                                    iffalse ofs0049
+                                    getlocal2
+                                    returnvalue
+                           ofs0049:
+                                    getlocal0
+                                    getlocal1
+                                    getlocal2
+                                    callproperty QName(Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),"getComplexProperty"), 2
+                                    coerce_a
+                                    setlocal2
+                           ofs0052:
+                                    getlocal2
+                                    returnvalue
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        override flash_proxy function callProperty(param1:*, ... rest) : *
+                        {
+                           trait method QName(Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),"callProperty")
+                              flag OVERRIDE
+                              dispid 0
+                              method
+                                 name null
+                                 flag NEED_REST
+                                 param null
+                                 returns null
+                                 
+                                 body
+                                    maxstack 3
+                                    localcount 3
+                                    initscopedepth 5
+                                    maxscopedepth 6
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"25"),"_item")
+                                       getlocal1
+                                       getproperty MultinameL([PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")])
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"25"),"_item")
+                                       getlocal2
+                                       callproperty Multiname("apply",[PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")]), 2
+                                       returnvalue
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           override flash_proxy function deleteProperty(param1:*) : Boolean
+                           {
+                              trait method QName(Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),"deleteProperty")
+                                 flag OVERRIDE
+                                 dispid 0
+                                 method
+                                    name null
+                                    param null
+                                    returns QName(PackageNamespace(""),"Boolean")
+                                    
+                                    body
+                                       maxstack 3
+                                       localcount 6
+                                       initscopedepth 5
+                                       maxscopedepth 6
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          pushnull
+                                          coerce QName(PackageNamespace("mx.events"),"PropertyChangeEvent")
+                                          setlocal 5
+                                          findpropstrict QName(PackageNamespace("mx.core"),"IPropertyChangeNotifier")
+                                          getlocal0
+                                          getproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"notifiers")
+                                          getlocal1
+                                          getproperty MultinameL([PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")])
+                                          callproperty QName(PackageNamespace("mx.core"),"IPropertyChangeNotifier"), 1
+                                          coerce QName(PackageNamespace("mx.core"),"IPropertyChangeNotifier")
+                                          setlocal2
+                                          getlocal2
+                                          iffalse ofs0036
+                                          getlocal2
+                                          getlex QName(PackageNamespace("mx.events"),"PropertyChangeEvent")
+                                          getproperty QName(PackageNamespace(""),"PROPERTY_CHANGE")
+                                          getlocal0
+                                          getproperty QName(PackageNamespace(""),"propertyChangeHandler")
+                                          callpropvoid QName(Namespace("flash.events:IEventDispatcher"),"removeEventListener"), 2
+                                          getlocal0
+                                          getproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"notifiers")
+                                          getlocal1
+                                          deleteproperty MultinameL([PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")])
+                                          pop
+                                 ofs0036:
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"25"),"_item")
+                                          getlocal1
+                                          getproperty MultinameL([PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")])
+                                          coerce_a
+                                          setlocal3
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"25"),"_item")
+                                          getlocal1
+                                          deleteproperty MultinameL([PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")])
+                                          setlocal 4
+                                          getlocal0
+                                          getproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"dispatcher")
+                                          getlex QName(PackageNamespace("mx.events"),"PropertyChangeEvent")
+                                          getproperty QName(PackageNamespace(""),"PROPERTY_CHANGE")
+                                          callproperty QName(PackageNamespace(""),"hasEventListener"), 1
+                                          iffalse ofs008f
+                                          findpropstrict QName(PackageNamespace("mx.events"),"PropertyChangeEvent")
+                                          getlex QName(PackageNamespace("mx.events"),"PropertyChangeEvent")
+                                          getproperty QName(PackageNamespace(""),"PROPERTY_CHANGE")
+                                          constructprop QName(PackageNamespace("mx.events"),"PropertyChangeEvent"), 1
+                                          coerce QName(PackageNamespace("mx.events"),"PropertyChangeEvent")
+                                          dup
+                                          setlocal 5
+                                          getlex QName(PackageNamespace("mx.events"),"PropertyChangeEventKind")
+                                          getproperty QName(PackageNamespace(""),"DELETE")
+                                          setproperty QName(PackageNamespace(""),"kind")
+                                          getlocal 5
+                                          getlocal1
+                                          setproperty QName(PackageNamespace(""),"property")
+                                          getlocal 5
+                                          getlocal3
+                                          setproperty QName(PackageNamespace(""),"oldValue")
+                                          getlocal 5
+                                          getlocal0
+                                          setproperty QName(PackageNamespace(""),"source")
+                                          getlocal0
+                                          getproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"dispatcher")
+                                          getlocal 5
+                                          callpropvoid QName(PackageNamespace(""),"dispatchEvent"), 1
+                                 ofs008f:
+                                          getlocal 4
+                                          returnvalue
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              override flash_proxy function hasProperty(param1:*) : Boolean
+                              {
+                                 trait method QName(Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),"hasProperty")
+                                    flag OVERRIDE
+                                    dispid 0
+                                    method
+                                       name null
+                                       param null
+                                       returns QName(PackageNamespace(""),"Boolean")
+                                       
+                                       body
+                                          maxstack 2
+                                          localcount 2
+                                          initscopedepth 5
+                                          maxscopedepth 6
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlocal1
+                                             getlocal0
+                                             getproperty QName(PrivateNamespace(null,"25"),"_item")
+                                             in
+                                             returnvalue
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 override flash_proxy function nextName(param1:int) : String
+                                 {
+                                    trait method QName(Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),"nextName")
+                                       flag OVERRIDE
+                                       dispid 0
+                                       method
+                                          name null
+                                          param QName(PackageNamespace(""),"int")
+                                          returns QName(PackageNamespace(""),"String")
+                                          
+                                          body
+                                             maxstack 3
+                                             localcount 2
+                                             initscopedepth 5
+                                             maxscopedepth 6
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                getlocal0
+                                                getproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"propertyList")
+                                                getlocal1
+                                                decrement
+                                                getproperty MultinameL([PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")])
+                                                returnvalue
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    override flash_proxy function nextNameIndex(param1:int) : int
+                                    {
+                                       trait method QName(Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),"nextNameIndex")
+                                          flag OVERRIDE
+                                          dispid 0
+                                          method
+                                             name null
+                                             param QName(PackageNamespace(""),"int")
+                                             returns QName(PackageNamespace(""),"int")
+                                             
+                                             body
+                                                maxstack 2
+                                                localcount 2
+                                                initscopedepth 5
+                                                maxscopedepth 6
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   getlocal1
+                                                   pushbyte 0
+                                                   ifne ofs000e
+                                                   getlocal0
+                                                   callpropvoid QName(ProtectedNamespace("mx.utils:ObjectProxy"),"setupPropertyList"), 0
+                                          ofs000e:
+                                                   getlocal1
+                                                   getlocal0
+                                                   getproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"propertyList")
+                                                   getproperty QName(PackageNamespace(""),"length")
+                                                   ifnlt ofs001f
+                                                   getlocal1
+                                                   pushbyte 1
+                                                   add
+                                                   returnvalue
+                                          ofs001f:
+                                                   pushbyte 0
+                                                   returnvalue
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                       
+                                       override flash_proxy function nextValue(param1:int) : *
+                                       {
+                                          trait method QName(Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),"nextValue")
+                                             flag OVERRIDE
+                                             dispid 0
+                                             method
+                                                name null
+                                                param QName(PackageNamespace(""),"int")
+                                                returns null
+                                                
+                                                body
+                                                   maxstack 4
+                                                   localcount 2
+                                                   initscopedepth 5
+                                                   maxscopedepth 6
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      getlocal0
+                                                      getproperty QName(PrivateNamespace(null,"25"),"_item")
+                                                      getlocal0
+                                                      getproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"propertyList")
+                                                      getlocal1
+                                                      decrement
+                                                      getproperty MultinameL([PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")])
+                                                      getproperty MultinameL([PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")])
+                                                      returnvalue
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                          }
+                                          
+                                          override flash_proxy function setProperty(param1:*, param2:*) : void
+                                          {
+                                             trait method QName(Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),"setProperty")
+                                                flag OVERRIDE
+                                                dispid 0
+                                                method
+                                                   name null
+                                                   param null
+                                                   param null
+                                                   returns QName(PackageNamespace(""),"void")
+                                                   
+                                                   body
+                                                      maxstack 5
+                                                      localcount 6
+                                                      initscopedepth 5
+                                                      maxscopedepth 6
+                                                      
+                                                      code
+                                                         getlocal0
+                                                         pushscope
+                                                         pushnull
+                                                         coerce QName(PackageNamespace("mx.core"),"IPropertyChangeNotifier")
+                                                         setlocal 4
+                                                         pushnull
+                                                         coerce QName(PackageNamespace("mx.events"),"PropertyChangeEvent")
+                                                         setlocal 5
+                                                         getlocal0
+                                                         getproperty QName(PrivateNamespace(null,"25"),"_item")
+                                                         getlocal1
+                                                         getproperty MultinameL([PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")])
+                                                         coerce_a
+                                                         setlocal3
+                                                         getlocal3
+                                                         getlocal2
+                                                         ifstricteq ofs0097
+                                                         getlocal0
+                                                         getproperty QName(PrivateNamespace(null,"25"),"_item")
+                                                         getlocal1
+                                                         getlocal2
+                                                         setproperty MultinameL([PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")])
+                                                         findpropstrict QName(PackageNamespace("mx.core"),"IPropertyChangeNotifier")
+                                                         getlocal0
+                                                         getproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"notifiers")
+                                                         getlocal1
+                                                         getproperty MultinameL([PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")])
+                                                         callproperty QName(PackageNamespace("mx.core"),"IPropertyChangeNotifier"), 1
+                                                         coerce QName(PackageNamespace("mx.core"),"IPropertyChangeNotifier")
+                                                         dup
+                                                         setlocal 4
+                                                         iffalse ofs0057
+                                                         getlocal 4
+                                                         getlex QName(PackageNamespace("mx.events"),"PropertyChangeEvent")
+                                                         getproperty QName(PackageNamespace(""),"PROPERTY_CHANGE")
+                                                         getlocal0
+                                                         getproperty QName(PackageNamespace(""),"propertyChangeHandler")
+                                                         callpropvoid QName(Namespace("flash.events:IEventDispatcher"),"removeEventListener"), 2
+                                                         getlocal0
+                                                         getproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"notifiers")
+                                                         getlocal1
+                                                         deleteproperty MultinameL([PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")])
+                                                         pop
+                                                ofs0057:
+                                                         getlocal0
+                                                         getproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"dispatcher")
+                                                         getlex QName(PackageNamespace("mx.events"),"PropertyChangeEvent")
+                                                         getproperty QName(PackageNamespace(""),"PROPERTY_CHANGE")
+                                                         callproperty QName(PackageNamespace(""),"hasEventListener"), 1
+                                                         iffalse ofs0097
+                                                         getlocal1
+                                                         getlex QName(PackageNamespace(""),"QName")
+                                                         istypelate
+                                                         iffalse ofs007b
+                                                         findpropstrict QName(PackageNamespace(""),"QName")
+                                                         getlocal1
+                                                         callproperty QName(PackageNamespace(""),"QName"), 1
+                                                         getproperty QName(PackageNamespace(""),"localName")
+                                                         coerce_a
+                                                         setlocal1
+                                                ofs007b:
+                                                         getlex QName(PackageNamespace("mx.events"),"PropertyChangeEvent")
+                                                         getlocal0
+                                                         getlocal1
+                                                         callproperty Multiname("toString",[PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")]), 0
+                                                         getlocal3
+                                                         getlocal2
+                                                         callproperty QName(PackageNamespace(""),"createUpdateEvent"), 4
+                                                         coerce QName(PackageNamespace("mx.events"),"PropertyChangeEvent")
+                                                         setlocal 5
+                                                         getlocal0
+                                                         getproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"dispatcher")
+                                                         getlocal 5
+                                                         callpropvoid QName(PackageNamespace(""),"dispatchEvent"), 1
+                                                ofs0097:
+                                                         returnvoid
+                                                      end ; code
+                                                   end ; body
+                                                end ; method
+                                             }
+                                             
+                                             object_proxy function getComplexProperty(param1:*, param2:*) : *
+                                             {
+                                                trait method QName(Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),"getComplexProperty")
+                                                   dispid 0
+                                                   method
+                                                      name null
+                                                      param null
+                                                      param null
+                                                      returns null
+                                                      
+                                                      body
+                                                         maxstack 5
+                                                         localcount 3
+                                                         initscopedepth 5
+                                                         maxscopedepth 6
+                                                         
+                                                         code
+                                                            getlocal0
+                                                            pushscope
+                                                            getlocal2
+                                                            getlex QName(PackageNamespace("mx.core"),"IPropertyChangeNotifier")
+                                                            istypelate
+                                                            iffalse ofs0024
+                                                            getlocal2
+                                                            getlex QName(PackageNamespace("mx.events"),"PropertyChangeEvent")
+                                                            getproperty QName(PackageNamespace(""),"PROPERTY_CHANGE")
+                                                            getlocal0
+                                                            getproperty QName(PackageNamespace(""),"propertyChangeHandler")
+                                                            callpropvoid Multiname("addEventListener",[PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")]), 2
+                                                            getlocal0
+                                                            getproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"notifiers")
+                                                            getlocal1
+                                                            getlocal2
+                                                            setproperty MultinameL([PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")])
+                                                            getlocal2
+                                                            returnvalue
+                                                   ofs0024:
+                                                            findpropstrict QName(PackageNamespace("flash.utils"),"getQualifiedClassName")
+                                                            getlocal2
+                                                            callproperty QName(PackageNamespace("flash.utils"),"getQualifiedClassName"), 1
+                                                            pushstring "Object"
+                                                            ifne ofs0075
+                                                            getlocal0
+                                                            getlocal0
+                                                            getproperty QName(PrivateNamespace(null,"25"),"_item")
+                                                            getlocal1
+                                                            getproperty MultinameL([PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")])
+                                                            pushnull
+                                                            getlocal0
+                                                            getproperty QName(PrivateNamespace(null,"25"),"_proxyLevel")
+                                                            pushbyte 0
+                                                            greaterthan
+                                                            iffalse ofs0051
+                                                            getlocal0
+                                                            getproperty QName(PrivateNamespace(null,"25"),"_proxyLevel")
+                                                            decrement
+                                                            coerce_a
+                                                            jump ofs0056
+                                                   ofs0051:
+                                                            getlocal0
+                                                            getproperty QName(PrivateNamespace(null,"25"),"_proxyLevel")
+                                                            coerce_a
+                                                   ofs0056:
+                                                            constructprop QName(ProtectedNamespace("mx.utils:ObjectProxy"),"proxyClass"), 3
+                                                            coerce_a
+                                                            setlocal2
+                                                            getlocal2
+                                                            getlex QName(PackageNamespace("mx.events"),"PropertyChangeEvent")
+                                                            getproperty QName(PackageNamespace(""),"PROPERTY_CHANGE")
+                                                            getlocal0
+                                                            getproperty QName(PackageNamespace(""),"propertyChangeHandler")
+                                                            callpropvoid Multiname("addEventListener",[PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")]), 2
+                                                            getlocal0
+                                                            getproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"notifiers")
+                                                            getlocal1
+                                                            getlocal2
+                                                            setproperty MultinameL([PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")])
+                                                            getlocal2
+                                                            returnvalue
+                                                   ofs0075:
+                                                            getlocal2
+                                                            returnvalue
+                                                         end ; code
+                                                      end ; body
+                                                   end ; method
+                                                }
+                                                
+                                                public function readExternal(param1:IDataInput) : void
+                                                {
+                                                   trait method QName(PackageNamespace(""),"readExternal")
+                                                      dispid 0
+                                                      method
+                                                         name null
+                                                         param QName(PackageNamespace("flash.utils"),"IDataInput")
+                                                         returns QName(PackageNamespace(""),"void")
+                                                         
+                                                         body
+                                                            maxstack 2
+                                                            localcount 3
+                                                            initscopedepth 5
+                                                            maxscopedepth 6
+                                                            
+                                                            code
+                                                               getlocal0
+                                                               pushscope
+                                                               getlocal1
+                                                               callproperty QName(Namespace("flash.utils:IDataInput"),"readObject"), 0
+                                                               coerce QName(PackageNamespace(""),"Object")
+                                                               setlocal2
+                                                               getlocal0
+                                                               getlocal2
+                                                               initproperty QName(PrivateNamespace(null,"25"),"_item")
+                                                               returnvoid
+                                                            end ; code
+                                                         end ; body
+                                                      end ; method
+                                                   }
+                                                   
+                                                   public function writeExternal(param1:IDataOutput) : void
+                                                   {
+                                                      trait method QName(PackageNamespace(""),"writeExternal")
+                                                         dispid 0
+                                                         method
+                                                            name null
+                                                            param QName(PackageNamespace("flash.utils"),"IDataOutput")
+                                                            returns QName(PackageNamespace(""),"void")
+                                                            
+                                                            body
+                                                               maxstack 2
+                                                               localcount 2
+                                                               initscopedepth 5
+                                                               maxscopedepth 6
+                                                               
+                                                               code
+                                                                  getlocal0
+                                                                  pushscope
+                                                                  getlocal1
+                                                                  getlocal0
+                                                                  getproperty QName(PrivateNamespace(null,"25"),"_item")
+                                                                  callpropvoid QName(Namespace("flash.utils:IDataOutput"),"writeObject"), 1
+                                                                  returnvoid
+                                                               end ; code
+                                                            end ; body
+                                                         end ; method
+                                                      }
+                                                      
+                                                      public function addEventListener(param1:String, param2:Function, param3:Boolean = false, param4:int = 0, param5:Boolean = false) : void
+                                                      {
+                                                         trait method QName(PackageNamespace(""),"addEventListener")
+                                                            dispid 0
+                                                            method
+                                                               name null
+                                                               flag HAS_OPTIONAL
+                                                               param QName(PackageNamespace(""),"String")
+                                                               param QName(PackageNamespace(""),"Function")
+                                                               param QName(PackageNamespace(""),"Boolean")
+                                                               param QName(PackageNamespace(""),"int")
+                                                               param QName(PackageNamespace(""),"Boolean")
+                                                               optional False()
+                                                               optional Integer(0)
+                                                               optional False()
+                                                               returns QName(PackageNamespace(""),"void")
+                                                               
+                                                               body
+                                                                  maxstack 6
+                                                                  localcount 6
+                                                                  initscopedepth 5
+                                                                  maxscopedepth 6
+                                                                  
+                                                                  code
+                                                                     getlocal0
+                                                                     pushscope
+                                                                     getlocal0
+                                                                     getproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"dispatcher")
+                                                                     getlocal1
+                                                                     getlocal2
+                                                                     getlocal3
+                                                                     getlocal 4
+                                                                     getlocal 5
+                                                                     callpropvoid QName(PackageNamespace(""),"addEventListener"), 5
+                                                                     returnvoid
+                                                                  end ; code
+                                                               end ; body
+                                                            end ; method
+                                                         }
+                                                         
+                                                         public function removeEventListener(param1:String, param2:Function, param3:Boolean = false) : void
+                                                         {
+                                                            trait method QName(PackageNamespace(""),"removeEventListener")
+                                                               dispid 0
+                                                               method
+                                                                  name null
+                                                                  flag HAS_OPTIONAL
+                                                                  param QName(PackageNamespace(""),"String")
+                                                                  param QName(PackageNamespace(""),"Function")
+                                                                  param QName(PackageNamespace(""),"Boolean")
+                                                                  optional False()
+                                                                  returns QName(PackageNamespace(""),"void")
+                                                                  
+                                                                  body
+                                                                     maxstack 4
+                                                                     localcount 4
+                                                                     initscopedepth 5
+                                                                     maxscopedepth 6
+                                                                     
+                                                                     code
+                                                                        getlocal0
+                                                                        pushscope
+                                                                        getlocal0
+                                                                        getproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"dispatcher")
+                                                                        getlocal1
+                                                                        getlocal2
+                                                                        getlocal3
+                                                                        callpropvoid QName(PackageNamespace(""),"removeEventListener"), 3
+                                                                        returnvoid
+                                                                     end ; code
+                                                                  end ; body
+                                                               end ; method
+                                                            }
+                                                            
+                                                            public function dispatchEvent(param1:Event) : Boolean
+                                                            {
+                                                               trait method QName(PackageNamespace(""),"dispatchEvent")
+                                                                  dispid 0
+                                                                  method
+                                                                     name null
+                                                                     param QName(PackageNamespace("flash.events"),"Event")
+                                                                     returns QName(PackageNamespace(""),"Boolean")
+                                                                     
+                                                                     body
+                                                                        maxstack 2
+                                                                        localcount 2
+                                                                        initscopedepth 5
+                                                                        maxscopedepth 6
+                                                                        
+                                                                        code
+                                                                           getlocal0
+                                                                           pushscope
+                                                                           getlocal0
+                                                                           getproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"dispatcher")
+                                                                           getlocal1
+                                                                           callproperty QName(PackageNamespace(""),"dispatchEvent"), 1
+                                                                           returnvalue
+                                                                        end ; code
+                                                                     end ; body
+                                                                  end ; method
+                                                               }
+                                                               
+                                                               public function hasEventListener(param1:String) : Boolean
+                                                               {
+                                                                  trait method QName(PackageNamespace(""),"hasEventListener")
+                                                                     dispid 0
+                                                                     method
+                                                                        name null
+                                                                        param QName(PackageNamespace(""),"String")
+                                                                        returns QName(PackageNamespace(""),"Boolean")
+                                                                        
+                                                                        body
+                                                                           maxstack 2
+                                                                           localcount 2
+                                                                           initscopedepth 5
+                                                                           maxscopedepth 6
+                                                                           
+                                                                           code
+                                                                              getlocal0
+                                                                              pushscope
+                                                                              getlocal0
+                                                                              getproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"dispatcher")
+                                                                              getlocal1
+                                                                              callproperty QName(PackageNamespace(""),"hasEventListener"), 1
+                                                                              returnvalue
+                                                                           end ; code
+                                                                        end ; body
+                                                                     end ; method
+                                                                  }
+                                                                  
+                                                                  public function willTrigger(param1:String) : Boolean
+                                                                  {
+                                                                     trait method QName(PackageNamespace(""),"willTrigger")
+                                                                        dispid 0
+                                                                        method
+                                                                           name null
+                                                                           param QName(PackageNamespace(""),"String")
+                                                                           returns QName(PackageNamespace(""),"Boolean")
+                                                                           
+                                                                           body
+                                                                              maxstack 2
+                                                                              localcount 2
+                                                                              initscopedepth 5
+                                                                              maxscopedepth 6
+                                                                              
+                                                                              code
+                                                                                 getlocal0
+                                                                                 pushscope
+                                                                                 getlocal0
+                                                                                 getproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"dispatcher")
+                                                                                 getlocal1
+                                                                                 callproperty QName(PackageNamespace(""),"willTrigger"), 1
+                                                                                 returnvalue
+                                                                              end ; code
+                                                                           end ; body
+                                                                        end ; method
+                                                                     }
+                                                                     
+                                                                     public function propertyChangeHandler(param1:PropertyChangeEvent) : void
+                                                                     {
+                                                                        trait method QName(PackageNamespace(""),"propertyChangeHandler")
+                                                                           dispid 0
+                                                                           method
+                                                                              name null
+                                                                              param QName(PackageNamespace("mx.events"),"PropertyChangeEvent")
+                                                                              returns QName(PackageNamespace(""),"void")
+                                                                              
+                                                                              body
+                                                                                 maxstack 2
+                                                                                 localcount 2
+                                                                                 initscopedepth 5
+                                                                                 maxscopedepth 6
+                                                                                 
+                                                                                 code
+                                                                                    getlocal0
+                                                                                    pushscope
+                                                                                    getlocal0
+                                                                                    getproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"dispatcher")
+                                                                                    getlocal1
+                                                                                    callpropvoid QName(PackageNamespace(""),"dispatchEvent"), 1
+                                                                                    returnvoid
+                                                                                 end ; code
+                                                                              end ; body
+                                                                           end ; method
+                                                                        }
+                                                                        
+                                                                        protected function setupPropertyList() : void
+                                                                        {
+                                                                           trait method QName(ProtectedNamespace("mx.utils:ObjectProxy"),"setupPropertyList")
+                                                                              dispid 0
+                                                                              method
+                                                                                 name null
+                                                                                 returns QName(PackageNamespace(""),"void")
+                                                                                 
+                                                                                 body
+                                                                                    maxstack 8
+                                                                                    localcount 4
+                                                                                    initscopedepth 5
+                                                                                    maxscopedepth 6
+                                                                                    
+                                                                                    code
+                                                                                       getlocal0
+                                                                                       pushscope
+                                                                                       pushnull
+                                                                                       coerce_s
+                                                                                       setlocal1
+                                                                                       findpropstrict QName(PackageNamespace("flash.utils"),"getQualifiedClassName")
+                                                                                       getlocal0
+                                                                                       getproperty QName(PrivateNamespace(null,"25"),"_item")
+                                                                                       callproperty QName(PackageNamespace("flash.utils"),"getQualifiedClassName"), 1
+                                                                                       pushstring "Object"
+                                                                                       ifne ofs0047
+                                                                                       getlocal0
+                                                                                       newarray 0
+                                                                                       initproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"propertyList")
+                                                                                       pushbyte 0
+                                                                                       setlocal2
+                                                                                       getlocal0
+                                                                                       getproperty QName(PrivateNamespace(null,"25"),"_item")
+                                                                                       coerce_a
+                                                                                       setlocal3
+                                                                                       jump ofs0038
+                                                                              ofs0029:
+                                                                                       label
+                                                                                       getlocal3
+                                                                                       getlocal2
+                                                                                       nextname
+                                                                                       coerce_s
+                                                                                       setlocal1
+                                                                                       getlocal0
+                                                                                       getproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"propertyList")
+                                                                                       getlocal1
+                                                                                       callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 1
+                                                                              ofs0038:
+                                                                                       hasnext2 3, 2
+                                                                                       iftrue ofs0029
+                                                                                       kill 3
+                                                                                       kill 2
+                                                                                       jump ofs0068
+                                                                              ofs0047:
+                                                                                       getlocal0
+                                                                                       getlex QName(PackageNamespace("mx.utils"),"ObjectUtil")
+                                                                                       getlocal0
+                                                                                       getproperty QName(PrivateNamespace(null,"25"),"_item")
+                                                                                       pushnull
+                                                                                       pushstring "includeReadOnly"
+                                                                                       pushtrue
+                                                                                       pushstring "uris"
+                                                                                       pushstring "*"
+                                                                                       newarray 1
+                                                                                       newobject 2
+                                                                                       callproperty QName(PackageNamespace(""),"getClassInfo"), 3
+                                                                                       getproperty Multiname("properties",[PrivateNamespace(null,"25"),PackageNamespace("mx.utils"),ProtectedNamespace("mx.utils:ObjectProxy"),PackageNamespace(""),PrivateNamespace(null,"134"),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),Namespace("http://www.adobe.com/2006/actionscript/flash/proxy"),Namespace("http://www.adobe.com/2006/actionscript/flash/objectproxy"),StaticProtectedNs("mx.utils:ObjectProxy"),StaticProtectedNs("flash.utils:Proxy")])
+                                                                                       initproperty QName(ProtectedNamespace("mx.utils:ObjectProxy"),"propertyList")
+                                                                              ofs0068:
+                                                                                       returnvoid
+                                                                                    end ; code
+                                                                                 end ; body
+                                                                              end ; method
+                                                                           }
+                                                                        }
+                                                                     }
+                                                                     
+                                                                     method
+                                                                        name null
+                                                                        returns null
+                                                                        
+                                                                        body
+                                                                           maxstack 2
+                                                                           localcount 1
+                                                                           initscopedepth 1
+                                                                           maxscopedepth 4
+                                                                           
+                                                                           code
+                                                                              getlocal0
+                                                                              pushscope
+                                                                              findpropstrict Multiname("ObjectProxy",[PackageNamespace("mx.utils")])
+                                                                              getlex QName(PackageNamespace(""),"Object")
+                                                                              pushscope
+                                                                              getlex QName(PackageNamespace("flash.utils"),"Proxy")
+                                                                              pushscope
+                                                                              getlex QName(PackageNamespace("flash.utils"),"Proxy")
+                                                                              newclass 82
+                                                                              popscope
+                                                                              popscope
+                                                                              initproperty QName(PackageNamespace("mx.utils"),"ObjectProxy")
+                                                                              returnvoid
+                                                                           end ; code
+                                                                        end ; body
+                                                                     end ; method
+                                                                     

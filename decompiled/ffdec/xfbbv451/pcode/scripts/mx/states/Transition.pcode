@@ -1,0 +1,97 @@
+package mx.states
+{
+   import mx.core.mx_internal;
+   import mx.effects.IEffect;
+   
+   use namespace mx_internal;
+   
+   public class Transition
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      public var effect:IEffect;
+      
+      public var fromState:String = "*";
+      
+      public var toState:String = "*";
+      
+      public var autoReverse:Boolean = false;
+      
+      public var interruptionBehavior:String;
+      
+      public function Transition()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 2
+               localcount 1
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  getlex QName(PackageNamespace("mx.states"),"InterruptionBehavior")
+                  getproperty QName(PackageNamespace(""),"END")
+                  initproperty QName(PackageNamespace(""),"interruptionBehavior")
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+   }
+}
+
+method
+   name null
+   returns null
+   
+   body
+      maxstack 2
+      localcount 1
+      initscopedepth 1
+      maxscopedepth 3
+      
+      code
+         getlocal0
+         pushscope
+         findpropstrict Multiname("Transition",[PackageNamespace("mx.states")])
+         getlex QName(PackageNamespace(""),"Object")
+         pushscope
+         getlex QName(PackageNamespace(""),"Object")
+         newclass 155
+         popscope
+         initproperty QName(PackageNamespace("mx.states"),"Transition")
+         returnvoid
+      end ; code
+   end ; body
+end ; method
+

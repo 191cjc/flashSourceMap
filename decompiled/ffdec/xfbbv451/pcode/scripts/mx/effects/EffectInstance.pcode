@@ -1,0 +1,1763 @@
+package mx.effects
+{
+   import flash.events.Event;
+   import flash.events.EventDispatcher;
+   import flash.events.IEventDispatcher;
+   import flash.events.TimerEvent;
+   import flash.utils.Timer;
+   import flash.utils.getTimer;
+   import mx.core.UIComponent;
+   import mx.core.mx_internal;
+   import mx.effects.effectClasses.PropertyChanges;
+   import mx.events.EffectEvent;
+   import mx.events.FlexEvent;
+   import mx.utils.NameUtil;
+   
+   use namespace mx_internal;
+   
+   public class EffectInstance extends EventDispatcher implements IEffectInstance
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 4
+            maxscopedepth 5
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      mx_internal var delayTimer:Timer;
+      
+      private var delayStartTime:Number = 0;
+      
+      private var delayElapsedTime:Number = 0;
+      
+      mx_internal var durationExplicitlySet:Boolean = false;
+      
+      mx_internal var hideOnEffectEnd:Boolean = false;
+      
+      mx_internal var parentCompositeEffectInstance:EffectInstance;
+      
+      protected var playCount:int = 0;
+      
+      mx_internal var stopRepeat:Boolean = false;
+      
+      private var _duration:Number = 500;
+      
+      private var _effect:IEffect;
+      
+      private var _effectTargetHost:IEffectTargetHost;
+      
+      private var _hideFocusRing:Boolean;
+      
+      private var _playReversed:Boolean;
+      
+      private var _propertyChanges:PropertyChanges;
+      
+      private var _repeatCount:int = 0;
+      
+      private var _repeatDelay:int = 0;
+      
+      private var _startDelay:int = 0;
+      
+      private var _suspendBackgroundProcessing:Boolean = false;
+      
+      private var _target:Object;
+      
+      private var _triggerEvent:Event;
+      
+      public function EffectInstance(param1:Object)
+      {
+         method
+            name null
+            param QName(PackageNamespace(""),"Object")
+            returns null
+            
+            body
+               maxstack 2
+               localcount 2
+               initscopedepth 5
+               maxscopedepth 6
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  getlocal0
+                  getlocal1
+                  initproperty QName(PackageNamespace(""),"target")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      mx_internal function get actualDuration() : Number
+      {
+         trait getter QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"actualDuration")
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace(""),"Number")
+               
+               body
+                  maxstack 4
+                  localcount 2
+                  initscopedepth 5
+                  maxscopedepth 6
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlex QName(PackageNamespace(""),"NaN")
+                     convert_d
+                     setlocal1
+                     getlocal0
+                     getproperty QName(PackageNamespace(""),"repeatCount")
+                     pushbyte 0
+                     ifngt ofs002c
+                     getlocal0
+                     getproperty QName(PackageNamespace(""),"duration")
+                     getlocal0
+                     getproperty QName(PackageNamespace(""),"repeatCount")
+                     multiply
+                     getlocal0
+                     getproperty QName(PackageNamespace(""),"repeatDelay")
+                     getlocal0
+                     getproperty QName(PackageNamespace(""),"repeatCount")
+                     decrement
+                     multiply
+                     add
+                     getlocal0
+                     getproperty QName(PackageNamespace(""),"startDelay")
+                     add
+                     convert_d
+                     setlocal1
+            ofs002c:
+                     getlocal1
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function get className() : String
+         {
+            trait getter QName(PackageNamespace(""),"className")
+               dispid 0
+               method
+                  name null
+                  returns QName(PackageNamespace(""),"String")
+                  
+                  body
+                     maxstack 2
+                     localcount 1
+                     initscopedepth 5
+                     maxscopedepth 6
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlex QName(PackageNamespace("mx.utils"),"NameUtil")
+                        getlocal0
+                        callproperty QName(PackageNamespace(""),"getUnqualifiedClassName"), 1
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function get duration() : Number
+            {
+               trait getter QName(PackageNamespace(""),"duration")
+                  dispid 0
+                  method
+                     name null
+                     returns QName(PackageNamespace(""),"Number")
+                     
+                     body
+                        maxstack 2
+                        localcount 1
+                        initscopedepth 5
+                        maxscopedepth 6
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"durationExplicitlySet")
+                           not
+                           dup
+                           iffalse ofs0012
+                           pop
+                           getlocal0
+                           getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"parentCompositeEffectInstance")
+                           convert_b
+                  ofs0012:
+                           iffalse ofs001e
+                           getlocal0
+                           getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"parentCompositeEffectInstance")
+                           getproperty QName(PackageNamespace(""),"duration")
+                           returnvalue
+                  ofs001e:
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"61"),"_duration")
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function set duration(param1:Number) : void
+               {
+                  trait setter QName(PackageNamespace(""),"duration")
+                     dispid 0
+                     method
+                        name null
+                        param QName(PackageNamespace(""),"Number")
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 2
+                           localcount 2
+                           initscopedepth 5
+                           maxscopedepth 6
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              pushtrue
+                              initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"durationExplicitlySet")
+                              getlocal0
+                              getlocal1
+                              initproperty QName(PrivateNamespace(null,"61"),"_duration")
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function get effect() : IEffect
+                  {
+                     trait getter QName(PackageNamespace(""),"effect")
+                        dispid 0
+                        method
+                           name null
+                           returns QName(PackageNamespace("mx.effects"),"IEffect")
+                           
+                           body
+                              maxstack 1
+                              localcount 1
+                              initscopedepth 5
+                              maxscopedepth 6
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"61"),"_effect")
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public function set effect(param1:IEffect) : void
+                     {
+                        trait setter QName(PackageNamespace(""),"effect")
+                           dispid 0
+                           method
+                              name null
+                              param QName(PackageNamespace("mx.effects"),"IEffect")
+                              returns QName(PackageNamespace(""),"void")
+                              
+                              body
+                                 maxstack 2
+                                 localcount 2
+                                 initscopedepth 5
+                                 maxscopedepth 6
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlocal0
+                                    getlocal1
+                                    initproperty QName(PrivateNamespace(null,"61"),"_effect")
+                                    returnvoid
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        public function get effectTargetHost() : IEffectTargetHost
+                        {
+                           trait getter QName(PackageNamespace(""),"effectTargetHost")
+                              dispid 0
+                              method
+                                 name null
+                                 returns QName(PackageNamespace("mx.effects"),"IEffectTargetHost")
+                                 
+                                 body
+                                    maxstack 1
+                                    localcount 1
+                                    initscopedepth 5
+                                    maxscopedepth 6
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"61"),"_effectTargetHost")
+                                       returnvalue
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           public function set effectTargetHost(param1:IEffectTargetHost) : void
+                           {
+                              trait setter QName(PackageNamespace(""),"effectTargetHost")
+                                 dispid 0
+                                 method
+                                    name null
+                                    param QName(PackageNamespace("mx.effects"),"IEffectTargetHost")
+                                    returns QName(PackageNamespace(""),"void")
+                                    
+                                    body
+                                       maxstack 2
+                                       localcount 2
+                                       initscopedepth 5
+                                       maxscopedepth 6
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlocal0
+                                          getlocal1
+                                          initproperty QName(PrivateNamespace(null,"61"),"_effectTargetHost")
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              public function get hideFocusRing() : Boolean
+                              {
+                                 trait getter QName(PackageNamespace(""),"hideFocusRing")
+                                    dispid 0
+                                    method
+                                       name null
+                                       returns QName(PackageNamespace(""),"Boolean")
+                                       
+                                       body
+                                          maxstack 1
+                                          localcount 1
+                                          initscopedepth 5
+                                          maxscopedepth 6
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlocal0
+                                             getproperty QName(PrivateNamespace(null,"61"),"_hideFocusRing")
+                                             returnvalue
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 public function set hideFocusRing(param1:Boolean) : void
+                                 {
+                                    trait setter QName(PackageNamespace(""),"hideFocusRing")
+                                       dispid 0
+                                       method
+                                          name null
+                                          param QName(PackageNamespace(""),"Boolean")
+                                          returns QName(PackageNamespace(""),"void")
+                                          
+                                          body
+                                             maxstack 2
+                                             localcount 2
+                                             initscopedepth 5
+                                             maxscopedepth 6
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                getlocal0
+                                                getlocal1
+                                                initproperty QName(PrivateNamespace(null,"61"),"_hideFocusRing")
+                                                returnvoid
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    public function get playheadTime() : Number
+                                    {
+                                       trait getter QName(PackageNamespace(""),"playheadTime")
+                                          dispid 0
+                                          method
+                                             name null
+                                             returns QName(PackageNamespace(""),"Number")
+                                             
+                                             body
+                                                maxstack 3
+                                                localcount 1
+                                                initscopedepth 5
+                                                maxscopedepth 6
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   getlex QName(PackageNamespace(""),"Math")
+                                                   getlocal0
+                                                   getproperty QName(ProtectedNamespace("mx.effects:EffectInstance"),"playCount")
+                                                   decrement
+                                                   pushbyte 0
+                                                   callproperty QName(PackageNamespace(""),"max"), 2
+                                                   getlocal0
+                                                   getproperty QName(PackageNamespace(""),"duration")
+                                                   getlocal0
+                                                   getproperty QName(PackageNamespace(""),"repeatDelay")
+                                                   add
+                                                   multiply
+                                                   getlocal0
+                                                   getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"playReversed")
+                                                   iffalse ofs0029
+                                                   pushbyte 0
+                                                   coerce_a
+                                                   jump ofs002e
+                                          ofs0029:
+                                                   getlocal0
+                                                   getproperty QName(PackageNamespace(""),"startDelay")
+                                                   coerce_a
+                                          ofs002e:
+                                                   add
+                                                   returnvalue
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                       
+                                       public function set playheadTime(param1:Number) : void
+                                       {
+                                          trait setter QName(PackageNamespace(""),"playheadTime")
+                                             dispid 0
+                                             method
+                                                name null
+                                                param QName(PackageNamespace(""),"Number")
+                                                returns QName(PackageNamespace(""),"void")
+                                                
+                                                body
+                                                   maxstack 4
+                                                   localcount 2
+                                                   initscopedepth 5
+                                                   maxscopedepth 6
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      getlocal0
+                                                      getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                      convert_b
+                                                      dup
+                                                      iffalse ofs0015
+                                                      pop
+                                                      getlocal0
+                                                      getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                      getproperty QName(PackageNamespace(""),"running")
+                                                      convert_b
+                                             ofs0015:
+                                                      iffalse ofs0070
+                                                      getlocal0
+                                                      getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                      callpropvoid QName(PackageNamespace(""),"reset"), 0
+                                                      getlocal1
+                                                      getlocal0
+                                                      getproperty QName(PackageNamespace(""),"startDelay")
+                                                      ifnlt ofs0065
+                                                      getlocal0
+                                                      findpropstrict QName(PackageNamespace("flash.utils"),"Timer")
+                                                      getlocal0
+                                                      getproperty QName(PackageNamespace(""),"startDelay")
+                                                      getlocal1
+                                                      subtract
+                                                      pushbyte 1
+                                                      constructprop QName(PackageNamespace("flash.utils"),"Timer"), 2
+                                                      initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                      getlocal0
+                                                      findpropstrict QName(PackageNamespace("flash.utils"),"getTimer")
+                                                      callproperty QName(PackageNamespace("flash.utils"),"getTimer"), 0
+                                                      initproperty QName(PrivateNamespace(null,"61"),"delayStartTime")
+                                                      getlocal0
+                                                      getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                      getlex QName(PackageNamespace("flash.events"),"TimerEvent")
+                                                      getproperty QName(PackageNamespace(""),"TIMER")
+                                                      getlocal0
+                                                      getproperty QName(PrivateNamespace(null,"61"),"delayTimerHandler")
+                                                      callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                                                      getlocal0
+                                                      getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                      callpropvoid QName(PackageNamespace(""),"start"), 0
+                                                      jump ofs0070
+                                             ofs0065:
+                                                      getlocal0
+                                                      pushbyte 0
+                                                      initproperty QName(ProtectedNamespace("mx.effects:EffectInstance"),"playCount")
+                                                      getlocal0
+                                                      callpropvoid QName(PackageNamespace(""),"play"), 0
+                                             ofs0070:
+                                                      returnvoid
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                          }
+                                          
+                                          mx_internal function get playReversed() : Boolean
+                                          {
+                                             trait getter QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"playReversed")
+                                                dispid 0
+                                                method
+                                                   name null
+                                                   returns QName(PackageNamespace(""),"Boolean")
+                                                   
+                                                   body
+                                                      maxstack 1
+                                                      localcount 1
+                                                      initscopedepth 5
+                                                      maxscopedepth 6
+                                                      
+                                                      code
+                                                         getlocal0
+                                                         pushscope
+                                                         getlocal0
+                                                         getproperty QName(PrivateNamespace(null,"61"),"_playReversed")
+                                                         returnvalue
+                                                      end ; code
+                                                   end ; body
+                                                end ; method
+                                             }
+                                             
+                                             mx_internal function set playReversed(param1:Boolean) : void
+                                             {
+                                                trait setter QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"playReversed")
+                                                   dispid 0
+                                                   method
+                                                      name null
+                                                      param QName(PackageNamespace(""),"Boolean")
+                                                      returns QName(PackageNamespace(""),"void")
+                                                      
+                                                      body
+                                                         maxstack 2
+                                                         localcount 2
+                                                         initscopedepth 5
+                                                         maxscopedepth 6
+                                                         
+                                                         code
+                                                            getlocal0
+                                                            pushscope
+                                                            getlocal0
+                                                            getlocal1
+                                                            initproperty QName(PrivateNamespace(null,"61"),"_playReversed")
+                                                            returnvoid
+                                                         end ; code
+                                                      end ; body
+                                                   end ; method
+                                                }
+                                                
+                                                public function get propertyChanges() : PropertyChanges
+                                                {
+                                                   trait getter QName(PackageNamespace(""),"propertyChanges")
+                                                      dispid 0
+                                                      method
+                                                         name null
+                                                         returns QName(PackageNamespace("mx.effects.effectClasses"),"PropertyChanges")
+                                                         
+                                                         body
+                                                            maxstack 1
+                                                            localcount 1
+                                                            initscopedepth 5
+                                                            maxscopedepth 6
+                                                            
+                                                            code
+                                                               getlocal0
+                                                               pushscope
+                                                               getlocal0
+                                                               getproperty QName(PrivateNamespace(null,"61"),"_propertyChanges")
+                                                               returnvalue
+                                                            end ; code
+                                                         end ; body
+                                                      end ; method
+                                                   }
+                                                   
+                                                   public function set propertyChanges(param1:PropertyChanges) : void
+                                                   {
+                                                      trait setter QName(PackageNamespace(""),"propertyChanges")
+                                                         dispid 0
+                                                         method
+                                                            name null
+                                                            param QName(PackageNamespace("mx.effects.effectClasses"),"PropertyChanges")
+                                                            returns QName(PackageNamespace(""),"void")
+                                                            
+                                                            body
+                                                               maxstack 2
+                                                               localcount 2
+                                                               initscopedepth 5
+                                                               maxscopedepth 6
+                                                               
+                                                               code
+                                                                  getlocal0
+                                                                  pushscope
+                                                                  getlocal0
+                                                                  getlocal1
+                                                                  initproperty QName(PrivateNamespace(null,"61"),"_propertyChanges")
+                                                                  returnvoid
+                                                               end ; code
+                                                            end ; body
+                                                         end ; method
+                                                      }
+                                                      
+                                                      public function get repeatCount() : int
+                                                      {
+                                                         trait getter QName(PackageNamespace(""),"repeatCount")
+                                                            dispid 0
+                                                            method
+                                                               name null
+                                                               returns QName(PackageNamespace(""),"int")
+                                                               
+                                                               body
+                                                                  maxstack 1
+                                                                  localcount 1
+                                                                  initscopedepth 5
+                                                                  maxscopedepth 6
+                                                                  
+                                                                  code
+                                                                     getlocal0
+                                                                     pushscope
+                                                                     getlocal0
+                                                                     getproperty QName(PrivateNamespace(null,"61"),"_repeatCount")
+                                                                     returnvalue
+                                                                  end ; code
+                                                               end ; body
+                                                            end ; method
+                                                         }
+                                                         
+                                                         public function set repeatCount(param1:int) : void
+                                                         {
+                                                            trait setter QName(PackageNamespace(""),"repeatCount")
+                                                               dispid 0
+                                                               method
+                                                                  name null
+                                                                  param QName(PackageNamespace(""),"int")
+                                                                  returns QName(PackageNamespace(""),"void")
+                                                                  
+                                                                  body
+                                                                     maxstack 2
+                                                                     localcount 2
+                                                                     initscopedepth 5
+                                                                     maxscopedepth 6
+                                                                     
+                                                                     code
+                                                                        getlocal0
+                                                                        pushscope
+                                                                        getlocal0
+                                                                        getlocal1
+                                                                        initproperty QName(PrivateNamespace(null,"61"),"_repeatCount")
+                                                                        returnvoid
+                                                                     end ; code
+                                                                  end ; body
+                                                               end ; method
+                                                            }
+                                                            
+                                                            public function get repeatDelay() : int
+                                                            {
+                                                               trait getter QName(PackageNamespace(""),"repeatDelay")
+                                                                  dispid 0
+                                                                  method
+                                                                     name null
+                                                                     returns QName(PackageNamespace(""),"int")
+                                                                     
+                                                                     body
+                                                                        maxstack 1
+                                                                        localcount 1
+                                                                        initscopedepth 5
+                                                                        maxscopedepth 6
+                                                                        
+                                                                        code
+                                                                           getlocal0
+                                                                           pushscope
+                                                                           getlocal0
+                                                                           getproperty QName(PrivateNamespace(null,"61"),"_repeatDelay")
+                                                                           returnvalue
+                                                                        end ; code
+                                                                     end ; body
+                                                                  end ; method
+                                                               }
+                                                               
+                                                               public function set repeatDelay(param1:int) : void
+                                                               {
+                                                                  trait setter QName(PackageNamespace(""),"repeatDelay")
+                                                                     dispid 0
+                                                                     method
+                                                                        name null
+                                                                        param QName(PackageNamespace(""),"int")
+                                                                        returns QName(PackageNamespace(""),"void")
+                                                                        
+                                                                        body
+                                                                           maxstack 2
+                                                                           localcount 2
+                                                                           initscopedepth 5
+                                                                           maxscopedepth 6
+                                                                           
+                                                                           code
+                                                                              getlocal0
+                                                                              pushscope
+                                                                              getlocal0
+                                                                              getlocal1
+                                                                              initproperty QName(PrivateNamespace(null,"61"),"_repeatDelay")
+                                                                              returnvoid
+                                                                           end ; code
+                                                                        end ; body
+                                                                     end ; method
+                                                                  }
+                                                                  
+                                                                  public function get startDelay() : int
+                                                                  {
+                                                                     trait getter QName(PackageNamespace(""),"startDelay")
+                                                                        dispid 0
+                                                                        method
+                                                                           name null
+                                                                           returns QName(PackageNamespace(""),"int")
+                                                                           
+                                                                           body
+                                                                              maxstack 1
+                                                                              localcount 1
+                                                                              initscopedepth 5
+                                                                              maxscopedepth 6
+                                                                              
+                                                                              code
+                                                                                 getlocal0
+                                                                                 pushscope
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"61"),"_startDelay")
+                                                                                 returnvalue
+                                                                              end ; code
+                                                                           end ; body
+                                                                        end ; method
+                                                                     }
+                                                                     
+                                                                     public function set startDelay(param1:int) : void
+                                                                     {
+                                                                        trait setter QName(PackageNamespace(""),"startDelay")
+                                                                           dispid 0
+                                                                           method
+                                                                              name null
+                                                                              param QName(PackageNamespace(""),"int")
+                                                                              returns QName(PackageNamespace(""),"void")
+                                                                              
+                                                                              body
+                                                                                 maxstack 2
+                                                                                 localcount 2
+                                                                                 initscopedepth 5
+                                                                                 maxscopedepth 6
+                                                                                 
+                                                                                 code
+                                                                                    getlocal0
+                                                                                    pushscope
+                                                                                    getlocal0
+                                                                                    getlocal1
+                                                                                    initproperty QName(PrivateNamespace(null,"61"),"_startDelay")
+                                                                                    returnvoid
+                                                                                 end ; code
+                                                                              end ; body
+                                                                           end ; method
+                                                                        }
+                                                                        
+                                                                        public function get suspendBackgroundProcessing() : Boolean
+                                                                        {
+                                                                           trait getter QName(PackageNamespace(""),"suspendBackgroundProcessing")
+                                                                              dispid 0
+                                                                              method
+                                                                                 name null
+                                                                                 returns QName(PackageNamespace(""),"Boolean")
+                                                                                 
+                                                                                 body
+                                                                                    maxstack 1
+                                                                                    localcount 1
+                                                                                    initscopedepth 5
+                                                                                    maxscopedepth 6
+                                                                                    
+                                                                                    code
+                                                                                       getlocal0
+                                                                                       pushscope
+                                                                                       getlocal0
+                                                                                       getproperty QName(PrivateNamespace(null,"61"),"_suspendBackgroundProcessing")
+                                                                                       returnvalue
+                                                                                    end ; code
+                                                                                 end ; body
+                                                                              end ; method
+                                                                           }
+                                                                           
+                                                                           public function set suspendBackgroundProcessing(param1:Boolean) : void
+                                                                           {
+                                                                              trait setter QName(PackageNamespace(""),"suspendBackgroundProcessing")
+                                                                                 dispid 0
+                                                                                 method
+                                                                                    name null
+                                                                                    param QName(PackageNamespace(""),"Boolean")
+                                                                                    returns QName(PackageNamespace(""),"void")
+                                                                                    
+                                                                                    body
+                                                                                       maxstack 2
+                                                                                       localcount 2
+                                                                                       initscopedepth 5
+                                                                                       maxscopedepth 6
+                                                                                       
+                                                                                       code
+                                                                                          getlocal0
+                                                                                          pushscope
+                                                                                          getlocal0
+                                                                                          getlocal1
+                                                                                          initproperty QName(PrivateNamespace(null,"61"),"_suspendBackgroundProcessing")
+                                                                                          returnvoid
+                                                                                       end ; code
+                                                                                    end ; body
+                                                                                 end ; method
+                                                                              }
+                                                                              
+                                                                              public function get target() : Object
+                                                                              {
+                                                                                 trait getter QName(PackageNamespace(""),"target")
+                                                                                    dispid 0
+                                                                                    method
+                                                                                       name null
+                                                                                       returns QName(PackageNamespace(""),"Object")
+                                                                                       
+                                                                                       body
+                                                                                          maxstack 1
+                                                                                          localcount 1
+                                                                                          initscopedepth 5
+                                                                                          maxscopedepth 6
+                                                                                          
+                                                                                          code
+                                                                                             getlocal0
+                                                                                             pushscope
+                                                                                             getlocal0
+                                                                                             getproperty QName(PrivateNamespace(null,"61"),"_target")
+                                                                                             returnvalue
+                                                                                          end ; code
+                                                                                       end ; body
+                                                                                    end ; method
+                                                                                 }
+                                                                                 
+                                                                                 public function set target(param1:Object) : void
+                                                                                 {
+                                                                                    trait setter QName(PackageNamespace(""),"target")
+                                                                                       dispid 0
+                                                                                       method
+                                                                                          name null
+                                                                                          param QName(PackageNamespace(""),"Object")
+                                                                                          returns QName(PackageNamespace(""),"void")
+                                                                                          
+                                                                                          body
+                                                                                             maxstack 2
+                                                                                             localcount 2
+                                                                                             initscopedepth 5
+                                                                                             maxscopedepth 6
+                                                                                             
+                                                                                             code
+                                                                                                getlocal0
+                                                                                                pushscope
+                                                                                                getlocal0
+                                                                                                getlocal1
+                                                                                                initproperty QName(PrivateNamespace(null,"61"),"_target")
+                                                                                                returnvoid
+                                                                                             end ; code
+                                                                                          end ; body
+                                                                                       end ; method
+                                                                                    }
+                                                                                    
+                                                                                    public function get triggerEvent() : Event
+                                                                                    {
+                                                                                       trait getter QName(PackageNamespace(""),"triggerEvent")
+                                                                                          dispid 0
+                                                                                          method
+                                                                                             name null
+                                                                                             returns QName(PackageNamespace("flash.events"),"Event")
+                                                                                             
+                                                                                             body
+                                                                                                maxstack 1
+                                                                                                localcount 1
+                                                                                                initscopedepth 5
+                                                                                                maxscopedepth 6
+                                                                                                
+                                                                                                code
+                                                                                                   getlocal0
+                                                                                                   pushscope
+                                                                                                   getlocal0
+                                                                                                   getproperty QName(PrivateNamespace(null,"61"),"_triggerEvent")
+                                                                                                   returnvalue
+                                                                                                end ; code
+                                                                                             end ; body
+                                                                                          end ; method
+                                                                                       }
+                                                                                       
+                                                                                       public function set triggerEvent(param1:Event) : void
+                                                                                       {
+                                                                                          trait setter QName(PackageNamespace(""),"triggerEvent")
+                                                                                             dispid 0
+                                                                                             method
+                                                                                                name null
+                                                                                                param QName(PackageNamespace("flash.events"),"Event")
+                                                                                                returns QName(PackageNamespace(""),"void")
+                                                                                                
+                                                                                                body
+                                                                                                   maxstack 2
+                                                                                                   localcount 2
+                                                                                                   initscopedepth 5
+                                                                                                   maxscopedepth 6
+                                                                                                   
+                                                                                                   code
+                                                                                                      getlocal0
+                                                                                                      pushscope
+                                                                                                      getlocal0
+                                                                                                      getlocal1
+                                                                                                      initproperty QName(PrivateNamespace(null,"61"),"_triggerEvent")
+                                                                                                      returnvoid
+                                                                                                   end ; code
+                                                                                                end ; body
+                                                                                             end ; method
+                                                                                          }
+                                                                                          
+                                                                                          public function initEffect(param1:Event) : void
+                                                                                          {
+                                                                                             trait method QName(PackageNamespace(""),"initEffect")
+                                                                                                dispid 0
+                                                                                                method
+                                                                                                   name null
+                                                                                                   param QName(PackageNamespace("flash.events"),"Event")
+                                                                                                   returns QName(PackageNamespace(""),"void")
+                                                                                                   
+                                                                                                   body
+                                                                                                      maxstack 3
+                                                                                                      localcount 3
+                                                                                                      initscopedepth 5
+                                                                                                      maxscopedepth 6
+                                                                                                      
+                                                                                                      code
+                                                                                                         getlocal0
+                                                                                                         pushscope
+                                                                                                         getlocal0
+                                                                                                         getlocal1
+                                                                                                         initproperty QName(PackageNamespace(""),"triggerEvent")
+                                                                                                         jump ofs0049
+                                                                                                ofs000b:
+                                                                                                         label
+                                                                                                         getlocal0
+                                                                                                         getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"durationExplicitlySet")
+                                                                                                         iftrue ofs001b
+                                                                                                         getlocal0
+                                                                                                         pushshort 250
+                                                                                                         initproperty QName(PackageNamespace(""),"duration")
+                                                                                                ofs001b:
+                                                                                                         jump ofs0099
+                                                                                                ofs001f:
+                                                                                                         label
+                                                                                                         getlocal0
+                                                                                                         getproperty QName(PackageNamespace(""),"target")
+                                                                                                         pushtrue
+                                                                                                         pushtrue
+                                                                                                         callpropvoid Multiname("setVisible",[PrivateNamespace(null,"61"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PackageNamespace("mx.effects"),ProtectedNamespace("mx.effects:EffectInstance"),PrivateNamespace(null,"162"),PackageInternalNs("mx.effects"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("mx.effects:EffectInstance"),StaticProtectedNs("flash.events:EventDispatcher")]), 2
+                                                                                                         getlocal0
+                                                                                                         pushtrue
+                                                                                                         initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"hideOnEffectEnd")
+                                                                                                         getlocal0
+                                                                                                         getproperty QName(PackageNamespace(""),"target")
+                                                                                                         getlex QName(PackageNamespace("mx.events"),"FlexEvent")
+                                                                                                         getproperty QName(PackageNamespace(""),"SHOW")
+                                                                                                         getlocal0
+                                                                                                         getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"eventHandler")
+                                                                                                         callpropvoid Multiname("addEventListener",[PrivateNamespace(null,"61"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PackageNamespace("mx.effects"),ProtectedNamespace("mx.effects:EffectInstance"),PrivateNamespace(null,"162"),PackageInternalNs("mx.effects"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("mx.effects:EffectInstance"),StaticProtectedNs("flash.events:EventDispatcher")]), 2
+                                                                                                         jump ofs0099
+                                                                                                ofs0044:
+                                                                                                         label
+                                                                                                         jump ofs0099
+                                                                                                ofs0049:
+                                                                                                         getlocal1
+                                                                                                         getproperty QName(PackageNamespace(""),"type")
+                                                                                                         setlocal2
+                                                                                                         pushstring "resizeStart"
+                                                                                                         getlocal2
+                                                                                                         ifstrictne ofs005c
+                                                                                                         pushbyte 0
+                                                                                                         jump ofs0086
+                                                                                                ofs005c:
+                                                                                                         pushstring "resizeEnd"
+                                                                                                         getlocal2
+                                                                                                         ifstrictne ofs006a
+                                                                                                         pushbyte 1
+                                                                                                         jump ofs0086
+                                                                                                ofs006a:
+                                                                                                         getlex QName(PackageNamespace("mx.events"),"FlexEvent")
+                                                                                                         getproperty QName(PackageNamespace(""),"HIDE")
+                                                                                                         getlocal2
+                                                                                                         ifstrictne ofs007a
+                                                                                                         pushbyte 2
+                                                                                                         jump ofs0086
+                                                                                                ofs007a:
+                                                                                                         jump ofs0084
+                                                                                                         pushbyte 3
+                                                                                                         jump ofs0084
+                                                                                                ofs0084:
+                                                                                                         pushbyte 3
+                                                                                                ofs0086:
+                                                                                                         kill 2
+                                                                                                         lookupswitch ofs0044, [ofs000b, ofs000b, ofs001f, ofs0044]
+                                                                                                ofs0099:
+                                                                                                         returnvoid
+                                                                                                      end ; code
+                                                                                                   end ; body
+                                                                                                end ; method
+                                                                                             }
+                                                                                             
+                                                                                             public function startEffect() : void
+                                                                                             {
+                                                                                                trait method QName(PackageNamespace(""),"startEffect")
+                                                                                                   dispid 0
+                                                                                                   method
+                                                                                                      name null
+                                                                                                      returns QName(PackageNamespace(""),"void")
+                                                                                                      
+                                                                                                      body
+                                                                                                         maxstack 4
+                                                                                                         localcount 1
+                                                                                                         initscopedepth 5
+                                                                                                         maxscopedepth 6
+                                                                                                         
+                                                                                                         code
+                                                                                                            getlocal0
+                                                                                                            pushscope
+                                                                                                            getlex QName(PackageNamespace("mx.effects"),"EffectManager")
+                                                                                                            getlocal0
+                                                                                                            callpropvoid QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"effectStarted"), 1
+                                                                                                            getlocal0
+                                                                                                            getproperty QName(PackageNamespace(""),"target")
+                                                                                                            getlex QName(PackageNamespace("mx.core"),"UIComponent")
+                                                                                                            istypelate
+                                                                                                            iffalse ofs0023
+                                                                                                            findpropstrict QName(PackageNamespace("mx.core"),"UIComponent")
+                                                                                                            getlocal0
+                                                                                                            getproperty QName(PackageNamespace(""),"target")
+                                                                                                            callproperty QName(PackageNamespace("mx.core"),"UIComponent"), 1
+                                                                                                            getlocal0
+                                                                                                            callpropvoid QName(PackageNamespace(""),"effectStarted"), 1
+                                                                                                   ofs0023:
+                                                                                                            getlocal0
+                                                                                                            getproperty QName(PackageNamespace(""),"startDelay")
+                                                                                                            pushbyte 0
+                                                                                                            greaterthan
+                                                                                                            dup
+                                                                                                            iffalse ofs0035
+                                                                                                            pop
+                                                                                                            getlocal0
+                                                                                                            getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"playReversed")
+                                                                                                            not
+                                                                                                   ofs0035:
+                                                                                                            iffalse ofs0072
+                                                                                                            getlocal0
+                                                                                                            findpropstrict QName(PackageNamespace("flash.utils"),"Timer")
+                                                                                                            getlocal0
+                                                                                                            getproperty QName(PackageNamespace(""),"startDelay")
+                                                                                                            pushbyte 1
+                                                                                                            constructprop QName(PackageNamespace("flash.utils"),"Timer"), 2
+                                                                                                            initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                                                                            getlocal0
+                                                                                                            findpropstrict QName(PackageNamespace("flash.utils"),"getTimer")
+                                                                                                            callproperty QName(PackageNamespace("flash.utils"),"getTimer"), 0
+                                                                                                            initproperty QName(PrivateNamespace(null,"61"),"delayStartTime")
+                                                                                                            getlocal0
+                                                                                                            getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                                                                            getlex QName(PackageNamespace("flash.events"),"TimerEvent")
+                                                                                                            getproperty QName(PackageNamespace(""),"TIMER")
+                                                                                                            getlocal0
+                                                                                                            getproperty QName(PrivateNamespace(null,"61"),"delayTimerHandler")
+                                                                                                            callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                                                                                                            getlocal0
+                                                                                                            getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                                                                            callpropvoid QName(PackageNamespace(""),"start"), 0
+                                                                                                            jump ofs0077
+                                                                                                   ofs0072:
+                                                                                                            getlocal0
+                                                                                                            callpropvoid QName(PackageNamespace(""),"play"), 0
+                                                                                                   ofs0077:
+                                                                                                            returnvoid
+                                                                                                         end ; code
+                                                                                                      end ; body
+                                                                                                   end ; method
+                                                                                                }
+                                                                                                
+                                                                                                public function play() : void
+                                                                                                {
+                                                                                                   trait method QName(PackageNamespace(""),"play")
+                                                                                                      dispid 0
+                                                                                                      method
+                                                                                                         name null
+                                                                                                         returns QName(PackageNamespace(""),"void")
+                                                                                                         
+                                                                                                         body
+                                                                                                            maxstack 6
+                                                                                                            localcount 3
+                                                                                                            initscopedepth 5
+                                                                                                            maxscopedepth 6
+                                                                                                            
+                                                                                                            code
+                                                                                                               getlocal0
+                                                                                                               pushscope
+                                                                                                               getlocal0
+                                                                                                               dup
+                                                                                                               setlocal1
+                                                                                                               getproperty QName(ProtectedNamespace("mx.effects:EffectInstance"),"playCount")
+                                                                                                               increment_i
+                                                                                                               setlocal2
+                                                                                                               getlocal1
+                                                                                                               getlocal2
+                                                                                                               setproperty QName(ProtectedNamespace("mx.effects:EffectInstance"),"playCount")
+                                                                                                               kill 2
+                                                                                                               kill 1
+                                                                                                               findpropstrict QName(PackageNamespace(""),"dispatchEvent")
+                                                                                                               findpropstrict QName(PackageNamespace("mx.events"),"EffectEvent")
+                                                                                                               getlex QName(PackageNamespace("mx.events"),"EffectEvent")
+                                                                                                               getproperty QName(PackageNamespace(""),"EFFECT_START")
+                                                                                                               pushfalse
+                                                                                                               pushfalse
+                                                                                                               getlocal0
+                                                                                                               constructprop QName(PackageNamespace("mx.events"),"EffectEvent"), 4
+                                                                                                               callpropvoid QName(PackageNamespace(""),"dispatchEvent"), 1
+                                                                                                               getlocal0
+                                                                                                               getproperty QName(PackageNamespace(""),"target")
+                                                                                                               convert_b
+                                                                                                               dup
+                                                                                                               iffalse ofs0039
+                                                                                                               pop
+                                                                                                               getlocal0
+                                                                                                               getproperty QName(PackageNamespace(""),"target")
+                                                                                                               getlex QName(PackageNamespace("flash.events"),"IEventDispatcher")
+                                                                                                               istypelate
+                                                                                                      ofs0039:
+                                                                                                               iffalse ofs0052
+                                                                                                               getlocal0
+                                                                                                               getproperty QName(PackageNamespace(""),"target")
+                                                                                                               findpropstrict QName(PackageNamespace("mx.events"),"EffectEvent")
+                                                                                                               getlex QName(PackageNamespace("mx.events"),"EffectEvent")
+                                                                                                               getproperty QName(PackageNamespace(""),"EFFECT_START")
+                                                                                                               pushfalse
+                                                                                                               pushfalse
+                                                                                                               getlocal0
+                                                                                                               constructprop QName(PackageNamespace("mx.events"),"EffectEvent"), 4
+                                                                                                               callpropvoid Multiname("dispatchEvent",[PrivateNamespace(null,"61"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PackageNamespace("mx.effects"),ProtectedNamespace("mx.effects:EffectInstance"),PrivateNamespace(null,"162"),PackageInternalNs("mx.effects"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("mx.effects:EffectInstance"),StaticProtectedNs("flash.events:EventDispatcher")]), 1
+                                                                                                      ofs0052:
+                                                                                                               returnvoid
+                                                                                                            end ; code
+                                                                                                         end ; body
+                                                                                                      end ; method
+                                                                                                   }
+                                                                                                   
+                                                                                                   public function pause() : void
+                                                                                                   {
+                                                                                                      trait method QName(PackageNamespace(""),"pause")
+                                                                                                         dispid 0
+                                                                                                         method
+                                                                                                            name null
+                                                                                                            returns QName(PackageNamespace(""),"void")
+                                                                                                            
+                                                                                                            body
+                                                                                                               maxstack 3
+                                                                                                               localcount 1
+                                                                                                               initscopedepth 5
+                                                                                                               maxscopedepth 6
+                                                                                                               
+                                                                                                               code
+                                                                                                                  getlocal0
+                                                                                                                  pushscope
+                                                                                                                  getlocal0
+                                                                                                                  getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                                                                                  coerce_a
+                                                                                                                  convert_b
+                                                                                                                  dup
+                                                                                                                  iffalse ofs0017
+                                                                                                                  pop
+                                                                                                                  getlocal0
+                                                                                                                  getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                                                                                  getproperty QName(PackageNamespace(""),"running")
+                                                                                                                  coerce_a
+                                                                                                                  convert_b
+                                                                                                         ofs0017:
+                                                                                                                  dup
+                                                                                                                  iffalse ofs0029
+                                                                                                                  pop
+                                                                                                                  findpropstrict QName(PackageNamespace(""),"isNaN")
+                                                                                                                  getlocal0
+                                                                                                                  getproperty QName(PrivateNamespace(null,"61"),"delayStartTime")
+                                                                                                                  callproperty QName(PackageNamespace(""),"isNaN"), 1
+                                                                                                                  not
+                                                                                                         ofs0029:
+                                                                                                                  iffalse ofs0045
+                                                                                                                  getlocal0
+                                                                                                                  getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                                                                                  callpropvoid QName(PackageNamespace(""),"stop"), 0
+                                                                                                                  getlocal0
+                                                                                                                  findpropstrict QName(PackageNamespace("flash.utils"),"getTimer")
+                                                                                                                  callproperty QName(PackageNamespace("flash.utils"),"getTimer"), 0
+                                                                                                                  getlocal0
+                                                                                                                  getproperty QName(PrivateNamespace(null,"61"),"delayStartTime")
+                                                                                                                  subtract
+                                                                                                                  initproperty QName(PrivateNamespace(null,"61"),"delayElapsedTime")
+                                                                                                         ofs0045:
+                                                                                                                  returnvoid
+                                                                                                               end ; code
+                                                                                                            end ; body
+                                                                                                         end ; method
+                                                                                                      }
+                                                                                                      
+                                                                                                      public function stop() : void
+                                                                                                      {
+                                                                                                         trait method QName(PackageNamespace(""),"stop")
+                                                                                                            dispid 0
+                                                                                                            method
+                                                                                                               name null
+                                                                                                               returns QName(PackageNamespace(""),"void")
+                                                                                                               
+                                                                                                               body
+                                                                                                                  maxstack 6
+                                                                                                                  localcount 1
+                                                                                                                  initscopedepth 5
+                                                                                                                  maxscopedepth 6
+                                                                                                                  
+                                                                                                                  code
+                                                                                                                     getlocal0
+                                                                                                                     pushscope
+                                                                                                                     getlocal0
+                                                                                                                     getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                                                                                     iffalse ofs0012
+                                                                                                                     getlocal0
+                                                                                                                     getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                                                                                     callpropvoid QName(PackageNamespace(""),"reset"), 0
+                                                                                                            ofs0012:
+                                                                                                                     getlocal0
+                                                                                                                     pushtrue
+                                                                                                                     initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"stopRepeat")
+                                                                                                                     findpropstrict QName(PackageNamespace(""),"dispatchEvent")
+                                                                                                                     findpropstrict QName(PackageNamespace("mx.events"),"EffectEvent")
+                                                                                                                     getlex QName(PackageNamespace("mx.events"),"EffectEvent")
+                                                                                                                     getproperty QName(PackageNamespace(""),"EFFECT_STOP")
+                                                                                                                     pushfalse
+                                                                                                                     pushfalse
+                                                                                                                     getlocal0
+                                                                                                                     constructprop QName(PackageNamespace("mx.events"),"EffectEvent"), 4
+                                                                                                                     callpropvoid QName(PackageNamespace(""),"dispatchEvent"), 1
+                                                                                                                     getlocal0
+                                                                                                                     getproperty QName(PackageNamespace(""),"target")
+                                                                                                                     convert_b
+                                                                                                                     dup
+                                                                                                                     iffalse ofs003d
+                                                                                                                     pop
+                                                                                                                     getlocal0
+                                                                                                                     getproperty QName(PackageNamespace(""),"target")
+                                                                                                                     getlex QName(PackageNamespace("flash.events"),"IEventDispatcher")
+                                                                                                                     istypelate
+                                                                                                            ofs003d:
+                                                                                                                     iffalse ofs0056
+                                                                                                                     getlocal0
+                                                                                                                     getproperty QName(PackageNamespace(""),"target")
+                                                                                                                     findpropstrict QName(PackageNamespace("mx.events"),"EffectEvent")
+                                                                                                                     getlex QName(PackageNamespace("mx.events"),"EffectEvent")
+                                                                                                                     getproperty QName(PackageNamespace(""),"EFFECT_STOP")
+                                                                                                                     pushfalse
+                                                                                                                     pushfalse
+                                                                                                                     getlocal0
+                                                                                                                     constructprop QName(PackageNamespace("mx.events"),"EffectEvent"), 4
+                                                                                                                     callpropvoid Multiname("dispatchEvent",[PrivateNamespace(null,"61"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PackageNamespace("mx.effects"),ProtectedNamespace("mx.effects:EffectInstance"),PrivateNamespace(null,"162"),PackageInternalNs("mx.effects"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("mx.effects:EffectInstance"),StaticProtectedNs("flash.events:EventDispatcher")]), 1
+                                                                                                            ofs0056:
+                                                                                                                     getlocal0
+                                                                                                                     callpropvoid QName(PackageNamespace(""),"finishEffect"), 0
+                                                                                                                     returnvoid
+                                                                                                                  end ; code
+                                                                                                               end ; body
+                                                                                                            end ; method
+                                                                                                         }
+                                                                                                         
+                                                                                                         public function resume() : void
+                                                                                                         {
+                                                                                                            trait method QName(PackageNamespace(""),"resume")
+                                                                                                               dispid 0
+                                                                                                               method
+                                                                                                                  name null
+                                                                                                                  returns QName(PackageNamespace(""),"void")
+                                                                                                                  
+                                                                                                                  body
+                                                                                                                     maxstack 3
+                                                                                                                     localcount 1
+                                                                                                                     initscopedepth 5
+                                                                                                                     maxscopedepth 6
+                                                                                                                     
+                                                                                                                     code
+                                                                                                                        getlocal0
+                                                                                                                        pushscope
+                                                                                                                        getlocal0
+                                                                                                                        getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                                                                                        coerce_a
+                                                                                                                        convert_b
+                                                                                                                        dup
+                                                                                                                        iffalse ofs0018
+                                                                                                                        pop
+                                                                                                                        getlocal0
+                                                                                                                        getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                                                                                        getproperty QName(PackageNamespace(""),"running")
+                                                                                                                        not
+                                                                                                                        coerce_a
+                                                                                                                        convert_b
+                                                                                                               ofs0018:
+                                                                                                                        dup
+                                                                                                                        iffalse ofs002a
+                                                                                                                        pop
+                                                                                                                        findpropstrict QName(PackageNamespace(""),"isNaN")
+                                                                                                                        getlocal0
+                                                                                                                        getproperty QName(PrivateNamespace(null,"61"),"delayElapsedTime")
+                                                                                                                        callproperty QName(PackageNamespace(""),"isNaN"), 1
+                                                                                                                        not
+                                                                                                               ofs002a:
+                                                                                                                        iffalse ofs0066
+                                                                                                                        getlocal0
+                                                                                                                        getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                                                                                        getlocal0
+                                                                                                                        getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"playReversed")
+                                                                                                                        iftrue ofs004b
+                                                                                                                        getlocal0
+                                                                                                                        getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                                                                                        getproperty QName(PackageNamespace(""),"delay")
+                                                                                                                        getlocal0
+                                                                                                                        getproperty QName(PrivateNamespace(null,"61"),"delayElapsedTime")
+                                                                                                                        subtract
+                                                                                                                        convert_d
+                                                                                                                        jump ofs0050
+                                                                                                               ofs004b:
+                                                                                                                        getlocal0
+                                                                                                                        getproperty QName(PrivateNamespace(null,"61"),"delayElapsedTime")
+                                                                                                                        convert_d
+                                                                                                               ofs0050:
+                                                                                                                        setproperty QName(PackageNamespace(""),"delay")
+                                                                                                                        getlocal0
+                                                                                                                        findpropstrict QName(PackageNamespace("flash.utils"),"getTimer")
+                                                                                                                        callproperty QName(PackageNamespace("flash.utils"),"getTimer"), 0
+                                                                                                                        initproperty QName(PrivateNamespace(null,"61"),"delayStartTime")
+                                                                                                                        getlocal0
+                                                                                                                        getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                                                                                        callpropvoid QName(PackageNamespace(""),"start"), 0
+                                                                                                               ofs0066:
+                                                                                                                        returnvoid
+                                                                                                                     end ; code
+                                                                                                                  end ; body
+                                                                                                               end ; method
+                                                                                                            }
+                                                                                                            
+                                                                                                            public function reverse() : void
+                                                                                                            {
+                                                                                                               trait method QName(PackageNamespace(""),"reverse")
+                                                                                                                  dispid 0
+                                                                                                                  method
+                                                                                                                     name null
+                                                                                                                     returns QName(PackageNamespace(""),"void")
+                                                                                                                     
+                                                                                                                     body
+                                                                                                                        maxstack 3
+                                                                                                                        localcount 1
+                                                                                                                        initscopedepth 5
+                                                                                                                        maxscopedepth 6
+                                                                                                                        
+                                                                                                                        code
+                                                                                                                           getlocal0
+                                                                                                                           pushscope
+                                                                                                                           getlocal0
+                                                                                                                           getproperty QName(PackageNamespace(""),"repeatCount")
+                                                                                                                           pushbyte 0
+                                                                                                                           ifngt ofs001c
+                                                                                                                           getlocal0
+                                                                                                                           getlocal0
+                                                                                                                           getproperty QName(PackageNamespace(""),"repeatCount")
+                                                                                                                           getlocal0
+                                                                                                                           getproperty QName(ProtectedNamespace("mx.effects:EffectInstance"),"playCount")
+                                                                                                                           subtract
+                                                                                                                           pushbyte 1
+                                                                                                                           add
+                                                                                                                           initproperty QName(ProtectedNamespace("mx.effects:EffectInstance"),"playCount")
+                                                                                                                  ofs001c:
+                                                                                                                           returnvoid
+                                                                                                                        end ; code
+                                                                                                                     end ; body
+                                                                                                                  end ; method
+                                                                                                               }
+                                                                                                               
+                                                                                                               public function end() : void
+                                                                                                               {
+                                                                                                                  trait method QName(PackageNamespace(""),"end")
+                                                                                                                     dispid 0
+                                                                                                                     method
+                                                                                                                        name null
+                                                                                                                        returns QName(PackageNamespace(""),"void")
+                                                                                                                        
+                                                                                                                        body
+                                                                                                                           maxstack 2
+                                                                                                                           localcount 1
+                                                                                                                           initscopedepth 5
+                                                                                                                           maxscopedepth 6
+                                                                                                                           
+                                                                                                                           code
+                                                                                                                              getlocal0
+                                                                                                                              pushscope
+                                                                                                                              getlocal0
+                                                                                                                              getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                                                                                              iffalse ofs0012
+                                                                                                                              getlocal0
+                                                                                                                              getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                                                                                              callpropvoid QName(PackageNamespace(""),"reset"), 0
+                                                                                                                     ofs0012:
+                                                                                                                              getlocal0
+                                                                                                                              pushtrue
+                                                                                                                              initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"stopRepeat")
+                                                                                                                              getlocal0
+                                                                                                                              callpropvoid QName(PackageNamespace(""),"finishEffect"), 0
+                                                                                                                              returnvoid
+                                                                                                                           end ; code
+                                                                                                                        end ; body
+                                                                                                                     end ; method
+                                                                                                                  }
+                                                                                                                  
+                                                                                                                  public function finishEffect() : void
+                                                                                                                  {
+                                                                                                                     trait method QName(PackageNamespace(""),"finishEffect")
+                                                                                                                        dispid 0
+                                                                                                                        method
+                                                                                                                           name null
+                                                                                                                           returns QName(PackageNamespace(""),"void")
+                                                                                                                           
+                                                                                                                           body
+                                                                                                                              maxstack 6
+                                                                                                                              localcount 1
+                                                                                                                              initscopedepth 5
+                                                                                                                              maxscopedepth 6
+                                                                                                                              
+                                                                                                                              code
+                                                                                                                                 getlocal0
+                                                                                                                                 pushscope
+                                                                                                                                 getlocal0
+                                                                                                                                 pushbyte 0
+                                                                                                                                 initproperty QName(ProtectedNamespace("mx.effects:EffectInstance"),"playCount")
+                                                                                                                                 findpropstrict QName(PackageNamespace(""),"dispatchEvent")
+                                                                                                                                 findpropstrict QName(PackageNamespace("mx.events"),"EffectEvent")
+                                                                                                                                 getlex QName(PackageNamespace("mx.events"),"EffectEvent")
+                                                                                                                                 getproperty QName(PackageNamespace(""),"EFFECT_END")
+                                                                                                                                 pushfalse
+                                                                                                                                 pushfalse
+                                                                                                                                 getlocal0
+                                                                                                                                 constructprop QName(PackageNamespace("mx.events"),"EffectEvent"), 4
+                                                                                                                                 callpropvoid QName(PackageNamespace(""),"dispatchEvent"), 1
+                                                                                                                                 getlocal0
+                                                                                                                                 getproperty QName(PackageNamespace(""),"target")
+                                                                                                                                 convert_b
+                                                                                                                                 dup
+                                                                                                                                 iffalse ofs002e
+                                                                                                                                 pop
+                                                                                                                                 getlocal0
+                                                                                                                                 getproperty QName(PackageNamespace(""),"target")
+                                                                                                                                 getlex QName(PackageNamespace("flash.events"),"IEventDispatcher")
+                                                                                                                                 istypelate
+                                                                                                                        ofs002e:
+                                                                                                                                 iffalse ofs0047
+                                                                                                                                 getlocal0
+                                                                                                                                 getproperty QName(PackageNamespace(""),"target")
+                                                                                                                                 findpropstrict QName(PackageNamespace("mx.events"),"EffectEvent")
+                                                                                                                                 getlex QName(PackageNamespace("mx.events"),"EffectEvent")
+                                                                                                                                 getproperty QName(PackageNamespace(""),"EFFECT_END")
+                                                                                                                                 pushfalse
+                                                                                                                                 pushfalse
+                                                                                                                                 getlocal0
+                                                                                                                                 constructprop QName(PackageNamespace("mx.events"),"EffectEvent"), 4
+                                                                                                                                 callpropvoid Multiname("dispatchEvent",[PrivateNamespace(null,"61"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PackageNamespace("mx.effects"),ProtectedNamespace("mx.effects:EffectInstance"),PrivateNamespace(null,"162"),PackageInternalNs("mx.effects"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("mx.effects:EffectInstance"),StaticProtectedNs("flash.events:EventDispatcher")]), 1
+                                                                                                                        ofs0047:
+                                                                                                                                 getlocal0
+                                                                                                                                 getproperty QName(PackageNamespace(""),"target")
+                                                                                                                                 getlex QName(PackageNamespace("mx.core"),"UIComponent")
+                                                                                                                                 istypelate
+                                                                                                                                 iffalse ofs0060
+                                                                                                                                 findpropstrict QName(PackageNamespace("mx.core"),"UIComponent")
+                                                                                                                                 getlocal0
+                                                                                                                                 getproperty QName(PackageNamespace(""),"target")
+                                                                                                                                 callproperty QName(PackageNamespace("mx.core"),"UIComponent"), 1
+                                                                                                                                 getlocal0
+                                                                                                                                 callpropvoid QName(PackageNamespace(""),"effectFinished"), 1
+                                                                                                                        ofs0060:
+                                                                                                                                 getlex QName(PackageNamespace("mx.effects"),"EffectManager")
+                                                                                                                                 getlocal0
+                                                                                                                                 callpropvoid QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"effectFinished"), 1
+                                                                                                                                 returnvoid
+                                                                                                                              end ; code
+                                                                                                                           end ; body
+                                                                                                                        end ; method
+                                                                                                                     }
+                                                                                                                     
+                                                                                                                     public function finishRepeat() : void
+                                                                                                                     {
+                                                                                                                        trait method QName(PackageNamespace(""),"finishRepeat")
+                                                                                                                           dispid 0
+                                                                                                                           method
+                                                                                                                              name null
+                                                                                                                              returns QName(PackageNamespace(""),"void")
+                                                                                                                              
+                                                                                                                              body
+                                                                                                                                 maxstack 4
+                                                                                                                                 localcount 1
+                                                                                                                                 initscopedepth 5
+                                                                                                                                 maxscopedepth 6
+                                                                                                                                 
+                                                                                                                                 code
+                                                                                                                                    getlocal0
+                                                                                                                                    pushscope
+                                                                                                                                    getlocal0
+                                                                                                                                    getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"stopRepeat")
+                                                                                                                                    not
+                                                                                                                                    dup
+                                                                                                                                    iffalse ofs0015
+                                                                                                                                    pop
+                                                                                                                                    getlocal0
+                                                                                                                                    getproperty QName(ProtectedNamespace("mx.effects:EffectInstance"),"playCount")
+                                                                                                                                    pushbyte 0
+                                                                                                                                    equals
+                                                                                                                                    not
+                                                                                                                           ofs0015:
+                                                                                                                                    dup
+                                                                                                                                    iffalse ofs0031
+                                                                                                                                    pop
+                                                                                                                                    getlocal0
+                                                                                                                                    getproperty QName(ProtectedNamespace("mx.effects:EffectInstance"),"playCount")
+                                                                                                                                    getlocal0
+                                                                                                                                    getproperty QName(PackageNamespace(""),"repeatCount")
+                                                                                                                                    lessthan
+                                                                                                                                    dup
+                                                                                                                                    iftrue ofs0031
+                                                                                                                                    pop
+                                                                                                                                    getlocal0
+                                                                                                                                    getproperty QName(PackageNamespace(""),"repeatCount")
+                                                                                                                                    pushbyte 0
+                                                                                                                                    equals
+                                                                                                                           ofs0031:
+                                                                                                                                    iffalse ofs0081
+                                                                                                                                    getlocal0
+                                                                                                                                    getproperty QName(PackageNamespace(""),"repeatDelay")
+                                                                                                                                    pushbyte 0
+                                                                                                                                    ifngt ofs0078
+                                                                                                                                    getlocal0
+                                                                                                                                    findpropstrict QName(PackageNamespace("flash.utils"),"Timer")
+                                                                                                                                    getlocal0
+                                                                                                                                    getproperty QName(PackageNamespace(""),"repeatDelay")
+                                                                                                                                    pushbyte 1
+                                                                                                                                    constructprop QName(PackageNamespace("flash.utils"),"Timer"), 2
+                                                                                                                                    initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                                                                                                    getlocal0
+                                                                                                                                    findpropstrict QName(PackageNamespace("flash.utils"),"getTimer")
+                                                                                                                                    callproperty QName(PackageNamespace("flash.utils"),"getTimer"), 0
+                                                                                                                                    initproperty QName(PrivateNamespace(null,"61"),"delayStartTime")
+                                                                                                                                    getlocal0
+                                                                                                                                    getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                                                                                                    getlex QName(PackageNamespace("flash.events"),"TimerEvent")
+                                                                                                                                    getproperty QName(PackageNamespace(""),"TIMER")
+                                                                                                                                    getlocal0
+                                                                                                                                    getproperty QName(PrivateNamespace(null,"61"),"delayTimerHandler")
+                                                                                                                                    callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                                                                                                                                    getlocal0
+                                                                                                                                    getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                                                                                                    callpropvoid QName(PackageNamespace(""),"start"), 0
+                                                                                                                                    jump ofs007d
+                                                                                                                           ofs0078:
+                                                                                                                                    getlocal0
+                                                                                                                                    callpropvoid QName(PackageNamespace(""),"play"), 0
+                                                                                                                           ofs007d:
+                                                                                                                                    jump ofs0086
+                                                                                                                           ofs0081:
+                                                                                                                                    getlocal0
+                                                                                                                                    callpropvoid QName(PackageNamespace(""),"finishEffect"), 0
+                                                                                                                           ofs0086:
+                                                                                                                                    returnvoid
+                                                                                                                                 end ; code
+                                                                                                                              end ; body
+                                                                                                                           end ; method
+                                                                                                                        }
+                                                                                                                        
+                                                                                                                        mx_internal function playWithNoDuration() : void
+                                                                                                                        {
+                                                                                                                           trait method QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"playWithNoDuration")
+                                                                                                                              dispid 0
+                                                                                                                              method
+                                                                                                                                 name null
+                                                                                                                                 returns QName(PackageNamespace(""),"void")
+                                                                                                                                 
+                                                                                                                                 body
+                                                                                                                                    maxstack 2
+                                                                                                                                    localcount 1
+                                                                                                                                    initscopedepth 5
+                                                                                                                                    maxscopedepth 6
+                                                                                                                                    
+                                                                                                                                    code
+                                                                                                                                       getlocal0
+                                                                                                                                       pushscope
+                                                                                                                                       getlocal0
+                                                                                                                                       pushbyte 0
+                                                                                                                                       initproperty QName(PackageNamespace(""),"duration")
+                                                                                                                                       getlocal0
+                                                                                                                                       pushbyte 1
+                                                                                                                                       initproperty QName(PackageNamespace(""),"repeatCount")
+                                                                                                                                       getlocal0
+                                                                                                                                       pushbyte 0
+                                                                                                                                       initproperty QName(PackageNamespace(""),"repeatDelay")
+                                                                                                                                       getlocal0
+                                                                                                                                       pushbyte 0
+                                                                                                                                       initproperty QName(PackageNamespace(""),"startDelay")
+                                                                                                                                       getlocal0
+                                                                                                                                       callpropvoid QName(PackageNamespace(""),"startEffect"), 0
+                                                                                                                                       returnvoid
+                                                                                                                                    end ; code
+                                                                                                                                 end ; body
+                                                                                                                              end ; method
+                                                                                                                           }
+                                                                                                                           
+                                                                                                                           mx_internal function eventHandler(param1:Event) : void
+                                                                                                                           {
+                                                                                                                              trait method QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"eventHandler")
+                                                                                                                                 dispid 0
+                                                                                                                                 method
+                                                                                                                                    name null
+                                                                                                                                    param QName(PackageNamespace("flash.events"),"Event")
+                                                                                                                                    returns QName(PackageNamespace(""),"void")
+                                                                                                                                    
+                                                                                                                                    body
+                                                                                                                                       maxstack 3
+                                                                                                                                       localcount 2
+                                                                                                                                       initscopedepth 5
+                                                                                                                                       maxscopedepth 6
+                                                                                                                                       
+                                                                                                                                       code
+                                                                                                                                          getlocal0
+                                                                                                                                          pushscope
+                                                                                                                                          getlocal1
+                                                                                                                                          getproperty QName(PackageNamespace(""),"type")
+                                                                                                                                          getlex QName(PackageNamespace("mx.events"),"FlexEvent")
+                                                                                                                                          getproperty QName(PackageNamespace(""),"SHOW")
+                                                                                                                                          equals
+                                                                                                                                          dup
+                                                                                                                                          iffalse ofs0018
+                                                                                                                                          pop
+                                                                                                                                          getlocal0
+                                                                                                                                          getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"hideOnEffectEnd")
+                                                                                                                                          pushtrue
+                                                                                                                                          equals
+                                                                                                                                 ofs0018:
+                                                                                                                                          iffalse ofs0032
+                                                                                                                                          getlocal0
+                                                                                                                                          pushfalse
+                                                                                                                                          initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"hideOnEffectEnd")
+                                                                                                                                          getlocal1
+                                                                                                                                          getproperty QName(PackageNamespace(""),"target")
+                                                                                                                                          getlex QName(PackageNamespace("mx.events"),"FlexEvent")
+                                                                                                                                          getproperty QName(PackageNamespace(""),"SHOW")
+                                                                                                                                          getlocal0
+                                                                                                                                          getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"eventHandler")
+                                                                                                                                          callpropvoid Multiname("removeEventListener",[PrivateNamespace(null,"61"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PackageNamespace("mx.effects"),ProtectedNamespace("mx.effects:EffectInstance"),PrivateNamespace(null,"162"),PackageInternalNs("mx.effects"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("mx.effects:EffectInstance"),StaticProtectedNs("flash.events:EventDispatcher")]), 2
+                                                                                                                                 ofs0032:
+                                                                                                                                          returnvoid
+                                                                                                                                       end ; code
+                                                                                                                                    end ; body
+                                                                                                                                 end ; method
+                                                                                                                              }
+                                                                                                                              
+                                                                                                                              private function delayTimerHandler(param1:TimerEvent) : void
+                                                                                                                              {
+                                                                                                                                 trait method QName(PrivateNamespace(null,"61"),"delayTimerHandler")
+                                                                                                                                    dispid 0
+                                                                                                                                    method
+                                                                                                                                       name null
+                                                                                                                                       param QName(PackageNamespace("flash.events"),"TimerEvent")
+                                                                                                                                       returns QName(PackageNamespace(""),"void")
+                                                                                                                                       
+                                                                                                                                       body
+                                                                                                                                          maxstack 2
+                                                                                                                                          localcount 2
+                                                                                                                                          initscopedepth 5
+                                                                                                                                          maxscopedepth 6
+                                                                                                                                          
+                                                                                                                                          code
+                                                                                                                                             getlocal0
+                                                                                                                                             pushscope
+                                                                                                                                             getlocal0
+                                                                                                                                             getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"delayTimer")
+                                                                                                                                             callpropvoid QName(PackageNamespace(""),"reset"), 0
+                                                                                                                                             getlocal0
+                                                                                                                                             getlex QName(PackageNamespace(""),"NaN")
+                                                                                                                                             initproperty QName(PrivateNamespace(null,"61"),"delayStartTime")
+                                                                                                                                             getlocal0
+                                                                                                                                             getlex QName(PackageNamespace(""),"NaN")
+                                                                                                                                             initproperty QName(PrivateNamespace(null,"61"),"delayElapsedTime")
+                                                                                                                                             getlocal0
+                                                                                                                                             callpropvoid QName(PackageNamespace(""),"play"), 0
+                                                                                                                                             returnvoid
+                                                                                                                                          end ; code
+                                                                                                                                       end ; body
+                                                                                                                                    end ; method
+                                                                                                                                 }
+                                                                                                                              }
+                                                                                                                           }
+                                                                                                                           
+                                                                                                                           method
+                                                                                                                              name null
+                                                                                                                              returns null
+                                                                                                                              
+                                                                                                                              body
+                                                                                                                                 maxstack 2
+                                                                                                                                 localcount 1
+                                                                                                                                 initscopedepth 1
+                                                                                                                                 maxscopedepth 4
+                                                                                                                                 
+                                                                                                                                 code
+                                                                                                                                    getlocal0
+                                                                                                                                    pushscope
+                                                                                                                                    findpropstrict Multiname("EffectInstance",[PackageNamespace("mx.effects")])
+                                                                                                                                    getlex QName(PackageNamespace(""),"Object")
+                                                                                                                                    pushscope
+                                                                                                                                    getlex QName(PackageNamespace("flash.events"),"EventDispatcher")
+                                                                                                                                    pushscope
+                                                                                                                                    getlex QName(PackageNamespace("flash.events"),"EventDispatcher")
+                                                                                                                                    newclass 205
+                                                                                                                                    popscope
+                                                                                                                                    popscope
+                                                                                                                                    initproperty QName(PackageNamespace("mx.effects"),"EffectInstance")
+                                                                                                                                    returnvoid
+                                                                                                                                 end ; code
+                                                                                                                              end ; body
+                                                                                                                           end ; method
+                                                                                                                           

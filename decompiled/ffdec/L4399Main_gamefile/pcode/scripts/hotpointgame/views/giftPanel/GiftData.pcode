@@ -1,0 +1,940 @@
+package hotpointgame.views.giftPanel
+{
+   import hotpointgame.common.*;
+   import hotpointgame.models.gift.*;
+   import hotpointgame.repository.gift.*;
+   import hotpointgame.utils.*;
+   
+   public class GiftData
+   {
+      
+      private static var jfArr:Array;
+      
+      public static var jfLength:VT;
+      
+      public static var ptArr:Array;
+      
+      public static var ptLength:VT;
+      
+      private static var saveArr:Array;
+      
+      public static var CzBo:Boolean = false;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 3
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(PrivateNamespace(null,"389"),"jfArr")
+               newarray 0
+               setproperty QName(PrivateNamespace(null,"389"),"jfArr")
+               findproperty QName(PackageNamespace(""),"jfLength")
+               getlex Multiname("VT",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.common")])
+               getlex Multiname("GS",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.common")])
+               getproperty Multiname("a0",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+               callproperty Multiname("createVT",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 1
+               setproperty QName(PackageNamespace(""),"jfLength")
+               findproperty QName(PackageNamespace(""),"ptArr")
+               newarray 0
+               setproperty QName(PackageNamespace(""),"ptArr")
+               findproperty QName(PackageNamespace(""),"ptLength")
+               getlex Multiname("VT",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.common")])
+               getlex Multiname("GS",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.common")])
+               getproperty Multiname("a0",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+               callproperty Multiname("createVT",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 1
+               setproperty QName(PackageNamespace(""),"ptLength")
+               findproperty QName(PrivateNamespace(null,"389"),"saveArr")
+               newarray 0
+               setproperty QName(PrivateNamespace(null,"389"),"saveArr")
+               findproperty QName(PackageNamespace(""),"CzBo")
+               pushfalse
+               setproperty QName(PackageNamespace(""),"CzBo")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      public function GiftData()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 1
+               localcount 1
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public static function initData() : void
+      {
+         trait method QName(PackageNamespace(""),"initData")
+            flag FINAL
+            dispid 3
+            method
+               name null
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 4
+                  localcount 1
+                  initscopedepth 3
+                  maxscopedepth 4
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     findproperty Multiname("jfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                     findpropstrict Multiname("getArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                     getlex Multiname("GiftFactory",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                     getlex Multiname("GS",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.common")])
+                     getproperty Multiname("a0",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                     callproperty Multiname("getJfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 1
+                     getlex Multiname("GS",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.common")])
+                     getproperty Multiname("a6",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                     callproperty Multiname("getArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 2
+                     setproperty Multiname("jfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                     findproperty Multiname("jfLength",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                     getlex Multiname("VT",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.common")])
+                     getlex Multiname("jfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                     getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                     callproperty Multiname("createVT",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 1
+                     setproperty Multiname("jfLength",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                     findproperty Multiname("ptArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                     findpropstrict Multiname("getArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                     getlex Multiname("GiftFactory",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                     getlex Multiname("GS",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.common")])
+                     getproperty Multiname("a1",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                     callproperty Multiname("getJfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 1
+                     getlex Multiname("GS",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.common")])
+                     getproperty Multiname("a3",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                     callproperty Multiname("getArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 2
+                     setproperty Multiname("ptArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                     findproperty Multiname("ptLength",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                     getlex Multiname("VT",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.common")])
+                     getlex Multiname("ptArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                     getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                     callproperty Multiname("createVT",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 1
+                     setproperty Multiname("ptLength",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                     findpropstrict Multiname("readFun",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                     callpropvoid Multiname("readFun",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 0
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public static function readFun() : void
+         {
+            trait method QName(PackageNamespace(""),"readFun")
+               flag FINAL
+               dispid 4
+               method
+                  name null
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 4
+                     localcount 4
+                     initscopedepth 3
+                     maxscopedepth 4
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        pushbyte 0
+                        convert_u
+                        setlocal1
+                        pushbyte 0
+                        convert_u
+                        setlocal2
+                        pushbyte 0
+                        convert_u
+                        setlocal3
+                        getlex Multiname("saveArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getlex Multiname("GS",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.common")])
+                        getproperty Multiname("a0",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        ifeq ofs0164
+                        pushbyte 0
+                        convert_u
+                        setlocal1
+                        jump ofs00ae
+               ofs002a:
+                        label
+                        pushbyte 0
+                        convert_u
+                        setlocal2
+                        jump ofs0098
+               ofs0033:
+                        label
+                        pushbyte 0
+                        convert_u
+                        setlocal3
+                        jump ofs0087
+               ofs003c:
+                        label
+                        getlex Multiname("jfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getlocal1
+                        getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getlocal2
+                        getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getlex Multiname("Gift",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.models.gift")])
+                        astypelate
+                        callproperty Multiname("getId",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 0
+                        getlex Multiname("saveArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getlocal3
+                        getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getlex Multiname("Gift",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.models.gift")])
+                        astypelate
+                        callproperty Multiname("getId",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 0
+                        ifne ofs0083
+                        getlex Multiname("jfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getlocal1
+                        getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getlocal2
+                        getlex Multiname("saveArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getlocal3
+                        getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        setproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+               ofs0083:
+                        getlocal3
+                        increment
+                        convert_u
+                        setlocal3
+               ofs0087:
+                        getlocal3
+                        getlex Multiname("saveArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        iflt ofs003c
+                        getlocal2
+                        increment
+                        convert_u
+                        setlocal2
+               ofs0098:
+                        getlocal2
+                        getlex Multiname("jfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getlocal1
+                        getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        iflt ofs0033
+                        getlocal1
+                        increment
+                        convert_u
+                        setlocal1
+               ofs00ae:
+                        getlocal1
+                        getlex Multiname("jfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        iflt ofs002a
+                        pushbyte 0
+                        convert_u
+                        setlocal1
+                        jump ofs0147
+               ofs00c3:
+                        label
+                        pushbyte 0
+                        convert_u
+                        setlocal2
+                        jump ofs0131
+               ofs00cc:
+                        label
+                        pushbyte 0
+                        convert_u
+                        setlocal3
+                        jump ofs0120
+               ofs00d5:
+                        label
+                        getlex Multiname("ptArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getlocal1
+                        getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getlocal2
+                        getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getlex Multiname("Gift",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.models.gift")])
+                        astypelate
+                        callproperty Multiname("getId",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 0
+                        getlex Multiname("saveArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getlocal3
+                        getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getlex Multiname("Gift",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.models.gift")])
+                        astypelate
+                        callproperty Multiname("getId",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 0
+                        ifne ofs011c
+                        getlex Multiname("ptArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getlocal1
+                        getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getlocal2
+                        getlex Multiname("saveArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getlocal3
+                        getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        setproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+               ofs011c:
+                        getlocal3
+                        increment
+                        convert_u
+                        setlocal3
+               ofs0120:
+                        getlocal3
+                        getlex Multiname("saveArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        iflt ofs00d5
+                        getlocal2
+                        increment
+                        convert_u
+                        setlocal2
+               ofs0131:
+                        getlocal2
+                        getlex Multiname("ptArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getlocal1
+                        getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        iflt ofs00cc
+                        getlocal1
+                        increment
+                        convert_u
+                        setlocal1
+               ofs0147:
+                        getlocal1
+                        getlex Multiname("ptArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        iflt ofs00c3
+                        getlex Multiname("saveArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        getlex Multiname("GS",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.common")])
+                        getproperty Multiname("a0",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                        setproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+               ofs0164:
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public static function save() : Object
+            {
+               trait method QName(PackageNamespace(""),"save")
+                  flag FINAL
+                  dispid 5
+                  method
+                     name null
+                     returns QName(PackageNamespace(""),"Object")
+                     
+                     body
+                        maxstack 3
+                        localcount 6
+                        initscopedepth 3
+                        maxscopedepth 4
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           pushbyte 0
+                           convert_u
+                           setlocal 4
+                           pushnull
+                           coerce QName(PackageNamespace("hotpointgame.models.gift"),"Gift")
+                           setlocal 5
+                           findpropstrict Multiname("Object",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                           constructprop Multiname("Object",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 0
+                           coerce QName(PackageNamespace(""),"Object")
+                           setlocal1
+                           newarray 0
+                           coerce QName(PackageNamespace(""),"Array")
+                           setlocal2
+                           pushbyte 0
+                           convert_u
+                           setlocal3
+                           jump ofs0084
+                  ofs0025:
+                           label
+                           pushbyte 0
+                           convert_u
+                           setlocal 4
+                           jump ofs006d
+                  ofs002f:
+                           label
+                           getlex Multiname("jfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                           getlocal3
+                           getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                           getlocal 4
+                           getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                           getlex Multiname("Gift",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.models.gift")])
+                           astypelate
+                           coerce QName(PackageNamespace("hotpointgame.models.gift"),"Gift")
+                           dup
+                           setlocal 5
+                           callproperty Multiname("getState",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 0
+                           getlex Multiname("GS",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.common")])
+                           getproperty Multiname("a0",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                           ifeq ofs0067
+                           getlocal2
+                           getlocal 5
+                           callproperty Multiname("save",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 0
+                           callpropvoid Multiname("push",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 1
+                  ofs0067:
+                           getlocal 4
+                           increment
+                           convert_u
+                           setlocal 4
+                  ofs006d:
+                           getlocal 4
+                           getlex Multiname("jfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                           getlocal3
+                           getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                           getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                           iflt ofs002f
+                           getlocal3
+                           increment
+                           convert_u
+                           setlocal3
+                  ofs0084:
+                           getlocal3
+                           getlex Multiname("jfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                           getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                           iflt ofs0025
+                           pushbyte 0
+                           convert_u
+                           setlocal3
+                           jump ofs00f8
+                  ofs0099:
+                           label
+                           pushbyte 0
+                           convert_u
+                           setlocal 4
+                           jump ofs00e1
+                  ofs00a3:
+                           label
+                           getlex Multiname("ptArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                           getlocal3
+                           getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                           getlocal 4
+                           getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                           getlex Multiname("Gift",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.models.gift")])
+                           astypelate
+                           coerce QName(PackageNamespace("hotpointgame.models.gift"),"Gift")
+                           dup
+                           setlocal 5
+                           callproperty Multiname("getState",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 0
+                           getlex Multiname("GS",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.common")])
+                           getproperty Multiname("a0",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                           ifeq ofs00db
+                           getlocal2
+                           getlocal 5
+                           callproperty Multiname("save",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 0
+                           callpropvoid Multiname("push",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 1
+                  ofs00db:
+                           getlocal 4
+                           increment
+                           convert_u
+                           setlocal 4
+                  ofs00e1:
+                           getlocal 4
+                           getlex Multiname("ptArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                           getlocal3
+                           getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                           getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                           iflt ofs00a3
+                           getlocal3
+                           increment
+                           convert_u
+                           setlocal3
+                  ofs00f8:
+                           getlocal3
+                           getlex Multiname("ptArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                           getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                           iflt ofs0099
+                           getlocal1
+                           pushstring "sav"
+                           getlocal2
+                           setproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                           getlocal1
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public static function read(param1:Object) : void
+               {
+                  trait method QName(PackageNamespace(""),"read")
+                     flag FINAL
+                     dispid 6
+                     method
+                        name null
+                        param QName(PackageNamespace(""),"Object")
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 4
+                           localcount 4
+                           initscopedepth 3
+                           maxscopedepth 4
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlex Multiname("saveArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                              getlex Multiname("GS",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.common")])
+                              getproperty Multiname("a0",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                              setproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                              getlocal1
+                              pushstring "sav"
+                              getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                              coerce QName(PackageNamespace(""),"Array")
+                              setlocal2
+                              pushbyte 0
+                              convert_u
+                              setlocal3
+                              jump ofs0042
+                     ofs0025:
+                              label
+                              getlex Multiname("saveArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                              getlex Multiname("Gift",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.models.gift")])
+                              getlocal2
+                              getlocal3
+                              getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                              callproperty Multiname("read",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 1
+                              callpropvoid Multiname("push",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 1
+                              getlocal3
+                              increment
+                              convert_u
+                              setlocal3
+                     ofs0042:
+                              getlocal3
+                              getlocal2
+                              getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                              iflt ofs0025
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public static function closeData() : void
+                  {
+                     trait method QName(PackageNamespace(""),"closeData")
+                        flag FINAL
+                        dispid 7
+                        method
+                           name null
+                           returns QName(PackageNamespace(""),"void")
+                           
+                           body
+                              maxstack 2
+                              localcount 1
+                              initscopedepth 3
+                              maxscopedepth 4
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlex Multiname("saveArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                 getlex Multiname("GS",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.common")])
+                                 getproperty Multiname("a0",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                 setproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                 findproperty Multiname("CzBo",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                 pushfalse
+                                 setproperty Multiname("CzBo",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     private static function getArr(param1:Array, param2:Number) : Array
+                     {
+                        trait method QName(PrivateNamespace(null,"389"),"getArr")
+                           flag FINAL
+                           dispid 8
+                           method
+                              name null
+                              param QName(PackageNamespace(""),"Array")
+                              param QName(PackageNamespace(""),"Number")
+                              returns QName(PackageNamespace(""),"Array")
+                              
+                              body
+                                 maxstack 4
+                                 localcount 6
+                                 initscopedepth 3
+                                 maxscopedepth 4
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlex Multiname("DeepCopyUtil",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.utils")])
+                                    getlocal1
+                                    callproperty Multiname("clone",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 1
+                                    coerce QName(PackageNamespace(""),"Array")
+                                    setlocal3
+                                    newarray 0
+                                    coerce QName(PackageNamespace(""),"Array")
+                                    setlocal 4
+                                    pushbyte 0
+                                    convert_u
+                                    setlocal 5
+                                    jump ofs0066
+                           ofs001e:
+                                    label
+                                    getlocal3
+                                    getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                    getlocal2
+                                    ifnge ofs003d
+                                    getlocal 4
+                                    getlocal3
+                                    pushbyte 0
+                                    getlocal2
+                                    callproperty Multiname("splice",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 2
+                                    callpropvoid Multiname("push",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 1
+                                    jump ofs005b
+                           ofs003d:
+                                    getlocal3
+                                    getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                    pushbyte 0
+                                    ifngt ofs005b
+                                    getlocal 4
+                                    getlocal3
+                                    pushbyte 0
+                                    callproperty Multiname("splice",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 1
+                                    callpropvoid Multiname("push",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 1
+                                    jump ofs0071
+                           ofs005b:
+                                    getlocal 5
+                                    decrement
+                                    convert_u
+                                    dup
+                                    setlocal 5
+                                    increment
+                                    convert_u
+                                    setlocal 5
+                           ofs0066:
+                                    getlocal 5
+                                    getlocal3
+                                    getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                    iflt ofs001e
+                           ofs0071:
+                                    getlocal 4
+                                    returnvalue
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        public static function getJfByCuYe(param1:Number, param2:Number) : Gift
+                        {
+                           trait method QName(PackageNamespace(""),"getJfByCuYe")
+                              flag FINAL
+                              dispid 9
+                              method
+                                 name null
+                                 param QName(PackageNamespace(""),"Number")
+                                 param QName(PackageNamespace(""),"Number")
+                                 returns QName(PackageNamespace("hotpointgame.models.gift"),"Gift")
+                                 
+                                 body
+                                    maxstack 2
+                                    localcount 3
+                                    initscopedepth 3
+                                    maxscopedepth 4
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlex Multiname("jfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                       getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                       getlex Multiname("GS",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.common")])
+                                       getproperty Multiname("a0",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                       ifngt ofs0038
+                                       getlex Multiname("jfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                       getlocal1
+                                       getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                       getlocal2
+                                       getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                       pushnull
+                                       ifeq ofs0038
+                                       getlex Multiname("jfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                       getlocal1
+                                       getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                       getlocal2
+                                       getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                       returnvalue
+                              ofs0038:
+                                       pushnull
+                                       returnvalue
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           public static function getPtByCuYe(param1:Number, param2:Number) : Gift
+                           {
+                              trait method QName(PackageNamespace(""),"getPtByCuYe")
+                                 flag FINAL
+                                 dispid 10
+                                 method
+                                    name null
+                                    param QName(PackageNamespace(""),"Number")
+                                    param QName(PackageNamespace(""),"Number")
+                                    returns QName(PackageNamespace("hotpointgame.models.gift"),"Gift")
+                                    
+                                    body
+                                       maxstack 2
+                                       localcount 3
+                                       initscopedepth 3
+                                       maxscopedepth 4
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlex Multiname("ptArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                          getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                          getlex Multiname("GS",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.common")])
+                                          getproperty Multiname("a0",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                          ifngt ofs0038
+                                          getlex Multiname("ptArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                          getlocal1
+                                          getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                          getlocal2
+                                          getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                          pushnull
+                                          ifeq ofs0038
+                                          getlex Multiname("ptArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                          getlocal1
+                                          getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                          getlocal2
+                                          getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                          returnvalue
+                                 ofs0038:
+                                          pushnull
+                                          returnvalue
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              public static function getJfLength() : Number
+                              {
+                                 trait method QName(PackageNamespace(""),"getJfLength")
+                                    flag FINAL
+                                    dispid 11
+                                    method
+                                       name null
+                                       returns QName(PackageNamespace(""),"Number")
+                                       
+                                       body
+                                          maxstack 1
+                                          localcount 1
+                                          initscopedepth 3
+                                          maxscopedepth 4
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlex Multiname("jfLength",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                             callproperty Multiname("getValue",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 0
+                                             returnvalue
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 public static function getGiftByReslutId(param1:Number) : Gift
+                                 {
+                                    trait method QName(PackageNamespace(""),"getGiftByReslutId")
+                                       flag FINAL
+                                       dispid 12
+                                       method
+                                          name null
+                                          param QName(PackageNamespace(""),"Number")
+                                          returns QName(PackageNamespace("hotpointgame.models.gift"),"Gift")
+                                          
+                                          body
+                                             maxstack 3
+                                             localcount 4
+                                             initscopedepth 3
+                                             maxscopedepth 4
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                pushbyte 0
+                                                convert_u
+                                                setlocal3
+                                                pushbyte 0
+                                                convert_u
+                                                setlocal2
+                                                jump ofs005e
+                                       ofs000e:
+                                                label
+                                                pushbyte 0
+                                                convert_u
+                                                setlocal3
+                                                jump ofs0048
+                                       ofs0017:
+                                                label
+                                                getlex Multiname("jfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                                getlocal2
+                                                getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                                getlocal3
+                                                getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                                getlex Multiname("Gift",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.models.gift")])
+                                                astypelate
+                                                callproperty Multiname("getResultId",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 0
+                                                getlocal1
+                                                ifne ofs0044
+                                                getlex Multiname("jfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                                getlocal2
+                                                getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                                getlocal3
+                                                getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                                returnvalue
+                                       ofs0044:
+                                                getlocal3
+                                                increment
+                                                convert_u
+                                                setlocal3
+                                       ofs0048:
+                                                getlocal3
+                                                getlex Multiname("jfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                                getlocal2
+                                                getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                                getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                                iflt ofs0017
+                                                getlocal2
+                                                increment
+                                                convert_u
+                                                setlocal2
+                                       ofs005e:
+                                                getlocal2
+                                                getlex Multiname("jfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                                getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                                iflt ofs000e
+                                                pushnull
+                                                returnvalue
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    public static function getGiftById(param1:Number) : Gift
+                                    {
+                                       trait method QName(PackageNamespace(""),"getGiftById")
+                                          flag FINAL
+                                          dispid 13
+                                          method
+                                             name null
+                                             param QName(PackageNamespace(""),"Number")
+                                             returns QName(PackageNamespace("hotpointgame.models.gift"),"Gift")
+                                             
+                                             body
+                                                maxstack 3
+                                                localcount 4
+                                                initscopedepth 3
+                                                maxscopedepth 4
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   pushbyte 0
+                                                   convert_u
+                                                   setlocal3
+                                                   pushbyte 0
+                                                   convert_u
+                                                   setlocal2
+                                                   jump ofs005e
+                                          ofs000e:
+                                                   label
+                                                   pushbyte 0
+                                                   convert_u
+                                                   setlocal3
+                                                   jump ofs0048
+                                          ofs0017:
+                                                   label
+                                                   getlex Multiname("jfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                                   getlocal2
+                                                   getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                                   getlocal3
+                                                   getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                                   getlex Multiname("Gift",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData"),PackageNamespace("hotpointgame.models.gift")])
+                                                   astypelate
+                                                   callproperty Multiname("getId",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")]), 0
+                                                   getlocal1
+                                                   ifne ofs0044
+                                                   getlex Multiname("jfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                                   getlocal2
+                                                   getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                                   getlocal3
+                                                   getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                                   returnvalue
+                                          ofs0044:
+                                                   getlocal3
+                                                   increment
+                                                   convert_u
+                                                   setlocal3
+                                          ofs0048:
+                                                   getlocal3
+                                                   getlex Multiname("jfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                                   getlocal2
+                                                   getproperty MultinameL([PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                                   getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                                   iflt ofs0017
+                                                   getlocal2
+                                                   increment
+                                                   convert_u
+                                                   setlocal2
+                                          ofs005e:
+                                                   getlocal2
+                                                   getlex Multiname("jfArr",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                                   getproperty Multiname("length",[PrivateNamespace(null,"389"),PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift"),ProtectedNamespace("hotpointgame.views.giftPanel:GiftData"),StaticProtectedNs("hotpointgame.views.giftPanel:GiftData")])
+                                                   iflt ofs000e
+                                                   pushnull
+                                                   returnvalue
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                    }
+                                 }
+                                 
+                                 method
+                                    name null
+                                    returns null
+                                    
+                                    body
+                                       maxstack 2
+                                       localcount 1
+                                       initscopedepth 1
+                                       maxscopedepth 3
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          findpropstrict Multiname("GiftData",[PackageNamespace("hotpointgame.views.giftPanel")])
+                                          getlex QName(PackageNamespace(""),"Object")
+                                          pushscope
+                                          getlex Multiname("Object",[PackageNamespace(""),PrivateNamespace(null,"566"),PackageNamespace("hotpointgame.views.giftPanel"),PackageInternalNs("hotpointgame.views.giftPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.gift")])
+                                          newclass 134
+                                          popscope
+                                          initproperty QName(PackageNamespace("hotpointgame.views.giftPanel"),"GiftData")
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                                 

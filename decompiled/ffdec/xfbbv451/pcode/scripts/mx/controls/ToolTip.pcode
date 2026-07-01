@@ -1,0 +1,878 @@
+package mx.controls
+{
+   import flash.display.DisplayObject;
+   import flash.text.TextFieldAutoSize;
+   import flash.text.TextFormat;
+   import mx.core.EdgeMetrics;
+   import mx.core.IFlexDisplayObject;
+   import mx.core.IFlexModuleFactory;
+   import mx.core.IFontContextComponent;
+   import mx.core.IRectangularBorder;
+   import mx.core.IToolTip;
+   import mx.core.IUITextField;
+   import mx.core.UIComponent;
+   import mx.core.UITextField;
+   import mx.core.mx_internal;
+   import mx.styles.ISimpleStyleClient;
+   
+   use namespace mx_internal;
+   
+   public class ToolTip extends UIComponent implements IToolTip, IFontContextComponent
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      public static var maxWidth:Number = 300;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 10
+            maxscopedepth 11
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               findproperty QName(PackageNamespace(""),"maxWidth")
+               pushshort 300
+               setproperty QName(PackageNamespace(""),"maxWidth")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      mx_internal var border:IFlexDisplayObject;
+      
+      private var _text:String;
+      
+      private var textChanged:Boolean;
+      
+      protected var textField:IUITextField;
+      
+      public function ToolTip()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 2
+               localcount 1
+               initscopedepth 11
+               maxscopedepth 12
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  findproperty QName(PackageNamespace(""),"mouseEnabled")
+                  pushfalse
+                  initproperty QName(PackageNamespace(""),"mouseEnabled")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      private function get borderMetrics() : EdgeMetrics
+      {
+         trait getter QName(PrivateNamespace(null,"66"),"borderMetrics")
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace("mx.core"),"EdgeMetrics")
+               
+               body
+                  maxstack 2
+                  localcount 1
+                  initscopedepth 11
+                  maxscopedepth 12
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"border")
+                     getlex QName(PackageNamespace("mx.core"),"IRectangularBorder")
+                     istypelate
+                     iffalse ofs001d
+                     findpropstrict QName(PackageNamespace("mx.core"),"IRectangularBorder")
+                     getlocal0
+                     getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"border")
+                     callproperty QName(PackageNamespace("mx.core"),"IRectangularBorder"), 1
+                     getproperty QName(Namespace("mx.core:IBorder"),"borderMetrics")
+                     returnvalue
+            ofs001d:
+                     getlex QName(PackageNamespace("mx.core"),"EdgeMetrics")
+                     getproperty QName(PackageNamespace(""),"EMPTY")
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function get fontContext() : IFlexModuleFactory
+         {
+            trait getter QName(PackageNamespace(""),"fontContext")
+               dispid 0
+               method
+                  name null
+                  returns QName(PackageNamespace("mx.core"),"IFlexModuleFactory")
+                  
+                  body
+                     maxstack 1
+                     localcount 1
+                     initscopedepth 11
+                     maxscopedepth 12
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlex QName(PackageNamespace(""),"moduleFactory")
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function set fontContext(param1:IFlexModuleFactory) : void
+            {
+               trait setter QName(PackageNamespace(""),"fontContext")
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace("mx.core"),"IFlexModuleFactory")
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 2
+                        localcount 2
+                        initscopedepth 11
+                        maxscopedepth 12
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           getlocal1
+                           setproperty QName(PackageNamespace(""),"moduleFactory")
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function get text() : String
+               {
+                  trait getter QName(PackageNamespace(""),"text")
+                     dispid 0
+                     method
+                        name null
+                        returns QName(PackageNamespace(""),"String")
+                        
+                        body
+                           maxstack 1
+                           localcount 1
+                           initscopedepth 11
+                           maxscopedepth 12
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"66"),"_text")
+                              returnvalue
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function set text(param1:String) : void
+                  {
+                     trait setter QName(PackageNamespace(""),"text")
+                        dispid 0
+                        method
+                           name null
+                           param QName(PackageNamespace(""),"String")
+                           returns QName(PackageNamespace(""),"void")
+                           
+                           body
+                              maxstack 2
+                              localcount 2
+                              initscopedepth 11
+                              maxscopedepth 12
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal0
+                                 getlocal1
+                                 initproperty QName(PrivateNamespace(null,"66"),"_text")
+                                 getlocal0
+                                 pushtrue
+                                 initproperty QName(PrivateNamespace(null,"66"),"textChanged")
+                                 findpropstrict QName(PackageNamespace(""),"invalidateProperties")
+                                 callpropvoid QName(PackageNamespace(""),"invalidateProperties"), 0
+                                 findpropstrict QName(PackageNamespace(""),"invalidateSize")
+                                 callpropvoid QName(PackageNamespace(""),"invalidateSize"), 0
+                                 findpropstrict QName(PackageNamespace(""),"invalidateDisplayList")
+                                 callpropvoid QName(PackageNamespace(""),"invalidateDisplayList"), 0
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     override protected function createChildren() : void
+                     {
+                        trait method QName(ProtectedNamespace("mx.controls:ToolTip"),"createChildren")
+                           flag OVERRIDE
+                           dispid 0
+                           method
+                              name null
+                              returns QName(PackageNamespace(""),"void")
+                              
+                              body
+                                 maxstack 2
+                                 localcount 1
+                                 initscopedepth 11
+                                 maxscopedepth 12
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlocal0
+                                    callsupervoid QName(ProtectedNamespace("mx.core:UIComponent"),"createChildren"), 0
+                                    getlocal0
+                                    callpropvoid QName(PrivateNamespace(null,"66"),"createBorder"), 0
+                                    getlocal0
+                                    pushbyte -1
+                                    callpropvoid QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"createTextField"), 1
+                                    returnvoid
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        override protected function commitProperties() : void
+                        {
+                           trait method QName(ProtectedNamespace("mx.controls:ToolTip"),"commitProperties")
+                              flag OVERRIDE
+                              dispid 0
+                              method
+                                 name null
+                                 returns QName(PackageNamespace(""),"void")
+                                 
+                                 body
+                                    maxstack 3
+                                    localcount 3
+                                    initscopedepth 11
+                                    maxscopedepth 12
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       pushbyte 0
+                                       setlocal1
+                                       pushnull
+                                       coerce QName(PackageNamespace("flash.text"),"TextFormat")
+                                       setlocal2
+                                       getlocal0
+                                       callsupervoid QName(ProtectedNamespace("mx.core:UIComponent"),"commitProperties"), 0
+                                       findpropstrict QName(PackageNamespace(""),"hasFontContextChanged")
+                                       callproperty QName(PackageNamespace(""),"hasFontContextChanged"), 0
+                                       convert_b
+                                       dup
+                                       iffalse ofs0023
+                                       pop
+                                       getlocal0
+                                       getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                       pushnull
+                                       equals
+                                       not
+                              ofs0023:
+                                       iffalse ofs0050
+                                       findpropstrict QName(PackageNamespace(""),"getChildIndex")
+                                       findpropstrict QName(PackageNamespace("flash.display"),"DisplayObject")
+                                       getlocal0
+                                       getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                       callproperty QName(PackageNamespace("flash.display"),"DisplayObject"), 1
+                                       callproperty QName(PackageNamespace(""),"getChildIndex"), 1
+                                       convert_i
+                                       setlocal1
+                                       getlocal0
+                                       callpropvoid QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"removeTextField"), 0
+                                       getlocal0
+                                       getlocal1
+                                       callpropvoid QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"createTextField"), 1
+                                       findpropstrict QName(PackageNamespace(""),"invalidateSize")
+                                       callpropvoid QName(PackageNamespace(""),"invalidateSize"), 0
+                                       getlocal0
+                                       pushtrue
+                                       initproperty QName(PrivateNamespace(null,"66"),"textChanged")
+                              ofs0050:
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"66"),"textChanged")
+                                       iffalse ofs0087
+                                       getlocal0
+                                       getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                       callproperty QName(Namespace("mx.core:IUITextField"),"getTextFormat"), 0
+                                       coerce QName(PackageNamespace("flash.text"),"TextFormat")
+                                       setlocal2
+                                       getlocal2
+                                       pushbyte 0
+                                       setproperty QName(PackageNamespace(""),"leftMargin")
+                                       getlocal2
+                                       pushbyte 0
+                                       setproperty QName(PackageNamespace(""),"rightMargin")
+                                       getlocal0
+                                       getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                       getlocal2
+                                       setproperty QName(Namespace("mx.core:IUITextField"),"defaultTextFormat")
+                                       getlocal0
+                                       getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"66"),"_text")
+                                       setproperty QName(Namespace("mx.core:IUITextField"),"text")
+                                       getlocal0
+                                       pushfalse
+                                       initproperty QName(PrivateNamespace(null,"66"),"textChanged")
+                              ofs0087:
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           override protected function measure() : void
+                           {
+                              trait method QName(ProtectedNamespace("mx.controls:ToolTip"),"measure")
+                                 flag OVERRIDE
+                                 dispid 0
+                                 method
+                                    name null
+                                    returns QName(PackageNamespace(""),"void")
+                                    
+                                    body
+                                       maxstack 3
+                                       localcount 8
+                                       initscopedepth 11
+                                       maxscopedepth 12
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlocal0
+                                          callsupervoid QName(ProtectedNamespace("mx.core:UIComponent"),"measure"), 0
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"66"),"borderMetrics")
+                                          coerce QName(PackageNamespace("mx.core"),"EdgeMetrics")
+                                          setlocal1
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"left")
+                                          findpropstrict QName(PackageNamespace(""),"getStyle")
+                                          pushstring "paddingLeft"
+                                          callproperty QName(PackageNamespace(""),"getStyle"), 1
+                                          add
+                                          convert_d
+                                          setlocal2
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"top")
+                                          findpropstrict QName(PackageNamespace(""),"getStyle")
+                                          pushstring "paddingTop"
+                                          callproperty QName(PackageNamespace(""),"getStyle"), 1
+                                          add
+                                          convert_d
+                                          setlocal3
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"right")
+                                          findpropstrict QName(PackageNamespace(""),"getStyle")
+                                          pushstring "paddingRight"
+                                          callproperty QName(PackageNamespace(""),"getStyle"), 1
+                                          add
+                                          convert_d
+                                          setlocal 4
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"bottom")
+                                          findpropstrict QName(PackageNamespace(""),"getStyle")
+                                          pushstring "paddingBottom"
+                                          callproperty QName(PackageNamespace(""),"getStyle"), 1
+                                          add
+                                          convert_d
+                                          setlocal 5
+                                          getlocal2
+                                          getlocal 4
+                                          add
+                                          convert_d
+                                          setlocal 6
+                                          getlocal3
+                                          getlocal 5
+                                          add
+                                          convert_d
+                                          setlocal 7
+                                          getlocal0
+                                          getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                          pushfalse
+                                          setproperty QName(Namespace("mx.core:IUITextField"),"wordWrap")
+                                          getlocal0
+                                          getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                          getproperty QName(Namespace("mx.core:IUITextField"),"textWidth")
+                                          getlocal 6
+                                          add
+                                          getlex QName(PackageNamespace("mx.controls"),"ToolTip")
+                                          getproperty QName(PackageNamespace(""),"maxWidth")
+                                          ifngt ofs0096
+                                          getlocal0
+                                          getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                          getlex QName(PackageNamespace("mx.controls"),"ToolTip")
+                                          getproperty QName(PackageNamespace(""),"maxWidth")
+                                          getlocal 6
+                                          subtract
+                                          setproperty QName(Namespace("mx.core:IFlexDisplayObject"),"width")
+                                          getlocal0
+                                          getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                          pushtrue
+                                          setproperty QName(Namespace("mx.core:IUITextField"),"wordWrap")
+                                 ofs0096:
+                                          findproperty QName(PackageNamespace(""),"measuredWidth")
+                                          getlocal0
+                                          getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                          getproperty QName(Namespace("mx.core:IFlexDisplayObject"),"width")
+                                          getlocal 6
+                                          add
+                                          initproperty QName(PackageNamespace(""),"measuredWidth")
+                                          findproperty QName(PackageNamespace(""),"measuredHeight")
+                                          getlocal0
+                                          getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                          getproperty QName(Namespace("mx.core:IFlexDisplayObject"),"height")
+                                          getlocal 7
+                                          add
+                                          initproperty QName(PackageNamespace(""),"measuredHeight")
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              override protected function updateDisplayList(param1:Number, param2:Number) : void
+                              {
+                                 trait method QName(ProtectedNamespace("mx.controls:ToolTip"),"updateDisplayList")
+                                    flag OVERRIDE
+                                    dispid 0
+                                    method
+                                       name null
+                                       param QName(PackageNamespace(""),"Number")
+                                       param QName(PackageNamespace(""),"Number")
+                                       returns QName(PackageNamespace(""),"void")
+                                       
+                                       body
+                                          maxstack 4
+                                          localcount 10
+                                          initscopedepth 11
+                                          maxscopedepth 12
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlocal0
+                                             getlocal1
+                                             getlocal2
+                                             callsupervoid QName(ProtectedNamespace("mx.core:UIComponent"),"updateDisplayList"), 2
+                                             getlocal0
+                                             getproperty QName(PrivateNamespace(null,"66"),"borderMetrics")
+                                             coerce QName(PackageNamespace("mx.core"),"EdgeMetrics")
+                                             setlocal3
+                                             getlocal3
+                                             getproperty QName(PackageNamespace(""),"left")
+                                             findpropstrict QName(PackageNamespace(""),"getStyle")
+                                             pushstring "paddingLeft"
+                                             callproperty QName(PackageNamespace(""),"getStyle"), 1
+                                             add
+                                             convert_d
+                                             setlocal 4
+                                             getlocal3
+                                             getproperty QName(PackageNamespace(""),"top")
+                                             findpropstrict QName(PackageNamespace(""),"getStyle")
+                                             pushstring "paddingTop"
+                                             callproperty QName(PackageNamespace(""),"getStyle"), 1
+                                             add
+                                             convert_d
+                                             setlocal 5
+                                             getlocal3
+                                             getproperty QName(PackageNamespace(""),"right")
+                                             findpropstrict QName(PackageNamespace(""),"getStyle")
+                                             pushstring "paddingRight"
+                                             callproperty QName(PackageNamespace(""),"getStyle"), 1
+                                             add
+                                             convert_d
+                                             setlocal 6
+                                             getlocal3
+                                             getproperty QName(PackageNamespace(""),"bottom")
+                                             findpropstrict QName(PackageNamespace(""),"getStyle")
+                                             pushstring "paddingBottom"
+                                             callproperty QName(PackageNamespace(""),"getStyle"), 1
+                                             add
+                                             convert_d
+                                             setlocal 7
+                                             getlocal 4
+                                             getlocal 6
+                                             add
+                                             convert_d
+                                             setlocal 8
+                                             getlocal 5
+                                             getlocal 7
+                                             add
+                                             convert_d
+                                             setlocal 9
+                                             getlocal0
+                                             getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"border")
+                                             getlocal1
+                                             getlocal2
+                                             callpropvoid QName(Namespace("mx.core:IFlexDisplayObject"),"setActualSize"), 2
+                                             getlocal0
+                                             getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                             getlocal 4
+                                             getlocal 5
+                                             callpropvoid QName(Namespace("mx.core:IFlexDisplayObject"),"move"), 2
+                                             getlocal0
+                                             getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                             getlocal1
+                                             getlocal 8
+                                             subtract
+                                             getlocal2
+                                             getlocal 9
+                                             subtract
+                                             callpropvoid QName(Namespace("mx.core:IFlexDisplayObject"),"setActualSize"), 2
+                                             returnvoid
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 override public function styleChanged(param1:String) : void
+                                 {
+                                    trait method QName(PackageNamespace(""),"styleChanged")
+                                       flag OVERRIDE
+                                       dispid 0
+                                       method
+                                          name null
+                                          param QName(PackageNamespace(""),"String")
+                                          returns QName(PackageNamespace(""),"void")
+                                          
+                                          body
+                                             maxstack 3
+                                             localcount 2
+                                             initscopedepth 11
+                                             maxscopedepth 12
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                getlocal0
+                                                getlocal1
+                                                callsupervoid QName(PackageNamespace(""),"styleChanged"), 1
+                                                getlocal1
+                                                pushstring "styleName"
+                                                equals
+                                                dup
+                                                iftrue ofs0018
+                                                pop
+                                                getlocal1
+                                                pushstring "borderSkin"
+                                                equals
+                                       ofs0018:
+                                                dup
+                                                iftrue ofs0021
+                                                pop
+                                                getlocal1
+                                                pushnull
+                                                equals
+                                       ofs0021:
+                                                iffalse ofs004b
+                                                getlocal0
+                                                getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"border")
+                                                iffalse ofs0042
+                                                findpropstrict QName(PackageNamespace(""),"removeChild")
+                                                findpropstrict QName(PackageNamespace("flash.display"),"DisplayObject")
+                                                getlocal0
+                                                getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"border")
+                                                callproperty QName(PackageNamespace("flash.display"),"DisplayObject"), 1
+                                                callpropvoid QName(PackageNamespace(""),"removeChild"), 1
+                                                getlocal0
+                                                pushnull
+                                                initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"border")
+                                       ofs0042:
+                                                getlocal0
+                                                callpropvoid QName(PrivateNamespace(null,"66"),"createBorder"), 0
+                                                jump ofs005a
+                                       ofs004b:
+                                                getlocal1
+                                                pushstring "borderStyle"
+                                                ifne ofs005a
+                                                findpropstrict QName(PackageNamespace(""),"invalidateDisplayList")
+                                                callpropvoid QName(PackageNamespace(""),"invalidateDisplayList"), 0
+                                       ofs005a:
+                                                returnvoid
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    mx_internal function createTextField(param1:int) : void
+                                    {
+                                       trait method QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"createTextField")
+                                          dispid 0
+                                          method
+                                             name null
+                                             param QName(PackageNamespace(""),"int")
+                                             returns QName(PackageNamespace(""),"void")
+                                             
+                                             body
+                                                maxstack 4
+                                                localcount 2
+                                                initscopedepth 11
+                                                maxscopedepth 12
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   getlocal0
+                                                   getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                                   iftrue ofs007e
+                                                   getlocal0
+                                                   findpropstrict QName(PackageNamespace("mx.core"),"IUITextField")
+                                                   findpropstrict QName(ProtectedNamespace("mx.core:UIComponent"),"createInFontContext")
+                                                   getlex QName(PackageNamespace("mx.core"),"UITextField")
+                                                   callproperty QName(ProtectedNamespace("mx.core:UIComponent"),"createInFontContext"), 1
+                                                   callproperty QName(PackageNamespace("mx.core"),"IUITextField"), 1
+                                                   initproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                                   getlocal0
+                                                   getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                                   getlex QName(PackageNamespace("flash.text"),"TextFieldAutoSize")
+                                                   getproperty QName(PackageNamespace(""),"LEFT")
+                                                   setproperty QName(Namespace("mx.core:IUITextField"),"autoSize")
+                                                   getlocal0
+                                                   getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                                   pushfalse
+                                                   setproperty QName(Namespace("mx.core:IUITextField"),"mouseEnabled")
+                                                   getlocal0
+                                                   getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                                   pushtrue
+                                                   setproperty QName(Namespace("mx.core:IUITextField"),"multiline")
+                                                   getlocal0
+                                                   getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                                   pushfalse
+                                                   setproperty QName(Namespace("mx.core:IUITextField"),"selectable")
+                                                   getlocal0
+                                                   getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                                   pushfalse
+                                                   setproperty QName(Namespace("mx.core:IUITextField"),"wordWrap")
+                                                   getlocal0
+                                                   getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                                   getlocal0
+                                                   setproperty QName(Namespace("mx.styles:ISimpleStyleClient"),"styleName")
+                                                   getlocal1
+                                                   pushbyte -1
+                                                   ifne ofs006d
+                                                   findpropstrict QName(PackageNamespace(""),"addChild")
+                                                   findpropstrict QName(PackageNamespace("flash.display"),"DisplayObject")
+                                                   getlocal0
+                                                   getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                                   callproperty QName(PackageNamespace("flash.display"),"DisplayObject"), 1
+                                                   callpropvoid QName(PackageNamespace(""),"addChild"), 1
+                                                   jump ofs007e
+                                          ofs006d:
+                                                   findpropstrict QName(PackageNamespace(""),"addChildAt")
+                                                   findpropstrict QName(PackageNamespace("flash.display"),"DisplayObject")
+                                                   getlocal0
+                                                   getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                                   callproperty QName(PackageNamespace("flash.display"),"DisplayObject"), 1
+                                                   getlocal1
+                                                   callpropvoid QName(PackageNamespace(""),"addChildAt"), 2
+                                          ofs007e:
+                                                   returnvoid
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                       
+                                       mx_internal function removeTextField() : void
+                                       {
+                                          trait method QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"removeTextField")
+                                             dispid 0
+                                             method
+                                                name null
+                                                returns QName(PackageNamespace(""),"void")
+                                                
+                                                body
+                                                   maxstack 3
+                                                   localcount 1
+                                                   initscopedepth 11
+                                                   maxscopedepth 12
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      getlocal0
+                                                      getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                                      iffalse ofs001f
+                                                      findpropstrict QName(PackageNamespace(""),"removeChild")
+                                                      findpropstrict QName(PackageNamespace("flash.display"),"DisplayObject")
+                                                      getlocal0
+                                                      getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                                      callproperty QName(PackageNamespace("flash.display"),"DisplayObject"), 1
+                                                      callpropvoid QName(PackageNamespace(""),"removeChild"), 1
+                                                      getlocal0
+                                                      pushnull
+                                                      initproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                             ofs001f:
+                                                      returnvoid
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                          }
+                                          
+                                          mx_internal function getTextField() : IUITextField
+                                          {
+                                             trait method QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"getTextField")
+                                                dispid 0
+                                                method
+                                                   name null
+                                                   returns QName(PackageNamespace("mx.core"),"IUITextField")
+                                                   
+                                                   body
+                                                      maxstack 1
+                                                      localcount 1
+                                                      initscopedepth 11
+                                                      maxscopedepth 12
+                                                      
+                                                      code
+                                                         getlocal0
+                                                         pushscope
+                                                         getlocal0
+                                                         getproperty QName(ProtectedNamespace("mx.controls:ToolTip"),"textField")
+                                                         returnvalue
+                                                      end ; code
+                                                   end ; body
+                                                end ; method
+                                             }
+                                             
+                                             private function createBorder() : void
+                                             {
+                                                trait method QName(PrivateNamespace(null,"66"),"createBorder")
+                                                   dispid 0
+                                                   method
+                                                      name null
+                                                      returns QName(PackageNamespace(""),"void")
+                                                      
+                                                      body
+                                                         maxstack 3
+                                                         localcount 2
+                                                         initscopedepth 11
+                                                         maxscopedepth 12
+                                                         
+                                                         code
+                                                            getlocal0
+                                                            pushscope
+                                                            pushnull
+                                                            coerce QName(PackageNamespace(""),"Class")
+                                                            setlocal1
+                                                            getlocal0
+                                                            getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"border")
+                                                            iftrue ofs005c
+                                                            findpropstrict QName(PackageNamespace(""),"getStyle")
+                                                            pushstring "borderSkin"
+                                                            callproperty QName(PackageNamespace(""),"getStyle"), 1
+                                                            coerce QName(PackageNamespace(""),"Class")
+                                                            setlocal1
+                                                            getlocal1
+                                                            pushnull
+                                                            ifeq ofs005c
+                                                            getlocal0
+                                                            getlocal1
+                                                            construct 0
+                                                            initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"border")
+                                                            getlocal0
+                                                            getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"border")
+                                                            getlex QName(PackageNamespace("mx.styles"),"ISimpleStyleClient")
+                                                            istypelate
+                                                            iffalse ofs0043
+                                                            findpropstrict QName(PackageNamespace("mx.styles"),"ISimpleStyleClient")
+                                                            getlocal0
+                                                            getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"border")
+                                                            callproperty QName(PackageNamespace("mx.styles"),"ISimpleStyleClient"), 1
+                                                            getlocal0
+                                                            setproperty QName(Namespace("mx.styles:ISimpleStyleClient"),"styleName")
+                                                   ofs0043:
+                                                            findpropstrict QName(PackageNamespace(""),"addChildAt")
+                                                            findpropstrict QName(PackageNamespace("flash.display"),"DisplayObject")
+                                                            getlocal0
+                                                            getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"border")
+                                                            callproperty QName(PackageNamespace("flash.display"),"DisplayObject"), 1
+                                                            pushbyte 0
+                                                            callpropvoid QName(PackageNamespace(""),"addChildAt"), 2
+                                                            findpropstrict QName(PackageNamespace(""),"invalidateDisplayList")
+                                                            callpropvoid QName(PackageNamespace(""),"invalidateDisplayList"), 0
+                                                   ofs005c:
+                                                            returnvoid
+                                                         end ; code
+                                                      end ; body
+                                                   end ; method
+                                                }
+                                             }
+                                          }
+                                          
+                                          method
+                                             name null
+                                             returns null
+                                             
+                                             body
+                                                maxstack 2
+                                                localcount 1
+                                                initscopedepth 1
+                                                maxscopedepth 10
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   findpropstrict Multiname("ToolTip",[PackageNamespace("mx.controls")])
+                                                   getlex QName(PackageNamespace(""),"Object")
+                                                   pushscope
+                                                   getlex QName(PackageNamespace("flash.events"),"EventDispatcher")
+                                                   pushscope
+                                                   getlex QName(PackageNamespace("flash.display"),"DisplayObject")
+                                                   pushscope
+                                                   getlex QName(PackageNamespace("flash.display"),"InteractiveObject")
+                                                   pushscope
+                                                   getlex QName(PackageNamespace("flash.display"),"DisplayObjectContainer")
+                                                   pushscope
+                                                   getlex QName(PackageNamespace("flash.display"),"Sprite")
+                                                   pushscope
+                                                   getlex QName(PackageNamespace("mx.core"),"FlexSprite")
+                                                   pushscope
+                                                   getlex QName(PackageNamespace("mx.core"),"UIComponent")
+                                                   pushscope
+                                                   getlex QName(PackageNamespace("mx.core"),"UIComponent")
+                                                   newclass 227
+                                                   popscope
+                                                   popscope
+                                                   popscope
+                                                   popscope
+                                                   popscope
+                                                   popscope
+                                                   popscope
+                                                   popscope
+                                                   initproperty QName(PackageNamespace("mx.controls"),"ToolTip")
+                                                   returnvoid
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                          

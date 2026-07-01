@@ -1,0 +1,888 @@
+package hotpointgame.gview
+{
+   import flash.display.*;
+   import flash.events.*;
+   import flash.text.*;
+   import hotpointgame.Control.*;
+   import hotpointgame.ginit.*;
+   import hotpointgame.utils.gameloader.*;
+   
+   public class GChatC
+   {
+      
+      public static var self:GChatC;
+      
+      private static var curs:int = 0;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(PackageNamespace(""),"self")
+               getlocal0
+               construct 0
+               setproperty QName(PackageNamespace(""),"self")
+               findproperty QName(PrivateNamespace(null,"96"),"curs")
+               pushbyte 0
+               setproperty QName(PrivateNamespace(null,"96"),"curs")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var mc:MovieClip;
+      
+      private var fuckMc:MovieClip;
+      
+      private var t:TextField;
+      
+      private var mcMO:Object;
+      
+      private var chatT:uint = 0;
+      
+      private var chatMax:int = 45;
+      
+      private var pageLine:int = 7;
+      
+      private var showMaxLine:int = 70;
+      
+      private var delLine:int = 20;
+      
+      public function GChatC()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 2
+               localcount 1
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  findpropstrict Multiname("Object",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                  constructprop Multiname("Object",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 0
+                  initproperty QName(PrivateNamespace(null,"96"),"mcMO")
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public static function open() : void
+      {
+         trait method QName(PackageNamespace(""),"open")
+            flag FINAL
+            dispid 3
+            method
+               name null
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 2
+                  localcount 1
+                  initscopedepth 3
+                  maxscopedepth 4
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlex Multiname("curs",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                     pushbyte 0
+                     ifne ofs0015
+                     getlex Multiname("self",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                     callpropvoid Multiname("reset",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 0
+            ofs0015:
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public static function close() : void
+         {
+            trait method QName(PackageNamespace(""),"close")
+               flag FINAL
+               dispid 4
+               method
+                  name null
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 1
+                     localcount 1
+                     initscopedepth 3
+                     maxscopedepth 4
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlex Multiname("self",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                        callpropvoid Multiname("leave",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 0
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function reset() : void
+            {
+               trait method QName(PackageNamespace(""),"reset")
+                  dispid 0
+                  method
+                     name null
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 4
+                        localcount 4
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           pushnull
+                           coerce QName(PackageNamespace(""),"Class")
+                           setlocal2
+                           pushnull
+                           coerce QName(PackageNamespace(""),"Array")
+                           setlocal3
+                           getlocal0
+                           getproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           pushnull
+                           ifne ofs00c0
+                           getlex Multiname("LoaderManager",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.utils.gameloader")])
+                           pushstring "j_xuanfu"
+                           callproperty Multiname("isLoadedBySwfname",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 1
+                           iffalse ofs006d
+                           getlex Multiname("LoaderManager",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.utils.gameloader")])
+                           pushstring "j_liaotian"
+                           callproperty Multiname("getSwfClass",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 1
+                           getlex Multiname("Class",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           astypelate
+                           coerce QName(PackageNamespace(""),"Class")
+                           setlocal2
+                           getlocal0
+                           getlocal2
+                           construct 0
+                           getlex Multiname("MovieClip",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("flash.display")])
+                           astypelate
+                           initproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           getlocal0
+                           getproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           callpropvoid Multiname("stop",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 0
+                           getlocal0
+                           getproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           pushshort 19563
+                           setproperty Multiname("x",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           getlocal0
+                           getproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           pushshort 29563
+                           setproperty Multiname("y",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           jump ofs00c0
+                  ofs006d:
+                           getlex Multiname("GM",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.Control")])
+                           getproperty Multiname("loaderM",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           callproperty Multiname("keYiUse",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 0
+                           iffalse ofs00bf
+                           findpropstrict Multiname("Array",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           constructprop Multiname("Array",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 0
+                           coerce QName(PackageNamespace(""),"Array")
+                           setlocal3
+                           getlocal3
+                           pushstring "j_xuanfu"
+                           callpropvoid Multiname("push",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 1
+                           getlex Multiname("GM",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.Control")])
+                           getproperty Multiname("loaderM",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           getlocal3
+                           callpropvoid Multiname("setLoadData",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 1
+                           getlex Multiname("GM",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.Control")])
+                           getproperty Multiname("loaderM",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           getlex Multiname("open",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           setproperty Multiname("completeF",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           getlex Multiname("GM",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.Control")])
+                           getproperty Multiname("loaderM",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           callpropvoid Multiname("startLoadDataJieM",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 0
+                           returnvoid
+                  ofs00bf:
+                           returnvoid
+                  ofs00c0:
+                           findproperty Multiname("curs",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           pushbyte 1
+                           setproperty Multiname("curs",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           getlocal0
+                           getproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           pushbyte 0
+                           setproperty Multiname("x",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           getlocal0
+                           getproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           pushbyte 0
+                           setproperty Multiname("y",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           getlocal0
+                           getproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           pushstring "fuck"
+                           getproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           pushstring "srwb"
+                           getproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           getlex Multiname("TextField",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("flash.text")])
+                           astypelate
+                           pushstring ""
+                           setproperty Multiname("text",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           getlocal0
+                           getlocal0
+                           getproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           pushstring "fuck"
+                           getproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           initproperty Multiname("fuckMc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           findpropstrict Multiname("McBtnLianDong",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.ginit")])
+                           constructprop Multiname("McBtnLianDong",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.ginit")]), 0
+                           coerce QName(PackageNamespace("hotpointgame.ginit"),"McBtnLianDong")
+                           setlocal1
+                           getlocal1
+                           findpropstrict Multiname("McBtn",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.ginit")])
+                           getlocal0
+                           getproperty Multiname("fuckMc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           pushstring "enter"
+                           getproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           constructprop Multiname("McBtn",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.ginit")]), 1
+                           callpropvoid Multiname("addBtnLianDong",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 1
+                           getlocal1
+                           findpropstrict Multiname("McBtn",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.ginit")])
+                           getlocal0
+                           getproperty Multiname("fuckMc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           pushstring "up"
+                           getproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           constructprop Multiname("McBtn",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.ginit")]), 1
+                           callpropvoid Multiname("addBtnLianDong",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 1
+                           getlocal1
+                           findpropstrict Multiname("McBtn",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.ginit")])
+                           getlocal0
+                           getproperty Multiname("fuckMc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           pushstring "down1"
+                           getproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           constructprop Multiname("McBtn",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.ginit")]), 1
+                           callpropvoid Multiname("addBtnLianDong",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 1
+                           getlocal1
+                           findpropstrict Multiname("McBtn",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.ginit")])
+                           getlocal0
+                           getproperty Multiname("fuckMc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           pushstring "down2"
+                           getproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           constructprop Multiname("McBtn",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.ginit")]), 1
+                           callpropvoid Multiname("addBtnLianDong",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 1
+                           getlocal0
+                           getproperty Multiname("mcMO",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           pushstring "fuckMo"
+                           getlocal1
+                           setproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           getlocal0
+                           getlocal0
+                           getproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           pushstring "pfwb"
+                           getproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           getlex Multiname("TextField",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("flash.text")])
+                           astypelate
+                           initproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           getlocal0
+                           getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           pushstring ""
+                           setproperty Multiname("htmlText",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           getlocal0
+                           getproperty Multiname("fuckMc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           getlex Multiname("MouseEvent",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("flash.events")])
+                           getproperty Multiname("CLICK",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           getlocal0
+                           getproperty Multiname("mcClick",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           callpropvoid Multiname("addEventListener",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 2
+                           getlocal0
+                           getproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           getlex Multiname("Event",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("flash.events")])
+                           getproperty Multiname("ENTER_FRAME",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           getlocal0
+                           getproperty Multiname("frameH",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           callpropvoid Multiname("addEventListener",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 2
+                           getlex Multiname("GM",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.Control")])
+                           getproperty Multiname("cb",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           getlocal0
+                           getproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           callpropvoid Multiname("addChild",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 1
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function leave() : void
+               {
+                  trait method QName(PackageNamespace(""),"leave")
+                     dispid 0
+                     method
+                        name null
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 3
+                           localcount 1
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlex Multiname("curs",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                              pushbyte 1
+                              ifne ofs00a6
+                              findproperty Multiname("curs",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                              pushbyte 0
+                              setproperty Multiname("curs",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                              getlocal0
+                              getproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                              pushshort 19563
+                              setproperty Multiname("x",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                              getlocal0
+                              getproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                              pushshort 29563
+                              setproperty Multiname("y",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                              getlocal0
+                              pushnull
+                              initproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                              getlocal0
+                              getproperty Multiname("mcMO",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                              pushstring "fuckMo"
+                              getproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                              getlex Multiname("McBtnLianDong",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.ginit")])
+                              astypelate
+                              callpropvoid Multiname("remove",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 0
+                              getlocal0
+                              findpropstrict Multiname("Object",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                              constructprop Multiname("Object",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 0
+                              initproperty Multiname("mcMO",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                              getlocal0
+                              getproperty Multiname("fuckMc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                              getlex Multiname("MouseEvent",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("flash.events")])
+                              getproperty Multiname("CLICK",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                              getlocal0
+                              getproperty Multiname("mcClick",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                              callpropvoid Multiname("removeEventListener",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 2
+                              getlocal0
+                              getproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                              getlex Multiname("Event",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("flash.events")])
+                              getproperty Multiname("ENTER_FRAME",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                              getlocal0
+                              getproperty Multiname("frameH",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                              callpropvoid Multiname("removeEventListener",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 2
+                              getlocal0
+                              pushnull
+                              initproperty Multiname("fuckMc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                              getlex Multiname("GM",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.Control")])
+                              getproperty Multiname("cb",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                              getlocal0
+                              getproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                              callpropvoid Multiname("removeChild",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 1
+                              getlocal0
+                              pushnull
+                              initproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                     ofs00a6:
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function addChat(param1:String) : void
+                  {
+                     trait method QName(PackageNamespace(""),"addChat")
+                        dispid 0
+                        method
+                           name null
+                           param QName(PackageNamespace(""),"String")
+                           returns QName(PackageNamespace(""),"void")
+                           
+                           body
+                              maxstack 4
+                              localcount 3
+                              initscopedepth 4
+                              maxscopedepth 5
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 pushbyte 0
+                                 setlocal2
+                                 getlex Multiname("curs",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                 pushbyte 1
+                                 ifne ofs0082
+                                 getlocal0
+                                 getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                 getlocal0
+                                 getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                 getproperty Multiname("htmlText",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                 getlocal1
+                                 add
+                                 setproperty Multiname("htmlText",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                 getlocal0
+                                 getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                 getproperty Multiname("numLines",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                 getlocal0
+                                 getproperty Multiname("showMaxLine",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                 ifngt ofs0055
+                                 getlocal0
+                                 getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                 getlocal0
+                                 getproperty Multiname("delLine",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                 callproperty Multiname("getLineOffset",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 1
+                                 convert_i
+                                 setlocal2
+                                 getlocal0
+                                 getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                 pushbyte 0
+                                 getlocal2
+                                 pushstring ""
+                                 callpropvoid Multiname("replaceText",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 3
+                        ofs0055:
+                                 getlocal0
+                                 getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                 getproperty Multiname("numLines",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                 getlocal0
+                                 getproperty Multiname("pageLine",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                 ifngt ofs0082
+                                 getlocal0
+                                 getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                 getlocal0
+                                 getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                 getproperty Multiname("numLines",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                 getlocal0
+                                 getproperty Multiname("pageLine",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                 subtract
+                                 pushbyte 1
+                                 add
+                                 setproperty Multiname("scrollV",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                        ofs0082:
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     private function mcClick(param1:MouseEvent) : void
+                     {
+                        trait method QName(PrivateNamespace(null,"96"),"mcClick")
+                           dispid 0
+                           method
+                              name null
+                              param QName(PackageNamespace("flash.events"),"MouseEvent")
+                              returns QName(PackageNamespace(""),"void")
+                              
+                              body
+                                 maxstack 3
+                                 localcount 6
+                                 initscopedepth 4
+                                 maxscopedepth 5
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    pushnull
+                                    coerce_s
+                                    setlocal2
+                                    pushbyte 0
+                                    setlocal3
+                                    pushbyte 0
+                                    setlocal 4
+                                    getlocal1
+                                    getproperty Multiname("target",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getproperty Multiname("name",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    pushnull
+                                    equals
+                                    not
+                                    dup
+                                    iffalse ofs003e
+                                    pop
+                                    getlocal0
+                                    getproperty Multiname("mcMO",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    pushstring "fuckMo"
+                                    getproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getlex Multiname("McBtnLianDong",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.ginit")])
+                                    astypelate
+                                    getlocal1
+                                    getproperty Multiname("target",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getproperty Multiname("name",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    callproperty Multiname("isFlase",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 1
+                                    convert_b
+                           ofs003e:
+                                    iffalse ofs01df
+                                    getlocal1
+                                    getproperty Multiname("target",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getproperty Multiname("name",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    coerce_s
+                                    setlocal2
+                                    jump ofs0176
+                           ofs0051:
+                                    label
+                                    getlocal0
+                                    callpropvoid Multiname("chatFocusF",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 0
+                                    jump ofs01df
+                           ofs005c:
+                                    label
+                                    getlocal0
+                                    getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getproperty Multiname("numLines",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getlocal0
+                                    getproperty Multiname("pageLine",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    greaterthan
+                                    dup
+                                    iffalse ofs007e
+                                    pop
+                                    getlocal0
+                                    getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getproperty Multiname("scrollV",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    pushbyte 1
+                                    greaterthan
+                           ofs007e:
+                                    iffalse ofs00b3
+                                    getlocal0
+                                    getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getproperty Multiname("scrollV",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getlocal0
+                                    getproperty Multiname("pageLine",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    subtract
+                                    convert_i
+                                    setlocal3
+                                    getlocal3
+                                    pushbyte 1
+                                    ifngt ofs00a8
+                                    getlocal0
+                                    getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getlocal3
+                                    setproperty Multiname("scrollV",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    jump ofs00b3
+                           ofs00a8:
+                                    getlocal0
+                                    getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    pushbyte 1
+                                    setproperty Multiname("scrollV",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           ofs00b3:
+                                    jump ofs01df
+                           ofs00b7:
+                                    label
+                                    getlocal0
+                                    getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getproperty Multiname("numLines",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getlocal0
+                                    getproperty Multiname("pageLine",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    greaterthan
+                                    dup
+                                    iffalse ofs00e0
+                                    pop
+                                    getlocal0
+                                    getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getproperty Multiname("bottomScrollV",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getlocal0
+                                    getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getproperty Multiname("numLines",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    lessthan
+                           ofs00e0:
+                                    iffalse ofs0137
+                                    getlocal0
+                                    getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getproperty Multiname("scrollV",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getlocal0
+                                    getproperty Multiname("pageLine",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    add
+                                    convert_i
+                                    dup
+                                    setlocal 4
+                                    getlocal0
+                                    getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getproperty Multiname("numLines",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getlocal0
+                                    getproperty Multiname("pageLine",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    subtract
+                                    pushbyte 1
+                                    add
+                                    ifnge ofs012c
+                                    getlocal0
+                                    getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getlocal0
+                                    getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getproperty Multiname("numLines",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getlocal0
+                                    getproperty Multiname("pageLine",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    subtract
+                                    pushbyte 1
+                                    add
+                                    setproperty Multiname("scrollV",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    jump ofs0137
+                           ofs012c:
+                                    getlocal0
+                                    getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getlocal 4
+                                    setproperty Multiname("scrollV",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           ofs0137:
+                                    jump ofs01df
+                           ofs013b:
+                                    label
+                                    getlocal0
+                                    getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getproperty Multiname("numLines",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getlocal0
+                                    getproperty Multiname("pageLine",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    ifngt ofs0169
+                                    getlocal0
+                                    getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getlocal0
+                                    getproperty Multiname("t",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getproperty Multiname("numLines",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getlocal0
+                                    getproperty Multiname("pageLine",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    subtract
+                                    pushbyte 1
+                                    add
+                                    setproperty Multiname("scrollV",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                           ofs0169:
+                                    jump ofs01df
+                           ofs016d:
+                                    label
+                                    jump ofs01df
+                                    jump ofs0176
+                           ofs0176:
+                                    getlocal1
+                                    getproperty Multiname("target",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    getproperty Multiname("name",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                    setlocal 5
+                                    pushstring "enter"
+                                    getlocal 5
+                                    ifstrictne ofs0190
+                                    pushbyte 0
+                                    jump ofs01c9
+                           ofs0190:
+                                    pushstring "up"
+                                    getlocal 5
+                                    ifstrictne ofs019f
+                                    pushbyte 1
+                                    jump ofs01c9
+                           ofs019f:
+                                    pushstring "down1"
+                                    getlocal 5
+                                    ifstrictne ofs01ae
+                                    pushbyte 2
+                                    jump ofs01c9
+                           ofs01ae:
+                                    pushstring "down2"
+                                    getlocal 5
+                                    ifstrictne ofs01bd
+                                    pushbyte 3
+                                    jump ofs01c9
+                           ofs01bd:
+                                    jump ofs01c7
+                                    pushbyte 4
+                                    jump ofs01c7
+                           ofs01c7:
+                                    pushbyte 4
+                           ofs01c9:
+                                    kill 5
+                                    lookupswitch ofs016d, [ofs0051, ofs005c, ofs00b7, ofs013b, ofs016d]
+                           ofs01df:
+                                    returnvoid
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        private function frameH(param1:Event) : void
+                        {
+                           trait method QName(PrivateNamespace(null,"96"),"frameH")
+                              dispid 0
+                              method
+                                 name null
+                                 param QName(PackageNamespace("flash.events"),"Event")
+                                 returns QName(PackageNamespace(""),"void")
+                                 
+                                 body
+                                    maxstack 2
+                                    localcount 2
+                                    initscopedepth 4
+                                    maxscopedepth 5
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlex Multiname("curs",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                       pushbyte 1
+                                       ifne ofs0026
+                                       getlex Multiname("GM",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.Control")])
+                                       getproperty Multiname("ckey",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                       pushstring "聊天"
+                                       callproperty Multiname("isKey",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 1
+                                       iffalse ofs0026
+                                       getlocal0
+                                       callpropvoid Multiname("chatFocusF",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 0
+                              ofs0026:
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           private function chatFocusF() : void
+                           {
+                              trait method QName(PrivateNamespace(null,"96"),"chatFocusF")
+                                 dispid 0
+                                 method
+                                    name null
+                                    returns QName(PackageNamespace(""),"void")
+                                    
+                                    body
+                                       maxstack 4
+                                       localcount 1
+                                       initscopedepth 4
+                                       maxscopedepth 5
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlex Multiname("Main",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          getproperty Multiname("sg",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          getproperty Multiname("focus",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          getlocal0
+                                          getproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          pushstring "fuck"
+                                          getproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          pushstring "srwb"
+                                          getproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          ifeq ofs0048
+                                          getlex Multiname("Main",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          getproperty Multiname("sg",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          getlocal0
+                                          getproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          pushstring "fuck"
+                                          getproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          pushstring "srwb"
+                                          getproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          setproperty Multiname("focus",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          jump ofs012b
+                                 ofs0048:
+                                          getlocal0
+                                          getproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          pushstring "fuck"
+                                          getproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          pushstring "srwb"
+                                          getproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          getlex Multiname("TextField",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("flash.text")])
+                                          astypelate
+                                          getproperty Multiname("text",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          pushstring ""
+                                          ifeq ofs0117
+                                          getlex Multiname("GM",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.Control")])
+                                          getproperty Multiname("frameTime",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          getlocal0
+                                          getproperty Multiname("chatT",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          subtract
+                                          getlocal0
+                                          getproperty Multiname("chatMax",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          ifngt ofs010b
+                                          getlocal0
+                                          getlex Multiname("GM",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.Control")])
+                                          getproperty Multiname("frameTime",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          initproperty Multiname("chatT",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          getlex Multiname("GM",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.Control")])
+                                          getproperty Multiname("onlineM",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          pushstring ""
+                                          getlex Multiname("GM",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.Control")])
+                                          getproperty Multiname("testapi",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          getproperty Multiname("userName",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          add
+                                          pushstring ": "
+                                          add
+                                          getlocal0
+                                          getproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          pushstring "fuck"
+                                          getproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          pushstring "srwb"
+                                          getproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          getlex Multiname("TextField",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("flash.text")])
+                                          astypelate
+                                          getproperty Multiname("text",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          add
+                                          callpropvoid Multiname("fChat",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 1
+                                          getlocal0
+                                          getproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          pushstring "fuck"
+                                          getproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          pushstring "srwb"
+                                          getproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          getlex Multiname("TextField",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("flash.text")])
+                                          astypelate
+                                          pushstring ""
+                                          setproperty Multiname("htmlText",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          getlocal0
+                                          getproperty Multiname("mc",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          pushstring "fuck"
+                                          getproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          pushstring "srwb"
+                                          getproperty MultinameL([PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          getlex Multiname("TextField",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("flash.text")])
+                                          astypelate
+                                          pushstring ""
+                                          setproperty Multiname("text",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          jump ofs0117
+                                 ofs010b:
+                                          getlex Multiname("GoodsManger",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC"),PackageNamespace("hotpointgame.Control")])
+                                          pushstring "休息一会会....."
+                                          callpropvoid Multiname("cwTs",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")]), 1
+                                 ofs0117:
+                                          getlex Multiname("Main",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          getproperty Multiname("sg",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          getlex Multiname("Main",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          getproperty Multiname("self",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                          setproperty Multiname("focus",[PrivateNamespace(null,"96"),PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gview:GChatC"),StaticProtectedNs("hotpointgame.gview:GChatC")])
+                                 ofs012b:
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                           }
+                        }
+                        
+                        method
+                           name null
+                           returns null
+                           
+                           body
+                              maxstack 2
+                              localcount 1
+                              initscopedepth 1
+                              maxscopedepth 3
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 findpropstrict Multiname("GChatC",[PackageNamespace("hotpointgame.gview")])
+                                 getlex QName(PackageNamespace(""),"Object")
+                                 pushscope
+                                 getlex Multiname("Object",[PackageNamespace(""),PrivateNamespace(null,"545"),PackageNamespace("hotpointgame.gview"),PackageInternalNs("hotpointgame.gview"),Namespace("http://adobe.com/AS3/2006/builtin")])
+                                 newclass 119
+                                 popscope
+                                 initproperty QName(PackageNamespace("hotpointgame.gview"),"GChatC")
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                        

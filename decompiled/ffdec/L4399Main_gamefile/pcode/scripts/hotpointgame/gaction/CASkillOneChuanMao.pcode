@@ -1,0 +1,489 @@
+package hotpointgame.gaction
+{
+   import hotpointgame.common.*;
+   import hotpointgame.gMonster.*;
+   import hotpointgame.gameobj.ZtC;
+   
+   public class CASkillOneChuanMao extends CASkillOne
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 5
+            maxscopedepth 6
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var curframState:int = 0;
+      
+      private var hpjishi:int = 0;
+      
+      private var mxyArr:Array;
+      
+      private var hforstart:int;
+      
+      private var hforstop:int;
+      
+      private var hforfnum:int;
+      
+      private var hforhphi:int;
+      
+      private var hforhpper:Number;
+      
+      private var zhaohuanObj:Object;
+      
+      private var chuanmaoArr:Vector.<CMonster>;
+      
+      public function CASkillOneChuanMao(param1:String)
+      {
+         method
+            name null
+            param QName(PackageNamespace(""),"String")
+            returns null
+            
+            body
+               maxstack 7
+               localcount 2
+               initscopedepth 6
+               maxscopedepth 7
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  pushshort -571
+                  pushbyte 0
+                  newarray 2
+                  pushshort -395
+                  pushbyte 0
+                  newarray 2
+                  pushshort -205
+                  pushbyte 0
+                  newarray 2
+                  pushshort 201
+                  pushbyte 0
+                  newarray 2
+                  pushshort 400
+                  pushbyte 0
+                  newarray 2
+                  newarray 5
+                  initproperty QName(PrivateNamespace(null,"291"),"mxyArr")
+                  getlocal0
+                  getlex Multiname("Vector",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction"),PackageNamespace("__AS3__.vec")])
+                  getlex Multiname("CMonster",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction"),PackageNamespace("hotpointgame.gMonster")])
+                  applytype 1
+                  construct 0
+                  initproperty QName(PrivateNamespace(null,"291"),"chuanmaoArr")
+                  getlocal0
+                  getlocal1
+                  constructsuper 1
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      override public function setData(param1:Object) : void
+      {
+         trait method QName(PackageNamespace(""),"setData")
+            flag OVERRIDE
+            dispid 0
+            method
+               name null
+               param QName(PackageNamespace(""),"Object")
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 2
+                  localcount 2
+                  initscopedepth 6
+                  maxscopedepth 7
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getlocal1
+                     getproperty Multiname("others",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     getproperty Multiname("hstart",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     initproperty Multiname("hforstart",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     getlocal0
+                     getlocal1
+                     getproperty Multiname("others",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     getproperty Multiname("hstop",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     initproperty Multiname("hforstop",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     getlocal0
+                     getlocal1
+                     getproperty Multiname("others",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     getproperty Multiname("ht",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     initproperty Multiname("hforfnum",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     getlocal0
+                     getlocal1
+                     getproperty Multiname("others",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     getproperty Multiname("hti",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     initproperty Multiname("hforhphi",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     getlocal0
+                     getlocal1
+                     getproperty Multiname("others",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     getproperty Multiname("hhp",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     initproperty Multiname("hforhpper",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     getlocal0
+                     getlocal1
+                     getproperty Multiname("others",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     getproperty Multiname("zo",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     initproperty Multiname("zhaohuanObj",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     getlocal0
+                     getlocal1
+                     callsupervoid Multiname("setData",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction"),ProtectedNamespace("hotpointgame.gaction:CASkillOne")]), 1
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         override protected function actionStateUpdate(param1:ZtC) : Boolean
+         {
+            trait method QName(ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),"actionStateUpdate")
+               flag OVERRIDE
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace("hotpointgame.gameobj"),"ZtC")
+                  returns QName(PackageNamespace(""),"Boolean")
+                  
+                  body
+                     maxstack 7
+                     localcount 10
+                     initscopedepth 6
+                     maxscopedepth 7
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        pushnull
+                        coerce QName(PackageNamespace(""),"Array")
+                        setlocal2
+                        pushbyte 0
+                        setlocal3
+                        pushbyte 0
+                        setlocal 4
+                        pushfalse
+                        setlocal 5
+                        pushbyte 0
+                        setlocal 6
+                        pushnull
+                        coerce QName(PackageNamespace("hotpointgame.gMonster"),"CMonster")
+                        setlocal 7
+                        getlocal0
+                        getproperty Multiname("curframState",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        pushbyte 0
+                        ifne ofs00be
+                        getlocal1
+                        callproperty Multiname("getCurrentFrameNum",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 0
+                        getlocal0
+                        getproperty Multiname("hforstart",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        ifne ofs00bc
+                        getlocal0
+                        getproperty Multiname("zhaohuanObj",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        getlex Multiname("Array",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        astypelate
+                        coerce QName(PackageNamespace(""),"Array")
+                        setlocal2
+                        pushbyte 0
+                        setlocal3
+                        jump ofs009b
+               ofs0047:
+                        label
+                        getlocal0
+                        getproperty Multiname("chuanmaoArr",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        getlex Multiname("MonsterManager",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction"),PackageNamespace("hotpointgame.gMonster")])
+                        getlocal2
+                        getlocal3
+                        getproperty MultinameL([PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        getlocal1
+                        callproperty Multiname("getZx",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 0
+                        getlocal0
+                        getproperty Multiname("mxyArr",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        getlocal3
+                        getproperty MultinameL([PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        pushbyte 0
+                        getproperty MultinameL([PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        pushbyte -1
+                        getlocal1
+                        callproperty Multiname("getXforth",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 0
+                        multiply
+                        multiply
+                        add
+                        getlocal1
+                        callproperty Multiname("getZy",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 0
+                        getlocal0
+                        getproperty Multiname("mxyArr",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        getlocal3
+                        getproperty MultinameL([PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        pushbyte 1
+                        getproperty MultinameL([PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        add
+                        callproperty Multiname("creatMonster",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 3
+                        callpropvoid Multiname("push",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 1
+                        inclocal_i 3
+               ofs009b:
+                        getlocal3
+                        getlocal2
+                        getproperty Multiname("length",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        iflt ofs0047
+                        getlex Multiname("hitEnemy",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        pushbyte 0
+                        setproperty Multiname("length",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        getlocal0
+                        getlex Multiname("GS",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction"),PackageNamespace("hotpointgame.common")])
+                        getproperty Multiname("a1",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        initproperty Multiname("curframState",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+               ofs00bc:
+                        pushfalse
+                        returnvalue
+               ofs00be:
+                        getlocal0
+                        getproperty Multiname("curframState",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        getlex Multiname("GS",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction"),PackageNamespace("hotpointgame.common")])
+                        getproperty Multiname("a1",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        ifne ofs01d8
+                        getlocal0
+                        getproperty Multiname("hpjishi",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        getlocal0
+                        getproperty Multiname("hforhphi",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        modulo
+                        pushbyte 0
+                        ifne ofs00eb
+                        getlocal1
+                        getlocal0
+                        getproperty Multiname("hforhpper",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        callpropvoid Multiname("addHpByPerc",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 1
+               ofs00eb:
+                        getlocal0
+                        dup
+                        setlocal 8
+                        getproperty Multiname("hpjishi",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        increment_i
+                        setlocal 9
+                        getlocal 8
+                        getlocal 9
+                        setproperty Multiname("hpjishi",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        kill 9
+                        kill 8
+                        getlocal1
+                        callproperty Multiname("getCurrentFrameNum",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 0
+                        getlocal0
+                        getproperty Multiname("hforstop",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        ifne ofs011c
+                        getlocal1
+                        getlocal0
+                        getproperty Multiname("hforstart",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        callpropvoid Multiname("gotoAndPlayFrame",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 1
+               ofs011c:
+                        getlocal0
+                        getproperty Multiname("chuanmaoArr",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        getproperty Multiname("length",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        convert_i
+                        setlocal 4
+                        pushfalse
+                        setlocal 5
+                        getlocal 4
+                        decrement
+                        convert_i
+                        setlocal 6
+                        jump ofs0156
+               ofs0135:
+                        label
+                        getlocal0
+                        getproperty Multiname("chuanmaoArr",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        getlocal 6
+                        getproperty MultinameL([PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        callproperty Multiname("isLive",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 0
+                        iftrue ofs0151
+                        pushtrue
+                        setlocal 5
+                        jump ofs015e
+               ofs0151:
+                        getlocal 6
+                        decrement_i
+                        setlocal 6
+               ofs0156:
+                        getlocal 6
+                        pushbyte 0
+                        ifge ofs0135
+               ofs015e:
+                        getlocal 5
+                        iffalse ofs019a
+                        pushbyte 0
+                        setlocal 8
+                        getlocal0
+                        getproperty Multiname("chuanmaoArr",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        coerce_a
+                        setlocal 9
+                        jump ofs0184
+               ofs0174:
+                        label
+                        getlocal 9
+                        getlocal 8
+                        nextvalue
+                        coerce QName(PackageNamespace("hotpointgame.gMonster"),"CMonster")
+                        dup
+                        setlocal 7
+                        callpropvoid Multiname("killMe",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 0
+               ofs0184:
+                        hasnext2 9, 8
+                        iftrue ofs0174
+                        kill 9
+                        kill 8
+                        getlocal0
+                        getproperty Multiname("chuanmaoArr",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        pushbyte 0
+                        setproperty Multiname("length",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+               ofs019a:
+                        getlocal0
+                        getproperty Multiname("hpjishi",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        getlocal0
+                        getproperty Multiname("hforfnum",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        greaterequals
+                        dup
+                        iftrue ofs01b7
+                        pop
+                        getlocal0
+                        getproperty Multiname("chuanmaoArr",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        getproperty Multiname("length",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        pushbyte 0
+                        equals
+               ofs01b7:
+                        iffalse ofs01d6
+                        getlocal0
+                        getlex Multiname("GS",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction"),PackageNamespace("hotpointgame.common")])
+                        getproperty Multiname("a2",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        initproperty Multiname("curframState",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        getlocal1
+                        getlocal0
+                        getproperty Multiname("hforstop",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        pushbyte 1
+                        add
+                        callpropvoid Multiname("gotoAndPlayFrame",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 1
+               ofs01d6:
+                        pushfalse
+                        returnvalue
+               ofs01d8:
+                        getlocal1
+                        callproperty Multiname("getFrameLabel",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 0
+                        getlex Multiname("flaFrameName",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        ifeq ofs01e8
+                        pushtrue
+                        returnvalue
+               ofs01e8:
+                        pushfalse
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            override public function exit() : void
+            {
+               trait method QName(PackageNamespace(""),"exit")
+                  flag OVERRIDE
+                  dispid 0
+                  method
+                     name null
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 2
+                        localcount 4
+                        initscopedepth 6
+                        maxscopedepth 7
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           pushnull
+                           coerce QName(PackageNamespace("hotpointgame.gMonster"),"CMonster")
+                           setlocal1
+                           getlocal0
+                           pushbyte 0
+                           initproperty Multiname("curframState",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           getlocal0
+                           pushbyte 0
+                           initproperty Multiname("hpjishi",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           pushbyte 0
+                           setlocal2
+                           getlocal0
+                           getproperty Multiname("chuanmaoArr",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           coerce_a
+                           setlocal3
+                           jump ofs002f
+                  ofs0022:
+                           label
+                           getlocal3
+                           getlocal2
+                           nextvalue
+                           coerce QName(PackageNamespace("hotpointgame.gMonster"),"CMonster")
+                           setlocal1
+                           getlocal1
+                           callpropvoid Multiname("killMe",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 0
+                  ofs002f:
+                           hasnext2 3, 2
+                           iftrue ofs0022
+                           kill 3
+                           kill 2
+                           getlocal0
+                           getproperty Multiname("chuanmaoArr",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           pushbyte 0
+                           setproperty Multiname("length",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           getlocal0
+                           callsupervoid Multiname("exit",[PrivateNamespace(null,"291"),PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("hotpointgame.gaction:CASkillOneChuanMao"),StaticProtectedNs("hotpointgame.gaction:CASkillOne"),StaticProtectedNs("hotpointgame.gaction:CAction"),ProtectedNamespace("hotpointgame.gaction:CASkillOne")]), 0
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+            }
+         }
+         
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 2
+               localcount 1
+               initscopedepth 1
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  findpropstrict Multiname("CASkillOneChuanMao",[PackageNamespace("hotpointgame.gaction")])
+                  getlex QName(PackageNamespace(""),"Object")
+                  pushscope
+                  getlex QName(PackageNamespace("hotpointgame.gaction"),"CAction")
+                  pushscope
+                  getlex QName(PackageNamespace("hotpointgame.gaction"),"CASkillOne")
+                  pushscope
+                  getlex Multiname("CASkillOne",[PrivateNamespace(null,"873"),PackageNamespace(""),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin")])
+                  newclass 401
+                  popscope
+                  popscope
+                  popscope
+                  initproperty QName(PackageNamespace("hotpointgame.gaction"),"CASkillOneChuanMao")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+         

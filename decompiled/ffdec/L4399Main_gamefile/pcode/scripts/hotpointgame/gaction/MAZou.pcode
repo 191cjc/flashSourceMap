@@ -1,0 +1,268 @@
+package hotpointgame.gaction
+{
+   import hotpointgame.common.*;
+   import hotpointgame.gameobj.ZtC;
+   
+   public class MAZou extends CAction
+   {
+      
+      public static var name:String = "移动";
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 4
+            maxscopedepth 5
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(PackageNamespace(""),"name")
+               pushstring "移动"
+               setproperty QName(PackageNamespace(""),"name")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var _xspeed:VT;
+      
+      public function MAZou(param1:String)
+      {
+         method
+            name null
+            param QName(PackageNamespace(""),"String")
+            returns null
+            
+            body
+               maxstack 3
+               localcount 2
+               initscopedepth 5
+               maxscopedepth 6
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  getlex Multiname("VT",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction"),PackageNamespace("hotpointgame.common")])
+                  pushbyte 5
+                  callproperty Multiname("createVT",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 1
+                  initproperty QName(PrivateNamespace(null,"226"),"_xspeed")
+                  getlocal0
+                  getlocal1
+                  constructsuper 1
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      override public function setData(param1:Object) : void
+      {
+         trait method QName(PackageNamespace(""),"setData")
+            flag OVERRIDE
+            dispid 0
+            method
+               name null
+               param QName(PackageNamespace(""),"Object")
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 3
+                  localcount 2
+                  initscopedepth 5
+                  maxscopedepth 6
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getlocal1
+                     getproperty Multiname("othersvt",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     getproperty Multiname("xspeed",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     getlex Multiname("VT",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction"),PackageNamespace("hotpointgame.common")])
+                     astypelate
+                     callproperty Multiname("getValue",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 0
+                     initproperty Multiname("xspeed",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     getlocal0
+                     getlocal1
+                     callsupervoid Multiname("setData",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction"),ProtectedNamespace("hotpointgame.gaction:CAction")]), 1
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         override protected function actionStateUpdate(param1:ZtC) : Boolean
+         {
+            trait method QName(ProtectedNamespace("hotpointgame.gaction:MAZou"),"actionStateUpdate")
+               flag OVERRIDE
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace("hotpointgame.gameobj"),"ZtC")
+                  returns QName(PackageNamespace(""),"Boolean")
+                  
+                  body
+                     maxstack 2
+                     localcount 2
+                     initscopedepth 5
+                     maxscopedepth 6
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal1
+                        callproperty Multiname("getFrameLabel",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 0
+                        getlex Multiname("flaFrameName",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        ifeq ofs0024
+                        findpropstrict Multiname("enter",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        getlocal1
+                        callpropvoid Multiname("enter",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 1
+                        findproperty Multiname("currentFrameNum",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        pushbyte 1
+                        initproperty Multiname("currentFrameNum",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+               ofs0024:
+                        pushfalse
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            override public function getRunArr(param1:ZtC) : Array
+            {
+               trait method QName(PackageNamespace(""),"getRunArr")
+                  flag OVERRIDE
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace("hotpointgame.gameobj"),"ZtC")
+                     returns QName(PackageNamespace(""),"Array")
+                     
+                     body
+                        maxstack 2
+                        localcount 2
+                        initscopedepth 5
+                        maxscopedepth 6
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal1
+                           getproperty Multiname("skyType",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           pushbyte 0
+                           ifne ofs002e
+                           getlocal0
+                           getproperty Multiname("xspeed",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           getlocal1
+                           getproperty Multiname("forth",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           multiply
+                           getlocal1
+                           getproperty Multiname("jiansu",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           multiply
+                           getlocal1
+                           getproperty Multiname("bCd",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           callproperty Multiname("getAddSpeed",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 0
+                           multiply
+                           pushbyte 0
+                           newarray 2
+                           returnvalue
+                  ofs002e:
+                           pushbyte 0
+                           dup
+                           newarray 2
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function get xspeed() : int
+               {
+                  trait getter QName(PackageNamespace(""),"xspeed")
+                     dispid 0
+                     method
+                        name null
+                        returns QName(PackageNamespace(""),"int")
+                        
+                        body
+                           maxstack 1
+                           localcount 1
+                           initscopedepth 5
+                           maxscopedepth 6
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              getproperty Multiname("_xspeed",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                              callproperty Multiname("getValue",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 0
+                              returnvalue
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function set xspeed(param1:int) : void
+                  {
+                     trait setter QName(PackageNamespace(""),"xspeed")
+                        dispid 0
+                        method
+                           name null
+                           param QName(PackageNamespace(""),"int")
+                           returns QName(PackageNamespace(""),"void")
+                           
+                           body
+                              maxstack 2
+                              localcount 2
+                              initscopedepth 5
+                              maxscopedepth 6
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal0
+                                 getproperty Multiname("_xspeed",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                                 getlocal1
+                                 callpropvoid Multiname("setValue",[PrivateNamespace(null,"226"),PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:MAZou"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 1
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                  }
+               }
+               
+               method
+                  name null
+                  returns null
+                  
+                  body
+                     maxstack 2
+                     localcount 1
+                     initscopedepth 1
+                     maxscopedepth 4
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        findpropstrict Multiname("MAZou",[PackageNamespace("hotpointgame.gaction")])
+                        getlex QName(PackageNamespace(""),"Object")
+                        pushscope
+                        getlex QName(PackageNamespace("hotpointgame.gaction"),"CAction")
+                        pushscope
+                        getlex Multiname("CAction",[PackageNamespace(""),PrivateNamespace(null,"776"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin")])
+                        newclass 317
+                        popscope
+                        popscope
+                        initproperty QName(PackageNamespace("hotpointgame.gaction"),"MAZou")
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+               

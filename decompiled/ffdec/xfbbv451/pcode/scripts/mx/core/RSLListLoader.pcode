@@ -1,0 +1,433 @@
+package mx.core
+{
+   import flash.events.Event;
+   
+   use namespace mx_internal;
+   
+   public class RSLListLoader
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var currentIndex:int = 0;
+      
+      private var rslList:Array;
+      
+      private var chainedProgressHandler:Function;
+      
+      private var chainedCompleteHandler:Function;
+      
+      private var chainedIOErrorHandler:Function;
+      
+      private var chainedSecurityErrorHandler:Function;
+      
+      private var chainedRSLErrorHandler:Function;
+      
+      public function RSLListLoader(param1:Array)
+      {
+         method
+            name null
+            param QName(PackageNamespace(""),"Array")
+            returns null
+            
+            body
+               maxstack 2
+               localcount 2
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  newarray 0
+                  initproperty QName(PrivateNamespace(null,"68"),"rslList")
+                  getlocal0
+                  constructsuper 0
+                  getlocal0
+                  getlocal1
+                  initproperty QName(PrivateNamespace(null,"68"),"rslList")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function load(param1:Function, param2:Function, param3:Function, param4:Function, param5:Function) : void
+      {
+         trait method QName(PackageNamespace(""),"load")
+            dispid 0
+            method
+               name null
+               param QName(PackageNamespace(""),"Function")
+               param QName(PackageNamespace(""),"Function")
+               param QName(PackageNamespace(""),"Function")
+               param QName(PackageNamespace(""),"Function")
+               param QName(PackageNamespace(""),"Function")
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 2
+                  localcount 6
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getlocal1
+                     initproperty QName(PrivateNamespace(null,"68"),"chainedProgressHandler")
+                     getlocal0
+                     getlocal2
+                     initproperty QName(PrivateNamespace(null,"68"),"chainedCompleteHandler")
+                     getlocal0
+                     getlocal3
+                     initproperty QName(PrivateNamespace(null,"68"),"chainedIOErrorHandler")
+                     getlocal0
+                     getlocal 4
+                     initproperty QName(PrivateNamespace(null,"68"),"chainedSecurityErrorHandler")
+                     getlocal0
+                     getlocal 5
+                     initproperty QName(PrivateNamespace(null,"68"),"chainedRSLErrorHandler")
+                     getlocal0
+                     pushbyte -1
+                     initproperty QName(PrivateNamespace(null,"68"),"currentIndex")
+                     getlocal0
+                     callpropvoid QName(PrivateNamespace(null,"68"),"loadNext"), 0
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         private function loadNext() : void
+         {
+            trait method QName(PrivateNamespace(null,"68"),"loadNext")
+               dispid 0
+               method
+                  name null
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 6
+                     localcount 3
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        callproperty QName(PackageNamespace(""),"isDone"), 0
+                        iftrue ofs004e
+                        getlocal0
+                        dup
+                        setlocal1
+                        getproperty QName(PrivateNamespace(null,"68"),"currentIndex")
+                        increment_i
+                        setlocal2
+                        getlocal1
+                        getlocal2
+                        setproperty QName(PrivateNamespace(null,"68"),"currentIndex")
+                        kill 2
+                        kill 1
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"68"),"currentIndex")
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"68"),"rslList")
+                        getproperty QName(PackageNamespace(""),"length")
+                        ifnlt ofs004e
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"68"),"rslList")
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"68"),"currentIndex")
+                        getproperty MultinameL([PrivateNamespace(null,"68"),PackageNamespace(""),PrivateNamespace(null,"168"),PackageNamespace("mx.core"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.core:RSLListLoader"),StaticProtectedNs("mx.core:RSLListLoader")])
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"68"),"chainedProgressHandler")
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"68"),"listCompleteHandler")
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"68"),"listIOErrorHandler")
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"68"),"listSecurityErrorHandler")
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"68"),"chainedRSLErrorHandler")
+                        callpropvoid Multiname("load",[PrivateNamespace(null,"68"),PackageNamespace(""),PrivateNamespace(null,"168"),PackageNamespace("mx.core"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.core:RSLListLoader"),StaticProtectedNs("mx.core:RSLListLoader")]), 5
+               ofs004e:
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function getItem(param1:int) : RSLItem
+            {
+               trait method QName(PackageNamespace(""),"getItem")
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace(""),"int")
+                     returns QName(PackageNamespace("mx.core"),"RSLItem")
+                     
+                     body
+                        maxstack 2
+                        localcount 2
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal1
+                           pushbyte 0
+                           lessthan
+                           dup
+                           iftrue ofs0015
+                           pop
+                           getlocal1
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"68"),"rslList")
+                           getproperty QName(PackageNamespace(""),"length")
+                           greaterequals
+                  ofs0015:
+                           iffalse ofs001b
+                           pushnull
+                           returnvalue
+                  ofs001b:
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"68"),"rslList")
+                           getlocal1
+                           getproperty MultinameL([PrivateNamespace(null,"68"),PackageNamespace(""),PrivateNamespace(null,"168"),PackageNamespace("mx.core"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.core:RSLListLoader"),StaticProtectedNs("mx.core:RSLListLoader")])
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function getIndex() : int
+               {
+                  trait method QName(PackageNamespace(""),"getIndex")
+                     dispid 0
+                     method
+                        name null
+                        returns QName(PackageNamespace(""),"int")
+                        
+                        body
+                           maxstack 1
+                           localcount 1
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"68"),"currentIndex")
+                              returnvalue
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function getItemCount() : int
+                  {
+                     trait method QName(PackageNamespace(""),"getItemCount")
+                        dispid 0
+                        method
+                           name null
+                           returns QName(PackageNamespace(""),"int")
+                           
+                           body
+                              maxstack 1
+                              localcount 1
+                              initscopedepth 4
+                              maxscopedepth 5
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"68"),"rslList")
+                                 getproperty QName(PackageNamespace(""),"length")
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public function isDone() : Boolean
+                     {
+                        trait method QName(PackageNamespace(""),"isDone")
+                           dispid 0
+                           method
+                              name null
+                              returns QName(PackageNamespace(""),"Boolean")
+                              
+                              body
+                                 maxstack 2
+                                 localcount 1
+                                 initscopedepth 4
+                                 maxscopedepth 5
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"68"),"currentIndex")
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"68"),"rslList")
+                                    getproperty QName(PackageNamespace(""),"length")
+                                    greaterequals
+                                    returnvalue
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        private function listCompleteHandler(param1:Event) : void
+                        {
+                           trait method QName(PrivateNamespace(null,"68"),"listCompleteHandler")
+                              dispid 0
+                              method
+                                 name null
+                                 param QName(PackageNamespace("flash.events"),"Event")
+                                 returns QName(PackageNamespace(""),"void")
+                                 
+                                 body
+                                    maxstack 2
+                                    localcount 2
+                                    initscopedepth 4
+                                    maxscopedepth 5
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"68"),"chainedCompleteHandler")
+                                       pushnull
+                                       ifeq ofs0011
+                                       getlocal0
+                                       getlocal1
+                                       callpropvoid QName(PrivateNamespace(null,"68"),"chainedCompleteHandler"), 1
+                              ofs0011:
+                                       getlocal0
+                                       callpropvoid QName(PrivateNamespace(null,"68"),"loadNext"), 0
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           private function listIOErrorHandler(param1:Event) : void
+                           {
+                              trait method QName(PrivateNamespace(null,"68"),"listIOErrorHandler")
+                                 dispid 0
+                                 method
+                                    name null
+                                    param QName(PackageNamespace("flash.events"),"Event")
+                                    returns QName(PackageNamespace(""),"void")
+                                    
+                                    body
+                                       maxstack 2
+                                       localcount 2
+                                       initscopedepth 4
+                                       maxscopedepth 5
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"68"),"chainedIOErrorHandler")
+                                          pushnull
+                                          ifeq ofs0011
+                                          getlocal0
+                                          getlocal1
+                                          callpropvoid QName(PrivateNamespace(null,"68"),"chainedIOErrorHandler"), 1
+                                 ofs0011:
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              private function listSecurityErrorHandler(param1:Event) : void
+                              {
+                                 trait method QName(PrivateNamespace(null,"68"),"listSecurityErrorHandler")
+                                    dispid 0
+                                    method
+                                       name null
+                                       param QName(PackageNamespace("flash.events"),"Event")
+                                       returns QName(PackageNamespace(""),"void")
+                                       
+                                       body
+                                          maxstack 2
+                                          localcount 2
+                                          initscopedepth 4
+                                          maxscopedepth 5
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlocal0
+                                             getproperty QName(PrivateNamespace(null,"68"),"chainedSecurityErrorHandler")
+                                             pushnull
+                                             ifeq ofs0011
+                                             getlocal0
+                                             getlocal1
+                                             callpropvoid QName(PrivateNamespace(null,"68"),"chainedSecurityErrorHandler"), 1
+                                    ofs0011:
+                                             returnvoid
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                              }
+                           }
+                           
+                           method
+                              name null
+                              returns null
+                              
+                              body
+                                 maxstack 2
+                                 localcount 1
+                                 initscopedepth 1
+                                 maxscopedepth 3
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    findpropstrict Multiname("RSLListLoader",[PackageNamespace("mx.core")])
+                                    getlex QName(PackageNamespace(""),"Object")
+                                    pushscope
+                                    getlex QName(PackageNamespace(""),"Object")
+                                    newclass 232
+                                    popscope
+                                    initproperty QName(PackageNamespace("mx.core"),"RSLListLoader")
+                                    returnvoid
+                                 end ; code
+                              end ; body
+                           end ; method
+                           

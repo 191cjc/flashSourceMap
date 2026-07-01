@@ -1,0 +1,1678 @@
+package mx.graphics
+{
+   import flash.display.BitmapData;
+   import flash.display.Graphics;
+   import flash.display.Shape;
+   import flash.filters.DropShadowFilter;
+   import flash.geom.Matrix;
+   import flash.geom.Point;
+   import flash.geom.Rectangle;
+   import mx.core.FlexShape;
+   import mx.core.mx_internal;
+   import mx.utils.GraphicsUtil;
+   
+   use namespace mx_internal;
+   
+   public class RectangularDropShadow
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var shadow:BitmapData;
+      
+      private var leftShadow:BitmapData;
+      
+      private var rightShadow:BitmapData;
+      
+      private var topShadow:BitmapData;
+      
+      private var bottomShadow:BitmapData;
+      
+      private var changed:Boolean = true;
+      
+      private var _alpha:Number = 0.4;
+      
+      private var _angle:Number = 45;
+      
+      private var _color:int = 0;
+      
+      private var _distance:Number = 4;
+      
+      private var _tlRadius:Number = 0;
+      
+      private var _trRadius:Number = 0;
+      
+      private var _blRadius:Number = 0;
+      
+      private var _brRadius:Number = 0;
+      
+      private var _blurX:Number = 4;
+      
+      private var _blurY:Number = 4;
+      
+      public function RectangularDropShadow()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 1
+               localcount 1
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function get alpha() : Number
+      {
+         trait getter QName(PackageNamespace(""),"alpha")
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace(""),"Number")
+               
+               body
+                  maxstack 1
+                  localcount 1
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"26"),"_alpha")
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function set alpha(param1:Number) : void
+         {
+            trait setter QName(PackageNamespace(""),"alpha")
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace(""),"Number")
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 2
+                     localcount 2
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"26"),"_alpha")
+                        getlocal1
+                        ifeq ofs0015
+                        getlocal0
+                        getlocal1
+                        initproperty QName(PrivateNamespace(null,"26"),"_alpha")
+                        getlocal0
+                        pushtrue
+                        initproperty QName(PrivateNamespace(null,"26"),"changed")
+               ofs0015:
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function get angle() : Number
+            {
+               trait getter QName(PackageNamespace(""),"angle")
+                  dispid 0
+                  method
+                     name null
+                     returns QName(PackageNamespace(""),"Number")
+                     
+                     body
+                        maxstack 1
+                        localcount 1
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"26"),"_angle")
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function set angle(param1:Number) : void
+               {
+                  trait setter QName(PackageNamespace(""),"angle")
+                     dispid 0
+                     method
+                        name null
+                        param QName(PackageNamespace(""),"Number")
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 2
+                           localcount 2
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"26"),"_angle")
+                              getlocal1
+                              ifeq ofs0015
+                              getlocal0
+                              getlocal1
+                              initproperty QName(PrivateNamespace(null,"26"),"_angle")
+                              getlocal0
+                              pushtrue
+                              initproperty QName(PrivateNamespace(null,"26"),"changed")
+                     ofs0015:
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function get color() : int
+                  {
+                     trait getter QName(PackageNamespace(""),"color")
+                        dispid 0
+                        method
+                           name null
+                           returns QName(PackageNamespace(""),"int")
+                           
+                           body
+                              maxstack 1
+                              localcount 1
+                              initscopedepth 4
+                              maxscopedepth 5
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"26"),"_color")
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public function set color(param1:int) : void
+                     {
+                        trait setter QName(PackageNamespace(""),"color")
+                           dispid 0
+                           method
+                              name null
+                              param QName(PackageNamespace(""),"int")
+                              returns QName(PackageNamespace(""),"void")
+                              
+                              body
+                                 maxstack 2
+                                 localcount 2
+                                 initscopedepth 4
+                                 maxscopedepth 5
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"26"),"_color")
+                                    getlocal1
+                                    ifeq ofs0015
+                                    getlocal0
+                                    getlocal1
+                                    initproperty QName(PrivateNamespace(null,"26"),"_color")
+                                    getlocal0
+                                    pushtrue
+                                    initproperty QName(PrivateNamespace(null,"26"),"changed")
+                           ofs0015:
+                                    returnvoid
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        public function get distance() : Number
+                        {
+                           trait getter QName(PackageNamespace(""),"distance")
+                              dispid 0
+                              method
+                                 name null
+                                 returns QName(PackageNamespace(""),"Number")
+                                 
+                                 body
+                                    maxstack 1
+                                    localcount 1
+                                    initscopedepth 4
+                                    maxscopedepth 5
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"26"),"_distance")
+                                       returnvalue
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           public function set distance(param1:Number) : void
+                           {
+                              trait setter QName(PackageNamespace(""),"distance")
+                                 dispid 0
+                                 method
+                                    name null
+                                    param QName(PackageNamespace(""),"Number")
+                                    returns QName(PackageNamespace(""),"void")
+                                    
+                                    body
+                                       maxstack 2
+                                       localcount 2
+                                       initscopedepth 4
+                                       maxscopedepth 5
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"26"),"_distance")
+                                          getlocal1
+                                          ifeq ofs0015
+                                          getlocal0
+                                          getlocal1
+                                          initproperty QName(PrivateNamespace(null,"26"),"_distance")
+                                          getlocal0
+                                          pushtrue
+                                          initproperty QName(PrivateNamespace(null,"26"),"changed")
+                                 ofs0015:
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              public function get tlRadius() : Number
+                              {
+                                 trait getter QName(PackageNamespace(""),"tlRadius")
+                                    dispid 0
+                                    method
+                                       name null
+                                       returns QName(PackageNamespace(""),"Number")
+                                       
+                                       body
+                                          maxstack 1
+                                          localcount 1
+                                          initscopedepth 4
+                                          maxscopedepth 5
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlocal0
+                                             getproperty QName(PrivateNamespace(null,"26"),"_tlRadius")
+                                             returnvalue
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 public function set tlRadius(param1:Number) : void
+                                 {
+                                    trait setter QName(PackageNamespace(""),"tlRadius")
+                                       dispid 0
+                                       method
+                                          name null
+                                          param QName(PackageNamespace(""),"Number")
+                                          returns QName(PackageNamespace(""),"void")
+                                          
+                                          body
+                                             maxstack 2
+                                             localcount 2
+                                             initscopedepth 4
+                                             maxscopedepth 5
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                getlocal0
+                                                getproperty QName(PrivateNamespace(null,"26"),"_tlRadius")
+                                                getlocal1
+                                                ifeq ofs0015
+                                                getlocal0
+                                                getlocal1
+                                                initproperty QName(PrivateNamespace(null,"26"),"_tlRadius")
+                                                getlocal0
+                                                pushtrue
+                                                initproperty QName(PrivateNamespace(null,"26"),"changed")
+                                       ofs0015:
+                                                returnvoid
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    public function get trRadius() : Number
+                                    {
+                                       trait getter QName(PackageNamespace(""),"trRadius")
+                                          dispid 0
+                                          method
+                                             name null
+                                             returns QName(PackageNamespace(""),"Number")
+                                             
+                                             body
+                                                maxstack 1
+                                                localcount 1
+                                                initscopedepth 4
+                                                maxscopedepth 5
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   getlocal0
+                                                   getproperty QName(PrivateNamespace(null,"26"),"_trRadius")
+                                                   returnvalue
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                       
+                                       public function set trRadius(param1:Number) : void
+                                       {
+                                          trait setter QName(PackageNamespace(""),"trRadius")
+                                             dispid 0
+                                             method
+                                                name null
+                                                param QName(PackageNamespace(""),"Number")
+                                                returns QName(PackageNamespace(""),"void")
+                                                
+                                                body
+                                                   maxstack 2
+                                                   localcount 2
+                                                   initscopedepth 4
+                                                   maxscopedepth 5
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      getlocal0
+                                                      getproperty QName(PrivateNamespace(null,"26"),"_trRadius")
+                                                      getlocal1
+                                                      ifeq ofs0015
+                                                      getlocal0
+                                                      getlocal1
+                                                      initproperty QName(PrivateNamespace(null,"26"),"_trRadius")
+                                                      getlocal0
+                                                      pushtrue
+                                                      initproperty QName(PrivateNamespace(null,"26"),"changed")
+                                             ofs0015:
+                                                      returnvoid
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                          }
+                                          
+                                          public function get blRadius() : Number
+                                          {
+                                             trait getter QName(PackageNamespace(""),"blRadius")
+                                                dispid 0
+                                                method
+                                                   name null
+                                                   returns QName(PackageNamespace(""),"Number")
+                                                   
+                                                   body
+                                                      maxstack 1
+                                                      localcount 1
+                                                      initscopedepth 4
+                                                      maxscopedepth 5
+                                                      
+                                                      code
+                                                         getlocal0
+                                                         pushscope
+                                                         getlocal0
+                                                         getproperty QName(PrivateNamespace(null,"26"),"_blRadius")
+                                                         returnvalue
+                                                      end ; code
+                                                   end ; body
+                                                end ; method
+                                             }
+                                             
+                                             public function set blRadius(param1:Number) : void
+                                             {
+                                                trait setter QName(PackageNamespace(""),"blRadius")
+                                                   dispid 0
+                                                   method
+                                                      name null
+                                                      param QName(PackageNamespace(""),"Number")
+                                                      returns QName(PackageNamespace(""),"void")
+                                                      
+                                                      body
+                                                         maxstack 2
+                                                         localcount 2
+                                                         initscopedepth 4
+                                                         maxscopedepth 5
+                                                         
+                                                         code
+                                                            getlocal0
+                                                            pushscope
+                                                            getlocal0
+                                                            getproperty QName(PrivateNamespace(null,"26"),"_blRadius")
+                                                            getlocal1
+                                                            ifeq ofs0015
+                                                            getlocal0
+                                                            getlocal1
+                                                            initproperty QName(PrivateNamespace(null,"26"),"_blRadius")
+                                                            getlocal0
+                                                            pushtrue
+                                                            initproperty QName(PrivateNamespace(null,"26"),"changed")
+                                                   ofs0015:
+                                                            returnvoid
+                                                         end ; code
+                                                      end ; body
+                                                   end ; method
+                                                }
+                                                
+                                                public function get brRadius() : Number
+                                                {
+                                                   trait getter QName(PackageNamespace(""),"brRadius")
+                                                      dispid 0
+                                                      method
+                                                         name null
+                                                         returns QName(PackageNamespace(""),"Number")
+                                                         
+                                                         body
+                                                            maxstack 1
+                                                            localcount 1
+                                                            initscopedepth 4
+                                                            maxscopedepth 5
+                                                            
+                                                            code
+                                                               getlocal0
+                                                               pushscope
+                                                               getlocal0
+                                                               getproperty QName(PrivateNamespace(null,"26"),"_brRadius")
+                                                               returnvalue
+                                                            end ; code
+                                                         end ; body
+                                                      end ; method
+                                                   }
+                                                   
+                                                   public function set brRadius(param1:Number) : void
+                                                   {
+                                                      trait setter QName(PackageNamespace(""),"brRadius")
+                                                         dispid 0
+                                                         method
+                                                            name null
+                                                            param QName(PackageNamespace(""),"Number")
+                                                            returns QName(PackageNamespace(""),"void")
+                                                            
+                                                            body
+                                                               maxstack 2
+                                                               localcount 2
+                                                               initscopedepth 4
+                                                               maxscopedepth 5
+                                                               
+                                                               code
+                                                                  getlocal0
+                                                                  pushscope
+                                                                  getlocal0
+                                                                  getproperty QName(PrivateNamespace(null,"26"),"_brRadius")
+                                                                  getlocal1
+                                                                  ifeq ofs0015
+                                                                  getlocal0
+                                                                  getlocal1
+                                                                  initproperty QName(PrivateNamespace(null,"26"),"_brRadius")
+                                                                  getlocal0
+                                                                  pushtrue
+                                                                  initproperty QName(PrivateNamespace(null,"26"),"changed")
+                                                         ofs0015:
+                                                                  returnvoid
+                                                               end ; code
+                                                            end ; body
+                                                         end ; method
+                                                      }
+                                                      
+                                                      public function get blurX() : Number
+                                                      {
+                                                         trait getter QName(PackageNamespace(""),"blurX")
+                                                            dispid 0
+                                                            method
+                                                               name null
+                                                               returns QName(PackageNamespace(""),"Number")
+                                                               
+                                                               body
+                                                                  maxstack 1
+                                                                  localcount 1
+                                                                  initscopedepth 4
+                                                                  maxscopedepth 5
+                                                                  
+                                                                  code
+                                                                     getlocal0
+                                                                     pushscope
+                                                                     getlocal0
+                                                                     getproperty QName(PrivateNamespace(null,"26"),"_blurX")
+                                                                     returnvalue
+                                                                  end ; code
+                                                               end ; body
+                                                            end ; method
+                                                         }
+                                                         
+                                                         public function set blurX(param1:Number) : void
+                                                         {
+                                                            trait setter QName(PackageNamespace(""),"blurX")
+                                                               dispid 0
+                                                               method
+                                                                  name null
+                                                                  param QName(PackageNamespace(""),"Number")
+                                                                  returns QName(PackageNamespace(""),"void")
+                                                                  
+                                                                  body
+                                                                     maxstack 2
+                                                                     localcount 2
+                                                                     initscopedepth 4
+                                                                     maxscopedepth 5
+                                                                     
+                                                                     code
+                                                                        getlocal0
+                                                                        pushscope
+                                                                        getlocal0
+                                                                        getproperty QName(PrivateNamespace(null,"26"),"_blurX")
+                                                                        getlocal1
+                                                                        ifeq ofs0015
+                                                                        getlocal0
+                                                                        getlocal1
+                                                                        initproperty QName(PrivateNamespace(null,"26"),"_blurX")
+                                                                        getlocal0
+                                                                        pushtrue
+                                                                        initproperty QName(PrivateNamespace(null,"26"),"changed")
+                                                               ofs0015:
+                                                                        returnvoid
+                                                                     end ; code
+                                                                  end ; body
+                                                               end ; method
+                                                            }
+                                                            
+                                                            public function get blurY() : Number
+                                                            {
+                                                               trait getter QName(PackageNamespace(""),"blurY")
+                                                                  dispid 0
+                                                                  method
+                                                                     name null
+                                                                     returns QName(PackageNamespace(""),"Number")
+                                                                     
+                                                                     body
+                                                                        maxstack 1
+                                                                        localcount 1
+                                                                        initscopedepth 4
+                                                                        maxscopedepth 5
+                                                                        
+                                                                        code
+                                                                           getlocal0
+                                                                           pushscope
+                                                                           getlocal0
+                                                                           getproperty QName(PrivateNamespace(null,"26"),"_blurY")
+                                                                           returnvalue
+                                                                        end ; code
+                                                                     end ; body
+                                                                  end ; method
+                                                               }
+                                                               
+                                                               public function set blurY(param1:Number) : void
+                                                               {
+                                                                  trait setter QName(PackageNamespace(""),"blurY")
+                                                                     dispid 0
+                                                                     method
+                                                                        name null
+                                                                        param QName(PackageNamespace(""),"Number")
+                                                                        returns QName(PackageNamespace(""),"void")
+                                                                        
+                                                                        body
+                                                                           maxstack 2
+                                                                           localcount 2
+                                                                           initscopedepth 4
+                                                                           maxscopedepth 5
+                                                                           
+                                                                           code
+                                                                              getlocal0
+                                                                              pushscope
+                                                                              getlocal0
+                                                                              getproperty QName(PrivateNamespace(null,"26"),"_blurY")
+                                                                              getlocal1
+                                                                              ifeq ofs0015
+                                                                              getlocal0
+                                                                              getlocal1
+                                                                              initproperty QName(PrivateNamespace(null,"26"),"_blurY")
+                                                                              getlocal0
+                                                                              pushtrue
+                                                                              initproperty QName(PrivateNamespace(null,"26"),"changed")
+                                                                     ofs0015:
+                                                                              returnvoid
+                                                                           end ; code
+                                                                        end ; body
+                                                                     end ; method
+                                                                  }
+                                                                  
+                                                                  public function drawShadow(param1:Graphics, param2:Number, param3:Number, param4:Number, param5:Number) : void
+                                                                  {
+                                                                     trait method QName(PackageNamespace(""),"drawShadow")
+                                                                        dispid 0
+                                                                        method
+                                                                           name null
+                                                                           param QName(PackageNamespace("flash.display"),"Graphics")
+                                                                           param QName(PackageNamespace(""),"Number")
+                                                                           param QName(PackageNamespace(""),"Number")
+                                                                           param QName(PackageNamespace(""),"Number")
+                                                                           param QName(PackageNamespace(""),"Number")
+                                                                           returns QName(PackageNamespace(""),"void")
+                                                                           
+                                                                           body
+                                                                              maxstack 6
+                                                                              localcount 23
+                                                                              initscopedepth 4
+                                                                              maxscopedepth 5
+                                                                              
+                                                                              code
+                                                                                 getlocal0
+                                                                                 pushscope
+                                                                                 pushnan
+                                                                                 setlocal 15
+                                                                                 pushnan
+                                                                                 setlocal 16
+                                                                                 pushnan
+                                                                                 setlocal 17
+                                                                                 pushnan
+                                                                                 setlocal 18
+                                                                                 pushnan
+                                                                                 setlocal 19
+                                                                                 pushnan
+                                                                                 setlocal 20
+                                                                                 pushnan
+                                                                                 setlocal 21
+                                                                                 pushnan
+                                                                                 setlocal 22
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"changed")
+                                                                                 iffalse ofs002c
+                                                                                 getlocal0
+                                                                                 callpropvoid QName(PrivateNamespace(null,"26"),"createShadowBitmaps"), 0
+                                                                                 getlocal0
+                                                                                 pushfalse
+                                                                                 initproperty QName(PrivateNamespace(null,"26"),"changed")
+                                                                        ofs002c:
+                                                                                 getlex QName(PackageNamespace(""),"Math")
+                                                                                 getlocal 4
+                                                                                 callproperty QName(PackageNamespace(""),"ceil"), 1
+                                                                                 convert_d
+                                                                                 setlocal 4
+                                                                                 getlex QName(PackageNamespace(""),"Math")
+                                                                                 getlocal 5
+                                                                                 callproperty QName(PackageNamespace(""),"ceil"), 1
+                                                                                 convert_d
+                                                                                 setlocal 5
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"leftShadow")
+                                                                                 iffalse ofs0058
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"leftShadow")
+                                                                                 getproperty QName(PackageNamespace(""),"width")
+                                                                                 convert_i
+                                                                                 jump ofs005a
+                                                                        ofs0058:
+                                                                                 pushbyte 0
+                                                                        ofs005a:
+                                                                                 convert_i
+                                                                                 setlocal 6
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"rightShadow")
+                                                                                 iffalse ofs0071
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"rightShadow")
+                                                                                 getproperty QName(PackageNamespace(""),"width")
+                                                                                 convert_i
+                                                                                 jump ofs0073
+                                                                        ofs0071:
+                                                                                 pushbyte 0
+                                                                        ofs0073:
+                                                                                 convert_i
+                                                                                 setlocal 7
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"topShadow")
+                                                                                 iffalse ofs008a
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"topShadow")
+                                                                                 getproperty QName(PackageNamespace(""),"height")
+                                                                                 convert_i
+                                                                                 jump ofs008c
+                                                                        ofs008a:
+                                                                                 pushbyte 0
+                                                                        ofs008c:
+                                                                                 convert_i
+                                                                                 setlocal 8
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"bottomShadow")
+                                                                                 iffalse ofs00a3
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"bottomShadow")
+                                                                                 getproperty QName(PackageNamespace(""),"height")
+                                                                                 convert_i
+                                                                                 jump ofs00a5
+                                                                        ofs00a3:
+                                                                                 pushbyte 0
+                                                                        ofs00a5:
+                                                                                 convert_i
+                                                                                 setlocal 9
+                                                                                 getlocal 6
+                                                                                 getlocal 7
+                                                                                 add
+                                                                                 convert_i
+                                                                                 setlocal 10
+                                                                                 getlocal 8
+                                                                                 getlocal 9
+                                                                                 add
+                                                                                 convert_i
+                                                                                 setlocal 11
+                                                                                 getlocal 5
+                                                                                 getlocal 11
+                                                                                 add
+                                                                                 pushbyte 2
+                                                                                 divide
+                                                                                 convert_d
+                                                                                 setlocal 12
+                                                                                 getlocal 4
+                                                                                 getlocal 10
+                                                                                 add
+                                                                                 pushbyte 2
+                                                                                 divide
+                                                                                 convert_d
+                                                                                 setlocal 13
+                                                                                 findpropstrict QName(PackageNamespace("flash.geom"),"Matrix")
+                                                                                 constructprop QName(PackageNamespace("flash.geom"),"Matrix"), 0
+                                                                                 coerce QName(PackageNamespace("flash.geom"),"Matrix")
+                                                                                 setlocal 14
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"leftShadow")
+                                                                                 convert_b
+                                                                                 dup
+                                                                                 iftrue ofs00e7
+                                                                                 pop
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"topShadow")
+                                                                                 convert_b
+                                                                        ofs00e7:
+                                                                                 iffalse ofs0145
+                                                                                 getlex QName(PackageNamespace(""),"Math")
+                                                                                 getlocal0
+                                                                                 getproperty QName(PackageNamespace(""),"tlRadius")
+                                                                                 getlocal 10
+                                                                                 add
+                                                                                 getlocal 13
+                                                                                 callproperty QName(PackageNamespace(""),"min"), 2
+                                                                                 convert_d
+                                                                                 setlocal 15
+                                                                                 getlex QName(PackageNamespace(""),"Math")
+                                                                                 getlocal0
+                                                                                 getproperty QName(PackageNamespace(""),"tlRadius")
+                                                                                 getlocal 11
+                                                                                 add
+                                                                                 getlocal 12
+                                                                                 callproperty QName(PackageNamespace(""),"min"), 2
+                                                                                 convert_d
+                                                                                 setlocal 16
+                                                                                 getlocal 14
+                                                                                 getlocal2
+                                                                                 getlocal 6
+                                                                                 subtract
+                                                                                 setproperty QName(PackageNamespace(""),"tx")
+                                                                                 getlocal 14
+                                                                                 getlocal3
+                                                                                 getlocal 8
+                                                                                 subtract
+                                                                                 setproperty QName(PackageNamespace(""),"ty")
+                                                                                 getlocal1
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"shadow")
+                                                                                 getlocal 14
+                                                                                 pushfalse
+                                                                                 callpropvoid QName(PackageNamespace(""),"beginBitmapFill"), 3
+                                                                                 getlocal1
+                                                                                 getlocal2
+                                                                                 getlocal 6
+                                                                                 subtract
+                                                                                 getlocal3
+                                                                                 getlocal 8
+                                                                                 subtract
+                                                                                 getlocal 15
+                                                                                 getlocal 16
+                                                                                 callpropvoid QName(PackageNamespace(""),"drawRect"), 4
+                                                                                 getlocal1
+                                                                                 callpropvoid QName(PackageNamespace(""),"endFill"), 0
+                                                                        ofs0145:
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"rightShadow")
+                                                                                 convert_b
+                                                                                 dup
+                                                                                 iftrue ofs0155
+                                                                                 pop
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"topShadow")
+                                                                                 convert_b
+                                                                        ofs0155:
+                                                                                 iffalse ofs01c4
+                                                                                 getlex QName(PackageNamespace(""),"Math")
+                                                                                 getlocal0
+                                                                                 getproperty QName(PackageNamespace(""),"trRadius")
+                                                                                 getlocal 10
+                                                                                 add
+                                                                                 getlocal 13
+                                                                                 callproperty QName(PackageNamespace(""),"min"), 2
+                                                                                 convert_d
+                                                                                 setlocal 17
+                                                                                 getlex QName(PackageNamespace(""),"Math")
+                                                                                 getlocal0
+                                                                                 getproperty QName(PackageNamespace(""),"trRadius")
+                                                                                 getlocal 11
+                                                                                 add
+                                                                                 getlocal 12
+                                                                                 callproperty QName(PackageNamespace(""),"min"), 2
+                                                                                 convert_d
+                                                                                 setlocal 18
+                                                                                 getlocal 14
+                                                                                 getlocal2
+                                                                                 getlocal 4
+                                                                                 add
+                                                                                 getlocal 7
+                                                                                 add
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"shadow")
+                                                                                 getproperty QName(PackageNamespace(""),"width")
+                                                                                 subtract
+                                                                                 setproperty QName(PackageNamespace(""),"tx")
+                                                                                 getlocal 14
+                                                                                 getlocal3
+                                                                                 getlocal 8
+                                                                                 subtract
+                                                                                 setproperty QName(PackageNamespace(""),"ty")
+                                                                                 getlocal1
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"shadow")
+                                                                                 getlocal 14
+                                                                                 pushfalse
+                                                                                 callpropvoid QName(PackageNamespace(""),"beginBitmapFill"), 3
+                                                                                 getlocal1
+                                                                                 getlocal2
+                                                                                 getlocal 4
+                                                                                 add
+                                                                                 getlocal 7
+                                                                                 add
+                                                                                 getlocal 17
+                                                                                 subtract
+                                                                                 getlocal3
+                                                                                 getlocal 8
+                                                                                 subtract
+                                                                                 getlocal 17
+                                                                                 getlocal 18
+                                                                                 callpropvoid QName(PackageNamespace(""),"drawRect"), 4
+                                                                                 getlocal1
+                                                                                 callpropvoid QName(PackageNamespace(""),"endFill"), 0
+                                                                        ofs01c4:
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"leftShadow")
+                                                                                 convert_b
+                                                                                 dup
+                                                                                 iftrue ofs01d4
+                                                                                 pop
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"bottomShadow")
+                                                                                 convert_b
+                                                                        ofs01d4:
+                                                                                 iffalse ofs0243
+                                                                                 getlex QName(PackageNamespace(""),"Math")
+                                                                                 getlocal0
+                                                                                 getproperty QName(PackageNamespace(""),"blRadius")
+                                                                                 getlocal 10
+                                                                                 add
+                                                                                 getlocal 13
+                                                                                 callproperty QName(PackageNamespace(""),"min"), 2
+                                                                                 convert_d
+                                                                                 setlocal 19
+                                                                                 getlex QName(PackageNamespace(""),"Math")
+                                                                                 getlocal0
+                                                                                 getproperty QName(PackageNamespace(""),"blRadius")
+                                                                                 getlocal 11
+                                                                                 add
+                                                                                 getlocal 12
+                                                                                 callproperty QName(PackageNamespace(""),"min"), 2
+                                                                                 convert_d
+                                                                                 setlocal 20
+                                                                                 getlocal 14
+                                                                                 getlocal2
+                                                                                 getlocal 6
+                                                                                 subtract
+                                                                                 setproperty QName(PackageNamespace(""),"tx")
+                                                                                 getlocal 14
+                                                                                 getlocal3
+                                                                                 getlocal 5
+                                                                                 add
+                                                                                 getlocal 9
+                                                                                 add
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"shadow")
+                                                                                 getproperty QName(PackageNamespace(""),"height")
+                                                                                 subtract
+                                                                                 setproperty QName(PackageNamespace(""),"ty")
+                                                                                 getlocal1
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"shadow")
+                                                                                 getlocal 14
+                                                                                 pushfalse
+                                                                                 callpropvoid QName(PackageNamespace(""),"beginBitmapFill"), 3
+                                                                                 getlocal1
+                                                                                 getlocal2
+                                                                                 getlocal 6
+                                                                                 subtract
+                                                                                 getlocal3
+                                                                                 getlocal 5
+                                                                                 add
+                                                                                 getlocal 9
+                                                                                 add
+                                                                                 getlocal 20
+                                                                                 subtract
+                                                                                 getlocal 19
+                                                                                 getlocal 20
+                                                                                 callpropvoid QName(PackageNamespace(""),"drawRect"), 4
+                                                                                 getlocal1
+                                                                                 callpropvoid QName(PackageNamespace(""),"endFill"), 0
+                                                                        ofs0243:
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"rightShadow")
+                                                                                 convert_b
+                                                                                 dup
+                                                                                 iftrue ofs0253
+                                                                                 pop
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"bottomShadow")
+                                                                                 convert_b
+                                                                        ofs0253:
+                                                                                 iffalse ofs02d3
+                                                                                 getlex QName(PackageNamespace(""),"Math")
+                                                                                 getlocal0
+                                                                                 getproperty QName(PackageNamespace(""),"brRadius")
+                                                                                 getlocal 10
+                                                                                 add
+                                                                                 getlocal 13
+                                                                                 callproperty QName(PackageNamespace(""),"min"), 2
+                                                                                 convert_d
+                                                                                 setlocal 21
+                                                                                 getlex QName(PackageNamespace(""),"Math")
+                                                                                 getlocal0
+                                                                                 getproperty QName(PackageNamespace(""),"brRadius")
+                                                                                 getlocal 11
+                                                                                 add
+                                                                                 getlocal 12
+                                                                                 callproperty QName(PackageNamespace(""),"min"), 2
+                                                                                 convert_d
+                                                                                 setlocal 22
+                                                                                 getlocal 14
+                                                                                 getlocal2
+                                                                                 getlocal 4
+                                                                                 add
+                                                                                 getlocal 7
+                                                                                 add
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"shadow")
+                                                                                 getproperty QName(PackageNamespace(""),"width")
+                                                                                 subtract
+                                                                                 setproperty QName(PackageNamespace(""),"tx")
+                                                                                 getlocal 14
+                                                                                 getlocal3
+                                                                                 getlocal 5
+                                                                                 add
+                                                                                 getlocal 9
+                                                                                 add
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"shadow")
+                                                                                 getproperty QName(PackageNamespace(""),"height")
+                                                                                 subtract
+                                                                                 setproperty QName(PackageNamespace(""),"ty")
+                                                                                 getlocal1
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"shadow")
+                                                                                 getlocal 14
+                                                                                 pushfalse
+                                                                                 callpropvoid QName(PackageNamespace(""),"beginBitmapFill"), 3
+                                                                                 getlocal1
+                                                                                 getlocal2
+                                                                                 getlocal 4
+                                                                                 add
+                                                                                 getlocal 7
+                                                                                 add
+                                                                                 getlocal 21
+                                                                                 subtract
+                                                                                 getlocal3
+                                                                                 getlocal 5
+                                                                                 add
+                                                                                 getlocal 9
+                                                                                 add
+                                                                                 getlocal 22
+                                                                                 subtract
+                                                                                 getlocal 21
+                                                                                 getlocal 22
+                                                                                 callpropvoid QName(PackageNamespace(""),"drawRect"), 4
+                                                                                 getlocal1
+                                                                                 callpropvoid QName(PackageNamespace(""),"endFill"), 0
+                                                                        ofs02d3:
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"leftShadow")
+                                                                                 iffalse ofs031c
+                                                                                 getlocal 14
+                                                                                 getlocal2
+                                                                                 getlocal 6
+                                                                                 subtract
+                                                                                 setproperty QName(PackageNamespace(""),"tx")
+                                                                                 getlocal 14
+                                                                                 pushbyte 0
+                                                                                 setproperty QName(PackageNamespace(""),"ty")
+                                                                                 getlocal1
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"leftShadow")
+                                                                                 getlocal 14
+                                                                                 pushfalse
+                                                                                 callpropvoid QName(PackageNamespace(""),"beginBitmapFill"), 3
+                                                                                 getlocal1
+                                                                                 getlocal2
+                                                                                 getlocal 6
+                                                                                 subtract
+                                                                                 getlocal3
+                                                                                 getlocal 8
+                                                                                 subtract
+                                                                                 getlocal 16
+                                                                                 add
+                                                                                 getlocal 6
+                                                                                 getlocal 5
+                                                                                 getlocal 8
+                                                                                 add
+                                                                                 getlocal 9
+                                                                                 add
+                                                                                 getlocal 16
+                                                                                 subtract
+                                                                                 getlocal 20
+                                                                                 subtract
+                                                                                 callpropvoid QName(PackageNamespace(""),"drawRect"), 4
+                                                                                 getlocal1
+                                                                                 callpropvoid QName(PackageNamespace(""),"endFill"), 0
+                                                                        ofs031c:
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"rightShadow")
+                                                                                 iffalse ofs0365
+                                                                                 getlocal 14
+                                                                                 getlocal2
+                                                                                 getlocal 4
+                                                                                 add
+                                                                                 setproperty QName(PackageNamespace(""),"tx")
+                                                                                 getlocal 14
+                                                                                 pushbyte 0
+                                                                                 setproperty QName(PackageNamespace(""),"ty")
+                                                                                 getlocal1
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"rightShadow")
+                                                                                 getlocal 14
+                                                                                 pushfalse
+                                                                                 callpropvoid QName(PackageNamespace(""),"beginBitmapFill"), 3
+                                                                                 getlocal1
+                                                                                 getlocal2
+                                                                                 getlocal 4
+                                                                                 add
+                                                                                 getlocal3
+                                                                                 getlocal 8
+                                                                                 subtract
+                                                                                 getlocal 18
+                                                                                 add
+                                                                                 getlocal 7
+                                                                                 getlocal 5
+                                                                                 getlocal 8
+                                                                                 add
+                                                                                 getlocal 9
+                                                                                 add
+                                                                                 getlocal 18
+                                                                                 subtract
+                                                                                 getlocal 22
+                                                                                 subtract
+                                                                                 callpropvoid QName(PackageNamespace(""),"drawRect"), 4
+                                                                                 getlocal1
+                                                                                 callpropvoid QName(PackageNamespace(""),"endFill"), 0
+                                                                        ofs0365:
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"topShadow")
+                                                                                 iffalse ofs03ae
+                                                                                 getlocal 14
+                                                                                 pushbyte 0
+                                                                                 setproperty QName(PackageNamespace(""),"tx")
+                                                                                 getlocal 14
+                                                                                 getlocal3
+                                                                                 getlocal 8
+                                                                                 subtract
+                                                                                 setproperty QName(PackageNamespace(""),"ty")
+                                                                                 getlocal1
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"topShadow")
+                                                                                 getlocal 14
+                                                                                 pushfalse
+                                                                                 callpropvoid QName(PackageNamespace(""),"beginBitmapFill"), 3
+                                                                                 getlocal1
+                                                                                 getlocal2
+                                                                                 getlocal 6
+                                                                                 subtract
+                                                                                 getlocal 15
+                                                                                 add
+                                                                                 getlocal3
+                                                                                 getlocal 8
+                                                                                 subtract
+                                                                                 getlocal 4
+                                                                                 getlocal 6
+                                                                                 add
+                                                                                 getlocal 7
+                                                                                 add
+                                                                                 getlocal 15
+                                                                                 subtract
+                                                                                 getlocal 17
+                                                                                 subtract
+                                                                                 getlocal 8
+                                                                                 callpropvoid QName(PackageNamespace(""),"drawRect"), 4
+                                                                                 getlocal1
+                                                                                 callpropvoid QName(PackageNamespace(""),"endFill"), 0
+                                                                        ofs03ae:
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"bottomShadow")
+                                                                                 iffalse ofs03f7
+                                                                                 getlocal 14
+                                                                                 pushbyte 0
+                                                                                 setproperty QName(PackageNamespace(""),"tx")
+                                                                                 getlocal 14
+                                                                                 getlocal3
+                                                                                 getlocal 5
+                                                                                 add
+                                                                                 setproperty QName(PackageNamespace(""),"ty")
+                                                                                 getlocal1
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"26"),"bottomShadow")
+                                                                                 getlocal 14
+                                                                                 pushfalse
+                                                                                 callpropvoid QName(PackageNamespace(""),"beginBitmapFill"), 3
+                                                                                 getlocal1
+                                                                                 getlocal2
+                                                                                 getlocal 6
+                                                                                 subtract
+                                                                                 getlocal 19
+                                                                                 add
+                                                                                 getlocal3
+                                                                                 getlocal 5
+                                                                                 add
+                                                                                 getlocal 4
+                                                                                 getlocal 6
+                                                                                 add
+                                                                                 getlocal 7
+                                                                                 add
+                                                                                 getlocal 19
+                                                                                 subtract
+                                                                                 getlocal 21
+                                                                                 subtract
+                                                                                 getlocal 9
+                                                                                 callpropvoid QName(PackageNamespace(""),"drawRect"), 4
+                                                                                 getlocal1
+                                                                                 callpropvoid QName(PackageNamespace(""),"endFill"), 0
+                                                                        ofs03f7:
+                                                                                 returnvoid
+                                                                              end ; code
+                                                                           end ; body
+                                                                        end ; method
+                                                                     }
+                                                                     
+                                                                     private function createShadowBitmaps() : void
+                                                                     {
+                                                                        trait method QName(PrivateNamespace(null,"26"),"createShadowBitmaps")
+                                                                           dispid 0
+                                                                           method
+                                                                              name null
+                                                                              returns QName(PackageNamespace(""),"void")
+                                                                              
+                                                                              body
+                                                                                 maxstack 10
+                                                                                 localcount 15
+                                                                                 initscopedepth 4
+                                                                                 maxscopedepth 5
+                                                                                 
+                                                                                 code
+                                                                                    getlocal0
+                                                                                    pushscope
+                                                                                    getlex QName(PackageNamespace(""),"Math")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"tlRadius")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"blRadius")
+                                                                                    callproperty QName(PackageNamespace(""),"max"), 2
+                                                                                    pushbyte 3
+                                                                                    getlex QName(PackageNamespace(""),"Math")
+                                                                                    getlex QName(PackageNamespace(""),"Math")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"distance")
+                                                                                    callproperty QName(PackageNamespace(""),"abs"), 1
+                                                                                    pushbyte 2
+                                                                                    callproperty QName(PackageNamespace(""),"max"), 2
+                                                                                    multiply
+                                                                                    add
+                                                                                    getlex QName(PackageNamespace(""),"Math")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"trRadius")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"brRadius")
+                                                                                    callproperty QName(PackageNamespace(""),"max"), 2
+                                                                                    add
+                                                                                    convert_d
+                                                                                    setlocal1
+                                                                                    getlex QName(PackageNamespace(""),"Math")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"tlRadius")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"trRadius")
+                                                                                    callproperty QName(PackageNamespace(""),"max"), 2
+                                                                                    pushbyte 3
+                                                                                    getlex QName(PackageNamespace(""),"Math")
+                                                                                    getlex QName(PackageNamespace(""),"Math")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"distance")
+                                                                                    callproperty QName(PackageNamespace(""),"abs"), 1
+                                                                                    pushbyte 2
+                                                                                    callproperty QName(PackageNamespace(""),"max"), 2
+                                                                                    multiply
+                                                                                    add
+                                                                                    getlex QName(PackageNamespace(""),"Math")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"blRadius")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"brRadius")
+                                                                                    callproperty QName(PackageNamespace(""),"max"), 2
+                                                                                    add
+                                                                                    convert_d
+                                                                                    setlocal2
+                                                                                    getlocal1
+                                                                                    pushbyte 0
+                                                                                    lessthan
+                                                                                    dup
+                                                                                    iftrue ofs0082
+                                                                                    pop
+                                                                                    getlocal2
+                                                                                    pushbyte 0
+                                                                                    lessthan
+                                                                           ofs0082:
+                                                                                    iffalse ofs0087
+                                                                                    returnvoid
+                                                                           ofs0087:
+                                                                                    findpropstrict QName(PackageNamespace("mx.core"),"FlexShape")
+                                                                                    constructprop QName(PackageNamespace("mx.core"),"FlexShape"), 0
+                                                                                    coerce QName(PackageNamespace("flash.display"),"Shape")
+                                                                                    setlocal3
+                                                                                    getlocal3
+                                                                                    getproperty QName(PackageNamespace(""),"graphics")
+                                                                                    coerce QName(PackageNamespace("flash.display"),"Graphics")
+                                                                                    dup
+                                                                                    setlocal 4
+                                                                                    pushint 16777215
+                                                                                    callpropvoid QName(PackageNamespace(""),"beginFill"), 1
+                                                                                    getlex QName(PackageNamespace("mx.utils"),"GraphicsUtil")
+                                                                                    getlocal 4
+                                                                                    pushbyte 0
+                                                                                    dup
+                                                                                    getlocal1
+                                                                                    getlocal2
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"tlRadius")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"trRadius")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"blRadius")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"brRadius")
+                                                                                    callpropvoid QName(PackageNamespace(""),"drawRoundRectComplex"), 9
+                                                                                    getlocal 4
+                                                                                    callpropvoid QName(PackageNamespace(""),"endFill"), 0
+                                                                                    findpropstrict QName(PackageNamespace("flash.display"),"BitmapData")
+                                                                                    getlocal1
+                                                                                    getlocal2
+                                                                                    pushtrue
+                                                                                    pushbyte 0
+                                                                                    constructprop QName(PackageNamespace("flash.display"),"BitmapData"), 4
+                                                                                    coerce QName(PackageNamespace("flash.display"),"BitmapData")
+                                                                                    dup
+                                                                                    setlocal 5
+                                                                                    getlocal3
+                                                                                    findpropstrict QName(PackageNamespace("flash.geom"),"Matrix")
+                                                                                    constructprop QName(PackageNamespace("flash.geom"),"Matrix"), 0
+                                                                                    callpropvoid QName(PackageNamespace(""),"draw"), 2
+                                                                                    findpropstrict QName(PackageNamespace("flash.filters"),"DropShadowFilter")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"distance")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"angle")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"color")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"alpha")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"blurX")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"blurY")
+                                                                                    constructprop QName(PackageNamespace("flash.filters"),"DropShadowFilter"), 6
+                                                                                    coerce QName(PackageNamespace("flash.filters"),"DropShadowFilter")
+                                                                                    dup
+                                                                                    setlocal 6
+                                                                                    pushtrue
+                                                                                    setproperty QName(PackageNamespace(""),"knockout")
+                                                                                    findpropstrict QName(PackageNamespace("flash.geom"),"Rectangle")
+                                                                                    pushbyte 0
+                                                                                    dup
+                                                                                    getlocal1
+                                                                                    getlocal2
+                                                                                    constructprop QName(PackageNamespace("flash.geom"),"Rectangle"), 4
+                                                                                    coerce QName(PackageNamespace("flash.geom"),"Rectangle")
+                                                                                    setlocal 7
+                                                                                    getlocal 5
+                                                                                    getlocal 7
+                                                                                    getlocal 6
+                                                                                    callproperty QName(PackageNamespace(""),"generateFilterRect"), 2
+                                                                                    coerce QName(PackageNamespace("flash.geom"),"Rectangle")
+                                                                                    setlocal 8
+                                                                                    getlocal 7
+                                                                                    getproperty QName(PackageNamespace(""),"left")
+                                                                                    getlocal 8
+                                                                                    getproperty QName(PackageNamespace(""),"left")
+                                                                                    subtract
+                                                                                    convert_d
+                                                                                    setlocal 9
+                                                                                    getlocal 8
+                                                                                    getproperty QName(PackageNamespace(""),"right")
+                                                                                    getlocal 7
+                                                                                    getproperty QName(PackageNamespace(""),"right")
+                                                                                    subtract
+                                                                                    convert_d
+                                                                                    setlocal 10
+                                                                                    getlocal 7
+                                                                                    getproperty QName(PackageNamespace(""),"top")
+                                                                                    getlocal 8
+                                                                                    getproperty QName(PackageNamespace(""),"top")
+                                                                                    subtract
+                                                                                    convert_d
+                                                                                    setlocal 11
+                                                                                    getlocal 8
+                                                                                    getproperty QName(PackageNamespace(""),"bottom")
+                                                                                    getlocal 7
+                                                                                    getproperty QName(PackageNamespace(""),"bottom")
+                                                                                    subtract
+                                                                                    convert_d
+                                                                                    setlocal 12
+                                                                                    getlocal0
+                                                                                    findpropstrict QName(PackageNamespace("flash.display"),"BitmapData")
+                                                                                    getlocal 8
+                                                                                    getproperty QName(PackageNamespace(""),"width")
+                                                                                    getlocal 8
+                                                                                    getproperty QName(PackageNamespace(""),"height")
+                                                                                    constructprop QName(PackageNamespace("flash.display"),"BitmapData"), 2
+                                                                                    initproperty QName(PrivateNamespace(null,"26"),"shadow")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PrivateNamespace(null,"26"),"shadow")
+                                                                                    getlocal 5
+                                                                                    getlocal 7
+                                                                                    findpropstrict QName(PackageNamespace("flash.geom"),"Point")
+                                                                                    getlocal 9
+                                                                                    getlocal 11
+                                                                                    constructprop QName(PackageNamespace("flash.geom"),"Point"), 2
+                                                                                    getlocal 6
+                                                                                    callpropvoid QName(PackageNamespace(""),"applyFilter"), 4
+                                                                                    findpropstrict QName(PackageNamespace("flash.geom"),"Point")
+                                                                                    pushbyte 0
+                                                                                    dup
+                                                                                    constructprop QName(PackageNamespace("flash.geom"),"Point"), 2
+                                                                                    coerce QName(PackageNamespace("flash.geom"),"Point")
+                                                                                    setlocal 13
+                                                                                    findpropstrict QName(PackageNamespace("flash.geom"),"Rectangle")
+                                                                                    constructprop QName(PackageNamespace("flash.geom"),"Rectangle"), 0
+                                                                                    coerce QName(PackageNamespace("flash.geom"),"Rectangle")
+                                                                                    setlocal 14
+                                                                                    getlocal 9
+                                                                                    pushbyte 0
+                                                                                    ifngt ofs01ee
+                                                                                    getlocal 14
+                                                                                    pushbyte 0
+                                                                                    setproperty QName(PackageNamespace(""),"x")
+                                                                                    getlocal 14
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"tlRadius")
+                                                                                    getlocal 11
+                                                                                    add
+                                                                                    getlocal 12
+                                                                                    add
+                                                                                    setproperty QName(PackageNamespace(""),"y")
+                                                                                    getlocal 14
+                                                                                    getlocal 9
+                                                                                    setproperty QName(PackageNamespace(""),"width")
+                                                                                    getlocal 14
+                                                                                    pushbyte 1
+                                                                                    setproperty QName(PackageNamespace(""),"height")
+                                                                                    getlocal0
+                                                                                    findpropstrict QName(PackageNamespace("flash.display"),"BitmapData")
+                                                                                    getlocal 9
+                                                                                    pushbyte 1
+                                                                                    constructprop QName(PackageNamespace("flash.display"),"BitmapData"), 2
+                                                                                    initproperty QName(PrivateNamespace(null,"26"),"leftShadow")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PrivateNamespace(null,"26"),"leftShadow")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PrivateNamespace(null,"26"),"shadow")
+                                                                                    getlocal 14
+                                                                                    getlocal 13
+                                                                                    callpropvoid QName(PackageNamespace(""),"copyPixels"), 3
+                                                                                    jump ofs01f3
+                                                                           ofs01ee:
+                                                                                    getlocal0
+                                                                                    pushnull
+                                                                                    initproperty QName(PrivateNamespace(null,"26"),"leftShadow")
+                                                                           ofs01f3:
+                                                                                    getlocal 10
+                                                                                    pushbyte 0
+                                                                                    ifngt ofs024a
+                                                                                    getlocal 14
+                                                                                    getlocal0
+                                                                                    getproperty QName(PrivateNamespace(null,"26"),"shadow")
+                                                                                    getproperty QName(PackageNamespace(""),"width")
+                                                                                    getlocal 10
+                                                                                    subtract
+                                                                                    setproperty QName(PackageNamespace(""),"x")
+                                                                                    getlocal 14
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"trRadius")
+                                                                                    getlocal 11
+                                                                                    add
+                                                                                    getlocal 12
+                                                                                    add
+                                                                                    setproperty QName(PackageNamespace(""),"y")
+                                                                                    getlocal 14
+                                                                                    getlocal 10
+                                                                                    setproperty QName(PackageNamespace(""),"width")
+                                                                                    getlocal 14
+                                                                                    pushbyte 1
+                                                                                    setproperty QName(PackageNamespace(""),"height")
+                                                                                    getlocal0
+                                                                                    findpropstrict QName(PackageNamespace("flash.display"),"BitmapData")
+                                                                                    getlocal 10
+                                                                                    pushbyte 1
+                                                                                    constructprop QName(PackageNamespace("flash.display"),"BitmapData"), 2
+                                                                                    initproperty QName(PrivateNamespace(null,"26"),"rightShadow")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PrivateNamespace(null,"26"),"rightShadow")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PrivateNamespace(null,"26"),"shadow")
+                                                                                    getlocal 14
+                                                                                    getlocal 13
+                                                                                    callpropvoid QName(PackageNamespace(""),"copyPixels"), 3
+                                                                                    jump ofs024f
+                                                                           ofs024a:
+                                                                                    getlocal0
+                                                                                    pushnull
+                                                                                    initproperty QName(PrivateNamespace(null,"26"),"rightShadow")
+                                                                           ofs024f:
+                                                                                    getlocal 11
+                                                                                    pushbyte 0
+                                                                                    ifngt ofs029e
+                                                                                    getlocal 14
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"tlRadius")
+                                                                                    getlocal 9
+                                                                                    add
+                                                                                    getlocal 10
+                                                                                    add
+                                                                                    setproperty QName(PackageNamespace(""),"x")
+                                                                                    getlocal 14
+                                                                                    pushbyte 0
+                                                                                    setproperty QName(PackageNamespace(""),"y")
+                                                                                    getlocal 14
+                                                                                    pushbyte 1
+                                                                                    setproperty QName(PackageNamespace(""),"width")
+                                                                                    getlocal 14
+                                                                                    getlocal 11
+                                                                                    setproperty QName(PackageNamespace(""),"height")
+                                                                                    getlocal0
+                                                                                    findpropstrict QName(PackageNamespace("flash.display"),"BitmapData")
+                                                                                    pushbyte 1
+                                                                                    getlocal 11
+                                                                                    constructprop QName(PackageNamespace("flash.display"),"BitmapData"), 2
+                                                                                    initproperty QName(PrivateNamespace(null,"26"),"topShadow")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PrivateNamespace(null,"26"),"topShadow")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PrivateNamespace(null,"26"),"shadow")
+                                                                                    getlocal 14
+                                                                                    getlocal 13
+                                                                                    callpropvoid QName(PackageNamespace(""),"copyPixels"), 3
+                                                                                    jump ofs02a3
+                                                                           ofs029e:
+                                                                                    getlocal0
+                                                                                    pushnull
+                                                                                    initproperty QName(PrivateNamespace(null,"26"),"topShadow")
+                                                                           ofs02a3:
+                                                                                    getlocal 12
+                                                                                    pushbyte 0
+                                                                                    ifngt ofs02fa
+                                                                                    getlocal 14
+                                                                                    getlocal0
+                                                                                    getproperty QName(PackageNamespace(""),"blRadius")
+                                                                                    getlocal 9
+                                                                                    add
+                                                                                    getlocal 10
+                                                                                    add
+                                                                                    setproperty QName(PackageNamespace(""),"x")
+                                                                                    getlocal 14
+                                                                                    getlocal0
+                                                                                    getproperty QName(PrivateNamespace(null,"26"),"shadow")
+                                                                                    getproperty QName(PackageNamespace(""),"height")
+                                                                                    getlocal 12
+                                                                                    subtract
+                                                                                    setproperty QName(PackageNamespace(""),"y")
+                                                                                    getlocal 14
+                                                                                    pushbyte 1
+                                                                                    setproperty QName(PackageNamespace(""),"width")
+                                                                                    getlocal 14
+                                                                                    getlocal 12
+                                                                                    setproperty QName(PackageNamespace(""),"height")
+                                                                                    getlocal0
+                                                                                    findpropstrict QName(PackageNamespace("flash.display"),"BitmapData")
+                                                                                    pushbyte 1
+                                                                                    getlocal 12
+                                                                                    constructprop QName(PackageNamespace("flash.display"),"BitmapData"), 2
+                                                                                    initproperty QName(PrivateNamespace(null,"26"),"bottomShadow")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PrivateNamespace(null,"26"),"bottomShadow")
+                                                                                    getlocal0
+                                                                                    getproperty QName(PrivateNamespace(null,"26"),"shadow")
+                                                                                    getlocal 14
+                                                                                    getlocal 13
+                                                                                    callpropvoid QName(PackageNamespace(""),"copyPixels"), 3
+                                                                                    jump ofs02ff
+                                                                           ofs02fa:
+                                                                                    getlocal0
+                                                                                    pushnull
+                                                                                    initproperty QName(PrivateNamespace(null,"26"),"bottomShadow")
+                                                                           ofs02ff:
+                                                                                    returnvoid
+                                                                                 end ; code
+                                                                              end ; body
+                                                                           end ; method
+                                                                        }
+                                                                     }
+                                                                  }
+                                                                  
+                                                                  method
+                                                                     name null
+                                                                     returns null
+                                                                     
+                                                                     body
+                                                                        maxstack 2
+                                                                        localcount 1
+                                                                        initscopedepth 1
+                                                                        maxscopedepth 3
+                                                                        
+                                                                        code
+                                                                           getlocal0
+                                                                           pushscope
+                                                                           findpropstrict Multiname("RectangularDropShadow",[PackageNamespace("mx.graphics")])
+                                                                           getlex QName(PackageNamespace(""),"Object")
+                                                                           pushscope
+                                                                           getlex QName(PackageNamespace(""),"Object")
+                                                                           newclass 90
+                                                                           popscope
+                                                                           initproperty QName(PackageNamespace("mx.graphics"),"RectangularDropShadow")
+                                                                           returnvoid
+                                                                        end ; code
+                                                                     end ; body
+                                                                  end ; method
+                                                                  

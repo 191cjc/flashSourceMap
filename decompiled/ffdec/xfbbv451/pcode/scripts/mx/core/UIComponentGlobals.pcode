@@ -1,0 +1,215 @@
+package mx.core
+{
+   import flash.display.InteractiveObject;
+   import flash.geom.Matrix;
+   import mx.managers.ILayoutManager;
+   
+   use namespace mx_internal;
+   
+   public class UIComponentGlobals
+   {
+      
+      mx_internal static var layoutManager:ILayoutManager;
+      
+      mx_internal static var callLaterSuspendCount:int = 0;
+      
+      mx_internal static var callLaterDispatcherCount:int = 0;
+      
+      mx_internal static var nextFocusObject:InteractiveObject;
+      
+      mx_internal static var tempMatrix:Matrix;
+      
+      mx_internal static var designTime:Boolean = false;
+      
+      private static var _catchCallLaterExceptions:Boolean = false;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"callLaterSuspendCount")
+               pushbyte 0
+               setproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"callLaterSuspendCount")
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"callLaterDispatcherCount")
+               pushbyte 0
+               setproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"callLaterDispatcherCount")
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"tempMatrix")
+               findpropstrict QName(PackageNamespace("flash.geom"),"Matrix")
+               constructprop QName(PackageNamespace("flash.geom"),"Matrix"), 0
+               setproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"tempMatrix")
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"designTime")
+               pushfalse
+               setproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"designTime")
+               findproperty QName(PrivateNamespace(null,"87"),"_catchCallLaterExceptions")
+               pushfalse
+               setproperty QName(PrivateNamespace(null,"87"),"_catchCallLaterExceptions")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      public function UIComponentGlobals()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 1
+               localcount 1
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public static function get designMode() : Boolean
+      {
+         trait getter QName(PackageNamespace(""),"designMode")
+            flag FINAL
+            dispid 3
+            method
+               name null
+               returns QName(PackageNamespace(""),"Boolean")
+               
+               body
+                  maxstack 1
+                  localcount 1
+                  initscopedepth 3
+                  maxscopedepth 4
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlex QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"designTime")
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public static function set designMode(param1:Boolean) : void
+         {
+            trait setter QName(PackageNamespace(""),"designMode")
+               flag FINAL
+               dispid 4
+               method
+                  name null
+                  param QName(PackageNamespace(""),"Boolean")
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 2
+                     localcount 2
+                     initscopedepth 3
+                     maxscopedepth 4
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"designTime")
+                        getlocal1
+                        setproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"designTime")
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public static function get catchCallLaterExceptions() : Boolean
+            {
+               trait getter QName(PackageNamespace(""),"catchCallLaterExceptions")
+                  flag FINAL
+                  dispid 5
+                  method
+                     name null
+                     returns QName(PackageNamespace(""),"Boolean")
+                     
+                     body
+                        maxstack 1
+                        localcount 1
+                        initscopedepth 3
+                        maxscopedepth 4
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlex QName(PrivateNamespace(null,"87"),"_catchCallLaterExceptions")
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public static function set catchCallLaterExceptions(param1:Boolean) : void
+               {
+                  trait setter QName(PackageNamespace(""),"catchCallLaterExceptions")
+                     flag FINAL
+                     dispid 6
+                     method
+                        name null
+                        param QName(PackageNamespace(""),"Boolean")
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 2
+                           localcount 2
+                           initscopedepth 3
+                           maxscopedepth 4
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              findproperty QName(PrivateNamespace(null,"87"),"_catchCallLaterExceptions")
+                              getlocal1
+                              setproperty QName(PrivateNamespace(null,"87"),"_catchCallLaterExceptions")
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+               }
+            }
+            
+            method
+               name null
+               returns null
+               
+               body
+                  maxstack 2
+                  localcount 1
+                  initscopedepth 1
+                  maxscopedepth 3
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     findpropstrict Multiname("UIComponentGlobals",[PackageNamespace("mx.core")])
+                     getlex QName(PackageNamespace(""),"Object")
+                     pushscope
+                     getlex QName(PackageNamespace(""),"Object")
+                     newclass 84
+                     popscope
+                     initproperty QName(PackageNamespace("mx.core"),"UIComponentGlobals")
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+            

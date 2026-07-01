@@ -1,0 +1,460 @@
+package mx.utils
+{
+   import flash.utils.Dictionary;
+   import mx.core.mx_internal;
+   
+   use namespace mx_internal;
+   
+   public class XMLNotifier
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      private static var instance:XMLNotifier;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      public function XMLNotifier(param1:XMLNotifierSingleton)
+      {
+         method
+            name null
+            param QName(PrivateNamespace(null,"3"),"XMLNotifierSingleton")
+            returns null
+            
+            body
+               maxstack 1
+               localcount 2
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public static function getInstance() : XMLNotifier
+      {
+         trait method QName(PackageNamespace(""),"getInstance")
+            flag FINAL
+            dispid 3
+            method
+               name null
+               returns QName(PackageNamespace("mx.utils"),"XMLNotifier")
+               
+               body
+                  maxstack 3
+                  localcount 1
+                  initscopedepth 3
+                  maxscopedepth 4
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlex QName(PrivateNamespace(null,"110"),"instance")
+                     iftrue ofs0019
+                     findproperty QName(PrivateNamespace(null,"110"),"instance")
+                     getlocal0
+                     findpropstrict QName(PrivateNamespace(null,"3"),"XMLNotifierSingleton")
+                     constructprop QName(PrivateNamespace(null,"3"),"XMLNotifierSingleton"), 0
+                     construct 1
+                     setproperty QName(PrivateNamespace(null,"110"),"instance")
+            ofs0019:
+                     getlex QName(PrivateNamespace(null,"110"),"instance")
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         mx_internal static function initializeXMLForNotification() : Function
+         {
+            trait method QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"initializeXMLForNotification")
+               flag FINAL
+               dispid 4
+               method
+                  name null
+                  flag NEED_ACTIVATION
+                  returns QName(PackageNamespace(""),"Function")
+                  
+                  body
+                     maxstack 2
+                     localcount 2
+                     initscopedepth 4
+                     maxscopedepth 6
+                     trait slot QName(PackageInternalNs("mx.utils"),"notificationFunction")
+                        slotid 1
+                        type QName(PackageNamespace(""),"Function")
+                     end ; trait
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        newactivation
+                        dup
+                        setlocal1
+                        pushscope
+                        getscopeobject 1
+                        newfunction 3490
+                        coerce QName(PackageNamespace(""),"Function")
+                        setslot 1
+                        getscopeobject 1
+                        getslot 1
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function watchXML(param1:Object, param2:IXMLNotifiable, param3:String = null) : void
+            {
+               trait method QName(PackageNamespace(""),"watchXML")
+                  dispid 0
+                  method
+                     name null
+                     flag HAS_OPTIONAL
+                     param QName(PackageNamespace(""),"Object")
+                     param QName(PackageNamespace("mx.utils"),"IXMLNotifiable")
+                     param QName(PackageNamespace(""),"String")
+                     optional Null()
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 4
+                        localcount 10
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           pushnull
+                           coerce QName(PackageNamespace(""),"Object")
+                           setlocal 4
+                           pushnull
+                           coerce QName(PackageNamespace(""),"XML")
+                           setlocal 5
+                           pushnull
+                           coerce QName(PackageNamespace(""),"Object")
+                           setlocal 6
+                           pushnull
+                           coerce QName(PackageNamespace("flash.utils"),"Dictionary")
+                           setlocal 7
+                           getlocal1
+                           getlex QName(PackageNamespace(""),"XMLList")
+                           istypelate
+                           dup
+                           iffalse ofs0029
+                           pop
+                           getlocal1
+                           callproperty Multiname("length",[PrivateNamespace(null,"110"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"3"),PackageNamespace("mx.utils"),PackageNamespace(""),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:XMLNotifier"),StaticProtectedNs("mx.utils:XMLNotifier")]), 0
+                           pushbyte 1
+                           greaterthan
+                  ofs0029:
+                           iffalse ofs005b
+                           pushbyte 0
+                           setlocal 8
+                           getlocal1
+                           coerce_a
+                           setlocal 9
+                           jump ofs004c
+                  ofs0039:
+                           label
+                           getlocal 9
+                           getlocal 8
+                           nextvalue
+                           coerce QName(PackageNamespace(""),"Object")
+                           setlocal 4
+                           getlocal0
+                           getlocal 4
+                           getlocal2
+                           getlocal3
+                           callpropvoid QName(PackageNamespace(""),"watchXML"), 3
+                  ofs004c:
+                           hasnext2 9, 8
+                           iftrue ofs0039
+                           kill 9
+                           kill 8
+                           jump ofs00ed
+                  ofs005b:
+                           findpropstrict QName(PackageNamespace(""),"XML")
+                           getlocal1
+                           callproperty QName(PackageNamespace(""),"XML"), 1
+                           coerce QName(PackageNamespace(""),"XML")
+                           dup
+                           setlocal 5
+                           callproperty Multiname("notification",[PrivateNamespace(null,"110"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"3"),PackageNamespace("mx.utils"),PackageNamespace(""),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:XMLNotifier"),StaticProtectedNs("mx.utils:XMLNotifier")]), 0
+                           coerce QName(PackageNamespace(""),"Object")
+                           dup
+                           setlocal 6
+                           getlex QName(PackageNamespace(""),"Function")
+                           istypelate
+                           iftrue ofs00ae
+                           findpropstrict QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"initializeXMLForNotification")
+                           callproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"initializeXMLForNotification"), 0
+                           coerce QName(PackageNamespace(""),"Object")
+                           setlocal 6
+                           getlocal 5
+                           getlocal 6
+                           getlex QName(PackageNamespace(""),"Function")
+                           astypelate
+                           callpropvoid Multiname("setNotification",[PrivateNamespace(null,"110"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"3"),PackageNamespace("mx.utils"),PackageNamespace(""),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:XMLNotifier"),StaticProtectedNs("mx.utils:XMLNotifier")]), 1
+                           getlocal3
+                           convert_b
+                           dup
+                           iffalse ofs00a1
+                           pop
+                           getlocal 6
+                           pushstring "uid"
+                           getproperty MultinameL([PrivateNamespace(null,"110"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"3"),PackageNamespace("mx.utils"),PackageNamespace(""),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:XMLNotifier"),StaticProtectedNs("mx.utils:XMLNotifier")])
+                           pushnull
+                           equals
+                  ofs00a1:
+                           iffalse ofs00ae
+                           getlocal 6
+                           pushstring "uid"
+                           getlocal3
+                           setproperty MultinameL([PrivateNamespace(null,"110"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"3"),PackageNamespace("mx.utils"),PackageNamespace(""),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:XMLNotifier"),StaticProtectedNs("mx.utils:XMLNotifier")])
+                  ofs00ae:
+                           getlocal 6
+                           pushstring "watched"
+                           getproperty MultinameL([PrivateNamespace(null,"110"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"3"),PackageNamespace("mx.utils"),PackageNamespace(""),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:XMLNotifier"),StaticProtectedNs("mx.utils:XMLNotifier")])
+                           getlex QName(PackageNamespace(""),"undefined")
+                           ifne ofs00da
+                           getlocal 6
+                           pushstring "watched"
+                           findpropstrict QName(PackageNamespace("flash.utils"),"Dictionary")
+                           pushtrue
+                           constructprop QName(PackageNamespace("flash.utils"),"Dictionary"), 1
+                           dup
+                           setlocal 8
+                           coerce QName(PackageNamespace("flash.utils"),"Dictionary")
+                           setlocal 7
+                           getlocal 8
+                           kill 8
+                           setproperty MultinameL([PrivateNamespace(null,"110"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"3"),PackageNamespace("mx.utils"),PackageNamespace(""),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:XMLNotifier"),StaticProtectedNs("mx.utils:XMLNotifier")])
+                           jump ofs00e6
+                  ofs00da:
+                           getlocal 6
+                           pushstring "watched"
+                           getproperty MultinameL([PrivateNamespace(null,"110"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"3"),PackageNamespace("mx.utils"),PackageNamespace(""),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:XMLNotifier"),StaticProtectedNs("mx.utils:XMLNotifier")])
+                           coerce QName(PackageNamespace("flash.utils"),"Dictionary")
+                           setlocal 7
+                  ofs00e6:
+                           getlocal 7
+                           getlocal2
+                           pushtrue
+                           setproperty MultinameL([PrivateNamespace(null,"110"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"3"),PackageNamespace("mx.utils"),PackageNamespace(""),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:XMLNotifier"),StaticProtectedNs("mx.utils:XMLNotifier")])
+                  ofs00ed:
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function unwatchXML(param1:Object, param2:IXMLNotifiable) : void
+               {
+                  trait method QName(PackageNamespace(""),"unwatchXML")
+                     dispid 0
+                     method
+                        name null
+                        param QName(PackageNamespace(""),"Object")
+                        param QName(PackageNamespace("mx.utils"),"IXMLNotifiable")
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 3
+                           localcount 9
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              pushnull
+                              coerce QName(PackageNamespace(""),"Object")
+                              setlocal3
+                              pushnull
+                              coerce QName(PackageNamespace(""),"XML")
+                              setlocal 4
+                              pushnull
+                              coerce QName(PackageNamespace(""),"Object")
+                              setlocal 5
+                              pushnull
+                              coerce QName(PackageNamespace("flash.utils"),"Dictionary")
+                              setlocal 6
+                              getlocal1
+                              getlex QName(PackageNamespace(""),"XMLList")
+                              istypelate
+                              dup
+                              iffalse ofs0028
+                              pop
+                              getlocal1
+                              callproperty Multiname("length",[PrivateNamespace(null,"110"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"3"),PackageNamespace("mx.utils"),PackageNamespace(""),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:XMLNotifier"),StaticProtectedNs("mx.utils:XMLNotifier")]), 0
+                              pushbyte 1
+                              greaterthan
+                     ofs0028:
+                              iffalse ofs0057
+                              pushbyte 0
+                              setlocal 7
+                              getlocal1
+                              coerce_a
+                              setlocal 8
+                              jump ofs0048
+                     ofs0038:
+                              label
+                              getlocal 8
+                              getlocal 7
+                              nextvalue
+                              coerce QName(PackageNamespace(""),"Object")
+                              setlocal3
+                              getlocal0
+                              getlocal3
+                              getlocal2
+                              callpropvoid QName(PackageNamespace(""),"unwatchXML"), 2
+                     ofs0048:
+                              hasnext2 8, 7
+                              iftrue ofs0038
+                              kill 8
+                              kill 7
+                              jump ofs0097
+                     ofs0057:
+                              findpropstrict QName(PackageNamespace(""),"XML")
+                              getlocal1
+                              callproperty QName(PackageNamespace(""),"XML"), 1
+                              coerce QName(PackageNamespace(""),"XML")
+                              dup
+                              setlocal 4
+                              callproperty Multiname("notification",[PrivateNamespace(null,"110"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"3"),PackageNamespace("mx.utils"),PackageNamespace(""),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:XMLNotifier"),StaticProtectedNs("mx.utils:XMLNotifier")]), 0
+                              coerce QName(PackageNamespace(""),"Object")
+                              dup
+                              setlocal 5
+                              getlex QName(PackageNamespace(""),"Function")
+                              istypelate
+                              iftrue ofs0076
+                              returnvoid
+                     ofs0076:
+                              getlocal 5
+                              pushstring "watched"
+                              getproperty MultinameL([PrivateNamespace(null,"110"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"3"),PackageNamespace("mx.utils"),PackageNamespace(""),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:XMLNotifier"),StaticProtectedNs("mx.utils:XMLNotifier")])
+                              getlex QName(PackageNamespace(""),"undefined")
+                              ifeq ofs0097
+                              getlocal 5
+                              pushstring "watched"
+                              getproperty MultinameL([PrivateNamespace(null,"110"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"3"),PackageNamespace("mx.utils"),PackageNamespace(""),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:XMLNotifier"),StaticProtectedNs("mx.utils:XMLNotifier")])
+                              coerce QName(PackageNamespace("flash.utils"),"Dictionary")
+                              dup
+                              setlocal 6
+                              getlocal2
+                              deleteproperty MultinameL([PrivateNamespace(null,"110"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PrivateNamespace(null,"3"),PackageNamespace("mx.utils"),PackageNamespace(""),PackageInternalNs("mx.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.utils:XMLNotifier"),StaticProtectedNs("mx.utils:XMLNotifier")])
+                              pop
+                     ofs0097:
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+               }
+            }
+            
+            class XMLNotifierSingleton
+            {
+               
+               method
+                  name null
+                  returns null
+                  
+                  body
+                     maxstack 1
+                     localcount 1
+                     initscopedepth 3
+                     maxscopedepth 4
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+               
+               public function XMLNotifierSingleton()
+               {
+                  method
+                     name null
+                     returns null
+                     
+                     body
+                        maxstack 1
+                        localcount 1
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           constructsuper 0
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+            }
+            
+            method
+               name null
+               returns null
+               
+               body
+                  maxstack 2
+                  localcount 1
+                  initscopedepth 1
+                  maxscopedepth 3
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     findpropstrict Multiname("XMLNotifier",[PackageNamespace("mx.utils")])
+                     getlex QName(PackageNamespace(""),"Object")
+                     pushscope
+                     getlex QName(PackageNamespace(""),"Object")
+                     newclass 235
+                     popscope
+                     initproperty QName(PackageNamespace("mx.utils"),"XMLNotifier")
+                     findpropstrict Multiname("XMLNotifierSingleton",[PrivateNamespace(null,"3")])
+                     getlex QName(PackageNamespace(""),"Object")
+                     pushscope
+                     getlex QName(PackageNamespace(""),"Object")
+                     newclass 236
+                     popscope
+                     initproperty QName(PrivateNamespace(null,"3"),"XMLNotifierSingleton")
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+            

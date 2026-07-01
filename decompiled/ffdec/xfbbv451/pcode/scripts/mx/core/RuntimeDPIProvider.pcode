@@ -1,0 +1,145 @@
+package mx.core
+{
+   import flash.system.Capabilities;
+   
+   use namespace mx_internal;
+   
+   public class RuntimeDPIProvider
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      public function RuntimeDPIProvider()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 1
+               localcount 1
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      mx_internal static function classifyDPI(param1:Number) : Number
+      {
+         trait method QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"classifyDPI")
+            flag FINAL
+            dispid 3
+            method
+               name null
+               param QName(PackageNamespace(""),"Number")
+               returns QName(PackageNamespace(""),"Number")
+               
+               body
+                  maxstack 2
+                  localcount 2
+                  initscopedepth 3
+                  maxscopedepth 4
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal1
+                     pushshort 200
+                     ifnlt ofs0011
+                     getlex QName(PackageNamespace("mx.core"),"DPIClassification")
+                     getproperty QName(PackageNamespace(""),"DPI_160")
+                     returnvalue
+            ofs0011:
+                     getlocal1
+                     pushshort 280
+                     ifnle ofs0020
+                     getlex QName(PackageNamespace("mx.core"),"DPIClassification")
+                     getproperty QName(PackageNamespace(""),"DPI_240")
+                     returnvalue
+            ofs0020:
+                     getlex QName(PackageNamespace("mx.core"),"DPIClassification")
+                     getproperty QName(PackageNamespace(""),"DPI_320")
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function get runtimeDPI() : Number
+         {
+            trait getter QName(PackageNamespace(""),"runtimeDPI")
+               dispid 0
+               method
+                  name null
+                  returns QName(PackageNamespace(""),"Number")
+                  
+                  body
+                     maxstack 2
+                     localcount 1
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        findpropstrict QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"classifyDPI")
+                        getlex QName(PackageNamespace("flash.system"),"Capabilities")
+                        getproperty QName(PackageNamespace(""),"screenDPI")
+                        callproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"classifyDPI"), 1
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+         }
+      }
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 1
+            maxscopedepth 3
+            
+            code
+               getlocal0
+               pushscope
+               findpropstrict Multiname("RuntimeDPIProvider",[PackageNamespace("mx.core")])
+               getlex QName(PackageNamespace(""),"Object")
+               pushscope
+               getlex QName(PackageNamespace(""),"Object")
+               newclass 233
+               popscope
+               initproperty QName(PackageNamespace("mx.core"),"RuntimeDPIProvider")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      

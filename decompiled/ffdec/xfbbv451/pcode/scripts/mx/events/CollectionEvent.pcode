@@ -1,0 +1,207 @@
+package mx.events
+{
+   import flash.events.Event;
+   import mx.core.mx_internal;
+   
+   use namespace mx_internal;
+   
+   public class CollectionEvent extends Event
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      public static const COLLECTION_CHANGE:String = "collectionChange";
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 4
+            maxscopedepth 5
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               findproperty QName(PackageNamespace(""),"COLLECTION_CHANGE")
+               pushstring "collectionChange"
+               initproperty QName(PackageNamespace(""),"COLLECTION_CHANGE")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      public var kind:String;
+      
+      public var items:Array;
+      
+      public var location:int;
+      
+      public var oldLocation:int;
+      
+      public function CollectionEvent(param1:String, param2:Boolean = false, param3:Boolean = false, param4:String = null, param5:int = -1, param6:int = -1, param7:Array = null)
+      {
+         method
+            name null
+            flag HAS_OPTIONAL
+            param QName(PackageNamespace(""),"String")
+            param QName(PackageNamespace(""),"Boolean")
+            param QName(PackageNamespace(""),"Boolean")
+            param QName(PackageNamespace(""),"String")
+            param QName(PackageNamespace(""),"int")
+            param QName(PackageNamespace(""),"int")
+            param QName(PackageNamespace(""),"Array")
+            optional False()
+            optional False()
+            optional Null()
+            optional Integer(-1)
+            optional Integer(-1)
+            optional Null()
+            returns null
+            
+            body
+               maxstack 4
+               localcount 8
+               initscopedepth 5
+               maxscopedepth 6
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  getlocal1
+                  getlocal2
+                  getlocal3
+                  constructsuper 3
+                  getlocal0
+                  getlocal 4
+                  initproperty QName(PackageNamespace(""),"kind")
+                  getlocal0
+                  getlocal 5
+                  initproperty QName(PackageNamespace(""),"location")
+                  getlocal0
+                  getlocal 6
+                  initproperty QName(PackageNamespace(""),"oldLocation")
+                  getlocal0
+                  getlocal 7
+                  iffalse ofs0029
+                  getlocal 7
+                  coerce QName(PackageNamespace(""),"Array")
+                  jump ofs002d
+         ofs0029:
+                  newarray 0
+                  coerce QName(PackageNamespace(""),"Array")
+         ofs002d:
+                  initproperty QName(PackageNamespace(""),"items")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      override public function toString() : String
+      {
+         trait method QName(PackageNamespace(""),"toString")
+            flag OVERRIDE
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace(""),"String")
+               
+               body
+                  maxstack 9
+                  localcount 1
+                  initscopedepth 5
+                  maxscopedepth 6
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     findpropstrict QName(PackageNamespace(""),"formatToString")
+                     pushstring "CollectionEvent"
+                     pushstring "kind"
+                     pushstring "location"
+                     pushstring "oldLocation"
+                     pushstring "type"
+                     pushstring "bubbles"
+                     pushstring "cancelable"
+                     pushstring "eventPhase"
+                     callproperty QName(PackageNamespace(""),"formatToString"), 8
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         override public function clone() : Event
+         {
+            trait method QName(PackageNamespace(""),"clone")
+               flag OVERRIDE
+               dispid 0
+               method
+                  name null
+                  returns QName(PackageNamespace("flash.events"),"Event")
+                  
+                  body
+                     maxstack 8
+                     localcount 1
+                     initscopedepth 5
+                     maxscopedepth 6
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        findpropstrict QName(PackageNamespace("mx.events"),"CollectionEvent")
+                        getlex QName(PackageNamespace(""),"type")
+                        getlex QName(PackageNamespace(""),"bubbles")
+                        getlex QName(PackageNamespace(""),"cancelable")
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"kind")
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"location")
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"oldLocation")
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"items")
+                        constructprop QName(PackageNamespace("mx.events"),"CollectionEvent"), 7
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+         }
+      }
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 1
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findpropstrict Multiname("CollectionEvent",[PackageNamespace("mx.events")])
+               getlex QName(PackageNamespace(""),"Object")
+               pushscope
+               getlex QName(PackageNamespace("flash.events"),"Event")
+               pushscope
+               getlex QName(PackageNamespace("flash.events"),"Event")
+               newclass 187
+               popscope
+               popscope
+               initproperty QName(PackageNamespace("mx.events"),"CollectionEvent")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      

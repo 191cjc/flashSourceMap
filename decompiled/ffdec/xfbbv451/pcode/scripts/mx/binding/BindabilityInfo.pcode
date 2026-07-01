@@ -1,0 +1,771 @@
+package mx.binding
+{
+   import mx.core.mx_internal;
+   import mx.events.PropertyChangeEvent;
+   
+   use namespace mx_internal;
+   
+   public class BindabilityInfo
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      public static const BINDABLE:String = "Bindable";
+      
+      public static const MANAGED:String = "Managed";
+      
+      public static const CHANGE_EVENT:String = "ChangeEvent";
+      
+      public static const NON_COMMITTING_CHANGE_EVENT:String = "NonCommittingChangeEvent";
+      
+      public static const ACCESSOR:String = "accessor";
+      
+      public static const METHOD:String = "method";
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               findproperty QName(PackageNamespace(""),"BINDABLE")
+               pushstring "Bindable"
+               initproperty QName(PackageNamespace(""),"BINDABLE")
+               findproperty QName(PackageNamespace(""),"MANAGED")
+               pushstring "Managed"
+               initproperty QName(PackageNamespace(""),"MANAGED")
+               findproperty QName(PackageNamespace(""),"CHANGE_EVENT")
+               pushstring "ChangeEvent"
+               initproperty QName(PackageNamespace(""),"CHANGE_EVENT")
+               findproperty QName(PackageNamespace(""),"NON_COMMITTING_CHANGE_EVENT")
+               pushstring "NonCommittingChangeEvent"
+               initproperty QName(PackageNamespace(""),"NON_COMMITTING_CHANGE_EVENT")
+               findproperty QName(PackageNamespace(""),"ACCESSOR")
+               pushstring "accessor"
+               initproperty QName(PackageNamespace(""),"ACCESSOR")
+               findproperty QName(PackageNamespace(""),"METHOD")
+               pushstring "method"
+               initproperty QName(PackageNamespace(""),"METHOD")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var typeDescription:XML;
+      
+      private var classChangeEvents:Object;
+      
+      private var childChangeEvents:Object;
+      
+      public function BindabilityInfo(param1:XML)
+      {
+         method
+            name null
+            param QName(PackageNamespace(""),"XML")
+            returns null
+            
+            body
+               maxstack 2
+               localcount 2
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  newobject 0
+                  initproperty QName(PrivateNamespace(null,"54"),"childChangeEvents")
+                  getlocal0
+                  constructsuper 0
+                  getlocal0
+                  getlocal1
+                  initproperty QName(PrivateNamespace(null,"54"),"typeDescription")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function getChangeEvents(param1:String) : Object
+      {
+         trait method QName(PackageNamespace(""),"getChangeEvents")
+            dispid 0
+            method
+               name null
+               flag NEED_ACTIVATION
+               param QName(PackageNamespace(""),"String")
+               returns QName(PackageNamespace(""),"Object")
+               
+               body
+                  maxstack 5
+                  localcount 8
+                  initscopedepth 5
+                  maxscopedepth 8
+                  trait slot QName(PackageInternalNs("mx.binding"),"childName")
+                     slotid 1
+                     type QName(PackageNamespace(""),"String")
+                  end ; trait
+                  trait slot QName(PackageInternalNs("mx.binding"),"changeEvents")
+                     slotid 2
+                     type QName(PackageNamespace(""),"Object")
+                  end ; trait
+                  trait slot QName(PackageInternalNs("mx.binding"),"childDesc")
+                     slotid 3
+                     type QName(PackageNamespace(""),"XMLList")
+                  end ; trait
+                  trait slot QName(PackageInternalNs("mx.binding"),"numChildren")
+                     slotid 4
+                     type QName(PackageNamespace(""),"int")
+                  end ; trait
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     newactivation
+                     dup
+                     setlocal2
+                     pushscope
+                     getscopeobject 1
+                     pushnull
+                     coerce QName(PackageNamespace(""),"XMLList")
+                     setslot 3
+                     getscopeobject 1
+                     pushbyte 0
+                     setslot 4
+                     getscopeobject 1
+                     getlocal1
+                     setslot 1
+                     getscopeobject 1
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"54"),"childChangeEvents")
+                     getscopeobject 1
+                     getslot 1
+                     getproperty MultinameL([PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                     coerce QName(PackageNamespace(""),"Object")
+                     setslot 2
+                     getscopeobject 1
+                     getslot 2
+                     iftrue ofs0176
+                     getscopeobject 1
+                     getlocal0
+                     getlocal0
+                     callproperty QName(PrivateNamespace(null,"54"),"getClassChangeEvents"), 0
+                     newobject 0
+                     callproperty QName(PrivateNamespace(null,"54"),"copyProps"), 2
+                     coerce QName(PackageNamespace(""),"Object")
+                     setslot 2
+                     getscopeobject 1
+                     pushbyte 0
+                     setlocal 4
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"54"),"typeDescription")
+                     getproperty Multiname("accessor",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                     checkfilter
+                     coerce_a
+                     setlocal 5
+                     getlex QName(PackageNamespace(""),"XMLList")
+                     pushstring ""
+                     construct 1
+                     setlocal3
+                     jump ofs0084
+            ofs005f:
+                     label
+                     getlocal 5
+                     getlocal 4
+                     nextvalue
+                     dup
+                     setlocal 6
+                     dup
+                     setlocal 7
+                     pushwith
+                     getlex MultinameA("name",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                     getlex Multiname("childName",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                     equals
+                     iffalse ofs007f
+                     getlocal3
+                     getlocal 4
+                     getlocal 6
+                     setproperty MultinameL([PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+            ofs007f:
+                     popscope
+                     kill 7
+                     kill 6
+            ofs0084:
+                     hasnext2 5, 4
+                     iftrue ofs005f
+                     kill 5
+                     kill 4
+                     getlocal3
+                     kill 3
+                     pushbyte 0
+                     setlocal 4
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"54"),"typeDescription")
+                     getproperty Multiname("method",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                     checkfilter
+                     coerce_a
+                     setlocal 5
+                     getlex QName(PackageNamespace(""),"XMLList")
+                     pushstring ""
+                     construct 1
+                     setlocal3
+                     jump ofs00d1
+            ofs00ac:
+                     label
+                     getlocal 5
+                     getlocal 4
+                     nextvalue
+                     dup
+                     setlocal 6
+                     dup
+                     setlocal 7
+                     pushwith
+                     getlex MultinameA("name",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                     getlex Multiname("childName",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                     equals
+                     iffalse ofs00cc
+                     getlocal3
+                     getlocal 4
+                     getlocal 6
+                     setproperty MultinameL([PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+            ofs00cc:
+                     popscope
+                     kill 7
+                     kill 6
+            ofs00d1:
+                     hasnext2 5, 4
+                     iftrue ofs00ac
+                     kill 5
+                     kill 4
+                     getlocal3
+                     kill 3
+                     add
+                     coerce QName(PackageNamespace(""),"XMLList")
+                     setslot 3
+                     getscopeobject 1
+                     getscopeobject 1
+                     getslot 3
+                     callproperty Multiname("length",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")]), 0
+                     convert_i
+                     setslot 4
+                     getscopeobject 1
+                     getslot 4
+                     pushbyte 0
+                     ifne ofs0129
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"54"),"typeDescription")
+                     getproperty MultinameA("dynamic",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                     iftrue ofs0125
+                     findpropstrict QName(PackageNamespace(""),"trace")
+                     pushstring "warning: no describeType entry for \'"
+                     getscopeobject 1
+                     getslot 1
+                     add
+                     pushstring "\' on non-dynamic type \'"
+                     add
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"54"),"typeDescription")
+                     getproperty MultinameA("name",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                     add
+                     pushstring "\'"
+                     add
+                     callpropvoid QName(PackageNamespace(""),"trace"), 1
+            ofs0125:
+                     jump ofs0167
+            ofs0129:
+                     getscopeobject 1
+                     getslot 4
+                     pushbyte 1
+                     ifngt ofs0157
+                     findpropstrict QName(PackageNamespace(""),"trace")
+                     pushstring "warning: multiple describeType entries for \'"
+                     getscopeobject 1
+                     getslot 1
+                     add
+                     pushstring "\' on type \'"
+                     add
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"54"),"typeDescription")
+                     getproperty MultinameA("name",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                     add
+                     pushstring "\':\n"
+                     add
+                     getscopeobject 1
+                     getslot 3
+                     add
+                     callpropvoid QName(PackageNamespace(""),"trace"), 1
+            ofs0157:
+                     getlocal0
+                     getscopeobject 1
+                     getslot 3
+                     getproperty Multiname("metadata",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                     getscopeobject 1
+                     getslot 2
+                     callpropvoid QName(PrivateNamespace(null,"54"),"addBindabilityEvents"), 2
+            ofs0167:
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"54"),"childChangeEvents")
+                     getscopeobject 1
+                     getslot 1
+                     getscopeobject 1
+                     getslot 2
+                     setproperty MultinameL([PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+            ofs0176:
+                     getscopeobject 1
+                     getslot 2
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         private function getClassChangeEvents() : Object
+         {
+            trait method QName(PrivateNamespace(null,"54"),"getClassChangeEvents")
+               dispid 0
+               method
+                  name null
+                  flag NEED_ACTIVATION
+                  returns QName(PackageNamespace(""),"Object")
+                  
+                  body
+                     maxstack 3
+                     localcount 7
+                     initscopedepth 5
+                     maxscopedepth 8
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        newactivation
+                        dup
+                        setlocal1
+                        pushscope
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"54"),"classChangeEvents")
+                        iftrue ofs0085
+                        getlocal0
+                        newobject 0
+                        initproperty QName(PrivateNamespace(null,"54"),"classChangeEvents")
+                        getlocal0
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"54"),"typeDescription")
+                        getproperty Multiname("metadata",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"54"),"classChangeEvents")
+                        callpropvoid QName(PrivateNamespace(null,"54"),"addBindabilityEvents"), 2
+                        pushbyte 0
+                        setlocal3
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"54"),"typeDescription")
+                        getproperty Multiname("metadata",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                        checkfilter
+                        coerce_a
+                        setlocal 4
+                        getlex QName(PackageNamespace(""),"XMLList")
+                        pushstring ""
+                        construct 1
+                        setlocal2
+                        jump ofs0060
+               ofs003d:
+                        label
+                        getlocal 4
+                        getlocal3
+                        nextvalue
+                        dup
+                        setlocal 5
+                        dup
+                        setlocal 6
+                        pushwith
+                        getlex MultinameA("name",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                        getlex Multiname("MANAGED",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                        equals
+                        iffalse ofs005b
+                        getlocal2
+                        getlocal3
+                        getlocal 5
+                        setproperty MultinameL([PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+               ofs005b:
+                        popscope
+                        kill 6
+                        kill 5
+               ofs0060:
+                        hasnext2 4, 3
+                        iftrue ofs003d
+                        kill 4
+                        kill 3
+                        getlocal2
+                        kill 2
+                        callproperty Multiname("length",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")]), 0
+                        pushbyte 0
+                        ifngt ofs0085
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"54"),"classChangeEvents")
+                        getlex QName(PackageNamespace("mx.events"),"PropertyChangeEvent")
+                        getproperty QName(PackageNamespace(""),"PROPERTY_CHANGE")
+                        pushtrue
+                        setproperty MultinameL([PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+               ofs0085:
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"54"),"classChangeEvents")
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            private function addBindabilityEvents(param1:XMLList, param2:Object) : void
+            {
+               trait method QName(PrivateNamespace(null,"54"),"addBindabilityEvents")
+                  dispid 0
+                  method
+                     name null
+                     flag NEED_ACTIVATION
+                     param QName(PackageNamespace(""),"XMLList")
+                     param QName(PackageNamespace(""),"Object")
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 4
+                        localcount 9
+                        initscopedepth 5
+                        maxscopedepth 8
+                        trait slot QName(PackageInternalNs("mx.binding"),"metadata")
+                           slotid 1
+                           type QName(PackageNamespace(""),"XMLList")
+                        end ; trait
+                        trait slot QName(PackageInternalNs("mx.binding"),"eventListObj")
+                           slotid 2
+                           type QName(PackageNamespace(""),"Object")
+                        end ; trait
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           newactivation
+                           dup
+                           setlocal3
+                           pushscope
+                           getscopeobject 1
+                           getlocal1
+                           setslot 1
+                           getscopeobject 1
+                           getlocal2
+                           setslot 2
+                           getlocal0
+                           pushbyte 0
+                           setlocal 5
+                           getscopeobject 1
+                           getslot 1
+                           checkfilter
+                           coerce_a
+                           setlocal 6
+                           getlex QName(PackageNamespace(""),"XMLList")
+                           pushstring ""
+                           construct 1
+                           setlocal 4
+                           jump ofs004f
+                  ofs0029:
+                           label
+                           getlocal 6
+                           getlocal 5
+                           nextvalue
+                           dup
+                           setlocal 7
+                           dup
+                           setlocal 8
+                           pushwith
+                           getlex MultinameA("name",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                           getlex Multiname("BINDABLE",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                           equals
+                           iffalse ofs004a
+                           getlocal 4
+                           getlocal 5
+                           getlocal 7
+                           setproperty MultinameL([PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                  ofs004a:
+                           popscope
+                           kill 8
+                           kill 7
+                  ofs004f:
+                           hasnext2 6, 5
+                           iftrue ofs0029
+                           kill 6
+                           kill 5
+                           getlocal 4
+                           kill 4
+                           getscopeobject 1
+                           getslot 2
+                           pushtrue
+                           callpropvoid QName(PrivateNamespace(null,"54"),"addChangeEvents"), 3
+                           getlocal0
+                           pushbyte 0
+                           setlocal 5
+                           getscopeobject 1
+                           getslot 1
+                           checkfilter
+                           coerce_a
+                           setlocal 6
+                           getlex QName(PackageNamespace(""),"XMLList")
+                           pushstring ""
+                           construct 1
+                           setlocal 4
+                           jump ofs00a6
+                  ofs0080:
+                           label
+                           getlocal 6
+                           getlocal 5
+                           nextvalue
+                           dup
+                           setlocal 7
+                           dup
+                           setlocal 8
+                           pushwith
+                           getlex MultinameA("name",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                           getlex Multiname("CHANGE_EVENT",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                           equals
+                           iffalse ofs00a1
+                           getlocal 4
+                           getlocal 5
+                           getlocal 7
+                           setproperty MultinameL([PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                  ofs00a1:
+                           popscope
+                           kill 8
+                           kill 7
+                  ofs00a6:
+                           hasnext2 6, 5
+                           iftrue ofs0080
+                           kill 6
+                           kill 5
+                           getlocal 4
+                           kill 4
+                           getscopeobject 1
+                           getslot 2
+                           pushtrue
+                           callpropvoid QName(PrivateNamespace(null,"54"),"addChangeEvents"), 3
+                           getlocal0
+                           pushbyte 0
+                           setlocal 5
+                           getscopeobject 1
+                           getslot 1
+                           checkfilter
+                           coerce_a
+                           setlocal 6
+                           getlex QName(PackageNamespace(""),"XMLList")
+                           pushstring ""
+                           construct 1
+                           setlocal 4
+                           jump ofs00fd
+                  ofs00d7:
+                           label
+                           getlocal 6
+                           getlocal 5
+                           nextvalue
+                           dup
+                           setlocal 7
+                           dup
+                           setlocal 8
+                           pushwith
+                           getlex MultinameA("name",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                           getlex Multiname("NON_COMMITTING_CHANGE_EVENT",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                           equals
+                           iffalse ofs00f8
+                           getlocal 4
+                           getlocal 5
+                           getlocal 7
+                           setproperty MultinameL([PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                  ofs00f8:
+                           popscope
+                           kill 8
+                           kill 7
+                  ofs00fd:
+                           hasnext2 6, 5
+                           iftrue ofs00d7
+                           kill 6
+                           kill 5
+                           getlocal 4
+                           kill 4
+                           getscopeobject 1
+                           getslot 2
+                           pushfalse
+                           callpropvoid QName(PrivateNamespace(null,"54"),"addChangeEvents"), 3
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               private function addChangeEvents(param1:XMLList, param2:Object, param3:Boolean) : void
+               {
+                  trait method QName(PrivateNamespace(null,"54"),"addChangeEvents")
+                     dispid 0
+                     method
+                        name null
+                        param QName(PackageNamespace(""),"XMLList")
+                        param QName(PackageNamespace(""),"Object")
+                        param QName(PackageNamespace(""),"Boolean")
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 3
+                           localcount 9
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              pushnull
+                              coerce QName(PackageNamespace(""),"XML")
+                              setlocal 4
+                              pushnull
+                              coerce QName(PackageNamespace(""),"XMLList")
+                              setlocal 5
+                              pushnull
+                              coerce_s
+                              setlocal 6
+                              pushbyte 0
+                              setlocal 7
+                              getlocal1
+                              coerce_a
+                              setlocal 8
+                              jump ofs0069
+                     ofs001d:
+                              label
+                              getlocal 8
+                              getlocal 7
+                              nextvalue
+                              coerce QName(PackageNamespace(""),"XML")
+                              dup
+                              setlocal 4
+                              getproperty Multiname("arg",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                              coerce QName(PackageNamespace(""),"XMLList")
+                              dup
+                              setlocal 5
+                              callproperty Multiname("length",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")]), 0
+                              pushbyte 0
+                              ifngt ofs0053
+                              getlocal 5
+                              pushbyte 0
+                              getproperty MultinameL([PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                              getproperty MultinameA("value",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                              coerce_s
+                              setlocal 6
+                              getlocal2
+                              getlocal 6
+                              getlocal3
+                              setproperty MultinameL([PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                              jump ofs0069
+                     ofs0053:
+                              findpropstrict QName(PackageNamespace(""),"trace")
+                              pushstring "warning: unconverted Bindable metadata in class \'"
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"54"),"typeDescription")
+                              getproperty MultinameA("name",[PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                              add
+                              pushstring "\'"
+                              add
+                              callpropvoid QName(PackageNamespace(""),"trace"), 1
+                     ofs0069:
+                              hasnext2 8, 7
+                              iftrue ofs001d
+                              kill 8
+                              kill 7
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  private function copyProps(param1:Object, param2:Object) : Object
+                  {
+                     trait method QName(PrivateNamespace(null,"54"),"copyProps")
+                        dispid 0
+                        method
+                           name null
+                           param QName(PackageNamespace(""),"Object")
+                           param QName(PackageNamespace(""),"Object")
+                           returns QName(PackageNamespace(""),"Object")
+                           
+                           body
+                              maxstack 4
+                              localcount 6
+                              initscopedepth 4
+                              maxscopedepth 5
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 pushnull
+                                 coerce_s
+                                 setlocal3
+                                 pushbyte 0
+                                 setlocal 4
+                                 getlocal1
+                                 coerce_a
+                                 setlocal 5
+                                 jump ofs0023
+                        ofs0011:
+                                 label
+                                 getlocal 5
+                                 getlocal 4
+                                 nextname
+                                 coerce_s
+                                 setlocal3
+                                 getlocal2
+                                 getlocal3
+                                 getlocal1
+                                 getlocal3
+                                 getproperty MultinameL([PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                                 setproperty MultinameL([PrivateNamespace(null,"54"),PackageNamespace(""),PrivateNamespace(null,"156"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:BindabilityInfo"),StaticProtectedNs("mx.binding:BindabilityInfo")])
+                        ofs0023:
+                                 hasnext2 5, 4
+                                 iftrue ofs0011
+                                 kill 5
+                                 kill 4
+                                 getlocal2
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                  }
+               }
+               
+               method
+                  name null
+                  returns null
+                  
+                  body
+                     maxstack 2
+                     localcount 1
+                     initscopedepth 1
+                     maxscopedepth 3
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        findpropstrict Multiname("BindabilityInfo",[PackageNamespace("mx.binding")])
+                        getlex QName(PackageNamespace(""),"Object")
+                        pushscope
+                        getlex QName(PackageNamespace(""),"Object")
+                        newclass 184
+                        popscope
+                        initproperty QName(PackageNamespace("mx.binding"),"BindabilityInfo")
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+               

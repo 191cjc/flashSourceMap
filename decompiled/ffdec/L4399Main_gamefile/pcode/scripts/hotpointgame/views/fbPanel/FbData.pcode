@@ -1,0 +1,1009 @@
+package hotpointgame.views.fbPanel
+{
+   import hotpointgame.common.*;
+   import hotpointgame.models.fb.*;
+   import hotpointgame.repository.chHao.*;
+   import hotpointgame.repository.fb.*;
+   import hotpointgame.utils.*;
+   
+   public class FbData
+   {
+      
+      private static var fbList:Array;
+      
+      public static var chLevel:VT;
+      
+      public static var saveArr:Array;
+      
+      public static var lqArrSave:Array;
+      
+      public static var lqSave:Array;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 3
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(PrivateNamespace(null,"384"),"fbList")
+               newarray 0
+               setproperty QName(PrivateNamespace(null,"384"),"fbList")
+               findproperty QName(PackageNamespace(""),"chLevel")
+               getlex Multiname("VT",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+               getlex Multiname("GS",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+               getproperty Multiname("a1",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+               callproperty Multiname("createVT",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 1
+               setproperty QName(PackageNamespace(""),"chLevel")
+               findproperty QName(PackageNamespace(""),"saveArr")
+               newarray 0
+               setproperty QName(PackageNamespace(""),"saveArr")
+               findproperty QName(PackageNamespace(""),"lqArrSave")
+               newarray 0
+               setproperty QName(PackageNamespace(""),"lqArrSave")
+               findproperty QName(PackageNamespace(""),"lqSave")
+               newarray 0
+               setproperty QName(PackageNamespace(""),"lqSave")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      public function FbData()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 1
+               localcount 1
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public static function initData() : void
+      {
+         trait method QName(PackageNamespace(""),"initData")
+            flag FINAL
+            dispid 3
+            method
+               name null
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 3
+                  localcount 1
+                  initscopedepth 3
+                  maxscopedepth 4
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     findproperty Multiname("fbList",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                     getlex Multiname("DeepCopyUtil",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData"),PackageNamespace("hotpointgame.utils")])
+                     getlex Multiname("FbFactory",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                     getproperty Multiname("fbList",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                     callproperty Multiname("clone",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 1
+                     setproperty Multiname("fbList",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                     findpropstrict Multiname("initLq",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                     callpropvoid Multiname("initLq",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                     findpropstrict Multiname("readFun",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                     callpropvoid Multiname("readFun",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public static function initLq() : void
+         {
+            trait method QName(PackageNamespace(""),"initLq")
+               flag FINAL
+               dispid 4
+               method
+                  name null
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 4
+                     localcount 2
+                     initscopedepth 3
+                     maxscopedepth 4
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        pushbyte 0
+                        convert_u
+                        setlocal1
+                        jump ofs0029
+               ofs000a:
+                        label
+                        getlex Multiname("lqArrSave",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                        getlocal1
+                        getlex Multiname("VT",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                        getlex Multiname("GS",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                        getproperty Multiname("a0",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                        callproperty Multiname("createVT",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 1
+                        setproperty MultinameL([PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                        getlocal1
+                        increment
+                        convert_u
+                        setlocal1
+               ofs0029:
+                        getlocal1
+                        getlex Multiname("ChHaoFactory",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData"),PackageNamespace("hotpointgame.repository.chHao")])
+                        getproperty Multiname("chHaoList",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                        getproperty Multiname("length",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                        iflt ofs000a
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public static function closeData() : void
+            {
+               trait method QName(PackageNamespace(""),"closeData")
+                  flag FINAL
+                  dispid 5
+                  method
+                     name null
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 2
+                        localcount 1
+                        initscopedepth 3
+                        maxscopedepth 4
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlex Multiname("saveArr",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                           getlex Multiname("GS",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                           getproperty Multiname("a0",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                           setproperty Multiname("length",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                           getlex Multiname("chLevel",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                           getlex Multiname("GS",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                           getproperty Multiname("a1",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                           callpropvoid Multiname("setValue",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 1
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public static function readFun() : void
+               {
+                  trait method QName(PackageNamespace(""),"readFun")
+                     flag FINAL
+                     dispid 6
+                     method
+                        name null
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 4
+                           localcount 3
+                           initscopedepth 3
+                           maxscopedepth 4
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              pushbyte 0
+                              convert_u
+                              setlocal1
+                              pushbyte 0
+                              convert_u
+                              setlocal2
+                              getlex Multiname("saveArr",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getproperty Multiname("length",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getlex Multiname("GS",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getproperty Multiname("a0",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              ifeq ofs009e
+                              pushbyte 0
+                              convert_u
+                              setlocal1
+                              jump ofs0081
+                     ofs0026:
+                              label
+                              pushbyte 0
+                              convert_u
+                              setlocal2
+                              jump ofs0070
+                     ofs002f:
+                              label
+                              getlex Multiname("fbList",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getlocal1
+                              getproperty MultinameL([PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getlex Multiname("Fb",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData"),PackageNamespace("hotpointgame.models.fb")])
+                              astypelate
+                              callproperty Multiname("getId",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                              getlex Multiname("saveArr",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getlocal2
+                              getproperty MultinameL([PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getlex Multiname("Fb",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData"),PackageNamespace("hotpointgame.models.fb")])
+                              astypelate
+                              callproperty Multiname("getId",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                              ifne ofs006c
+                              getlex Multiname("fbList",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getlocal1
+                              getlex Multiname("saveArr",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getlocal2
+                              getproperty MultinameL([PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              setproperty MultinameL([PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                     ofs006c:
+                              getlocal2
+                              increment
+                              convert_u
+                              setlocal2
+                     ofs0070:
+                              getlocal2
+                              getlex Multiname("saveArr",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getproperty Multiname("length",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              iflt ofs002f
+                              getlocal1
+                              increment
+                              convert_u
+                              setlocal1
+                     ofs0081:
+                              getlocal1
+                              getlex Multiname("fbList",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getproperty Multiname("length",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              iflt ofs0026
+                              getlex Multiname("saveArr",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getlex Multiname("GS",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getproperty Multiname("a0",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              setproperty Multiname("length",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                     ofs009e:
+                              getlex Multiname("lqSave",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getproperty Multiname("length",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getlex Multiname("GS",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getproperty Multiname("a0",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              ifeq ofs0108
+                              pushbyte 0
+                              convert_u
+                              setlocal1
+                              jump ofs00eb
+                     ofs00ba:
+                              label
+                              pushbyte 0
+                              convert_u
+                              setlocal2
+                              jump ofs00da
+                     ofs00c3:
+                              label
+                              getlex Multiname("lqArrSave",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getlocal1
+                              getlex Multiname("lqSave",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getlocal2
+                              getproperty MultinameL([PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              setproperty MultinameL([PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getlocal2
+                              increment
+                              convert_u
+                              setlocal2
+                     ofs00da:
+                              getlocal2
+                              getlex Multiname("lqSave",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getproperty Multiname("length",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              iflt ofs00c3
+                              getlocal1
+                              increment
+                              convert_u
+                              setlocal1
+                     ofs00eb:
+                              getlocal1
+                              getlex Multiname("lqArrSave",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getproperty Multiname("length",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              iflt ofs00ba
+                              getlex Multiname("lqSave",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getlex Multiname("GS",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              getproperty Multiname("a0",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                              setproperty Multiname("length",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                     ofs0108:
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public static function addChLevel() : void
+                  {
+                     trait method QName(PackageNamespace(""),"addChLevel")
+                        flag FINAL
+                        dispid 7
+                        method
+                           name null
+                           returns QName(PackageNamespace(""),"void")
+                           
+                           body
+                              maxstack 3
+                              localcount 1
+                              initscopedepth 3
+                              maxscopedepth 4
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlex Multiname("chLevel",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                 callproperty Multiname("getValue",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                                 getlex Multiname("ChHaoFactory",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData"),PackageNamespace("hotpointgame.repository.chHao")])
+                                 getproperty Multiname("chHaoList",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                 getproperty Multiname("length",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                 ifnlt ofs0036
+                                 getlex Multiname("chLevel",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                 getlex Multiname("chLevel",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                 callproperty Multiname("getValue",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                                 getlex Multiname("GS",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                 getproperty Multiname("a1",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                 add
+                                 callpropvoid Multiname("setValue",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 1
+                        ofs0036:
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public static function getLq(param1:Number) : Number
+                     {
+                        trait method QName(PackageNamespace(""),"getLq")
+                           flag FINAL
+                           dispid 8
+                           method
+                              name null
+                              param QName(PackageNamespace(""),"Number")
+                              returns QName(PackageNamespace(""),"Number")
+                              
+                              body
+                                 maxstack 2
+                                 localcount 2
+                                 initscopedepth 3
+                                 maxscopedepth 4
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlex Multiname("lqArrSave",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                    getlocal1
+                                    getproperty MultinameL([PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                    callproperty Multiname("getValue",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                                    returnvalue
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        public static function setLq(param1:Number) : void
+                        {
+                           trait method QName(PackageNamespace(""),"setLq")
+                              flag FINAL
+                              dispid 9
+                              method
+                                 name null
+                                 param QName(PackageNamespace(""),"Number")
+                                 returns QName(PackageNamespace(""),"void")
+                                 
+                                 body
+                                    maxstack 4
+                                    localcount 2
+                                    initscopedepth 3
+                                    maxscopedepth 4
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlex Multiname("lqArrSave",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                       getlocal1
+                                       getlex Multiname("VT",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                       getlex Multiname("GS",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                       getproperty Multiname("a1",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                       callproperty Multiname("createVT",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 1
+                                       setproperty MultinameL([PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           public static function save() : Object
+                           {
+                              trait method QName(PackageNamespace(""),"save")
+                                 flag FINAL
+                                 dispid 10
+                                 method
+                                    name null
+                                    returns QName(PackageNamespace(""),"Object")
+                                    
+                                    body
+                                       maxstack 4
+                                       localcount 8
+                                       initscopedepth 3
+                                       maxscopedepth 4
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          pushnull
+                                          coerce QName(PackageNamespace("hotpointgame.models.fb"),"Fb")
+                                          setlocal3
+                                          pushnull
+                                          coerce QName(PackageNamespace(""),"Array")
+                                          setlocal 4
+                                          pushbyte 0
+                                          convert_u
+                                          setlocal 5
+                                          findpropstrict Multiname("Object",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                          constructprop Multiname("Object",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                                          coerce QName(PackageNamespace(""),"Object")
+                                          setlocal1
+                                          getlocal1
+                                          pushstring "ch"
+                                          getlex Multiname("chLevel",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                          callproperty Multiname("getValue",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                                          setproperty MultinameL([PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                          newarray 0
+                                          coerce QName(PackageNamespace(""),"Array")
+                                          setlocal2
+                                          pushbyte 0
+                                          setlocal 6
+                                          getlex Multiname("fbList",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                          coerce_a
+                                          setlocal 7
+                                          jump ofs0081
+                                 ofs0042:
+                                          label
+                                          getlocal 7
+                                          getlocal 6
+                                          nextvalue
+                                          coerce QName(PackageNamespace("hotpointgame.models.fb"),"Fb")
+                                          setlocal3
+                                          getlocal3
+                                          callproperty Multiname("getState",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                                          getlex Multiname("GS",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                          getproperty Multiname("a0",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                          equals
+                                          not
+                                          dup
+                                          iftrue ofs0071
+                                          pop
+                                          getlocal3
+                                          callproperty Multiname("getFinishNum",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                                          getlex Multiname("GS",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                          getproperty Multiname("a0",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                          greaterthan
+                                 ofs0071:
+                                          iffalse ofs0081
+                                          getlocal2
+                                          getlocal3
+                                          callproperty Multiname("save",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                                          callpropvoid Multiname("push",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 1
+                                 ofs0081:
+                                          hasnext2 7, 6
+                                          iftrue ofs0042
+                                          kill 7
+                                          kill 6
+                                          getlocal1
+                                          pushstring "fb"
+                                          getlocal2
+                                          setproperty MultinameL([PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                          newarray 0
+                                          coerce QName(PackageNamespace(""),"Array")
+                                          setlocal 4
+                                          pushbyte 0
+                                          convert_u
+                                          setlocal 5
+                                          jump ofs00c2
+                                 ofs00a4:
+                                          label
+                                          getlocal 4
+                                          getlocal 5
+                                          getlex Multiname("lqArrSave",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                          getlocal 5
+                                          getproperty MultinameL([PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                          callproperty Multiname("getValue",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                                          setproperty MultinameL([PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                          getlocal 5
+                                          increment
+                                          convert_u
+                                          setlocal 5
+                                 ofs00c2:
+                                          getlocal 5
+                                          getlex Multiname("lqArrSave",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                          getproperty Multiname("length",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                          iflt ofs00a4
+                                          getlocal1
+                                          pushstring "lq"
+                                          getlocal 4
+                                          setproperty MultinameL([PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                          getlocal1
+                                          returnvalue
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              public static function read(param1:Object) : void
+                              {
+                                 trait method QName(PackageNamespace(""),"read")
+                                    flag FINAL
+                                    dispid 11
+                                    method
+                                       name null
+                                       param QName(PackageNamespace(""),"Object")
+                                       returns QName(PackageNamespace(""),"void")
+                                       
+                                       body
+                                          maxstack 5
+                                          localcount 5
+                                          initscopedepth 3
+                                          maxscopedepth 4
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlex Multiname("saveArr",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                             getlex Multiname("GS",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                             getproperty Multiname("a0",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                             setproperty Multiname("length",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                             getlex Multiname("lqSave",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                             getlex Multiname("GS",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                             getproperty Multiname("a0",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                             setproperty Multiname("length",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                             getlex Multiname("chLevel",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                             getlocal1
+                                             pushstring "ch"
+                                             getproperty MultinameL([PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                             callpropvoid Multiname("setValue",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 1
+                                             getlocal1
+                                             pushstring "lq"
+                                             getproperty MultinameL([PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                             coerce QName(PackageNamespace(""),"Array")
+                                             setlocal2
+                                             pushbyte 0
+                                             convert_u
+                                             setlocal3
+                                             jump ofs0063
+                                    ofs0046:
+                                             label
+                                             getlex Multiname("lqSave",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                             getlocal3
+                                             getlex Multiname("VT",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                             getlocal2
+                                             getlocal3
+                                             getproperty MultinameL([PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                             callproperty Multiname("createVT",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 1
+                                             setproperty MultinameL([PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                             getlocal3
+                                             increment
+                                             convert_u
+                                             setlocal3
+                                    ofs0063:
+                                             getlocal3
+                                             getlocal2
+                                             getproperty Multiname("length",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                             iflt ofs0046
+                                             getlocal1
+                                             pushstring "fb"
+                                             getproperty MultinameL([PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                             coerce QName(PackageNamespace(""),"Array")
+                                             setlocal 4
+                                             pushbyte 0
+                                             convert_u
+                                             setlocal3
+                                             jump ofs009f
+                                    ofs0081:
+                                             label
+                                             getlex Multiname("saveArr",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                             getlex Multiname("Fb",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData"),PackageNamespace("hotpointgame.models.fb")])
+                                             getlocal 4
+                                             getlocal3
+                                             getproperty MultinameL([PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                             callproperty Multiname("read",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 1
+                                             callpropvoid Multiname("push",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 1
+                                             getlocal3
+                                             increment
+                                             convert_u
+                                             setlocal3
+                                    ofs009f:
+                                             getlocal3
+                                             getlocal 4
+                                             getproperty Multiname("length",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                             iflt ofs0081
+                                             returnvoid
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 public static function clearEd() : void
+                                 {
+                                    trait method QName(PackageNamespace(""),"clearEd")
+                                       flag FINAL
+                                       dispid 12
+                                       method
+                                          name null
+                                          returns QName(PackageNamespace(""),"void")
+                                          
+                                          body
+                                             maxstack 2
+                                             localcount 3
+                                             initscopedepth 3
+                                             maxscopedepth 4
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                pushnull
+                                                coerce QName(PackageNamespace("hotpointgame.models.fb"),"Fb")
+                                                setlocal2
+                                                pushbyte 0
+                                                convert_u
+                                                setlocal1
+                                                jump ofs0046
+                                       ofs000f:
+                                                label
+                                                getlex Multiname("saveArr",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                                getlocal1
+                                                getproperty MultinameL([PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                                getlex Multiname("Fb",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData"),PackageNamespace("hotpointgame.models.fb")])
+                                                astypelate
+                                                coerce QName(PackageNamespace("hotpointgame.models.fb"),"Fb")
+                                                setlocal2
+                                                getlocal2
+                                                callproperty Multiname("getState",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                                                getlex Multiname("GS",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                                getproperty Multiname("a1",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                                ifne ofs0042
+                                                getlocal2
+                                                getlex Multiname("GS",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                                getproperty Multiname("a0",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                                callpropvoid Multiname("setState",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 1
+                                       ofs0042:
+                                                getlocal1
+                                                increment
+                                                convert_u
+                                                setlocal1
+                                       ofs0046:
+                                                getlocal1
+                                                getlex Multiname("saveArr",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                                getproperty Multiname("length",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                                iflt ofs000f
+                                                returnvoid
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    public static function addFbTimes(param1:Number) : void
+                                    {
+                                       trait method QName(PackageNamespace(""),"addFbTimes")
+                                          flag FINAL
+                                          dispid 13
+                                          method
+                                             name null
+                                             param QName(PackageNamespace(""),"Number")
+                                             returns QName(PackageNamespace(""),"void")
+                                             
+                                             body
+                                                maxstack 2
+                                                localcount 5
+                                                initscopedepth 3
+                                                maxscopedepth 4
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   pushnull
+                                                   coerce QName(PackageNamespace("hotpointgame.models.fb"),"Fb")
+                                                   setlocal2
+                                                   pushbyte 0
+                                                   setlocal3
+                                                   getlex Multiname("fbList",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                                   coerce_a
+                                                   setlocal 4
+                                                   jump ofs003e
+                                          ofs0015:
+                                                   label
+                                                   getlocal 4
+                                                   getlocal3
+                                                   nextvalue
+                                                   coerce QName(PackageNamespace("hotpointgame.models.fb"),"Fb")
+                                                   setlocal2
+                                                   getlocal1
+                                                   getlocal2
+                                                   callproperty Multiname("getFbId",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                                                   ifne ofs003e
+                                                   getlocal2
+                                                   callpropvoid Multiname("addFinishNum",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                                                   getlocal2
+                                                   getlex Multiname("GS",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                                   getproperty Multiname("a1",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                                   callpropvoid Multiname("setState",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 1
+                                                   returnvoid
+                                          ofs003e:
+                                                   hasnext2 4, 3
+                                                   iftrue ofs0015
+                                                   kill 4
+                                                   kill 3
+                                                   returnvoid
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                       
+                                       public static function isAgin(param1:Number) : Boolean
+                                       {
+                                          trait method QName(PackageNamespace(""),"isAgin")
+                                             flag FINAL
+                                             dispid 14
+                                             method
+                                                name null
+                                                param QName(PackageNamespace(""),"Number")
+                                                returns QName(PackageNamespace(""),"Boolean")
+                                                
+                                                body
+                                                   maxstack 2
+                                                   localcount 5
+                                                   initscopedepth 3
+                                                   maxscopedepth 4
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      pushnull
+                                                      coerce QName(PackageNamespace("hotpointgame.models.fb"),"Fb")
+                                                      setlocal2
+                                                      pushbyte 0
+                                                      setlocal3
+                                                      getlex Multiname("fbList",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                                      coerce_a
+                                                      setlocal 4
+                                                      jump ofs003d
+                                             ofs0015:
+                                                      label
+                                                      getlocal 4
+                                                      getlocal3
+                                                      nextvalue
+                                                      coerce QName(PackageNamespace("hotpointgame.models.fb"),"Fb")
+                                                      setlocal2
+                                                      getlocal2
+                                                      callproperty Multiname("getFbId",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                                                      getlocal1
+                                                      ifne ofs003d
+                                                      getlocal2
+                                                      callproperty Multiname("getState",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                                                      getlex Multiname("GS",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                                      getproperty Multiname("a0",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                                      ifne ofs003d
+                                                      pushtrue
+                                                      returnvalue
+                                             ofs003d:
+                                                      hasnext2 4, 3
+                                                      iftrue ofs0015
+                                                      kill 4
+                                                      kill 3
+                                                      pushfalse
+                                                      returnvalue
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                          }
+                                          
+                                          public static function getFbById(param1:Number) : Array
+                                          {
+                                             trait method QName(PackageNamespace(""),"getFbById")
+                                                flag FINAL
+                                                dispid 15
+                                                method
+                                                   name null
+                                                   param QName(PackageNamespace(""),"Number")
+                                                   returns QName(PackageNamespace(""),"Array")
+                                                   
+                                                   body
+                                                      maxstack 2
+                                                      localcount 6
+                                                      initscopedepth 3
+                                                      maxscopedepth 4
+                                                      
+                                                      code
+                                                         getlocal0
+                                                         pushscope
+                                                         pushnull
+                                                         coerce QName(PackageNamespace("hotpointgame.models.fb"),"Fb")
+                                                         setlocal3
+                                                         newarray 0
+                                                         coerce QName(PackageNamespace(""),"Array")
+                                                         setlocal2
+                                                         pushbyte 0
+                                                         setlocal 4
+                                                         getlex Multiname("fbList",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                                         coerce_a
+                                                         setlocal 5
+                                                         jump ofs0037
+                                                ofs001b:
+                                                         label
+                                                         getlocal 5
+                                                         getlocal 4
+                                                         nextvalue
+                                                         coerce QName(PackageNamespace("hotpointgame.models.fb"),"Fb")
+                                                         setlocal3
+                                                         getlocal3
+                                                         callproperty Multiname("getType",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                                                         getlocal1
+                                                         ifne ofs0037
+                                                         getlocal2
+                                                         getlocal3
+                                                         callpropvoid Multiname("push",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 1
+                                                ofs0037:
+                                                         hasnext2 5, 4
+                                                         iftrue ofs001b
+                                                         kill 5
+                                                         kill 4
+                                                         getlocal2
+                                                         returnvalue
+                                                      end ; code
+                                                   end ; body
+                                                end ; method
+                                             }
+                                             
+                                             public static function isKey(param1:Number) : Boolean
+                                             {
+                                                trait method QName(PackageNamespace(""),"isKey")
+                                                   flag FINAL
+                                                   dispid 16
+                                                   method
+                                                      name null
+                                                      param QName(PackageNamespace(""),"Number")
+                                                      returns QName(PackageNamespace(""),"Boolean")
+                                                      
+                                                      body
+                                                         maxstack 2
+                                                         localcount 5
+                                                         initscopedepth 3
+                                                         maxscopedepth 4
+                                                         
+                                                         code
+                                                            getlocal0
+                                                            pushscope
+                                                            pushnull
+                                                            coerce QName(PackageNamespace("hotpointgame.models.fb"),"Fb")
+                                                            setlocal2
+                                                            pushbyte 0
+                                                            setlocal3
+                                                            getlex Multiname("fbList",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                                            coerce_a
+                                                            setlocal 4
+                                                            jump ofs003d
+                                                   ofs0015:
+                                                            label
+                                                            getlocal 4
+                                                            getlocal3
+                                                            nextvalue
+                                                            coerce QName(PackageNamespace("hotpointgame.models.fb"),"Fb")
+                                                            setlocal2
+                                                            getlocal2
+                                                            callproperty Multiname("getId",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                                                            getlocal1
+                                                            ifne ofs003d
+                                                            getlocal2
+                                                            callproperty Multiname("getFinishNum",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                                                            getlex Multiname("GS",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                                            getproperty Multiname("a0",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                                            ifngt ofs003d
+                                                            pushtrue
+                                                            returnvalue
+                                                   ofs003d:
+                                                            hasnext2 4, 3
+                                                            iftrue ofs0015
+                                                            kill 4
+                                                            kill 3
+                                                            pushfalse
+                                                            returnvalue
+                                                         end ; code
+                                                      end ; body
+                                                   end ; method
+                                                }
+                                                
+                                                public static function getFinishTimeById(param1:Number) : Number
+                                                {
+                                                   trait method QName(PackageNamespace(""),"getFinishTimeById")
+                                                      flag FINAL
+                                                      dispid 17
+                                                      method
+                                                         name null
+                                                         param QName(PackageNamespace(""),"Number")
+                                                         returns QName(PackageNamespace(""),"Number")
+                                                         
+                                                         body
+                                                            maxstack 2
+                                                            localcount 5
+                                                            initscopedepth 3
+                                                            maxscopedepth 4
+                                                            
+                                                            code
+                                                               getlocal0
+                                                               pushscope
+                                                               pushnull
+                                                               coerce QName(PackageNamespace("hotpointgame.models.fb"),"Fb")
+                                                               setlocal2
+                                                               pushbyte 0
+                                                               setlocal3
+                                                               getlex Multiname("fbList",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                                               coerce_a
+                                                               setlocal 4
+                                                               jump ofs0030
+                                                      ofs0015:
+                                                               label
+                                                               getlocal 4
+                                                               getlocal3
+                                                               nextvalue
+                                                               coerce QName(PackageNamespace("hotpointgame.models.fb"),"Fb")
+                                                               setlocal2
+                                                               getlocal2
+                                                               callproperty Multiname("getId",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                                                               getlocal1
+                                                               ifne ofs0030
+                                                               getlocal2
+                                                               callproperty Multiname("getFinishNum",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")]), 0
+                                                               returnvalue
+                                                      ofs0030:
+                                                               hasnext2 4, 3
+                                                               iftrue ofs0015
+                                                               kill 4
+                                                               kill 3
+                                                               getlex Multiname("GS",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                                               getproperty Multiname("a0",[PrivateNamespace(null,"384"),PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common"),ProtectedNamespace("hotpointgame.views.fbPanel:FbData"),StaticProtectedNs("hotpointgame.views.fbPanel:FbData")])
+                                                               returnvalue
+                                                            end ; code
+                                                         end ; body
+                                                      end ; method
+                                                   }
+                                                }
+                                             }
+                                             
+                                             method
+                                                name null
+                                                returns null
+                                                
+                                                body
+                                                   maxstack 2
+                                                   localcount 1
+                                                   initscopedepth 1
+                                                   maxscopedepth 3
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      findpropstrict Multiname("FbData",[PackageNamespace("hotpointgame.views.fbPanel")])
+                                                      getlex QName(PackageNamespace(""),"Object")
+                                                      pushscope
+                                                      getlex Multiname("Object",[PackageNamespace(""),PrivateNamespace(null,"537"),PackageNamespace("hotpointgame.views.fbPanel"),PackageInternalNs("hotpointgame.views.fbPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.repository.fb"),PackageNamespace("hotpointgame.common")])
+                                                      newclass 114
+                                                      popscope
+                                                      initproperty QName(PackageNamespace("hotpointgame.views.fbPanel"),"FbData")
+                                                      returnvoid
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                             

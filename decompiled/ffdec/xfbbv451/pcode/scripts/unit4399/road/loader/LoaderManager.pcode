@@ -1,0 +1,926 @@
+package unit4399.road.loader
+{
+   import flash.net.URLVariables;
+   import flash.utils.ByteArray;
+   import flash.utils.Dictionary;
+   
+   public class LoaderManager
+   {
+      
+      private static var THREAD_COUNT:Number = 1;
+      
+      private static var _count:int = 0;
+      
+      private static var _current:Dictionary;
+      
+      private static var _list:Array;
+      
+      private static var _version:String;
+      
+      private static var _cache:Dictionary;
+      
+      private static var _retryCount:int = 0;
+      
+      private static var _cacheFile:Boolean = false;
+      
+      private static const LOCAL_FILE:String = "34399/files";
+      
+      private static var _files:Object;
+      
+      private static var _changed:Boolean;
+      
+      private static const _reg1:RegExp;
+      
+      private static const _reg2:RegExp;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 4
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(PrivateNamespace(null,"10"),"THREAD_COUNT")
+               pushbyte 1
+               setproperty QName(PrivateNamespace(null,"10"),"THREAD_COUNT")
+               findproperty QName(PrivateNamespace(null,"10"),"_count")
+               pushbyte 0
+               setproperty QName(PrivateNamespace(null,"10"),"_count")
+               findproperty QName(PrivateNamespace(null,"10"),"_current")
+               findpropstrict QName(PackageNamespace("flash.utils"),"Dictionary")
+               constructprop QName(PackageNamespace("flash.utils"),"Dictionary"), 0
+               setproperty QName(PrivateNamespace(null,"10"),"_current")
+               findproperty QName(PrivateNamespace(null,"10"),"_list")
+               findpropstrict QName(PackageNamespace(""),"Array")
+               constructprop QName(PackageNamespace(""),"Array"), 0
+               setproperty QName(PrivateNamespace(null,"10"),"_list")
+               findproperty QName(PrivateNamespace(null,"10"),"_retryCount")
+               pushbyte 0
+               setproperty QName(PrivateNamespace(null,"10"),"_retryCount")
+               findproperty QName(PrivateNamespace(null,"10"),"_cacheFile")
+               pushfalse
+               setproperty QName(PrivateNamespace(null,"10"),"_cacheFile")
+               findproperty QName(PrivateNamespace(null,"10"),"LOCAL_FILE")
+               pushstring "34399/files"
+               initproperty QName(PrivateNamespace(null,"10"),"LOCAL_FILE")
+               findproperty QName(PrivateNamespace(null,"10"),"_reg1")
+               getlex QName(PackageNamespace(""),"RegExp")
+               pushstring "http:\\/\\/[\\w|.|:]+\\/"
+               pushstring "i"
+               construct 2
+               initproperty QName(PrivateNamespace(null,"10"),"_reg1")
+               findproperty QName(PrivateNamespace(null,"10"),"_reg2")
+               getlex QName(PackageNamespace(""),"RegExp")
+               pushstring "[:|.|\\/]"
+               pushstring "g"
+               construct 2
+               initproperty QName(PrivateNamespace(null,"10"),"_reg2")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      public function LoaderManager()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 1
+               localcount 1
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public static function get list() : Array
+      {
+         trait getter QName(PackageNamespace(""),"list")
+            flag FINAL
+            dispid 3
+            method
+               name null
+               returns QName(PackageNamespace(""),"Array")
+               
+               body
+                  maxstack 1
+                  localcount 1
+                  initscopedepth 3
+                  maxscopedepth 4
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlex QName(PrivateNamespace(null,"10"),"_list")
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public static function canStart(param1:ILoader) : Boolean
+         {
+            trait method QName(PackageNamespace(""),"canStart")
+               flag FINAL
+               dispid 4
+               method
+                  name null
+                  param QName(PackageNamespace("unit4399.road.loader"),"ILoader")
+                  returns QName(PackageNamespace(""),"Boolean")
+                  
+                  body
+                     maxstack 2
+                     localcount 2
+                     initscopedepth 3
+                     maxscopedepth 4
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlex QName(PrivateNamespace(null,"10"),"_current")
+                        getlocal1
+                        getproperty MultinameL([PrivateNamespace(null,"10"),PackageNamespace(""),PrivateNamespace(null,"12"),PackageNamespace("unit4399.road.loader"),PackageInternalNs("unit4399.road.loader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("unit4399.road.loader:LoaderManager"),StaticProtectedNs("unit4399.road.loader:LoaderManager")])
+                        pushtrue
+                        equals
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public static function loadDisplay(param1:String, param2:Function = null) : DisplayLoader
+            {
+               trait method QName(PackageNamespace(""),"loadDisplay")
+                  flag FINAL
+                  dispid 5
+                  method
+                     name null
+                     flag HAS_OPTIONAL
+                     param QName(PackageNamespace(""),"String")
+                     param QName(PackageNamespace(""),"Function")
+                     optional Null()
+                     returns QName(PackageNamespace("unit4399.road.loader"),"DisplayLoader")
+                     
+                     body
+                        maxstack 3
+                        localcount 4
+                        initscopedepth 3
+                        maxscopedepth 4
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           findpropstrict QName(PackageNamespace("unit4399.road.loader"),"DisplayLoader")
+                           getlocal1
+                           getlocal2
+                           constructprop QName(PackageNamespace("unit4399.road.loader"),"DisplayLoader"), 2
+                           coerce_a
+                           setlocal3
+                           findpropstrict QName(PackageNamespace(""),"manageLoader")
+                           getlocal3
+                           callpropvoid QName(PackageNamespace(""),"manageLoader"), 1
+                           getlocal3
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public static function loadBytes(param1:String, param2:Function, param3:URLVariables = null, param4:String = "POST") : BytesLoader
+               {
+                  trait method QName(PackageNamespace(""),"loadBytes")
+                     flag FINAL
+                     dispid 6
+                     method
+                        name null
+                        flag HAS_OPTIONAL
+                        param QName(PackageNamespace(""),"String")
+                        param QName(PackageNamespace(""),"Function")
+                        param QName(PackageNamespace("flash.net"),"URLVariables")
+                        param QName(PackageNamespace(""),"String")
+                        optional Null()
+                        optional Utf8("POST")
+                        returns QName(PackageNamespace("unit4399.road.loader"),"BytesLoader")
+                        
+                        body
+                           maxstack 5
+                           localcount 6
+                           initscopedepth 3
+                           maxscopedepth 4
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              findpropstrict QName(PackageNamespace("unit4399.road.loader"),"BytesLoader")
+                              getlocal1
+                              getlocal2
+                              getlocal3
+                              getlocal 4
+                              constructprop QName(PackageNamespace("unit4399.road.loader"),"BytesLoader"), 4
+                              coerce QName(PackageNamespace("unit4399.road.loader"),"BytesLoader")
+                              setlocal 5
+                              findpropstrict QName(PackageNamespace(""),"manageLoader")
+                              getlocal 5
+                              callpropvoid QName(PackageNamespace(""),"manageLoader"), 1
+                              getlocal 5
+                              returnvalue
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public static function manageLoader(param1:ILoader) : void
+                  {
+                     trait method QName(PackageNamespace(""),"manageLoader")
+                        flag FINAL
+                        dispid 7
+                        method
+                           name null
+                           param QName(PackageNamespace("unit4399.road.loader"),"ILoader")
+                           returns QName(PackageNamespace(""),"void")
+                           
+                           body
+                              maxstack 2
+                              localcount 3
+                              initscopedepth 3
+                              maxscopedepth 4
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 pushbyte 0
+                                 setlocal2
+                                 jump ofs0019
+                        ofs0009:
+                                 label
+                                 getlex QName(PrivateNamespace(null,"10"),"_list")
+                                 getlocal2
+                                 getproperty MultinameL([PrivateNamespace(null,"10"),PackageNamespace(""),PrivateNamespace(null,"12"),PackageNamespace("unit4399.road.loader"),PackageInternalNs("unit4399.road.loader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("unit4399.road.loader:LoaderManager"),StaticProtectedNs("unit4399.road.loader:LoaderManager")])
+                                 getlocal1
+                                 ifne ofs0017
+                                 returnvoid
+                        ofs0017:
+                                 inclocal_i 2
+                        ofs0019:
+                                 getlocal2
+                                 getlex QName(PrivateNamespace(null,"10"),"_list")
+                                 getproperty QName(PackageNamespace(""),"length")
+                                 iflt ofs0009
+                                 getlex QName(PrivateNamespace(null,"10"),"_list")
+                                 getlocal1
+                                 callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 1
+                                 findpropstrict QName(PrivateNamespace(null,"10"),"tryStartNext")
+                                 callpropvoid QName(PrivateNamespace(null,"10"),"tryStartNext"), 0
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     private static function tryStartNext() : void
+                     {
+                        trait method QName(PrivateNamespace(null,"10"),"tryStartNext")
+                           flag FINAL
+                           dispid 8
+                           method
+                              name null
+                              returns QName(PackageNamespace(""),"void")
+                              
+                              body
+                                 maxstack 2
+                                 localcount 1
+                                 initscopedepth 3
+                                 maxscopedepth 4
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlex QName(PrivateNamespace(null,"10"),"_list")
+                                    getproperty QName(PackageNamespace(""),"length")
+                                    pushbyte 0
+                                    ifnle ofs000f
+                                    returnvoid
+                           ofs000f:
+                                    getlex QName(PrivateNamespace(null,"10"),"_count")
+                                    getlex QName(PrivateNamespace(null,"10"),"THREAD_COUNT")
+                                    ifnlt ofs0027
+                                    findpropstrict QName(PackageNamespace(""),"BeginLoader")
+                                    getlex QName(PrivateNamespace(null,"10"),"_list")
+                                    callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"shift"), 0
+                                    callpropvoid QName(PackageNamespace(""),"BeginLoader"), 1
+                           ofs0027:
+                                    returnvoid
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        public static function BeginLoader(param1:ILoader) : void
+                        {
+                           trait method QName(PackageNamespace(""),"BeginLoader")
+                              flag FINAL
+                              dispid 9
+                              method
+                                 name null
+                                 param QName(PackageNamespace("unit4399.road.loader"),"ILoader")
+                                 returns QName(PackageNamespace(""),"void")
+                                 
+                                 body
+                                    maxstack 3
+                                    localcount 4
+                                    initscopedepth 3
+                                    maxscopedepth 4
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlex QName(PrivateNamespace(null,"10"),"_current")
+                                       getlocal1
+                                       pushtrue
+                                       setproperty MultinameL([PrivateNamespace(null,"10"),PackageNamespace(""),PrivateNamespace(null,"12"),PackageNamespace("unit4399.road.loader"),PackageInternalNs("unit4399.road.loader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("unit4399.road.loader:LoaderManager"),StaticProtectedNs("unit4399.road.loader:LoaderManager")])
+                                       findpropstrict QName(PrivateNamespace(null,"10"),"_count")
+                                       dup
+                                       setlocal2
+                                       getproperty QName(PrivateNamespace(null,"10"),"_count")
+                                       increment_i
+                                       setlocal3
+                                       getlocal2
+                                       getlocal3
+                                       setproperty QName(PrivateNamespace(null,"10"),"_count")
+                                       kill 3
+                                       kill 2
+                                       getlocal1
+                                       callpropvoid QName(Namespace("unit4399.road.loader:ILoader"),"loadSync"), 0
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           public static function EndLoader(param1:ILoader) : void
+                           {
+                              trait method QName(PackageNamespace(""),"EndLoader")
+                                 flag FINAL
+                                 dispid 10
+                                 method
+                                    name null
+                                    param QName(PackageNamespace("unit4399.road.loader"),"ILoader")
+                                    returns QName(PackageNamespace(""),"void")
+                                    
+                                    body
+                                       maxstack 2
+                                       localcount 4
+                                       initscopedepth 3
+                                       maxscopedepth 4
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlex QName(PrivateNamespace(null,"10"),"_current")
+                                          getlocal1
+                                          getproperty MultinameL([PrivateNamespace(null,"10"),PackageNamespace(""),PrivateNamespace(null,"12"),PackageNamespace("unit4399.road.loader"),PackageInternalNs("unit4399.road.loader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("unit4399.road.loader:LoaderManager"),StaticProtectedNs("unit4399.road.loader:LoaderManager")])
+                                          iffalse ofs002f
+                                          getlex QName(PrivateNamespace(null,"10"),"_current")
+                                          getlocal1
+                                          deleteproperty MultinameL([PrivateNamespace(null,"10"),PackageNamespace(""),PrivateNamespace(null,"12"),PackageNamespace("unit4399.road.loader"),PackageInternalNs("unit4399.road.loader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("unit4399.road.loader:LoaderManager"),StaticProtectedNs("unit4399.road.loader:LoaderManager")])
+                                          pop
+                                          findpropstrict QName(PrivateNamespace(null,"10"),"_count")
+                                          dup
+                                          setlocal2
+                                          getproperty QName(PrivateNamespace(null,"10"),"_count")
+                                          decrement_i
+                                          setlocal3
+                                          getlocal2
+                                          getlocal3
+                                          setproperty QName(PrivateNamespace(null,"10"),"_count")
+                                          kill 3
+                                          kill 2
+                                          findpropstrict QName(PrivateNamespace(null,"10"),"tryStartNext")
+                                          callpropvoid QName(PrivateNamespace(null,"10"),"tryStartNext"), 0
+                                 ofs002f:
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              public static function CancelLoader(param1:ILoader) : void
+                              {
+                                 trait method QName(PackageNamespace(""),"CancelLoader")
+                                    flag FINAL
+                                    dispid 11
+                                    method
+                                       name null
+                                       param QName(PackageNamespace("unit4399.road.loader"),"ILoader")
+                                       returns QName(PackageNamespace(""),"void")
+                                       
+                                       body
+                                          maxstack 3
+                                          localcount 3
+                                          initscopedepth 3
+                                          maxscopedepth 4
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             pushbyte 0
+                                             setlocal2
+                                             getlocal1
+                                             callproperty QName(Namespace("unit4399.road.loader:ILoader"),"isStarted"), 0
+                                             iffalse ofs001a
+                                             findpropstrict QName(PackageNamespace(""),"EndLoader")
+                                             getlocal1
+                                             callpropvoid QName(PackageNamespace(""),"EndLoader"), 1
+                                             jump ofs0045
+                                    ofs001a:
+                                             pushbyte 0
+                                             setlocal2
+                                             jump ofs003a
+                                    ofs0021:
+                                             label
+                                             getlex QName(PrivateNamespace(null,"10"),"_list")
+                                             getlocal2
+                                             getproperty MultinameL([PrivateNamespace(null,"10"),PackageNamespace(""),PrivateNamespace(null,"12"),PackageNamespace("unit4399.road.loader"),PackageInternalNs("unit4399.road.loader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("unit4399.road.loader:LoaderManager"),StaticProtectedNs("unit4399.road.loader:LoaderManager")])
+                                             getlocal1
+                                             ifne ofs0038
+                                             getlex QName(PrivateNamespace(null,"10"),"_list")
+                                             getlocal2
+                                             pushbyte 1
+                                             callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"splice"), 2
+                                    ofs0038:
+                                             inclocal_i 2
+                                    ofs003a:
+                                             getlocal2
+                                             getlex QName(PrivateNamespace(null,"10"),"_list")
+                                             getproperty QName(PackageNamespace(""),"length")
+                                             iflt ofs0021
+                                    ofs0045:
+                                             returnvoid
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 public static function setup() : void
+                                 {
+                                    trait method QName(PackageNamespace(""),"setup")
+                                       flag FINAL
+                                       dispid 12
+                                       method
+                                          name null
+                                          returns QName(PackageNamespace(""),"void")
+                                          
+                                          body
+                                             maxstack 2
+                                             localcount 1
+                                             initscopedepth 3
+                                             maxscopedepth 4
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                findproperty QName(PrivateNamespace(null,"10"),"_cacheFile")
+                                                pushfalse
+                                                setproperty QName(PrivateNamespace(null,"10"),"_cacheFile")
+                                                findproperty QName(PrivateNamespace(null,"10"),"_cache")
+                                                findpropstrict QName(PackageNamespace("flash.utils"),"Dictionary")
+                                                constructprop QName(PackageNamespace("flash.utils"),"Dictionary"), 0
+                                                setproperty QName(PrivateNamespace(null,"10"),"_cache")
+                                                findpropstrict QName(PrivateNamespace(null,"10"),"loadFilesInLocal")
+                                                callpropvoid QName(PrivateNamespace(null,"10"),"loadFilesInLocal"), 0
+                                                returnvoid
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    private static function loadFilesInLocal() : void
+                                    {
+                                       trait method QName(PrivateNamespace(null,"10"),"loadFilesInLocal")
+                                          flag FINAL
+                                          dispid 13
+                                          method
+                                             name null
+                                             returns QName(PackageNamespace(""),"void")
+                                             
+                                             body
+                                                maxstack 3
+                                                localcount 2
+                                                initscopedepth 3
+                                                maxscopedepth 6
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                          ofs0002:
+                                                   getlex QName(PrivateNamespace(null,"10"),"_files")
+                                                   pushnull
+                                                   ifne ofs0034
+                                                   findproperty QName(PrivateNamespace(null,"10"),"_files")
+                                                   findpropstrict QName(PackageNamespace(""),"Object")
+                                                   constructprop QName(PackageNamespace(""),"Object"), 0
+                                                   setproperty QName(PrivateNamespace(null,"10"),"_files")
+                                                   findproperty QName(PrivateNamespace(null,"10"),"_version")
+                                                   pushstring "-1"
+                                                   setproperty QName(PrivateNamespace(null,"10"),"_version")
+                                                   getlex QName(PrivateNamespace(null,"10"),"_files")
+                                                   pushstring "version"
+                                                   getlex QName(PrivateNamespace(null,"10"),"_version")
+                                                   setproperty MultinameL([PrivateNamespace(null,"10"),PackageNamespace(""),PrivateNamespace(null,"12"),PackageNamespace("unit4399.road.loader"),PackageInternalNs("unit4399.road.loader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("unit4399.road.loader:LoaderManager"),StaticProtectedNs("unit4399.road.loader:LoaderManager")])
+                                                   findproperty QName(PrivateNamespace(null,"10"),"_cacheFile")
+                                                   pushfalse
+                                                   setproperty QName(PrivateNamespace(null,"10"),"_cacheFile")
+                                                   jump ofs004a
+                                          ofs0034:
+                                                   findproperty QName(PrivateNamespace(null,"10"),"_version")
+                                                   getlex QName(PrivateNamespace(null,"10"),"_files")
+                                                   pushstring "version"
+                                                   getproperty MultinameL([PrivateNamespace(null,"10"),PackageNamespace(""),PrivateNamespace(null,"12"),PackageNamespace("unit4399.road.loader"),PackageInternalNs("unit4399.road.loader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("unit4399.road.loader:LoaderManager"),StaticProtectedNs("unit4399.road.loader:LoaderManager")])
+                                                   setproperty QName(PrivateNamespace(null,"10"),"_version")
+                                                   findproperty QName(PrivateNamespace(null,"10"),"_cacheFile")
+                                                   pushtrue
+                                                   setproperty QName(PrivateNamespace(null,"10"),"_cacheFile")
+                                          ofs004a:
+                                                   jump ofs005c
+                                          ofs004e:
+                                                   getlocal0
+                                                   pushscope
+                                                   newcatch 0
+                                                   dup
+                                                   setlocal1
+                                                   dup
+                                                   pushscope
+                                                   swap
+                                                   setslot 1
+                                                   popscope
+                                                   kill 1
+                                          ofs005c:
+                                                   returnvoid
+                                                end ; code
+                                                try from ofs0002 to ofs004a target ofs004e type QName(PackageNamespace(""),"Error") name QName(PackageNamespace(""),"e") end
+                                             end ; body
+                                          end ; method
+                                       }
+                                       
+                                       public static function clearCache() : void
+                                       {
+                                          trait method QName(PackageNamespace(""),"clearCache")
+                                             flag FINAL
+                                             dispid 14
+                                             method
+                                                name null
+                                                returns QName(PackageNamespace(""),"void")
+                                                
+                                                body
+                                                   maxstack 1
+                                                   localcount 1
+                                                   initscopedepth 3
+                                                   maxscopedepth 4
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      returnvoid
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                          }
+                                          
+                                          public static function set version(param1:String) : void
+                                          {
+                                             trait setter QName(PackageNamespace(""),"version")
+                                                flag FINAL
+                                                dispid 15
+                                                method
+                                                   name null
+                                                   param QName(PackageNamespace(""),"String")
+                                                   returns QName(PackageNamespace(""),"void")
+                                                   
+                                                   body
+                                                      maxstack 3
+                                                      localcount 2
+                                                      initscopedepth 3
+                                                      maxscopedepth 4
+                                                      
+                                                      code
+                                                         getlocal0
+                                                         pushscope
+                                                         findproperty QName(PrivateNamespace(null,"10"),"_version")
+                                                         getlocal1
+                                                         setproperty QName(PrivateNamespace(null,"10"),"_version")
+                                                         getlex QName(PrivateNamespace(null,"10"),"_files")
+                                                         pushstring "version"
+                                                         getlocal1
+                                                         setproperty MultinameL([PrivateNamespace(null,"10"),PackageNamespace(""),PrivateNamespace(null,"12"),PackageNamespace("unit4399.road.loader"),PackageInternalNs("unit4399.road.loader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("unit4399.road.loader:LoaderManager"),StaticProtectedNs("unit4399.road.loader:LoaderManager")])
+                                                         returnvoid
+                                                      end ; code
+                                                   end ; body
+                                                end ; method
+                                             }
+                                             
+                                             public static function get version() : String
+                                             {
+                                                trait getter QName(PackageNamespace(""),"version")
+                                                   flag FINAL
+                                                   dispid 16
+                                                   method
+                                                      name null
+                                                      returns QName(PackageNamespace(""),"String")
+                                                      
+                                                      body
+                                                         maxstack 1
+                                                         localcount 1
+                                                         initscopedepth 3
+                                                         maxscopedepth 4
+                                                         
+                                                         code
+                                                            getlocal0
+                                                            pushscope
+                                                            getlex QName(PrivateNamespace(null,"10"),"_version")
+                                                            returnvalue
+                                                         end ; code
+                                                      end ; body
+                                                   end ; method
+                                                }
+                                                
+                                                public static function get cacheAble() : Boolean
+                                                {
+                                                   trait getter QName(PackageNamespace(""),"cacheAble")
+                                                      flag FINAL
+                                                      dispid 17
+                                                      method
+                                                         name null
+                                                         returns QName(PackageNamespace(""),"Boolean")
+                                                         
+                                                         body
+                                                            maxstack 1
+                                                            localcount 1
+                                                            initscopedepth 3
+                                                            maxscopedepth 4
+                                                            
+                                                            code
+                                                               getlocal0
+                                                               pushscope
+                                                               getlex QName(PrivateNamespace(null,"10"),"_cacheFile")
+                                                               returnvalue
+                                                            end ; code
+                                                         end ; body
+                                                      end ; method
+                                                   }
+                                                   
+                                                   public static function set cacheAble(param1:Boolean) : void
+                                                   {
+                                                      trait setter QName(PackageNamespace(""),"cacheAble")
+                                                         flag FINAL
+                                                         dispid 18
+                                                         method
+                                                            name null
+                                                            param QName(PackageNamespace(""),"Boolean")
+                                                            returns QName(PackageNamespace(""),"void")
+                                                            
+                                                            body
+                                                               maxstack 2
+                                                               localcount 2
+                                                               initscopedepth 3
+                                                               maxscopedepth 4
+                                                               
+                                                               code
+                                                                  getlocal0
+                                                                  pushscope
+                                                                  findproperty QName(PrivateNamespace(null,"10"),"_cacheFile")
+                                                                  getlocal1
+                                                                  setproperty QName(PrivateNamespace(null,"10"),"_cacheFile")
+                                                                  returnvoid
+                                                               end ; code
+                                                            end ; body
+                                                         end ; method
+                                                      }
+                                                      
+                                                      private static function getPath(param1:String) : String
+                                                      {
+                                                         trait method QName(PrivateNamespace(null,"10"),"getPath")
+                                                            flag FINAL
+                                                            dispid 19
+                                                            method
+                                                               name null
+                                                               param QName(PackageNamespace(""),"String")
+                                                               returns QName(PackageNamespace(""),"String")
+                                                               
+                                                               body
+                                                                  maxstack 3
+                                                                  localcount 3
+                                                                  initscopedepth 3
+                                                                  maxscopedepth 4
+                                                                  
+                                                                  code
+                                                                     getlocal0
+                                                                     pushscope
+                                                                     getlocal1
+                                                                     pushstring "?"
+                                                                     callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"indexOf"), 1
+                                                                     convert_i
+                                                                     setlocal2
+                                                                     getlocal2
+                                                                     pushbyte -1
+                                                                     ifeq ofs001d
+                                                                     getlocal1
+                                                                     pushbyte 0
+                                                                     getlocal2
+                                                                     callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"substring"), 2
+                                                                     coerce_s
+                                                                     setlocal1
+                                                            ofs001d:
+                                                                     getlocal1
+                                                                     getlex QName(PrivateNamespace(null,"10"),"_reg1")
+                                                                     pushstring ""
+                                                                     callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"replace"), 2
+                                                                     coerce_s
+                                                                     setlocal1
+                                                                     getlocal1
+                                                                     getlex QName(PrivateNamespace(null,"10"),"_reg2")
+                                                                     pushstring "-"
+                                                                     callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"replace"), 2
+                                                                     returnvalue
+                                                                  end ; code
+                                                               end ; body
+                                                            end ; method
+                                                         }
+                                                         
+                                                         public static function cacheFile(param1:String, param2:ByteArray, param3:Boolean) : void
+                                                         {
+                                                            trait method QName(PackageNamespace(""),"cacheFile")
+                                                               flag FINAL
+                                                               dispid 20
+                                                               method
+                                                                  name null
+                                                                  param QName(PackageNamespace(""),"String")
+                                                                  param QName(PackageNamespace("flash.utils"),"ByteArray")
+                                                                  param QName(PackageNamespace(""),"Boolean")
+                                                                  returns QName(PackageNamespace(""),"void")
+                                                                  
+                                                                  body
+                                                                     maxstack 3
+                                                                     localcount 5
+                                                                     initscopedepth 3
+                                                                     maxscopedepth 4
+                                                                     
+                                                                     code
+                                                                        getlocal0
+                                                                        pushscope
+                                                                        pushnull
+                                                                        coerce_s
+                                                                        setlocal 4
+                                                                        getlex QName(PrivateNamespace(null,"10"),"_files")
+                                                                        iffalse ofs0036
+                                                                        findpropstrict QName(PrivateNamespace(null,"10"),"getPath")
+                                                                        getlocal1
+                                                                        callproperty QName(PrivateNamespace(null,"10"),"getPath"), 1
+                                                                        coerce_s
+                                                                        setlocal 4
+                                                                        getlocal3
+                                                                        iffalse ofs002f
+                                                                        getlex QName(PrivateNamespace(null,"10"),"_cache")
+                                                                        getlocal 4
+                                                                        getlocal2
+                                                                        setproperty MultinameL([PrivateNamespace(null,"10"),PackageNamespace(""),PrivateNamespace(null,"12"),PackageNamespace("unit4399.road.loader"),PackageInternalNs("unit4399.road.loader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("unit4399.road.loader:LoaderManager"),StaticProtectedNs("unit4399.road.loader:LoaderManager")])
+                                                                        getlex QName(PrivateNamespace(null,"10"),"_files")
+                                                                        getlocal 4
+                                                                        getlocal2
+                                                                        setproperty MultinameL([PrivateNamespace(null,"10"),PackageNamespace(""),PrivateNamespace(null,"12"),PackageNamespace("unit4399.road.loader"),PackageInternalNs("unit4399.road.loader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("unit4399.road.loader:LoaderManager"),StaticProtectedNs("unit4399.road.loader:LoaderManager")])
+                                                               ofs002f:
+                                                                        findproperty QName(PrivateNamespace(null,"10"),"_changed")
+                                                                        pushtrue
+                                                                        setproperty QName(PrivateNamespace(null,"10"),"_changed")
+                                                               ofs0036:
+                                                                        returnvoid
+                                                                     end ; code
+                                                                  end ; body
+                                                               end ; method
+                                                            }
+                                                            
+                                                            public static function cacheXML(param1:XML) : void
+                                                            {
+                                                               trait method QName(PackageNamespace(""),"cacheXML")
+                                                                  flag FINAL
+                                                                  dispid 21
+                                                                  method
+                                                                     name null
+                                                                     param QName(PackageNamespace(""),"XML")
+                                                                     returns QName(PackageNamespace(""),"void")
+                                                                     
+                                                                     body
+                                                                        maxstack 3
+                                                                        localcount 2
+                                                                        initscopedepth 3
+                                                                        maxscopedepth 4
+                                                                        
+                                                                        code
+                                                                           getlocal0
+                                                                           pushscope
+                                                                           getlex QName(PrivateNamespace(null,"10"),"_files")
+                                                                           pushstring "ctrl_xml"
+                                                                           getlocal1
+                                                                           setproperty MultinameL([PrivateNamespace(null,"10"),PackageNamespace(""),PrivateNamespace(null,"12"),PackageNamespace("unit4399.road.loader"),PackageInternalNs("unit4399.road.loader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("unit4399.road.loader:LoaderManager"),StaticProtectedNs("unit4399.road.loader:LoaderManager")])
+                                                                           returnvoid
+                                                                        end ; code
+                                                                     end ; body
+                                                                  end ; method
+                                                               }
+                                                               
+                                                               public static function get ctrlXML() : XML
+                                                               {
+                                                                  trait getter QName(PackageNamespace(""),"ctrlXML")
+                                                                     flag FINAL
+                                                                     dispid 22
+                                                                     method
+                                                                        name null
+                                                                        returns QName(PackageNamespace(""),"XML")
+                                                                        
+                                                                        body
+                                                                           maxstack 2
+                                                                           localcount 1
+                                                                           initscopedepth 3
+                                                                           maxscopedepth 4
+                                                                           
+                                                                           code
+                                                                              getlocal0
+                                                                              pushscope
+                                                                              getlex QName(PrivateNamespace(null,"10"),"_files")
+                                                                              pushstring "ctrl_xml"
+                                                                              getproperty MultinameL([PrivateNamespace(null,"10"),PackageNamespace(""),PrivateNamespace(null,"12"),PackageNamespace("unit4399.road.loader"),PackageInternalNs("unit4399.road.loader"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("unit4399.road.loader:LoaderManager"),StaticProtectedNs("unit4399.road.loader:LoaderManager")])
+                                                                              returnvalue
+                                                                           end ; code
+                                                                        end ; body
+                                                                     end ; method
+                                                                  }
+                                                                  
+                                                                  public static function loadCachedFile(param1:String, param2:Boolean) : ByteArray
+                                                                  {
+                                                                     trait method QName(PackageNamespace(""),"loadCachedFile")
+                                                                        flag FINAL
+                                                                        dispid 23
+                                                                        method
+                                                                           name null
+                                                                           param QName(PackageNamespace(""),"String")
+                                                                           param QName(PackageNamespace(""),"Boolean")
+                                                                           returns QName(PackageNamespace("flash.utils"),"ByteArray")
+                                                                           
+                                                                           body
+                                                                              maxstack 1
+                                                                              localcount 3
+                                                                              initscopedepth 3
+                                                                              maxscopedepth 4
+                                                                              
+                                                                              code
+                                                                                 getlocal0
+                                                                                 pushscope
+                                                                                 pushnull
+                                                                                 returnvalue
+                                                                              end ; code
+                                                                           end ; body
+                                                                        end ; method
+                                                                     }
+                                                                  }
+                                                               }
+                                                               
+                                                               method
+                                                                  name null
+                                                                  returns null
+                                                                  
+                                                                  body
+                                                                     maxstack 2
+                                                                     localcount 1
+                                                                     initscopedepth 1
+                                                                     maxscopedepth 3
+                                                                     
+                                                                     code
+                                                                        getlocal0
+                                                                        pushscope
+                                                                        findpropstrict Multiname("LoaderManager",[PackageNamespace("unit4399.road.loader")])
+                                                                        getlex QName(PackageNamespace(""),"Object")
+                                                                        pushscope
+                                                                        getlex QName(PackageNamespace(""),"Object")
+                                                                        newclass 9
+                                                                        popscope
+                                                                        initproperty QName(PackageNamespace("unit4399.road.loader"),"LoaderManager")
+                                                                        returnvoid
+                                                                     end ; code
+                                                                  end ; body
+                                                               end ; method
+                                                               

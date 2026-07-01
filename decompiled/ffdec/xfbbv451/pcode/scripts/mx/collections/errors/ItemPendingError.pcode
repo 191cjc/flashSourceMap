@@ -1,0 +1,150 @@
+package mx.collections.errors
+{
+   import mx.core.mx_internal;
+   import mx.rpc.IResponder;
+   
+   use namespace mx_internal;
+   
+   public class ItemPendingError extends Error
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 4
+            maxscopedepth 5
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var _responders:Array;
+      
+      public function ItemPendingError(param1:String)
+      {
+         method
+            name null
+            param QName(PackageNamespace(""),"String")
+            returns null
+            
+            body
+               maxstack 2
+               localcount 2
+               initscopedepth 5
+               maxscopedepth 6
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  getlocal1
+                  constructsuper 1
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function get responders() : Array
+      {
+         trait getter QName(PackageNamespace(""),"responders")
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace(""),"Array")
+               
+               body
+                  maxstack 1
+                  localcount 1
+                  initscopedepth 5
+                  maxscopedepth 6
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"69"),"_responders")
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function addResponder(param1:IResponder) : void
+         {
+            trait method QName(PackageNamespace(""),"addResponder")
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace("mx.rpc"),"IResponder")
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 2
+                     localcount 2
+                     initscopedepth 5
+                     maxscopedepth 6
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"69"),"_responders")
+                        iftrue ofs0010
+                        getlocal0
+                        newarray 0
+                        initproperty QName(PrivateNamespace(null,"69"),"_responders")
+               ofs0010:
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"69"),"_responders")
+                        getlocal1
+                        callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 1
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+         }
+      }
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 1
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findpropstrict Multiname("ItemPendingError",[PackageNamespace("mx.collections.errors")])
+               getlex QName(PackageNamespace(""),"Object")
+               pushscope
+               getlex QName(PackageNamespace(""),"Error")
+               pushscope
+               getlex QName(PackageNamespace(""),"Error")
+               newclass 237
+               popscope
+               popscope
+               initproperty QName(PackageNamespace("mx.collections.errors"),"ItemPendingError")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      

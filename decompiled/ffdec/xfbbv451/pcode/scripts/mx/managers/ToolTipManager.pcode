@@ -1,0 +1,775 @@
+package mx.managers
+{
+   import flash.display.DisplayObject;
+   import flash.events.EventDispatcher;
+   import mx.core.IToolTip;
+   import mx.core.IUIComponent;
+   import mx.core.Singleton;
+   import mx.core.mx_internal;
+   import mx.effects.IAbstractEffect;
+   
+   use namespace mx_internal;
+   
+   public class ToolTipManager extends EventDispatcher
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      private static var implClassDependency:ToolTipManagerImpl;
+      
+      private static var _impl:IToolTipManager2;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 4
+            maxscopedepth 5
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      public function ToolTipManager()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 1
+               localcount 1
+               initscopedepth 5
+               maxscopedepth 6
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      private static function get impl() : IToolTipManager2
+      {
+         trait getter QName(PrivateNamespace(null,"84"),"impl")
+            flag FINAL
+            dispid 3
+            method
+               name null
+               returns QName(PackageNamespace("mx.managers"),"IToolTipManager2")
+               
+               body
+                  maxstack 4
+                  localcount 1
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlex QName(PrivateNamespace(null,"84"),"_impl")
+                     iftrue ofs001e
+                     findproperty QName(PrivateNamespace(null,"84"),"_impl")
+                     findpropstrict QName(PackageNamespace("mx.managers"),"IToolTipManager2")
+                     getlex QName(PackageNamespace("mx.core"),"Singleton")
+                     pushstring "mx.managers::IToolTipManager2"
+                     callproperty QName(PackageNamespace(""),"getInstance"), 1
+                     callproperty QName(PackageNamespace("mx.managers"),"IToolTipManager2"), 1
+                     setproperty QName(PrivateNamespace(null,"84"),"_impl")
+            ofs001e:
+                     getlex QName(PrivateNamespace(null,"84"),"_impl")
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public static function get currentTarget() : DisplayObject
+         {
+            trait getter QName(PackageNamespace(""),"currentTarget")
+               flag FINAL
+               dispid 4
+               method
+                  name null
+                  returns QName(PackageNamespace("flash.display"),"DisplayObject")
+                  
+                  body
+                     maxstack 1
+                     localcount 1
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlex QName(PrivateNamespace(null,"84"),"impl")
+                        getproperty QName(Namespace("mx.managers:IToolTipManager2"),"currentTarget")
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public static function set currentTarget(param1:DisplayObject) : void
+            {
+               trait setter QName(PackageNamespace(""),"currentTarget")
+                  flag FINAL
+                  dispid 5
+                  method
+                     name null
+                     param QName(PackageNamespace("flash.display"),"DisplayObject")
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 2
+                        localcount 2
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlex QName(PrivateNamespace(null,"84"),"impl")
+                           getlocal1
+                           setproperty QName(Namespace("mx.managers:IToolTipManager2"),"currentTarget")
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public static function get currentToolTip() : IToolTip
+               {
+                  trait getter QName(PackageNamespace(""),"currentToolTip")
+                     flag FINAL
+                     dispid 6
+                     method
+                        name null
+                        returns QName(PackageNamespace("mx.core"),"IToolTip")
+                        
+                        body
+                           maxstack 1
+                           localcount 1
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlex QName(PrivateNamespace(null,"84"),"impl")
+                              getproperty QName(Namespace("mx.managers:IToolTipManager2"),"currentToolTip")
+                              returnvalue
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public static function set currentToolTip(param1:IToolTip) : void
+                  {
+                     trait setter QName(PackageNamespace(""),"currentToolTip")
+                        flag FINAL
+                        dispid 7
+                        method
+                           name null
+                           param QName(PackageNamespace("mx.core"),"IToolTip")
+                           returns QName(PackageNamespace(""),"void")
+                           
+                           body
+                              maxstack 2
+                              localcount 2
+                              initscopedepth 4
+                              maxscopedepth 5
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlex QName(PrivateNamespace(null,"84"),"impl")
+                                 getlocal1
+                                 setproperty QName(Namespace("mx.managers:IToolTipManager2"),"currentToolTip")
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public static function get enabled() : Boolean
+                     {
+                        trait getter QName(PackageNamespace(""),"enabled")
+                           flag FINAL
+                           dispid 8
+                           method
+                              name null
+                              returns QName(PackageNamespace(""),"Boolean")
+                              
+                              body
+                                 maxstack 1
+                                 localcount 1
+                                 initscopedepth 4
+                                 maxscopedepth 5
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlex QName(PrivateNamespace(null,"84"),"impl")
+                                    getproperty QName(Namespace("mx.managers:IToolTipManager2"),"enabled")
+                                    returnvalue
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        public static function set enabled(param1:Boolean) : void
+                        {
+                           trait setter QName(PackageNamespace(""),"enabled")
+                              flag FINAL
+                              dispid 9
+                              method
+                                 name null
+                                 param QName(PackageNamespace(""),"Boolean")
+                                 returns QName(PackageNamespace(""),"void")
+                                 
+                                 body
+                                    maxstack 2
+                                    localcount 2
+                                    initscopedepth 4
+                                    maxscopedepth 5
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlex QName(PrivateNamespace(null,"84"),"impl")
+                                       getlocal1
+                                       setproperty QName(Namespace("mx.managers:IToolTipManager2"),"enabled")
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           public static function get hideDelay() : Number
+                           {
+                              trait getter QName(PackageNamespace(""),"hideDelay")
+                                 flag FINAL
+                                 dispid 10
+                                 method
+                                    name null
+                                    returns QName(PackageNamespace(""),"Number")
+                                    
+                                    body
+                                       maxstack 1
+                                       localcount 1
+                                       initscopedepth 4
+                                       maxscopedepth 5
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlex QName(PrivateNamespace(null,"84"),"impl")
+                                          getproperty QName(Namespace("mx.managers:IToolTipManager2"),"hideDelay")
+                                          returnvalue
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              public static function set hideDelay(param1:Number) : void
+                              {
+                                 trait setter QName(PackageNamespace(""),"hideDelay")
+                                    flag FINAL
+                                    dispid 11
+                                    method
+                                       name null
+                                       param QName(PackageNamespace(""),"Number")
+                                       returns QName(PackageNamespace(""),"void")
+                                       
+                                       body
+                                          maxstack 2
+                                          localcount 2
+                                          initscopedepth 4
+                                          maxscopedepth 5
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlex QName(PrivateNamespace(null,"84"),"impl")
+                                             getlocal1
+                                             setproperty QName(Namespace("mx.managers:IToolTipManager2"),"hideDelay")
+                                             returnvoid
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 public static function get hideEffect() : IAbstractEffect
+                                 {
+                                    trait getter QName(PackageNamespace(""),"hideEffect")
+                                       flag FINAL
+                                       dispid 12
+                                       method
+                                          name null
+                                          returns QName(PackageNamespace("mx.effects"),"IAbstractEffect")
+                                          
+                                          body
+                                             maxstack 1
+                                             localcount 1
+                                             initscopedepth 4
+                                             maxscopedepth 5
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                getlex QName(PrivateNamespace(null,"84"),"impl")
+                                                getproperty QName(Namespace("mx.managers:IToolTipManager2"),"hideEffect")
+                                                returnvalue
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    public static function set hideEffect(param1:IAbstractEffect) : void
+                                    {
+                                       trait setter QName(PackageNamespace(""),"hideEffect")
+                                          flag FINAL
+                                          dispid 13
+                                          method
+                                             name null
+                                             param QName(PackageNamespace("mx.effects"),"IAbstractEffect")
+                                             returns QName(PackageNamespace(""),"void")
+                                             
+                                             body
+                                                maxstack 2
+                                                localcount 2
+                                                initscopedepth 4
+                                                maxscopedepth 5
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   getlex QName(PrivateNamespace(null,"84"),"impl")
+                                                   getlocal1
+                                                   setproperty QName(Namespace("mx.managers:IToolTipManager2"),"hideEffect")
+                                                   returnvoid
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                       
+                                       public static function get scrubDelay() : Number
+                                       {
+                                          trait getter QName(PackageNamespace(""),"scrubDelay")
+                                             flag FINAL
+                                             dispid 14
+                                             method
+                                                name null
+                                                returns QName(PackageNamespace(""),"Number")
+                                                
+                                                body
+                                                   maxstack 1
+                                                   localcount 1
+                                                   initscopedepth 4
+                                                   maxscopedepth 5
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      getlex QName(PrivateNamespace(null,"84"),"impl")
+                                                      getproperty QName(Namespace("mx.managers:IToolTipManager2"),"scrubDelay")
+                                                      returnvalue
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                          }
+                                          
+                                          public static function set scrubDelay(param1:Number) : void
+                                          {
+                                             trait setter QName(PackageNamespace(""),"scrubDelay")
+                                                flag FINAL
+                                                dispid 15
+                                                method
+                                                   name null
+                                                   param QName(PackageNamespace(""),"Number")
+                                                   returns QName(PackageNamespace(""),"void")
+                                                   
+                                                   body
+                                                      maxstack 2
+                                                      localcount 2
+                                                      initscopedepth 4
+                                                      maxscopedepth 5
+                                                      
+                                                      code
+                                                         getlocal0
+                                                         pushscope
+                                                         getlex QName(PrivateNamespace(null,"84"),"impl")
+                                                         getlocal1
+                                                         setproperty QName(Namespace("mx.managers:IToolTipManager2"),"scrubDelay")
+                                                         returnvoid
+                                                      end ; code
+                                                   end ; body
+                                                end ; method
+                                             }
+                                             
+                                             public static function get showDelay() : Number
+                                             {
+                                                trait getter QName(PackageNamespace(""),"showDelay")
+                                                   flag FINAL
+                                                   dispid 16
+                                                   method
+                                                      name null
+                                                      returns QName(PackageNamespace(""),"Number")
+                                                      
+                                                      body
+                                                         maxstack 1
+                                                         localcount 1
+                                                         initscopedepth 4
+                                                         maxscopedepth 5
+                                                         
+                                                         code
+                                                            getlocal0
+                                                            pushscope
+                                                            getlex QName(PrivateNamespace(null,"84"),"impl")
+                                                            getproperty QName(Namespace("mx.managers:IToolTipManager2"),"showDelay")
+                                                            returnvalue
+                                                         end ; code
+                                                      end ; body
+                                                   end ; method
+                                                }
+                                                
+                                                public static function set showDelay(param1:Number) : void
+                                                {
+                                                   trait setter QName(PackageNamespace(""),"showDelay")
+                                                      flag FINAL
+                                                      dispid 17
+                                                      method
+                                                         name null
+                                                         param QName(PackageNamespace(""),"Number")
+                                                         returns QName(PackageNamespace(""),"void")
+                                                         
+                                                         body
+                                                            maxstack 2
+                                                            localcount 2
+                                                            initscopedepth 4
+                                                            maxscopedepth 5
+                                                            
+                                                            code
+                                                               getlocal0
+                                                               pushscope
+                                                               getlex QName(PrivateNamespace(null,"84"),"impl")
+                                                               getlocal1
+                                                               setproperty QName(Namespace("mx.managers:IToolTipManager2"),"showDelay")
+                                                               returnvoid
+                                                            end ; code
+                                                         end ; body
+                                                      end ; method
+                                                   }
+                                                   
+                                                   public static function get showEffect() : IAbstractEffect
+                                                   {
+                                                      trait getter QName(PackageNamespace(""),"showEffect")
+                                                         flag FINAL
+                                                         dispid 18
+                                                         method
+                                                            name null
+                                                            returns QName(PackageNamespace("mx.effects"),"IAbstractEffect")
+                                                            
+                                                            body
+                                                               maxstack 1
+                                                               localcount 1
+                                                               initscopedepth 4
+                                                               maxscopedepth 5
+                                                               
+                                                               code
+                                                                  getlocal0
+                                                                  pushscope
+                                                                  getlex QName(PrivateNamespace(null,"84"),"impl")
+                                                                  getproperty QName(Namespace("mx.managers:IToolTipManager2"),"showEffect")
+                                                                  returnvalue
+                                                               end ; code
+                                                            end ; body
+                                                         end ; method
+                                                      }
+                                                      
+                                                      public static function set showEffect(param1:IAbstractEffect) : void
+                                                      {
+                                                         trait setter QName(PackageNamespace(""),"showEffect")
+                                                            flag FINAL
+                                                            dispid 19
+                                                            method
+                                                               name null
+                                                               param QName(PackageNamespace("mx.effects"),"IAbstractEffect")
+                                                               returns QName(PackageNamespace(""),"void")
+                                                               
+                                                               body
+                                                                  maxstack 2
+                                                                  localcount 2
+                                                                  initscopedepth 4
+                                                                  maxscopedepth 5
+                                                                  
+                                                                  code
+                                                                     getlocal0
+                                                                     pushscope
+                                                                     getlex QName(PrivateNamespace(null,"84"),"impl")
+                                                                     getlocal1
+                                                                     setproperty QName(Namespace("mx.managers:IToolTipManager2"),"showEffect")
+                                                                     returnvoid
+                                                                  end ; code
+                                                               end ; body
+                                                            end ; method
+                                                         }
+                                                         
+                                                         public static function get toolTipClass() : Class
+                                                         {
+                                                            trait getter QName(PackageNamespace(""),"toolTipClass")
+                                                               flag FINAL
+                                                               dispid 20
+                                                               method
+                                                                  name null
+                                                                  returns QName(PackageNamespace(""),"Class")
+                                                                  
+                                                                  body
+                                                                     maxstack 1
+                                                                     localcount 1
+                                                                     initscopedepth 4
+                                                                     maxscopedepth 5
+                                                                     
+                                                                     code
+                                                                        getlocal0
+                                                                        pushscope
+                                                                        getlex QName(PrivateNamespace(null,"84"),"impl")
+                                                                        getproperty QName(Namespace("mx.managers:IToolTipManager2"),"toolTipClass")
+                                                                        returnvalue
+                                                                     end ; code
+                                                                  end ; body
+                                                               end ; method
+                                                            }
+                                                            
+                                                            public static function set toolTipClass(param1:Class) : void
+                                                            {
+                                                               trait setter QName(PackageNamespace(""),"toolTipClass")
+                                                                  flag FINAL
+                                                                  dispid 21
+                                                                  method
+                                                                     name null
+                                                                     param QName(PackageNamespace(""),"Class")
+                                                                     returns QName(PackageNamespace(""),"void")
+                                                                     
+                                                                     body
+                                                                        maxstack 2
+                                                                        localcount 2
+                                                                        initscopedepth 4
+                                                                        maxscopedepth 5
+                                                                        
+                                                                        code
+                                                                           getlocal0
+                                                                           pushscope
+                                                                           getlex QName(PrivateNamespace(null,"84"),"impl")
+                                                                           getlocal1
+                                                                           setproperty QName(Namespace("mx.managers:IToolTipManager2"),"toolTipClass")
+                                                                           returnvoid
+                                                                        end ; code
+                                                                     end ; body
+                                                                  end ; method
+                                                               }
+                                                               
+                                                               mx_internal static function registerToolTip(param1:DisplayObject, param2:String, param3:String) : void
+                                                               {
+                                                                  trait method QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"registerToolTip")
+                                                                     flag FINAL
+                                                                     dispid 22
+                                                                     method
+                                                                        name null
+                                                                        param QName(PackageNamespace("flash.display"),"DisplayObject")
+                                                                        param QName(PackageNamespace(""),"String")
+                                                                        param QName(PackageNamespace(""),"String")
+                                                                        returns QName(PackageNamespace(""),"void")
+                                                                        
+                                                                        body
+                                                                           maxstack 4
+                                                                           localcount 4
+                                                                           initscopedepth 4
+                                                                           maxscopedepth 5
+                                                                           
+                                                                           code
+                                                                              getlocal0
+                                                                              pushscope
+                                                                              getlex QName(PrivateNamespace(null,"84"),"impl")
+                                                                              getlocal1
+                                                                              getlocal2
+                                                                              getlocal3
+                                                                              callpropvoid QName(Namespace("mx.managers:IToolTipManager2"),"registerToolTip"), 3
+                                                                              returnvoid
+                                                                           end ; code
+                                                                        end ; body
+                                                                     end ; method
+                                                                  }
+                                                                  
+                                                                  mx_internal static function registerErrorString(param1:DisplayObject, param2:String, param3:String) : void
+                                                                  {
+                                                                     trait method QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"registerErrorString")
+                                                                        flag FINAL
+                                                                        dispid 23
+                                                                        method
+                                                                           name null
+                                                                           param QName(PackageNamespace("flash.display"),"DisplayObject")
+                                                                           param QName(PackageNamespace(""),"String")
+                                                                           param QName(PackageNamespace(""),"String")
+                                                                           returns QName(PackageNamespace(""),"void")
+                                                                           
+                                                                           body
+                                                                              maxstack 4
+                                                                              localcount 4
+                                                                              initscopedepth 4
+                                                                              maxscopedepth 5
+                                                                              
+                                                                              code
+                                                                                 getlocal0
+                                                                                 pushscope
+                                                                                 getlex QName(PrivateNamespace(null,"84"),"impl")
+                                                                                 getlocal1
+                                                                                 getlocal2
+                                                                                 getlocal3
+                                                                                 callpropvoid QName(Namespace("mx.managers:IToolTipManager2"),"registerErrorString"), 3
+                                                                                 returnvoid
+                                                                              end ; code
+                                                                           end ; body
+                                                                        end ; method
+                                                                     }
+                                                                     
+                                                                     mx_internal static function sizeTip(param1:IToolTip) : void
+                                                                     {
+                                                                        trait method QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"sizeTip")
+                                                                           flag FINAL
+                                                                           dispid 24
+                                                                           method
+                                                                              name null
+                                                                              param QName(PackageNamespace("mx.core"),"IToolTip")
+                                                                              returns QName(PackageNamespace(""),"void")
+                                                                              
+                                                                              body
+                                                                                 maxstack 2
+                                                                                 localcount 2
+                                                                                 initscopedepth 4
+                                                                                 maxscopedepth 5
+                                                                                 
+                                                                                 code
+                                                                                    getlocal0
+                                                                                    pushscope
+                                                                                    getlex QName(PrivateNamespace(null,"84"),"impl")
+                                                                                    getlocal1
+                                                                                    callpropvoid QName(Namespace("mx.managers:IToolTipManager2"),"sizeTip"), 1
+                                                                                    returnvoid
+                                                                                 end ; code
+                                                                              end ; body
+                                                                           end ; method
+                                                                        }
+                                                                        
+                                                                        public static function createToolTip(param1:String, param2:Number, param3:Number, param4:String = null, param5:IUIComponent = null) : IToolTip
+                                                                        {
+                                                                           trait method QName(PackageNamespace(""),"createToolTip")
+                                                                              flag FINAL
+                                                                              dispid 25
+                                                                              method
+                                                                                 name null
+                                                                                 flag HAS_OPTIONAL
+                                                                                 param QName(PackageNamespace(""),"String")
+                                                                                 param QName(PackageNamespace(""),"Number")
+                                                                                 param QName(PackageNamespace(""),"Number")
+                                                                                 param QName(PackageNamespace(""),"String")
+                                                                                 param QName(PackageNamespace("mx.core"),"IUIComponent")
+                                                                                 optional Null()
+                                                                                 optional Null()
+                                                                                 returns QName(PackageNamespace("mx.core"),"IToolTip")
+                                                                                 
+                                                                                 body
+                                                                                    maxstack 6
+                                                                                    localcount 6
+                                                                                    initscopedepth 4
+                                                                                    maxscopedepth 5
+                                                                                    
+                                                                                    code
+                                                                                       getlocal0
+                                                                                       pushscope
+                                                                                       getlex QName(PrivateNamespace(null,"84"),"impl")
+                                                                                       getlocal1
+                                                                                       getlocal2
+                                                                                       getlocal3
+                                                                                       getlocal 4
+                                                                                       getlocal 5
+                                                                                       callproperty QName(Namespace("mx.managers:IToolTipManager2"),"createToolTip"), 5
+                                                                                       returnvalue
+                                                                                    end ; code
+                                                                                 end ; body
+                                                                              end ; method
+                                                                           }
+                                                                           
+                                                                           public static function destroyToolTip(param1:IToolTip) : void
+                                                                           {
+                                                                              trait method QName(PackageNamespace(""),"destroyToolTip")
+                                                                                 flag FINAL
+                                                                                 dispid 26
+                                                                                 method
+                                                                                    name null
+                                                                                    param QName(PackageNamespace("mx.core"),"IToolTip")
+                                                                                    returns QName(PackageNamespace(""),"void")
+                                                                                    
+                                                                                    body
+                                                                                       maxstack 2
+                                                                                       localcount 2
+                                                                                       initscopedepth 4
+                                                                                       maxscopedepth 5
+                                                                                       
+                                                                                       code
+                                                                                          getlocal0
+                                                                                          pushscope
+                                                                                          getlex QName(PrivateNamespace(null,"84"),"impl")
+                                                                                          getlocal1
+                                                                                          callproperty QName(Namespace("mx.managers:IToolTipManager2"),"destroyToolTip"), 1
+                                                                                          returnvalue
+                                                                                       end ; code
+                                                                                    end ; body
+                                                                                 end ; method
+                                                                              }
+                                                                           }
+                                                                        }
+                                                                        
+                                                                        method
+                                                                           name null
+                                                                           returns null
+                                                                           
+                                                                           body
+                                                                              maxstack 2
+                                                                              localcount 1
+                                                                              initscopedepth 1
+                                                                              maxscopedepth 4
+                                                                              
+                                                                              code
+                                                                                 getlocal0
+                                                                                 pushscope
+                                                                                 findpropstrict Multiname("ToolTipManager",[PackageNamespace("mx.managers")])
+                                                                                 getlex QName(PackageNamespace(""),"Object")
+                                                                                 pushscope
+                                                                                 getlex QName(PackageNamespace("flash.events"),"EventDispatcher")
+                                                                                 pushscope
+                                                                                 getlex QName(PackageNamespace("flash.events"),"EventDispatcher")
+                                                                                 newclass 71
+                                                                                 popscope
+                                                                                 popscope
+                                                                                 initproperty QName(PackageNamespace("mx.managers"),"ToolTipManager")
+                                                                                 returnvoid
+                                                                              end ; code
+                                                                           end ; body
+                                                                        end ; method
+                                                                        

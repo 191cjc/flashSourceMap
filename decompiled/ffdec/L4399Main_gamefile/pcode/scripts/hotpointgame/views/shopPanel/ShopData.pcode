@@ -1,0 +1,1152 @@
+package hotpointgame.views.shopPanel
+{
+   import hotpointgame.Control.*;
+   import hotpointgame.common.*;
+   import hotpointgame.models.shop.*;
+   import hotpointgame.repository.shop.*;
+   
+   public class ShopData
+   {
+      
+      public static var dataArr1:Array;
+      
+      public static var dataArr2:Array;
+      
+      public static var gArr1:Array;
+      
+      public static var gArr2:Array;
+      
+      public static var timerNum:VT;
+      
+      public static var saveTimer:VT;
+      
+      public static var shopDate:VT;
+      
+      public static var currentDate:VT;
+      
+      public static var newShopBo:Boolean = false;
+      
+      public static var sxTimes:VT;
+      
+      public static var sxAllTimes:VT;
+      
+      public static var spMy:Array;
+      
+      public static var spIdArr:Array;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 30
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(PackageNamespace(""),"dataArr1")
+               newarray 0
+               setproperty QName(PackageNamespace(""),"dataArr1")
+               findproperty QName(PackageNamespace(""),"dataArr2")
+               newarray 0
+               setproperty QName(PackageNamespace(""),"dataArr2")
+               findproperty QName(PackageNamespace(""),"gArr1")
+               newarray 0
+               setproperty QName(PackageNamespace(""),"gArr1")
+               findproperty QName(PackageNamespace(""),"gArr2")
+               newarray 0
+               setproperty QName(PackageNamespace(""),"gArr2")
+               findproperty QName(PackageNamespace(""),"timerNum")
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               getlex Multiname("GS",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               getproperty Multiname("a1800",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               setproperty QName(PackageNamespace(""),"timerNum")
+               findproperty QName(PackageNamespace(""),"saveTimer")
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               getlex Multiname("GS",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               getproperty Multiname("a1800000",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               setproperty QName(PackageNamespace(""),"saveTimer")
+               findproperty QName(PackageNamespace(""),"shopDate")
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte -1
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               setproperty QName(PackageNamespace(""),"shopDate")
+               findproperty QName(PackageNamespace(""),"currentDate")
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte -1
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               setproperty QName(PackageNamespace(""),"currentDate")
+               findproperty QName(PackageNamespace(""),"newShopBo")
+               pushfalse
+               setproperty QName(PackageNamespace(""),"newShopBo")
+               findproperty QName(PackageNamespace(""),"sxTimes")
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 0
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               setproperty QName(PackageNamespace(""),"sxTimes")
+               findproperty QName(PackageNamespace(""),"sxAllTimes")
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 27
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               setproperty QName(PackageNamespace(""),"sxAllTimes")
+               findproperty QName(PackageNamespace(""),"spMy")
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 100
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 90
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 90
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 80
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 80
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 70
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 70
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 70
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 60
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 60
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 60
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 60
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 60
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 60
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 60
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 60
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 60
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 60
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 60
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 60
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 60
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 60
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 60
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 60
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 60
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 60
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 60
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushbyte 60
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               newarray 28
+               setproperty QName(PackageNamespace(""),"spMy")
+               findproperty QName(PackageNamespace(""),"spIdArr")
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 284
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 285
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 286
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 287
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 288
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 289
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 290
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 291
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 292
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 293
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 294
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 295
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 296
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 297
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 297
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 297
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 297
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 297
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 297
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 297
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 297
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 297
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 297
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 297
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 297
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 297
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 297
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+               pushshort 297
+               callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+               newarray 28
+               setproperty QName(PackageNamespace(""),"spIdArr")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      public function ShopData()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 1
+               localcount 1
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public static function getShopId(param1:Number) : Number
+      {
+         trait method QName(PackageNamespace(""),"getShopId")
+            flag FINAL
+            dispid 3
+            method
+               name null
+               param QName(PackageNamespace(""),"Number")
+               returns QName(PackageNamespace(""),"Number")
+               
+               body
+                  maxstack 2
+                  localcount 2
+                  initscopedepth 3
+                  maxscopedepth 4
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlex Multiname("spIdArr",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                     getlocal1
+                     getproperty MultinameL([PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                     callproperty Multiname("getValue",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public static function getShopGold(param1:Number) : Number
+         {
+            trait method QName(PackageNamespace(""),"getShopGold")
+               flag FINAL
+               dispid 4
+               method
+                  name null
+                  param QName(PackageNamespace(""),"Number")
+                  returns QName(PackageNamespace(""),"Number")
+                  
+                  body
+                     maxstack 2
+                     localcount 2
+                     initscopedepth 3
+                     maxscopedepth 4
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlex Multiname("spMy",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                        getlocal1
+                        getproperty MultinameL([PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                        callproperty Multiname("getValue",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public static function initShopTime(param1:Number) : void
+            {
+               trait method QName(PackageNamespace(""),"initShopTime")
+                  flag FINAL
+                  dispid 5
+                  method
+                     name null
+                     param QName(PackageNamespace(""),"Number")
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 2
+                        localcount 2
+                        initscopedepth 3
+                        maxscopedepth 4
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlex Multiname("shopDate",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                           callproperty Multiname("getValue",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                           pushbyte -1
+                           ifne ofs001b
+                           getlex Multiname("shopDate",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                           getlocal1
+                           callpropvoid Multiname("setValue",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                  ofs001b:
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public static function save() : Object
+               {
+                  trait method QName(PackageNamespace(""),"save")
+                     flag FINAL
+                     dispid 6
+                     method
+                        name null
+                        returns QName(PackageNamespace(""),"Object")
+                        
+                        body
+                           maxstack 3
+                           localcount 11
+                           initscopedepth 3
+                           maxscopedepth 4
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              pushundefined
+                              coerce_a
+                              setlocal 7
+                              pushundefined
+                              coerce_a
+                              setlocal 8
+                              findpropstrict Multiname("Object",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                              constructprop Multiname("Object",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                              coerce QName(PackageNamespace(""),"Object")
+                              setlocal1
+                              newarray 0
+                              coerce QName(PackageNamespace(""),"Array")
+                              setlocal2
+                              newarray 0
+                              coerce QName(PackageNamespace(""),"Array")
+                              setlocal3
+                              pushbyte 0
+                              convert_u
+                              setlocal 4
+                              jump ofs0045
+                     ofs0029:
+                              label
+                              getlocal2
+                              getlex Multiname("gArr1",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                              getlocal 4
+                              getproperty MultinameL([PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                              callproperty Multiname("getValue",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                              callpropvoid Multiname("push",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                              getlocal 4
+                              increment
+                              convert_u
+                              setlocal 4
+                     ofs0045:
+                              getlocal 4
+                              getlex Multiname("gArr1",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                              getproperty Multiname("length",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                              iflt ofs0029
+                              pushbyte 0
+                              convert_u
+                              setlocal 4
+                              jump ofs0078
+                     ofs005c:
+                              label
+                              getlocal3
+                              getlex Multiname("gArr2",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                              getlocal 4
+                              getproperty MultinameL([PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                              callproperty Multiname("getValue",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                              callpropvoid Multiname("push",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                              getlocal 4
+                              increment
+                              convert_u
+                              setlocal 4
+                     ofs0078:
+                              getlocal 4
+                              getlex Multiname("gArr2",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                              getproperty Multiname("length",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                              iflt ofs005c
+                              getlocal1
+                              pushstring "g1"
+                              getlocal2
+                              callproperty Multiname("slice",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                              setproperty MultinameL([PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                              getlocal1
+                              pushstring "g2"
+                              getlocal3
+                              callproperty Multiname("slice",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                              setproperty MultinameL([PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                              findpropstrict Multiname("Array",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                              constructprop Multiname("Array",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                              coerce QName(PackageNamespace(""),"Array")
+                              setlocal 5
+                              findpropstrict Multiname("Array",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                              constructprop Multiname("Array",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                              coerce QName(PackageNamespace(""),"Array")
+                              setlocal 6
+                              pushbyte 0
+                              setlocal 9
+                              getlex Multiname("dataArr1",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                              coerce_a
+                              setlocal 10
+                              jump ofs00fa
+                     ofs00cb:
+                              label
+                              getlocal 10
+                              getlocal 9
+                              nextvalue
+                              coerce_a
+                              dup
+                              setlocal 7
+                              pushnull
+                              ifeq ofs00f1
+                              getlocal 5
+                              getlocal 7
+                              getlex Multiname("Shop",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.models.shop")])
+                              astypelate
+                              callproperty Multiname("getId",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                              callpropvoid Multiname("push",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                              jump ofs00fa
+                     ofs00f1:
+                              getlocal 5
+                              pushbyte -1
+                              callpropvoid Multiname("push",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                     ofs00fa:
+                              hasnext2 10, 9
+                              iftrue ofs00cb
+                              kill 10
+                              kill 9
+                              pushbyte 0
+                              setlocal 9
+                              getlex Multiname("dataArr2",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                              coerce_a
+                              setlocal 10
+                              jump ofs0143
+                     ofs0114:
+                              label
+                              getlocal 10
+                              getlocal 9
+                              nextvalue
+                              coerce_a
+                              dup
+                              setlocal 8
+                              pushnull
+                              ifeq ofs013a
+                              getlocal 6
+                              getlocal 8
+                              getlex Multiname("Shop",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.models.shop")])
+                              astypelate
+                              callproperty Multiname("getId",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                              callpropvoid Multiname("push",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                              jump ofs0143
+                     ofs013a:
+                              getlocal 6
+                              pushbyte -1
+                              callpropvoid Multiname("push",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                     ofs0143:
+                              hasnext2 10, 9
+                              iftrue ofs0114
+                              kill 10
+                              kill 9
+                              getlocal1
+                              pushstring "s1"
+                              getlocal 5
+                              setproperty MultinameL([PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                              getlocal1
+                              pushstring "s2"
+                              getlocal 6
+                              setproperty MultinameL([PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                              getlocal1
+                              pushstring "ts"
+                              getlex Multiname("sxTimes",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                              callproperty Multiname("getValue",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                              setproperty MultinameL([PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                              getlocal1
+                              returnvalue
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public static function read(param1:Object) : void
+                  {
+                     trait method QName(PackageNamespace(""),"read")
+                        flag FINAL
+                        dispid 7
+                        method
+                           name null
+                           param QName(PackageNamespace(""),"Object")
+                           returns QName(PackageNamespace(""),"void")
+                           
+                           body
+                              maxstack 4
+                              localcount 10
+                              initscopedepth 3
+                              maxscopedepth 4
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 pushnan
+                                 setlocal 7
+                                 findpropstrict Multiname("clearData",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                 callpropvoid Multiname("clearData",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                                 getlocal1
+                                 pushstring "g1"
+                                 getproperty MultinameL([PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                 coerce QName(PackageNamespace(""),"Array")
+                                 setlocal2
+                                 getlocal1
+                                 pushstring "g2"
+                                 getproperty MultinameL([PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                 coerce QName(PackageNamespace(""),"Array")
+                                 setlocal3
+                                 pushbyte 0
+                                 convert_u
+                                 setlocal 4
+                                 jump ofs004d
+                        ofs002d:
+                                 label
+                                 getlex Multiname("gArr1",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                 getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+                                 getlocal2
+                                 getlocal 4
+                                 getproperty MultinameL([PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                 callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                                 callpropvoid Multiname("push",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                                 getlocal 4
+                                 increment
+                                 convert_u
+                                 setlocal 4
+                        ofs004d:
+                                 getlocal 4
+                                 getlocal2
+                                 getproperty Multiname("length",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                 iflt ofs002d
+                                 pushbyte 0
+                                 convert_u
+                                 setlocal 4
+                                 jump ofs0081
+                        ofs0061:
+                                 label
+                                 getlex Multiname("gArr2",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                 getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+                                 getlocal3
+                                 getlocal 4
+                                 getproperty MultinameL([PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                 callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                                 callpropvoid Multiname("push",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                                 getlocal 4
+                                 increment
+                                 convert_u
+                                 setlocal 4
+                        ofs0081:
+                                 getlocal 4
+                                 getlocal3
+                                 getproperty Multiname("length",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                 iflt ofs0061
+                                 getlocal1
+                                 pushstring "s1"
+                                 getproperty MultinameL([PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                 coerce QName(PackageNamespace(""),"Array")
+                                 setlocal 5
+                                 getlocal1
+                                 pushstring "s2"
+                                 getproperty MultinameL([PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                 coerce QName(PackageNamespace(""),"Array")
+                                 setlocal 6
+                                 getlocal1
+                                 pushstring "ts"
+                                 getproperty MultinameL([PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                 pushnull
+                                 ifeq ofs00c2
+                                 getlex Multiname("sxTimes",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                 getlocal1
+                                 pushstring "ts"
+                                 getproperty MultinameL([PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                 callpropvoid Multiname("setValue",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                        ofs00c2:
+                                 pushbyte 0
+                                 setlocal 8
+                                 getlocal 5
+                                 coerce_a
+                                 setlocal 9
+                                 jump ofs0101
+                        ofs00cf:
+                                 label
+                                 getlocal 9
+                                 getlocal 8
+                                 nextvalue
+                                 convert_d
+                                 dup
+                                 setlocal 7
+                                 pushbyte -1
+                                 ifeq ofs00f7
+                                 getlex Multiname("dataArr1",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                 getlex Multiname("Shop",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.models.shop")])
+                                 getlocal 7
+                                 callproperty Multiname("createShop",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                                 callpropvoid Multiname("push",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                                 jump ofs0101
+                        ofs00f7:
+                                 getlex Multiname("dataArr1",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                 pushnull
+                                 callpropvoid Multiname("push",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                        ofs0101:
+                                 hasnext2 9, 8
+                                 iftrue ofs00cf
+                                 kill 9
+                                 kill 8
+                                 pushbyte 0
+                                 setlocal 8
+                                 getlocal 6
+                                 coerce_a
+                                 setlocal 9
+                                 jump ofs014b
+                        ofs0119:
+                                 label
+                                 getlocal 9
+                                 getlocal 8
+                                 nextvalue
+                                 convert_d
+                                 dup
+                                 setlocal 7
+                                 pushbyte -1
+                                 ifeq ofs0141
+                                 getlex Multiname("dataArr2",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                 getlex Multiname("Shop",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.models.shop")])
+                                 getlocal 7
+                                 callproperty Multiname("createShop",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                                 callpropvoid Multiname("push",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                                 jump ofs014b
+                        ofs0141:
+                                 getlex Multiname("dataArr2",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                 pushnull
+                                 callpropvoid Multiname("push",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                        ofs014b:
+                                 hasnext2 9, 8
+                                 iftrue ofs0119
+                                 kill 9
+                                 kill 8
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public static function evClear() : void
+                     {
+                        trait method QName(PackageNamespace(""),"evClear")
+                           flag FINAL
+                           dispid 8
+                           method
+                              name null
+                              returns QName(PackageNamespace(""),"void")
+                              
+                              body
+                                 maxstack 2
+                                 localcount 1
+                                 initscopedepth 3
+                                 maxscopedepth 4
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlex Multiname("sxTimes",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                    pushbyte 0
+                                    callpropvoid Multiname("setValue",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                                    returnvoid
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        public static function initGArr() : void
+                        {
+                           trait method QName(PackageNamespace(""),"initGArr")
+                              flag FINAL
+                              dispid 9
+                              method
+                                 name null
+                                 returns QName(PackageNamespace(""),"void")
+                                 
+                                 body
+                                    maxstack 4
+                                    localcount 2
+                                    initscopedepth 3
+                                    maxscopedepth 4
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       pushbyte 0
+                                       convert_u
+                                       setlocal1
+                                       jump ofs0023
+                              ofs000a:
+                                       label
+                                       getlex Multiname("gArr1",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                       getlocal1
+                                       getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+                                       pushbyte 0
+                                       callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                                       setproperty MultinameL([PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                       getlocal1
+                                       increment
+                                       convert_u
+                                       setlocal1
+                              ofs0023:
+                                       getlocal1
+                                       pushbyte 9
+                                       iflt ofs000a
+                                       pushbyte 0
+                                       convert_u
+                                       setlocal1
+                                       jump ofs004b
+                              ofs0032:
+                                       label
+                                       getlex Multiname("gArr2",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                       getlocal1
+                                       getlex Multiname("VT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+                                       pushbyte 0
+                                       callproperty Multiname("createVT",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                                       setproperty MultinameL([PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                       getlocal1
+                                       increment
+                                       convert_u
+                                       setlocal1
+                              ofs004b:
+                                       getlocal1
+                                       pushbyte 3
+                                       iflt ofs0032
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           public static function initData() : void
+                           {
+                              trait method QName(PackageNamespace(""),"initData")
+                                 flag FINAL
+                                 dispid 10
+                                 method
+                                    name null
+                                    returns QName(PackageNamespace(""),"void")
+                                    
+                                    body
+                                       maxstack 5
+                                       localcount 3
+                                       initscopedepth 3
+                                       maxscopedepth 4
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          pushbyte 0
+                                          convert_u
+                                          setlocal1
+                                          findpropstrict Multiname("initGArr",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                          callpropvoid Multiname("initGArr",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                                          findpropstrict Multiname("clearData",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                          callpropvoid Multiname("clearData",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                                          pushbyte 0
+                                          convert_u
+                                          setlocal2
+                                          jump ofs005f
+                                 ofs0020:
+                                          label
+                                          getlex Multiname("Math",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                          getlex Multiname("Math",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                          callproperty Multiname("random",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                                          getlex Multiname("GS",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+                                          getproperty Multiname("a10000",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                          multiply
+                                          callproperty Multiname("floor",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                                          convert_u
+                                          setlocal1
+                                          getlex Multiname("dataArr1",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                          getlex Multiname("ShopGoodsFactory",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.repository.shop")])
+                                          pushfalse
+                                          findpropstrict Multiname("getJd",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                          callproperty Multiname("getJd",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                                          getlocal1
+                                          callproperty Multiname("getShopData",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 3
+                                          callpropvoid Multiname("push",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                                          getlocal2
+                                          increment
+                                          convert_u
+                                          setlocal2
+                                 ofs005f:
+                                          getlocal2
+                                          pushbyte 9
+                                          iflt ofs0020
+                                          pushbyte 0
+                                          convert_u
+                                          setlocal2
+                                          jump ofs00ad
+                                 ofs006e:
+                                          label
+                                          getlex Multiname("Math",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                          getlex Multiname("Math",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                          callproperty Multiname("random",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                                          getlex Multiname("GS",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+                                          getproperty Multiname("a10000",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                          multiply
+                                          callproperty Multiname("floor",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                                          convert_u
+                                          setlocal1
+                                          getlex Multiname("dataArr2",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                          getlex Multiname("ShopGoodsFactory",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.repository.shop")])
+                                          pushtrue
+                                          findpropstrict Multiname("getJd",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                          callproperty Multiname("getJd",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                                          getlocal1
+                                          callproperty Multiname("getShopData",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 3
+                                          callpropvoid Multiname("push",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                                          getlocal2
+                                          increment
+                                          convert_u
+                                          setlocal2
+                                 ofs00ad:
+                                          getlocal2
+                                          pushbyte 3
+                                          iflt ofs006e
+                                          findproperty Multiname("newShopBo",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                          pushtrue
+                                          setproperty Multiname("newShopBo",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              public static function clearData() : void
+                              {
+                                 trait method QName(PackageNamespace(""),"clearData")
+                                    flag FINAL
+                                    dispid 11
+                                    method
+                                       name null
+                                       returns QName(PackageNamespace(""),"void")
+                                       
+                                       body
+                                          maxstack 2
+                                          localcount 1
+                                          initscopedepth 3
+                                          maxscopedepth 4
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlex Multiname("dataArr1",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                             pushbyte 0
+                                             setproperty Multiname("length",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                             getlex Multiname("dataArr2",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                             pushbyte 0
+                                             setproperty Multiname("length",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                             returnvoid
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 public static function closeData() : void
+                                 {
+                                    trait method QName(PackageNamespace(""),"closeData")
+                                       flag FINAL
+                                       dispid 12
+                                       method
+                                          name null
+                                          returns QName(PackageNamespace(""),"void")
+                                          
+                                          body
+                                             maxstack 2
+                                             localcount 1
+                                             initscopedepth 3
+                                             maxscopedepth 4
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                getlex Multiname("dataArr1",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                pushbyte 0
+                                                setproperty Multiname("length",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                getlex Multiname("dataArr2",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                pushbyte 0
+                                                setproperty Multiname("length",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                getlex Multiname("gArr1",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                pushbyte 0
+                                                setproperty Multiname("length",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                getlex Multiname("gArr2",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                pushbyte 0
+                                                setproperty Multiname("length",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                getlex Multiname("timerNum",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                getlex Multiname("GS",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+                                                getproperty Multiname("a1800",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                callpropvoid Multiname("setValue",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                                                getlex Multiname("currentDate",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                pushbyte -1
+                                                callpropvoid Multiname("setValue",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                                                getlex Multiname("shopDate",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                pushbyte -1
+                                                callpropvoid Multiname("setValue",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                                                getlex Multiname("sxTimes",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                pushbyte 0
+                                                callpropvoid Multiname("setValue",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 1
+                                                returnvoid
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    public static function getJd() : Number
+                                    {
+                                       trait method QName(PackageNamespace(""),"getJd")
+                                          flag FINAL
+                                          dispid 13
+                                          method
+                                             name null
+                                             returns QName(PackageNamespace(""),"Number")
+                                             
+                                             body
+                                                maxstack 2
+                                                localcount 1
+                                                initscopedepth 3
+                                                maxscopedepth 4
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   getlex Multiname("FlowInterface",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.Control")])
+                                                   callproperty Multiname("getLevelByRole",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                                                   getlex Multiname("GS",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+                                                   getproperty Multiname("a1",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                   greaterequals
+                                                   dup
+                                                   iffalse ofs002c
+                                                   pop
+                                                   getlex Multiname("FlowInterface",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.Control")])
+                                                   callproperty Multiname("getLevelByRole",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                                                   getlex Multiname("GS",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+                                                   getproperty Multiname("a15",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                   lessequals
+                                          ofs002c:
+                                                   iffalse ofs0039
+                                                   getlex Multiname("GS",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+                                                   getproperty Multiname("a1",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                   returnvalue
+                                          ofs0039:
+                                                   getlex Multiname("FlowInterface",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.Control")])
+                                                   callproperty Multiname("getLevelByRole",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                                                   getlex Multiname("GS",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+                                                   getproperty Multiname("a16",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                   greaterequals
+                                                   dup
+                                                   iffalse ofs0063
+                                                   pop
+                                                   getlex Multiname("FlowInterface",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.Control")])
+                                                   callproperty Multiname("getLevelByRole",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                                                   getlex Multiname("GS",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+                                                   getproperty Multiname("a35",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                   lessequals
+                                          ofs0063:
+                                                   iffalse ofs0070
+                                                   getlex Multiname("GS",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+                                                   getproperty Multiname("a2",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                   returnvalue
+                                          ofs0070:
+                                                   getlex Multiname("FlowInterface",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.Control")])
+                                                   callproperty Multiname("getLevelByRole",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                                                   getlex Multiname("GS",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+                                                   getproperty Multiname("a36",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                   greaterequals
+                                                   dup
+                                                   iffalse ofs009a
+                                                   pop
+                                                   getlex Multiname("FlowInterface",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.Control")])
+                                                   callproperty Multiname("getLevelByRole",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                                                   getlex Multiname("GS",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+                                                   getproperty Multiname("a55",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                   lessequals
+                                          ofs009a:
+                                                   iffalse ofs00a7
+                                                   getlex Multiname("GS",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+                                                   getproperty Multiname("a3",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                   returnvalue
+                                          ofs00a7:
+                                                   getlex Multiname("FlowInterface",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.Control")])
+                                                   callproperty Multiname("getLevelByRole",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                                                   getlex Multiname("GS",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+                                                   getproperty Multiname("a56",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                   greaterequals
+                                                   dup
+                                                   iffalse ofs00d1
+                                                   pop
+                                                   getlex Multiname("FlowInterface",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.Control")])
+                                                   callproperty Multiname("getLevelByRole",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")]), 0
+                                                   getlex Multiname("GS",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+                                                   getproperty Multiname("a80",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                   lessequals
+                                          ofs00d1:
+                                                   iffalse ofs00de
+                                                   getlex Multiname("GS",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData"),PackageNamespace("hotpointgame.common")])
+                                                   getproperty Multiname("a4",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                   returnvalue
+                                          ofs00de:
+                                                   pushbyte 1
+                                                   returnvalue
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                       
+                                       public static function getNewShop() : Boolean
+                                       {
+                                          trait method QName(PackageNamespace(""),"getNewShop")
+                                             flag FINAL
+                                             dispid 14
+                                             method
+                                                name null
+                                                returns QName(PackageNamespace(""),"Boolean")
+                                                
+                                                body
+                                                   maxstack 1
+                                                   localcount 1
+                                                   initscopedepth 3
+                                                   maxscopedepth 4
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      getlex Multiname("newShopBo",[PrivateNamespace(null,"568"),PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.views.shopPanel:ShopData"),StaticProtectedNs("hotpointgame.views.shopPanel:ShopData")])
+                                                      returnvalue
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                          }
+                                       }
+                                    }
+                                    
+                                    method
+                                       name null
+                                       returns null
+                                       
+                                       body
+                                          maxstack 2
+                                          localcount 1
+                                          initscopedepth 1
+                                          maxscopedepth 3
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             findpropstrict Multiname("ShopData",[PackageNamespace("hotpointgame.views.shopPanel")])
+                                             getlex QName(PackageNamespace(""),"Object")
+                                             pushscope
+                                             getlex Multiname("Object",[PackageNamespace(""),PrivateNamespace(null,"569"),PackageNamespace("hotpointgame.views.shopPanel"),PackageInternalNs("hotpointgame.views.shopPanel"),Namespace("http://adobe.com/AS3/2006/builtin")])
+                                             newclass 136
+                                             popscope
+                                             initproperty QName(PackageNamespace("hotpointgame.views.shopPanel"),"ShopData")
+                                             returnvoid
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                    

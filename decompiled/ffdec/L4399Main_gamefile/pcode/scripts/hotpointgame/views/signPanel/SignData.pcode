@@ -1,0 +1,1030 @@
+package hotpointgame.views.signPanel
+{
+   import hotpointgame.Control.*;
+   import hotpointgame.common.*;
+   import hotpointgame.common.basicBtn.*;
+   import hotpointgame.common.event.*;
+   import hotpointgame.common.newBasicBtn.*;
+   import hotpointgame.repository.petGj.*;
+   
+   public class SignData
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var dateArr:Array;
+      
+      private var stateArr:Array;
+      
+      private var reawdStateArr:Array;
+      
+      public var qdGoodsId:VT;
+      
+      private var currentDayId:VT;
+      
+      private var xxobj:VT;
+      
+      public function SignData()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 3
+               localcount 1
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  newarray 0
+                  initproperty QName(PrivateNamespace(null,"130"),"dateArr")
+                  getlocal0
+                  newarray 0
+                  initproperty QName(PrivateNamespace(null,"130"),"stateArr")
+                  getlocal0
+                  newarray 0
+                  initproperty QName(PrivateNamespace(null,"130"),"reawdStateArr")
+                  getlocal0
+                  getlex Multiname("VT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                  getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                  getproperty Multiname("a0",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                  callproperty Multiname("createVT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                  initproperty QName(PrivateNamespace(null,"130"),"currentDayId")
+                  getlocal0
+                  getlex Multiname("VT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                  getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                  getproperty Multiname("a0",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                  callproperty Multiname("createVT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                  initproperty QName(PrivateNamespace(null,"130"),"xxobj")
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public static function read(param1:Object = null) : SignData
+      {
+         trait method QName(PackageNamespace(""),"read")
+            flag FINAL
+            dispid 3
+            method
+               name null
+               flag HAS_OPTIONAL
+               param QName(PackageNamespace(""),"Object")
+               optional Null()
+               returns QName(PackageNamespace("hotpointgame.views.signPanel"),"SignData")
+               
+               body
+                  maxstack 5
+                  localcount 6
+                  initscopedepth 3
+                  maxscopedepth 4
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     pushnull
+                     coerce QName(PackageNamespace(""),"Array")
+                     setlocal3
+                     pushbyte 0
+                     convert_u
+                     setlocal 4
+                     pushnull
+                     coerce QName(PackageNamespace(""),"Array")
+                     setlocal 5
+                     getlocal0
+                     construct 0
+                     coerce QName(PackageNamespace("hotpointgame.views.signPanel"),"SignData")
+                     setlocal2
+                     getlocal2
+                     getlex Multiname("VT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                     getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                     getproperty Multiname("a331358",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                     getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                     getproperty Multiname("a8",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                     add
+                     callproperty Multiname("createVT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                     setproperty Multiname("qdGoodsId",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                     getlocal1
+                     pushnull
+                     ifeq ofs00d7
+                     getlocal1
+                     pushstring "st"
+                     getproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                     coerce QName(PackageNamespace(""),"Array")
+                     setlocal3
+                     pushbyte 0
+                     convert_u
+                     setlocal 4
+                     jump ofs0072
+            ofs0050:
+                     label
+                     getlocal2
+                     getproperty Multiname("stateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                     getlocal 4
+                     getlex Multiname("VT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                     getlocal3
+                     getlocal 4
+                     getproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                     callproperty Multiname("createVT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                     setproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                     getlocal 4
+                     increment
+                     convert_u
+                     setlocal 4
+            ofs0072:
+                     getlocal 4
+                     getlocal3
+                     getproperty Multiname("length",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                     iflt ofs0050
+                     getlocal1
+                     pushstring "rs"
+                     getproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                     coerce QName(PackageNamespace(""),"Array")
+                     setlocal 5
+                     pushbyte 0
+                     convert_u
+                     setlocal 4
+                     jump ofs00b5
+            ofs0092:
+                     label
+                     getlocal2
+                     getproperty Multiname("reawdStateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                     getlocal 4
+                     getlex Multiname("VT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                     getlocal 5
+                     getlocal 4
+                     getproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                     callproperty Multiname("createVT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                     setproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                     getlocal 4
+                     increment
+                     convert_u
+                     setlocal 4
+            ofs00b5:
+                     getlocal 4
+                     pushbyte 3
+                     iflt ofs0092
+                     getlocal2
+                     getlex Multiname("VT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                     getlocal1
+                     pushstring "cz"
+                     getproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                     callproperty Multiname("createVT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                     setproperty Multiname("xxobj",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                     jump ofs00dd
+            ofs00d7:
+                     getlocal2
+                     callpropvoid Multiname("initData",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+            ofs00dd:
+                     getlocal2
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function save() : Object
+         {
+            trait method QName(PackageNamespace(""),"save")
+               dispid 0
+               method
+                  name null
+                  returns QName(PackageNamespace(""),"Object")
+                  
+                  body
+                     maxstack 3
+                     localcount 5
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        findpropstrict Multiname("Object",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                        constructprop Multiname("Object",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                        coerce QName(PackageNamespace(""),"Object")
+                        setlocal1
+                        newarray 0
+                        coerce QName(PackageNamespace(""),"Array")
+                        setlocal2
+                        pushbyte 0
+                        convert_u
+                        setlocal3
+                        jump ofs0035
+               ofs001b:
+                        label
+                        getlocal2
+                        getlocal0
+                        getproperty Multiname("stateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                        getlocal3
+                        getproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                        callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                        callpropvoid Multiname("push",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                        getlocal3
+                        increment
+                        convert_u
+                        setlocal3
+               ofs0035:
+                        getlocal3
+                        getlocal0
+                        getproperty Multiname("stateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                        getproperty Multiname("length",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                        iflt ofs001b
+                        getlocal1
+                        pushstring "st"
+                        getlocal2
+                        setproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                        newarray 0
+                        coerce QName(PackageNamespace(""),"Array")
+                        setlocal 4
+                        pushbyte 0
+                        convert_u
+                        setlocal3
+                        jump ofs0075
+               ofs005a:
+                        label
+                        getlocal 4
+                        getlocal0
+                        getproperty Multiname("reawdStateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                        getlocal3
+                        getproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                        callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                        callpropvoid Multiname("push",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                        getlocal3
+                        increment
+                        convert_u
+                        setlocal3
+               ofs0075:
+                        getlocal3
+                        getlocal0
+                        getproperty Multiname("reawdStateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                        getproperty Multiname("length",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                        iflt ofs005a
+                        getlocal1
+                        pushstring "rs"
+                        getlocal 4
+                        setproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                        getlocal1
+                        pushstring "cz"
+                        getlocal0
+                        getproperty Multiname("xxobj",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                        callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                        setproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                        getlocal1
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function initDisplay() : void
+            {
+               trait method QName(PackageNamespace(""),"initDisplay")
+                  dispid 0
+                  method
+                     name null
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 12
+                        localcount 11
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlex Multiname("VT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getlex Multiname("GM",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData"),PackageNamespace("hotpointgame.Control")])
+                           getproperty Multiname("serverDateC",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getproperty Multiname("sYear",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           callproperty Multiname("createVT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                           coerce QName(PackageNamespace("hotpointgame.common"),"VT")
+                           setlocal1
+                           getlex Multiname("VT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getlex Multiname("GM",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData"),PackageNamespace("hotpointgame.Control")])
+                           getproperty Multiname("serverDateC",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getproperty Multiname("sMonth",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           callproperty Multiname("createVT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                           coerce QName(PackageNamespace("hotpointgame.common"),"VT")
+                           setlocal2
+                           pushbyte 31
+                           pushbyte 28
+                           pushbyte 31
+                           pushbyte 30
+                           pushbyte 31
+                           pushbyte 30
+                           pushbyte 31
+                           dup
+                           pushbyte 30
+                           pushbyte 31
+                           pushbyte 30
+                           pushbyte 31
+                           newarray 12
+                           coerce QName(PackageNamespace(""),"Array")
+                           setlocal3
+                           getlex Multiname("VT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getlocal3
+                           getlocal2
+                           callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                           getproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           callproperty Multiname("createVT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                           coerce QName(PackageNamespace("hotpointgame.common"),"VT")
+                           setlocal 4
+                           findpropstrict Multiname("Number",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getlocal1
+                           callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                           callproperty Multiname("toString",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                           pushbyte 2
+                           pushbyte 3
+                           callproperty Multiname("substr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 2
+                           callproperty Multiname("Number",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                           pushbyte 4
+                           modulo
+                           pushbyte 0
+                           ifne ofs00ad
+                           getlocal2
+                           callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                           getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getproperty Multiname("a1",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           ifne ofs00ad
+                           getlocal 4
+                           getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getproperty Multiname("a29",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           callpropvoid Multiname("setValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                  ofs00ad:
+                           findpropstrict Multiname("Date",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getlocal1
+                           callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                           getlocal2
+                           callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                           getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getproperty Multiname("a1",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           constructprop Multiname("Date",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 3
+                           coerce QName(PackageNamespace(""),"Date")
+                           setlocal 5
+                           getlex Multiname("VT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getlocal 5
+                           getproperty Multiname("day",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           callproperty Multiname("createVT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                           coerce QName(PackageNamespace("hotpointgame.common"),"VT")
+                           setlocal 6
+                           getlex Multiname("VT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getlocal 4
+                           callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                           getlocal 6
+                           callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                           add
+                           callproperty Multiname("createVT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                           coerce QName(PackageNamespace("hotpointgame.common"),"VT")
+                           setlocal 7
+                           getlex Multiname("VT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getlex Multiname("GM",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData"),PackageNamespace("hotpointgame.Control")])
+                           getproperty Multiname("serverDateC",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getproperty Multiname("sDate",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           callproperty Multiname("createVT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                           coerce QName(PackageNamespace("hotpointgame.common"),"VT")
+                           setlocal 8
+                           getlex Multiname("VT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getproperty Multiname("a0",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           callproperty Multiname("createVT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                           coerce QName(PackageNamespace("hotpointgame.common"),"VT")
+                           setlocal 9
+                           pushbyte 0
+                           convert_u
+                           setlocal 10
+                           jump ofs01cd
+                  ofs0135:
+                           label
+                           getlocal 10
+                           getlocal 6
+                           callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                           greaterequals
+                           dup
+                           iffalse ofs0150
+                           pop
+                           getlocal 10
+                           getlocal 7
+                           callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                           lessthan
+                  ofs0150:
+                           iffalse ofs01b1
+                           getlocal 9
+                           getlocal 9
+                           callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                           getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getproperty Multiname("a1",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           add
+                           callpropvoid Multiname("setValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                           getlocal0
+                           getproperty Multiname("dateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getlocal 10
+                           getlex Multiname("VT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getlocal 9
+                           callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                           getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getproperty Multiname("a1",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           add
+                           callproperty Multiname("createVT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                           setproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getlocal 9
+                           callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                           getlocal 8
+                           callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                           ifne ofs01ad
+                           getlocal0
+                           getproperty Multiname("currentDayId",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getlocal 10
+                           callpropvoid Multiname("setValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                  ofs01ad:
+                           jump ofs01c7
+                  ofs01b1:
+                           getlocal0
+                           getproperty Multiname("dateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getlocal 10
+                           getlex Multiname("VT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           pushbyte -1
+                           callproperty Multiname("createVT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                           setproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                  ofs01c7:
+                           getlocal 10
+                           increment
+                           convert_u
+                           setlocal 10
+                  ofs01cd:
+                           getlocal 10
+                           getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           getproperty Multiname("a42",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                           iflt ofs0135
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function initData() : void
+               {
+                  trait method QName(PackageNamespace(""),"initData")
+                     dispid 0
+                     method
+                        name null
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 4
+                           localcount 2
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              pushbyte 0
+                              convert_u
+                              setlocal1
+                              jump ofs002a
+                     ofs000a:
+                              label
+                              getlocal0
+                              getproperty Multiname("stateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                              getlocal1
+                              getlex Multiname("VT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                              getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                              getproperty Multiname("a0",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                              callproperty Multiname("createVT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                              setproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                              getlocal1
+                              increment
+                              convert_u
+                              setlocal1
+                     ofs002a:
+                              getlocal1
+                              getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                              getproperty Multiname("a42",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                              iflt ofs000a
+                              pushbyte 0
+                              convert_u
+                              setlocal1
+                              jump ofs0059
+                     ofs003f:
+                              label
+                              getlocal0
+                              getproperty Multiname("reawdStateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                              getlocal1
+                              getlex Multiname("VT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                              pushbyte -1
+                              callproperty Multiname("createVT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                              setproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                              getlocal1
+                              increment
+                              convert_u
+                              setlocal1
+                     ofs0059:
+                              getlocal1
+                              getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                              getproperty Multiname("a3",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                              iflt ofs003f
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function getrewdState() : Array
+                  {
+                     trait method QName(PackageNamespace(""),"getrewdState")
+                        dispid 0
+                        method
+                           name null
+                           returns QName(PackageNamespace(""),"Array")
+                           
+                           body
+                              maxstack 1
+                              localcount 1
+                              initscopedepth 4
+                              maxscopedepth 5
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal0
+                                 getproperty Multiname("reawdStateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public function getReadGoods(param1:Number) : Number
+                     {
+                        trait method QName(PackageNamespace(""),"getReadGoods")
+                           dispid 0
+                           method
+                              name null
+                              param QName(PackageNamespace(""),"Number")
+                              returns QName(PackageNamespace(""),"Number")
+                              
+                              body
+                                 maxstack 3
+                                 localcount 2
+                                 initscopedepth 4
+                                 maxscopedepth 5
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlex Multiname("PetGjFactory",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                    getlex Multiname("GM",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData"),PackageNamespace("hotpointgame.Control")])
+                                    getproperty Multiname("serverDateC",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                    getproperty Multiname("sMonth",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                    getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                    getproperty Multiname("a1",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                    add
+                                    getlocal1
+                                    callproperty Multiname("getJlByMonth",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 2
+                                    returnvalue
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        public function setRewdState(param1:Number) : void
+                        {
+                           trait method QName(PackageNamespace(""),"setRewdState")
+                              dispid 0
+                              method
+                                 name null
+                                 param QName(PackageNamespace(""),"Number")
+                                 returns QName(PackageNamespace(""),"void")
+                                 
+                                 body
+                                    maxstack 4
+                                    localcount 2
+                                    initscopedepth 4
+                                    maxscopedepth 5
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlocal0
+                                       getproperty Multiname("reawdStateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                       getlocal1
+                                       getlex Multiname("VT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                       getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                       getproperty Multiname("a0",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                       callproperty Multiname("createVT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                                       setproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           public function getDateArr() : Array
+                           {
+                              trait method QName(PackageNamespace(""),"getDateArr")
+                                 dispid 0
+                                 method
+                                    name null
+                                    returns QName(PackageNamespace(""),"Array")
+                                    
+                                    body
+                                       maxstack 1
+                                       localcount 1
+                                       initscopedepth 4
+                                       maxscopedepth 5
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlocal0
+                                          getproperty Multiname("dateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                          returnvalue
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              public function getStateArr() : Array
+                              {
+                                 trait method QName(PackageNamespace(""),"getStateArr")
+                                    dispid 0
+                                    method
+                                       name null
+                                       returns QName(PackageNamespace(""),"Array")
+                                       
+                                       body
+                                          maxstack 1
+                                          localcount 1
+                                          initscopedepth 4
+                                          maxscopedepth 5
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlocal0
+                                             getproperty Multiname("stateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                             returnvalue
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 public function getDateById(param1:Number) : Number
+                                 {
+                                    trait method QName(PackageNamespace(""),"getDateById")
+                                       dispid 0
+                                       method
+                                          name null
+                                          param QName(PackageNamespace(""),"Number")
+                                          returns QName(PackageNamespace(""),"Number")
+                                          
+                                          body
+                                             maxstack 2
+                                             localcount 2
+                                             initscopedepth 4
+                                             maxscopedepth 5
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                getlocal0
+                                                getproperty Multiname("dateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                getlocal1
+                                                getproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                returnvalue
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    public function getbqNum() : Number
+                                    {
+                                       trait method QName(PackageNamespace(""),"getbqNum")
+                                          dispid 0
+                                          method
+                                             name null
+                                             returns QName(PackageNamespace(""),"Number")
+                                             
+                                             body
+                                                maxstack 3
+                                                localcount 3
+                                                initscopedepth 4
+                                                maxscopedepth 5
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   getlex Multiname("VT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                   pushbyte 0
+                                                   callproperty Multiname("createVT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                                                   coerce QName(PackageNamespace("hotpointgame.common"),"VT")
+                                                   setlocal1
+                                                   pushbyte 0
+                                                   convert_u
+                                                   setlocal2
+                                                   jump ofs0072
+                                          ofs0018:
+                                                   label
+                                                   getlocal2
+                                                   getlocal0
+                                                   callproperty Multiname("getQdId",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                                                   ifnlt ofs006e
+                                                   getlocal0
+                                                   getproperty Multiname("stateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                   getlocal2
+                                                   getproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                   callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                                                   getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                   getproperty Multiname("a0",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                   equals
+                                                   dup
+                                                   iffalse ofs0055
+                                                   pop
+                                                   getlocal0
+                                                   getproperty Multiname("dateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                   getlocal2
+                                                   getproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                   callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                                                   pushbyte -1
+                                                   equals
+                                                   not
+                                          ofs0055:
+                                                   iffalse ofs006e
+                                                   getlocal1
+                                                   getlocal1
+                                                   callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                                                   getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                   getproperty Multiname("a1",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                   add
+                                                   callpropvoid Multiname("setValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                                          ofs006e:
+                                                   getlocal2
+                                                   increment
+                                                   convert_u
+                                                   setlocal2
+                                          ofs0072:
+                                                   getlocal2
+                                                   getlocal0
+                                                   getproperty Multiname("stateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                   getproperty Multiname("length",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                   iflt ofs0018
+                                                   getlocal1
+                                                   callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                                                   returnvalue
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                       
+                                       public function getQdId() : Number
+                                       {
+                                          trait method QName(PackageNamespace(""),"getQdId")
+                                             dispid 0
+                                             method
+                                                name null
+                                                returns QName(PackageNamespace(""),"Number")
+                                                
+                                                body
+                                                   maxstack 1
+                                                   localcount 1
+                                                   initscopedepth 4
+                                                   maxscopedepth 5
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      getlocal0
+                                                      getproperty Multiname("currentDayId",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                      callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                                                      returnvalue
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                          }
+                                          
+                                          public function qdFun(param1:Number) : void
+                                          {
+                                             trait method QName(PackageNamespace(""),"qdFun")
+                                                dispid 0
+                                                method
+                                                   name null
+                                                   param QName(PackageNamespace(""),"Number")
+                                                   returns QName(PackageNamespace(""),"void")
+                                                   
+                                                   body
+                                                      maxstack 4
+                                                      localcount 2
+                                                      initscopedepth 4
+                                                      maxscopedepth 5
+                                                      
+                                                      code
+                                                         getlocal0
+                                                         pushscope
+                                                         getlocal0
+                                                         getproperty Multiname("stateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                         getlocal1
+                                                         getlex Multiname("VT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                         getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                         getproperty Multiname("a1",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                         callproperty Multiname("createVT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                                                         setproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                         returnvoid
+                                                      end ; code
+                                                   end ; body
+                                                end ; method
+                                             }
+                                             
+                                             public function bqFun(param1:Number) : void
+                                             {
+                                                trait method QName(PackageNamespace(""),"bqFun")
+                                                   dispid 0
+                                                   method
+                                                      name null
+                                                      param QName(PackageNamespace(""),"Number")
+                                                      returns QName(PackageNamespace(""),"void")
+                                                      
+                                                      body
+                                                         maxstack 2
+                                                         localcount 3
+                                                         initscopedepth 4
+                                                         maxscopedepth 5
+                                                         
+                                                         code
+                                                            getlocal0
+                                                            pushscope
+                                                            pushbyte 0
+                                                            convert_u
+                                                            setlocal2
+                                                            jump ofs0071
+                                                   ofs000a:
+                                                            label
+                                                            getlocal1
+                                                            pushbyte 0
+                                                            ifngt ofs006d
+                                                            getlocal2
+                                                            getlocal0
+                                                            callproperty Multiname("getQdId",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                                                            ifnlt ofs006d
+                                                            getlocal0
+                                                            getproperty Multiname("stateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                            getlocal2
+                                                            getproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                            callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                                                            getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                            getproperty Multiname("a0",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                            equals
+                                                            dup
+                                                            iffalse ofs004e
+                                                            pop
+                                                            getlocal0
+                                                            getproperty Multiname("dateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                            getlocal2
+                                                            getproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                            callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                                                            pushbyte -1
+                                                            equals
+                                                            not
+                                                   ofs004e:
+                                                            iffalse ofs006d
+                                                            getlocal0
+                                                            getproperty Multiname("stateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                            getlocal2
+                                                            getproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                            getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                            getproperty Multiname("a1",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                            callpropvoid Multiname("setValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                                                            getlocal1
+                                                            decrement
+                                                            convert_d
+                                                            setlocal1
+                                                   ofs006d:
+                                                            getlocal2
+                                                            increment
+                                                            convert_u
+                                                            setlocal2
+                                                   ofs0071:
+                                                            getlocal2
+                                                            getlocal0
+                                                            getproperty Multiname("stateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                            getproperty Multiname("length",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                            iflt ofs000a
+                                                            returnvoid
+                                                         end ; code
+                                                      end ; body
+                                                   end ; method
+                                                }
+                                                
+                                                public function getQdNum() : Number
+                                                {
+                                                   trait method QName(PackageNamespace(""),"getQdNum")
+                                                      dispid 0
+                                                      method
+                                                         name null
+                                                         returns QName(PackageNamespace(""),"Number")
+                                                         
+                                                         body
+                                                            maxstack 3
+                                                            localcount 3
+                                                            initscopedepth 4
+                                                            maxscopedepth 5
+                                                            
+                                                            code
+                                                               getlocal0
+                                                               pushscope
+                                                               getlex Multiname("VT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                               getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                               getproperty Multiname("a0",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                               callproperty Multiname("createVT",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                                                               coerce QName(PackageNamespace("hotpointgame.common"),"VT")
+                                                               setlocal1
+                                                               pushbyte 0
+                                                               convert_u
+                                                               setlocal2
+                                                               jump ofs0053
+                                                      ofs001e:
+                                                               label
+                                                               getlocal0
+                                                               getproperty Multiname("stateArr",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                               getlocal2
+                                                               getproperty MultinameL([PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                               callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                                                               getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                               getproperty Multiname("a1",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                               ifne ofs004f
+                                                               getlocal1
+                                                               getlocal1
+                                                               callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                                                               getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                               getproperty Multiname("a1",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                               add
+                                                               callpropvoid Multiname("setValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 1
+                                                      ofs004f:
+                                                               getlocal2
+                                                               increment
+                                                               convert_u
+                                                               setlocal2
+                                                      ofs0053:
+                                                               getlocal2
+                                                               getlex Multiname("GS",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                               getproperty Multiname("a42",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")])
+                                                               iflt ofs001e
+                                                               getlocal1
+                                                               callproperty Multiname("getValue",[PrivateNamespace(null,"130"),PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj"),ProtectedNamespace("hotpointgame.views.signPanel:SignData"),StaticProtectedNs("hotpointgame.views.signPanel:SignData")]), 0
+                                                               returnvalue
+                                                            end ; code
+                                                         end ; body
+                                                      end ; method
+                                                   }
+                                                }
+                                             }
+                                             
+                                             method
+                                                name null
+                                                returns null
+                                                
+                                                body
+                                                   maxstack 2
+                                                   localcount 1
+                                                   initscopedepth 1
+                                                   maxscopedepth 3
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      findpropstrict Multiname("SignData",[PackageNamespace("hotpointgame.views.signPanel")])
+                                                      getlex QName(PackageNamespace(""),"Object")
+                                                      pushscope
+                                                      getlex Multiname("Object",[PackageNamespace(""),PackageNamespace("hotpointgame.views.signPanel"),PrivateNamespace(null,"651"),PackageInternalNs("hotpointgame.views.signPanel"),Namespace("http://adobe.com/AS3/2006/builtin"),PackageNamespace("hotpointgame.common.basicBtn"),PackageNamespace("hotpointgame.common"),PackageNamespace("hotpointgame.common.event"),PackageNamespace("hotpointgame.common.newBasicBtn"),PackageNamespace("hotpointgame.repository.petGj")])
+                                                      newclass 202
+                                                      popscope
+                                                      initproperty QName(PackageNamespace("hotpointgame.views.signPanel"),"SignData")
+                                                      returnvoid
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                             

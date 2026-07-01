@@ -1,0 +1,1226 @@
+package mx.binding
+{
+   import flash.utils.Dictionary;
+   import mx.collections.errors.ItemPendingError;
+   import mx.core.mx_internal;
+   
+   use namespace mx_internal;
+   
+   public class Binding
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      mx_internal static var allowedErrors:Object;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"allowedErrors")
+               findpropstrict QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"generateAllowedErrors")
+               callproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"generateAllowedErrors"), 0
+               setproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"allowedErrors")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      mx_internal var _isEnabled:Boolean;
+      
+      mx_internal var isExecuting:Boolean;
+      
+      mx_internal var isHandlingEvent:Boolean;
+      
+      mx_internal var disabledRequests:Dictionary;
+      
+      private var hasHadValue:Boolean;
+      
+      public var uiComponentWatcher:int;
+      
+      public var twoWayCounterpart:Binding;
+      
+      public var isTwoWayPrimary:Boolean;
+      
+      private var wrappedFunctionSuccessful:Boolean;
+      
+      mx_internal var document:Object;
+      
+      mx_internal var srcFunc:Function;
+      
+      mx_internal var destFunc:Function;
+      
+      mx_internal var destString:String;
+      
+      mx_internal var srcString:String;
+      
+      private var lastValue:Object;
+      
+      public function Binding(param1:Object, param2:Function, param3:Function, param4:String, param5:String = null)
+      {
+         method
+            name null
+            flag HAS_OPTIONAL
+            param QName(PackageNamespace(""),"Object")
+            param QName(PackageNamespace(""),"Function")
+            param QName(PackageNamespace(""),"Function")
+            param QName(PackageNamespace(""),"String")
+            param QName(PackageNamespace(""),"String")
+            optional Null()
+            returns null
+            
+            body
+               maxstack 4
+               localcount 6
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  getlocal0
+                  getlocal1
+                  initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"document")
+                  getlocal0
+                  getlocal2
+                  initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"srcFunc")
+                  getlocal0
+                  getlocal3
+                  initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"destFunc")
+                  getlocal0
+                  getlocal 4
+                  initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"destString")
+                  getlocal0
+                  getlocal 5
+                  initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"srcString")
+                  getlocal0
+                  getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"srcFunc")
+                  pushnull
+                  ifne ofs0031
+                  getlocal0
+                  getlocal0
+                  getproperty QName(PrivateNamespace(null,"59"),"defaultSrcFunc")
+                  initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"srcFunc")
+         ofs0031:
+                  getlocal0
+                  getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"destFunc")
+                  pushnull
+                  ifne ofs0042
+                  getlocal0
+                  getlocal0
+                  getproperty QName(PrivateNamespace(null,"59"),"defaultDestFunc")
+                  initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"destFunc")
+         ofs0042:
+                  getlocal0
+                  pushtrue
+                  initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"_isEnabled")
+                  getlocal0
+                  pushfalse
+                  initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"isExecuting")
+                  getlocal0
+                  pushfalse
+                  initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"isHandlingEvent")
+                  getlocal0
+                  pushfalse
+                  initproperty QName(PrivateNamespace(null,"59"),"hasHadValue")
+                  getlocal0
+                  pushbyte -1
+                  initproperty QName(PackageNamespace(""),"uiComponentWatcher")
+                  getlex QName(PackageNamespace("mx.binding"),"BindingManager")
+                  getlocal1
+                  getlocal 4
+                  getlocal0
+                  callpropvoid QName(PackageNamespace(""),"addBinding"), 3
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      mx_internal static function generateAllowedErrors() : Object
+      {
+         trait method QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"generateAllowedErrors")
+            flag FINAL
+            dispid 3
+            method
+               name null
+               returns QName(PackageNamespace(""),"Object")
+               
+               body
+                  maxstack 3
+                  localcount 2
+                  initscopedepth 3
+                  maxscopedepth 4
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     newobject 0
+                     coerce QName(PackageNamespace(""),"Object")
+                     setlocal1
+                     getlocal1
+                     pushshort 1507
+                     pushbyte 1
+                     setproperty MultinameL([PrivateNamespace(null,"59"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"160"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:Binding"),StaticProtectedNs("mx.binding:Binding")])
+                     getlocal1
+                     pushshort 2005
+                     pushbyte 1
+                     setproperty MultinameL([PrivateNamespace(null,"59"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"160"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:Binding"),StaticProtectedNs("mx.binding:Binding")])
+                     getlocal1
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         mx_internal function get isEnabled() : Boolean
+         {
+            trait getter QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"isEnabled")
+               dispid 0
+               method
+                  name null
+                  returns QName(PackageNamespace(""),"Boolean")
+                  
+                  body
+                     maxstack 1
+                     localcount 1
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"_isEnabled")
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            mx_internal function set isEnabled(param1:Boolean) : void
+            {
+               trait setter QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"isEnabled")
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace(""),"Boolean")
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 2
+                        localcount 2
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           getlocal1
+                           initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"_isEnabled")
+                           getlocal1
+                           iffalse ofs0011
+                           getlocal0
+                           callpropvoid QName(PrivateNamespace(null,"59"),"processDisabledRequests"), 0
+                  ofs0011:
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               private function defaultDestFunc(param1:Object) : void
+               {
+                  trait method QName(PrivateNamespace(null,"59"),"defaultDestFunc")
+                     dispid 0
+                     method
+                        name null
+                        param QName(PackageNamespace(""),"Object")
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 4
+                           localcount 5
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"destString")
+                              pushstring "."
+                              callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"split"), 1
+                              coerce QName(PackageNamespace(""),"Array")
+                              setlocal2
+                              getlocal0
+                              getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"document")
+                              coerce QName(PackageNamespace(""),"Object")
+                              setlocal3
+                              pushbyte 0
+                              convert_u
+                              setlocal 4
+                              getlocal2
+                              pushbyte 0
+                              getproperty MultinameL([PrivateNamespace(null,"59"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"160"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:Binding"),StaticProtectedNs("mx.binding:Binding")])
+                              pushstring "this"
+                              ifne ofs002f
+                              getlocal 4
+                              increment
+                              convert_u
+                              setlocal 4
+                     ofs002f:
+                              jump ofs0047
+                     ofs0033:
+                              label
+                              getlocal3
+                              getlocal2
+                              getlocal 4
+                              convert_d
+                              dup
+                              increment
+                              convert_u
+                              setlocal 4
+                              getproperty MultinameL([PrivateNamespace(null,"59"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"160"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:Binding"),StaticProtectedNs("mx.binding:Binding")])
+                              getproperty MultinameL([PrivateNamespace(null,"59"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"160"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:Binding"),StaticProtectedNs("mx.binding:Binding")])
+                              coerce QName(PackageNamespace(""),"Object")
+                              setlocal3
+                     ofs0047:
+                              getlocal 4
+                              getlocal2
+                              getproperty QName(PackageNamespace(""),"length")
+                              decrement
+                              iflt ofs0033
+                              getlocal3
+                              getlocal2
+                              getlocal 4
+                              getproperty MultinameL([PrivateNamespace(null,"59"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"160"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:Binding"),StaticProtectedNs("mx.binding:Binding")])
+                              getlocal1
+                              setproperty MultinameL([PrivateNamespace(null,"59"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"160"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:Binding"),StaticProtectedNs("mx.binding:Binding")])
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  private function defaultSrcFunc() : Object
+                  {
+                     trait method QName(PrivateNamespace(null,"59"),"defaultSrcFunc")
+                        dispid 0
+                        method
+                           name null
+                           returns QName(PackageNamespace(""),"Object")
+                           
+                           body
+                              maxstack 2
+                              localcount 1
+                              initscopedepth 4
+                              maxscopedepth 5
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal0
+                                 getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"document")
+                                 getlocal0
+                                 getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"srcString")
+                                 getproperty MultinameL([PrivateNamespace(null,"59"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"160"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:Binding"),StaticProtectedNs("mx.binding:Binding")])
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public function execute(param1:Object = null) : void
+                     {
+                        trait method QName(PackageNamespace(""),"execute")
+                           dispid 0
+                           method
+                              name null
+                              flag HAS_OPTIONAL
+                              flag NEED_ACTIVATION
+                              param QName(PackageNamespace(""),"Object")
+                              optional Null()
+                              returns QName(PackageNamespace(""),"void")
+                              
+                              body
+                                 maxstack 4
+                                 localcount 5
+                                 initscopedepth 5
+                                 maxscopedepth 12
+                                 trait slot QName(PackageInternalNs("mx.binding"),"o")
+                                    slotid 1
+                                    type QName(PackageNamespace(""),"Object")
+                                    value Null()
+                                 end ; trait
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    newactivation
+                                    dup
+                                    setlocal2
+                                    pushscope
+                                    getscopeobject 1
+                                    getlocal1
+                                    setslot 1
+                                    getlocal0
+                                    getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"isEnabled")
+                                    iftrue ofs0026
+                                    getscopeobject 1
+                                    getslot 1
+                                    pushnull
+                                    ifeq ofs0025
+                                    getlocal0
+                                    getscopeobject 1
+                                    getslot 1
+                                    callpropvoid QName(PrivateNamespace(null,"59"),"registerDisabledExecute"), 1
+                           ofs0025:
+                                    returnvoid
+                           ofs0026:
+                                    getlocal0
+                                    getproperty QName(PackageNamespace(""),"twoWayCounterpart")
+                                    coerce_a
+                                    convert_b
+                                    dup
+                                    iffalse ofs003c
+                                    pop
+                                    getlocal0
+                                    getproperty QName(PackageNamespace(""),"twoWayCounterpart")
+                                    getproperty QName(PrivateNamespace(null,"59"),"hasHadValue")
+                                    not
+                                    coerce_a
+                                    convert_b
+                           ofs003c:
+                                    dup
+                                    iffalse ofs004a
+                                    pop
+                                    getlocal0
+                                    getproperty QName(PackageNamespace(""),"twoWayCounterpart")
+                                    getproperty QName(PackageNamespace(""),"isTwoWayPrimary")
+                                    convert_b
+                           ofs004a:
+                                    iffalse ofs005c
+                                    getlocal0
+                                    getproperty QName(PackageNamespace(""),"twoWayCounterpart")
+                                    callpropvoid QName(PackageNamespace(""),"execute"), 0
+                                    getlocal0
+                                    pushtrue
+                                    initproperty QName(PrivateNamespace(null,"59"),"hasHadValue")
+                                    returnvoid
+                           ofs005c:
+                                    getlocal0
+                                    getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"isExecuting")
+                                    convert_b
+                                    dup
+                                    iftrue ofs007c
+                                    pop
+                                    getlocal0
+                                    getproperty QName(PackageNamespace(""),"twoWayCounterpart")
+                                    coerce_a
+                                    convert_b
+                                    dup
+                                    iffalse ofs007c
+                                    pop
+                                    getlocal0
+                                    getproperty QName(PackageNamespace(""),"twoWayCounterpart")
+                                    getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"isExecuting")
+                                    coerce_a
+                                    convert_b
+                           ofs007c:
+                                    iffalse ofs0086
+                                    getlocal0
+                                    pushtrue
+                                    initproperty QName(PrivateNamespace(null,"59"),"hasHadValue")
+                                    returnvoid
+                           ofs0086:
+                                    getlocal0
+                                    pushtrue
+                                    initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"isExecuting")
+                                    getlocal0
+                                    getlocal0
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"59"),"innerExecute")
+                                    getscopeobject 1
+                                    getslot 1
+                                    callpropvoid QName(ProtectedNamespace("mx.binding:Binding"),"wrapFunctionCall"), 3
+                           ofs0099:
+                                    jump ofs00c4
+                           ofs009d:
+                                    getlocal0
+                                    pushscope
+                                    getlocal2
+                                    pushscope
+                                    newcatch 0
+                                    dup
+                                    setlocal3
+                                    dup
+                                    pushscope
+                                    swap
+                                    setslot 1
+                                    getlex QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"allowedErrors")
+                                    getscopeobject 2
+                                    getslot 1
+                                    getproperty QName(PackageNamespace(""),"errorID")
+                                    getproperty MultinameL([PrivateNamespace(null,"59"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"160"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:Binding"),StaticProtectedNs("mx.binding:Binding")])
+                                    pushnull
+                                    ifne ofs00c1
+                                    getscopeobject 2
+                                    getslot 1
+                                    throw
+                           ofs00c1:
+                                    popscope
+                                    kill 3
+                           ofs00c4:
+                                    pushbyte -1
+                           ofs00c6:
+                                    jump ofs00ec
+                           ofs00ca:
+                                    getlocal0
+                                    pushscope
+                                    getlocal2
+                                    pushscope
+                                    newcatch 1
+                                    dup
+                                    setlocal3
+                                    pushscope
+                                    popscope
+                                    kill 3
+                                    coerce_a
+                                    setlocal 4
+                                    pushbyte 0
+                                    jump ofs00ec
+                                    label
+                                    pop
+                           ofs00e1:
+                                    label
+                                    getlocal 4
+                                    kill 4
+                                    throw
+                                    pushbyte -1
+                                    popscope
+                                    kill 3
+                           ofs00ec:
+                                    getlocal0
+                                    pushfalse
+                                    initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"isExecuting")
+                                    lookupswitch ofs00f9, [ofs00e1]
+                           ofs00f9:
+                                    returnvoid
+                                 end ; code
+                                 try from ofs0086 to ofs0099 target ofs009d type QName(PackageNamespace(""),"Error") name QName(PackageNamespace(""),"error") end
+                                 try from ofs0086 to ofs00c6 target ofs00ca type null name null end
+                              end ; body
+                           end ; method
+                        }
+                        
+                        private function registerDisabledExecute(param1:Object) : void
+                        {
+                           trait method QName(PrivateNamespace(null,"59"),"registerDisabledExecute")
+                              dispid 0
+                              method
+                                 name null
+                                 param QName(PackageNamespace(""),"Object")
+                                 returns QName(PackageNamespace(""),"void")
+                                 
+                                 body
+                                    maxstack 3
+                                    localcount 2
+                                    initscopedepth 4
+                                    maxscopedepth 5
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlocal1
+                                       pushnull
+                                       ifeq ofs0030
+                                       getlocal0
+                                       getlocal0
+                                       getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"disabledRequests")
+                                       pushnull
+                                       ifeq ofs001c
+                                       getlocal0
+                                       getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"disabledRequests")
+                                       coerce QName(PackageNamespace("flash.utils"),"Dictionary")
+                                       jump ofs0024
+                              ofs001c:
+                                       findpropstrict QName(PackageNamespace("flash.utils"),"Dictionary")
+                                       pushtrue
+                                       constructprop QName(PackageNamespace("flash.utils"),"Dictionary"), 1
+                                       coerce QName(PackageNamespace("flash.utils"),"Dictionary")
+                              ofs0024:
+                                       initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"disabledRequests")
+                                       getlocal0
+                                       getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"disabledRequests")
+                                       getlocal1
+                                       pushtrue
+                                       setproperty MultinameL([PrivateNamespace(null,"59"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"160"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:Binding"),StaticProtectedNs("mx.binding:Binding")])
+                              ofs0030:
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           private function processDisabledRequests() : void
+                           {
+                              trait method QName(PrivateNamespace(null,"59"),"processDisabledRequests")
+                                 dispid 0
+                                 method
+                                    name null
+                                    returns QName(PackageNamespace(""),"void")
+                                    
+                                    body
+                                       maxstack 2
+                                       localcount 4
+                                       initscopedepth 4
+                                       maxscopedepth 5
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          pushnull
+                                          coerce QName(PackageNamespace(""),"Object")
+                                          setlocal1
+                                          getlocal0
+                                          getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"disabledRequests")
+                                          pushnull
+                                          ifeq ofs0039
+                                          pushbyte 0
+                                          setlocal2
+                                          getlocal0
+                                          getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"disabledRequests")
+                                          coerce_a
+                                          setlocal3
+                                          jump ofs0029
+                                 ofs001c:
+                                          label
+                                          getlocal3
+                                          getlocal2
+                                          nextname
+                                          coerce QName(PackageNamespace(""),"Object")
+                                          setlocal1
+                                          getlocal0
+                                          getlocal1
+                                          callpropvoid QName(PackageNamespace(""),"execute"), 1
+                                 ofs0029:
+                                          hasnext2 3, 2
+                                          iftrue ofs001c
+                                          kill 3
+                                          kill 2
+                                          getlocal0
+                                          pushnull
+                                          initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"disabledRequests")
+                                 ofs0039:
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              protected function wrapFunctionCall(param1:Object, param2:Function, param3:Object = null, ... rest) : Object
+                              {
+                                 trait method QName(ProtectedNamespace("mx.binding:Binding"),"wrapFunctionCall")
+                                    dispid 0
+                                    method
+                                       name null
+                                       flag HAS_OPTIONAL
+                                       flag NEED_ACTIVATION
+                                       flag NEED_REST
+                                       param QName(PackageNamespace(""),"Object")
+                                       param QName(PackageNamespace(""),"Function")
+                                       param QName(PackageNamespace(""),"Object")
+                                       optional Null()
+                                       returns QName(PackageNamespace(""),"Object")
+                                       
+                                       body
+                                          maxstack 4
+                                          localcount 7
+                                          initscopedepth 5
+                                          maxscopedepth 14
+                                          trait slot QName(PackageInternalNs("mx.binding"),"thisArg")
+                                             slotid 1
+                                             type QName(PackageNamespace(""),"Object")
+                                          end ; trait
+                                          trait slot QName(PackageInternalNs("mx.binding"),"wrappedFunction")
+                                             slotid 2
+                                             type QName(PackageNamespace(""),"Function")
+                                          end ; trait
+                                          trait slot QName(PackageInternalNs("mx.binding"),"object")
+                                             slotid 3
+                                             type QName(PackageNamespace(""),"Object")
+                                             value Null()
+                                          end ; trait
+                                          trait slot QName(PackageNamespace(""),"args")
+                                             slotid 4
+                                             type QName(PackageNamespace(""),"Array")
+                                          end ; trait
+                                          trait slot QName(PackageInternalNs("mx.binding"),"result")
+                                             slotid 5
+                                             type QName(PackageNamespace(""),"Object")
+                                          end ; trait
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             newactivation
+                                             dup
+                                             setlocal 5
+                                             pushscope
+                                             getscopeobject 1
+                                             pushnull
+                                             coerce QName(PackageNamespace(""),"Object")
+                                             setslot 5
+                                             getscopeobject 1
+                                             getlocal1
+                                             setslot 1
+                                             getscopeobject 1
+                                             getlocal2
+                                             setslot 2
+                                             getscopeobject 1
+                                             getlocal3
+                                             setslot 3
+                                             getscopeobject 1
+                                             getlocal 4
+                                             setslot 4
+                                             getlocal0
+                                             pushfalse
+                                             initproperty QName(PrivateNamespace(null,"59"),"wrappedFunctionSuccessful")
+                                    ofs0028:
+                                             getscopeobject 1
+                                             getscopeobject 1
+                                             getslot 2
+                                             getscopeobject 1
+                                             getslot 1
+                                             getscopeobject 1
+                                             getslot 4
+                                             callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"apply"), 2
+                                             coerce QName(PackageNamespace(""),"Object")
+                                             setslot 5
+                                             getlocal0
+                                             pushtrue
+                                             initproperty QName(PrivateNamespace(null,"59"),"wrappedFunctionSuccessful")
+                                             getscopeobject 1
+                                             getslot 5
+                                             returnvalue
+                                    ofs0048:
+                                             jump ofs004c
+                                    ofs004c:
+                                             getlocal0
+                                             pushscope
+                                             getlocal 5
+                                             pushscope
+                                             newcatch 0
+                                             dup
+                                             setlocal 6
+                                             dup
+                                             pushscope
+                                             swap
+                                             setslot 1
+                                             getscopeobject 2
+                                             getslot 1
+                                             findpropstrict QName(PackageNamespace("mx.binding"),"EvalBindingResponder")
+                                             getlocal0
+                                             getscopeobject 1
+                                             getslot 3
+                                             constructprop QName(PackageNamespace("mx.binding"),"EvalBindingResponder"), 2
+                                             callpropvoid QName(PackageNamespace(""),"addResponder"), 1
+                                             getlex QName(PackageNamespace("mx.binding"),"BindingManager")
+                                             getproperty QName(PackageInternalNs("mx.binding"),"debugDestinationStrings")
+                                             getlex QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"destString")
+                                             getproperty MultinameL([PrivateNamespace(null,"59"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"160"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:Binding"),StaticProtectedNs("mx.binding:Binding")])
+                                             iffalse ofs0096
+                                             findpropstrict QName(PackageNamespace(""),"trace")
+                                             pushstring "Binding: destString = "
+                                             getlex QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"destString")
+                                             add
+                                             pushstring ", error = "
+                                             add
+                                             getscopeobject 2
+                                             getslot 1
+                                             add
+                                             callpropvoid QName(PackageNamespace(""),"trace"), 1
+                                    ofs0096:
+                                             popscope
+                                             kill 6
+                                             jump ofs0174
+                                    ofs009d:
+                                             getlocal0
+                                             pushscope
+                                             getlocal 5
+                                             pushscope
+                                             newcatch 1
+                                             dup
+                                             setlocal 6
+                                             dup
+                                             pushscope
+                                             swap
+                                             setslot 1
+                                             getlex QName(PackageNamespace("mx.binding"),"BindingManager")
+                                             getproperty QName(PackageInternalNs("mx.binding"),"debugDestinationStrings")
+                                             getlex QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"destString")
+                                             getproperty MultinameL([PrivateNamespace(null,"59"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"160"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:Binding"),StaticProtectedNs("mx.binding:Binding")])
+                                             iffalse ofs00d3
+                                             findpropstrict QName(PackageNamespace(""),"trace")
+                                             pushstring "Binding: destString = "
+                                             getlex QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"destString")
+                                             add
+                                             pushstring ", error = "
+                                             add
+                                             getscopeobject 2
+                                             getslot 1
+                                             add
+                                             callpropvoid QName(PackageNamespace(""),"trace"), 1
+                                    ofs00d3:
+                                             popscope
+                                             kill 6
+                                             jump ofs0174
+                                    ofs00da:
+                                             getlocal0
+                                             pushscope
+                                             getlocal 5
+                                             pushscope
+                                             newcatch 2
+                                             dup
+                                             setlocal 6
+                                             dup
+                                             pushscope
+                                             swap
+                                             setslot 1
+                                             getscopeobject 2
+                                             getslot 1
+                                             getproperty QName(PackageNamespace(""),"errorID")
+                                             pushshort 1006
+                                             equals
+                                             not
+                                             dup
+                                             iffalse ofs0107
+                                             pop
+                                             getscopeobject 2
+                                             getslot 1
+                                             getproperty QName(PackageNamespace(""),"errorID")
+                                             pushshort 1009
+                                             equals
+                                             not
+                                    ofs0107:
+                                             dup
+                                             iffalse ofs0119
+                                             pop
+                                             getscopeobject 2
+                                             getslot 1
+                                             getproperty QName(PackageNamespace(""),"errorID")
+                                             pushshort 1010
+                                             equals
+                                             not
+                                    ofs0119:
+                                             dup
+                                             iffalse ofs012b
+                                             pop
+                                             getscopeobject 2
+                                             getslot 1
+                                             getproperty QName(PackageNamespace(""),"errorID")
+                                             pushshort 1055
+                                             equals
+                                             not
+                                    ofs012b:
+                                             dup
+                                             iffalse ofs013d
+                                             pop
+                                             getscopeobject 2
+                                             getslot 1
+                                             getproperty QName(PackageNamespace(""),"errorID")
+                                             pushshort 1069
+                                             equals
+                                             not
+                                    ofs013d:
+                                             iffalse ofs014a
+                                             getscopeobject 2
+                                             getslot 1
+                                             throw
+                                             jump ofs014a
+                                    ofs014a:
+                                             getlex QName(PackageNamespace("mx.binding"),"BindingManager")
+                                             getproperty QName(PackageInternalNs("mx.binding"),"debugDestinationStrings")
+                                             getlex QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"destString")
+                                             getproperty MultinameL([PrivateNamespace(null,"59"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"160"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:Binding"),StaticProtectedNs("mx.binding:Binding")])
+                                             iffalse ofs0171
+                                             findpropstrict QName(PackageNamespace(""),"trace")
+                                             pushstring "Binding: destString = "
+                                             getlex QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"destString")
+                                             add
+                                             pushstring ", error = "
+                                             add
+                                             getscopeobject 2
+                                             getslot 1
+                                             add
+                                             callpropvoid QName(PackageNamespace(""),"trace"), 1
+                                    ofs0171:
+                                             popscope
+                                             kill 6
+                                    ofs0174:
+                                             pushnull
+                                             returnvalue
+                                          end ; code
+                                          try from ofs0028 to ofs0048 target ofs004c type QName(PackageNamespace("mx.collections.errors"),"ItemPendingError") name QName(PackageNamespace(""),"itemPendingError") end
+                                          try from ofs0028 to ofs0048 target ofs009d type QName(PackageNamespace(""),"RangeError") name QName(PackageNamespace(""),"rangeError") end
+                                          try from ofs0028 to ofs0048 target ofs00da type QName(PackageNamespace(""),"Error") name QName(PackageNamespace(""),"error") end
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 private function nodeSeqEqual(param1:XMLList, param2:XMLList) : Boolean
+                                 {
+                                    trait method QName(PrivateNamespace(null,"59"),"nodeSeqEqual")
+                                       dispid 0
+                                       method
+                                          name null
+                                          param QName(PackageNamespace(""),"XMLList")
+                                          param QName(PackageNamespace(""),"XMLList")
+                                          returns QName(PackageNamespace(""),"Boolean")
+                                          
+                                          body
+                                             maxstack 3
+                                             localcount 5
+                                             initscopedepth 4
+                                             maxscopedepth 5
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                pushbyte 0
+                                                convert_u
+                                                setlocal 4
+                                                getlocal1
+                                                callproperty Multiname("length",[PrivateNamespace(null,"59"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"160"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:Binding"),StaticProtectedNs("mx.binding:Binding")]), 0
+                                                convert_u
+                                                setlocal3
+                                                getlocal3
+                                                getlocal2
+                                                callproperty Multiname("length",[PrivateNamespace(null,"59"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"160"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:Binding"),StaticProtectedNs("mx.binding:Binding")]), 0
+                                                ifne ofs004c
+                                                pushbyte 0
+                                                convert_u
+                                                setlocal 4
+                                                jump ofs0028
+                                       ofs0021:
+                                                label
+                                                getlocal 4
+                                                increment
+                                                convert_u
+                                                setlocal 4
+                                       ofs0028:
+                                                getlocal 4
+                                                getlocal3
+                                                lessthan
+                                                dup
+                                                iffalse ofs003f
+                                                pop
+                                                getlocal1
+                                                getlocal 4
+                                                getproperty MultinameL([PrivateNamespace(null,"59"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"160"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:Binding"),StaticProtectedNs("mx.binding:Binding")])
+                                                getlocal2
+                                                getlocal 4
+                                                getproperty MultinameL([PrivateNamespace(null,"59"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"160"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:Binding"),StaticProtectedNs("mx.binding:Binding")])
+                                                strictequals
+                                       ofs003f:
+                                                iftrue ofs0021
+                                                getlocal 4
+                                                getlocal3
+                                                equals
+                                                returnvalue
+                                                jump ofs004c
+                                       ofs004c:
+                                                pushfalse
+                                                returnvalue
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    private function innerExecute() : void
+                                    {
+                                       trait method QName(PrivateNamespace(null,"59"),"innerExecute")
+                                          dispid 0
+                                          method
+                                             name null
+                                             returns QName(PackageNamespace(""),"void")
+                                             
+                                             body
+                                                maxstack 4
+                                                localcount 2
+                                                initscopedepth 4
+                                                maxscopedepth 5
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   getlocal0
+                                                   getlocal0
+                                                   getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"document")
+                                                   getlocal0
+                                                   getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"srcFunc")
+                                                   callproperty QName(ProtectedNamespace("mx.binding:Binding"),"wrapFunctionCall"), 2
+                                                   coerce QName(PackageNamespace(""),"Object")
+                                                   setlocal1
+                                                   getlex QName(PackageNamespace("mx.binding"),"BindingManager")
+                                                   getproperty QName(PackageInternalNs("mx.binding"),"debugDestinationStrings")
+                                                   getlocal0
+                                                   getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"destString")
+                                                   getproperty MultinameL([PrivateNamespace(null,"59"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"160"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:Binding"),StaticProtectedNs("mx.binding:Binding")])
+                                                   iffalse ofs0038
+                                                   findpropstrict QName(PackageNamespace(""),"trace")
+                                                   pushstring "Binding: destString = "
+                                                   getlocal0
+                                                   getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"destString")
+                                                   add
+                                                   pushstring ", srcFunc result = "
+                                                   add
+                                                   getlocal1
+                                                   add
+                                                   callpropvoid QName(PackageNamespace(""),"trace"), 1
+                                          ofs0038:
+                                                   getlocal0
+                                                   getproperty QName(PrivateNamespace(null,"59"),"hasHadValue")
+                                                   convert_b
+                                                   dup
+                                                   iftrue ofs0048
+                                                   pop
+                                                   getlocal0
+                                                   getproperty QName(PrivateNamespace(null,"59"),"wrappedFunctionSuccessful")
+                                                   convert_b
+                                          ofs0048:
+                                                   iffalse ofs00ce
+                                                   getlocal0
+                                                   getproperty QName(PrivateNamespace(null,"59"),"lastValue")
+                                                   getlex QName(PackageNamespace(""),"XML")
+                                                   istypelate
+                                                   dup
+                                                   iffalse ofs0063
+                                                   pop
+                                                   getlocal0
+                                                   getproperty QName(PrivateNamespace(null,"59"),"lastValue")
+                                                   callproperty Multiname("hasComplexContent",[PrivateNamespace(null,"59"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"160"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:Binding"),StaticProtectedNs("mx.binding:Binding")]), 0
+                                                   convert_b
+                                          ofs0063:
+                                                   coerce_a
+                                                   dup
+                                                   iffalse ofs0071
+                                                   pop
+                                                   getlocal0
+                                                   getproperty QName(PrivateNamespace(null,"59"),"lastValue")
+                                                   getlocal1
+                                                   strictequals
+                                                   coerce_a
+                                          ofs0071:
+                                                   not
+                                                   dup
+                                                   iffalse ofs00b3
+                                                   pop
+                                                   getlocal0
+                                                   getproperty QName(PrivateNamespace(null,"59"),"lastValue")
+                                                   getlex QName(PackageNamespace(""),"XMLList")
+                                                   istypelate
+                                                   coerce_a
+                                                   dup
+                                                   iffalse ofs008f
+                                                   pop
+                                                   getlocal0
+                                                   getproperty QName(PrivateNamespace(null,"59"),"lastValue")
+                                                   callproperty Multiname("hasComplexContent",[PrivateNamespace(null,"59"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"160"),PackageNamespace("mx.binding"),PackageInternalNs("mx.binding"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.binding:Binding"),StaticProtectedNs("mx.binding:Binding")]), 0
+                                                   coerce_a
+                                          ofs008f:
+                                                   convert_b
+                                                   dup
+                                                   iffalse ofs009a
+                                                   pop
+                                                   getlocal1
+                                                   getlex QName(PackageNamespace(""),"XMLList")
+                                                   istypelate
+                                          ofs009a:
+                                                   coerce_a
+                                                   dup
+                                                   iffalse ofs00b2
+                                                   pop
+                                                   getlocal0
+                                                   getlocal0
+                                                   getproperty QName(PrivateNamespace(null,"59"),"lastValue")
+                                                   getlex QName(PackageNamespace(""),"XMLList")
+                                                   astypelate
+                                                   getlocal1
+                                                   getlex QName(PackageNamespace(""),"XMLList")
+                                                   astypelate
+                                                   callproperty QName(PrivateNamespace(null,"59"),"nodeSeqEqual"), 2
+                                                   coerce_a
+                                          ofs00b2:
+                                                   not
+                                          ofs00b3:
+                                                   iffalse ofs00ce
+                                                   getlocal0
+                                                   getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"destFunc")
+                                                   getlocal0
+                                                   getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"document")
+                                                   getlocal1
+                                                   callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"call"), 2
+                                                   getlocal0
+                                                   getlocal1
+                                                   initproperty QName(PrivateNamespace(null,"59"),"lastValue")
+                                                   getlocal0
+                                                   pushtrue
+                                                   initproperty QName(PrivateNamespace(null,"59"),"hasHadValue")
+                                          ofs00ce:
+                                                   returnvoid
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                       
+                                       public function watcherFired(param1:Boolean, param2:int) : void
+                                       {
+                                          trait method QName(PackageNamespace(""),"watcherFired")
+                                             dispid 0
+                                             method
+                                                name null
+                                                flag NEED_ACTIVATION
+                                                param QName(PackageNamespace(""),"Boolean")
+                                                param QName(PackageNamespace(""),"int")
+                                                returns QName(PackageNamespace(""),"void")
+                                                
+                                                body
+                                                   maxstack 4
+                                                   localcount 6
+                                                   initscopedepth 5
+                                                   maxscopedepth 12
+                                                   trait slot QName(PackageInternalNs("mx.binding"),"commitEvent")
+                                                      slotid 1
+                                                      type QName(PackageNamespace(""),"Boolean")
+                                                   end ; trait
+                                                   trait slot QName(PackageInternalNs("mx.binding"),"cloneIndex")
+                                                      slotid 2
+                                                      type QName(PackageNamespace(""),"int")
+                                                   end ; trait
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      newactivation
+                                                      dup
+                                                      setlocal3
+                                                      pushscope
+                                                      getscopeobject 1
+                                                      getlocal1
+                                                      setslot 1
+                                                      getscopeobject 1
+                                                      getlocal2
+                                                      setslot 2
+                                                      getlocal0
+                                                      getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"isHandlingEvent")
+                                                      iffalse ofs0019
+                                                      returnvoid
+                                             ofs0019:
+                                                      getlocal0
+                                                      pushtrue
+                                                      initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"isHandlingEvent")
+                                                      getlocal0
+                                                      getscopeobject 1
+                                                      getslot 2
+                                                      callpropvoid QName(PackageNamespace(""),"execute"), 1
+                                             ofs0027:
+                                                      jump ofs0039
+                                             ofs002b:
+                                                      getlocal0
+                                                      pushscope
+                                                      getlocal3
+                                                      pushscope
+                                                      newcatch 0
+                                                      dup
+                                                      setlocal 4
+                                                      pushscope
+                                                      throw
+                                                      popscope
+                                                      kill 4
+                                             ofs0039:
+                                                      pushbyte -1
+                                             ofs003b:
+                                                      jump ofs0062
+                                             ofs003f:
+                                                      getlocal0
+                                                      pushscope
+                                                      getlocal3
+                                                      pushscope
+                                                      newcatch 1
+                                                      dup
+                                                      setlocal 4
+                                                      pushscope
+                                                      popscope
+                                                      kill 4
+                                                      coerce_a
+                                                      setlocal 5
+                                                      pushbyte 0
+                                                      jump ofs0062
+                                                      label
+                                                      pop
+                                             ofs0057:
+                                                      label
+                                                      getlocal 5
+                                                      kill 5
+                                                      throw
+                                                      pushbyte -1
+                                                      popscope
+                                                      kill 4
+                                             ofs0062:
+                                                      getlocal0
+                                                      pushfalse
+                                                      initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"isHandlingEvent")
+                                                      lookupswitch ofs006f, [ofs0057]
+                                             ofs006f:
+                                                      returnvoid
+                                                   end ; code
+                                                   try from ofs0019 to ofs0027 target ofs002b type null name null end
+                                                   try from ofs0019 to ofs003b target ofs003f type null name null end
+                                                end ; body
+                                             end ; method
+                                          }
+                                       }
+                                    }
+                                    
+                                    method
+                                       name null
+                                       returns null
+                                       
+                                       body
+                                          maxstack 2
+                                          localcount 1
+                                          initscopedepth 1
+                                          maxscopedepth 3
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             findpropstrict Multiname("Binding",[PackageNamespace("mx.binding")])
+                                             getlex QName(PackageNamespace(""),"Object")
+                                             pushscope
+                                             getlex QName(PackageNamespace(""),"Object")
+                                             newclass 201
+                                             popscope
+                                             initproperty QName(PackageNamespace("mx.binding"),"Binding")
+                                             returnvoid
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                    

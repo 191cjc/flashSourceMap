@@ -1,0 +1,372 @@
+package hotpointgame.glevel
+{
+   import flash.geom.*;
+   import hotpointgame.Control.*;
+   
+   public class ShakeM
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var speedy:Number = 0;
+      
+      private var sleng:int = 0;
+      
+      private var curleng:int = 0;
+      
+      private var pointA:Vector.<Point>;
+      
+      private var fixnum:Number = 0.017453292519943295;
+      
+      public function ShakeM()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 3
+               localcount 1
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  getlex Multiname("Vector",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM"),PackageNamespace("__AS3__.vec")])
+                  getlex Multiname("Point",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM"),PackageNamespace("flash.geom")])
+                  applytype 1
+                  construct 0
+                  initproperty QName(PrivateNamespace(null,"41"),"pointA")
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function gmUpdate() : void
+      {
+         trait method QName(PackageNamespace(""),"gmUpdate")
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 3
+                  localcount 3
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getproperty Multiname("sleng",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                     pushbyte 0
+                     ifnlt ofs000d
+                     returnvoid
+            ofs000d:
+                     getlocal0
+                     getproperty Multiname("sleng",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                     pushbyte 0
+                     ifne ofs0031
+                     getlex Multiname("GM",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM"),PackageNamespace("hotpointgame.Control")])
+                     getproperty Multiname("blevel",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                     pushbyte 0
+                     setproperty Multiname("x",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                     getlex Multiname("GM",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM"),PackageNamespace("hotpointgame.Control")])
+                     getproperty Multiname("blevel",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                     pushbyte 0
+                     setproperty Multiname("y",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                     jump ofs0056
+            ofs0031:
+                     getlex Multiname("GM",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM"),PackageNamespace("hotpointgame.Control")])
+                     getproperty Multiname("blevel",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                     getlocal0
+                     getproperty Multiname("sleng",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                     pushbyte 2
+                     modulo
+                     pushbyte 0
+                     ifne ofs004d
+                     getlocal0
+                     getproperty Multiname("speedy",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                     convert_d
+                     jump ofs0053
+            ofs004d:
+                     getlocal0
+                     getproperty Multiname("speedy",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                     negate
+                     convert_d
+            ofs0053:
+                     setproperty Multiname("y",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+            ofs0056:
+                     getlocal0
+                     dup
+                     setlocal1
+                     getproperty Multiname("sleng",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                     decrement_i
+                     setlocal2
+                     getlocal1
+                     getlocal2
+                     setproperty Multiname("sleng",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                     kill 2
+                     kill 1
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function setShakeBySkillAndBullet(param1:int, param2:int, param3:int) : void
+         {
+            trait method QName(PackageNamespace(""),"setShakeBySkillAndBullet")
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace(""),"int")
+                  param QName(PackageNamespace(""),"int")
+                  param QName(PackageNamespace(""),"int")
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 5
+                     localcount 6
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        pushnull
+                        coerce QName(PackageNamespace("flash.geom"),"Point")
+                        setlocal 5
+                        getlocal0
+                        getproperty Multiname("sleng",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                        getlocal0
+                        getproperty Multiname("curleng",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                        subtract
+                        getlocal3
+                        ifngt ofs0016
+                        returnvoid
+               ofs0016:
+                        getlocal0
+                        getproperty Multiname("pointA",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                        pushbyte 0
+                        setproperty Multiname("length",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                        pushbyte 0
+                        setlocal 4
+                        jump ofs005c
+               ofs0027:
+                        label
+                        findpropstrict Multiname("Point",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM"),PackageNamespace("flash.geom")])
+                        constructprop Multiname("Point",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM"),PackageNamespace("flash.geom")]), 0
+                        coerce QName(PackageNamespace("flash.geom"),"Point")
+                        dup
+                        setlocal 5
+                        getlocal1
+                        getlex Multiname("Math",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                        getlocal 4
+                        negate
+                        getlocal2
+                        multiply
+                        getlocal0
+                        getproperty Multiname("fixnum",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                        multiply
+                        callproperty Multiname("sin",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")]), 1
+                        multiply
+                        setproperty Multiname("y",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                        getlocal0
+                        getproperty Multiname("pointA",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                        getlocal0
+                        getproperty Multiname("pointA",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                        getproperty Multiname("length",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                        getlocal 5
+                        setproperty MultinameL([PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                        inclocal_i 4
+               ofs005c:
+                        getlocal 4
+                        getlocal3
+                        iflt ofs0027
+                        getlocal0
+                        pushbyte 0
+                        initproperty Multiname("curleng",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                        getlocal0
+                        getlocal0
+                        getproperty Multiname("pointA",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                        getproperty Multiname("length",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                        initproperty Multiname("sleng",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function setShakeByCircle() : void
+            {
+               trait method QName(PackageNamespace(""),"setShakeByCircle")
+                  dispid 0
+                  method
+                     name null
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 5
+                        localcount 3
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           pushnull
+                           coerce QName(PackageNamespace("flash.geom"),"Point")
+                           setlocal2
+                           getlocal0
+                           getproperty Multiname("pointA",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                           pushbyte 0
+                           setproperty Multiname("length",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                           pushbyte 0
+                           setlocal1
+                           jump ofs0062
+                  ofs0016:
+                           label
+                           findpropstrict Multiname("Point",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM"),PackageNamespace("flash.geom")])
+                           constructprop Multiname("Point",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM"),PackageNamespace("flash.geom")]), 0
+                           coerce QName(PackageNamespace("flash.geom"),"Point")
+                           setlocal2
+                           getlocal2
+                           pushbyte 70
+                           getlex Multiname("Math",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                           getlocal1
+                           negate
+                           pushbyte 7
+                           multiply
+                           getlocal0
+                           getproperty Multiname("fixnum",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                           multiply
+                           callproperty Multiname("cos",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")]), 1
+                           multiply
+                           setproperty Multiname("x",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                           getlocal2
+                           pushbyte 70
+                           getlex Multiname("Math",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                           getlocal1
+                           negate
+                           pushbyte 7
+                           multiply
+                           getlocal0
+                           getproperty Multiname("fixnum",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                           multiply
+                           callproperty Multiname("sin",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")]), 1
+                           multiply
+                           setproperty Multiname("y",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                           getlocal0
+                           getproperty Multiname("pointA",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                           getlocal0
+                           getproperty Multiname("pointA",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                           getproperty Multiname("length",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                           getlocal2
+                           setproperty MultinameL([PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                           inclocal_i 1
+                  ofs0062:
+                           getlocal1
+                           pushbyte 120
+                           iflt ofs0016
+                           getlocal0
+                           pushbyte 0
+                           initproperty Multiname("curleng",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                           getlocal0
+                           getlocal0
+                           getproperty Multiname("pointA",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                           getproperty Multiname("length",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                           initproperty Multiname("sleng",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function setShake(param1:Number, param2:int) : void
+               {
+                  trait method QName(PackageNamespace(""),"setShake")
+                     dispid 0
+                     method
+                        name null
+                        param QName(PackageNamespace(""),"Number")
+                        param QName(PackageNamespace(""),"int")
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 2
+                           localcount 3
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              getproperty Multiname("sleng",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                              getlocal2
+                              ifngt ofs000c
+                              returnvoid
+                     ofs000c:
+                              getlocal0
+                              getlocal1
+                              initproperty Multiname("speedy",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                              getlocal0
+                              getlocal2
+                              initproperty Multiname("sleng",[PrivateNamespace(null,"41"),PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:ShakeM"),StaticProtectedNs("hotpointgame.glevel:ShakeM")])
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+               }
+            }
+            
+            method
+               name null
+               returns null
+               
+               body
+                  maxstack 2
+                  localcount 1
+                  initscopedepth 1
+                  maxscopedepth 3
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     findpropstrict Multiname("ShakeM",[PackageNamespace("hotpointgame.glevel")])
+                     getlex QName(PackageNamespace(""),"Object")
+                     pushscope
+                     getlex Multiname("Object",[PrivateNamespace(null,"472"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin")])
+                     newclass 54
+                     popscope
+                     initproperty QName(PackageNamespace("hotpointgame.glevel"),"ShakeM")
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+            

@@ -1,0 +1,570 @@
+package hotpointgame.gbuffer
+{
+   import hotpointgame.common.*;
+   import hotpointgame.gameobj.ZhangDouT;
+   import hotpointgame.gameobj.ZtC;
+   import hotpointgame.utils.*;
+   import hotpointgame.utils.gameloader.*;
+   
+   public class ZtCBufferManager
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var bufferArr:Vector.<ZtcBuffer>;
+      
+      public function ZtCBufferManager()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 3
+               localcount 1
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  getlex Multiname("Vector",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager"),PackageNamespace("__AS3__.vec")])
+                  getlex Multiname("ZtcBuffer",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                  applytype 1
+                  construct 0
+                  initproperty QName(PrivateNamespace(null,"77"),"bufferArr")
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function addBuffer(param1:Object, param2:ZtC) : void
+      {
+         trait method QName(PackageNamespace(""),"addBuffer")
+            dispid 0
+            method
+               name null
+               param QName(PackageNamespace(""),"Object")
+               param QName(PackageNamespace("hotpointgame.gameobj"),"ZtC")
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 4
+                  localcount 9
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     pushnull
+                     coerce QName(PackageNamespace("hotpointgame.gbuffer"),"ZtcBuffer")
+                     setlocal3
+                     pushnull
+                     coerce QName(PackageNamespace(""),"Class")
+                     setlocal 4
+                     pushnull
+                     coerce QName(PackageNamespace(""),"Class")
+                     setlocal 5
+                     pushnull
+                     coerce QName(PackageNamespace("hotpointgame.gbuffer"),"ZtcBuffer")
+                     setlocal 6
+                     pushbyte 0
+                     setlocal 7
+                     getlocal0
+                     getproperty Multiname("bufferArr",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                     coerce_a
+                     setlocal 8
+                     jump ofs003d
+            ofs0026:
+                     label
+                     getlocal 8
+                     getlocal 7
+                     nextvalue
+                     coerce QName(PackageNamespace("hotpointgame.gbuffer"),"ZtcBuffer")
+                     setlocal3
+                     getlocal3
+                     getproperty Multiname("bname",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                     getlocal1
+                     getproperty Multiname("name",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                     ifne ofs003d
+                     returnvoid
+            ofs003d:
+                     hasnext2 8, 7
+                     iftrue ofs0026
+                     kill 8
+                     kill 7
+                     getlex Multiname("LoaderManager",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager"),PackageNamespace("hotpointgame.utils.gameloader")])
+                     getlocal1
+                     getproperty Multiname("flaname",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                     callproperty Multiname("getSwfClass",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")]), 1
+                     getlex Multiname("Class",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                     astypelate
+                     coerce QName(PackageNamespace(""),"Class")
+                     setlocal 4
+                     getlex Multiname("ClassGet",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager"),PackageNamespace("hotpointgame.utils")])
+                     pushstring "ZtcBu"
+                     getlocal1
+                     getproperty Multiname("classname",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                     add
+                     callproperty Multiname("getClassByNameAndAlias",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")]), 1
+                     coerce QName(PackageNamespace(""),"Class")
+                     dup
+                     setlocal 5
+                     getlocal 4
+                     construct 0
+                     getlocal2
+                     getlocal1
+                     construct 3
+                     coerce QName(PackageNamespace("hotpointgame.gbuffer"),"ZtcBuffer")
+                     setlocal 6
+                     getlocal0
+                     getproperty Multiname("bufferArr",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                     getlocal0
+                     getproperty Multiname("bufferArr",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                     getproperty Multiname("length",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                     getlocal 6
+                     setproperty MultinameL([PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function gmUpdate(param1:ZtC) : void
+         {
+            trait method QName(PackageNamespace(""),"gmUpdate")
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace("hotpointgame.gameobj"),"ZtC")
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 3
+                     localcount 4
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        getproperty Multiname("bufferArr",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                        getproperty Multiname("length",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                        convert_i
+                        setlocal2
+                        getlocal2
+                        decrement
+                        convert_i
+                        setlocal3
+                        jump ofs0042
+               ofs0013:
+                        label
+                        getlocal0
+                        getproperty Multiname("bufferArr",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                        getlocal3
+                        getproperty MultinameL([PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                        getlocal1
+                        callproperty Multiname("gmUpdate",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")]), 1
+                        pushbyte 0
+                        ifnlt ofs003f
+                        getlocal0
+                        getproperty Multiname("bufferArr",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                        getlocal3
+                        getproperty MultinameL([PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                        getlocal1
+                        callpropvoid Multiname("remove",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")]), 1
+                        getlocal0
+                        getproperty Multiname("bufferArr",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                        getlocal3
+                        pushbyte 1
+                        callpropvoid Multiname("splice",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")]), 2
+               ofs003f:
+                        getlocal3
+                        decrement_i
+                        setlocal3
+               ofs0042:
+                        getlocal3
+                        pushbyte 0
+                        ifge ofs0013
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function attack(param1:ZtC, param2:Vector.<ZhangDouT>) : void
+            {
+               trait method QName(PackageNamespace(""),"attack")
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace("hotpointgame.gameobj"),"ZtC")
+                     param TypeName(QName(PackageNamespace("__AS3__.vec"),"Vector")<QName(PackageNamespace("hotpointgame.gameobj"),"ZhangDouT")>)
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 3
+                        localcount 6
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           pushnull
+                           coerce QName(PackageNamespace("hotpointgame.gbuffer"),"ZtcBuffer")
+                           setlocal3
+                           pushbyte 0
+                           setlocal 4
+                           getlocal0
+                           getproperty Multiname("bufferArr",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                           coerce_a
+                           setlocal 5
+                           jump ofs0027
+                  ofs0016:
+                           label
+                           getlocal 5
+                           getlocal 4
+                           nextvalue
+                           coerce QName(PackageNamespace("hotpointgame.gbuffer"),"ZtcBuffer")
+                           setlocal3
+                           getlocal3
+                           getlocal1
+                           getlocal2
+                           callpropvoid Multiname("attack",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")]), 2
+                  ofs0027:
+                           hasnext2 5, 4
+                           iftrue ofs0016
+                           kill 5
+                           kill 4
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function removeAllBuffer(param1:ZtC) : void
+               {
+                  trait method QName(PackageNamespace(""),"removeAllBuffer")
+                     dispid 0
+                     method
+                        name null
+                        param QName(PackageNamespace("hotpointgame.gameobj"),"ZtC")
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 3
+                           localcount 4
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              getproperty Multiname("bufferArr",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                              getproperty Multiname("length",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                              convert_i
+                              setlocal2
+                              getlocal2
+                              decrement
+                              convert_i
+                              setlocal3
+                              jump ofs002f
+                     ofs0013:
+                              label
+                              getlocal0
+                              getproperty Multiname("bufferArr",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                              getlocal3
+                              getproperty MultinameL([PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                              getlocal1
+                              callpropvoid Multiname("remove",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")]), 1
+                              getlocal0
+                              getproperty Multiname("bufferArr",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                              getlocal3
+                              pushbyte 1
+                              callpropvoid Multiname("splice",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")]), 2
+                              getlocal3
+                              decrement_i
+                              setlocal3
+                     ofs002f:
+                              getlocal3
+                              pushbyte 0
+                              ifge ofs0013
+                              getlocal0
+                              getproperty Multiname("bufferArr",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                              pushbyte 0
+                              setproperty Multiname("length",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function getJiangSu() : Array
+                  {
+                     trait method QName(PackageNamespace(""),"getJiangSu")
+                        dispid 0
+                        method
+                           name null
+                           returns QName(PackageNamespace(""),"Array")
+                           
+                           body
+                              maxstack 2
+                              localcount 4
+                              initscopedepth 4
+                              maxscopedepth 5
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 pushnull
+                                 coerce QName(PackageNamespace("hotpointgame.gbuffer"),"ZtcBuffer")
+                                 setlocal1
+                                 pushbyte 0
+                                 setlocal2
+                                 getlocal0
+                                 getproperty Multiname("bufferArr",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                                 coerce_a
+                                 setlocal3
+                                 jump ofs0030
+                        ofs0014:
+                                 label
+                                 getlocal3
+                                 getlocal2
+                                 nextvalue
+                                 coerce QName(PackageNamespace("hotpointgame.gbuffer"),"ZtcBuffer")
+                                 setlocal1
+                                 getlocal1
+                                 getlex Multiname("ZtcBufferJiangSu",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                                 astypelate
+                                 iffalse ofs0030
+                                 getlocal1
+                                 getproperty Multiname("bnum",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                                 getlocal1
+                                 getproperty Multiname("hurt",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                                 newarray 2
+                                 returnvalue
+                        ofs0030:
+                                 hasnext2 3, 2
+                                 iftrue ofs0014
+                                 kill 3
+                                 kill 2
+                                 pushnull
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public function getAddatt() : Number
+                     {
+                        trait method QName(PackageNamespace(""),"getAddatt")
+                           dispid 0
+                           method
+                              name null
+                              returns QName(PackageNamespace(""),"Number")
+                              
+                              body
+                                 maxstack 2
+                                 localcount 4
+                                 initscopedepth 4
+                                 maxscopedepth 5
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    pushnull
+                                    coerce QName(PackageNamespace("hotpointgame.gbuffer"),"ZtcBuffer")
+                                    setlocal1
+                                    pushbyte 0
+                                    setlocal2
+                                    getlocal0
+                                    getproperty Multiname("bufferArr",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                                    coerce_a
+                                    setlocal3
+                                    jump ofs002a
+                           ofs0014:
+                                    label
+                                    getlocal3
+                                    getlocal2
+                                    nextvalue
+                                    coerce QName(PackageNamespace("hotpointgame.gbuffer"),"ZtcBuffer")
+                                    setlocal1
+                                    getlocal1
+                                    getlex Multiname("ZtcBuMAddatt",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                                    astypelate
+                                    iffalse ofs002a
+                                    getlocal1
+                                    getproperty Multiname("hurt",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                                    returnvalue
+                           ofs002a:
+                                    hasnext2 3, 2
+                                    iftrue ofs0014
+                                    kill 3
+                                    kill 2
+                                    getlex Multiname("GS",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager"),PackageNamespace("hotpointgame.common")])
+                                    getproperty Multiname("a1",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                                    returnvalue
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        public function getAddDenf() : Number
+                        {
+                           trait method QName(PackageNamespace(""),"getAddDenf")
+                              dispid 0
+                              method
+                                 name null
+                                 returns QName(PackageNamespace(""),"Number")
+                                 
+                                 body
+                                    maxstack 2
+                                    localcount 4
+                                    initscopedepth 4
+                                    maxscopedepth 5
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       pushnull
+                                       coerce QName(PackageNamespace("hotpointgame.gbuffer"),"ZtcBuffer")
+                                       setlocal1
+                                       pushbyte 0
+                                       setlocal2
+                                       getlocal0
+                                       getproperty Multiname("bufferArr",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                                       coerce_a
+                                       setlocal3
+                                       jump ofs002a
+                              ofs0014:
+                                       label
+                                       getlocal3
+                                       getlocal2
+                                       nextvalue
+                                       coerce QName(PackageNamespace("hotpointgame.gbuffer"),"ZtcBuffer")
+                                       setlocal1
+                                       getlocal1
+                                       getlex Multiname("ZtcBuMAddDenf",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                                       astypelate
+                                       iffalse ofs002a
+                                       getlocal1
+                                       getproperty Multiname("hurt",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                                       returnvalue
+                              ofs002a:
+                                       hasnext2 3, 2
+                                       iftrue ofs0014
+                                       kill 3
+                                       kill 2
+                                       getlex Multiname("GS",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager"),PackageNamespace("hotpointgame.common")])
+                                       getproperty Multiname("a1",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                                       returnvalue
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           public function getAddSpeed() : Number
+                           {
+                              trait method QName(PackageNamespace(""),"getAddSpeed")
+                                 dispid 0
+                                 method
+                                    name null
+                                    returns QName(PackageNamespace(""),"Number")
+                                    
+                                    body
+                                       maxstack 2
+                                       localcount 4
+                                       initscopedepth 4
+                                       maxscopedepth 5
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          pushnull
+                                          coerce QName(PackageNamespace("hotpointgame.gbuffer"),"ZtcBuffer")
+                                          setlocal1
+                                          pushbyte 0
+                                          setlocal2
+                                          getlocal0
+                                          getproperty Multiname("bufferArr",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                                          coerce_a
+                                          setlocal3
+                                          jump ofs002a
+                                 ofs0014:
+                                          label
+                                          getlocal3
+                                          getlocal2
+                                          nextvalue
+                                          coerce QName(PackageNamespace("hotpointgame.gbuffer"),"ZtcBuffer")
+                                          setlocal1
+                                          getlocal1
+                                          getlex Multiname("ZtcBuMAddSpeed",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                                          astypelate
+                                          iffalse ofs002a
+                                          getlocal1
+                                          getproperty Multiname("hurt",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                                          returnvalue
+                                 ofs002a:
+                                          hasnext2 3, 2
+                                          iftrue ofs0014
+                                          kill 3
+                                          kill 2
+                                          getlex Multiname("GS",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager"),PackageNamespace("hotpointgame.common")])
+                                          getproperty Multiname("a1",[PrivateNamespace(null,"77"),PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gbuffer:ZtCBufferManager"),StaticProtectedNs("hotpointgame.gbuffer:ZtCBufferManager")])
+                                          returnvalue
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                           }
+                        }
+                        
+                        method
+                           name null
+                           returns null
+                           
+                           body
+                              maxstack 2
+                              localcount 1
+                              initscopedepth 1
+                              maxscopedepth 3
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 findpropstrict Multiname("ZtCBufferManager",[PackageNamespace("hotpointgame.gbuffer")])
+                                 getlex QName(PackageNamespace(""),"Object")
+                                 pushscope
+                                 getlex Multiname("Object",[PrivateNamespace(null,"517"),PackageNamespace(""),PackageNamespace("hotpointgame.gbuffer"),PackageInternalNs("hotpointgame.gbuffer"),Namespace("http://adobe.com/AS3/2006/builtin")])
+                                 newclass 95
+                                 popscope
+                                 initproperty QName(PackageNamespace("hotpointgame.gbuffer"),"ZtCBufferManager")
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                        

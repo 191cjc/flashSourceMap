@@ -1,0 +1,1028 @@
+package hotpointgame.glevel
+{
+   import flash.display.MovieClip;
+   import flash.text.*;
+   import hotpointgame.Control.*;
+   import hotpointgame.common.*;
+   import hotpointgame.gMonster.*;
+   import hotpointgame.gxiaodongxi.*;
+   import hotpointgame.utils.gameloader.*;
+   import hotpointgame.views.fbPanel.*;
+   
+   public class CRoomPassWuXin extends CRoomPass
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 5
+            maxscopedepth 6
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var timermc:MovieClip;
+      
+      private var timerflag:Boolean = true;
+      
+      private var flashBoss:Boolean = true;
+      
+      private var isflase:Boolean = true;
+      
+      public function CRoomPassWuXin(param1:Object)
+      {
+         method
+            name null
+            param QName(PackageNamespace(""),"Object")
+            returns null
+            
+            body
+               maxstack 2
+               localcount 2
+               initscopedepth 6
+               maxscopedepth 7
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  getlocal1
+                  constructsuper 1
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      override public function gmUpdate(param1:CLevel) : void
+      {
+         trait method QName(PackageNamespace(""),"gmUpdate")
+            flag OVERRIDE
+            dispid 0
+            method
+               name null
+               param QName(PackageNamespace("hotpointgame.glevel"),"CLevel")
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 5
+                  localcount 8
+                  initscopedepth 6
+                  maxscopedepth 7
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     pushbyte 0
+                     setlocal2
+                     pushbyte 0
+                     setlocal3
+                     pushnull
+                     coerce QName(PackageNamespace("flash.display"),"MovieClip")
+                     setlocal 4
+                     pushnull
+                     coerce QName(PackageNamespace(""),"Class")
+                     setlocal 5
+                     pushnull
+                     coerce QName(PackageNamespace("flash.display"),"MovieClip")
+                     setlocal 6
+                     pushnull
+                     coerce QName(PackageNamespace(""),"Object")
+                     setlocal 7
+                     getlocal0
+                     getproperty Multiname("timerflag",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     convert_b
+                     dup
+                     iffalse ofs003b
+                     pop
+                     getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                     getproperty Multiname("frameTime",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getlex Multiname("enterT",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     subtract
+                     pushbyte 30
+                     modulo
+                     pushbyte 0
+                     equals
+            ofs003b:
+                     iffalse ofs00b5
+                     pushbyte 90
+                     getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                     getproperty Multiname("frameTime",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getlex Multiname("enterT",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     subtract
+                     pushbyte 30
+                     divide
+                     subtract
+                     convert_i
+                     setlocal2
+                     getlocal2
+                     pushbyte 0
+                     ifnge ofs00b5
+                     pushbyte 0
+                     setlocal3
+                     jump ofs006b
+            ofs0062:
+                     label
+                     inclocal_i 3
+                     getlocal2
+                     pushbyte 60
+                     subtract
+                     convert_i
+                     setlocal2
+            ofs006b:
+                     getlocal2
+                     pushbyte 59
+                     ifgt ofs0062
+                     getlocal2
+                     pushbyte 9
+                     ifngt ofs0099
+                     getlocal0
+                     getproperty Multiname("timermc",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getproperty Multiname("wuxingdaojushia",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getlex Multiname("TextField",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("flash.text")])
+                     astypelate
+                     pushstring ""
+                     getlocal3
+                     add
+                     pushstring ":"
+                     add
+                     getlocal2
+                     add
+                     setproperty Multiname("text",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     jump ofs00b5
+            ofs0099:
+                     getlocal0
+                     getproperty Multiname("timermc",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getproperty Multiname("wuxingdaojushia",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getlex Multiname("TextField",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("flash.text")])
+                     astypelate
+                     pushstring ""
+                     getlocal3
+                     add
+                     pushstring ":0"
+                     add
+                     getlocal2
+                     add
+                     setproperty Multiname("text",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+            ofs00b5:
+                     getlocal0
+                     getproperty Multiname("timerflag",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     convert_b
+                     dup
+                     iffalse ofs00d2
+                     pop
+                     getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                     getproperty Multiname("frameTime",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getlex Multiname("enterT",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     subtract
+                     pushshort 300
+                     greaterthan
+            ofs00d2:
+                     iffalse ofs0159
+                     getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                     getproperty Multiname("levelm",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     callproperty Multiname("getMonsterNum",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 0
+                     pushbyte 0
+                     ifne ofs0159
+                     getlocal0
+                     pushfalse
+                     initproperty Multiname("timerflag",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getlocal1
+                     callproperty Multiname("getvs",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 0
+                     callpropvoid Multiname("removeTimerJiMc",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 0
+                     getlocal0
+                     pushnull
+                     initproperty Multiname("timermc",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getlocal1
+                     callproperty Multiname("getvs",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 0
+                     pushstring "shibanqinglong"
+                     callproperty Multiname("getZhongjingMc",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 1
+                     coerce QName(PackageNamespace("flash.display"),"MovieClip")
+                     dup
+                     setlocal 4
+                     getproperty Multiname("parent",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getlocal 4
+                     callpropvoid Multiname("removeChild",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 1
+                     getlex Multiname("LoaderManager",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.utils.gameloader")])
+                     getlocal0
+                     callproperty Multiname("getMcName",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 0
+                     callproperty Multiname("getSwfClass",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 1
+                     getlex Multiname("Class",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     astypelate
+                     coerce QName(PackageNamespace(""),"Class")
+                     setlocal 5
+                     getlex Multiname("XiaoXiaoManager",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.gxiaodongxi")])
+                     findpropstrict Multiname("CGXEvent",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.gxiaodongxi")])
+                     getlocal 5
+                     construct 0
+                     getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                     getproperty Multiname("einit",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getlocal0
+                     getproperty Multiname("createLvMonsterWuxin",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     constructprop Multiname("CGXEvent",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.gxiaodongxi")]), 3
+                     callpropvoid Multiname("addCGX",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 1
+            ofs0159:
+                     getlocal0
+                     getproperty Multiname("timerflag",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     convert_b
+                     dup
+                     iffalse ofs017b
+                     pop
+                     getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                     getproperty Multiname("frameTime",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getlex Multiname("enterT",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     subtract
+                     getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                     getproperty Multiname("a2710",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     equals
+            ofs017b:
+                     iffalse ofs0202
+                     getlocal0
+                     pushfalse
+                     initproperty Multiname("timerflag",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getlocal1
+                     callproperty Multiname("getvs",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 0
+                     callpropvoid Multiname("removeTimerJiMc",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 0
+                     getlocal0
+                     pushnull
+                     initproperty Multiname("timermc",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                     getproperty Multiname("levelm",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     callpropvoid Multiname("clearallMAndB",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 0
+                     getlocal1
+                     callproperty Multiname("getvs",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 0
+                     pushstring "shibanqinglong"
+                     callproperty Multiname("getZhongjingMc",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 1
+                     coerce QName(PackageNamespace("flash.display"),"MovieClip")
+                     dup
+                     setlocal 6
+                     pushbyte 2
+                     callpropvoid Multiname("gotoAndPlay",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 1
+                     getlex Multiname("XiaoXiaoManager",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.gxiaodongxi")])
+                     findpropstrict Multiname("CGXEvent",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.gxiaodongxi")])
+                     getlocal 6
+                     pushnull
+                     getlocal0
+                     getproperty Multiname("createLvMonster",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     constructprop Multiname("CGXEvent",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.gxiaodongxi")]), 3
+                     callpropvoid Multiname("addCGX",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 1
+                     findpropstrict Multiname("Object",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     constructprop Multiname("Object",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 0
+                     coerce QName(PackageNamespace(""),"Object")
+                     dup
+                     setlocal 7
+                     pushbyte 6
+                     setproperty Multiname("fudu",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getlocal 7
+                     pushbyte 30
+                     setproperty Multiname("chishu",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                     getproperty Multiname("levelm",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getlocal 7
+                     callpropvoid Multiname("setShakeMSpeed",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 1
+            ofs0202:
+                     getlocal0
+                     getproperty Multiname("isflase",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     convert_b
+                     dup
+                     iffalse ofs0215
+                     pop
+                     getlex Multiname("killBossNum",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     pushbyte 0
+                     greaterthan
+            ofs0215:
+                     iffalse ofs027d
+                     getlocal0
+                     pushfalse
+                     initproperty Multiname("isflase",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                     getproperty Multiname("levelm",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getproperty Multiname("curLevel",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getproperty Multiname("id",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                     getproperty Multiname("a3000",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     greaterequals
+                     dup
+                     iffalse ofs0260
+                     pop
+                     getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                     getproperty Multiname("levelm",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getproperty Multiname("curLevel",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getproperty Multiname("id",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                     getproperty Multiname("a3000",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                     getproperty Multiname("a100",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     add
+                     lessequals
+            ofs0260:
+                     iffalse ofs027d
+                     getlex Multiname("FbData",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.views.fbPanel")])
+                     getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                     getproperty Multiname("levelm",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getproperty Multiname("curLevel",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     getproperty Multiname("id",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     callpropvoid Multiname("addFbTimes",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 1
+            ofs027d:
+                     getlocal0
+                     getlocal1
+                     callsupervoid Multiname("gmUpdate",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),ProtectedNamespace("hotpointgame.glevel:CRoomPass")]), 1
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         override public function enterRoom(param1:CLevel) : void
+         {
+            trait method QName(PackageNamespace(""),"enterRoom")
+               flag OVERRIDE
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace("hotpointgame.glevel"),"CLevel")
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 2
+                     localcount 3
+                     initscopedepth 6
+                     maxscopedepth 7
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlex Multiname("LoaderManager",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.utils.gameloader")])
+                        pushstring "wuxingdaojishi"
+                        callproperty Multiname("getSwfClass",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 1
+                        getlex Multiname("Class",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                        astypelate
+                        coerce QName(PackageNamespace(""),"Class")
+                        setlocal2
+                        getlocal0
+                        getlocal2
+                        construct 0
+                        initproperty Multiname("timermc",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                        getlocal0
+                        getproperty Multiname("timermc",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                        getproperty Multiname("wuxingdaojushia",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                        getlex Multiname("TextField",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("flash.text")])
+                        astypelate
+                        pushstring "1:30"
+                        setproperty Multiname("text",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                        getlocal1
+                        callproperty Multiname("getvs",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 0
+                        getlocal0
+                        getproperty Multiname("timermc",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                        callpropvoid Multiname("addTimerJiMc",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 1
+                        getlocal0
+                        pushtrue
+                        initproperty Multiname("timerflag",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                        getlocal0
+                        pushtrue
+                        initproperty Multiname("flashBoss",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                        getlocal0
+                        pushtrue
+                        initproperty Multiname("isflase",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                        getlocal0
+                        getlocal1
+                        callsupervoid Multiname("enterRoom",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),ProtectedNamespace("hotpointgame.glevel:CRoomPass")]), 1
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            override public function exitRoom() : void
+            {
+               trait method QName(PackageNamespace(""),"exitRoom")
+                  flag OVERRIDE
+                  dispid 0
+                  method
+                     name null
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 2
+                        localcount 1
+                        initscopedepth 6
+                        maxscopedepth 7
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           getproperty Multiname("timermc",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                           pushnull
+                           ifeq ofs0032
+                           getlocal0
+                           getproperty Multiname("timermc",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                           getproperty Multiname("parent",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                           iffalse ofs002c
+                           getlocal0
+                           getproperty Multiname("timermc",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                           getproperty Multiname("parent",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                           getlocal0
+                           getproperty Multiname("timermc",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                           callpropvoid Multiname("removeChild",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 1
+                  ofs002c:
+                           getlocal0
+                           pushnull
+                           initproperty Multiname("timermc",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                  ofs0032:
+                           getlocal0
+                           pushfalse
+                           initproperty Multiname("flashBoss",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                           getlocal0
+                           callsupervoid Multiname("exitRoom",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),ProtectedNamespace("hotpointgame.glevel:CRoomPass")]), 0
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               override public function exitLevelClear() : void
+               {
+                  trait method QName(PackageNamespace(""),"exitLevelClear")
+                     flag OVERRIDE
+                     dispid 0
+                     method
+                        name null
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 2
+                           localcount 1
+                           initscopedepth 6
+                           maxscopedepth 7
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              getproperty Multiname("timermc",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                              pushnull
+                              ifeq ofs0032
+                              getlocal0
+                              getproperty Multiname("timermc",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                              getproperty Multiname("parent",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                              iffalse ofs002c
+                              getlocal0
+                              getproperty Multiname("timermc",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                              getproperty Multiname("parent",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                              getlocal0
+                              getproperty Multiname("timermc",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                              callpropvoid Multiname("removeChild",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 1
+                     ofs002c:
+                              getlocal0
+                              pushnull
+                              initproperty Multiname("timermc",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                     ofs0032:
+                              getlocal0
+                              pushfalse
+                              initproperty Multiname("flashBoss",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                              getlocal0
+                              callsupervoid Multiname("exitLevelClear",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),ProtectedNamespace("hotpointgame.glevel:CRoomPass")]), 0
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  private function createLvMonsterWuxin() : void
+                  {
+                     trait method QName(PrivateNamespace(null,"262"),"createLvMonsterWuxin")
+                        dispid 0
+                        method
+                           name null
+                           returns QName(PackageNamespace(""),"void")
+                           
+                           body
+                              maxstack 5
+                              localcount 1
+                              initscopedepth 6
+                              maxscopedepth 7
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                                 getproperty Multiname("levelm",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                 getproperty Multiname("upstate",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                 getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                                 getproperty Multiname("a1",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                 equals
+                                 dup
+                                 iffalse ofs0023
+                                 pop
+                                 getlocal0
+                                 getproperty Multiname("flashBoss",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                 convert_b
+                        ofs0023:
+                                 iffalse ofs00b9
+                                 getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                                 getproperty Multiname("levelm",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                 getproperty Multiname("curLevel",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                 getproperty Multiname("id",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                 getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                                 getproperty Multiname("a3000",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                 greaterequals
+                                 dup
+                                 iffalse ofs0068
+                                 pop
+                                 getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                                 getproperty Multiname("levelm",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                 getproperty Multiname("curLevel",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                 getproperty Multiname("id",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                 getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                                 getproperty Multiname("a3000",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                 getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                                 getproperty Multiname("a100",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                 add
+                                 lessequals
+                        ofs0068:
+                                 iffalse ofs00a4
+                                 getlex Multiname("MonsterManager",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.gMonster")])
+                                 pushstring "梦魇之境_神农遗迹青龙将军"
+                                 getlex Multiname("name",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                 pushbyte 14
+                                 pushbyte 1
+                                 callproperty Multiname("substr",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 2
+                                 add
+                                 pushstring "觉醒"
+                                 add
+                                 pushshort 1600
+                                 pushshort 650
+                                 getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                                 getproperty Multiname("levelm",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                 getproperty Multiname("curLevel",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                 getproperty Multiname("id",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                 callpropvoid Multiname("creatMonsterByFuBen",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 4
+                                 jump ofs00b9
+                        ofs00a4:
+                                 getlex Multiname("MonsterManager",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.gMonster")])
+                                 getlocal0
+                                 callproperty Multiname("getMonName",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 0
+                                 pushshort 1600
+                                 pushshort 650
+                                 callpropvoid Multiname("creatMonster",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 3
+                        ofs00b9:
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     private function createLvMonster() : void
+                     {
+                        trait method QName(PrivateNamespace(null,"262"),"createLvMonster")
+                           dispid 0
+                           method
+                              name null
+                              returns QName(PackageNamespace(""),"void")
+                              
+                              body
+                                 maxstack 5
+                                 localcount 1
+                                 initscopedepth 6
+                                 maxscopedepth 7
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                                    getproperty Multiname("levelm",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                    getproperty Multiname("upstate",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                    getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                                    getproperty Multiname("a1",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                    equals
+                                    dup
+                                    iffalse ofs0023
+                                    pop
+                                    getlocal0
+                                    getproperty Multiname("flashBoss",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                    convert_b
+                           ofs0023:
+                                    iffalse ofs00ab
+                                    getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                                    getproperty Multiname("levelm",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                    getproperty Multiname("curLevel",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                    getproperty Multiname("id",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                    getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                                    getproperty Multiname("a3000",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                    greaterequals
+                                    dup
+                                    iffalse ofs0068
+                                    pop
+                                    getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                                    getproperty Multiname("levelm",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                    getproperty Multiname("curLevel",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                    getproperty Multiname("id",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                    getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                                    getproperty Multiname("a3000",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                    getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                                    getproperty Multiname("a100",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                    add
+                                    lessequals
+                           ofs0068:
+                                    iffalse ofs0092
+                                    getlex Multiname("MonsterManager",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.gMonster")])
+                                    pushstring "梦魇之境_神农遗迹青龙将军"
+                                    pushshort 1600
+                                    pushshort 650
+                                    getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                                    getproperty Multiname("levelm",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                    getproperty Multiname("curLevel",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                    getproperty Multiname("id",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                    callpropvoid Multiname("creatMonsterByFuBen",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 4
+                                    jump ofs00ab
+                           ofs0092:
+                                    getlex Multiname("MonsterManager",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.gMonster")])
+                                    getlocal0
+                                    callproperty Multiname("getLlNmae",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 0
+                                    pushstring "神农遗迹青龙将军"
+                                    add
+                                    pushshort 1600
+                                    pushshort 650
+                                    callpropvoid Multiname("creatMonster",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 3
+                           ofs00ab:
+                                    returnvoid
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        private function getMcName() : String
+                        {
+                           trait method QName(PrivateNamespace(null,"262"),"getMcName")
+                              dispid 0
+                              method
+                                 name null
+                                 returns QName(PackageNamespace(""),"String")
+                                 
+                                 body
+                                    maxstack 3
+                                    localcount 3
+                                    initscopedepth 6
+                                    maxscopedepth 7
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlex Multiname("name",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                       pushbyte 10
+                                       pushbyte 1
+                                       callproperty Multiname("substr",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 2
+                                       coerce_s
+                                       setlocal1
+                                       getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                                       getproperty Multiname("levelm",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                       getproperty Multiname("curLevel",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                       getproperty Multiname("id",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                       getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                                       getproperty Multiname("a3000",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                       greaterequals
+                                       dup
+                                       iffalse ofs0052
+                                       pop
+                                       getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                                       getproperty Multiname("levelm",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                       getproperty Multiname("curLevel",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                       getproperty Multiname("id",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                       getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                                       getproperty Multiname("a3000",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                       getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                                       getproperty Multiname("a100",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                       add
+                                       lessequals
+                              ofs0052:
+                                       iffalse ofs0065
+                                       getlex Multiname("name",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                       pushbyte 14
+                                       pushbyte 1
+                                       callproperty Multiname("substr",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 2
+                                       coerce_s
+                                       setlocal1
+                              ofs0065:
+                                       jump ofs009c
+                              ofs0069:
+                                       label
+                                       pushstring "qingjinirong"
+                                       returnvalue
+                              ofs006e:
+                                       label
+                                       pushstring "qingmurong"
+                                       returnvalue
+                              ofs0073:
+                                       label
+                                       pushstring "qingshuirong"
+                                       returnvalue
+                              ofs0078:
+                                       label
+                                       pushstring "qinghuoirong"
+                                       returnvalue
+                              ofs007d:
+                                       label
+                                       pushstring "qingturong"
+                                       returnvalue
+                              ofs0082:
+                                       label
+                                       getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                                       getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                                       getproperty Multiname("a26",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                       callpropvoid Multiname("findCheatMax",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 1
+                                       jump ofs0109
+                                       jump ofs009c
+                              ofs009c:
+                                       getlocal1
+                                       setlocal2
+                                       pushstring "金"
+                                       getlocal2
+                                       ifstrictne ofs00ac
+                                       pushbyte 0
+                                       jump ofs00f0
+                              ofs00ac:
+                                       pushstring "木"
+                                       getlocal2
+                                       ifstrictne ofs00ba
+                                       pushbyte 1
+                                       jump ofs00f0
+                              ofs00ba:
+                                       pushstring "水"
+                                       getlocal2
+                                       ifstrictne ofs00c8
+                                       pushbyte 2
+                                       jump ofs00f0
+                              ofs00c8:
+                                       pushstring "火"
+                                       getlocal2
+                                       ifstrictne ofs00d6
+                                       pushbyte 3
+                                       jump ofs00f0
+                              ofs00d6:
+                                       pushstring "土"
+                                       getlocal2
+                                       ifstrictne ofs00e4
+                                       pushbyte 4
+                                       jump ofs00f0
+                              ofs00e4:
+                                       jump ofs00ee
+                                       pushbyte 5
+                                       jump ofs00ee
+                              ofs00ee:
+                                       pushbyte 5
+                              ofs00f0:
+                                       kill 2
+                                       lookupswitch ofs0082, [ofs0069, ofs006e, ofs0073, ofs0078, ofs007d, ofs0082]
+                              ofs0109:
+                                       pushnull
+                                       returnvalue
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           private function getMonName() : String
+                           {
+                              trait method QName(PrivateNamespace(null,"262"),"getMonName")
+                                 dispid 0
+                                 method
+                                    name null
+                                    returns QName(PackageNamespace(""),"String")
+                                    
+                                    body
+                                       maxstack 3
+                                       localcount 4
+                                       initscopedepth 6
+                                       maxscopedepth 7
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlex Multiname("name",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                          pushbyte 10
+                                          pushbyte 1
+                                          callproperty Multiname("substr",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 2
+                                          coerce_s
+                                          setlocal1
+                                          pushstring ""
+                                          setlocal2
+                                          jump ofs0055
+                                 ofs0018:
+                                          label
+                                          pushstring ""
+                                          setlocal2
+                                          jump ofs00c8
+                                 ofs0020:
+                                          label
+                                          pushstring "普通_"
+                                          setlocal2
+                                          jump ofs00c8
+                                 ofs0029:
+                                          label
+                                          pushstring "困难_"
+                                          setlocal2
+                                          jump ofs00c8
+                                 ofs0032:
+                                          label
+                                          pushstring "噩梦_"
+                                          setlocal2
+                                          jump ofs00c8
+                                 ofs003b:
+                                          label
+                                          getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                                          getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                                          getproperty Multiname("a25",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                          callpropvoid Multiname("findCheatMax",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 1
+                                          jump ofs00c8
+                                          jump ofs0055
+                                 ofs0055:
+                                          getlex Multiname("lstar",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                          setlocal3
+                                          getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                                          getproperty Multiname("a1",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                          getlocal3
+                                          ifstrictne ofs006d
+                                          pushbyte 0
+                                          jump ofs00b2
+                                 ofs006d:
+                                          getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                                          getproperty Multiname("a2",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                          getlocal3
+                                          ifstrictne ofs0080
+                                          pushbyte 1
+                                          jump ofs00b2
+                                 ofs0080:
+                                          getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                                          getproperty Multiname("a3",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                          getlocal3
+                                          ifstrictne ofs0093
+                                          pushbyte 2
+                                          jump ofs00b2
+                                 ofs0093:
+                                          getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                                          getproperty Multiname("a4",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                          getlocal3
+                                          ifstrictne ofs00a6
+                                          pushbyte 3
+                                          jump ofs00b2
+                                 ofs00a6:
+                                          jump ofs00b0
+                                          pushbyte 4
+                                          jump ofs00b0
+                                 ofs00b0:
+                                          pushbyte 4
+                                 ofs00b2:
+                                          kill 3
+                                          lookupswitch ofs003b, [ofs0018, ofs0020, ofs0029, ofs0032, ofs003b]
+                                 ofs00c8:
+                                          getlocal2
+                                          pushstring "神农遗迹青龙将军"
+                                          add
+                                          getlocal1
+                                          add
+                                          pushstring "觉醒"
+                                          add
+                                          returnvalue
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              private function getLlNmae() : String
+                              {
+                                 trait method QName(PrivateNamespace(null,"262"),"getLlNmae")
+                                    dispid 0
+                                    method
+                                       name null
+                                       returns QName(PackageNamespace(""),"String")
+                                       
+                                       body
+                                          maxstack 2
+                                          localcount 3
+                                          initscopedepth 6
+                                          maxscopedepth 7
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             pushstring ""
+                                             setlocal1
+                                             jump ofs0046
+                                    ofs0009:
+                                             label
+                                             pushstring ""
+                                             setlocal1
+                                             jump ofs00b9
+                                    ofs0011:
+                                             label
+                                             pushstring "普通_"
+                                             setlocal1
+                                             jump ofs00b9
+                                    ofs001a:
+                                             label
+                                             pushstring "困难_"
+                                             setlocal1
+                                             jump ofs00b9
+                                    ofs0023:
+                                             label
+                                             pushstring "噩梦_"
+                                             setlocal1
+                                             jump ofs00b9
+                                    ofs002c:
+                                             label
+                                             getlex Multiname("GM",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.Control")])
+                                             getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                                             getproperty Multiname("a24",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                             callpropvoid Multiname("findCheatMax",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")]), 1
+                                             jump ofs00b9
+                                             jump ofs0046
+                                    ofs0046:
+                                             getlex Multiname("lstar",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                             setlocal2
+                                             getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                                             getproperty Multiname("a1",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                             getlocal2
+                                             ifstrictne ofs005e
+                                             pushbyte 0
+                                             jump ofs00a3
+                                    ofs005e:
+                                             getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                                             getproperty Multiname("a2",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                             getlocal2
+                                             ifstrictne ofs0071
+                                             pushbyte 1
+                                             jump ofs00a3
+                                    ofs0071:
+                                             getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                                             getproperty Multiname("a3",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                             getlocal2
+                                             ifstrictne ofs0084
+                                             pushbyte 2
+                                             jump ofs00a3
+                                    ofs0084:
+                                             getlex Multiname("GS",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom"),PackageNamespace("hotpointgame.common")])
+                                             getproperty Multiname("a4",[PrivateNamespace(null,"262"),PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPassWuXin"),StaticProtectedNs("hotpointgame.glevel:CRoomPass"),StaticProtectedNs("hotpointgame.glevel:CRoom")])
+                                             getlocal2
+                                             ifstrictne ofs0097
+                                             pushbyte 3
+                                             jump ofs00a3
+                                    ofs0097:
+                                             jump ofs00a1
+                                             pushbyte 4
+                                             jump ofs00a1
+                                    ofs00a1:
+                                             pushbyte 4
+                                    ofs00a3:
+                                             kill 2
+                                             lookupswitch ofs002c, [ofs0009, ofs0011, ofs001a, ofs0023, ofs002c]
+                                    ofs00b9:
+                                             getlocal1
+                                             returnvalue
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                              }
+                           }
+                           
+                           method
+                              name null
+                              returns null
+                              
+                              body
+                                 maxstack 2
+                                 localcount 1
+                                 initscopedepth 1
+                                 maxscopedepth 5
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    findpropstrict Multiname("CRoomPassWuXin",[PackageNamespace("hotpointgame.glevel")])
+                                    getlex QName(PackageNamespace(""),"Object")
+                                    pushscope
+                                    getlex QName(PackageNamespace("hotpointgame.glevel"),"CRoom")
+                                    pushscope
+                                    getlex QName(PackageNamespace("hotpointgame.glevel"),"CRoomPass")
+                                    pushscope
+                                    getlex Multiname("CRoomPass",[PackageNamespace(""),PrivateNamespace(null,"834"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin")])
+                                    newclass 367
+                                    popscope
+                                    popscope
+                                    popscope
+                                    initproperty QName(PackageNamespace("hotpointgame.glevel"),"CRoomPassWuXin")
+                                    returnvoid
+                                 end ; code
+                              end ; body
+                           end ; method
+                           

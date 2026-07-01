@@ -1,0 +1,732 @@
+package com.adobe.serialization.json
+{
+   import flash.utils.describeType;
+   
+   public class JSONEncoder
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var jsonString:String;
+      
+      public function JSONEncoder(param1:*)
+      {
+         method
+            name null
+            param null
+            returns null
+            
+            body
+               maxstack 3
+               localcount 2
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  getlocal0
+                  getlocal0
+                  getlocal1
+                  callproperty QName(PrivateNamespace(null,"17"),"convertToString"), 1
+                  initproperty QName(PrivateNamespace(null,"17"),"jsonString")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function getString() : String
+      {
+         trait method QName(PackageNamespace(""),"getString")
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace(""),"String")
+               
+               body
+                  maxstack 1
+                  localcount 1
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"17"),"jsonString")
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         private function convertToString(param1:*) : String
+         {
+            trait method QName(PrivateNamespace(null,"17"),"convertToString")
+               dispid 0
+               method
+                  name null
+                  param null
+                  returns QName(PackageNamespace(""),"String")
+                  
+                  body
+                     maxstack 3
+                     localcount 2
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal1
+                        getlex QName(PackageNamespace(""),"String")
+                        istypelate
+                        iffalse ofs0014
+                        getlocal0
+                        getlocal1
+                        getlex QName(PackageNamespace(""),"String")
+                        astypelate
+                        callproperty QName(PrivateNamespace(null,"17"),"escapeString"), 1
+                        returnvalue
+               ofs0014:
+                        getlocal1
+                        getlex QName(PackageNamespace(""),"Number")
+                        istypelate
+                        iffalse ofs003d
+                        findpropstrict QName(PackageNamespace(""),"isFinite")
+                        getlocal1
+                        getlex QName(PackageNamespace(""),"Number")
+                        astypelate
+                        callproperty QName(PackageNamespace(""),"isFinite"), 1
+                        iffalse ofs0035
+                        getlocal1
+                        callproperty Multiname("toString",[PrivateNamespace(null,"17"),PackageNamespace(""),PrivateNamespace(null,"123"),PackageNamespace("com.adobe.serialization.json"),PackageInternalNs("com.adobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobe.serialization.json:JSONEncoder"),StaticProtectedNs("com.adobe.serialization.json:JSONEncoder")]), 0
+                        coerce_s
+                        jump ofs0038
+               ofs0035:
+                        pushstring "null"
+               ofs0038:
+                        returnvalue
+                        jump ofs003d
+               ofs003d:
+                        getlocal1
+                        getlex QName(PackageNamespace(""),"Boolean")
+                        istypelate
+                        iffalse ofs0059
+                        getlocal1
+                        iffalse ofs0051
+                        pushstring "true"
+                        jump ofs0054
+               ofs0051:
+                        pushstring "false"
+               ofs0054:
+                        returnvalue
+                        jump ofs0059
+               ofs0059:
+                        getlocal1
+                        getlex QName(PackageNamespace(""),"Array")
+                        istypelate
+                        iffalse ofs006b
+                        getlocal0
+                        getlocal1
+                        getlex QName(PackageNamespace(""),"Array")
+                        astypelate
+                        callproperty QName(PrivateNamespace(null,"17"),"arrayToString"), 1
+                        returnvalue
+               ofs006b:
+                        getlocal1
+                        getlex QName(PackageNamespace(""),"Object")
+                        istypelate
+                        dup
+                        iffalse ofs0079
+                        pop
+                        getlocal1
+                        pushnull
+                        equals
+                        not
+               ofs0079:
+                        iffalse ofs0084
+                        getlocal0
+                        getlocal1
+                        callproperty QName(PrivateNamespace(null,"17"),"objectToString"), 1
+                        returnvalue
+               ofs0084:
+                        pushstring "null"
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            private function escapeString(param1:String) : String
+            {
+               trait method QName(PrivateNamespace(null,"17"),"escapeString")
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace(""),"String")
+                     returns QName(PackageNamespace(""),"String")
+                     
+                     body
+                        maxstack 3
+                        localcount 9
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           pushnull
+                           coerce_s
+                           setlocal3
+                           pushnull
+                           coerce_s
+                           setlocal 6
+                           pushnull
+                           coerce_s
+                           setlocal 7
+                           pushstring ""
+                           setlocal2
+                           getlocal1
+                           getproperty QName(PackageNamespace(""),"length")
+                           convert_d
+                           setlocal 4
+                           pushbyte 0
+                           setlocal 5
+                           jump ofs015e
+                  ofs001f:
+                           label
+                           getlocal1
+                           getlocal 5
+                           callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"charAt"), 1
+                           coerce_s
+                           setlocal3
+                           jump ofs00c5
+                  ofs002d:
+                           label
+                           getlocal2
+                           pushstring "\\\""
+                           add
+                           setlocal2
+                           jump ofs015c
+                  ofs0038:
+                           label
+                           getlocal2
+                           pushstring "\\\\"
+                           add
+                           setlocal2
+                           jump ofs015c
+                  ofs0043:
+                           label
+                           getlocal2
+                           pushstring "\\b"
+                           add
+                           setlocal2
+                           jump ofs015c
+                  ofs004e:
+                           label
+                           getlocal2
+                           pushstring "\\f"
+                           add
+                           setlocal2
+                           jump ofs015c
+                  ofs0059:
+                           label
+                           getlocal2
+                           pushstring "\\n"
+                           add
+                           setlocal2
+                           jump ofs015c
+                  ofs0064:
+                           label
+                           getlocal2
+                           pushstring "\\r"
+                           add
+                           setlocal2
+                           jump ofs015c
+                  ofs006f:
+                           label
+                           getlocal2
+                           pushstring "\\t"
+                           add
+                           setlocal2
+                           jump ofs015c
+                  ofs007a:
+                           label
+                           getlocal3
+                           pushstring " "
+                           ifnlt ofs00bc
+                           getlocal3
+                           pushbyte 0
+                           callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"charCodeAt"), 1
+                           pushbyte 16
+                           callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"toString"), 1
+                           coerce_s
+                           dup
+                           setlocal 6
+                           getproperty QName(PackageNamespace(""),"length")
+                           pushbyte 2
+                           equals
+                           iffalse ofs00a5
+                           pushstring "00"
+                           jump ofs00a8
+                  ofs00a5:
+                           pushstring "000"
+                  ofs00a8:
+                           coerce_s
+                           setlocal 7
+                           getlocal2
+                           pushstring "\\u"
+                           getlocal 7
+                           add
+                           getlocal 6
+                           add
+                           add
+                           coerce_s
+                           setlocal2
+                           jump ofs00c1
+                  ofs00bc:
+                           getlocal2
+                           getlocal3
+                           add
+                           coerce_s
+                           setlocal2
+                  ofs00c1:
+                           jump ofs015c
+                  ofs00c5:
+                           getlocal3
+                           setlocal 8
+                           pushstring "\""
+                           getlocal 8
+                           ifstrictne ofs00d7
+                           pushbyte 0
+                           jump ofs013d
+                  ofs00d7:
+                           pushstring "\\"
+                           getlocal 8
+                           ifstrictne ofs00e6
+                           pushbyte 1
+                           jump ofs013d
+                  ofs00e6:
+                           pushstring "\b"
+                           getlocal 8
+                           ifstrictne ofs00f5
+                           pushbyte 2
+                           jump ofs013d
+                  ofs00f5:
+                           pushstring "\f"
+                           getlocal 8
+                           ifstrictne ofs0104
+                           pushbyte 3
+                           jump ofs013d
+                  ofs0104:
+                           pushstring "\n"
+                           getlocal 8
+                           ifstrictne ofs0113
+                           pushbyte 4
+                           jump ofs013d
+                  ofs0113:
+                           pushstring "\r"
+                           getlocal 8
+                           ifstrictne ofs0122
+                           pushbyte 5
+                           jump ofs013d
+                  ofs0122:
+                           pushstring "\t"
+                           getlocal 8
+                           ifstrictne ofs0131
+                           pushbyte 6
+                           jump ofs013d
+                  ofs0131:
+                           jump ofs013b
+                           pushbyte 7
+                           jump ofs013b
+                  ofs013b:
+                           pushbyte 7
+                  ofs013d:
+                           kill 8
+                           lookupswitch ofs007a, [ofs002d, ofs0038, ofs0043, ofs004e, ofs0059, ofs0064, ofs006f, ofs007a]
+                  ofs015c:
+                           inclocal_i 5
+                  ofs015e:
+                           getlocal 5
+                           getlocal 4
+                           iflt ofs001f
+                           pushstring "\""
+                           getlocal2
+                           add
+                           pushstring "\""
+                           add
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               private function arrayToString(param1:Array) : String
+               {
+                  trait method QName(PrivateNamespace(null,"17"),"arrayToString")
+                     dispid 0
+                     method
+                        name null
+                        param QName(PackageNamespace(""),"Array")
+                        returns QName(PackageNamespace(""),"String")
+                        
+                        body
+                           maxstack 4
+                           localcount 4
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              pushstring ""
+                              setlocal2
+                              pushbyte 0
+                              setlocal3
+                              jump ofs002d
+                     ofs000c:
+                              label
+                              getlocal2
+                              getproperty QName(PackageNamespace(""),"length")
+                              pushbyte 0
+                              ifngt ofs001d
+                              getlocal2
+                              pushstring ","
+                              add
+                              setlocal2
+                     ofs001d:
+                              getlocal2
+                              getlocal0
+                              getlocal1
+                              getlocal3
+                              getproperty MultinameL([PrivateNamespace(null,"17"),PackageNamespace(""),PrivateNamespace(null,"123"),PackageNamespace("com.adobe.serialization.json"),PackageInternalNs("com.adobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobe.serialization.json:JSONEncoder"),StaticProtectedNs("com.adobe.serialization.json:JSONEncoder")])
+                              callproperty QName(PrivateNamespace(null,"17"),"convertToString"), 1
+                              add
+                              coerce_s
+                              setlocal2
+                              inclocal_i 3
+                     ofs002d:
+                              getlocal3
+                              getlocal1
+                              getproperty QName(PackageNamespace(""),"length")
+                              iflt ofs000c
+                              pushstring "["
+                              getlocal2
+                              add
+                              pushstring "]"
+                              add
+                              returnvalue
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  private function objectToString(param1:Object) : String
+                  {
+                     trait method QName(PrivateNamespace(null,"17"),"objectToString")
+                        dispid 0
+                        method
+                           name null
+                           flag NEED_ACTIVATION
+                           param QName(PackageNamespace(""),"Object")
+                           returns QName(PackageNamespace(""),"String")
+                           
+                           body
+                              maxstack 6
+                              localcount 10
+                              initscopedepth 5
+                              maxscopedepth 8
+                              trait slot QName(PackageInternalNs("com.adobe.serialization.json"),"o")
+                                 slotid 1
+                                 type QName(PackageNamespace(""),"Object")
+                              end ; trait
+                              trait slot QName(PackageInternalNs("com.adobe.serialization.json"),"s")
+                                 slotid 2
+                                 type QName(PackageNamespace(""),"String")
+                              end ; trait
+                              trait slot QName(PackageInternalNs("com.adobe.serialization.json"),"classInfo")
+                                 slotid 3
+                                 type QName(PackageNamespace(""),"XML")
+                              end ; trait
+                              trait slot QName(PackageInternalNs("com.adobe.serialization.json"),"value")
+                                 slotid 4
+                                 type QName(PackageNamespace(""),"Object")
+                              end ; trait
+                              trait slot QName(PackageInternalNs("com.adobe.serialization.json"),"key")
+                                 slotid 5
+                                 type QName(PackageNamespace(""),"String")
+                              end ; trait
+                              trait slot QName(PackageInternalNs("com.adobe.serialization.json"),"v")
+                                 slotid 6
+                                 type QName(PackageNamespace(""),"XML")
+                              end ; trait
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 newactivation
+                                 dup
+                                 setlocal2
+                                 pushscope
+                                 getscopeobject 1
+                                 pushnull
+                                 coerce QName(PackageNamespace(""),"Object")
+                                 setslot 4
+                                 getscopeobject 1
+                                 pushnull
+                                 coerce_s
+                                 setslot 5
+                                 getscopeobject 1
+                                 pushnull
+                                 coerce QName(PackageNamespace(""),"XML")
+                                 setslot 6
+                                 getscopeobject 1
+                                 getlocal1
+                                 setslot 1
+                                 getscopeobject 1
+                                 pushstring ""
+                                 setslot 2
+                                 getscopeobject 1
+                                 findpropstrict QName(PackageNamespace("flash.utils"),"describeType")
+                                 getscopeobject 1
+                                 getslot 1
+                                 callproperty QName(PackageNamespace("flash.utils"),"describeType"), 1
+                                 coerce QName(PackageNamespace(""),"XML")
+                                 setslot 3
+                                 getscopeobject 1
+                                 getslot 3
+                                 getproperty MultinameA("name",[PrivateNamespace(null,"17"),PackageNamespace(""),PrivateNamespace(null,"123"),PackageNamespace("com.adobe.serialization.json"),PackageInternalNs("com.adobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobe.serialization.json:JSONEncoder"),StaticProtectedNs("com.adobe.serialization.json:JSONEncoder")])
+                                 callproperty Multiname("toString",[PrivateNamespace(null,"17"),PackageNamespace(""),PrivateNamespace(null,"123"),PackageNamespace("com.adobe.serialization.json"),PackageInternalNs("com.adobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobe.serialization.json:JSONEncoder"),StaticProtectedNs("com.adobe.serialization.json:JSONEncoder")]), 0
+                                 pushstring "Object"
+                                 ifne ofs00ca
+                                 pushbyte 0
+                                 setlocal3
+                                 getscopeobject 1
+                                 getslot 1
+                                 coerce_a
+                                 setlocal 4
+                                 jump ofs00bb
+                        ofs0057:
+                                 label
+                                 getscopeobject 1
+                                 getlocal 4
+                                 getlocal3
+                                 nextname
+                                 coerce_s
+                                 setslot 5
+                                 getscopeobject 1
+                                 getscopeobject 1
+                                 getslot 1
+                                 getscopeobject 1
+                                 getslot 5
+                                 getproperty MultinameL([PrivateNamespace(null,"17"),PackageNamespace(""),PrivateNamespace(null,"123"),PackageNamespace("com.adobe.serialization.json"),PackageInternalNs("com.adobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobe.serialization.json:JSONEncoder"),StaticProtectedNs("com.adobe.serialization.json:JSONEncoder")])
+                                 coerce QName(PackageNamespace(""),"Object")
+                                 setslot 4
+                                 getscopeobject 1
+                                 getslot 4
+                                 getlex QName(PackageNamespace(""),"Function")
+                                 istypelate
+                                 iffalse ofs0081
+                                 jump ofs00bb
+                        ofs0081:
+                                 getscopeobject 1
+                                 getslot 2
+                                 getproperty QName(PackageNamespace(""),"length")
+                                 pushbyte 0
+                                 ifngt ofs009a
+                                 getscopeobject 1
+                                 getscopeobject 1
+                                 getslot 2
+                                 pushstring ","
+                                 add
+                                 setslot 2
+                        ofs009a:
+                                 getscopeobject 1
+                                 getscopeobject 1
+                                 getslot 2
+                                 getlocal0
+                                 getscopeobject 1
+                                 getslot 5
+                                 callproperty QName(PrivateNamespace(null,"17"),"escapeString"), 1
+                                 pushstring ":"
+                                 add
+                                 getlocal0
+                                 getscopeobject 1
+                                 getslot 4
+                                 callproperty QName(PrivateNamespace(null,"17"),"convertToString"), 1
+                                 add
+                                 add
+                                 coerce_s
+                                 setslot 2
+                        ofs00bb:
+                                 hasnext2 4, 3
+                                 iftrue ofs0057
+                                 kill 4
+                                 kill 3
+                                 jump ofs019b
+                        ofs00ca:
+                                 pushbyte 0
+                                 setlocal3
+                                 pushbyte 0
+                                 setlocal 6
+                                 getscopeobject 1
+                                 getslot 3
+                                 getdescendants Multiname(null,[PrivateNamespace(null,"17"),PackageNamespace(""),PrivateNamespace(null,"123"),PackageNamespace("com.adobe.serialization.json"),PackageInternalNs("com.adobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobe.serialization.json:JSONEncoder"),StaticProtectedNs("com.adobe.serialization.json:JSONEncoder")])
+                                 checkfilter
+                                 coerce_a
+                                 setlocal 7
+                                 getlex QName(PackageNamespace(""),"XMLList")
+                                 pushstring ""
+                                 construct 1
+                                 setlocal 5
+                                 jump ofs0123
+                        ofs00e8:
+                                 label
+                                 getlocal 7
+                                 getlocal 6
+                                 nextvalue
+                                 dup
+                                 setlocal 8
+                                 dup
+                                 setlocal 9
+                                 pushwith
+                                 findpropstrict Multiname("name",[PrivateNamespace(null,"17"),PackageNamespace(""),PrivateNamespace(null,"123"),PackageNamespace("com.adobe.serialization.json"),PackageInternalNs("com.adobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobe.serialization.json:JSONEncoder"),StaticProtectedNs("com.adobe.serialization.json:JSONEncoder")])
+                                 callproperty Multiname("name",[PrivateNamespace(null,"17"),PackageNamespace(""),PrivateNamespace(null,"123"),PackageNamespace("com.adobe.serialization.json"),PackageInternalNs("com.adobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobe.serialization.json:JSONEncoder"),StaticProtectedNs("com.adobe.serialization.json:JSONEncoder")]), 0
+                                 pushstring "variable"
+                                 equals
+                                 dup
+                                 iftrue ofs0111
+                                 pop
+                                 findpropstrict Multiname("name",[PrivateNamespace(null,"17"),PackageNamespace(""),PrivateNamespace(null,"123"),PackageNamespace("com.adobe.serialization.json"),PackageInternalNs("com.adobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobe.serialization.json:JSONEncoder"),StaticProtectedNs("com.adobe.serialization.json:JSONEncoder")])
+                                 callproperty Multiname("name",[PrivateNamespace(null,"17"),PackageNamespace(""),PrivateNamespace(null,"123"),PackageNamespace("com.adobe.serialization.json"),PackageInternalNs("com.adobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobe.serialization.json:JSONEncoder"),StaticProtectedNs("com.adobe.serialization.json:JSONEncoder")]), 0
+                                 pushstring "accessor"
+                                 equals
+                        ofs0111:
+                                 iffalse ofs011e
+                                 getlocal 5
+                                 getlocal 6
+                                 getlocal 8
+                                 setproperty MultinameL([PrivateNamespace(null,"17"),PackageNamespace(""),PrivateNamespace(null,"123"),PackageNamespace("com.adobe.serialization.json"),PackageInternalNs("com.adobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobe.serialization.json:JSONEncoder"),StaticProtectedNs("com.adobe.serialization.json:JSONEncoder")])
+                        ofs011e:
+                                 popscope
+                                 kill 9
+                                 kill 8
+                        ofs0123:
+                                 hasnext2 7, 6
+                                 iftrue ofs00e8
+                                 kill 7
+                                 kill 6
+                                 getlocal 5
+                                 kill 5
+                                 coerce_a
+                                 setlocal 4
+                                 jump ofs0190
+                        ofs0139:
+                                 label
+                                 getscopeobject 1
+                                 getlocal 4
+                                 getlocal3
+                                 nextvalue
+                                 coerce QName(PackageNamespace(""),"XML")
+                                 setslot 6
+                                 getscopeobject 1
+                                 getslot 2
+                                 getproperty QName(PackageNamespace(""),"length")
+                                 pushbyte 0
+                                 ifngt ofs015e
+                                 getscopeobject 1
+                                 getscopeobject 1
+                                 getslot 2
+                                 pushstring ","
+                                 add
+                                 setslot 2
+                        ofs015e:
+                                 getscopeobject 1
+                                 getscopeobject 1
+                                 getslot 2
+                                 getlocal0
+                                 getscopeobject 1
+                                 getslot 6
+                                 getproperty MultinameA("name",[PrivateNamespace(null,"17"),PackageNamespace(""),PrivateNamespace(null,"123"),PackageNamespace("com.adobe.serialization.json"),PackageInternalNs("com.adobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobe.serialization.json:JSONEncoder"),StaticProtectedNs("com.adobe.serialization.json:JSONEncoder")])
+                                 callproperty Multiname("toString",[PrivateNamespace(null,"17"),PackageNamespace(""),PrivateNamespace(null,"123"),PackageNamespace("com.adobe.serialization.json"),PackageInternalNs("com.adobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobe.serialization.json:JSONEncoder"),StaticProtectedNs("com.adobe.serialization.json:JSONEncoder")]), 0
+                                 callproperty QName(PrivateNamespace(null,"17"),"escapeString"), 1
+                                 pushstring ":"
+                                 add
+                                 getlocal0
+                                 getscopeobject 1
+                                 getslot 1
+                                 getscopeobject 1
+                                 getslot 6
+                                 getproperty MultinameA("name",[PrivateNamespace(null,"17"),PackageNamespace(""),PrivateNamespace(null,"123"),PackageNamespace("com.adobe.serialization.json"),PackageInternalNs("com.adobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobe.serialization.json:JSONEncoder"),StaticProtectedNs("com.adobe.serialization.json:JSONEncoder")])
+                                 getproperty MultinameL([PrivateNamespace(null,"17"),PackageNamespace(""),PrivateNamespace(null,"123"),PackageNamespace("com.adobe.serialization.json"),PackageInternalNs("com.adobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobe.serialization.json:JSONEncoder"),StaticProtectedNs("com.adobe.serialization.json:JSONEncoder")])
+                                 callproperty QName(PrivateNamespace(null,"17"),"convertToString"), 1
+                                 add
+                                 add
+                                 coerce_s
+                                 setslot 2
+                        ofs0190:
+                                 hasnext2 4, 3
+                                 iftrue ofs0139
+                                 kill 4
+                                 kill 3
+                        ofs019b:
+                                 pushstring "{"
+                                 getscopeobject 1
+                                 getslot 2
+                                 add
+                                 pushstring "}"
+                                 add
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                  }
+               }
+               
+               method
+                  name null
+                  returns null
+                  
+                  body
+                     maxstack 2
+                     localcount 1
+                     initscopedepth 1
+                     maxscopedepth 3
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        findpropstrict Multiname("JSONEncoder",[PackageNamespace("com.adobe.serialization.json")])
+                        getlex QName(PackageNamespace(""),"Object")
+                        pushscope
+                        getlex QName(PackageNamespace(""),"Object")
+                        newclass 45
+                        popscope
+                        initproperty QName(PackageNamespace("com.adobe.serialization.json"),"JSONEncoder")
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+               

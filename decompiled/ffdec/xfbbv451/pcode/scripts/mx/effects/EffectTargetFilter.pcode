@@ -1,0 +1,329 @@
+package mx.effects
+{
+   import mx.core.mx_internal;
+   import mx.effects.effectClasses.PropertyChanges;
+   
+   use namespace mx_internal;
+   
+   public class EffectTargetFilter
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      public var filterFunction:Function;
+      
+      public var filterProperties:Array;
+      
+      public var filterStyles:Array;
+      
+      public var requiredSemantics:Object = null;
+      
+      public function EffectTargetFilter()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 2
+               localcount 1
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  getlocal0
+                  getproperty QName(ProtectedNamespace("mx.effects:EffectTargetFilter"),"defaultFilterFunctionEx")
+                  initproperty QName(PackageNamespace(""),"filterFunction")
+                  getlocal0
+                  newarray 0
+                  initproperty QName(PackageNamespace(""),"filterProperties")
+                  getlocal0
+                  newarray 0
+                  initproperty QName(PackageNamespace(""),"filterStyles")
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function filterInstance(param1:Array, param2:IEffectTargetHost, param3:Object) : Boolean
+      {
+         trait method QName(PackageNamespace(""),"filterInstance")
+            dispid 0
+            method
+               name null
+               param QName(PackageNamespace(""),"Array")
+               param QName(PackageNamespace("mx.effects"),"IEffectTargetHost")
+               param QName(PackageNamespace(""),"Object")
+               returns QName(PackageNamespace(""),"Boolean")
+               
+               body
+                  maxstack 4
+                  localcount 4
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getproperty QName(PackageNamespace(""),"filterFunction")
+                     getproperty QName(PackageNamespace(""),"length")
+                     pushbyte 2
+                     ifne ofs0017
+                     getlocal0
+                     getlocal1
+                     getlocal3
+                     callproperty QName(PackageNamespace(""),"filterFunction"), 2
+                     returnvalue
+            ofs0017:
+                     getlocal0
+                     getlocal1
+                     getlocal2
+                     getlocal3
+                     callproperty QName(PackageNamespace(""),"filterFunction"), 3
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         protected function defaultFilterFunctionEx(param1:Array, param2:IEffectTargetHost, param3:Object) : Boolean
+         {
+            trait method QName(ProtectedNamespace("mx.effects:EffectTargetFilter"),"defaultFilterFunctionEx")
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace(""),"Array")
+                  param QName(PackageNamespace("mx.effects"),"IEffectTargetHost")
+                  param QName(PackageNamespace(""),"Object")
+                  returns QName(PackageNamespace(""),"Boolean")
+                  
+                  body
+                     maxstack 3
+                     localcount 7
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        pushnull
+                        coerce_s
+                        setlocal 4
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"requiredSemantics")
+                        iffalse ofs0051
+                        pushbyte 0
+                        setlocal 5
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"requiredSemantics")
+                        coerce_a
+                        setlocal 6
+                        jump ofs0044
+               ofs001d:
+                        label
+                        getlocal 6
+                        getlocal 5
+                        nextname
+                        coerce_s
+                        setlocal 4
+                        getlocal2
+                        iftrue ofs002d
+                        pushfalse
+                        returnvalue
+               ofs002d:
+                        getlocal2
+                        getlocal3
+                        getlocal 4
+                        callproperty QName(Namespace("mx.effects:IEffectTargetHost"),"getRendererSemanticValue"), 2
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"requiredSemantics")
+                        getlocal 4
+                        getproperty MultinameL([PrivateNamespace(null,"164"),ProtectedNamespace("mx.effects:EffectTargetFilter"),PackageNamespace(""),PackageNamespace("mx.effects"),PrivateNamespace(null,"165"),PackageInternalNs("mx.effects"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("mx.effects:EffectTargetFilter")])
+                        ifeq ofs0044
+                        pushfalse
+                        returnvalue
+               ofs0044:
+                        hasnext2 6, 5
+                        iftrue ofs001d
+                        kill 6
+                        kill 5
+                        pushtrue
+                        returnvalue
+               ofs0051:
+                        getlocal0
+                        getlocal1
+                        getlocal3
+                        callproperty QName(ProtectedNamespace("mx.effects:EffectTargetFilter"),"defaultFilterFunction"), 2
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            protected function defaultFilterFunction(param1:Array, param2:Object) : Boolean
+            {
+               trait method QName(ProtectedNamespace("mx.effects:EffectTargetFilter"),"defaultFilterFunction")
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace(""),"Array")
+                     param QName(PackageNamespace(""),"Object")
+                     returns QName(PackageNamespace(""),"Boolean")
+                     
+                     body
+                        maxstack 4
+                        localcount 9
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           pushnull
+                           coerce QName(PackageNamespace("mx.effects.effectClasses"),"PropertyChanges")
+                           setlocal 5
+                           pushnull
+                           coerce QName(PackageNamespace(""),"Array")
+                           setlocal 6
+                           pushbyte 0
+                           setlocal 7
+                           pushbyte 0
+                           setlocal 8
+                           getlocal1
+                           getproperty QName(PackageNamespace(""),"length")
+                           convert_i
+                           setlocal3
+                           pushbyte 0
+                           setlocal 4
+                           jump ofs00a2
+                  ofs0022:
+                           label
+                           getlocal1
+                           getlocal 4
+                           getproperty MultinameL([PrivateNamespace(null,"164"),ProtectedNamespace("mx.effects:EffectTargetFilter"),PackageNamespace(""),PackageNamespace("mx.effects"),PrivateNamespace(null,"165"),PackageInternalNs("mx.effects"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("mx.effects:EffectTargetFilter")])
+                           coerce QName(PackageNamespace("mx.effects.effectClasses"),"PropertyChanges")
+                           dup
+                           setlocal 5
+                           getproperty QName(PackageNamespace(""),"target")
+                           getlocal2
+                           ifne ofs00a0
+                           getlocal0
+                           getproperty QName(PackageNamespace(""),"filterProperties")
+                           getlocal0
+                           getproperty QName(PackageNamespace(""),"filterStyles")
+                           callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"concat"), 1
+                           coerce QName(PackageNamespace(""),"Array")
+                           dup
+                           setlocal 6
+                           getproperty QName(PackageNamespace(""),"length")
+                           convert_i
+                           setlocal 7
+                           pushbyte 0
+                           setlocal 8
+                           jump ofs0098
+                  ofs0055:
+                           label
+                           getlocal 5
+                           getproperty QName(PackageNamespace(""),"start")
+                           getlocal 6
+                           getlocal 8
+                           getproperty MultinameL([PrivateNamespace(null,"164"),ProtectedNamespace("mx.effects:EffectTargetFilter"),PackageNamespace(""),PackageNamespace("mx.effects"),PrivateNamespace(null,"165"),PackageInternalNs("mx.effects"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("mx.effects:EffectTargetFilter")])
+                           getproperty MultinameL([PrivateNamespace(null,"164"),ProtectedNamespace("mx.effects:EffectTargetFilter"),PackageNamespace(""),PackageNamespace("mx.effects"),PrivateNamespace(null,"165"),PackageInternalNs("mx.effects"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("mx.effects:EffectTargetFilter")])
+                           getlex QName(PackageNamespace(""),"undefined")
+                           strictequals
+                           not
+                           dup
+                           iffalse ofs0090
+                           pop
+                           getlocal 5
+                           getproperty QName(PackageNamespace(""),"end")
+                           getlocal 6
+                           getlocal 8
+                           getproperty MultinameL([PrivateNamespace(null,"164"),ProtectedNamespace("mx.effects:EffectTargetFilter"),PackageNamespace(""),PackageNamespace("mx.effects"),PrivateNamespace(null,"165"),PackageInternalNs("mx.effects"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("mx.effects:EffectTargetFilter")])
+                           getproperty MultinameL([PrivateNamespace(null,"164"),ProtectedNamespace("mx.effects:EffectTargetFilter"),PackageNamespace(""),PackageNamespace("mx.effects"),PrivateNamespace(null,"165"),PackageInternalNs("mx.effects"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("mx.effects:EffectTargetFilter")])
+                           getlocal 5
+                           getproperty QName(PackageNamespace(""),"start")
+                           getlocal 6
+                           getlocal 8
+                           getproperty MultinameL([PrivateNamespace(null,"164"),ProtectedNamespace("mx.effects:EffectTargetFilter"),PackageNamespace(""),PackageNamespace("mx.effects"),PrivateNamespace(null,"165"),PackageInternalNs("mx.effects"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("mx.effects:EffectTargetFilter")])
+                           getproperty MultinameL([PrivateNamespace(null,"164"),ProtectedNamespace("mx.effects:EffectTargetFilter"),PackageNamespace(""),PackageNamespace("mx.effects"),PrivateNamespace(null,"165"),PackageInternalNs("mx.effects"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("mx.effects:EffectTargetFilter")])
+                           equals
+                           not
+                  ofs0090:
+                           iffalse ofs0096
+                           pushtrue
+                           returnvalue
+                  ofs0096:
+                           inclocal_i 8
+                  ofs0098:
+                           getlocal 8
+                           getlocal 7
+                           iflt ofs0055
+                  ofs00a0:
+                           inclocal_i 4
+                  ofs00a2:
+                           getlocal 4
+                           getlocal3
+                           iflt ofs0022
+                           pushfalse
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+            }
+         }
+         
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 2
+               localcount 1
+               initscopedepth 1
+               maxscopedepth 3
+               
+               code
+                  getlocal0
+                  pushscope
+                  findpropstrict Multiname("EffectTargetFilter",[PackageNamespace("mx.effects")])
+                  getlex QName(PackageNamespace(""),"Object")
+                  pushscope
+                  getlex QName(PackageNamespace(""),"Object")
+                  newclass 214
+                  popscope
+                  initproperty QName(PackageNamespace("mx.effects"),"EffectTargetFilter")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+         

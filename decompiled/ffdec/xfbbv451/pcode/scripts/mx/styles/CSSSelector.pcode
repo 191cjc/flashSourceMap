@@ -1,0 +1,596 @@
+package mx.styles
+{
+   import mx.core.mx_internal;
+   
+   use namespace mx_internal;
+   
+   public class CSSSelector
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var _ancestor:CSSSelector;
+      
+      private var _conditions:Array;
+      
+      private var _subject:String;
+      
+      public function CSSSelector(param1:String, param2:Array = null, param3:CSSSelector = null)
+      {
+         method
+            name null
+            flag HAS_OPTIONAL
+            param QName(PackageNamespace(""),"String")
+            param QName(PackageNamespace(""),"Array")
+            param QName(PackageNamespace("mx.styles"),"CSSSelector")
+            optional Null()
+            optional Null()
+            returns null
+            
+            body
+               maxstack 2
+               localcount 4
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  getlocal0
+                  getlocal1
+                  initproperty QName(PrivateNamespace(null,"7"),"_subject")
+                  getlocal0
+                  getlocal2
+                  initproperty QName(PrivateNamespace(null,"7"),"_conditions")
+                  getlocal0
+                  getlocal3
+                  initproperty QName(PrivateNamespace(null,"7"),"_ancestor")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function get ancestor() : CSSSelector
+      {
+         trait getter QName(PackageNamespace(""),"ancestor")
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace("mx.styles"),"CSSSelector")
+               
+               body
+                  maxstack 1
+                  localcount 1
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"7"),"_ancestor")
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function get conditions() : Array
+         {
+            trait getter QName(PackageNamespace(""),"conditions")
+               dispid 0
+               method
+                  name null
+                  returns QName(PackageNamespace(""),"Array")
+                  
+                  body
+                     maxstack 1
+                     localcount 1
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"7"),"_conditions")
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function get specificity() : int
+            {
+               trait getter QName(PackageNamespace(""),"specificity")
+                  dispid 0
+                  method
+                     name null
+                     returns QName(PackageNamespace(""),"int")
+                     
+                     body
+                        maxstack 2
+                        localcount 5
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           pushnull
+                           coerce QName(PackageNamespace("mx.styles"),"CSSCondition")
+                           setlocal2
+                           pushbyte 0
+                           setlocal1
+                           pushstring "*"
+                           getlocal0
+                           getproperty QName(PackageNamespace(""),"subject")
+                           equals
+                           not
+                           dup
+                           iffalse ofs0022
+                           pop
+                           pushstring "global"
+                           getlocal0
+                           getproperty QName(PackageNamespace(""),"subject")
+                           equals
+                           not
+                  ofs0022:
+                           dup
+                           iffalse ofs0030
+                           pop
+                           pushstring ""
+                           getlocal0
+                           getproperty QName(PackageNamespace(""),"subject")
+                           equals
+                           not
+                  ofs0030:
+                           iffalse ofs0037
+                           pushbyte 1
+                           setlocal1
+                  ofs0037:
+                           getlocal0
+                           getproperty QName(PackageNamespace(""),"conditions")
+                           pushnull
+                           ifeq ofs006a
+                           pushbyte 0
+                           setlocal3
+                           getlocal0
+                           getproperty QName(PackageNamespace(""),"conditions")
+                           coerce_a
+                           setlocal 4
+                           jump ofs005f
+                  ofs004e:
+                           label
+                           getlocal 4
+                           getlocal3
+                           nextvalue
+                           coerce QName(PackageNamespace("mx.styles"),"CSSCondition")
+                           setlocal2
+                           getlocal1
+                           getlocal2
+                           getproperty QName(PackageNamespace(""),"specificity")
+                           add
+                           convert_i
+                           setlocal1
+                  ofs005f:
+                           hasnext2 4, 3
+                           iftrue ofs004e
+                           kill 4
+                           kill 3
+                  ofs006a:
+                           getlocal0
+                           getproperty QName(PackageNamespace(""),"ancestor")
+                           pushnull
+                           ifeq ofs007e
+                           getlocal1
+                           getlocal0
+                           getproperty QName(PackageNamespace(""),"ancestor")
+                           getproperty QName(PackageNamespace(""),"specificity")
+                           add
+                           convert_i
+                           setlocal1
+                  ofs007e:
+                           getlocal1
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function get subject() : String
+               {
+                  trait getter QName(PackageNamespace(""),"subject")
+                     dispid 0
+                     method
+                        name null
+                        returns QName(PackageNamespace(""),"String")
+                        
+                        body
+                           maxstack 1
+                           localcount 1
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"7"),"_subject")
+                              returnvalue
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function matchesStyleClient(param1:IAdvancedStyleClient) : Boolean
+                  {
+                     trait method QName(PackageNamespace(""),"matchesStyleClient")
+                        dispid 0
+                        method
+                           name null
+                           param QName(PackageNamespace("mx.styles"),"IAdvancedStyleClient")
+                           returns QName(PackageNamespace(""),"Boolean")
+                           
+                           body
+                              maxstack 2
+                              localcount 7
+                              initscopedepth 4
+                              maxscopedepth 5
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 pushnull
+                                 coerce QName(PackageNamespace("mx.styles"),"IAdvancedStyleClient")
+                                 setlocal 4
+                                 pushfalse
+                                 setlocal2
+                                 pushnull
+                                 coerce QName(PackageNamespace("mx.styles"),"CSSCondition")
+                                 setlocal3
+                                 getlocal0
+                                 getproperty QName(PackageNamespace(""),"ancestor")
+                                 iffalse ofs00ac
+                                 getlocal0
+                                 getproperty QName(PackageNamespace(""),"conditions")
+                                 iffalse ofs0051
+                                 pushbyte 0
+                                 setlocal 5
+                                 getlocal0
+                                 getproperty QName(PackageNamespace(""),"conditions")
+                                 coerce_a
+                                 setlocal 6
+                                 jump ofs0046
+                        ofs002d:
+                                 label
+                                 getlocal 6
+                                 getlocal 5
+                                 nextvalue
+                                 coerce QName(PackageNamespace("mx.styles"),"CSSCondition")
+                                 setlocal3
+                                 getlocal3
+                                 getlocal1
+                                 callproperty QName(PackageNamespace(""),"matchesStyleClient"), 1
+                                 convert_b
+                                 setlocal2
+                                 getlocal2
+                                 iftrue ofs0046
+                                 pushfalse
+                                 returnvalue
+                        ofs0046:
+                                 hasnext2 6, 5
+                                 iftrue ofs002d
+                                 kill 6
+                                 kill 5
+                        ofs0051:
+                                 pushfalse
+                                 setlocal2
+                                 getlocal1
+                                 getproperty QName(Namespace("mx.styles:IAdvancedStyleClient"),"styleParent")
+                                 coerce QName(PackageNamespace("mx.styles"),"IAdvancedStyleClient")
+                                 setlocal 4
+                                 jump ofs00a1
+                        ofs005f:
+                                 label
+                                 getlocal 4
+                                 getlocal0
+                                 getproperty QName(PackageNamespace(""),"ancestor")
+                                 getproperty QName(PackageNamespace(""),"subject")
+                                 callproperty QName(Namespace("mx.styles:IAdvancedStyleClient"),"matchesCSSType"), 1
+                                 convert_b
+                                 dup
+                                 iftrue ofs007f
+                                 pop
+                                 pushstring "*"
+                                 getlocal0
+                                 getproperty QName(PackageNamespace(""),"ancestor")
+                                 getproperty QName(PackageNamespace(""),"subject")
+                                 equals
+                        ofs007f:
+                                 iffalse ofs0098
+                                 getlocal0
+                                 getproperty QName(PackageNamespace(""),"ancestor")
+                                 getlocal 4
+                                 callproperty QName(PackageNamespace(""),"matchesStyleClient"), 1
+                                 convert_b
+                                 setlocal2
+                                 getlocal2
+                                 iffalse ofs0098
+                                 jump ofs00a8
+                        ofs0098:
+                                 getlocal 4
+                                 getproperty QName(Namespace("mx.styles:IAdvancedStyleClient"),"styleParent")
+                                 coerce QName(PackageNamespace("mx.styles"),"IAdvancedStyleClient")
+                                 setlocal 4
+                        ofs00a1:
+                                 getlocal 4
+                                 pushnull
+                                 ifne ofs005f
+                        ofs00a8:
+                                 jump ofs011d
+                        ofs00ac:
+                                 getlocal0
+                                 getproperty QName(PackageNamespace(""),"subject")
+                                 pushstring "*"
+                                 equals
+                                 dup
+                                 iftrue ofs00c1
+                                 pop
+                                 getlocal0
+                                 getproperty QName(PackageNamespace(""),"subject")
+                                 pushstring ""
+                                 equals
+                        ofs00c1:
+                                 dup
+                                 iftrue ofs00d1
+                                 pop
+                                 getlocal1
+                                 getlocal0
+                                 getproperty QName(PackageNamespace(""),"subject")
+                                 callproperty QName(Namespace("mx.styles:IAdvancedStyleClient"),"matchesCSSType"), 1
+                                 convert_b
+                        ofs00d1:
+                                 iffalse ofs00d7
+                                 pushtrue
+                                 setlocal2
+                        ofs00d7:
+                                 getlocal2
+                                 convert_b
+                                 dup
+                                 iffalse ofs00e6
+                                 pop
+                                 getlocal0
+                                 getproperty QName(PackageNamespace(""),"conditions")
+                                 pushnull
+                                 equals
+                                 not
+                        ofs00e6:
+                                 iffalse ofs011d
+                                 pushbyte 0
+                                 setlocal 5
+                                 getlocal0
+                                 getproperty QName(PackageNamespace(""),"conditions")
+                                 coerce_a
+                                 setlocal 6
+                                 jump ofs0112
+                        ofs00f9:
+                                 label
+                                 getlocal 6
+                                 getlocal 5
+                                 nextvalue
+                                 coerce QName(PackageNamespace("mx.styles"),"CSSCondition")
+                                 setlocal3
+                                 getlocal3
+                                 getlocal1
+                                 callproperty QName(PackageNamespace(""),"matchesStyleClient"), 1
+                                 convert_b
+                                 setlocal2
+                                 getlocal2
+                                 iftrue ofs0112
+                                 pushfalse
+                                 returnvalue
+                        ofs0112:
+                                 hasnext2 6, 5
+                                 iftrue ofs00f9
+                                 kill 6
+                                 kill 5
+                        ofs011d:
+                                 getlocal2
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     mx_internal function getPseudoCondition() : String
+                     {
+                        trait method QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"getPseudoCondition")
+                           dispid 0
+                           method
+                              name null
+                              returns QName(PackageNamespace(""),"String")
+                              
+                              body
+                                 maxstack 2
+                                 localcount 5
+                                 initscopedepth 4
+                                 maxscopedepth 5
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    pushnull
+                                    coerce QName(PackageNamespace("mx.styles"),"CSSCondition")
+                                    setlocal2
+                                    pushnull
+                                    coerce_s
+                                    setlocal1
+                                    getlocal0
+                                    getproperty QName(PackageNamespace(""),"conditions")
+                                    iffalse ofs004c
+                                    pushbyte 0
+                                    setlocal3
+                                    getlocal0
+                                    getproperty QName(PackageNamespace(""),"conditions")
+                                    coerce_a
+                                    setlocal 4
+                                    jump ofs0041
+                           ofs0020:
+                                    label
+                                    getlocal 4
+                                    getlocal3
+                                    nextvalue
+                                    coerce QName(PackageNamespace("mx.styles"),"CSSCondition")
+                                    setlocal2
+                                    getlocal2
+                                    getproperty QName(PackageNamespace(""),"kind")
+                                    getlex QName(PackageNamespace("mx.styles"),"CSSConditionKind")
+                                    getproperty QName(PackageNamespace(""),"PSEUDO")
+                                    ifne ofs0041
+                                    getlocal2
+                                    getproperty QName(PackageNamespace(""),"value")
+                                    coerce_s
+                                    setlocal1
+                                    jump ofs0048
+                           ofs0041:
+                                    hasnext2 4, 3
+                                    iftrue ofs0020
+                           ofs0048:
+                                    kill 4
+                                    kill 3
+                           ofs004c:
+                                    getlocal1
+                                    returnvalue
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        public function toString() : String
+                        {
+                           trait method QName(PackageNamespace(""),"toString")
+                              dispid 0
+                              method
+                                 name null
+                                 returns QName(PackageNamespace(""),"String")
+                                 
+                                 body
+                                    maxstack 2
+                                    localcount 5
+                                    initscopedepth 4
+                                    maxscopedepth 5
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       pushnull
+                                       coerce_s
+                                       setlocal1
+                                       pushnull
+                                       coerce QName(PackageNamespace("mx.styles"),"CSSCondition")
+                                       setlocal2
+                                       getlocal0
+                                       getproperty QName(PackageNamespace(""),"ancestor")
+                                       pushnull
+                                       ifeq ofs002a
+                                       getlocal0
+                                       getproperty QName(PackageNamespace(""),"ancestor")
+                                       callproperty QName(PackageNamespace(""),"toString"), 0
+                                       pushstring " "
+                                       add
+                                       getlocal0
+                                       getproperty QName(PackageNamespace(""),"subject")
+                                       add
+                                       coerce_s
+                                       setlocal1
+                                       jump ofs0030
+                              ofs002a:
+                                       getlocal0
+                                       getproperty QName(PackageNamespace(""),"subject")
+                                       coerce_s
+                                       setlocal1
+                              ofs0030:
+                                       getlocal0
+                                       getproperty QName(PackageNamespace(""),"conditions")
+                                       pushnull
+                                       ifeq ofs0064
+                                       pushbyte 0
+                                       setlocal3
+                                       getlocal0
+                                       getproperty QName(PackageNamespace(""),"conditions")
+                                       coerce_a
+                                       setlocal 4
+                                       jump ofs0059
+                              ofs0047:
+                                       label
+                                       getlocal 4
+                                       getlocal3
+                                       nextvalue
+                                       coerce QName(PackageNamespace("mx.styles"),"CSSCondition")
+                                       setlocal2
+                                       getlocal1
+                                       getlocal2
+                                       callproperty QName(PackageNamespace(""),"toString"), 0
+                                       add
+                                       coerce_s
+                                       setlocal1
+                              ofs0059:
+                                       hasnext2 4, 3
+                                       iftrue ofs0047
+                                       kill 4
+                                       kill 3
+                              ofs0064:
+                                       getlocal1
+                                       returnvalue
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                        }
+                     }
+                     
+                     method
+                        name null
+                        returns null
+                        
+                        body
+                           maxstack 2
+                           localcount 1
+                           initscopedepth 1
+                           maxscopedepth 3
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              findpropstrict Multiname("CSSSelector",[PackageNamespace("mx.styles")])
+                              getlex QName(PackageNamespace(""),"Object")
+                              pushscope
+                              getlex QName(PackageNamespace(""),"Object")
+                              newclass 11
+                              popscope
+                              initproperty QName(PackageNamespace("mx.styles"),"CSSSelector")
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                     

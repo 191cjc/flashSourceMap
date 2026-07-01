@@ -1,0 +1,267 @@
+package com.adobeadobe.utils
+{
+   public class IntUtil
+   {
+      
+      private static var hexChars:String = "0123456789abcdef";
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(PrivateNamespace(null,"413"),"hexChars")
+               pushstring "0123456789abcdef"
+               setproperty QName(PrivateNamespace(null,"413"),"hexChars")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      public function IntUtil()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 1
+               localcount 1
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public static function rol(param1:int, param2:int) : int
+      {
+         trait method QName(PackageNamespace(""),"rol")
+            flag FINAL
+            dispid 3
+            method
+               name null
+               param QName(PackageNamespace(""),"int")
+               param QName(PackageNamespace(""),"int")
+               returns QName(PackageNamespace(""),"int")
+               
+               body
+                  maxstack 4
+                  localcount 3
+                  initscopedepth 3
+                  maxscopedepth 4
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal1
+                     getlocal2
+                     lshift
+                     getlocal1
+                     pushbyte 32
+                     getlocal2
+                     subtract
+                     urshift
+                     bitor
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public static function ror(param1:int, param2:int) : uint
+         {
+            trait method QName(PackageNamespace(""),"ror")
+               flag FINAL
+               dispid 4
+               method
+                  name null
+                  param QName(PackageNamespace(""),"int")
+                  param QName(PackageNamespace(""),"int")
+                  returns QName(PackageNamespace(""),"uint")
+                  
+                  body
+                     maxstack 4
+                     localcount 4
+                     initscopedepth 3
+                     maxscopedepth 4
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        pushbyte 32
+                        getlocal2
+                        subtract
+                        convert_i
+                        setlocal3
+                        getlocal1
+                        getlocal3
+                        lshift
+                        getlocal1
+                        pushbyte 32
+                        getlocal3
+                        subtract
+                        urshift
+                        bitor
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public static function toHex(param1:int, param2:Boolean = false) : String
+            {
+               trait method QName(PackageNamespace(""),"toHex")
+                  flag FINAL
+                  dispid 5
+                  method
+                     name null
+                     flag HAS_OPTIONAL
+                     param QName(PackageNamespace(""),"int")
+                     param QName(PackageNamespace(""),"Boolean")
+                     optional False()
+                     returns QName(PackageNamespace(""),"String")
+                     
+                     body
+                        maxstack 6
+                        localcount 6
+                        initscopedepth 3
+                        maxscopedepth 4
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           pushbyte 0
+                           setlocal 4
+                           pushbyte 0
+                           setlocal 5
+                           pushstring ""
+                           setlocal3
+                           getlocal2
+                           iffalse ofs005d
+                           pushbyte 0
+                           setlocal 4
+                           jump ofs0051
+                  ofs001a:
+                           label
+                           getlocal3
+                           getlex Multiname("hexChars",[PrivateNamespace(null,"413"),PackageNamespace(""),PrivateNamespace(null,"706"),PackageNamespace("com.adobeadobe.utils"),PackageInternalNs("com.adobeadobe.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.utils:IntUtil"),StaticProtectedNs("com.adobeadobe.utils:IntUtil")])
+                           getlocal1
+                           pushbyte 3
+                           getlocal 4
+                           subtract
+                           pushbyte 8
+                           multiply
+                           pushbyte 4
+                           add
+                           rshift
+                           pushbyte 15
+                           bitand
+                           callproperty Multiname("charAt",[PrivateNamespace(null,"413"),PackageNamespace(""),PrivateNamespace(null,"706"),PackageNamespace("com.adobeadobe.utils"),PackageInternalNs("com.adobeadobe.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.utils:IntUtil"),StaticProtectedNs("com.adobeadobe.utils:IntUtil")]), 1
+                           getlex Multiname("hexChars",[PrivateNamespace(null,"413"),PackageNamespace(""),PrivateNamespace(null,"706"),PackageNamespace("com.adobeadobe.utils"),PackageInternalNs("com.adobeadobe.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.utils:IntUtil"),StaticProtectedNs("com.adobeadobe.utils:IntUtil")])
+                           getlocal1
+                           pushbyte 3
+                           getlocal 4
+                           subtract
+                           pushbyte 8
+                           multiply
+                           rshift
+                           pushbyte 15
+                           bitand
+                           callproperty Multiname("charAt",[PrivateNamespace(null,"413"),PackageNamespace(""),PrivateNamespace(null,"706"),PackageNamespace("com.adobeadobe.utils"),PackageInternalNs("com.adobeadobe.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.utils:IntUtil"),StaticProtectedNs("com.adobeadobe.utils:IntUtil")]), 1
+                           add
+                           add
+                           coerce_s
+                           setlocal3
+                           inclocal_i 4
+                  ofs0051:
+                           getlocal 4
+                           pushbyte 4
+                           iflt ofs001a
+                           jump ofs009e
+                  ofs005d:
+                           pushbyte 0
+                           setlocal 5
+                           jump ofs0096
+                  ofs0065:
+                           label
+                           getlocal3
+                           getlex Multiname("hexChars",[PrivateNamespace(null,"413"),PackageNamespace(""),PrivateNamespace(null,"706"),PackageNamespace("com.adobeadobe.utils"),PackageInternalNs("com.adobeadobe.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.utils:IntUtil"),StaticProtectedNs("com.adobeadobe.utils:IntUtil")])
+                           getlocal1
+                           getlocal 5
+                           pushbyte 8
+                           multiply
+                           pushbyte 4
+                           add
+                           rshift
+                           pushbyte 15
+                           bitand
+                           callproperty Multiname("charAt",[PrivateNamespace(null,"413"),PackageNamespace(""),PrivateNamespace(null,"706"),PackageNamespace("com.adobeadobe.utils"),PackageInternalNs("com.adobeadobe.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.utils:IntUtil"),StaticProtectedNs("com.adobeadobe.utils:IntUtil")]), 1
+                           getlex Multiname("hexChars",[PrivateNamespace(null,"413"),PackageNamespace(""),PrivateNamespace(null,"706"),PackageNamespace("com.adobeadobe.utils"),PackageInternalNs("com.adobeadobe.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.utils:IntUtil"),StaticProtectedNs("com.adobeadobe.utils:IntUtil")])
+                           getlocal1
+                           getlocal 5
+                           pushbyte 8
+                           multiply
+                           rshift
+                           pushbyte 15
+                           bitand
+                           callproperty Multiname("charAt",[PrivateNamespace(null,"413"),PackageNamespace(""),PrivateNamespace(null,"706"),PackageNamespace("com.adobeadobe.utils"),PackageInternalNs("com.adobeadobe.utils"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.utils:IntUtil"),StaticProtectedNs("com.adobeadobe.utils:IntUtil")]), 1
+                           add
+                           add
+                           coerce_s
+                           setlocal3
+                           inclocal_i 5
+                  ofs0096:
+                           getlocal 5
+                           pushbyte 4
+                           iflt ofs0065
+                  ofs009e:
+                           getlocal3
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+            }
+         }
+         
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 2
+               localcount 1
+               initscopedepth 1
+               maxscopedepth 3
+               
+               code
+                  getlocal0
+                  pushscope
+                  findpropstrict Multiname("IntUtil",[PackageNamespace("com.adobeadobe.utils")])
+                  getlex QName(PackageNamespace(""),"Object")
+                  pushscope
+                  getlex Multiname("Object",[PackageNamespace(""),PrivateNamespace(null,"706"),PackageNamespace("com.adobeadobe.utils"),PackageInternalNs("com.adobeadobe.utils"),Namespace("http://adobe.com/AS3/2006/builtin")])
+                  newclass 257
+                  popscope
+                  initproperty QName(PackageNamespace("com.adobeadobe.utils"),"IntUtil")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+         

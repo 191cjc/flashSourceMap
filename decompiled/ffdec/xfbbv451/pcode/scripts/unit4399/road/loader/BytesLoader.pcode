@@ -1,0 +1,673 @@
+package unit4399.road.loader
+{
+   import flash.events.ErrorEvent;
+   import flash.events.Event;
+   import flash.events.IOErrorEvent;
+   import flash.events.SecurityErrorEvent;
+   import flash.net.URLLoader;
+   import flash.net.URLLoaderDataFormat;
+   import flash.net.URLRequest;
+   import flash.net.URLVariables;
+   
+   public class BytesLoader extends URLLoader implements ILoader
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 5
+            maxscopedepth 6
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      protected var _starting:Boolean;
+      
+      protected var _func:Function;
+      
+      protected var _tryTime:int;
+      
+      protected var _hadTryTime:int;
+      
+      protected var _url:URLRequest;
+      
+      public var isSuccess:Boolean;
+      
+      private var _managed:Boolean;
+      
+      public function BytesLoader(param1:String, param2:Function, param3:URLVariables = null, param4:String = "POST", param5:Boolean = true)
+      {
+         method
+            name null
+            flag HAS_OPTIONAL
+            param QName(PackageNamespace(""),"String")
+            param QName(PackageNamespace(""),"Function")
+            param QName(PackageNamespace("flash.net"),"URLVariables")
+            param QName(PackageNamespace(""),"String")
+            param QName(PackageNamespace(""),"Boolean")
+            optional Null()
+            optional Utf8("POST")
+            optional True()
+            returns null
+            
+            body
+               maxstack 3
+               localcount 6
+               initscopedepth 6
+               maxscopedepth 7
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  findproperty QName(PackageNamespace(""),"dataFormat")
+                  getlex QName(PackageNamespace("flash.net"),"URLLoaderDataFormat")
+                  getproperty QName(PackageNamespace(""),"BINARY")
+                  initproperty QName(PackageNamespace(""),"dataFormat")
+                  getlocal0
+                  findpropstrict QName(PackageNamespace("flash.net"),"URLRequest")
+                  getlocal1
+                  constructprop QName(PackageNamespace("flash.net"),"URLRequest"), 1
+                  initproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_url")
+                  getlocal0
+                  getproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_url")
+                  getlocal3
+                  setproperty QName(PackageNamespace(""),"data")
+                  getlocal0
+                  getproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_url")
+                  getlocal 4
+                  setproperty QName(PackageNamespace(""),"method")
+                  getlocal0
+                  getlocal 5
+                  initproperty QName(PrivateNamespace(null,"7"),"_managed")
+                  getlocal0
+                  getlocal2
+                  initproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_func")
+                  getlocal0
+                  getlex QName(PackageNamespace("flash.events"),"Event")
+                  getproperty QName(PackageNamespace(""),"COMPLETE")
+                  getlocal0
+                  getproperty QName(PrivateNamespace(null,"7"),"__completed")
+                  callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                  getlocal0
+                  getlex QName(PackageNamespace("flash.events"),"IOErrorEvent")
+                  getproperty QName(PackageNamespace(""),"IO_ERROR")
+                  getlocal0
+                  getproperty QName(PrivateNamespace(null,"7"),"__error")
+                  callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                  getlocal0
+                  getlex QName(PackageNamespace("flash.events"),"SecurityErrorEvent")
+                  getproperty QName(PackageNamespace(""),"SECURITY_ERROR")
+                  getlocal0
+                  getproperty QName(PrivateNamespace(null,"7"),"__error")
+                  callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                  getlocal0
+                  pushbyte 1
+                  initproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_hadTryTime")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function cancel() : void
+      {
+         trait method QName(PackageNamespace(""),"cancel")
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 2
+                  localcount 1
+                  initscopedepth 6
+                  maxscopedepth 7
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlex QName(PackageNamespace("unit4399.road.loader"),"LoaderManager")
+                     getlocal0
+                     callpropvoid QName(PackageNamespace(""),"CancelLoader"), 1
+                     getlocal0
+                     getproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_starting")
+                     iffalse ofs0017
+                     getlocal0
+                     callpropvoid QName(PackageNamespace(""),"close"), 0
+            ofs0017:
+                     getlocal0
+                     callpropvoid QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"onCanceled"), 0
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         protected function onError(param1:Event) : void
+         {
+            trait method QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"onError")
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace("flash.events"),"Event")
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 2
+                     localcount 2
+                     initscopedepth 6
+                     maxscopedepth 7
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        getproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_func")
+                        pushnull
+                        ifeq ofs0011
+                        getlocal0
+                        getlocal1
+                        callpropvoid QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_func"), 1
+               ofs0011:
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            protected function onCanceled() : void
+            {
+               trait method QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"onCanceled")
+                  dispid 0
+                  method
+                     name null
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 1
+                        localcount 1
+                        initscopedepth 6
+                        maxscopedepth 7
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function loadAtOnce() : void
+               {
+                  trait method QName(PackageNamespace(""),"loadAtOnce")
+                     dispid 0
+                     method
+                        name null
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 2
+                           localcount 1
+                           initscopedepth 6
+                           maxscopedepth 7
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlex QName(PackageNamespace("unit4399.road.loader"),"LoaderManager")
+                              getlocal0
+                              callpropvoid QName(PackageNamespace(""),"CancelLoader"), 1
+                              getlocal0
+                              getlocal0
+                              getproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_url")
+                              callpropvoid QName(PackageNamespace(""),"load"), 1
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function get hadTryTime() : int
+                  {
+                     trait getter QName(PackageNamespace(""),"hadTryTime")
+                        dispid 0
+                        method
+                           name null
+                           returns QName(PackageNamespace(""),"int")
+                           
+                           body
+                              maxstack 1
+                              localcount 1
+                              initscopedepth 6
+                              maxscopedepth 7
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal0
+                                 getproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_hadTryTime")
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public function loadSync(param1:Function = null, param2:int = 1) : void
+                     {
+                        trait method QName(PackageNamespace(""),"loadSync")
+                           dispid 0
+                           method
+                              name null
+                              flag HAS_OPTIONAL
+                              param QName(PackageNamespace(""),"Function")
+                              param QName(PackageNamespace(""),"int")
+                              optional Null()
+                              optional Integer(1)
+                              returns QName(PackageNamespace(""),"void")
+                              
+                              body
+                                 maxstack 2
+                                 localcount 3
+                                 initscopedepth 6
+                                 maxscopedepth 7
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlocal1
+                                    pushnull
+                                    ifeq ofs0012
+                                    getlocal0
+                                    getlocal1
+                                    initproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_func")
+                                    getlocal0
+                                    getlocal2
+                                    initproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_tryTime")
+                           ofs0012:
+                                    getlocal0
+                                    getproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_starting")
+                                    iftrue ofs0043
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"7"),"_managed")
+                                    iffalse ofs0022
+                           ofs0022:
+                                    getlex QName(PackageNamespace("unit4399.road.loader"),"LoaderManager")
+                                    getlocal0
+                                    callproperty QName(PackageNamespace(""),"canStart"), 1
+                                    iffalse ofs003b
+                                    getlocal0
+                                    getlocal0
+                                    getproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_url")
+                                    callpropvoid QName(PackageNamespace(""),"load"), 1
+                                    jump ofs0043
+                           ofs003b:
+                                    getlex QName(PackageNamespace("unit4399.road.loader"),"LoaderManager")
+                                    getlocal0
+                                    callpropvoid QName(PackageNamespace(""),"manageLoader"), 1
+                           ofs0043:
+                                    returnvoid
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        override public function load(param1:URLRequest) : void
+                        {
+                           trait method QName(PackageNamespace(""),"load")
+                              flag OVERRIDE
+                              dispid 0
+                              method
+                                 name null
+                                 flag NEED_ACTIVATION
+                                 param QName(PackageNamespace("flash.net"),"URLRequest")
+                                 returns QName(PackageNamespace(""),"void")
+                                 
+                                 body
+                                    maxstack 3
+                                    localcount 5
+                                    initscopedepth 7
+                                    maxscopedepth 12
+                                    trait slot QName(PackageInternalNs("unit4399.road.loader"),"urlRequest")
+                                       slotid 1
+                                       type QName(PackageNamespace("flash.net"),"URLRequest")
+                                    end ; trait
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       newactivation
+                                       dup
+                                       setlocal2
+                                       pushscope
+                                       getscopeobject 1
+                                       getlocal1
+                                       setslot 1
+                                       getlocal0
+                                       pushtrue
+                                       initproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_starting")
+                                       getlocal0
+                                       dup
+                                       setlocal3
+                                       getproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_tryTime")
+                                       increment_i
+                                       setlocal 4
+                                       getlocal3
+                                       getlocal 4
+                                       setproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_tryTime")
+                                       kill 4
+                                       kill 3
+                              ofs0023:
+                                       getlocal0
+                                       getscopeobject 1
+                                       getslot 1
+                                       callsupervoid QName(PackageNamespace(""),"load"), 1
+                              ofs002c:
+                                       jump ofs0054
+                              ofs0030:
+                                       getlocal0
+                                       pushscope
+                                       getlocal2
+                                       pushscope
+                                       newcatch 0
+                                       dup
+                                       setlocal3
+                                       dup
+                                       pushscope
+                                       swap
+                                       setslot 1
+                                       findpropstrict QName(PrivateNamespace(null,"7"),"tryAdd")
+                                       findpropstrict QName(PackageNamespace("flash.events"),"ErrorEvent")
+                                       getlex QName(PackageNamespace("flash.events"),"ErrorEvent")
+                                       getproperty QName(PackageNamespace(""),"ERROR")
+                                       constructprop QName(PackageNamespace("flash.events"),"ErrorEvent"), 1
+                                       callpropvoid QName(PrivateNamespace(null,"7"),"tryAdd"), 1
+                                       popscope
+                                       kill 3
+                              ofs0054:
+                                       returnvoid
+                                    end ; code
+                                    try from ofs0023 to ofs002c target ofs0030 type QName(PackageNamespace(""),"Error") name QName(PackageNamespace(""),"e") end
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           private function __completed(param1:Event) : void
+                           {
+                              trait method QName(PrivateNamespace(null,"7"),"__completed")
+                                 dispid 0
+                                 method
+                                    name null
+                                    param QName(PackageNamespace("flash.events"),"Event")
+                                    returns QName(PackageNamespace(""),"void")
+                                    
+                                    body
+                                       maxstack 2
+                                       localcount 2
+                                       initscopedepth 6
+                                       maxscopedepth 7
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlocal0
+                                          pushfalse
+                                          initproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_starting")
+                                          getlocal0
+                                          pushtrue
+                                          initproperty QName(PackageNamespace(""),"isSuccess")
+                                          getlex QName(PackageNamespace("unit4399.road.loader"),"LoaderManager")
+                                          getlocal0
+                                          callpropvoid QName(PackageNamespace(""),"EndLoader"), 1
+                                          getlocal0
+                                          getlocal1
+                                          callpropvoid QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"onCompleted"), 1
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              protected function onCompleted(param1:Event) : void
+                              {
+                                 trait method QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"onCompleted")
+                                    dispid 0
+                                    method
+                                       name null
+                                       param QName(PackageNamespace("flash.events"),"Event")
+                                       returns QName(PackageNamespace(""),"void")
+                                       
+                                       body
+                                          maxstack 2
+                                          localcount 2
+                                          initscopedepth 6
+                                          maxscopedepth 7
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlocal0
+                                             getproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_func")
+                                             pushnull
+                                             ifeq ofs0011
+                                             getlocal0
+                                             getlocal1
+                                             callpropvoid QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_func"), 1
+                                    ofs0011:
+                                             returnvoid
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 private function __error(param1:Event) : void
+                                 {
+                                    trait method QName(PrivateNamespace(null,"7"),"__error")
+                                       dispid 0
+                                       method
+                                          name null
+                                          flag NEED_ACTIVATION
+                                          param QName(PackageNamespace("flash.events"),"Event")
+                                          returns QName(PackageNamespace(""),"void")
+                                          
+                                          body
+                                             maxstack 3
+                                             localcount 4
+                                             initscopedepth 7
+                                             maxscopedepth 12
+                                             trait slot QName(PackageInternalNs("unit4399.road.loader"),"e")
+                                                slotid 1
+                                                type QName(PackageNamespace("flash.events"),"Event")
+                                             end ; trait
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                newactivation
+                                                dup
+                                                setlocal2
+                                                pushscope
+                                                getscopeobject 1
+                                                getlocal1
+                                                setslot 1
+                                       ofs000b:
+                                                getlocal0
+                                                getscopeobject 1
+                                                getslot 1
+                                                callproperty QName(PrivateNamespace(null,"7"),"tryAdd"), 1
+                                                iffalse ofs0021
+                                                getlocal0
+                                                getlocal0
+                                                getproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_url")
+                                                callpropvoid QName(PackageNamespace(""),"load"), 1
+                                       ofs0021:
+                                                jump ofs0040
+                                       ofs0025:
+                                                getlocal0
+                                                pushscope
+                                                getlocal2
+                                                pushscope
+                                                newcatch 0
+                                                dup
+                                                setlocal3
+                                                dup
+                                                pushscope
+                                                swap
+                                                setslot 1
+                                                findpropstrict QName(PrivateNamespace(null,"7"),"tryAdd")
+                                                getscopeobject 1
+                                                getslot 1
+                                                callpropvoid QName(PrivateNamespace(null,"7"),"tryAdd"), 1
+                                                popscope
+                                                kill 3
+                                       ofs0040:
+                                                returnvoid
+                                             end ; code
+                                             try from ofs000b to ofs0021 target ofs0025 type QName(PackageNamespace(""),"Error") name QName(PackageNamespace(""),"err") end
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    private function tryAdd(param1:Event) : Boolean
+                                    {
+                                       trait method QName(PrivateNamespace(null,"7"),"tryAdd")
+                                          dispid 0
+                                          method
+                                             name null
+                                             param QName(PackageNamespace("flash.events"),"Event")
+                                             returns QName(PackageNamespace(""),"Boolean")
+                                             
+                                             body
+                                                maxstack 2
+                                                localcount 2
+                                                initscopedepth 6
+                                                maxscopedepth 7
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   getlocal0
+                                                   getproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_tryTime")
+                                                   getlocal0
+                                                   getproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_hadTryTime")
+                                                   ifnge ofs0028
+                                                   getlocal0
+                                                   pushfalse
+                                                   initproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_starting")
+                                                   getlocal0
+                                                   pushfalse
+                                                   initproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_starting")
+                                                   getlex QName(PackageNamespace("unit4399.road.loader"),"LoaderManager")
+                                                   getlocal0
+                                                   callpropvoid QName(PackageNamespace(""),"EndLoader"), 1
+                                                   getlocal0
+                                                   getlocal1
+                                                   callpropvoid QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"onError"), 1
+                                                   pushfalse
+                                                   returnvalue
+                                          ofs0028:
+                                                   pushtrue
+                                                   returnvalue
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                       
+                                       public function isStarted() : Boolean
+                                       {
+                                          trait method QName(PackageNamespace(""),"isStarted")
+                                             dispid 0
+                                             method
+                                                name null
+                                                returns QName(PackageNamespace(""),"Boolean")
+                                                
+                                                body
+                                                   maxstack 1
+                                                   localcount 1
+                                                   initscopedepth 6
+                                                   maxscopedepth 7
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      getlocal0
+                                                      getproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_starting")
+                                                      returnvalue
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                          }
+                                          
+                                          override public function close() : void
+                                          {
+                                             trait method QName(PackageNamespace(""),"close")
+                                                flag OVERRIDE
+                                                dispid 0
+                                                method
+                                                   name null
+                                                   returns QName(PackageNamespace(""),"void")
+                                                   
+                                                   body
+                                                      maxstack 2
+                                                      localcount 1
+                                                      initscopedepth 6
+                                                      maxscopedepth 7
+                                                      
+                                                      code
+                                                         getlocal0
+                                                         pushscope
+                                                         getlocal0
+                                                         pushfalse
+                                                         initproperty QName(ProtectedNamespace("unit4399.road.loader:BytesLoader"),"_starting")
+                                                         getlocal0
+                                                         callsupervoid QName(PackageNamespace(""),"close"), 0
+                                                         returnvoid
+                                                      end ; code
+                                                   end ; body
+                                                end ; method
+                                             }
+                                          }
+                                       }
+                                       
+                                       method
+                                          name null
+                                          returns null
+                                          
+                                          body
+                                             maxstack 2
+                                             localcount 1
+                                             initscopedepth 1
+                                             maxscopedepth 5
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                findpropstrict Multiname("BytesLoader",[PackageNamespace("unit4399.road.loader")])
+                                                getlex QName(PackageNamespace(""),"Object")
+                                                pushscope
+                                                getlex QName(PackageNamespace("flash.events"),"EventDispatcher")
+                                                pushscope
+                                                getlex QName(PackageNamespace("flash.net"),"URLLoader")
+                                                pushscope
+                                                getlex QName(PackageNamespace("flash.net"),"URLLoader")
+                                                newclass 17
+                                                popscope
+                                                popscope
+                                                popscope
+                                                initproperty QName(PackageNamespace("unit4399.road.loader"),"BytesLoader")
+                                                returnvoid
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                       

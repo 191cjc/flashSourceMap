@@ -1,0 +1,686 @@
+package mx.utils
+{
+   import flash.display.DisplayObject;
+   import flash.geom.Point;
+   import flash.geom.Vector3D;
+   import mx.core.AdvancedLayoutFeatures;
+   import mx.core.mx_internal;
+   
+   use namespace mx_internal;
+   
+   public final class TransformUtil
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      private static var xformPt:Point;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      public function TransformUtil()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 1
+               localcount 1
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      private static function needAdvancedLayout(param1:Vector3D, param2:Vector3D, param3:Vector3D, param4:Vector3D, param5:Vector3D, param6:Vector3D, param7:Vector3D) : Boolean
+      {
+         trait method QName(PrivateNamespace(null,"96"),"needAdvancedLayout")
+            flag FINAL
+            dispid 3
+            method
+               name null
+               param QName(PackageNamespace("flash.geom"),"Vector3D")
+               param QName(PackageNamespace("flash.geom"),"Vector3D")
+               param QName(PackageNamespace("flash.geom"),"Vector3D")
+               param QName(PackageNamespace("flash.geom"),"Vector3D")
+               param QName(PackageNamespace("flash.geom"),"Vector3D")
+               param QName(PackageNamespace("flash.geom"),"Vector3D")
+               param QName(PackageNamespace("flash.geom"),"Vector3D")
+               returns QName(PackageNamespace(""),"Boolean")
+               
+               body
+                  maxstack 2
+                  localcount 9
+                  initscopedepth 3
+                  maxscopedepth 4
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal2
+                     pushnull
+                     equals
+                     not
+                     dup
+                     iffalse ofs0066
+                     pop
+                     findpropstrict QName(PackageNamespace(""),"isNaN")
+                     getlocal2
+                     getproperty QName(PackageNamespace(""),"x")
+                     callproperty QName(PackageNamespace(""),"isNaN"), 1
+                     not
+                     dup
+                     iffalse ofs0026
+                     pop
+                     getlocal2
+                     getproperty QName(PackageNamespace(""),"x")
+                     pushbyte 1
+                     equals
+                     not
+            ofs0026:
+                     dup
+                     iftrue ofs0046
+                     pop
+                     findpropstrict QName(PackageNamespace(""),"isNaN")
+                     getlocal2
+                     getproperty QName(PackageNamespace(""),"y")
+                     callproperty QName(PackageNamespace(""),"isNaN"), 1
+                     not
+                     dup
+                     iffalse ofs0046
+                     pop
+                     getlocal2
+                     getproperty QName(PackageNamespace(""),"y")
+                     pushbyte 1
+                     equals
+                     not
+            ofs0046:
+                     dup
+                     iftrue ofs0066
+                     pop
+                     findpropstrict QName(PackageNamespace(""),"isNaN")
+                     getlocal2
+                     getproperty QName(PackageNamespace(""),"z")
+                     callproperty QName(PackageNamespace(""),"isNaN"), 1
+                     not
+                     dup
+                     iffalse ofs0066
+                     pop
+                     getlocal2
+                     getproperty QName(PackageNamespace(""),"z")
+                     pushbyte 1
+                     equals
+                     not
+            ofs0066:
+                     dup
+                     iftrue ofs00d0
+                     pop
+                     getlocal3
+                     pushnull
+                     equals
+                     not
+                     dup
+                     iffalse ofs00d0
+                     pop
+                     findpropstrict QName(PackageNamespace(""),"isNaN")
+                     getlocal3
+                     getproperty QName(PackageNamespace(""),"x")
+                     callproperty QName(PackageNamespace(""),"isNaN"), 1
+                     not
+                     dup
+                     iffalse ofs0090
+                     pop
+                     getlocal3
+                     getproperty QName(PackageNamespace(""),"x")
+                     pushbyte 0
+                     equals
+                     not
+            ofs0090:
+                     dup
+                     iftrue ofs00b0
+                     pop
+                     findpropstrict QName(PackageNamespace(""),"isNaN")
+                     getlocal3
+                     getproperty QName(PackageNamespace(""),"y")
+                     callproperty QName(PackageNamespace(""),"isNaN"), 1
+                     not
+                     dup
+                     iffalse ofs00b0
+                     pop
+                     getlocal3
+                     getproperty QName(PackageNamespace(""),"y")
+                     pushbyte 0
+                     equals
+                     not
+            ofs00b0:
+                     dup
+                     iftrue ofs00d0
+                     pop
+                     findpropstrict QName(PackageNamespace(""),"isNaN")
+                     getlocal3
+                     getproperty QName(PackageNamespace(""),"z")
+                     callproperty QName(PackageNamespace(""),"isNaN"), 1
+                     not
+                     dup
+                     iffalse ofs00d0
+                     pop
+                     getlocal3
+                     getproperty QName(PackageNamespace(""),"z")
+                     pushbyte 0
+                     equals
+                     not
+            ofs00d0:
+                     dup
+                     iftrue ofs00fd
+                     pop
+                     getlocal 4
+                     pushnull
+                     equals
+                     not
+                     dup
+                     iffalse ofs00ea
+                     pop
+                     getlocal 4
+                     getproperty QName(PackageNamespace(""),"z")
+                     pushbyte 0
+                     equals
+                     not
+            ofs00ea:
+                     dup
+                     iffalse ofs00fd
+                     pop
+                     findpropstrict QName(PackageNamespace(""),"isNaN")
+                     getlocal 4
+                     getproperty QName(PackageNamespace(""),"z")
+                     callproperty QName(PackageNamespace(""),"isNaN"), 1
+                     not
+            ofs00fd:
+                     dup
+                     iftrue ofs0108
+                     pop
+                     getlocal 5
+                     pushnull
+                     equals
+                     not
+            ofs0108:
+                     dup
+                     iftrue ofs0113
+                     pop
+                     getlocal 6
+                     pushnull
+                     equals
+                     not
+            ofs0113:
+                     dup
+                     iftrue ofs015e
+                     pop
+                     getlocal 7
+                     pushnull
+                     equals
+                     not
+                     dup
+                     iffalse ofs015e
+                     pop
+                     getlocal 4
+                     pushnull
+                     equals
+                     dup
+                     iftrue ofs013a
+                     pop
+                     getlocal 7
+                     getproperty QName(PackageNamespace(""),"x")
+                     getlocal 4
+                     getproperty QName(PackageNamespace(""),"x")
+                     equals
+                     not
+            ofs013a:
+                     dup
+                     iftrue ofs014c
+                     pop
+                     getlocal 7
+                     getproperty QName(PackageNamespace(""),"y")
+                     getlocal 4
+                     getproperty QName(PackageNamespace(""),"y")
+                     equals
+                     not
+            ofs014c:
+                     dup
+                     iftrue ofs015e
+                     pop
+                     getlocal 7
+                     getproperty QName(PackageNamespace(""),"z")
+                     getlocal 4
+                     getproperty QName(PackageNamespace(""),"z")
+                     equals
+                     not
+            ofs015e:
+                     convert_b
+                     dup
+                     setlocal 8
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public static function transformAround(param1:DisplayObject, param2:Vector3D, param3:Vector3D = null, param4:Vector3D = null, param5:Vector3D = null, param6:Vector3D = null, param7:Vector3D = null, param8:Vector3D = null, param9:AdvancedLayoutFeatures = null, param10:Function = null) : void
+         {
+            trait method QName(PackageNamespace(""),"transformAround")
+               flag FINAL
+               dispid 4
+               method
+                  name null
+                  flag HAS_OPTIONAL
+                  param QName(PackageNamespace("flash.display"),"DisplayObject")
+                  param QName(PackageNamespace("flash.geom"),"Vector3D")
+                  param QName(PackageNamespace("flash.geom"),"Vector3D")
+                  param QName(PackageNamespace("flash.geom"),"Vector3D")
+                  param QName(PackageNamespace("flash.geom"),"Vector3D")
+                  param QName(PackageNamespace("flash.geom"),"Vector3D")
+                  param QName(PackageNamespace("flash.geom"),"Vector3D")
+                  param QName(PackageNamespace("flash.geom"),"Vector3D")
+                  param QName(PackageNamespace("mx.core"),"AdvancedLayoutFeatures")
+                  param QName(PackageNamespace(""),"Function")
+                  optional Null()
+                  optional Null()
+                  optional Null()
+                  optional Null()
+                  optional Null()
+                  optional Null()
+                  optional Null()
+                  optional Null()
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 8
+                     localcount 14
+                     initscopedepth 3
+                     maxscopedepth 4
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        pushnull
+                        coerce QName(PackageNamespace("flash.geom"),"Point")
+                        setlocal 12
+                        pushnull
+                        coerce QName(PackageNamespace("flash.geom"),"Point")
+                        setlocal 13
+                        getlocal 9
+                        convert_b
+                        dup
+                        iftrue ofs0029
+                        pop
+                        findpropstrict QName(PrivateNamespace(null,"96"),"needAdvancedLayout")
+                        getlocal2
+                        getlocal3
+                        getlocal 4
+                        getlocal 5
+                        getlocal 6
+                        getlocal 7
+                        getlocal 8
+                        callproperty QName(PrivateNamespace(null,"96"),"needAdvancedLayout"), 7
+                        convert_b
+               ofs0029:
+                        convert_b
+                        dup
+                        setlocal 11
+                        iffalse ofs0065
+                        getlocal 9
+                        not
+                        dup
+                        iffalse ofs003f
+                        pop
+                        getlocal 10
+                        pushnull
+                        equals
+                        not
+               ofs003f:
+                        iffalse ofs004c
+                        getlocal 10
+                        getglobalscope
+                        call 0
+                        coerce QName(PackageNamespace("mx.core"),"AdvancedLayoutFeatures")
+                        setlocal 9
+               ofs004c:
+                        getlocal 9
+                        iffalse ofs0064
+                        getlocal 9
+                        getlocal2
+                        getlocal3
+                        getlocal 4
+                        getlocal 5
+                        getlocal 6
+                        getlocal 7
+                        getlocal 8
+                        callpropvoid QName(PackageNamespace(""),"transformAround"), 7
+               ofs0064:
+                        returnvoid
+               ofs0065:
+                        getlocal 5
+                        pushnull
+                        equals
+                        dup
+                        iffalse ofs0073
+                        pop
+                        getlocal2
+                        pushnull
+                        equals
+                        not
+               ofs0073:
+                        iffalse ofs00b0
+                        getlex QName(PrivateNamespace(null,"96"),"xformPt")
+                        pushnull
+                        ifne ofs008a
+                        findproperty QName(PrivateNamespace(null,"96"),"xformPt")
+                        findpropstrict QName(PackageNamespace("flash.geom"),"Point")
+                        constructprop QName(PackageNamespace("flash.geom"),"Point"), 0
+                        setproperty QName(PrivateNamespace(null,"96"),"xformPt")
+               ofs008a:
+                        getlex QName(PrivateNamespace(null,"96"),"xformPt")
+                        getlocal2
+                        getproperty QName(PackageNamespace(""),"x")
+                        setproperty QName(PackageNamespace(""),"x")
+                        getlex QName(PrivateNamespace(null,"96"),"xformPt")
+                        getlocal2
+                        getproperty QName(PackageNamespace(""),"y")
+                        setproperty QName(PackageNamespace(""),"y")
+                        getlocal1
+                        getproperty QName(PackageNamespace(""),"transform")
+                        getproperty QName(PackageNamespace(""),"matrix")
+                        getlex QName(PrivateNamespace(null,"96"),"xformPt")
+                        callproperty QName(PackageNamespace(""),"transformPoint"), 1
+                        coerce QName(PackageNamespace("flash.geom"),"Point")
+                        setlocal 12
+               ofs00b0:
+                        getlocal 4
+                        pushnull
+                        equals
+                        not
+                        dup
+                        iffalse ofs00c8
+                        pop
+                        findpropstrict QName(PackageNamespace(""),"isNaN")
+                        getlocal 4
+                        getproperty QName(PackageNamespace(""),"z")
+                        callproperty QName(PackageNamespace(""),"isNaN"), 1
+                        not
+               ofs00c8:
+                        iffalse ofs00d5
+                        getlocal1
+                        getlocal 4
+                        getproperty QName(PackageNamespace(""),"z")
+                        setproperty QName(PackageNamespace(""),"rotation")
+               ofs00d5:
+                        getlocal3
+                        pushnull
+                        ifeq ofs00eb
+                        getlocal1
+                        getlocal3
+                        getproperty QName(PackageNamespace(""),"x")
+                        setproperty QName(PackageNamespace(""),"scaleX")
+                        getlocal1
+                        getlocal3
+                        getproperty QName(PackageNamespace(""),"y")
+                        setproperty QName(PackageNamespace(""),"scaleY")
+               ofs00eb:
+                        getlocal2
+                        pushnull
+                        ifne ofs010e
+                        getlocal 5
+                        pushnull
+                        ifeq ofs010a
+                        getlocal1
+                        getlocal 5
+                        getproperty QName(PackageNamespace(""),"x")
+                        setproperty QName(PackageNamespace(""),"x")
+                        getlocal1
+                        getlocal 5
+                        getproperty QName(PackageNamespace(""),"y")
+                        setproperty QName(PackageNamespace(""),"y")
+               ofs010a:
+                        jump ofs01a2
+               ofs010e:
+                        getlex QName(PrivateNamespace(null,"96"),"xformPt")
+                        pushnull
+                        ifne ofs0121
+                        findproperty QName(PrivateNamespace(null,"96"),"xformPt")
+                        findpropstrict QName(PackageNamespace("flash.geom"),"Point")
+                        constructprop QName(PackageNamespace("flash.geom"),"Point"), 0
+                        setproperty QName(PrivateNamespace(null,"96"),"xformPt")
+               ofs0121:
+                        getlex QName(PrivateNamespace(null,"96"),"xformPt")
+                        getlocal2
+                        getproperty QName(PackageNamespace(""),"x")
+                        setproperty QName(PackageNamespace(""),"x")
+                        getlex QName(PrivateNamespace(null,"96"),"xformPt")
+                        getlocal2
+                        getproperty QName(PackageNamespace(""),"y")
+                        setproperty QName(PackageNamespace(""),"y")
+                        getlocal1
+                        getproperty QName(PackageNamespace(""),"transform")
+                        getproperty QName(PackageNamespace(""),"matrix")
+                        getlex QName(PrivateNamespace(null,"96"),"xformPt")
+                        callproperty QName(PackageNamespace(""),"transformPoint"), 1
+                        coerce QName(PackageNamespace("flash.geom"),"Point")
+                        setlocal 13
+                        getlocal 5
+                        pushnull
+                        ifeq ofs017a
+                        getlocal1
+                        getlocal1
+                        getproperty QName(PackageNamespace(""),"x")
+                        getlocal 5
+                        getproperty QName(PackageNamespace(""),"x")
+                        getlocal 13
+                        getproperty QName(PackageNamespace(""),"x")
+                        subtract
+                        add
+                        setproperty QName(PackageNamespace(""),"x")
+                        getlocal1
+                        getlocal1
+                        getproperty QName(PackageNamespace(""),"y")
+                        getlocal 5
+                        getproperty QName(PackageNamespace(""),"y")
+                        getlocal 13
+                        getproperty QName(PackageNamespace(""),"y")
+                        subtract
+                        add
+                        setproperty QName(PackageNamespace(""),"y")
+                        jump ofs01a2
+               ofs017a:
+                        getlocal1
+                        getlocal1
+                        getproperty QName(PackageNamespace(""),"x")
+                        getlocal 12
+                        getproperty QName(PackageNamespace(""),"x")
+                        getlocal 13
+                        getproperty QName(PackageNamespace(""),"x")
+                        subtract
+                        add
+                        setproperty QName(PackageNamespace(""),"x")
+                        getlocal1
+                        getlocal1
+                        getproperty QName(PackageNamespace(""),"y")
+                        getlocal 12
+                        getproperty QName(PackageNamespace(""),"y")
+                        getlocal 13
+                        getproperty QName(PackageNamespace(""),"y")
+                        subtract
+                        add
+                        setproperty QName(PackageNamespace(""),"y")
+               ofs01a2:
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public static function transformPointToParent(param1:DisplayObject, param2:Vector3D, param3:Vector3D, param4:Vector3D, param5:AdvancedLayoutFeatures) : void
+            {
+               trait method QName(PackageNamespace(""),"transformPointToParent")
+                  flag FINAL
+                  dispid 5
+                  method
+                     name null
+                     param QName(PackageNamespace("flash.display"),"DisplayObject")
+                     param QName(PackageNamespace("flash.geom"),"Vector3D")
+                     param QName(PackageNamespace("flash.geom"),"Vector3D")
+                     param QName(PackageNamespace("flash.geom"),"Vector3D")
+                     param QName(PackageNamespace("mx.core"),"AdvancedLayoutFeatures")
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 5
+                        localcount 7
+                        initscopedepth 3
+                        maxscopedepth 4
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal 5
+                           iffalse ofs0014
+                           getlocal 5
+                           pushtrue
+                           getlocal2
+                           getlocal3
+                           getlocal 4
+                           callpropvoid QName(PackageNamespace(""),"transformPointToParent"), 4
+                           returnvoid
+                  ofs0014:
+                           getlex QName(PrivateNamespace(null,"96"),"xformPt")
+                           pushnull
+                           ifne ofs0027
+                           findproperty QName(PrivateNamespace(null,"96"),"xformPt")
+                           findpropstrict QName(PackageNamespace("flash.geom"),"Point")
+                           constructprop QName(PackageNamespace("flash.geom"),"Point"), 0
+                           setproperty QName(PrivateNamespace(null,"96"),"xformPt")
+                  ofs0027:
+                           getlocal2
+                           iffalse ofs0044
+                           getlex QName(PrivateNamespace(null,"96"),"xformPt")
+                           getlocal2
+                           getproperty QName(PackageNamespace(""),"x")
+                           setproperty QName(PackageNamespace(""),"x")
+                           getlex QName(PrivateNamespace(null,"96"),"xformPt")
+                           getlocal2
+                           getproperty QName(PackageNamespace(""),"y")
+                           setproperty QName(PackageNamespace(""),"y")
+                           jump ofs0054
+                  ofs0044:
+                           getlex QName(PrivateNamespace(null,"96"),"xformPt")
+                           pushbyte 0
+                           setproperty QName(PackageNamespace(""),"x")
+                           getlex QName(PrivateNamespace(null,"96"),"xformPt")
+                           pushbyte 0
+                           setproperty QName(PackageNamespace(""),"y")
+                  ofs0054:
+                           getlocal1
+                           getproperty QName(PackageNamespace(""),"transform")
+                           getproperty QName(PackageNamespace(""),"matrix")
+                           pushnull
+                           ifeq ofs0074
+                           getlocal1
+                           getproperty QName(PackageNamespace(""),"transform")
+                           getproperty QName(PackageNamespace(""),"matrix")
+                           getlex QName(PrivateNamespace(null,"96"),"xformPt")
+                           callproperty QName(PackageNamespace(""),"transformPoint"), 1
+                           coerce QName(PackageNamespace("flash.geom"),"Point")
+                           jump ofs0079
+                  ofs0074:
+                           getlex QName(PrivateNamespace(null,"96"),"xformPt")
+                           coerce QName(PackageNamespace("flash.geom"),"Point")
+                  ofs0079:
+                           coerce QName(PackageNamespace("flash.geom"),"Point")
+                           setlocal 6
+                           getlocal3
+                           pushnull
+                           ifeq ofs009b
+                           getlocal3
+                           getlocal 6
+                           getproperty QName(PackageNamespace(""),"x")
+                           setproperty QName(PackageNamespace(""),"x")
+                           getlocal3
+                           getlocal 6
+                           getproperty QName(PackageNamespace(""),"y")
+                           setproperty QName(PackageNamespace(""),"y")
+                           getlocal3
+                           pushbyte 0
+                           setproperty QName(PackageNamespace(""),"z")
+                  ofs009b:
+                           getlocal 4
+                           pushnull
+                           ifeq ofs00bd
+                           getlocal 4
+                           getlocal 6
+                           getproperty QName(PackageNamespace(""),"x")
+                           setproperty QName(PackageNamespace(""),"x")
+                           getlocal 4
+                           getlocal 6
+                           getproperty QName(PackageNamespace(""),"y")
+                           setproperty QName(PackageNamespace(""),"y")
+                           getlocal 4
+                           pushbyte 0
+                           setproperty QName(PackageNamespace(""),"z")
+                  ofs00bd:
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+            }
+         }
+         
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 2
+               localcount 1
+               initscopedepth 1
+               maxscopedepth 3
+               
+               code
+                  getlocal0
+                  pushscope
+                  findpropstrict Multiname("TransformUtil",[PackageNamespace("mx.utils")])
+                  getlex QName(PackageNamespace(""),"Object")
+                  pushscope
+                  getlex QName(PackageNamespace(""),"Object")
+                  newclass 133
+                  popscope
+                  initproperty QName(PackageNamespace("mx.utils"),"TransformUtil")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+         

@@ -1,0 +1,762 @@
+package mx.core
+{
+   import flash.events.EventDispatcher;
+   import mx.events.PropertyChangeEvent;
+   import mx.events.PropertyChangeEventKind;
+   
+   public class DesignLayer extends EventDispatcher implements IMXMLObject
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 4
+            maxscopedepth 5
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var _id:String;
+      
+      private var _parent:DesignLayer;
+      
+      private var layerChildren:Array;
+      
+      private var _visible:Boolean = true;
+      
+      private var _alpha:Number = 1;
+      
+      public function DesignLayer()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 2
+               localcount 1
+               initscopedepth 5
+               maxscopedepth 6
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  findpropstrict QName(PackageNamespace(""),"Array")
+                  constructprop QName(PackageNamespace(""),"Array"), 0
+                  initproperty QName(PrivateNamespace(null,"33"),"layerChildren")
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function get id() : String
+      {
+         trait getter QName(PackageNamespace(""),"id")
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace(""),"String")
+               
+               body
+                  maxstack 1
+                  localcount 1
+                  initscopedepth 5
+                  maxscopedepth 6
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"33"),"_id")
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function set id(param1:String) : void
+         {
+            trait setter QName(PackageNamespace(""),"id")
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace(""),"String")
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 2
+                     localcount 2
+                     initscopedepth 5
+                     maxscopedepth 6
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        getlocal1
+                        initproperty QName(PrivateNamespace(null,"33"),"_id")
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function get parent() : DesignLayer
+            {
+               trait getter QName(PackageNamespace(""),"parent")
+                  dispid 0
+                  method
+                     name null
+                     returns QName(PackageNamespace("mx.core"),"DesignLayer")
+                     
+                     body
+                        maxstack 1
+                        localcount 1
+                        initscopedepth 5
+                        maxscopedepth 6
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"33"),"_parent")
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               protected function parentChanged(param1:DesignLayer) : void
+               {
+                  trait method QName(ProtectedNamespace("mx.core:DesignLayer"),"parentChanged")
+                     dispid 0
+                     method
+                        name null
+                        param QName(PackageNamespace("mx.core"),"DesignLayer")
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 2
+                           localcount 2
+                           initscopedepth 5
+                           maxscopedepth 6
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"33"),"_parent")
+                              convert_b
+                              dup
+                              iffalse ofs000f
+                              pop
+                              getlocal1
+                              convert_b
+                     ofs000f:
+                              iffalse ofs001c
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"33"),"_parent")
+                              getlocal0
+                              callpropvoid QName(PackageNamespace(""),"removeLayer"), 1
+                     ofs001c:
+                              getlocal0
+                              getlocal1
+                              initproperty QName(PrivateNamespace(null,"33"),"_parent")
+                              getlocal0
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"33"),"_visible")
+                              callpropvoid QName(ProtectedNamespace("mx.core:DesignLayer"),"effectiveVisibilityChanged"), 1
+                              getlocal0
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"33"),"_alpha")
+                              callpropvoid QName(ProtectedNamespace("mx.core:DesignLayer"),"effectiveAlphaChanged"), 1
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function get visible() : Boolean
+                  {
+                     trait getter QName(PackageNamespace(""),"visible")
+                        dispid 0
+                        method
+                           name null
+                           returns QName(PackageNamespace(""),"Boolean")
+                           
+                           body
+                              maxstack 1
+                              localcount 1
+                              initscopedepth 5
+                              maxscopedepth 6
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"33"),"_visible")
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public function set visible(param1:Boolean) : void
+                     {
+                        trait setter QName(PackageNamespace(""),"visible")
+                           dispid 0
+                           method
+                              name null
+                              param QName(PackageNamespace(""),"Boolean")
+                              returns QName(PackageNamespace(""),"void")
+                              
+                              body
+                                 maxstack 2
+                                 localcount 2
+                                 initscopedepth 5
+                                 maxscopedepth 6
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"33"),"_visible")
+                                    getlocal1
+                                    ifeq ofs0019
+                                    getlocal0
+                                    getlocal1
+                                    initproperty QName(PrivateNamespace(null,"33"),"_visible")
+                                    getlocal0
+                                    getlocal0
+                                    getproperty QName(PackageNamespace(""),"effectiveVisibility")
+                                    callpropvoid QName(ProtectedNamespace("mx.core:DesignLayer"),"effectiveVisibilityChanged"), 1
+                           ofs0019:
+                                    returnvoid
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        public function get effectiveVisibility() : Boolean
+                        {
+                           trait getter QName(PackageNamespace(""),"effectiveVisibility")
+                              dispid 0
+                              method
+                                 name null
+                                 returns QName(PackageNamespace(""),"Boolean")
+                                 
+                                 body
+                                    maxstack 2
+                                    localcount 3
+                                    initscopedepth 5
+                                    maxscopedepth 6
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"33"),"_visible")
+                                       convert_b
+                                       setlocal1
+                                       getlocal0
+                                       coerce QName(PackageNamespace("mx.core"),"DesignLayer")
+                                       setlocal2
+                                       jump ofs001e
+                              ofs0010:
+                                       label
+                                       getlocal2
+                                       getproperty QName(PackageNamespace(""),"parent")
+                                       coerce QName(PackageNamespace("mx.core"),"DesignLayer")
+                                       setlocal2
+                                       getlocal2
+                                       getproperty QName(PackageNamespace(""),"visible")
+                                       convert_b
+                                       setlocal1
+                              ofs001e:
+                                       getlocal1
+                                       convert_b
+                                       dup
+                                       iffalse ofs002b
+                                       pop
+                                       getlocal2
+                                       getproperty QName(PackageNamespace(""),"parent")
+                                       convert_b
+                              ofs002b:
+                                       iftrue ofs0010
+                                       getlocal1
+                                       returnvalue
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           protected function effectiveVisibilityChanged(param1:Boolean) : void
+                           {
+                              trait method QName(ProtectedNamespace("mx.core:DesignLayer"),"effectiveVisibilityChanged")
+                                 dispid 0
+                                 method
+                                    name null
+                                    param QName(PackageNamespace(""),"Boolean")
+                                    returns QName(PackageNamespace(""),"void")
+                                    
+                                    body
+                                       maxstack 9
+                                       localcount 4
+                                       initscopedepth 5
+                                       maxscopedepth 6
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          pushnull
+                                          coerce QName(PackageNamespace("mx.core"),"DesignLayer")
+                                          setlocal3
+                                          findpropstrict QName(PackageNamespace(""),"dispatchEvent")
+                                          findpropstrict QName(PackageNamespace("mx.events"),"PropertyChangeEvent")
+                                          pushstring "layerPropertyChange"
+                                          pushfalse
+                                          pushfalse
+                                          getlex QName(PackageNamespace("mx.events"),"PropertyChangeEventKind")
+                                          getproperty QName(PackageNamespace(""),"UPDATE")
+                                          pushstring "effectiveVisibility"
+                                          getlocal0
+                                          getproperty QName(PackageNamespace(""),"effectiveVisibility")
+                                          not
+                                          getlocal0
+                                          getproperty QName(PackageNamespace(""),"effectiveVisibility")
+                                          constructprop QName(PackageNamespace("mx.events"),"PropertyChangeEvent"), 7
+                                          callpropvoid QName(PackageNamespace(""),"dispatchEvent"), 1
+                                          pushbyte 0
+                                          setlocal2
+                                          jump ofs004c
+                                 ofs0030:
+                                          label
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"33"),"layerChildren")
+                                          getlocal2
+                                          getproperty MultinameL([PrivateNamespace(null,"33"),PackageNamespace(""),PackageNamespace("mx.core"),ProtectedNamespace("mx.core:DesignLayer"),PrivateNamespace(null,"138"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("mx.core:DesignLayer"),StaticProtectedNs("flash.events:EventDispatcher")])
+                                          coerce QName(PackageNamespace("mx.core"),"DesignLayer")
+                                          setlocal3
+                                          getlocal3
+                                          getproperty QName(PackageNamespace(""),"visible")
+                                          iffalse ofs004a
+                                          getlocal3
+                                          getlocal1
+                                          callpropvoid QName(ProtectedNamespace("mx.core:DesignLayer"),"effectiveVisibilityChanged"), 1
+                                 ofs004a:
+                                          inclocal_i 2
+                                 ofs004c:
+                                          getlocal2
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"33"),"layerChildren")
+                                          getproperty QName(PackageNamespace(""),"length")
+                                          iflt ofs0030
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              public function get alpha() : Number
+                              {
+                                 trait getter QName(PackageNamespace(""),"alpha")
+                                    dispid 0
+                                    method
+                                       name null
+                                       returns QName(PackageNamespace(""),"Number")
+                                       
+                                       body
+                                          maxstack 1
+                                          localcount 1
+                                          initscopedepth 5
+                                          maxscopedepth 6
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlocal0
+                                             getproperty QName(PrivateNamespace(null,"33"),"_alpha")
+                                             returnvalue
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 public function set alpha(param1:Number) : void
+                                 {
+                                    trait setter QName(PackageNamespace(""),"alpha")
+                                       dispid 0
+                                       method
+                                          name null
+                                          param QName(PackageNamespace(""),"Number")
+                                          returns QName(PackageNamespace(""),"void")
+                                          
+                                          body
+                                             maxstack 2
+                                             localcount 3
+                                             initscopedepth 5
+                                             maxscopedepth 6
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                pushnan
+                                                setlocal2
+                                                getlocal0
+                                                getproperty QName(PrivateNamespace(null,"33"),"_alpha")
+                                                getlocal1
+                                                ifeq ofs001e
+                                                getlocal0
+                                                getproperty QName(PrivateNamespace(null,"33"),"_alpha")
+                                                convert_d
+                                                setlocal2
+                                                getlocal0
+                                                getlocal1
+                                                initproperty QName(PrivateNamespace(null,"33"),"_alpha")
+                                                getlocal0
+                                                getlocal2
+                                                callpropvoid QName(ProtectedNamespace("mx.core:DesignLayer"),"effectiveAlphaChanged"), 1
+                                       ofs001e:
+                                                returnvoid
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    public function get effectiveAlpha() : Number
+                                    {
+                                       trait getter QName(PackageNamespace(""),"effectiveAlpha")
+                                          dispid 0
+                                          method
+                                             name null
+                                             returns QName(PackageNamespace(""),"Number")
+                                             
+                                             body
+                                                maxstack 2
+                                                localcount 3
+                                                initscopedepth 5
+                                                maxscopedepth 6
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   getlocal0
+                                                   getproperty QName(PrivateNamespace(null,"33"),"_alpha")
+                                                   convert_d
+                                                   setlocal1
+                                                   getlocal0
+                                                   coerce QName(PackageNamespace("mx.core"),"DesignLayer")
+                                                   setlocal2
+                                                   jump ofs0020
+                                          ofs0010:
+                                                   label
+                                                   getlocal2
+                                                   getproperty QName(PackageNamespace(""),"parent")
+                                                   coerce QName(PackageNamespace("mx.core"),"DesignLayer")
+                                                   setlocal2
+                                                   getlocal1
+                                                   getlocal2
+                                                   getproperty QName(PackageNamespace(""),"alpha")
+                                                   multiply
+                                                   convert_d
+                                                   setlocal1
+                                          ofs0020:
+                                                   getlocal2
+                                                   getproperty QName(PackageNamespace(""),"parent")
+                                                   iftrue ofs0010
+                                                   getlocal1
+                                                   returnvalue
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                       
+                                       protected function effectiveAlphaChanged(param1:Number) : void
+                                       {
+                                          trait method QName(ProtectedNamespace("mx.core:DesignLayer"),"effectiveAlphaChanged")
+                                             dispid 0
+                                             method
+                                                name null
+                                                param QName(PackageNamespace(""),"Number")
+                                                returns QName(PackageNamespace(""),"void")
+                                                
+                                                body
+                                                   maxstack 9
+                                                   localcount 4
+                                                   initscopedepth 5
+                                                   maxscopedepth 6
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      pushnull
+                                                      coerce QName(PackageNamespace("mx.core"),"DesignLayer")
+                                                      setlocal3
+                                                      findpropstrict QName(PackageNamespace(""),"dispatchEvent")
+                                                      findpropstrict QName(PackageNamespace("mx.events"),"PropertyChangeEvent")
+                                                      pushstring "layerPropertyChange"
+                                                      pushfalse
+                                                      pushfalse
+                                                      getlex QName(PackageNamespace("mx.events"),"PropertyChangeEventKind")
+                                                      getproperty QName(PackageNamespace(""),"UPDATE")
+                                                      pushstring "effectiveAlpha"
+                                                      getlocal1
+                                                      getlocal0
+                                                      getproperty QName(PackageNamespace(""),"effectiveAlpha")
+                                                      constructprop QName(PackageNamespace("mx.events"),"PropertyChangeEvent"), 7
+                                                      callpropvoid QName(PackageNamespace(""),"dispatchEvent"), 1
+                                                      pushbyte 0
+                                                      setlocal2
+                                                      jump ofs0043
+                                             ofs002c:
+                                                      label
+                                                      getlocal0
+                                                      getproperty QName(PrivateNamespace(null,"33"),"layerChildren")
+                                                      getlocal2
+                                                      getproperty MultinameL([PrivateNamespace(null,"33"),PackageNamespace(""),PackageNamespace("mx.core"),ProtectedNamespace("mx.core:DesignLayer"),PrivateNamespace(null,"138"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("mx.core:DesignLayer"),StaticProtectedNs("flash.events:EventDispatcher")])
+                                                      coerce QName(PackageNamespace("mx.core"),"DesignLayer")
+                                                      setlocal3
+                                                      getlocal3
+                                                      getlocal3
+                                                      getproperty QName(PackageNamespace(""),"alpha")
+                                                      callpropvoid QName(ProtectedNamespace("mx.core:DesignLayer"),"effectiveAlphaChanged"), 1
+                                                      inclocal_i 2
+                                             ofs0043:
+                                                      getlocal2
+                                                      getlocal0
+                                                      getproperty QName(PrivateNamespace(null,"33"),"layerChildren")
+                                                      getproperty QName(PackageNamespace(""),"length")
+                                                      iflt ofs002c
+                                                      returnvoid
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                          }
+                                          
+                                          public function get numLayers() : int
+                                          {
+                                             trait getter QName(PackageNamespace(""),"numLayers")
+                                                dispid 0
+                                                method
+                                                   name null
+                                                   returns QName(PackageNamespace(""),"int")
+                                                   
+                                                   body
+                                                      maxstack 1
+                                                      localcount 1
+                                                      initscopedepth 5
+                                                      maxscopedepth 6
+                                                      
+                                                      code
+                                                         getlocal0
+                                                         pushscope
+                                                         getlocal0
+                                                         getproperty QName(PrivateNamespace(null,"33"),"layerChildren")
+                                                         getproperty QName(PackageNamespace(""),"length")
+                                                         returnvalue
+                                                      end ; code
+                                                   end ; body
+                                                end ; method
+                                             }
+                                             
+                                             public function addLayer(param1:DesignLayer) : void
+                                             {
+                                                trait method QName(PackageNamespace(""),"addLayer")
+                                                   dispid 0
+                                                   method
+                                                      name null
+                                                      param QName(PackageNamespace("mx.core"),"DesignLayer")
+                                                      returns QName(PackageNamespace(""),"void")
+                                                      
+                                                      body
+                                                         maxstack 2
+                                                         localcount 2
+                                                         initscopedepth 5
+                                                         maxscopedepth 6
+                                                         
+                                                         code
+                                                            getlocal0
+                                                            pushscope
+                                                            getlocal1
+                                                            getlocal0
+                                                            callpropvoid QName(ProtectedNamespace("mx.core:DesignLayer"),"parentChanged"), 1
+                                                            getlocal0
+                                                            getproperty QName(PrivateNamespace(null,"33"),"layerChildren")
+                                                            getlocal1
+                                                            callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 1
+                                                            returnvoid
+                                                         end ; code
+                                                      end ; body
+                                                   end ; method
+                                                }
+                                                
+                                                public function getLayerAt(param1:int) : DesignLayer
+                                                {
+                                                   trait method QName(PackageNamespace(""),"getLayerAt")
+                                                      dispid 0
+                                                      method
+                                                         name null
+                                                         param QName(PackageNamespace(""),"int")
+                                                         returns QName(PackageNamespace("mx.core"),"DesignLayer")
+                                                         
+                                                         body
+                                                            maxstack 2
+                                                            localcount 2
+                                                            initscopedepth 5
+                                                            maxscopedepth 6
+                                                            
+                                                            code
+                                                               getlocal0
+                                                               pushscope
+                                                               getlocal1
+                                                               getlocal0
+                                                               getproperty QName(PrivateNamespace(null,"33"),"layerChildren")
+                                                               getproperty QName(PackageNamespace(""),"length")
+                                                               lessthan
+                                                               dup
+                                                               iffalse ofs0015
+                                                               pop
+                                                               getlocal1
+                                                               pushbyte 0
+                                                               greaterequals
+                                                      ofs0015:
+                                                               iffalse ofs0027
+                                                               getlocal0
+                                                               getproperty QName(PrivateNamespace(null,"33"),"layerChildren")
+                                                               getlocal1
+                                                               getproperty MultinameL([PrivateNamespace(null,"33"),PackageNamespace(""),PackageNamespace("mx.core"),ProtectedNamespace("mx.core:DesignLayer"),PrivateNamespace(null,"138"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("mx.core:DesignLayer"),StaticProtectedNs("flash.events:EventDispatcher")])
+                                                               coerce QName(PackageNamespace("mx.core"),"DesignLayer")
+                                                               jump ofs002a
+                                                      ofs0027:
+                                                               pushnull
+                                                               coerce QName(PackageNamespace("mx.core"),"DesignLayer")
+                                                      ofs002a:
+                                                               returnvalue
+                                                            end ; code
+                                                         end ; body
+                                                      end ; method
+                                                   }
+                                                   
+                                                   public function initialized(param1:Object, param2:String) : void
+                                                   {
+                                                      trait method QName(PackageNamespace(""),"initialized")
+                                                         dispid 0
+                                                         method
+                                                            name null
+                                                            param QName(PackageNamespace(""),"Object")
+                                                            param QName(PackageNamespace(""),"String")
+                                                            returns QName(PackageNamespace(""),"void")
+                                                            
+                                                            body
+                                                               maxstack 2
+                                                               localcount 3
+                                                               initscopedepth 5
+                                                               maxscopedepth 6
+                                                               
+                                                               code
+                                                                  getlocal0
+                                                                  pushscope
+                                                                  getlocal0
+                                                                  getlocal2
+                                                                  setproperty QName(PackageNamespace(""),"id")
+                                                                  returnvoid
+                                                               end ; code
+                                                            end ; body
+                                                         end ; method
+                                                      }
+                                                      
+                                                      public function removeLayer(param1:DesignLayer) : void
+                                                      {
+                                                         trait method QName(PackageNamespace(""),"removeLayer")
+                                                            dispid 0
+                                                            method
+                                                               name null
+                                                               param QName(PackageNamespace("mx.core"),"DesignLayer")
+                                                               returns QName(PackageNamespace(""),"void")
+                                                               
+                                                               body
+                                                                  maxstack 3
+                                                                  localcount 3
+                                                                  initscopedepth 5
+                                                                  maxscopedepth 6
+                                                                  
+                                                                  code
+                                                                     getlocal0
+                                                                     pushscope
+                                                                     pushbyte 0
+                                                                     setlocal2
+                                                                     jump ofs002b
+                                                            ofs0009:
+                                                                     label
+                                                                     getlocal0
+                                                                     getproperty QName(PrivateNamespace(null,"33"),"layerChildren")
+                                                                     getlocal2
+                                                                     getproperty MultinameL([PrivateNamespace(null,"33"),PackageNamespace(""),PackageNamespace("mx.core"),ProtectedNamespace("mx.core:DesignLayer"),PrivateNamespace(null,"138"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("mx.core:DesignLayer"),StaticProtectedNs("flash.events:EventDispatcher")])
+                                                                     getlocal1
+                                                                     ifne ofs0029
+                                                                     getlocal1
+                                                                     pushnull
+                                                                     callpropvoid QName(ProtectedNamespace("mx.core:DesignLayer"),"parentChanged"), 1
+                                                                     getlocal0
+                                                                     getproperty QName(PrivateNamespace(null,"33"),"layerChildren")
+                                                                     getlocal2
+                                                                     pushbyte 1
+                                                                     callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"splice"), 2
+                                                                     returnvoid
+                                                            ofs0029:
+                                                                     inclocal_i 2
+                                                            ofs002b:
+                                                                     getlocal2
+                                                                     getlocal0
+                                                                     getproperty QName(PrivateNamespace(null,"33"),"layerChildren")
+                                                                     getproperty QName(PackageNamespace(""),"length")
+                                                                     iflt ofs0009
+                                                                     returnvoid
+                                                                  end ; code
+                                                               end ; body
+                                                            end ; method
+                                                         }
+                                                      }
+                                                   }
+                                                   
+                                                   method
+                                                      name null
+                                                      returns null
+                                                      
+                                                      body
+                                                         maxstack 2
+                                                         localcount 1
+                                                         initscopedepth 1
+                                                         maxscopedepth 4
+                                                         
+                                                         code
+                                                            getlocal0
+                                                            pushscope
+                                                            findpropstrict Multiname("DesignLayer",[PackageNamespace("mx.core")])
+                                                            getlex QName(PackageNamespace(""),"Object")
+                                                            pushscope
+                                                            getlex QName(PackageNamespace("flash.events"),"EventDispatcher")
+                                                            pushscope
+                                                            getlex QName(PackageNamespace("flash.events"),"EventDispatcher")
+                                                            newclass 102
+                                                            popscope
+                                                            popscope
+                                                            initproperty QName(PackageNamespace("mx.core"),"DesignLayer")
+                                                            returnvoid
+                                                         end ; code
+                                                      end ; body
+                                                   end ; method
+                                                   

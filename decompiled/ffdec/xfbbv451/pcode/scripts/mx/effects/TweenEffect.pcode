@@ -1,0 +1,185 @@
+package mx.effects
+{
+   import flash.events.EventDispatcher;
+   import mx.core.mx_internal;
+   import mx.effects.effectClasses.TweenEffectInstance;
+   import mx.events.TweenEvent;
+   
+   use namespace mx_internal;
+   
+   public class TweenEffect extends Effect
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 5
+            maxscopedepth 6
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      public var easingFunction:Function = null;
+      
+      public function TweenEffect(param1:Object = null)
+      {
+         method
+            name null
+            flag HAS_OPTIONAL
+            param QName(PackageNamespace(""),"Object")
+            optional Null()
+            returns null
+            
+            body
+               maxstack 2
+               localcount 2
+               initscopedepth 6
+               maxscopedepth 7
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  getlocal1
+                  constructsuper 1
+                  findproperty QName(PackageNamespace(""),"instanceClass")
+                  getlex QName(PackageNamespace("mx.effects.effectClasses"),"TweenEffectInstance")
+                  initproperty QName(PackageNamespace(""),"instanceClass")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      override protected function initInstance(param1:IEffectInstance) : void
+      {
+         trait method QName(ProtectedNamespace("mx.effects:TweenEffect"),"initInstance")
+            flag OVERRIDE
+            dispid 0
+            method
+               name null
+               param QName(PackageNamespace("mx.effects"),"IEffectInstance")
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 3
+                  localcount 2
+                  initscopedepth 6
+                  maxscopedepth 7
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getlocal1
+                     callsupervoid QName(ProtectedNamespace("mx.effects:Effect"),"initInstance"), 1
+                     findpropstrict QName(PackageNamespace("mx.effects.effectClasses"),"TweenEffectInstance")
+                     getlocal1
+                     callproperty QName(PackageNamespace("mx.effects.effectClasses"),"TweenEffectInstance"), 1
+                     getlocal0
+                     getproperty QName(PackageNamespace(""),"easingFunction")
+                     setproperty QName(PackageNamespace(""),"easingFunction")
+                     findpropstrict QName(PackageNamespace("flash.events"),"EventDispatcher")
+                     getlocal1
+                     callproperty QName(PackageNamespace("flash.events"),"EventDispatcher"), 1
+                     getlex QName(PackageNamespace("mx.events"),"TweenEvent")
+                     getproperty QName(PackageNamespace(""),"TWEEN_START")
+                     getlocal0
+                     getproperty QName(ProtectedNamespace("mx.effects:TweenEffect"),"tweenEventHandler")
+                     callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                     findpropstrict QName(PackageNamespace("flash.events"),"EventDispatcher")
+                     getlocal1
+                     callproperty QName(PackageNamespace("flash.events"),"EventDispatcher"), 1
+                     getlex QName(PackageNamespace("mx.events"),"TweenEvent")
+                     getproperty QName(PackageNamespace(""),"TWEEN_UPDATE")
+                     getlocal0
+                     getproperty QName(ProtectedNamespace("mx.effects:TweenEffect"),"tweenEventHandler")
+                     callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                     findpropstrict QName(PackageNamespace("flash.events"),"EventDispatcher")
+                     getlocal1
+                     callproperty QName(PackageNamespace("flash.events"),"EventDispatcher"), 1
+                     getlex QName(PackageNamespace("mx.events"),"TweenEvent")
+                     getproperty QName(PackageNamespace(""),"TWEEN_END")
+                     getlocal0
+                     getproperty QName(ProtectedNamespace("mx.effects:TweenEffect"),"tweenEventHandler")
+                     callpropvoid QName(PackageNamespace(""),"addEventListener"), 2
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         protected function tweenEventHandler(param1:TweenEvent) : void
+         {
+            trait method QName(ProtectedNamespace("mx.effects:TweenEffect"),"tweenEventHandler")
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace("mx.events"),"TweenEvent")
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 2
+                     localcount 2
+                     initscopedepth 6
+                     maxscopedepth 7
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        findpropstrict QName(PackageNamespace(""),"dispatchEvent")
+                        getlocal1
+                        callpropvoid QName(PackageNamespace(""),"dispatchEvent"), 1
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+         }
+      }
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 1
+            maxscopedepth 5
+            
+            code
+               getlocal0
+               pushscope
+               findpropstrict Multiname("TweenEffect",[PackageNamespace("mx.effects")])
+               getlex QName(PackageNamespace(""),"Object")
+               pushscope
+               getlex QName(PackageNamespace("flash.events"),"EventDispatcher")
+               pushscope
+               getlex QName(PackageNamespace("mx.effects"),"Effect")
+               pushscope
+               getlex QName(PackageNamespace("mx.effects"),"Effect")
+               newclass 203
+               popscope
+               popscope
+               popscope
+               initproperty QName(PackageNamespace("mx.effects"),"TweenEffect")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      

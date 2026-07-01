@@ -1,0 +1,412 @@
+package hotpointgame.gxiaodongxi
+{
+   import flash.display.*;
+   import hotpointgame.utils.gameloader.*;
+   
+   public class HpMcManager
+   {
+      
+      public static var self:HpMcManager;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(PackageNamespace(""),"self")
+               getlocal0
+               construct 0
+               setproperty QName(PackageNamespace(""),"self")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var mcArra:Vector.<MovieClip>;
+      
+      private var mcArrb:Vector.<MovieClip>;
+      
+      private var mcArrc:Vector.<MovieClip>;
+      
+      private var curn:int = -1;
+      
+      private var totaln:int = 50;
+      
+      private var totalnm:int;
+      
+      private var curnb:int = -1;
+      
+      private var totalnb:int = 15;
+      
+      private var totalnmb:int;
+      
+      private var curnc:int = -1;
+      
+      private var totalnc:int = 15;
+      
+      private var totalnmc:int;
+      
+      public function HpMcManager()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 3
+               localcount 8
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  pushnull
+                  coerce QName(PackageNamespace("flash.display"),"MovieClip")
+                  setlocal 5
+                  pushnull
+                  coerce QName(PackageNamespace("flash.display"),"MovieClip")
+                  setlocal 6
+                  pushnull
+                  coerce QName(PackageNamespace("flash.display"),"MovieClip")
+                  setlocal 7
+                  getlocal0
+                  getlex Multiname("Vector",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager"),PackageNamespace("__AS3__.vec")])
+                  getlex Multiname("MovieClip",[PrivateNamespace(null,"186"),PackageNamespace(""),PackageNamespace("flash.display"),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  applytype 1
+                  construct 0
+                  initproperty QName(PrivateNamespace(null,"186"),"mcArra")
+                  getlocal0
+                  getlex Multiname("Vector",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager"),PackageNamespace("__AS3__.vec")])
+                  getlex Multiname("MovieClip",[PrivateNamespace(null,"186"),PackageNamespace(""),PackageNamespace("flash.display"),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  applytype 1
+                  construct 0
+                  initproperty QName(PrivateNamespace(null,"186"),"mcArrb")
+                  getlocal0
+                  getlex Multiname("Vector",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager"),PackageNamespace("__AS3__.vec")])
+                  getlex Multiname("MovieClip",[PrivateNamespace(null,"186"),PackageNamespace(""),PackageNamespace("flash.display"),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  applytype 1
+                  construct 0
+                  initproperty QName(PrivateNamespace(null,"186"),"mcArrc")
+                  getlocal0
+                  getlocal0
+                  getproperty Multiname("totaln",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  decrement
+                  initproperty QName(PrivateNamespace(null,"186"),"totalnm")
+                  getlocal0
+                  getlocal0
+                  getproperty Multiname("totalnb",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  decrement
+                  initproperty QName(PrivateNamespace(null,"186"),"totalnmb")
+                  getlocal0
+                  getlocal0
+                  getproperty Multiname("totalnc",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  decrement
+                  initproperty QName(PrivateNamespace(null,"186"),"totalnmc")
+                  getlocal0
+                  constructsuper 0
+                  getlex Multiname("LoaderManager",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager"),PackageNamespace("hotpointgame.utils.gameloader")])
+                  pushstring "gongjijihesu"
+                  callproperty Multiname("getSwfClass",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")]), 1
+                  getlex Multiname("Class",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  astypelate
+                  coerce QName(PackageNamespace(""),"Class")
+                  setlocal1
+                  pushbyte 0
+                  setlocal2
+                  jump ofs00ba
+         ofs007d:
+                  label
+                  getlocal1
+                  construct 0
+                  getlex Multiname("MovieClip",[PrivateNamespace(null,"186"),PackageNamespace(""),PackageNamespace("flash.display"),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  astypelate
+                  coerce QName(PackageNamespace("flash.display"),"MovieClip")
+                  dup
+                  setlocal 5
+                  callpropvoid Multiname("stop",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")]), 0
+                  getlocal 5
+                  pushstring "wuxing"
+                  getproperty MultinameL([PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  getlex Multiname("MovieClip",[PrivateNamespace(null,"186"),PackageNamespace(""),PackageNamespace("flash.display"),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  astypelate
+                  pushbyte 1
+                  callpropvoid Multiname("gotoAndStop",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")]), 1
+                  getlocal 5
+                  pushtrue
+                  setproperty Multiname("cacheAsBitmap",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  getlocal0
+                  getproperty Multiname("mcArra",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  getlocal 5
+                  callpropvoid Multiname("push",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")]), 1
+                  inclocal_i 2
+         ofs00ba:
+                  getlocal2
+                  getlocal0
+                  getproperty Multiname("totaln",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  iflt ofs007d
+                  getlex Multiname("LoaderManager",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager"),PackageNamespace("hotpointgame.utils.gameloader")])
+                  pushstring "beigongjijihesu"
+                  callproperty Multiname("getSwfClass",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")]), 1
+                  getlex Multiname("Class",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  astypelate
+                  coerce QName(PackageNamespace(""),"Class")
+                  setlocal1
+                  pushbyte 0
+                  setlocal3
+                  jump ofs011c
+         ofs00df:
+                  label
+                  getlocal1
+                  construct 0
+                  getlex Multiname("MovieClip",[PrivateNamespace(null,"186"),PackageNamespace(""),PackageNamespace("flash.display"),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  astypelate
+                  coerce QName(PackageNamespace("flash.display"),"MovieClip")
+                  dup
+                  setlocal 6
+                  callpropvoid Multiname("stop",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")]), 0
+                  getlocal 6
+                  pushstring "wuxing"
+                  getproperty MultinameL([PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  getlex Multiname("MovieClip",[PrivateNamespace(null,"186"),PackageNamespace(""),PackageNamespace("flash.display"),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  astypelate
+                  pushbyte 1
+                  callpropvoid Multiname("gotoAndStop",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")]), 1
+                  getlocal 6
+                  pushtrue
+                  setproperty Multiname("cacheAsBitmap",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  getlocal0
+                  getproperty Multiname("mcArrb",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  getlocal 6
+                  callpropvoid Multiname("push",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")]), 1
+                  inclocal_i 3
+         ofs011c:
+                  getlocal3
+                  getlocal0
+                  getproperty Multiname("totalnb",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  iflt ofs00df
+                  getlex Multiname("LoaderManager",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager"),PackageNamespace("hotpointgame.utils.gameloader")])
+                  pushstring "baojijihesu"
+                  callproperty Multiname("getSwfClass",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")]), 1
+                  getlex Multiname("Class",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  astypelate
+                  coerce QName(PackageNamespace(""),"Class")
+                  setlocal1
+                  pushbyte 0
+                  setlocal 4
+                  jump ofs017f
+         ofs0142:
+                  label
+                  getlocal1
+                  construct 0
+                  getlex Multiname("MovieClip",[PrivateNamespace(null,"186"),PackageNamespace(""),PackageNamespace("flash.display"),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  astypelate
+                  coerce QName(PackageNamespace("flash.display"),"MovieClip")
+                  dup
+                  setlocal 7
+                  callpropvoid Multiname("stop",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")]), 0
+                  getlocal 7
+                  pushstring "wuxing"
+                  getproperty MultinameL([PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  getlex Multiname("MovieClip",[PrivateNamespace(null,"186"),PackageNamespace(""),PackageNamespace("flash.display"),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  astypelate
+                  pushbyte 1
+                  callpropvoid Multiname("gotoAndStop",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")]), 1
+                  getlocal 7
+                  pushtrue
+                  setproperty Multiname("cacheAsBitmap",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  getlocal0
+                  getproperty Multiname("mcArrc",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  getlocal 7
+                  callpropvoid Multiname("push",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")]), 1
+                  inclocal_i 4
+         ofs017f:
+                  getlocal 4
+                  getlocal0
+                  getproperty Multiname("totalnc",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  iflt ofs0142
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function getMonsterMc() : MovieClip
+      {
+         trait method QName(PackageNamespace(""),"getMonsterMc")
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace("flash.display"),"MovieClip")
+               
+               body
+                  maxstack 2
+                  localcount 3
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     dup
+                     setlocal1
+                     getproperty Multiname("curn",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                     increment_i
+                     setlocal2
+                     getlocal1
+                     getlocal2
+                     setproperty Multiname("curn",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                     kill 2
+                     kill 1
+                     getlocal0
+                     getproperty Multiname("curn",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                     getlocal0
+                     getproperty Multiname("totalnm",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                     ifngt ofs002a
+                     getlocal0
+                     pushbyte 0
+                     initproperty Multiname("curn",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+            ofs002a:
+                     getlocal0
+                     getproperty Multiname("mcArra",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                     getlocal0
+                     getproperty Multiname("curn",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                     getproperty MultinameL([PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function getRoleMc() : MovieClip
+         {
+            trait method QName(PackageNamespace(""),"getRoleMc")
+               dispid 0
+               method
+                  name null
+                  returns QName(PackageNamespace("flash.display"),"MovieClip")
+                  
+                  body
+                     maxstack 2
+                     localcount 3
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        dup
+                        setlocal1
+                        getproperty Multiname("curnb",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                        increment_i
+                        setlocal2
+                        getlocal1
+                        getlocal2
+                        setproperty Multiname("curnb",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                        kill 2
+                        kill 1
+                        getlocal0
+                        getproperty Multiname("curnb",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                        getlocal0
+                        getproperty Multiname("totalnmb",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                        ifngt ofs002a
+                        getlocal0
+                        pushbyte 0
+                        initproperty Multiname("curnb",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+               ofs002a:
+                        getlocal0
+                        getproperty Multiname("mcArrb",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                        getlocal0
+                        getproperty Multiname("curnb",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                        getproperty MultinameL([PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function getBaojiMc() : MovieClip
+            {
+               trait method QName(PackageNamespace(""),"getBaojiMc")
+                  dispid 0
+                  method
+                     name null
+                     returns QName(PackageNamespace("flash.display"),"MovieClip")
+                     
+                     body
+                        maxstack 2
+                        localcount 3
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           dup
+                           setlocal1
+                           getproperty Multiname("curnc",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                           increment_i
+                           setlocal2
+                           getlocal1
+                           getlocal2
+                           setproperty Multiname("curnc",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                           kill 2
+                           kill 1
+                           getlocal0
+                           getproperty Multiname("curnc",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                           getlocal0
+                           getproperty Multiname("totalnmc",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                           ifngt ofs002a
+                           getlocal0
+                           pushbyte 0
+                           initproperty Multiname("curnc",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                  ofs002a:
+                           getlocal0
+                           getproperty Multiname("mcArrc",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                           getlocal0
+                           getproperty Multiname("curnc",[PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                           getproperty MultinameL([PrivateNamespace(null,"186"),PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gxiaodongxi:HpMcManager"),StaticProtectedNs("hotpointgame.gxiaodongxi:HpMcManager")])
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+            }
+         }
+         
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 2
+               localcount 1
+               initscopedepth 1
+               maxscopedepth 3
+               
+               code
+                  getlocal0
+                  pushscope
+                  findpropstrict Multiname("HpMcManager",[PackageNamespace("hotpointgame.gxiaodongxi")])
+                  getlex QName(PackageNamespace(""),"Object")
+                  pushscope
+                  getlex Multiname("Object",[PackageNamespace(""),PrivateNamespace(null,"713"),PackageNamespace("hotpointgame.gxiaodongxi"),PackageInternalNs("hotpointgame.gxiaodongxi"),Namespace("http://adobe.com/AS3/2006/builtin")])
+                  newclass 264
+                  popscope
+                  initproperty QName(PackageNamespace("hotpointgame.gxiaodongxi"),"HpMcManager")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+         

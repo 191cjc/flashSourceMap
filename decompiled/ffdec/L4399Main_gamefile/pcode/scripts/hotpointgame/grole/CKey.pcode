@@ -1,0 +1,883 @@
+package hotpointgame.grole
+{
+   import flash.display.Stage;
+   import flash.ui.*;
+   import flash.utils.*;
+   import hotpointgame.Control.*;
+   import hotpointgame.common.*;
+   import hotpointgame.utils.keyboard.*;
+   
+   public class CKey
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var gameKeyboard:GameKeyboard;
+      
+      private var onlineArr:Array;
+      
+      private var keyObj:Object;
+      
+      private var isKeyObj:Object;
+      
+      private var filterObj:Object;
+      
+      public function CKey(param1:Stage)
+      {
+         method
+            name null
+            param QName(PackageNamespace("flash.display"),"Stage")
+            returns null
+            
+            body
+               maxstack 59
+               localcount 2
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  pushstring "左跑"
+                  pushstring "右跑"
+                  pushstring "左按住"
+                  pushstring "右按住"
+                  pushstring "上按住"
+                  pushstring "下按住"
+                  pushstring "聊天"
+                  pushstring "攻击"
+                  newarray 8
+                  initproperty QName(PrivateNamespace(null,"13"),"onlineArr")
+                  getlocal0
+                  pushstring "左"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("A",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "右"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("D",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "上"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("W",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "下"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("S",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "跳"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("K",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "攻击"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("J",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "跳冲"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("SPACE",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "技能1"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("H",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "技能2"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("U",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "技能3"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("I",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "技能4"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("O",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "技能5"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("L",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "技能6"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("N",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "人形"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("Q",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "原形"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("E",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "枪攻"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("J",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "剑攻"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("H",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "传送门"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("W",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "捡东西"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("SPACE",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "聊天"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("ENTER",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "引爆地雷"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("F",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "宠物复活"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("E",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "复活"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("J",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "1"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("NUMBER_1",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "2"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("NUMBER_2",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "3"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("NUMBER_3",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "4"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("NUMBER_4",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "5"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("NUMBER_5",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  pushstring "G"
+                  getlex Multiname("Keyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.ui")])
+                  getproperty Multiname("G",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  newobject 29
+                  initproperty QName(PrivateNamespace(null,"13"),"keyObj")
+                  getlocal0
+                  findpropstrict Multiname("Object",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  constructprop Multiname("Object",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")]), 0
+                  initproperty QName(PrivateNamespace(null,"13"),"isKeyObj")
+                  getlocal0
+                  findpropstrict Multiname("Object",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  constructprop Multiname("Object",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")]), 0
+                  initproperty QName(PrivateNamespace(null,"13"),"filterObj")
+                  getlocal0
+                  constructsuper 0
+                  getlocal0
+                  callpropvoid Multiname("initKey",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")]), 0
+                  getlocal0
+                  callpropvoid Multiname("initfilter",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")]), 0
+                  getlocal0
+                  findpropstrict Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                  getlocal1
+                  constructprop Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")]), 1
+                  initproperty Multiname("gameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  getlocal0
+                  getproperty Multiname("gameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                  callpropvoid Multiname("startListener",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")]), 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function initfilter() : void
+      {
+         trait method QName(PackageNamespace(""),"initfilter")
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 3
+                  localcount 1
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getproperty Multiname("filterObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                     pushstring "传送门"
+                     pushbyte 0
+                     setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                     getlocal0
+                     getproperty Multiname("filterObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                     pushstring "捡东西"
+                     pushbyte 0
+                     setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                     getlocal0
+                     getproperty Multiname("filterObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                     pushstring "聊天"
+                     pushbyte 0
+                     setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                     getlocal0
+                     getproperty Multiname("filterObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                     pushstring "去人形"
+                     pushbyte 0
+                     setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                     getlocal0
+                     getproperty Multiname("filterObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                     pushstring "5"
+                     pushbyte 0
+                     setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function initKey() : void
+         {
+            trait method QName(PackageNamespace(""),"initKey")
+               dispid 0
+               method
+                  name null
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 6
+                     localcount 1
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "左跑"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("TWOKEY_COMMON_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "左"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "左"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 3
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "右跑"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("TWOKEY_COMMON_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "右"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "右"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 3
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "左按住"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "左"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "右按住"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "右"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "上按住"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "上"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "下按住"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "下"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "去人形"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "人形"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "去原形"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "原形"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "枪攻"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "枪攻"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "剑攻"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "剑攻"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "跳"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "跳"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "攻击"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "攻击"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "跳冲"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "跳冲"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "阶段1"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("TWOKEY_DOWN_C",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "上"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "技能1"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 3
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "技能1"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("TWOKEY_DOWN_B",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "下"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "攻击"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 3
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "技能2"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "技能1"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "技能3"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "技能2"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "技能4"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "技能3"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "技能5"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "技能4"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "技能6"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "技能5"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "技能7"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "技能6"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "机甲技能1"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "技能2"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "机甲技能2"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "技能3"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "机甲技能3"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "技能4"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "机甲技能4"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "技能5"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "引爆地雷"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "引爆地雷"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "聊天"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_CLICK",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "聊天"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "复活"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_CLICK",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "复活"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "宠物复活"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_CLICK",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "宠物复活"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "捡东西"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_DOWN_DOWN",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "捡东西"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "传送门"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_CLICK",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "传送门"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "G"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_CLICK",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "G"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "1"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_CLICK",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "1"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "2"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_CLICK",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "2"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "3"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_CLICK",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "3"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "4"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_CLICK",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "4"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "5"
+                        getlex Multiname("GameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.utils.keyboard")])
+                        getproperty Multiname("ONEKEY_CLICK",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        getlocal0
+                        getproperty Multiname("keyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        pushstring "5"
+                        getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        newarray 2
+                        setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function isKey(param1:String) : Boolean
+            {
+               trait method QName(PackageNamespace(""),"isKey")
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace(""),"String")
+                     returns QName(PackageNamespace(""),"Boolean")
+                     
+                     body
+                        maxstack 6
+                        localcount 5
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           pushbyte 0
+                           setlocal 4
+                           getlex Multiname("GM",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.Control")])
+                           getproperty Multiname("onlineM",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           callproperty Multiname("isConnectLine",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")]), 0
+                           convert_b
+                           dup
+                           iffalse ofs0023
+                           pop
+                           getlex Multiname("GM",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.Control")])
+                           getproperty Multiname("levelm",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           getproperty Multiname("curLevel",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           pushnull
+                           equals
+                           not
+                  ofs0023:
+                           dup
+                           iffalse ofs003c
+                           pop
+                           getlex Multiname("GM",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.Control")])
+                           getproperty Multiname("levelm",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           getproperty Multiname("curLevel",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           getproperty Multiname("id",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           getlex Multiname("GS",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.common")])
+                           getproperty Multiname("a9999",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           equals
+                  ofs003c:
+                           iffalse ofs0051
+                           getlocal0
+                           getproperty Multiname("onlineArr",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           getlocal1
+                           callproperty Multiname("indexOf",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")]), 1
+                           pushbyte -1
+                           ifne ofs0051
+                           pushfalse
+                           returnvalue
+                  ofs0051:
+                           findpropstrict Multiname("getQualifiedClassName",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.utils")])
+                           getlex Multiname("Main",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           getproperty Multiname("sg",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           getproperty Multiname("focus",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           callproperty Multiname("getQualifiedClassName",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("flash.utils")]), 1
+                           pushstring "flash.text::TextField"
+                           equals
+                           dup
+                           iffalse ofs0071
+                           pop
+                           getlocal1
+                           pushstring "聊天"
+                           equals
+                           not
+                  ofs0071:
+                           iffalse ofs0077
+                           pushfalse
+                           returnvalue
+                  ofs0077:
+                           pushfalse
+                           setlocal2
+                           getlocal0
+                           getproperty Multiname("isKeyObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           getlocal1
+                           getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           coerce QName(PackageNamespace(""),"Array")
+                           setlocal3
+                           getlocal3
+                           iffalse ofs00fd
+                           getlocal3
+                           pushbyte 0
+                           getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           convert_i
+                           dup
+                           setlocal 4
+                           pushbyte 10
+                           ifnle ofs00b3
+                           getlocal0
+                           getproperty Multiname("gameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           getlocal3
+                           pushbyte 0
+                           getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           getlocal3
+                           pushbyte 1
+                           getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           callproperty Multiname("isOkByOne",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")]), 2
+                           convert_b
+                           setlocal2
+                           jump ofs00fd
+                  ofs00b3:
+                           getlocal 4
+                           pushbyte 100
+                           ifnle ofs00db
+                           getlocal0
+                           getproperty Multiname("gameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           getlocal3
+                           pushbyte 0
+                           getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           getlocal3
+                           pushbyte 1
+                           getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           getlocal3
+                           pushbyte 2
+                           getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           callproperty Multiname("isOkByTwo",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")]), 3
+                           convert_b
+                           setlocal2
+                           jump ofs00fd
+                  ofs00db:
+                           getlocal0
+                           getproperty Multiname("gameKeyboard",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           getlocal3
+                           pushbyte 0
+                           getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           getlocal3
+                           pushbyte 1
+                           getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           getlocal3
+                           pushbyte 2
+                           getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           getlocal3
+                           pushbyte 3
+                           getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           callproperty Multiname("isOkByThree",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")]), 4
+                           convert_b
+                           setlocal2
+                  ofs00fd:
+                           getlocal2
+                           iffalse ofs0136
+                           getlocal0
+                           getproperty Multiname("filterObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           getlocal1
+                           callproperty Multiname("hasOwnProperty",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")]), 1
+                           iffalse ofs0136
+                           getlex Multiname("GM",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.Control")])
+                           getproperty Multiname("frameTime",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           getlocal0
+                           getproperty Multiname("filterObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           getlocal1
+                           getproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           subtract
+                           pushbyte 5
+                           ifnlt ofs0126
+                           pushfalse
+                           returnvalue
+                  ofs0126:
+                           getlocal0
+                           getproperty Multiname("filterObj",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           getlocal1
+                           getlex Multiname("GM",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey"),PackageNamespace("hotpointgame.Control")])
+                           getproperty Multiname("frameTime",[PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           setproperty MultinameL([PrivateNamespace(null,"13"),PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.grole:CKey"),StaticProtectedNs("hotpointgame.grole:CKey")])
+                           getlocal2
+                           returnvalue
+                  ofs0136:
+                           getlocal2
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+            }
+         }
+         
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 2
+               localcount 1
+               initscopedepth 1
+               maxscopedepth 3
+               
+               code
+                  getlocal0
+                  pushscope
+                  findpropstrict Multiname("CKey",[PackageNamespace("hotpointgame.grole")])
+                  getlex QName(PackageNamespace(""),"Object")
+                  pushscope
+                  getlex Multiname("Object",[PrivateNamespace(null,"428"),PackageNamespace(""),PackageNamespace("hotpointgame.grole"),PackageInternalNs("hotpointgame.grole"),Namespace("http://adobe.com/AS3/2006/builtin")])
+                  newclass 14
+                  popscope
+                  initproperty QName(PackageNamespace("hotpointgame.grole"),"CKey")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+         

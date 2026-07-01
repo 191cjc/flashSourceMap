@@ -1,0 +1,224 @@
+package mx.effects
+{
+   import mx.core.mx_internal;
+   import mx.effects.effectClasses.ZoomInstance;
+   
+   use namespace mx_internal;
+   
+   public class Zoom extends TweenEffect
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      private static var AFFECTED_PROPERTIES:Array;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 7
+            localcount 1
+            initscopedepth 6
+            maxscopedepth 7
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               findproperty QName(PrivateNamespace(null,"107"),"AFFECTED_PROPERTIES")
+               pushstring "scaleX"
+               pushstring "scaleY"
+               pushstring "x"
+               pushstring "y"
+               pushstring "width"
+               pushstring "height"
+               newarray 6
+               setproperty QName(PrivateNamespace(null,"107"),"AFFECTED_PROPERTIES")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      public var captureRollEvents:Boolean;
+      
+      public var originX:Number;
+      
+      public var originY:Number;
+      
+      public var zoomHeightFrom:Number;
+      
+      public var zoomHeightTo:Number;
+      
+      public var zoomWidthFrom:Number;
+      
+      public var zoomWidthTo:Number;
+      
+      public function Zoom(param1:Object = null)
+      {
+         method
+            name null
+            flag HAS_OPTIONAL
+            param QName(PackageNamespace(""),"Object")
+            optional Null()
+            returns null
+            
+            body
+               maxstack 6
+               localcount 2
+               initscopedepth 7
+               maxscopedepth 8
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  getlocal1
+                  constructsuper 1
+                  findproperty QName(PackageNamespace(""),"instanceClass")
+                  getlex QName(PackageNamespace("mx.effects.effectClasses"),"ZoomInstance")
+                  initproperty QName(PackageNamespace(""),"instanceClass")
+                  findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"applyActualDimensions")
+                  pushfalse
+                  initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"applyActualDimensions")
+                  findproperty QName(PackageNamespace(""),"relevantProperties")
+                  pushstring "scaleX"
+                  pushstring "scaleY"
+                  pushstring "width"
+                  pushstring "height"
+                  pushstring "visible"
+                  newarray 5
+                  initproperty QName(PackageNamespace(""),"relevantProperties")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      override public function getAffectedProperties() : Array
+      {
+         trait method QName(PackageNamespace(""),"getAffectedProperties")
+            flag OVERRIDE
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace(""),"Array")
+               
+               body
+                  maxstack 1
+                  localcount 1
+                  initscopedepth 7
+                  maxscopedepth 8
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlex QName(PrivateNamespace(null,"107"),"AFFECTED_PROPERTIES")
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         override protected function initInstance(param1:IEffectInstance) : void
+         {
+            trait method QName(ProtectedNamespace("mx.effects:Zoom"),"initInstance")
+               flag OVERRIDE
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace("mx.effects"),"IEffectInstance")
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 2
+                     localcount 3
+                     initscopedepth 7
+                     maxscopedepth 8
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        pushnull
+                        coerce QName(PackageNamespace("mx.effects.effectClasses"),"ZoomInstance")
+                        setlocal2
+                        getlocal0
+                        getlocal1
+                        callsupervoid QName(ProtectedNamespace("mx.effects:TweenEffect"),"initInstance"), 1
+                        findpropstrict QName(PackageNamespace("mx.effects.effectClasses"),"ZoomInstance")
+                        getlocal1
+                        callproperty QName(PackageNamespace("mx.effects.effectClasses"),"ZoomInstance"), 1
+                        coerce QName(PackageNamespace("mx.effects.effectClasses"),"ZoomInstance")
+                        setlocal2
+                        getlocal2
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"zoomWidthFrom")
+                        setproperty QName(PackageNamespace(""),"zoomWidthFrom")
+                        getlocal2
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"zoomWidthTo")
+                        setproperty QName(PackageNamespace(""),"zoomWidthTo")
+                        getlocal2
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"zoomHeightFrom")
+                        setproperty QName(PackageNamespace(""),"zoomHeightFrom")
+                        getlocal2
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"zoomHeightTo")
+                        setproperty QName(PackageNamespace(""),"zoomHeightTo")
+                        getlocal2
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"originX")
+                        setproperty QName(PackageNamespace(""),"originX")
+                        getlocal2
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"originY")
+                        setproperty QName(PackageNamespace(""),"originY")
+                        getlocal2
+                        getlocal0
+                        getproperty QName(PackageNamespace(""),"captureRollEvents")
+                        setproperty QName(PackageNamespace(""),"captureRollEvents")
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+         }
+      }
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 1
+            maxscopedepth 6
+            
+            code
+               getlocal0
+               pushscope
+               findpropstrict Multiname("Zoom",[PackageNamespace("mx.effects")])
+               getlex QName(PackageNamespace(""),"Object")
+               pushscope
+               getlex QName(PackageNamespace("flash.events"),"EventDispatcher")
+               pushscope
+               getlex QName(PackageNamespace("mx.effects"),"Effect")
+               pushscope
+               getlex QName(PackageNamespace("mx.effects"),"TweenEffect")
+               pushscope
+               getlex QName(PackageNamespace("mx.effects"),"TweenEffect")
+               newclass 204
+               popscope
+               popscope
+               popscope
+               popscope
+               initproperty QName(PackageNamespace("mx.effects"),"Zoom")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      

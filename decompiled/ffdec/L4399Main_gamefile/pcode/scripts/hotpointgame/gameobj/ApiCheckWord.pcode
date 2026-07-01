@@ -1,0 +1,239 @@
+package hotpointgame.gameobj
+{
+   import com.adobeadobe.serialization.json.JSON;
+   import hotpointgame.common.event.*;
+   import open4399Tools.*;
+   import open4399Tools.events.*;
+   
+   public class ApiCheckWord
+   {
+      
+      public static var self:ApiCheckWord;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var open4399ToolsApi:Open4399ToolsApi;
+      
+      private var okFlag:int = 0;
+      
+      public function ApiCheckWord()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 3
+               localcount 1
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  getlex Multiname("Open4399ToolsApi",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord"),PackageNamespace("open4399Tools")])
+                  callproperty Multiname("getInstance",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")]), 0
+                  initproperty QName(PrivateNamespace(null,"23"),"open4399ToolsApi")
+                  getlocal0
+                  constructsuper 0
+                  getlocal0
+                  getproperty Multiname("open4399ToolsApi",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")])
+                  getlex Multiname("Open4399ToolsEvent",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord"),PackageNamespace("open4399Tools.events")])
+                  getproperty Multiname("SERVICE_INIT",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")])
+                  getlocal0
+                  getproperty Multiname("onServiceInitComplete",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")])
+                  callpropvoid Multiname("addEventListener",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")]), 2
+                  getlocal0
+                  getproperty Multiname("open4399ToolsApi",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")])
+                  getlex Multiname("Open4399ToolsEvent",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord"),PackageNamespace("open4399Tools.events")])
+                  getproperty Multiname("CHECK_BAD_WORDS_ERROR",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")])
+                  getlocal0
+                  getproperty Multiname("onCheckBadWordsError",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")])
+                  callpropvoid Multiname("addEventListener",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")]), 2
+                  getlocal0
+                  getproperty Multiname("open4399ToolsApi",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")])
+                  getlex Multiname("Open4399ToolsEvent",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord"),PackageNamespace("open4399Tools.events")])
+                  getproperty Multiname("CHECK_BAD_WORDS",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")])
+                  getlocal0
+                  getproperty Multiname("onCheckBadWords",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")])
+                  callpropvoid Multiname("addEventListener",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")]), 2
+                  getlocal0
+                  getproperty Multiname("open4399ToolsApi",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")])
+                  callpropvoid Multiname("init",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")]), 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function checkWordByapi(param1:String) : Boolean
+      {
+         trait method QName(PackageNamespace(""),"checkWordByapi")
+            dispid 0
+            method
+               name null
+               param QName(PackageNamespace(""),"String")
+               returns QName(PackageNamespace(""),"Boolean")
+               
+               body
+                  maxstack 2
+                  localcount 2
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getproperty Multiname("okFlag",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")])
+                     pushbyte 1
+                     ifne ofs0017
+                     getlocal0
+                     getproperty Multiname("open4399ToolsApi",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")])
+                     getlocal1
+                     callpropvoid Multiname("checkBadWords",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")]), 1
+                     pushtrue
+                     returnvalue
+            ofs0017:
+                     pushfalse
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         private function onServiceInitComplete(param1:Open4399ToolsEvent) : void
+         {
+            trait method QName(PrivateNamespace(null,"23"),"onServiceInitComplete")
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace("open4399Tools.events"),"Open4399ToolsEvent")
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 2
+                     localcount 2
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        pushbyte 1
+                        initproperty Multiname("okFlag",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")])
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            private function onCheckBadWordsError(param1:Open4399ToolsEvent) : void
+            {
+               trait method QName(PrivateNamespace(null,"23"),"onCheckBadWordsError")
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace("open4399Tools.events"),"Open4399ToolsEvent")
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 1
+                        localcount 2
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               private function onCheckBadWords(param1:Open4399ToolsEvent) : void
+               {
+                  trait method QName(PrivateNamespace(null,"23"),"onCheckBadWords")
+                     dispid 0
+                     method
+                        name null
+                        param QName(PackageNamespace("open4399Tools.events"),"Open4399ToolsEvent")
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 4
+                           localcount 3
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlex QName(PackageNamespace("com.adobeadobe.serialization.json"),"JSON")
+                              findpropstrict Multiname("String",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")])
+                              getlocal1
+                              getproperty Multiname("data",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")])
+                              callproperty Multiname("String",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")]), 1
+                              callproperty Multiname("decode",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")]), 1
+                              coerce QName(PackageNamespace(""),"Object")
+                              setlocal2
+                              getlex Multiname("Main",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")])
+                              getproperty Multiname("self",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")])
+                              findpropstrict Multiname("UnEvent",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord"),PackageNamespace("hotpointgame.common.event")])
+                              getlex Multiname("UnEvent",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord"),PackageNamespace("hotpointgame.common.event")])
+                              getproperty Multiname("JC_API",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")])
+                              getlocal2
+                              constructprop Multiname("UnEvent",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord"),PackageNamespace("hotpointgame.common.event")]), 2
+                              callpropvoid Multiname("dispatchEvent",[PrivateNamespace(null,"23"),PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gameobj:ApiCheckWord"),StaticProtectedNs("hotpointgame.gameobj:ApiCheckWord")]), 1
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+               }
+            }
+            
+            method
+               name null
+               returns null
+               
+               body
+                  maxstack 2
+                  localcount 1
+                  initscopedepth 1
+                  maxscopedepth 3
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     findpropstrict Multiname("ApiCheckWord",[PackageNamespace("hotpointgame.gameobj")])
+                     getlex QName(PackageNamespace(""),"Object")
+                     pushscope
+                     getlex Multiname("Object",[PrivateNamespace(null,"448"),PackageNamespace(""),PackageNamespace("hotpointgame.gameobj"),PackageInternalNs("hotpointgame.gameobj"),Namespace("http://adobe.com/AS3/2006/builtin")])
+                     newclass 33
+                     popscope
+                     initproperty QName(PackageNamespace("hotpointgame.gameobj"),"ApiCheckWord")
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+            

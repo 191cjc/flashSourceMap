@@ -1,0 +1,658 @@
+package mx.core
+{
+   import flash.text.TextFormat;
+   import flash.text.TextLineMetrics;
+   import mx.managers.ISystemManager;
+   
+   use namespace mx_internal;
+   
+   public class UITextFormat extends TextFormat
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      private static var noEmbeddedFonts:Boolean;
+      
+      private static var _embeddedFontRegistry:IEmbeddedFontRegistry;
+      
+      private static var _textFieldFactory:ITextFieldFactory;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 4
+            maxscopedepth 5
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var systemManager:ISystemManager;
+      
+      public var antiAliasType:String;
+      
+      public var direction:String;
+      
+      public var gridFitType:String;
+      
+      public var locale:String;
+      
+      private var _moduleFactory:IFlexModuleFactory;
+      
+      public var sharpness:Number;
+      
+      public var thickness:Number;
+      
+      public var useFTE:Boolean = false;
+      
+      public function UITextFormat(param1:ISystemManager, param2:String = null, param3:Object = null, param4:Object = null, param5:Object = null, param6:Object = null, param7:Object = null, param8:String = null, param9:String = null, param10:String = null, param11:Object = null, param12:Object = null, param13:Object = null, param14:Object = null)
+      {
+         method
+            name null
+            flag HAS_OPTIONAL
+            param QName(PackageNamespace("mx.managers"),"ISystemManager")
+            param QName(PackageNamespace(""),"String")
+            param QName(PackageNamespace(""),"Object")
+            param QName(PackageNamespace(""),"Object")
+            param QName(PackageNamespace(""),"Object")
+            param QName(PackageNamespace(""),"Object")
+            param QName(PackageNamespace(""),"Object")
+            param QName(PackageNamespace(""),"String")
+            param QName(PackageNamespace(""),"String")
+            param QName(PackageNamespace(""),"String")
+            param QName(PackageNamespace(""),"Object")
+            param QName(PackageNamespace(""),"Object")
+            param QName(PackageNamespace(""),"Object")
+            param QName(PackageNamespace(""),"Object")
+            optional Null()
+            optional Null()
+            optional Null()
+            optional Null()
+            optional Null()
+            optional Null()
+            optional Null()
+            optional Null()
+            optional Null()
+            optional Null()
+            optional Null()
+            optional Null()
+            optional Null()
+            returns null
+            
+            body
+               maxstack 14
+               localcount 15
+               initscopedepth 5
+               maxscopedepth 6
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  getlocal1
+                  initproperty QName(PrivateNamespace(null,"19"),"systemManager")
+                  getlocal0
+                  getlocal2
+                  getlocal3
+                  getlocal 4
+                  getlocal 5
+                  getlocal 6
+                  getlocal 7
+                  getlocal 8
+                  getlocal 9
+                  getlocal 10
+                  getlocal 11
+                  getlocal 12
+                  getlocal 13
+                  getlocal 14
+                  constructsuper 13
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      private static function get embeddedFontRegistry() : IEmbeddedFontRegistry
+      {
+         trait getter QName(PrivateNamespace(null,"19"),"embeddedFontRegistry")
+            flag FINAL
+            dispid 3
+            method
+               name null
+               flag NEED_ACTIVATION
+               returns QName(PackageNamespace("mx.core"),"IEmbeddedFontRegistry")
+               
+               body
+                  maxstack 4
+                  localcount 3
+                  initscopedepth 5
+                  maxscopedepth 10
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     newactivation
+                     dup
+                     setlocal1
+                     pushscope
+                     getlex QName(PrivateNamespace(null,"19"),"_embeddedFontRegistry")
+                     not
+                     dup
+                     iffalse ofs0014
+                     pop
+                     getlex QName(PrivateNamespace(null,"19"),"noEmbeddedFonts")
+                     not
+            ofs0014:
+                     iffalse ofs0048
+            ofs0018:
+                     findproperty QName(PrivateNamespace(null,"19"),"_embeddedFontRegistry")
+                     findpropstrict QName(PackageNamespace("mx.core"),"IEmbeddedFontRegistry")
+                     getlex QName(PackageNamespace("mx.core"),"Singleton")
+                     pushstring "mx.core::IEmbeddedFontRegistry"
+                     callproperty QName(PackageNamespace(""),"getInstance"), 1
+                     callproperty QName(PackageNamespace("mx.core"),"IEmbeddedFontRegistry"), 1
+                     setproperty QName(PrivateNamespace(null,"19"),"_embeddedFontRegistry")
+            ofs002d:
+                     jump ofs0048
+            ofs0031:
+                     getlocal0
+                     pushscope
+                     getlocal1
+                     pushscope
+                     newcatch 0
+                     dup
+                     setlocal2
+                     dup
+                     pushscope
+                     swap
+                     setslot 1
+                     findproperty QName(PrivateNamespace(null,"19"),"noEmbeddedFonts")
+                     pushtrue
+                     setproperty QName(PrivateNamespace(null,"19"),"noEmbeddedFonts")
+                     popscope
+                     kill 2
+            ofs0048:
+                     getlex QName(PrivateNamespace(null,"19"),"_embeddedFontRegistry")
+                     returnvalue
+                  end ; code
+                  try from ofs0018 to ofs002d target ofs0031 type QName(PackageNamespace(""),"Error") name QName(PackageNamespace(""),"e") end
+               end ; body
+            end ; method
+         }
+         
+         private static function get textFieldFactory() : ITextFieldFactory
+         {
+            trait getter QName(PrivateNamespace(null,"19"),"textFieldFactory")
+               flag FINAL
+               dispid 4
+               method
+                  name null
+                  returns QName(PackageNamespace("mx.core"),"ITextFieldFactory")
+                  
+                  body
+                     maxstack 4
+                     localcount 1
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlex QName(PrivateNamespace(null,"19"),"_textFieldFactory")
+                        iftrue ofs001e
+                        findproperty QName(PrivateNamespace(null,"19"),"_textFieldFactory")
+                        findpropstrict QName(PackageNamespace("mx.core"),"ITextFieldFactory")
+                        getlex QName(PackageNamespace("mx.core"),"Singleton")
+                        pushstring "mx.core::ITextFieldFactory"
+                        callproperty QName(PackageNamespace(""),"getInstance"), 1
+                        callproperty QName(PackageNamespace("mx.core"),"ITextFieldFactory"), 1
+                        setproperty QName(PrivateNamespace(null,"19"),"_textFieldFactory")
+               ofs001e:
+                        getlex QName(PrivateNamespace(null,"19"),"_textFieldFactory")
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function get moduleFactory() : IFlexModuleFactory
+            {
+               trait getter QName(PackageNamespace(""),"moduleFactory")
+                  dispid 0
+                  method
+                     name null
+                     returns QName(PackageNamespace("mx.core"),"IFlexModuleFactory")
+                     
+                     body
+                        maxstack 1
+                        localcount 1
+                        initscopedepth 5
+                        maxscopedepth 6
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"19"),"_moduleFactory")
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function set moduleFactory(param1:IFlexModuleFactory) : void
+               {
+                  trait setter QName(PackageNamespace(""),"moduleFactory")
+                     dispid 0
+                     method
+                        name null
+                        param QName(PackageNamespace("mx.core"),"IFlexModuleFactory")
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 2
+                           localcount 2
+                           initscopedepth 5
+                           maxscopedepth 6
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              getlocal1
+                              initproperty QName(PrivateNamespace(null,"19"),"_moduleFactory")
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function measureText(param1:String, param2:Boolean = true) : TextLineMetrics
+                  {
+                     trait method QName(PackageNamespace(""),"measureText")
+                        dispid 0
+                        method
+                           name null
+                           flag HAS_OPTIONAL
+                           param QName(PackageNamespace(""),"String")
+                           param QName(PackageNamespace(""),"Boolean")
+                           optional True()
+                           returns QName(PackageNamespace("flash.text"),"TextLineMetrics")
+                           
+                           body
+                              maxstack 4
+                              localcount 3
+                              initscopedepth 5
+                              maxscopedepth 6
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal0
+                                 getlocal1
+                                 pushfalse
+                                 getlocal2
+                                 callproperty QName(PrivateNamespace(null,"19"),"measure"), 3
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public function measureHTMLText(param1:String, param2:Boolean = true) : TextLineMetrics
+                     {
+                        trait method QName(PackageNamespace(""),"measureHTMLText")
+                           dispid 0
+                           method
+                              name null
+                              flag HAS_OPTIONAL
+                              param QName(PackageNamespace(""),"String")
+                              param QName(PackageNamespace(""),"Boolean")
+                              optional True()
+                              returns QName(PackageNamespace("flash.text"),"TextLineMetrics")
+                              
+                              body
+                                 maxstack 4
+                                 localcount 3
+                                 initscopedepth 5
+                                 maxscopedepth 6
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlocal0
+                                    getlocal1
+                                    pushtrue
+                                    getlocal2
+                                    callproperty QName(PrivateNamespace(null,"19"),"measure"), 3
+                                    returnvalue
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        private function measure(param1:String, param2:Boolean, param3:Boolean) : TextLineMetrics
+                        {
+                           trait method QName(PrivateNamespace(null,"19"),"measure")
+                              dispid 0
+                              method
+                                 name null
+                                 param QName(PackageNamespace(""),"String")
+                                 param QName(PackageNamespace(""),"Boolean")
+                                 param QName(PackageNamespace(""),"Boolean")
+                                 returns QName(PackageNamespace("flash.text"),"TextLineMetrics")
+                                 
+                                 body
+                                    maxstack 8
+                                    localcount 8
+                                    initscopedepth 5
+                                    maxscopedepth 6
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlocal1
+                                       iftrue ofs000a
+                                       pushstring ""
+                                       setlocal1
+                              ofs000a:
+                                       pushfalse
+                                       setlocal 4
+                                       getlex QName(PrivateNamespace(null,"19"),"noEmbeddedFonts")
+                                       convert_b
+                                       dup
+                                       iftrue ofs001b
+                                       pop
+                                       getlex QName(PrivateNamespace(null,"19"),"embeddedFontRegistry")
+                                       not
+                              ofs001b:
+                                       iffalse ofs0026
+                                       pushnull
+                                       coerce QName(PackageNamespace("mx.core"),"IFlexModuleFactory")
+                                       jump ofs0045
+                              ofs0026:
+                                       getlex QName(PrivateNamespace(null,"19"),"embeddedFontRegistry")
+                                       getlex QName(PackageNamespace(""),"font")
+                                       getlex QName(PackageNamespace(""),"bold")
+                                       getlex QName(PackageNamespace(""),"italic")
+                                       getlocal0
+                                       getlocal0
+                                       getproperty QName(PackageNamespace(""),"moduleFactory")
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"19"),"systemManager")
+                                       getlocal0
+                                       getproperty QName(PackageNamespace(""),"useFTE")
+                                       callproperty QName(Namespace("mx.core:IEmbeddedFontRegistry"),"getAssociatedModuleFactory"), 7
+                                       coerce QName(PackageNamespace("mx.core"),"IFlexModuleFactory")
+                              ofs0045:
+                                       coerce QName(PackageNamespace("mx.core"),"IFlexModuleFactory")
+                                       dup
+                                       setlocal 5
+                                       pushnull
+                                       equals
+                                       not
+                                       setlocal 4
+                                       getlocal 5
+                                       pushnull
+                                       ifne ofs005e
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"19"),"systemManager")
+                                       coerce QName(PackageNamespace("mx.core"),"IFlexModuleFactory")
+                                       setlocal 5
+                              ofs005e:
+                                       getlocal0
+                                       getproperty QName(PackageNamespace(""),"useFTE")
+                                       iffalse ofs0075
+                                       getlex QName(PrivateNamespace(null,"19"),"textFieldFactory")
+                                       getlocal 5
+                                       callproperty QName(Namespace("mx.core:ITextFieldFactory"),"createFTETextField"), 1
+                                       coerce QName(PackageNamespace(""),"Object")
+                                       jump ofs0080
+                              ofs0075:
+                                       getlex QName(PrivateNamespace(null,"19"),"textFieldFactory")
+                                       getlocal 5
+                                       callproperty QName(Namespace("mx.core:ITextFieldFactory"),"createTextField"), 1
+                                       coerce QName(PackageNamespace(""),"Object")
+                              ofs0080:
+                                       coerce QName(PackageNamespace(""),"Object")
+                                       setlocal 6
+                                       getlocal2
+                                       iffalse ofs0094
+                                       getlocal 6
+                                       pushstring ""
+                                       setproperty Multiname("htmlText",[PrivateNamespace(null,"19"),PackageNamespace("mx.core"),PackageNamespace(""),PrivateNamespace(null,"128"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.core:UITextFormat"),StaticProtectedNs("mx.core:UITextFormat"),StaticProtectedNs("flash.text:TextFormat")])
+                                       jump ofs009b
+                              ofs0094:
+                                       getlocal 6
+                                       pushstring ""
+                                       setproperty Multiname("text",[PrivateNamespace(null,"19"),PackageNamespace("mx.core"),PackageNamespace(""),PrivateNamespace(null,"128"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.core:UITextFormat"),StaticProtectedNs("mx.core:UITextFormat"),StaticProtectedNs("flash.text:TextFormat")])
+                              ofs009b:
+                                       getlocal 6
+                                       getlocal0
+                                       setproperty Multiname("defaultTextFormat",[PrivateNamespace(null,"19"),PackageNamespace("mx.core"),PackageNamespace(""),PrivateNamespace(null,"128"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.core:UITextFormat"),StaticProtectedNs("mx.core:UITextFormat"),StaticProtectedNs("flash.text:TextFormat")])
+                                       getlocal 6
+                                       getlocal 4
+                                       setproperty Multiname("embedFonts",[PrivateNamespace(null,"19"),PackageNamespace("mx.core"),PackageNamespace(""),PrivateNamespace(null,"128"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.core:UITextFormat"),StaticProtectedNs("mx.core:UITextFormat"),StaticProtectedNs("flash.text:TextFormat")])
+                                       getlocal0
+                                       getproperty QName(PackageNamespace(""),"useFTE")
+                                       iftrue ofs00d8
+                                       getlocal 6
+                                       getlocal0
+                                       getproperty QName(PackageNamespace(""),"antiAliasType")
+                                       setproperty Multiname("antiAliasType",[PrivateNamespace(null,"19"),PackageNamespace("mx.core"),PackageNamespace(""),PrivateNamespace(null,"128"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.core:UITextFormat"),StaticProtectedNs("mx.core:UITextFormat"),StaticProtectedNs("flash.text:TextFormat")])
+                                       getlocal 6
+                                       getlocal0
+                                       getproperty QName(PackageNamespace(""),"gridFitType")
+                                       setproperty Multiname("gridFitType",[PrivateNamespace(null,"19"),PackageNamespace("mx.core"),PackageNamespace(""),PrivateNamespace(null,"128"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.core:UITextFormat"),StaticProtectedNs("mx.core:UITextFormat"),StaticProtectedNs("flash.text:TextFormat")])
+                                       getlocal 6
+                                       getlocal0
+                                       getproperty QName(PackageNamespace(""),"sharpness")
+                                       setproperty Multiname("sharpness",[PrivateNamespace(null,"19"),PackageNamespace("mx.core"),PackageNamespace(""),PrivateNamespace(null,"128"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.core:UITextFormat"),StaticProtectedNs("mx.core:UITextFormat"),StaticProtectedNs("flash.text:TextFormat")])
+                                       getlocal 6
+                                       getlocal0
+                                       getproperty QName(PackageNamespace(""),"thickness")
+                                       setproperty Multiname("thickness",[PrivateNamespace(null,"19"),PackageNamespace("mx.core"),PackageNamespace(""),PrivateNamespace(null,"128"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.core:UITextFormat"),StaticProtectedNs("mx.core:UITextFormat"),StaticProtectedNs("flash.text:TextFormat")])
+                                       jump ofs00ea
+                              ofs00d8:
+                                       getlocal 6
+                                       getlocal0
+                                       getproperty QName(PackageNamespace(""),"direction")
+                                       setproperty Multiname("direction",[PrivateNamespace(null,"19"),PackageNamespace("mx.core"),PackageNamespace(""),PrivateNamespace(null,"128"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.core:UITextFormat"),StaticProtectedNs("mx.core:UITextFormat"),StaticProtectedNs("flash.text:TextFormat")])
+                                       getlocal 6
+                                       getlocal0
+                                       getproperty QName(PackageNamespace(""),"locale")
+                                       setproperty Multiname("locale",[PrivateNamespace(null,"19"),PackageNamespace("mx.core"),PackageNamespace(""),PrivateNamespace(null,"128"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.core:UITextFormat"),StaticProtectedNs("mx.core:UITextFormat"),StaticProtectedNs("flash.text:TextFormat")])
+                              ofs00ea:
+                                       getlocal2
+                                       iffalse ofs00f9
+                                       getlocal 6
+                                       getlocal1
+                                       setproperty Multiname("htmlText",[PrivateNamespace(null,"19"),PackageNamespace("mx.core"),PackageNamespace(""),PrivateNamespace(null,"128"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.core:UITextFormat"),StaticProtectedNs("mx.core:UITextFormat"),StaticProtectedNs("flash.text:TextFormat")])
+                                       jump ofs00ff
+                              ofs00f9:
+                                       getlocal 6
+                                       getlocal1
+                                       setproperty Multiname("text",[PrivateNamespace(null,"19"),PackageNamespace("mx.core"),PackageNamespace(""),PrivateNamespace(null,"128"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.core:UITextFormat"),StaticProtectedNs("mx.core:UITextFormat"),StaticProtectedNs("flash.text:TextFormat")])
+                              ofs00ff:
+                                       getlocal 6
+                                       pushbyte 0
+                                       callproperty Multiname("getLineMetrics",[PrivateNamespace(null,"19"),PackageNamespace("mx.core"),PackageNamespace(""),PrivateNamespace(null,"128"),PackageInternalNs("mx.core"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.core:UITextFormat"),StaticProtectedNs("mx.core:UITextFormat"),StaticProtectedNs("flash.text:TextFormat")]), 1
+                                       coerce QName(PackageNamespace("flash.text"),"TextLineMetrics")
+                                       setlocal 7
+                                       getlex QName(PackageNamespace(""),"indent")
+                                       pushnull
+                                       ifeq ofs0121
+                                       getlocal 7
+                                       getlocal 7
+                                       getproperty QName(PackageNamespace(""),"width")
+                                       getlex QName(PackageNamespace(""),"indent")
+                                       add
+                                       setproperty QName(PackageNamespace(""),"width")
+                              ofs0121:
+                                       getlocal3
+                                       iffalse ofs0148
+                                       getlocal 7
+                                       getlex QName(PackageNamespace(""),"Math")
+                                       getlocal 7
+                                       getproperty QName(PackageNamespace(""),"width")
+                                       callproperty QName(PackageNamespace(""),"ceil"), 1
+                                       setproperty QName(PackageNamespace(""),"width")
+                                       getlocal 7
+                                       getlex QName(PackageNamespace(""),"Math")
+                                       getlocal 7
+                                       getproperty QName(PackageNamespace(""),"height")
+                                       callproperty QName(PackageNamespace(""),"ceil"), 1
+                                       setproperty QName(PackageNamespace(""),"height")
+                              ofs0148:
+                                       getlocal 7
+                                       returnvalue
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           mx_internal function copyFrom(param1:TextFormat) : void
+                           {
+                              trait method QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"copyFrom")
+                                 dispid 0
+                                 method
+                                    name null
+                                    param QName(PackageNamespace("flash.text"),"TextFormat")
+                                    returns QName(PackageNamespace(""),"void")
+                                    
+                                    body
+                                       maxstack 2
+                                       localcount 2
+                                       initscopedepth 5
+                                       maxscopedepth 6
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          findproperty QName(PackageNamespace(""),"font")
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"font")
+                                          initproperty QName(PackageNamespace(""),"font")
+                                          findproperty QName(PackageNamespace(""),"size")
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"size")
+                                          initproperty QName(PackageNamespace(""),"size")
+                                          findproperty QName(PackageNamespace(""),"color")
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"color")
+                                          initproperty QName(PackageNamespace(""),"color")
+                                          findproperty QName(PackageNamespace(""),"bold")
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"bold")
+                                          initproperty QName(PackageNamespace(""),"bold")
+                                          findproperty QName(PackageNamespace(""),"italic")
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"italic")
+                                          initproperty QName(PackageNamespace(""),"italic")
+                                          findproperty QName(PackageNamespace(""),"underline")
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"underline")
+                                          initproperty QName(PackageNamespace(""),"underline")
+                                          findproperty QName(PackageNamespace(""),"url")
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"url")
+                                          initproperty QName(PackageNamespace(""),"url")
+                                          findproperty QName(PackageNamespace(""),"target")
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"target")
+                                          initproperty QName(PackageNamespace(""),"target")
+                                          findproperty QName(PackageNamespace(""),"align")
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"align")
+                                          initproperty QName(PackageNamespace(""),"align")
+                                          findproperty QName(PackageNamespace(""),"leftMargin")
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"leftMargin")
+                                          initproperty QName(PackageNamespace(""),"leftMargin")
+                                          findproperty QName(PackageNamespace(""),"rightMargin")
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"rightMargin")
+                                          initproperty QName(PackageNamespace(""),"rightMargin")
+                                          findproperty QName(PackageNamespace(""),"indent")
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"indent")
+                                          initproperty QName(PackageNamespace(""),"indent")
+                                          findproperty QName(PackageNamespace(""),"leading")
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"leading")
+                                          initproperty QName(PackageNamespace(""),"leading")
+                                          findproperty QName(PackageNamespace(""),"letterSpacing")
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"letterSpacing")
+                                          initproperty QName(PackageNamespace(""),"letterSpacing")
+                                          findproperty QName(PackageNamespace(""),"blockIndent")
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"blockIndent")
+                                          initproperty QName(PackageNamespace(""),"blockIndent")
+                                          findproperty QName(PackageNamespace(""),"bullet")
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"bullet")
+                                          initproperty QName(PackageNamespace(""),"bullet")
+                                          findproperty QName(PackageNamespace(""),"display")
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"display")
+                                          initproperty QName(PackageNamespace(""),"display")
+                                          findproperty QName(PackageNamespace(""),"indent")
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"indent")
+                                          initproperty QName(PackageNamespace(""),"indent")
+                                          findproperty QName(PackageNamespace(""),"kerning")
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"kerning")
+                                          initproperty QName(PackageNamespace(""),"kerning")
+                                          findproperty QName(PackageNamespace(""),"tabStops")
+                                          getlocal1
+                                          getproperty QName(PackageNamespace(""),"tabStops")
+                                          initproperty QName(PackageNamespace(""),"tabStops")
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                           }
+                        }
+                        
+                        method
+                           name null
+                           returns null
+                           
+                           body
+                              maxstack 2
+                              localcount 1
+                              initscopedepth 1
+                              maxscopedepth 4
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 findpropstrict Multiname("UITextFormat",[PackageNamespace("mx.core")])
+                                 getlex QName(PackageNamespace(""),"Object")
+                                 pushscope
+                                 getlex QName(PackageNamespace("flash.text"),"TextFormat")
+                                 pushscope
+                                 getlex QName(PackageNamespace("flash.text"),"TextFormat")
+                                 newclass 57
+                                 popscope
+                                 popscope
+                                 initproperty QName(PackageNamespace("mx.core"),"UITextFormat")
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                        

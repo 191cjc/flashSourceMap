@@ -1,0 +1,1634 @@
+package com.adobeadobe.serialization.json
+{
+   public class JSONTokenizer
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var strict:Boolean;
+      
+      private var obj:Object;
+      
+      private var jsonString:String;
+      
+      private var loc:int;
+      
+      private var ch:String;
+      
+      private var controlCharsRegExp:RegExp;
+      
+      public function JSONTokenizer(param1:String, param2:Boolean)
+      {
+         method
+            name null
+            param QName(PackageNamespace(""),"String")
+            param QName(PackageNamespace(""),"Boolean")
+            returns null
+            
+            body
+               maxstack 3
+               localcount 3
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  getlex QName(PackageNamespace(""),"RegExp")
+                  pushstring "[\\x00-\\x1F]"
+                  construct 1
+                  initproperty QName(PrivateNamespace(null,"187"),"controlCharsRegExp")
+                  getlocal0
+                  constructsuper 0
+                  getlocal0
+                  getlocal1
+                  initproperty Multiname("jsonString",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                  getlocal0
+                  getlocal2
+                  initproperty Multiname("strict",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                  getlocal0
+                  pushbyte 0
+                  initproperty Multiname("loc",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                  getlocal0
+                  callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function getNextToken() : JSONToken
+      {
+         trait method QName(PackageNamespace(""),"getNextToken")
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace("com.adobeadobe.serialization.json"),"JSONToken")
+               
+               body
+                  maxstack 3
+                  localcount 7
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     pushnull
+                     coerce_s
+                     setlocal2
+                     pushnull
+                     coerce_s
+                     setlocal3
+                     pushnull
+                     coerce_s
+                     setlocal 4
+                     pushnull
+                     coerce_s
+                     setlocal 5
+                     findpropstrict Multiname("JSONToken",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     constructprop Multiname("JSONToken",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     coerce QName(PackageNamespace("com.adobeadobe.serialization.json"),"JSONToken")
+                     setlocal1
+                     getlocal0
+                     callpropvoid Multiname("skipIgnored",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     jump ofs028b
+            ofs0027:
+                     label
+                     getlocal1
+                     getlex Multiname("JSONTokenType",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getproperty Multiname("LEFT_BRACE",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     setproperty Multiname("type",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getlocal1
+                     pushstring "{"
+                     setproperty Multiname("value",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getlocal0
+                     callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     jump ofs036e
+            ofs0047:
+                     label
+                     getlocal1
+                     getlex Multiname("JSONTokenType",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getproperty Multiname("RIGHT_BRACE",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     setproperty Multiname("type",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getlocal1
+                     pushstring "}"
+                     setproperty Multiname("value",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getlocal0
+                     callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     jump ofs036e
+            ofs0067:
+                     label
+                     getlocal1
+                     getlex Multiname("JSONTokenType",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getproperty Multiname("LEFT_BRACKET",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     setproperty Multiname("type",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getlocal1
+                     pushstring "["
+                     setproperty Multiname("value",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getlocal0
+                     callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     jump ofs036e
+            ofs0087:
+                     label
+                     getlocal1
+                     getlex Multiname("JSONTokenType",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getproperty Multiname("RIGHT_BRACKET",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     setproperty Multiname("type",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getlocal1
+                     pushstring "]"
+                     setproperty Multiname("value",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getlocal0
+                     callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     jump ofs036e
+            ofs00a7:
+                     label
+                     getlocal1
+                     getlex Multiname("JSONTokenType",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getproperty Multiname("COMMA",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     setproperty Multiname("type",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getlocal1
+                     pushstring ","
+                     setproperty Multiname("value",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getlocal0
+                     callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     jump ofs036e
+            ofs00c7:
+                     label
+                     getlocal1
+                     getlex Multiname("JSONTokenType",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getproperty Multiname("COLON",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     setproperty Multiname("type",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getlocal1
+                     pushstring ":"
+                     setproperty Multiname("value",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getlocal0
+                     callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     jump ofs036e
+            ofs00e7:
+                     label
+                     pushstring "t"
+                     getlocal0
+                     callproperty Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     add
+                     getlocal0
+                     callproperty Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     add
+                     getlocal0
+                     callproperty Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     add
+                     coerce_s
+                     setlocal2
+                     getlocal2
+                     pushstring "true"
+                     ifne ofs0127
+                     getlocal1
+                     getlex Multiname("JSONTokenType",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getproperty Multiname("TRUE",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     setproperty Multiname("type",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getlocal1
+                     pushtrue
+                     setproperty Multiname("value",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getlocal0
+                     callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     jump ofs0132
+            ofs0127:
+                     getlocal0
+                     pushstring "Expecting \'true\' but found "
+                     getlocal2
+                     add
+                     callpropvoid Multiname("parseError",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+            ofs0132:
+                     jump ofs036e
+            ofs0136:
+                     label
+                     pushstring "f"
+                     getlocal0
+                     callproperty Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     add
+                     getlocal0
+                     callproperty Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     add
+                     getlocal0
+                     callproperty Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     add
+                     getlocal0
+                     callproperty Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     add
+                     coerce_s
+                     setlocal3
+                     getlocal3
+                     pushstring "false"
+                     ifne ofs017d
+                     getlocal1
+                     getlex Multiname("JSONTokenType",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getproperty Multiname("FALSE",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     setproperty Multiname("type",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getlocal1
+                     pushfalse
+                     setproperty Multiname("value",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getlocal0
+                     callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     jump ofs0188
+            ofs017d:
+                     getlocal0
+                     pushstring "Expecting \'false\' but found "
+                     getlocal3
+                     add
+                     callpropvoid Multiname("parseError",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+            ofs0188:
+                     jump ofs036e
+            ofs018c:
+                     label
+                     pushstring "n"
+                     getlocal0
+                     callproperty Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     add
+                     getlocal0
+                     callproperty Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     add
+                     getlocal0
+                     callproperty Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     add
+                     coerce_s
+                     dup
+                     setlocal 4
+                     pushstring "null"
+                     ifne ofs01cd
+                     getlocal1
+                     getlex Multiname("JSONTokenType",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getproperty Multiname("NULL",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     setproperty Multiname("type",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getlocal1
+                     pushnull
+                     setproperty Multiname("value",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getlocal0
+                     callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     jump ofs01d9
+            ofs01cd:
+                     getlocal0
+                     pushstring "Expecting \'null\' but found "
+                     getlocal 4
+                     add
+                     callpropvoid Multiname("parseError",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+            ofs01d9:
+                     jump ofs036e
+            ofs01dd:
+                     label
+                     pushstring "N"
+                     getlocal0
+                     callproperty Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     add
+                     getlocal0
+                     callproperty Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     add
+                     coerce_s
+                     dup
+                     setlocal 5
+                     pushstring "NaN"
+                     ifne ofs021a
+                     getlocal1
+                     getlex Multiname("JSONTokenType",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getproperty Multiname("NAN",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     setproperty Multiname("type",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getlocal1
+                     getlex Multiname("NaN",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     setproperty Multiname("value",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     getlocal0
+                     callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     jump ofs0226
+            ofs021a:
+                     getlocal0
+                     pushstring "Expecting \'NaN\' but found "
+                     getlocal 5
+                     add
+                     callpropvoid Multiname("parseError",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+            ofs0226:
+                     jump ofs036e
+            ofs022a:
+                     label
+                     getlocal0
+                     callproperty Multiname("readString",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     coerce QName(PackageNamespace("com.adobeadobe.serialization.json"),"JSONToken")
+                     setlocal1
+                     jump ofs036e
+            ofs0239:
+                     label
+                     getlocal0
+                     getlocal0
+                     getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     callproperty Multiname("isDigit",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                     convert_b
+                     dup
+                     iftrue ofs0255
+                     pop
+                     getlocal0
+                     getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     pushstring "-"
+                     equals
+            ofs0255:
+                     iffalse ofs0267
+                     getlocal0
+                     callproperty Multiname("readNumber",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     coerce QName(PackageNamespace("com.adobeadobe.serialization.json"),"JSONToken")
+                     setlocal1
+                     jump ofs0287
+            ofs0267:
+                     getlocal0
+                     getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     pushstring ""
+                     ifne ofs0274
+                     pushnull
+                     returnvalue
+            ofs0274:
+                     getlocal0
+                     pushstring "Unexpected "
+                     getlocal0
+                     getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     add
+                     pushstring " encountered"
+                     add
+                     callpropvoid Multiname("parseError",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+            ofs0287:
+                     jump ofs036e
+            ofs028b:
+                     getlocal0
+                     getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                     setlocal 6
+                     pushstring "{"
+                     getlocal 6
+                     ifstrictne ofs02a1
+                     pushbyte 0
+                     jump ofs0343
+            ofs02a1:
+                     pushstring "}"
+                     getlocal 6
+                     ifstrictne ofs02b0
+                     pushbyte 1
+                     jump ofs0343
+            ofs02b0:
+                     pushstring "["
+                     getlocal 6
+                     ifstrictne ofs02bf
+                     pushbyte 2
+                     jump ofs0343
+            ofs02bf:
+                     pushstring "]"
+                     getlocal 6
+                     ifstrictne ofs02ce
+                     pushbyte 3
+                     jump ofs0343
+            ofs02ce:
+                     pushstring ","
+                     getlocal 6
+                     ifstrictne ofs02dd
+                     pushbyte 4
+                     jump ofs0343
+            ofs02dd:
+                     pushstring ":"
+                     getlocal 6
+                     ifstrictne ofs02ec
+                     pushbyte 5
+                     jump ofs0343
+            ofs02ec:
+                     pushstring "t"
+                     getlocal 6
+                     ifstrictne ofs02fb
+                     pushbyte 6
+                     jump ofs0343
+            ofs02fb:
+                     pushstring "f"
+                     getlocal 6
+                     ifstrictne ofs030a
+                     pushbyte 7
+                     jump ofs0343
+            ofs030a:
+                     pushstring "n"
+                     getlocal 6
+                     ifstrictne ofs0319
+                     pushbyte 8
+                     jump ofs0343
+            ofs0319:
+                     pushstring "N"
+                     getlocal 6
+                     ifstrictne ofs0328
+                     pushbyte 9
+                     jump ofs0343
+            ofs0328:
+                     pushstring "\""
+                     getlocal 6
+                     ifstrictne ofs0337
+                     pushbyte 10
+                     jump ofs0343
+            ofs0337:
+                     jump ofs0341
+                     pushbyte 11
+                     jump ofs0341
+            ofs0341:
+                     pushbyte 11
+            ofs0343:
+                     kill 6
+                     lookupswitch ofs0239, [ofs0027, ofs0047, ofs0067, ofs0087, ofs00a7, ofs00c7, ofs00e7, ofs0136, ofs018c, ofs01dd, ofs022a, ofs0239]
+            ofs036e:
+                     getlocal1
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         private function readString() : JSONToken
+         {
+            trait method QName(PrivateNamespace(null,"187"),"readString")
+               dispid 0
+               method
+                  name null
+                  returns QName(PackageNamespace("com.adobeadobe.serialization.json"),"JSONToken")
+                  
+                  body
+                     maxstack 6
+                     localcount 5
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        pushbyte 0
+                        setlocal3
+                        pushbyte 0
+                        setlocal 4
+                        getlocal0
+                        getproperty Multiname("loc",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                        convert_i
+                        setlocal1
+                        jump ofs0015
+               ofs0014:
+                        label
+               ofs0015:
+                        getlocal0
+                        getproperty Multiname("jsonString",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                        pushstring "\""
+                        getlocal1
+                        callproperty Multiname("indexOf",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 2
+                        convert_i
+                        setlocal1
+                        getlocal1
+                        pushbyte 0
+                        ifnge ofs0067
+                        pushbyte 0
+                        setlocal3
+                        getlocal1
+                        decrement
+                        convert_i
+                        setlocal 4
+                        jump ofs0040
+               ofs0038:
+                        label
+                        inclocal_i 3
+                        getlocal 4
+                        decrement_i
+                        setlocal 4
+               ofs0040:
+                        getlocal0
+                        getproperty Multiname("jsonString",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                        getlocal 4
+                        callproperty Multiname("charAt",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                        pushstring "\\"
+                        ifeq ofs0038
+                        getlocal3
+                        pushbyte 2
+                        modulo
+                        pushbyte 0
+                        ifne ofs0061
+                        jump ofs0074
+               ofs0061:
+                        inclocal_i 1
+                        jump ofs0070
+               ofs0067:
+                        getlocal0
+                        pushstring "Unterminated string literal"
+                        callpropvoid Multiname("parseError",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+               ofs0070:
+                        jump ofs0014
+               ofs0074:
+                        findpropstrict Multiname("JSONToken",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                        constructprop Multiname("JSONToken",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                        coerce QName(PackageNamespace("com.adobeadobe.serialization.json"),"JSONToken")
+                        setlocal2
+                        getlocal2
+                        getlex Multiname("JSONTokenType",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                        getproperty Multiname("STRING",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                        setproperty Multiname("type",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                        getlocal2
+                        getlocal0
+                        getlocal0
+                        getproperty Multiname("jsonString",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                        getlocal0
+                        getproperty Multiname("loc",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                        getlocal1
+                        getlocal0
+                        getproperty Multiname("loc",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                        subtract
+                        callproperty Multiname("substr",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 2
+                        callproperty Multiname("unescapeString",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                        setproperty Multiname("value",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                        getlocal0
+                        getlocal1
+                        pushbyte 1
+                        add
+                        initproperty Multiname("loc",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                        getlocal0
+                        callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                        getlocal2
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function unescapeString(param1:String) : String
+            {
+               trait method QName(PackageNamespace(""),"unescapeString")
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace(""),"String")
+                     returns QName(PackageNamespace(""),"String")
+                     
+                     body
+                        maxstack 5
+                        localcount 12
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           pushbyte 0
+                           setlocal 6
+                           pushnull
+                           coerce_s
+                           setlocal 7
+                           pushnull
+                           coerce_s
+                           setlocal 8
+                           pushbyte 0
+                           setlocal 9
+                           pushnull
+                           coerce_s
+                           setlocal 10
+                           getlocal0
+                           getproperty Multiname("strict",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                           convert_b
+                           dup
+                           iffalse ofs002e
+                           pop
+                           getlocal0
+                           getproperty Multiname("controlCharsRegExp",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                           getlocal1
+                           callproperty Multiname("test",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                           convert_b
+                  ofs002e:
+                           iffalse ofs003b
+                           getlocal0
+                           pushstring "String contains unescaped control character (0x00-0x1F)"
+                           callpropvoid Multiname("parseError",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                  ofs003b:
+                           pushstring ""
+                           setlocal2
+                           pushbyte 0
+                           setlocal3
+                           pushbyte 0
+                           setlocal 4
+                           getlocal1
+                           getproperty Multiname("length",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                           convert_i
+                           setlocal 5
+                           jump ofs0052
+                  ofs0051:
+                           label
+                  ofs0052:
+                           getlocal1
+                           pushstring "\\"
+                           getlocal 4
+                           callproperty Multiname("indexOf",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 2
+                           convert_i
+                           setlocal3
+                           getlocal3
+                           pushbyte 0
+                           ifnge ofs023b
+                           getlocal2
+                           getlocal1
+                           getlocal 4
+                           getlocal3
+                           getlocal 4
+                           subtract
+                           callproperty Multiname("substr",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 2
+                           add
+                           coerce_s
+                           setlocal2
+                           getlocal3
+                           pushbyte 2
+                           add
+                           convert_i
+                           setlocal 4
+                           getlocal3
+                           pushbyte 1
+                           add
+                           convert_i
+                           setlocal 6
+                           getlocal1
+                           getlocal 6
+                           callproperty Multiname("charAt",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                           coerce_s
+                           setlocal 7
+                           jump ofs017b
+                  ofs0093:
+                           label
+                           getlocal2
+                           pushstring "\""
+                           add
+                           setlocal2
+                           jump ofs0237
+                  ofs009e:
+                           label
+                           getlocal2
+                           pushstring "\\"
+                           add
+                           setlocal2
+                           jump ofs0237
+                  ofs00a9:
+                           label
+                           getlocal2
+                           pushstring "\n"
+                           add
+                           setlocal2
+                           jump ofs0237
+                  ofs00b4:
+                           label
+                           getlocal2
+                           pushstring "\r"
+                           add
+                           setlocal2
+                           jump ofs0237
+                  ofs00bf:
+                           label
+                           getlocal2
+                           pushstring "\t"
+                           add
+                           setlocal2
+                           jump ofs0237
+                  ofs00ca:
+                           label
+                           pushstring ""
+                           setlocal 8
+                           getlocal 4
+                           pushbyte 4
+                           add
+                           getlocal 5
+                           ifngt ofs00e3
+                           getlocal0
+                           pushstring "Unexpected end of input.  Expecting 4 hex digits after \\u."
+                           callpropvoid Multiname("parseError",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                  ofs00e3:
+                           getlocal 4
+                           convert_i
+                           setlocal 9
+                           jump ofs011a
+                  ofs00ec:
+                           label
+                           getlocal1
+                           getlocal 9
+                           callproperty Multiname("charAt",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                           coerce_s
+                           setlocal 10
+                           getlocal0
+                           getlocal 10
+                           callproperty Multiname("isHexDigit",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                           iftrue ofs0110
+                           getlocal0
+                           pushstring "Excepted a hex digit, but found: "
+                           getlocal 10
+                           add
+                           callpropvoid Multiname("parseError",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                  ofs0110:
+                           getlocal 8
+                           getlocal 10
+                           add
+                           coerce_s
+                           setlocal 8
+                           inclocal_i 9
+                  ofs011a:
+                           getlocal 9
+                           getlocal 4
+                           pushbyte 4
+                           add
+                           iflt ofs00ec
+                           getlocal2
+                           getlex Multiname("String",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                           findpropstrict Multiname("parseInt",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                           getlocal 8
+                           pushbyte 16
+                           callproperty Multiname("parseInt",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 2
+                           callproperty Multiname("fromCharCode",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                           add
+                           coerce_s
+                           setlocal2
+                           getlocal 4
+                           pushbyte 4
+                           add
+                           convert_i
+                           setlocal 4
+                           jump ofs0237
+                  ofs014b:
+                           label
+                           getlocal2
+                           pushstring "\f"
+                           add
+                           setlocal2
+                           jump ofs0237
+                  ofs0156:
+                           label
+                           getlocal2
+                           pushstring "/"
+                           add
+                           setlocal2
+                           jump ofs0237
+                  ofs0161:
+                           label
+                           getlocal2
+                           pushstring "\b"
+                           add
+                           setlocal2
+                           jump ofs0237
+                  ofs016c:
+                           label
+                           getlocal2
+                           pushstring "\\"
+                           getlocal 7
+                           add
+                           add
+                           coerce_s
+                           setlocal2
+                           jump ofs0237
+                  ofs017b:
+                           getlocal 7
+                           setlocal 11
+                           pushstring "\""
+                           getlocal 11
+                           ifstrictne ofs018e
+                           pushbyte 0
+                           jump ofs0212
+                  ofs018e:
+                           pushstring "\\"
+                           getlocal 11
+                           ifstrictne ofs019d
+                           pushbyte 1
+                           jump ofs0212
+                  ofs019d:
+                           pushstring "n"
+                           getlocal 11
+                           ifstrictne ofs01ac
+                           pushbyte 2
+                           jump ofs0212
+                  ofs01ac:
+                           pushstring "r"
+                           getlocal 11
+                           ifstrictne ofs01bb
+                           pushbyte 3
+                           jump ofs0212
+                  ofs01bb:
+                           pushstring "t"
+                           getlocal 11
+                           ifstrictne ofs01ca
+                           pushbyte 4
+                           jump ofs0212
+                  ofs01ca:
+                           pushstring "u"
+                           getlocal 11
+                           ifstrictne ofs01d9
+                           pushbyte 5
+                           jump ofs0212
+                  ofs01d9:
+                           pushstring "f"
+                           getlocal 11
+                           ifstrictne ofs01e8
+                           pushbyte 6
+                           jump ofs0212
+                  ofs01e8:
+                           pushstring "/"
+                           getlocal 11
+                           ifstrictne ofs01f7
+                           pushbyte 7
+                           jump ofs0212
+                  ofs01f7:
+                           pushstring "b"
+                           getlocal 11
+                           ifstrictne ofs0206
+                           pushbyte 8
+                           jump ofs0212
+                  ofs0206:
+                           jump ofs0210
+                           pushbyte 9
+                           jump ofs0210
+                  ofs0210:
+                           pushbyte 9
+                  ofs0212:
+                           kill 11
+                           lookupswitch ofs016c, [ofs0093, ofs009e, ofs00a9, ofs00b4, ofs00bf, ofs00ca, ofs014b, ofs0156, ofs0161, ofs016c]
+                  ofs0237:
+                           jump ofs024b
+                  ofs023b:
+                           getlocal2
+                           getlocal1
+                           getlocal 4
+                           callproperty Multiname("substr",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                           add
+                           coerce_s
+                           setlocal2
+                           jump ofs0253
+                  ofs024b:
+                           getlocal 4
+                           getlocal 5
+                           iflt ofs0051
+                  ofs0253:
+                           getlocal2
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               private function readNumber() : JSONToken
+               {
+                  trait method QName(PrivateNamespace(null,"187"),"readNumber")
+                     dispid 0
+                     method
+                        name null
+                        returns QName(PackageNamespace("com.adobeadobe.serialization.json"),"JSONToken")
+                        
+                        body
+                           maxstack 3
+                           localcount 4
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              pushnull
+                              coerce QName(PackageNamespace("com.adobeadobe.serialization.json"),"JSONToken")
+                              setlocal3
+                              pushstring ""
+                              setlocal1
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              pushstring "-"
+                              ifne ofs0022
+                              getlocal1
+                              pushstring "-"
+                              add
+                              setlocal1
+                              getlocal0
+                              callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     ofs0022:
+                              getlocal0
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              callproperty Multiname("isDigit",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                              iftrue ofs003a
+                              getlocal0
+                              pushstring "Expecting a digit"
+                              callpropvoid Multiname("parseError",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                     ofs003a:
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              pushstring "0"
+                              ifne ofs00eb
+                              getlocal1
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              add
+                              coerce_s
+                              setlocal1
+                              getlocal0
+                              callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                              getlocal0
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              callproperty Multiname("isDigit",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                              iffalse ofs0071
+                              getlocal0
+                              pushstring "A digit cannot immediately follow 0"
+                              callpropvoid Multiname("parseError",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                              jump ofs00e7
+                     ofs0071:
+                              getlocal0
+                              getproperty Multiname("strict",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              not
+                              dup
+                              iffalse ofs0086
+                              pop
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              pushstring "x"
+                              equals
+                     ofs0086:
+                              iffalse ofs00e7
+                              getlocal1
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              add
+                              coerce_s
+                              setlocal1
+                              getlocal0
+                              callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                              getlocal0
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              callproperty Multiname("isHexDigit",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                              iffalse ofs00bb
+                              getlocal1
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              add
+                              coerce_s
+                              setlocal1
+                              getlocal0
+                              callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                              jump ofs00c4
+                     ofs00bb:
+                              getlocal0
+                              pushstring "Number in hex format require at least one hex digit after \"0x\""
+                              callpropvoid Multiname("parseError",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                     ofs00c4:
+                              jump ofs00d8
+                     ofs00c8:
+                              label
+                              getlocal1
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              add
+                              coerce_s
+                              setlocal1
+                              getlocal0
+                              callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     ofs00d8:
+                              getlocal0
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              callproperty Multiname("isHexDigit",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                              iftrue ofs00c8
+                     ofs00e7:
+                              jump ofs010e
+                     ofs00eb:
+                              jump ofs00ff
+                     ofs00ef:
+                              label
+                              getlocal1
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              add
+                              coerce_s
+                              setlocal1
+                              getlocal0
+                              callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     ofs00ff:
+                              getlocal0
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              callproperty Multiname("isDigit",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                              iftrue ofs00ef
+                     ofs010e:
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              pushstring "."
+                              ifne ofs0161
+                              getlocal1
+                              pushstring "."
+                              add
+                              setlocal1
+                              getlocal0
+                              callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                              getlocal0
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              callproperty Multiname("isDigit",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                              iftrue ofs013e
+                              getlocal0
+                              pushstring "Expecting a digit"
+                              callpropvoid Multiname("parseError",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                     ofs013e:
+                              jump ofs0152
+                     ofs0142:
+                              label
+                              getlocal1
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              add
+                              coerce_s
+                              setlocal1
+                              getlocal0
+                              callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     ofs0152:
+                              getlocal0
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              callproperty Multiname("isDigit",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                              iftrue ofs0142
+                     ofs0161:
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              pushstring "e"
+                              equals
+                              dup
+                              iftrue ofs0179
+                              pop
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              pushstring "E"
+                              equals
+                     ofs0179:
+                              iffalse ofs01ef
+                              getlocal1
+                              pushstring "e"
+                              add
+                              setlocal1
+                              getlocal0
+                              callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              pushstring "+"
+                              equals
+                              dup
+                              iftrue ofs01a1
+                              pop
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              pushstring "-"
+                              equals
+                     ofs01a1:
+                              iffalse ofs01b4
+                              getlocal1
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              add
+                              coerce_s
+                              setlocal1
+                              getlocal0
+                              callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     ofs01b4:
+                              getlocal0
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              callproperty Multiname("isDigit",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                              iftrue ofs01cc
+                              getlocal0
+                              pushstring "Scientific notation number needs exponent value"
+                              callpropvoid Multiname("parseError",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                     ofs01cc:
+                              jump ofs01e0
+                     ofs01d0:
+                              label
+                              getlocal1
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              add
+                              coerce_s
+                              setlocal1
+                              getlocal0
+                              callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                     ofs01e0:
+                              getlocal0
+                              getlocal0
+                              getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              callproperty Multiname("isDigit",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                              iftrue ofs01d0
+                     ofs01ef:
+                              findpropstrict Multiname("Number",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              getlocal1
+                              callproperty Multiname("Number",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                              convert_d
+                              setlocal2
+                              findpropstrict Multiname("isFinite",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              getlocal2
+                              callproperty Multiname("isFinite",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                              convert_b
+                              dup
+                              iffalse ofs0217
+                              pop
+                              findpropstrict Multiname("isNaN",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              getlocal2
+                              callproperty Multiname("isNaN",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                              not
+                     ofs0217:
+                              iffalse ofs023d
+                              findpropstrict Multiname("JSONToken",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              constructprop Multiname("JSONToken",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                              coerce QName(PackageNamespace("com.adobeadobe.serialization.json"),"JSONToken")
+                              setlocal3
+                              getlocal3
+                              getlex Multiname("JSONTokenType",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              getproperty Multiname("NUMBER",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              setproperty Multiname("type",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              getlocal3
+                              getlocal2
+                              setproperty Multiname("value",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                              getlocal3
+                              returnvalue
+                     ofs023d:
+                              getlocal0
+                              pushstring "Number "
+                              getlocal2
+                              add
+                              pushstring " is not valid!"
+                              add
+                              callpropvoid Multiname("parseError",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                              pushnull
+                              returnvalue
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  private function nextChar() : String
+                  {
+                     trait method QName(PrivateNamespace(null,"187"),"nextChar")
+                        dispid 0
+                        method
+                           name null
+                           returns QName(PackageNamespace(""),"String")
+                           
+                           body
+                              maxstack 5
+                              localcount 3
+                              initscopedepth 4
+                              maxscopedepth 5
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal0
+                                 getlocal0
+                                 getproperty Multiname("jsonString",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                                 getlocal0
+                                 dup
+                                 setlocal1
+                                 getproperty Multiname("loc",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                                 dup
+                                 increment_i
+                                 setlocal2
+                                 getlocal1
+                                 getlocal2
+                                 setproperty Multiname("loc",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                                 kill 2
+                                 kill 1
+                                 callproperty Multiname("charAt",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                                 dup
+                                 setlocal1
+                                 initproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                                 getlocal1
+                                 kill 1
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     private function skipIgnored() : void
+                     {
+                        trait method QName(PrivateNamespace(null,"187"),"skipIgnored")
+                           dispid 0
+                           method
+                              name null
+                              returns QName(PackageNamespace(""),"void")
+                              
+                              body
+                                 maxstack 2
+                                 localcount 2
+                                 initscopedepth 4
+                                 maxscopedepth 5
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    pushbyte 0
+                                    setlocal1
+                                    jump ofs000a
+                           ofs0009:
+                                    label
+                           ofs000a:
+                                    getlocal0
+                                    getproperty Multiname("loc",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                                    convert_i
+                                    setlocal1
+                                    getlocal0
+                                    callpropvoid Multiname("skipWhite",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                                    getlocal0
+                                    callpropvoid Multiname("skipComments",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                                    getlocal1
+                                    getlocal0
+                                    getproperty Multiname("loc",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                                    ifne ofs0009
+                                    returnvoid
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        private function skipComments() : void
+                        {
+                           trait method QName(PrivateNamespace(null,"187"),"skipComments")
+                              dispid 0
+                              method
+                                 name null
+                                 returns QName(PackageNamespace(""),"void")
+                                 
+                                 body
+                                    maxstack 3
+                                    localcount 2
+                                    initscopedepth 4
+                                    maxscopedepth 5
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlocal0
+                                       getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                                       pushstring "/"
+                                       ifne ofs00fb
+                                       getlocal0
+                                       callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                                       jump ofs00bd
+                              ofs0018:
+                                       label
+                                       jump ofs001e
+                              ofs001d:
+                                       label
+                              ofs001e:
+                                       getlocal0
+                                       callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                                       getlocal0
+                                       getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                                       pushstring "\n"
+                                       equals
+                                       not
+                                       dup
+                                       iffalse ofs003d
+                                       pop
+                                       getlocal0
+                                       getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                                       pushstring ""
+                                       equals
+                                       not
+                              ofs003d:
+                                       iftrue ofs001d
+                                       getlocal0
+                                       callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                                       jump ofs00fb
+                              ofs004b:
+                                       label
+                                       getlocal0
+                                       callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                                       jump ofs009d
+                              ofs0056:
+                                       label
+                                       getlocal0
+                                       getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                                       pushstring "*"
+                                       ifne ofs0083
+                                       getlocal0
+                                       callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                                       getlocal0
+                                       getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                                       pushstring "/"
+                                       ifne ofs007f
+                                       getlocal0
+                                       callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                                       jump ofs00a1
+                              ofs007f:
+                                       jump ofs0089
+                              ofs0083:
+                                       getlocal0
+                                       callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                              ofs0089:
+                                       getlocal0
+                                       getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                                       pushstring ""
+                                       ifne ofs009d
+                                       getlocal0
+                                       pushstring "Multi-line comment not closed"
+                                       callpropvoid Multiname("parseError",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                              ofs009d:
+                                       jump ofs0056
+                              ofs00a1:
+                                       jump ofs00fb
+                              ofs00a5:
+                                       label
+                                       getlocal0
+                                       pushstring "Unexpected "
+                                       getlocal0
+                                       getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                                       add
+                                       pushstring " encountered (expecting \'/\' or \'*\' )"
+                                       add
+                                       callpropvoid Multiname("parseError",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                                       jump ofs00fb
+                              ofs00bd:
+                                       getlocal0
+                                       getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                                       setlocal1
+                                       pushstring "/"
+                                       getlocal1
+                                       ifstrictne ofs00d1
+                                       pushbyte 0
+                                       jump ofs00eb
+                              ofs00d1:
+                                       pushstring "*"
+                                       getlocal1
+                                       ifstrictne ofs00df
+                                       pushbyte 1
+                                       jump ofs00eb
+                              ofs00df:
+                                       jump ofs00e9
+                                       pushbyte 2
+                                       jump ofs00e9
+                              ofs00e9:
+                                       pushbyte 2
+                              ofs00eb:
+                                       kill 1
+                                       lookupswitch ofs00a5, [ofs0018, ofs004b, ofs00a5]
+                              ofs00fb:
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           private function skipWhite() : void
+                           {
+                              trait method QName(PrivateNamespace(null,"187"),"skipWhite")
+                                 dispid 0
+                                 method
+                                    name null
+                                    returns QName(PackageNamespace(""),"void")
+                                    
+                                    body
+                                       maxstack 2
+                                       localcount 1
+                                       initscopedepth 4
+                                       maxscopedepth 5
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          jump ofs000d
+                                 ofs0006:
+                                          label
+                                          getlocal0
+                                          callpropvoid Multiname("nextChar",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 0
+                                 ofs000d:
+                                          getlocal0
+                                          getlocal0
+                                          getproperty Multiname("ch",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                                          callproperty Multiname("isWhiteSpace",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                                          iftrue ofs0006
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              private function isWhiteSpace(param1:String) : Boolean
+                              {
+                                 trait method QName(PrivateNamespace(null,"187"),"isWhiteSpace")
+                                    dispid 0
+                                    method
+                                       name null
+                                       param QName(PackageNamespace(""),"String")
+                                       returns QName(PackageNamespace(""),"Boolean")
+                                       
+                                       body
+                                          maxstack 2
+                                          localcount 2
+                                          initscopedepth 4
+                                          maxscopedepth 5
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlocal1
+                                             pushstring " "
+                                             equals
+                                             dup
+                                             iftrue ofs0012
+                                             pop
+                                             getlocal1
+                                             pushstring "\t"
+                                             equals
+                                    ofs0012:
+                                             dup
+                                             iftrue ofs001d
+                                             pop
+                                             getlocal1
+                                             pushstring "\n"
+                                             equals
+                                    ofs001d:
+                                             dup
+                                             iftrue ofs0028
+                                             pop
+                                             getlocal1
+                                             pushstring "\r"
+                                             equals
+                                    ofs0028:
+                                             iffalse ofs002e
+                                             pushtrue
+                                             returnvalue
+                                    ofs002e:
+                                             getlocal0
+                                             getproperty Multiname("strict",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                                             not
+                                             dup
+                                             iffalse ofs0046
+                                             pop
+                                             getlocal1
+                                             pushbyte 0
+                                             callproperty Multiname("charCodeAt",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                                             pushshort 160
+                                             equals
+                                    ofs0046:
+                                             iffalse ofs004c
+                                             pushtrue
+                                             returnvalue
+                                    ofs004c:
+                                             pushfalse
+                                             returnvalue
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 private function isDigit(param1:String) : Boolean
+                                 {
+                                    trait method QName(PrivateNamespace(null,"187"),"isDigit")
+                                       dispid 0
+                                       method
+                                          name null
+                                          param QName(PackageNamespace(""),"String")
+                                          returns QName(PackageNamespace(""),"Boolean")
+                                          
+                                          body
+                                             maxstack 2
+                                             localcount 2
+                                             initscopedepth 4
+                                             maxscopedepth 5
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                getlocal1
+                                                pushstring "0"
+                                                greaterequals
+                                                dup
+                                                iffalse ofs0012
+                                                pop
+                                                getlocal1
+                                                pushstring "9"
+                                                lessequals
+                                       ofs0012:
+                                                returnvalue
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    private function isHexDigit(param1:String) : Boolean
+                                    {
+                                       trait method QName(PrivateNamespace(null,"187"),"isHexDigit")
+                                          dispid 0
+                                          method
+                                             name null
+                                             param QName(PackageNamespace(""),"String")
+                                             returns QName(PackageNamespace(""),"Boolean")
+                                             
+                                             body
+                                                maxstack 2
+                                                localcount 2
+                                                initscopedepth 4
+                                                maxscopedepth 5
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   getlocal0
+                                                   getlocal1
+                                                   callproperty Multiname("isDigit",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 1
+                                                   convert_b
+                                                   dup
+                                                   iftrue ofs0020
+                                                   pop
+                                                   getlocal1
+                                                   pushstring "A"
+                                                   greaterequals
+                                                   dup
+                                                   iffalse ofs0020
+                                                   pop
+                                                   getlocal1
+                                                   pushstring "F"
+                                                   lessequals
+                                          ofs0020:
+                                                   dup
+                                                   iftrue ofs0036
+                                                   pop
+                                                   getlocal1
+                                                   pushstring "a"
+                                                   greaterequals
+                                                   dup
+                                                   iffalse ofs0036
+                                                   pop
+                                                   getlocal1
+                                                   pushstring "f"
+                                                   lessequals
+                                          ofs0036:
+                                                   returnvalue
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                       
+                                       public function parseError(param1:String) : void
+                                       {
+                                          trait method QName(PackageNamespace(""),"parseError")
+                                             dispid 0
+                                             method
+                                                name null
+                                                param QName(PackageNamespace(""),"String")
+                                                returns QName(PackageNamespace(""),"void")
+                                                
+                                                body
+                                                   maxstack 4
+                                                   localcount 2
+                                                   initscopedepth 4
+                                                   maxscopedepth 5
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      findpropstrict Multiname("JSONParseError",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                                                      getlocal1
+                                                      getlocal0
+                                                      getproperty Multiname("loc",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                                                      getlocal0
+                                                      getproperty Multiname("jsonString",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")])
+                                                      constructprop Multiname("JSONParseError",[PrivateNamespace(null,"187"),PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("com.adobeadobe.serialization.json:JSONTokenizer"),StaticProtectedNs("com.adobeadobe.serialization.json:JSONTokenizer")]), 3
+                                                      throw
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                          }
+                                       }
+                                    }
+                                    
+                                    method
+                                       name null
+                                       returns null
+                                       
+                                       body
+                                          maxstack 2
+                                          localcount 1
+                                          initscopedepth 1
+                                          maxscopedepth 3
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             findpropstrict Multiname("JSONTokenizer",[PackageNamespace("com.adobeadobe.serialization.json")])
+                                             getlex QName(PackageNamespace(""),"Object")
+                                             pushscope
+                                             getlex Multiname("Object",[PackageNamespace(""),PrivateNamespace(null,"714"),PackageNamespace("com.adobeadobe.serialization.json"),PackageInternalNs("com.adobeadobe.serialization.json"),Namespace("http://adobe.com/AS3/2006/builtin")])
+                                             newclass 265
+                                             popscope
+                                             initproperty QName(PackageNamespace("com.adobeadobe.serialization.json"),"JSONTokenizer")
+                                             returnvoid
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                    

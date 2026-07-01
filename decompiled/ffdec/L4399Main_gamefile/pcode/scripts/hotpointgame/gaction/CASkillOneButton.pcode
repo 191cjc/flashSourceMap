@@ -1,0 +1,335 @@
+package hotpointgame.gaction
+{
+   import hotpointgame.Control.*;
+   import hotpointgame.common.*;
+   import hotpointgame.gameobj.ZhangDouT;
+   import hotpointgame.gameobj.ZtC;
+   
+   public class CASkillOneButton extends CAction
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 4
+            maxscopedepth 5
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var stopFram:int = 0;
+      
+      private var startFram:int = 0;
+      
+      private var curframState:int = 0;
+      
+      private var hitFrame:Array;
+      
+      public function CASkillOneButton(param1:String)
+      {
+         method
+            name null
+            param QName(PackageNamespace(""),"String")
+            returns null
+            
+            body
+               maxstack 2
+               localcount 2
+               initscopedepth 5
+               maxscopedepth 6
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  getlocal1
+                  constructsuper 1
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      override public function setData(param1:Object) : void
+      {
+         trait method QName(PackageNamespace(""),"setData")
+            flag OVERRIDE
+            dispid 0
+            method
+               name null
+               param QName(PackageNamespace(""),"Object")
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 2
+                  localcount 2
+                  initscopedepth 5
+                  maxscopedepth 6
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getlocal1
+                     getproperty Multiname("others",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     getproperty Multiname("ting",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     initproperty Multiname("stopFram",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     getlocal0
+                     getlocal1
+                     getproperty Multiname("others",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     getproperty Multiname("qiehuan",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     initproperty Multiname("startFram",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     getlocal0
+                     getlocal1
+                     getproperty Multiname("others",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     getproperty Multiname("hf",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     initproperty Multiname("hitFrame",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                     getlocal0
+                     getlocal1
+                     callsupervoid Multiname("setData",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction"),ProtectedNamespace("hotpointgame.gaction:CAction")]), 1
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         override protected function actionStateUpdate(param1:ZtC) : Boolean
+         {
+            trait method QName(ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),"actionStateUpdate")
+               flag OVERRIDE
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace("hotpointgame.gameobj"),"ZtC")
+                  returns QName(PackageNamespace(""),"Boolean")
+                  
+                  body
+                     maxstack 3
+                     localcount 2
+                     initscopedepth 5
+                     maxscopedepth 6
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        getproperty Multiname("curframState",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        pushbyte 0
+                        ifne ofs008f
+                        getlex Multiname("GM",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction"),PackageNamespace("hotpointgame.Control")])
+                        getproperty Multiname("ckey",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        pushstring "机甲技能3"
+                        callproperty Multiname("isKey",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 1
+                        iffalse ofs005f
+                        getlex Multiname("currentFrameNum",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        getlocal0
+                        getproperty Multiname("stopFram",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        ifne ofs003a
+                        getlocal1
+                        getlocal1
+                        callproperty Multiname("getCurrentFrameNum",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 0
+                        callpropvoid Multiname("gotoAndStopFrame",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 1
+               ofs003a:
+                        getlex Multiname("currentFrameNum",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        getlocal0
+                        getproperty Multiname("stopFram",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        ifngt ofs005d
+                        findproperty Multiname("currentFrameNum",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        getlocal0
+                        getproperty Multiname("stopFram",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        getlex Multiname("GS",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction"),PackageNamespace("hotpointgame.common")])
+                        getproperty Multiname("a1",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        add
+                        initproperty Multiname("currentFrameNum",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+               ofs005d:
+                        pushfalse
+                        returnvalue
+               ofs005f:
+                        getlocal0
+                        getlex Multiname("GS",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction"),PackageNamespace("hotpointgame.common")])
+                        getproperty Multiname("a1",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        initproperty Multiname("curframState",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        findproperty Multiname("currentFrameNum",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        getlocal0
+                        getproperty Multiname("stopFram",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        getlex Multiname("GS",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction"),PackageNamespace("hotpointgame.common")])
+                        getproperty Multiname("a1",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        add
+                        initproperty Multiname("currentFrameNum",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        getlocal1
+                        getlocal0
+                        getproperty Multiname("startFram",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        callpropvoid Multiname("gotoAndPlayFrame",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 1
+                        pushfalse
+                        returnvalue
+               ofs008f:
+                        getlocal1
+                        callproperty Multiname("getFrameLabel",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 0
+                        getlex Multiname("flaFrameName",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                        ifeq ofs009f
+                        pushtrue
+                        returnvalue
+               ofs009f:
+                        pushfalse
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            override public function attack(param1:ZtC, param2:Vector.<ZhangDouT>) : void
+            {
+               trait method QName(PackageNamespace(""),"attack")
+                  flag OVERRIDE
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace("hotpointgame.gameobj"),"ZtC")
+                     param TypeName(QName(PackageNamespace("__AS3__.vec"),"Vector")<QName(PackageNamespace("hotpointgame.gameobj"),"ZhangDouT")>)
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 4
+                        localcount 6
+                        initscopedepth 5
+                        maxscopedepth 6
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           pushnull
+                           coerce QName(PackageNamespace("hotpointgame.gameobj"),"ZhangDouT")
+                           setlocal3
+                           getlocal0
+                           getproperty Multiname("curframState",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           getlex Multiname("GS",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction"),PackageNamespace("hotpointgame.common")])
+                           getproperty Multiname("a1",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           ifne ofs0099
+                           getlex Multiname("currentFrameNum",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           getlocal0
+                           getproperty Multiname("hitFrame",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           pushbyte 0
+                           getproperty MultinameL([PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           greaterequals
+                           dup
+                           iffalse ofs003d
+                           pop
+                           getlex Multiname("currentFrameNum",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           getlocal0
+                           getproperty Multiname("hitFrame",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           pushbyte 1
+                           getproperty MultinameL([PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           lessequals
+                  ofs003d:
+                           iffalse ofs0099
+                           pushbyte 0
+                           setlocal 4
+                           getlocal2
+                           coerce_a
+                           setlocal 5
+                           jump ofs008e
+                  ofs004d:
+                           label
+                           getlocal 5
+                           getlocal 4
+                           nextvalue
+                           coerce QName(PackageNamespace("hotpointgame.gameobj"),"ZhangDouT")
+                           setlocal3
+                           getlex Multiname("hitEnemy",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           getlocal3
+                           callproperty Multiname("indexOf",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 1
+                           pushbyte -1
+                           ifne ofs008e
+                           getlocal3
+                           getlocal1
+                           callproperty Multiname("getAhit",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 0
+                           getlex Multiname("fda",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           getlocal1
+                           callproperty Multiname("bhitByObject",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")]), 3
+                           pushbyte -1
+                           ifeq ofs008e
+                           getlex Multiname("hitEnemy",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           getlex Multiname("hitEnemy",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           getproperty Multiname("length",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                           getlocal3
+                           setproperty MultinameL([PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                  ofs008e:
+                           hasnext2 5, 4
+                           iftrue ofs004d
+                           kill 5
+                           kill 4
+                  ofs0099:
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               override public function exit() : void
+               {
+                  trait method QName(PackageNamespace(""),"exit")
+                     flag OVERRIDE
+                     dispid 0
+                     method
+                        name null
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 2
+                           localcount 1
+                           initscopedepth 5
+                           maxscopedepth 6
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              pushbyte 0
+                              initproperty Multiname("curframState",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction")])
+                              getlocal0
+                              callsupervoid Multiname("exit",[PrivateNamespace(null,"237"),PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("hotpointgame.gaction:CASkillOneButton"),StaticProtectedNs("hotpointgame.gaction:CAction"),ProtectedNamespace("hotpointgame.gaction:CAction")]), 0
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+               }
+            }
+            
+            method
+               name null
+               returns null
+               
+               body
+                  maxstack 2
+                  localcount 1
+                  initscopedepth 1
+                  maxscopedepth 4
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     findpropstrict Multiname("CASkillOneButton",[PackageNamespace("hotpointgame.gaction")])
+                     getlex QName(PackageNamespace(""),"Object")
+                     pushscope
+                     getlex QName(PackageNamespace("hotpointgame.gaction"),"CAction")
+                     pushscope
+                     getlex Multiname("CAction",[PackageNamespace(""),PrivateNamespace(null,"789"),PackageNamespace("hotpointgame.gaction"),PackageInternalNs("hotpointgame.gaction"),Namespace("http://adobe.com/AS3/2006/builtin")])
+                     newclass 329
+                     popscope
+                     popscope
+                     initproperty QName(PackageNamespace("hotpointgame.gaction"),"CASkillOneButton")
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+            

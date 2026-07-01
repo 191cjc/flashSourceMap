@@ -1,0 +1,995 @@
+package hotpointgame.glevel
+{
+   import hotpointgame.Control.*;
+   import hotpointgame.common.*;
+   
+   public class CScene
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var id:Number = 0;
+      
+      private var _name:String = "大道";
+      
+      private var _mcclass:String = "map_1_1";
+      
+      private var _sceSpeed:Array;
+      
+      private var _touPx:Number = 700;
+      
+      private var _touPy:Number = 100;
+      
+      private var _swfList:Array;
+      
+      private var doorList:Array;
+      
+      private var roomObj:Object;
+      
+      private var waitDoor:Vector.<SendDoor>;
+      
+      private var effectDoor:Vector.<SendDoor>;
+      
+      private var lstar:int = 0;
+      
+      public function CScene(param1:Object)
+      {
+         method
+            name null
+            param QName(PackageNamespace(""),"Object")
+            returns null
+            
+            body
+               maxstack 5
+               localcount 7
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  pushnull
+                  coerce_s
+                  setlocal3
+                  pushnull
+                  coerce_s
+                  setlocal 4
+                  getlocal0
+                  pushdouble 0.5
+                  pushbyte 1
+                  pushdouble 0.7
+                  pushbyte 1
+                  newarray 4
+                  initproperty QName(PrivateNamespace(null,"66"),"_sceSpeed")
+                  getlocal0
+                  findpropstrict Multiname("Array",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  constructprop Multiname("Array",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 0
+                  initproperty QName(PrivateNamespace(null,"66"),"_swfList")
+                  getlocal0
+                  findpropstrict Multiname("Array",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  constructprop Multiname("Array",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 0
+                  initproperty QName(PrivateNamespace(null,"66"),"doorList")
+                  getlocal0
+                  findpropstrict Multiname("Object",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  constructprop Multiname("Object",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 0
+                  initproperty QName(PrivateNamespace(null,"66"),"roomObj")
+                  getlocal0
+                  getlex Multiname("Vector",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene"),PackageNamespace("__AS3__.vec")])
+                  getlex Multiname("SendDoor",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  applytype 1
+                  construct 0
+                  initproperty QName(PrivateNamespace(null,"66"),"waitDoor")
+                  getlocal0
+                  getlex Multiname("Vector",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene"),PackageNamespace("__AS3__.vec")])
+                  getlex Multiname("SendDoor",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  applytype 1
+                  construct 0
+                  initproperty QName(PrivateNamespace(null,"66"),"effectDoor")
+                  getlocal0
+                  constructsuper 0
+                  getlocal0
+                  getlocal1
+                  getproperty Multiname("id",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  initproperty Multiname("id",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  getlocal0
+                  getlocal1
+                  getproperty Multiname("_name",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  initproperty Multiname("_name",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  getlocal0
+                  getlocal1
+                  getproperty Multiname("swfList",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  initproperty Multiname("_swfList",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  getlocal0
+                  getlocal1
+                  getproperty Multiname("mcclass",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  initproperty Multiname("mcclass",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  getlocal0
+                  getlocal1
+                  getproperty Multiname("_touPx",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  initproperty Multiname("_touPx",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  getlocal0
+                  getlocal1
+                  getproperty Multiname("_touPy",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  initproperty Multiname("_touPy",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  getlocal0
+                  getlocal1
+                  getproperty Multiname("lstar",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  getlex Multiname("VT",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene"),PackageNamespace("hotpointgame.common")])
+                  astypelate
+                  callproperty Multiname("getValue",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 0
+                  initproperty Multiname("lstar",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  getlocal1
+                  getproperty Multiname("roomObj",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  coerce QName(PackageNamespace(""),"Array")
+                  setlocal2
+                  pushbyte 0
+                  setlocal 5
+                  getlocal2
+                  coerce_a
+                  setlocal 6
+                  jump ofs00c7
+         ofs00aa:
+                  label
+                  getlocal 6
+                  getlocal 5
+                  nextvalue
+                  coerce_s
+                  setlocal3
+                  getlocal0
+                  getproperty Multiname("roomObj",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  getlocal3
+                  getlex Multiname("LevelDataManager",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  getlocal3
+                  getlocal0
+                  getproperty Multiname("lstar",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  add
+                  callproperty Multiname("getCroom",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 1
+                  setproperty MultinameL([PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+         ofs00c7:
+                  hasnext2 6, 5
+                  iftrue ofs00aa
+                  kill 6
+                  kill 5
+                  getlocal0
+                  getlocal1
+                  getproperty Multiname("_sceSpeed",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  initproperty Multiname("_sceSpeed",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  getlocal0
+                  getlocal1
+                  getproperty Multiname("doorList",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  initproperty Multiname("doorList",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  pushbyte 0
+                  setlocal 5
+                  getlocal0
+                  getproperty Multiname("doorList",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  coerce_a
+                  setlocal 6
+                  jump ofs010b
+         ofs00f1:
+                  label
+                  getlocal 6
+                  getlocal 5
+                  nextvalue
+                  coerce_s
+                  setlocal 4
+                  getlocal0
+                  getproperty Multiname("waitDoor",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  getlex Multiname("LevelDataManager",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                  getlocal 4
+                  callproperty Multiname("getSeedDoor",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 1
+                  callpropvoid Multiname("push",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 1
+         ofs010b:
+                  hasnext2 6, 5
+                  iftrue ofs00f1
+                  kill 6
+                  kill 5
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function gmUpdate(param1:CLevel) : void
+      {
+         trait method QName(PackageNamespace(""),"gmUpdate")
+            dispid 0
+            method
+               name null
+               param QName(PackageNamespace("hotpointgame.glevel"),"CLevel")
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 4
+                  localcount 9
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     pushnull
+                     coerce QName(PackageNamespace("hotpointgame.glevel"),"SendDoor")
+                     setlocal 7
+                     pushnull
+                     coerce QName(PackageNamespace(""),"Object")
+                     setlocal 8
+                     pushfalse
+                     setlocal2
+                     getlex Multiname("GM",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene"),PackageNamespace("hotpointgame.Control")])
+                     getproperty Multiname("cp",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                     callproperty Multiname("getZx",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 0
+                     convert_d
+                     setlocal3
+                     getlex Multiname("GM",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene"),PackageNamespace("hotpointgame.Control")])
+                     getproperty Multiname("cp",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                     callproperty Multiname("getZy",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 0
+                     convert_d
+                     setlocal 4
+                     getlocal0
+                     getproperty Multiname("effectDoor",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                     getproperty Multiname("length",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                     convert_i
+                     dup
+                     setlocal 5
+                     decrement
+                     convert_i
+                     setlocal 6
+                     jump ofs00c9
+            ofs003a:
+                     label
+                     getlocal0
+                     getproperty Multiname("effectDoor",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                     getlocal 6
+                     getproperty MultinameL([PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                     coerce QName(PackageNamespace("hotpointgame.glevel"),"SendDoor")
+                     dup
+                     setlocal 7
+                     getlocal3
+                     getlocal 4
+                     getlocal2
+                     callproperty Multiname("useDoor",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 3
+                     coerce QName(PackageNamespace(""),"Object")
+                     setlocal 8
+                     getlocal 7
+                     getproperty Multiname("useTimesCur",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                     pushbyte 0
+                     ifnle ofs007a
+                     getlocal0
+                     getproperty Multiname("effectDoor",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                     getlocal 6
+                     pushbyte 1
+                     callpropvoid Multiname("splice",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 2
+                     getlocal1
+                     callproperty Multiname("getvs",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 0
+                     getlocal 7
+                     getproperty Multiname("name",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                     callpropvoid Multiname("removeDoorMcByn",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 1
+            ofs007a:
+                     getlocal 8
+                     pushnull
+                     ifeq ofs00c4
+                     getlocal1
+                     getproperty Multiname("name",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                     getlocal 8
+                     getproperty Multiname("gqm",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                     ifeq ofs008f
+                     returnvoid
+            ofs008f:
+                     getlocal0
+                     getproperty Multiname("name",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                     getlocal 8
+                     getproperty Multiname("cjm",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                     ifeq ofs00a4
+                     getlocal1
+                     getlocal 8
+                     callpropvoid Multiname("changeSceneData",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 1
+                     returnvoid
+            ofs00a4:
+                     getlocal1
+                     getproperty Multiname("curroom",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                     getproperty Multiname("name",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                     getlocal 8
+                     getproperty Multiname("fjm",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                     ifeq ofs00bc
+                     getlocal1
+                     getlocal 8
+                     callpropvoid Multiname("changeRoomDataBySend",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 1
+                     returnvoid
+            ofs00bc:
+                     getlocal1
+                     getlocal 8
+                     callpropvoid Multiname("inRoomSend",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 1
+                     returnvoid
+            ofs00c4:
+                     getlocal 6
+                     decrement_i
+                     setlocal 6
+            ofs00c9:
+                     getlocal 6
+                     pushbyte 0
+                     ifge ofs003a
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function updateDoorEnterScene(param1:CLevel) : void
+         {
+            trait method QName(PackageNamespace(""),"updateDoorEnterScene")
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace("hotpointgame.glevel"),"CLevel")
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 3
+                     localcount 4
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        getproperty Multiname("waitDoor",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                        getproperty Multiname("length",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                        convert_i
+                        setlocal2
+                        getlocal2
+                        decrement
+                        convert_i
+                        setlocal3
+                        jump ofs0058
+               ofs0013:
+                        label
+                        getlocal0
+                        getproperty Multiname("waitDoor",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                        getlocal3
+                        getproperty MultinameL([PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                        getlocal1
+                        callproperty Multiname("isChuXian",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 1
+                        iffalse ofs0055
+                        getlocal1
+                        callproperty Multiname("getvs",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 0
+                        getlocal0
+                        getproperty Multiname("waitDoor",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                        getlocal3
+                        getproperty MultinameL([PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                        callproperty Multiname("getDoorMc",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 0
+                        callpropvoid Multiname("addDoorMc",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 1
+                        getlocal0
+                        getproperty Multiname("effectDoor",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                        getlocal0
+                        getproperty Multiname("waitDoor",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                        getlocal3
+                        getproperty MultinameL([PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                        callpropvoid Multiname("push",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 1
+                        getlocal0
+                        getproperty Multiname("waitDoor",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                        getlocal3
+                        pushbyte 1
+                        callpropvoid Multiname("splice",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 2
+               ofs0055:
+                        getlocal3
+                        decrement_i
+                        setlocal3
+               ofs0058:
+                        getlocal3
+                        pushbyte 0
+                        ifge ofs0013
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function addDoorEnterScene(param1:CLevel) : void
+            {
+               trait method QName(PackageNamespace(""),"addDoorEnterScene")
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace("hotpointgame.glevel"),"CLevel")
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 2
+                        localcount 5
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           pushnull
+                           coerce QName(PackageNamespace("hotpointgame.glevel"),"SendDoor")
+                           setlocal2
+                           pushbyte 0
+                           setlocal3
+                           getlocal0
+                           getproperty Multiname("effectDoor",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                           coerce_a
+                           setlocal 4
+                           jump ofs002a
+                  ofs0014:
+                           label
+                           getlocal 4
+                           getlocal3
+                           nextvalue
+                           coerce QName(PackageNamespace("hotpointgame.glevel"),"SendDoor")
+                           setlocal2
+                           getlocal1
+                           callproperty Multiname("getvs",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 0
+                           getlocal2
+                           callproperty Multiname("getDoorMc",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 0
+                           callpropvoid Multiname("addDoorMc",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 1
+                  ofs002a:
+                           hasnext2 4, 3
+                           iftrue ofs0014
+                           kill 4
+                           kill 3
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function getRoom(param1:String) : CRoom
+               {
+                  trait method QName(PackageNamespace(""),"getRoom")
+                     dispid 0
+                     method
+                        name null
+                        param QName(PackageNamespace(""),"String")
+                        returns QName(PackageNamespace("hotpointgame.glevel"),"CRoom")
+                        
+                        body
+                           maxstack 2
+                           localcount 2
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              getproperty Multiname("roomObj",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                              getlocal1
+                              getproperty MultinameL([PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                              getlex Multiname("CRoom",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                              astypelate
+                              returnvalue
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function exitLevelClear() : void
+                  {
+                     trait method QName(PackageNamespace(""),"exitLevelClear")
+                        dispid 0
+                        method
+                           name null
+                           returns QName(PackageNamespace(""),"void")
+                           
+                           body
+                              maxstack 2
+                              localcount 4
+                              initscopedepth 4
+                              maxscopedepth 5
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 pushnull
+                                 coerce QName(PackageNamespace("hotpointgame.glevel"),"CRoom")
+                                 setlocal1
+                                 getlocal0
+                                 pushnull
+                                 initproperty Multiname("_swfList",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                                 getlocal0
+                                 pushnull
+                                 initproperty Multiname("doorList",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                                 getlocal0
+                                 getproperty Multiname("waitDoor",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                                 pushbyte 0
+                                 setproperty Multiname("length",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                                 getlocal0
+                                 getproperty Multiname("effectDoor",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                                 pushbyte 0
+                                 setproperty Multiname("length",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                                 pushbyte 0
+                                 setlocal2
+                                 getlocal0
+                                 getproperty Multiname("roomObj",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                                 coerce_a
+                                 setlocal3
+                                 jump ofs003b
+                        ofs002f:
+                                 label
+                                 getlocal3
+                                 getlocal2
+                                 nextvalue
+                                 coerce QName(PackageNamespace("hotpointgame.glevel"),"CRoom")
+                                 setlocal1
+                                 getlocal1
+                                 callpropvoid Multiname("exitLevelClear",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 0
+                        ofs003b:
+                                 hasnext2 3, 2
+                                 iftrue ofs002f
+                                 kill 3
+                                 kill 2
+                                 getlocal0
+                                 pushnull
+                                 initproperty Multiname("roomObj",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public function exitCscene() : void
+                     {
+                        trait method QName(PackageNamespace(""),"exitCscene")
+                           dispid 0
+                           method
+                              name null
+                              returns QName(PackageNamespace(""),"void")
+                              
+                              body
+                                 maxstack 1
+                                 localcount 1
+                                 initscopedepth 4
+                                 maxscopedepth 5
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    returnvoid
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        public function enterScene(param1:CLevel) : void
+                        {
+                           trait method QName(PackageNamespace(""),"enterScene")
+                              dispid 0
+                              method
+                                 name null
+                                 param QName(PackageNamespace("hotpointgame.glevel"),"CLevel")
+                                 returns QName(PackageNamespace(""),"void")
+                                 
+                                 body
+                                    maxstack 2
+                                    localcount 2
+                                    initscopedepth 4
+                                    maxscopedepth 5
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlocal0
+                                       getlocal1
+                                       callpropvoid Multiname("addDoorEnterScene",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 1
+                                       getlocal0
+                                       getlocal1
+                                       callpropvoid Multiname("updateDoorEnterScene",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 1
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           public function get name() : String
+                           {
+                              trait getter QName(PackageNamespace(""),"name")
+                                 dispid 0
+                                 method
+                                    name null
+                                    returns QName(PackageNamespace(""),"String")
+                                    
+                                    body
+                                       maxstack 1
+                                       localcount 1
+                                       initscopedepth 4
+                                       maxscopedepth 5
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlocal0
+                                          getproperty Multiname("_name",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                                          returnvalue
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              public function set name(param1:String) : void
+                              {
+                                 trait setter QName(PackageNamespace(""),"name")
+                                    dispid 0
+                                    method
+                                       name null
+                                       param QName(PackageNamespace(""),"String")
+                                       returns QName(PackageNamespace(""),"void")
+                                       
+                                       body
+                                          maxstack 2
+                                          localcount 2
+                                          initscopedepth 4
+                                          maxscopedepth 5
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlocal0
+                                             getlocal1
+                                             initproperty Multiname("_name",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                                             returnvoid
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 public function get touPx() : Number
+                                 {
+                                    trait getter QName(PackageNamespace(""),"touPx")
+                                       dispid 0
+                                       method
+                                          name null
+                                          returns QName(PackageNamespace(""),"Number")
+                                          
+                                          body
+                                             maxstack 1
+                                             localcount 1
+                                             initscopedepth 4
+                                             maxscopedepth 5
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                getlocal0
+                                                getproperty Multiname("_touPx",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                                                returnvalue
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    public function set touPx(param1:Number) : void
+                                    {
+                                       trait setter QName(PackageNamespace(""),"touPx")
+                                          dispid 0
+                                          method
+                                             name null
+                                             param QName(PackageNamespace(""),"Number")
+                                             returns QName(PackageNamespace(""),"void")
+                                             
+                                             body
+                                                maxstack 2
+                                                localcount 2
+                                                initscopedepth 4
+                                                maxscopedepth 5
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   getlocal0
+                                                   getlocal1
+                                                   initproperty Multiname("_touPx",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                                                   returnvoid
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                       
+                                       public function get touPy() : Number
+                                       {
+                                          trait getter QName(PackageNamespace(""),"touPy")
+                                             dispid 0
+                                             method
+                                                name null
+                                                returns QName(PackageNamespace(""),"Number")
+                                                
+                                                body
+                                                   maxstack 1
+                                                   localcount 1
+                                                   initscopedepth 4
+                                                   maxscopedepth 5
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      getlocal0
+                                                      getproperty Multiname("_touPy",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                                                      returnvalue
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                          }
+                                          
+                                          public function set touPy(param1:Number) : void
+                                          {
+                                             trait setter QName(PackageNamespace(""),"touPy")
+                                                dispid 0
+                                                method
+                                                   name null
+                                                   param QName(PackageNamespace(""),"Number")
+                                                   returns QName(PackageNamespace(""),"void")
+                                                   
+                                                   body
+                                                      maxstack 2
+                                                      localcount 2
+                                                      initscopedepth 4
+                                                      maxscopedepth 5
+                                                      
+                                                      code
+                                                         getlocal0
+                                                         pushscope
+                                                         getlocal0
+                                                         getlocal1
+                                                         initproperty Multiname("_touPy",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                                                         returnvoid
+                                                      end ; code
+                                                   end ; body
+                                                end ; method
+                                             }
+                                             
+                                             public function get sceSpeed() : Array
+                                             {
+                                                trait getter QName(PackageNamespace(""),"sceSpeed")
+                                                   dispid 0
+                                                   method
+                                                      name null
+                                                      returns QName(PackageNamespace(""),"Array")
+                                                      
+                                                      body
+                                                         maxstack 1
+                                                         localcount 1
+                                                         initscopedepth 4
+                                                         maxscopedepth 5
+                                                         
+                                                         code
+                                                            getlocal0
+                                                            pushscope
+                                                            getlocal0
+                                                            getproperty Multiname("_sceSpeed",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                                                            returnvalue
+                                                         end ; code
+                                                      end ; body
+                                                   end ; method
+                                                }
+                                                
+                                                public function set sceSpeed(param1:Array) : void
+                                                {
+                                                   trait setter QName(PackageNamespace(""),"sceSpeed")
+                                                      dispid 0
+                                                      method
+                                                         name null
+                                                         param QName(PackageNamespace(""),"Array")
+                                                         returns QName(PackageNamespace(""),"void")
+                                                         
+                                                         body
+                                                            maxstack 2
+                                                            localcount 2
+                                                            initscopedepth 4
+                                                            maxscopedepth 5
+                                                            
+                                                            code
+                                                               getlocal0
+                                                               pushscope
+                                                               getlocal0
+                                                               getlocal1
+                                                               initproperty Multiname("_sceSpeed",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                                                               returnvoid
+                                                            end ; code
+                                                         end ; body
+                                                      end ; method
+                                                   }
+                                                   
+                                                   public function get mcclass() : String
+                                                   {
+                                                      trait getter QName(PackageNamespace(""),"mcclass")
+                                                         dispid 0
+                                                         method
+                                                            name null
+                                                            returns QName(PackageNamespace(""),"String")
+                                                            
+                                                            body
+                                                               maxstack 1
+                                                               localcount 1
+                                                               initscopedepth 4
+                                                               maxscopedepth 5
+                                                               
+                                                               code
+                                                                  getlocal0
+                                                                  pushscope
+                                                                  getlocal0
+                                                                  getproperty Multiname("_mcclass",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                                                                  returnvalue
+                                                               end ; code
+                                                            end ; body
+                                                         end ; method
+                                                      }
+                                                      
+                                                      public function set mcclass(param1:String) : void
+                                                      {
+                                                         trait setter QName(PackageNamespace(""),"mcclass")
+                                                            dispid 0
+                                                            method
+                                                               name null
+                                                               param QName(PackageNamespace(""),"String")
+                                                               returns QName(PackageNamespace(""),"void")
+                                                               
+                                                               body
+                                                                  maxstack 2
+                                                                  localcount 2
+                                                                  initscopedepth 4
+                                                                  maxscopedepth 5
+                                                                  
+                                                                  code
+                                                                     getlocal0
+                                                                     pushscope
+                                                                     getlocal0
+                                                                     getlocal1
+                                                                     initproperty Multiname("_mcclass",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                                                                     returnvoid
+                                                                  end ; code
+                                                               end ; body
+                                                            end ; method
+                                                         }
+                                                         
+                                                         public function get swfList() : Array
+                                                         {
+                                                            trait getter QName(PackageNamespace(""),"swfList")
+                                                               dispid 0
+                                                               method
+                                                                  name null
+                                                                  returns QName(PackageNamespace(""),"Array")
+                                                                  
+                                                                  body
+                                                                     maxstack 1
+                                                                     localcount 1
+                                                                     initscopedepth 4
+                                                                     maxscopedepth 5
+                                                                     
+                                                                     code
+                                                                        getlocal0
+                                                                        pushscope
+                                                                        getlocal0
+                                                                        getproperty Multiname("_swfList",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                                                                        returnvalue
+                                                                     end ; code
+                                                                  end ; body
+                                                               end ; method
+                                                            }
+                                                            
+                                                            public function set swfList(param1:Array) : void
+                                                            {
+                                                               trait setter QName(PackageNamespace(""),"swfList")
+                                                                  dispid 0
+                                                                  method
+                                                                     name null
+                                                                     param QName(PackageNamespace(""),"Array")
+                                                                     returns QName(PackageNamespace(""),"void")
+                                                                     
+                                                                     body
+                                                                        maxstack 2
+                                                                        localcount 2
+                                                                        initscopedepth 4
+                                                                        maxscopedepth 5
+                                                                        
+                                                                        code
+                                                                           getlocal0
+                                                                           pushscope
+                                                                           getlocal0
+                                                                           getlocal1
+                                                                           initproperty Multiname("_swfList",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                                                                           returnvoid
+                                                                        end ; code
+                                                                     end ; body
+                                                                  end ; method
+                                                               }
+                                                               
+                                                               public function addSwfPk(param1:Array) : void
+                                                               {
+                                                                  trait method QName(PackageNamespace(""),"addSwfPk")
+                                                                     dispid 0
+                                                                     method
+                                                                        name null
+                                                                        param QName(PackageNamespace(""),"Array")
+                                                                        returns QName(PackageNamespace(""),"void")
+                                                                        
+                                                                        body
+                                                                           maxstack 2
+                                                                           localcount 5
+                                                                           initscopedepth 4
+                                                                           maxscopedepth 5
+                                                                           
+                                                                           code
+                                                                              getlocal0
+                                                                              pushscope
+                                                                              pushnull
+                                                                              coerce_s
+                                                                              setlocal2
+                                                                              pushbyte 0
+                                                                              setlocal3
+                                                                              getlocal1
+                                                                              coerce_a
+                                                                              setlocal 4
+                                                                              jump ofs002f
+                                                                     ofs0010:
+                                                                              label
+                                                                              getlocal 4
+                                                                              getlocal3
+                                                                              nextvalue
+                                                                              coerce_s
+                                                                              setlocal2
+                                                                              getlocal0
+                                                                              getproperty Multiname("swfList",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                                                                              getlocal2
+                                                                              callproperty Multiname("indexOf",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 1
+                                                                              pushbyte -1
+                                                                              ifne ofs002f
+                                                                              getlocal0
+                                                                              getproperty Multiname("swfList",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")])
+                                                                              getlocal2
+                                                                              callpropvoid Multiname("push",[PrivateNamespace(null,"66"),PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:CScene"),StaticProtectedNs("hotpointgame.glevel:CScene")]), 1
+                                                                     ofs002f:
+                                                                              hasnext2 4, 3
+                                                                              iftrue ofs0010
+                                                                              kill 4
+                                                                              kill 3
+                                                                              returnvoid
+                                                                           end ; code
+                                                                        end ; body
+                                                                     end ; method
+                                                                  }
+                                                               }
+                                                            }
+                                                            
+                                                            method
+                                                               name null
+                                                               returns null
+                                                               
+                                                               body
+                                                                  maxstack 2
+                                                                  localcount 1
+                                                                  initscopedepth 1
+                                                                  maxscopedepth 3
+                                                                  
+                                                                  code
+                                                                     getlocal0
+                                                                     pushscope
+                                                                     findpropstrict Multiname("CScene",[PackageNamespace("hotpointgame.glevel")])
+                                                                     getlex QName(PackageNamespace(""),"Object")
+                                                                     pushscope
+                                                                     getlex Multiname("Object",[PrivateNamespace(null,"502"),PackageNamespace(""),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin")])
+                                                                     newclass 82
+                                                                     popscope
+                                                                     initproperty QName(PackageNamespace("hotpointgame.glevel"),"CScene")
+                                                                     returnvoid
+                                                                  end ; code
+                                                               end ; body
+                                                            end ; method
+                                                            

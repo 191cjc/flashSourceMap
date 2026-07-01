@@ -1,0 +1,601 @@
+package mx.skins.halo
+{
+   import flash.display.Graphics;
+   import flash.filters.DropShadowFilter;
+   import mx.core.EdgeMetrics;
+   import mx.core.mx_internal;
+   import mx.graphics.RectangularDropShadow;
+   import mx.skins.RectangularBorder;
+   
+   use namespace mx_internal;
+   
+   public class ToolTipBorder extends RectangularBorder
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 10
+            maxscopedepth 11
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var dropShadow:RectangularDropShadow;
+      
+      private var _borderMetrics:EdgeMetrics;
+      
+      public function ToolTipBorder()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 1
+               localcount 1
+               initscopedepth 11
+               maxscopedepth 12
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      override public function get borderMetrics() : EdgeMetrics
+      {
+         trait getter QName(PackageNamespace(""),"borderMetrics")
+            flag OVERRIDE
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace("mx.core"),"EdgeMetrics")
+               
+               body
+                  maxstack 6
+                  localcount 3
+                  initscopedepth 11
+                  maxscopedepth 12
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"15"),"_borderMetrics")
+                     iffalse ofs000f
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"15"),"_borderMetrics")
+                     returnvalue
+            ofs000f:
+                     findpropstrict QName(PackageNamespace(""),"getStyle")
+                     pushstring "borderStyle"
+                     callproperty QName(PackageNamespace(""),"getStyle"), 1
+                     coerce_s
+                     setlocal1
+                     jump ofs0078
+            ofs001f:
+                     label
+                     getlocal0
+                     findpropstrict QName(PackageNamespace("mx.core"),"EdgeMetrics")
+                     pushbyte 15
+                     pushbyte 1
+                     pushbyte 3
+                     dup
+                     constructprop QName(PackageNamespace("mx.core"),"EdgeMetrics"), 4
+                     initproperty QName(PrivateNamespace(null,"15"),"_borderMetrics")
+                     jump ofs00c3
+            ofs0034:
+                     label
+                     getlocal0
+                     findpropstrict QName(PackageNamespace("mx.core"),"EdgeMetrics")
+                     pushbyte 3
+                     pushbyte 1
+                     pushbyte 3
+                     pushbyte 15
+                     constructprop QName(PackageNamespace("mx.core"),"EdgeMetrics"), 4
+                     initproperty QName(PrivateNamespace(null,"15"),"_borderMetrics")
+                     jump ofs00c3
+            ofs004a:
+                     label
+                     getlocal0
+                     findpropstrict QName(PackageNamespace("mx.core"),"EdgeMetrics")
+                     pushbyte 3
+                     pushbyte 13
+                     pushbyte 3
+                     dup
+                     constructprop QName(PackageNamespace("mx.core"),"EdgeMetrics"), 4
+                     initproperty QName(PrivateNamespace(null,"15"),"_borderMetrics")
+                     jump ofs00c3
+            ofs005f:
+                     label
+                     getlocal0
+                     findpropstrict QName(PackageNamespace("mx.core"),"EdgeMetrics")
+                     pushbyte 3
+                     pushbyte 1
+                     pushbyte 3
+                     dup
+                     constructprop QName(PackageNamespace("mx.core"),"EdgeMetrics"), 4
+                     initproperty QName(PrivateNamespace(null,"15"),"_borderMetrics")
+                     jump ofs00c3
+                     jump ofs0078
+            ofs0078:
+                     getlocal1
+                     setlocal2
+                     pushstring "errorTipRight"
+                     getlocal2
+                     ifstrictne ofs0088
+                     pushbyte 0
+                     jump ofs00b0
+            ofs0088:
+                     pushstring "errorTipAbove"
+                     getlocal2
+                     ifstrictne ofs0096
+                     pushbyte 1
+                     jump ofs00b0
+            ofs0096:
+                     pushstring "errorTipBelow"
+                     getlocal2
+                     ifstrictne ofs00a4
+                     pushbyte 2
+                     jump ofs00b0
+            ofs00a4:
+                     jump ofs00ae
+                     pushbyte 3
+                     jump ofs00ae
+            ofs00ae:
+                     pushbyte 3
+            ofs00b0:
+                     kill 2
+                     lookupswitch ofs005f, [ofs001f, ofs0034, ofs004a, ofs005f]
+            ofs00c3:
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"15"),"_borderMetrics")
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         override public function styleChanged(param1:String) : void
+         {
+            trait method QName(PackageNamespace(""),"styleChanged")
+               flag OVERRIDE
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace(""),"String")
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 2
+                     localcount 2
+                     initscopedepth 11
+                     maxscopedepth 12
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        getlocal1
+                        callsupervoid QName(PackageNamespace(""),"styleChanged"), 1
+                        getlocal1
+                        pushstring "borderStyle"
+                        equals
+                        dup
+                        iftrue ofs0018
+                        pop
+                        getlocal1
+                        pushstring "styleName"
+                        equals
+               ofs0018:
+                        dup
+                        iftrue ofs0021
+                        pop
+                        getlocal1
+                        pushnull
+                        equals
+               ofs0021:
+                        iffalse ofs002a
+                        getlocal0
+                        pushnull
+                        initproperty QName(PrivateNamespace(null,"15"),"_borderMetrics")
+               ofs002a:
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            override protected function updateDisplayList(param1:Number, param2:Number) : void
+            {
+               trait method QName(ProtectedNamespace("mx.skins.halo:ToolTipBorder"),"updateDisplayList")
+                  flag OVERRIDE
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace(""),"Number")
+                     param QName(PackageNamespace(""),"Number")
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 8
+                        localcount 10
+                        initscopedepth 11
+                        maxscopedepth 12
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal0
+                           getlocal1
+                           getlocal2
+                           callsupervoid QName(ProtectedNamespace("mx.skins:RectangularBorder"),"updateDisplayList"), 2
+                           findpropstrict QName(PackageNamespace(""),"getStyle")
+                           pushstring "borderStyle"
+                           callproperty QName(PackageNamespace(""),"getStyle"), 1
+                           coerce_s
+                           setlocal3
+                           findpropstrict QName(PackageNamespace(""),"getStyle")
+                           pushstring "backgroundColor"
+                           callproperty QName(PackageNamespace(""),"getStyle"), 1
+                           convert_u
+                           setlocal 4
+                           findpropstrict QName(PackageNamespace(""),"getStyle")
+                           pushstring "backgroundAlpha"
+                           callproperty QName(PackageNamespace(""),"getStyle"), 1
+                           convert_d
+                           setlocal 5
+                           findpropstrict QName(PackageNamespace(""),"getStyle")
+                           pushstring "borderColor"
+                           callproperty QName(PackageNamespace(""),"getStyle"), 1
+                           convert_u
+                           setlocal 6
+                           findpropstrict QName(PackageNamespace(""),"getStyle")
+                           pushstring "cornerRadius"
+                           callproperty QName(PackageNamespace(""),"getStyle"), 1
+                           convert_d
+                           setlocal 7
+                           getlex QName(PackageNamespace(""),"graphics")
+                           coerce QName(PackageNamespace("flash.display"),"Graphics")
+                           dup
+                           setlocal 8
+                           callpropvoid QName(PackageNamespace(""),"clear"), 0
+                           findproperty QName(PackageNamespace(""),"filters")
+                           newarray 0
+                           initproperty QName(PackageNamespace(""),"filters")
+                           jump ofs024e
+                  ofs0061:
+                           label
+                           jump ofs02af
+                  ofs0066:
+                           label
+                           findpropstrict QName(ProtectedNamespace("mx.skins:ProgrammaticSkin"),"drawRoundRect")
+                           pushbyte 11
+                           pushbyte 0
+                           getlocal1
+                           pushbyte 11
+                           subtract
+                           getlocal2
+                           pushbyte 2
+                           subtract
+                           pushbyte 3
+                           getlocal 6
+                           getlocal 5
+                           callpropvoid QName(ProtectedNamespace("mx.skins:ProgrammaticSkin"),"drawRoundRect"), 7
+                           getlocal 8
+                           getlocal 6
+                           getlocal 5
+                           callpropvoid QName(PackageNamespace(""),"beginFill"), 2
+                           getlocal 8
+                           pushbyte 11
+                           pushbyte 7
+                           callpropvoid QName(PackageNamespace(""),"moveTo"), 2
+                           getlocal 8
+                           pushbyte 0
+                           pushbyte 13
+                           callpropvoid QName(PackageNamespace(""),"lineTo"), 2
+                           getlocal 8
+                           pushbyte 11
+                           pushbyte 19
+                           callpropvoid QName(PackageNamespace(""),"lineTo"), 2
+                           getlocal 8
+                           pushbyte 11
+                           pushbyte 7
+                           callpropvoid QName(PackageNamespace(""),"moveTo"), 2
+                           getlocal 8
+                           callpropvoid QName(PackageNamespace(""),"endFill"), 0
+                           findproperty QName(PackageNamespace(""),"filters")
+                           findpropstrict QName(PackageNamespace("flash.filters"),"DropShadowFilter")
+                           pushbyte 2
+                           pushbyte 90
+                           pushbyte 0
+                           pushdouble 0.4
+                           constructprop QName(PackageNamespace("flash.filters"),"DropShadowFilter"), 4
+                           newarray 1
+                           initproperty QName(PackageNamespace(""),"filters")
+                           jump ofs02af
+                  ofs00d3:
+                           label
+                           findpropstrict QName(ProtectedNamespace("mx.skins:ProgrammaticSkin"),"drawRoundRect")
+                           pushbyte 0
+                           dup
+                           getlocal1
+                           getlocal2
+                           pushbyte 13
+                           subtract
+                           pushbyte 3
+                           getlocal 6
+                           getlocal 5
+                           callpropvoid QName(ProtectedNamespace("mx.skins:ProgrammaticSkin"),"drawRoundRect"), 7
+                           getlocal 8
+                           getlocal 6
+                           getlocal 5
+                           callpropvoid QName(PackageNamespace(""),"beginFill"), 2
+                           getlocal 8
+                           pushbyte 9
+                           getlocal2
+                           pushbyte 13
+                           subtract
+                           callpropvoid QName(PackageNamespace(""),"moveTo"), 2
+                           getlocal 8
+                           pushbyte 15
+                           getlocal2
+                           pushbyte 2
+                           subtract
+                           callpropvoid QName(PackageNamespace(""),"lineTo"), 2
+                           getlocal 8
+                           pushbyte 21
+                           getlocal2
+                           pushbyte 13
+                           subtract
+                           callpropvoid QName(PackageNamespace(""),"lineTo"), 2
+                           getlocal 8
+                           pushbyte 9
+                           getlocal2
+                           pushbyte 13
+                           subtract
+                           callpropvoid QName(PackageNamespace(""),"moveTo"), 2
+                           getlocal 8
+                           callpropvoid QName(PackageNamespace(""),"endFill"), 0
+                           findproperty QName(PackageNamespace(""),"filters")
+                           findpropstrict QName(PackageNamespace("flash.filters"),"DropShadowFilter")
+                           pushbyte 2
+                           pushbyte 90
+                           pushbyte 0
+                           pushdouble 0.4
+                           constructprop QName(PackageNamespace("flash.filters"),"DropShadowFilter"), 4
+                           newarray 1
+                           initproperty QName(PackageNamespace(""),"filters")
+                           jump ofs02af
+                  ofs0144:
+                           label
+                           findpropstrict QName(ProtectedNamespace("mx.skins:ProgrammaticSkin"),"drawRoundRect")
+                           pushbyte 0
+                           pushbyte 11
+                           getlocal1
+                           getlocal2
+                           pushbyte 13
+                           subtract
+                           pushbyte 3
+                           getlocal 6
+                           getlocal 5
+                           callpropvoid QName(ProtectedNamespace("mx.skins:ProgrammaticSkin"),"drawRoundRect"), 7
+                           getlocal 8
+                           getlocal 6
+                           getlocal 5
+                           callpropvoid QName(PackageNamespace(""),"beginFill"), 2
+                           getlocal 8
+                           pushbyte 9
+                           pushbyte 11
+                           callpropvoid QName(PackageNamespace(""),"moveTo"), 2
+                           getlocal 8
+                           pushbyte 15
+                           pushbyte 0
+                           callpropvoid QName(PackageNamespace(""),"lineTo"), 2
+                           getlocal 8
+                           pushbyte 21
+                           pushbyte 11
+                           callpropvoid QName(PackageNamespace(""),"lineTo"), 2
+                           getlocal 8
+                           pushbyte 10
+                           pushbyte 11
+                           callpropvoid QName(PackageNamespace(""),"moveTo"), 2
+                           getlocal 8
+                           callpropvoid QName(PackageNamespace(""),"endFill"), 0
+                           findproperty QName(PackageNamespace(""),"filters")
+                           findpropstrict QName(PackageNamespace("flash.filters"),"DropShadowFilter")
+                           pushbyte 2
+                           pushbyte 90
+                           pushbyte 0
+                           pushdouble 0.4
+                           constructprop QName(PackageNamespace("flash.filters"),"DropShadowFilter"), 4
+                           newarray 1
+                           initproperty QName(PackageNamespace(""),"filters")
+                           jump ofs02af
+                  ofs01ae:
+                           label
+                           findpropstrict QName(ProtectedNamespace("mx.skins:ProgrammaticSkin"),"drawRoundRect")
+                           pushbyte 3
+                           pushbyte 1
+                           getlocal1
+                           pushbyte 6
+                           subtract
+                           getlocal2
+                           pushbyte 4
+                           subtract
+                           getlocal 7
+                           getlocal 4
+                           getlocal 5
+                           callpropvoid QName(ProtectedNamespace("mx.skins:ProgrammaticSkin"),"drawRoundRect"), 7
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"15"),"dropShadow")
+                           iftrue ofs01db
+                           getlocal0
+                           findpropstrict QName(PackageNamespace("mx.graphics"),"RectangularDropShadow")
+                           constructprop QName(PackageNamespace("mx.graphics"),"RectangularDropShadow"), 0
+                           initproperty QName(PrivateNamespace(null,"15"),"dropShadow")
+                  ofs01db:
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"15"),"dropShadow")
+                           pushbyte 3
+                           setproperty QName(PackageNamespace(""),"distance")
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"15"),"dropShadow")
+                           pushbyte 90
+                           setproperty QName(PackageNamespace(""),"angle")
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"15"),"dropShadow")
+                           pushbyte 0
+                           setproperty QName(PackageNamespace(""),"color")
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"15"),"dropShadow")
+                           pushdouble 0.4
+                           setproperty QName(PackageNamespace(""),"alpha")
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"15"),"dropShadow")
+                           getlocal 7
+                           pushbyte 2
+                           add
+                           setproperty QName(PackageNamespace(""),"tlRadius")
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"15"),"dropShadow")
+                           getlocal 7
+                           pushbyte 2
+                           add
+                           setproperty QName(PackageNamespace(""),"trRadius")
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"15"),"dropShadow")
+                           getlocal 7
+                           pushbyte 2
+                           add
+                           setproperty QName(PackageNamespace(""),"blRadius")
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"15"),"dropShadow")
+                           getlocal 7
+                           pushbyte 2
+                           add
+                           setproperty QName(PackageNamespace(""),"brRadius")
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"15"),"dropShadow")
+                           getlex QName(PackageNamespace(""),"graphics")
+                           pushbyte 3
+                           pushbyte 0
+                           getlocal1
+                           pushbyte 6
+                           subtract
+                           getlocal2
+                           pushbyte 4
+                           subtract
+                           callpropvoid QName(PackageNamespace(""),"drawShadow"), 5
+                           jump ofs02af
+                           jump ofs024e
+                  ofs024e:
+                           getlocal3
+                           setlocal 9
+                           pushstring "none"
+                           getlocal 9
+                           ifstrictne ofs0260
+                           pushbyte 0
+                           jump ofs0299
+                  ofs0260:
+                           pushstring "errorTipRight"
+                           getlocal 9
+                           ifstrictne ofs026f
+                           pushbyte 1
+                           jump ofs0299
+                  ofs026f:
+                           pushstring "errorTipAbove"
+                           getlocal 9
+                           ifstrictne ofs027e
+                           pushbyte 2
+                           jump ofs0299
+                  ofs027e:
+                           pushstring "errorTipBelow"
+                           getlocal 9
+                           ifstrictne ofs028d
+                           pushbyte 3
+                           jump ofs0299
+                  ofs028d:
+                           jump ofs0297
+                           pushbyte 4
+                           jump ofs0297
+                  ofs0297:
+                           pushbyte 4
+                  ofs0299:
+                           kill 9
+                           lookupswitch ofs01ae, [ofs0061, ofs0066, ofs00d3, ofs0144, ofs01ae]
+                  ofs02af:
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+            }
+         }
+         
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 2
+               localcount 1
+               initscopedepth 1
+               maxscopedepth 10
+               
+               code
+                  getlocal0
+                  pushscope
+                  findpropstrict Multiname("ToolTipBorder",[PackageNamespace("mx.skins.halo")])
+                  getlex QName(PackageNamespace(""),"Object")
+                  pushscope
+                  getlex QName(PackageNamespace("flash.events"),"EventDispatcher")
+                  pushscope
+                  getlex QName(PackageNamespace("flash.display"),"DisplayObject")
+                  pushscope
+                  getlex QName(PackageNamespace("flash.display"),"Shape")
+                  pushscope
+                  getlex QName(PackageNamespace("mx.core"),"FlexShape")
+                  pushscope
+                  getlex QName(PackageNamespace("mx.skins"),"ProgrammaticSkin")
+                  pushscope
+                  getlex QName(PackageNamespace("mx.skins"),"Border")
+                  pushscope
+                  getlex QName(PackageNamespace("mx.skins"),"RectangularBorder")
+                  pushscope
+                  getlex QName(PackageNamespace("mx.skins"),"RectangularBorder")
+                  newclass 40
+                  popscope
+                  popscope
+                  popscope
+                  popscope
+                  popscope
+                  popscope
+                  popscope
+                  popscope
+                  initproperty QName(PackageNamespace("mx.skins.halo"),"ToolTipBorder")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+         

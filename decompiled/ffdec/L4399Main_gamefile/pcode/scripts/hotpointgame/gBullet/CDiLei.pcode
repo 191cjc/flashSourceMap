@@ -1,0 +1,691 @@
+package hotpointgame.gBullet
+{
+   import flash.display.MovieClip;
+   import flash.geom.Point;
+   import hotpointgame.Control.*;
+   import hotpointgame.common.*;
+   import hotpointgame.gameobj.ZhangDouT;
+   import hotpointgame.gameobj.ZtB;
+   import hotpointgame.utils.*;
+   
+   public class CDiLei extends ZtB
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 5
+            maxscopedepth 6
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var chuanMonster:int = 0;
+      
+      private var anglechang:int = 0;
+      
+      private var hitEnemy:Array;
+      
+      private var randoF:int = 0;
+      
+      private var randoFJishi:int = 0;
+      
+      public function CDiLei(param1:MovieClip, param2:ZhangDouT, param3:Object, param4:int = 0)
+      {
+         method
+            name null
+            flag HAS_OPTIONAL
+            param QName(PackageNamespace("flash.display"),"MovieClip")
+            param QName(PackageNamespace("hotpointgame.gameobj"),"ZhangDouT")
+            param QName(PackageNamespace(""),"Object")
+            param QName(PackageNamespace(""),"int")
+            optional Integer(0)
+            returns null
+            
+            body
+               maxstack 5
+               localcount 5
+               initscopedepth 6
+               maxscopedepth 7
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  newarray 0
+                  initproperty QName(PrivateNamespace(null,"269"),"hitEnemy")
+                  getlocal0
+                  getlocal1
+                  getlocal2
+                  getlocal3
+                  getlocal 4
+                  constructsuper 4
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      override protected function dataInit(param1:Object) : void
+      {
+         trait method QName(ProtectedNamespace("hotpointgame.gBullet:CDiLei"),"dataInit")
+            flag OVERRIDE
+            dispid 0
+            method
+               name null
+               param QName(PackageNamespace(""),"Object")
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 2
+                  localcount 2
+                  initscopedepth 6
+                  maxscopedepth 7
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getlocal1
+                     getproperty Multiname("chuanMonster",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                     initproperty Multiname("chuanMonster",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                     getlocal0
+                     getlocal1
+                     getproperty Multiname("others",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                     getproperty Multiname("anglechang",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                     initproperty Multiname("anglechang",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                     getlocal0
+                     getlocal1
+                     callsupervoid Multiname("dataInit",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT"),ProtectedNamespace("hotpointgame.gameobj:ZtB")]), 1
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         override protected function moveAndTestHit(param1:Vector.<ZhangDouT>) : void
+         {
+            trait method QName(ProtectedNamespace("hotpointgame.gBullet:CDiLei"),"moveAndTestHit")
+               flag OVERRIDE
+               dispid 0
+               method
+                  name null
+                  param TypeName(QName(PackageNamespace("__AS3__.vec"),"Vector")<QName(PackageNamespace("hotpointgame.gameobj"),"ZhangDouT")>)
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 4
+                     localcount 19
+                     initscopedepth 6
+                     maxscopedepth 7
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        pushnan
+                        setlocal2
+                        pushnan
+                        setlocal3
+                        pushbyte 0
+                        setlocal 4
+                        pushbyte 0
+                        setlocal 5
+                        pushbyte 0
+                        setlocal 6
+                        pushnan
+                        setlocal 7
+                        pushnan
+                        setlocal 8
+                        pushnull
+                        coerce QName(PackageNamespace("flash.geom"),"Point")
+                        setlocal 9
+                        pushnan
+                        setlocal 10
+                        pushnan
+                        setlocal 11
+                        pushnan
+                        setlocal 12
+                        pushnan
+                        setlocal 13
+                        pushfalse
+                        setlocal 14
+                        pushnull
+                        coerce QName(PackageNamespace("hotpointgame.gameobj"),"ZhangDouT")
+                        setlocal 15
+                        pushnull
+                        coerce QName(PackageNamespace("hotpointgame.gameobj"),"ZhangDouT")
+                        setlocal 16
+                        getlex Multiname("runState",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        pushbyte 0
+                        equals
+                        dup
+                        iffalse ofs004b
+                        pop
+                        getlex Multiname("bSpeed",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        pushbyte 0
+                        equals
+                        not
+               ofs004b:
+                        iffalse ofs025b
+                        getlex Multiname("bSpeed",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlex Multiname("bCos",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        multiply
+                        convert_d
+                        setlocal2
+                        getlex Multiname("bSpeed",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlex Multiname("bSin",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        multiply
+                        convert_d
+                        setlocal3
+                        getlex Multiname("bSpeed",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlex Multiname("testInterval",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        divide
+                        convert_i
+                        dup
+                        setlocal 4
+                        convert_i
+                        setlocal 5
+                        getlex Multiname("bSpeed",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlex Multiname("testInterval",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        modulo
+                        convert_i
+                        setlocal 6
+                        getlex Multiname("testInterval",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlex Multiname("bCos",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        multiply
+                        convert_d
+                        setlocal 7
+                        getlex Multiname("testInterval",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlex Multiname("bSin",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        multiply
+                        convert_d
+                        setlocal 8
+                        getlex Multiname("Pos",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT"),PackageNamespace("hotpointgame.utils")])
+                        getlex Multiname("mc",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        callproperty Multiname("l_To_G",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")]), 1
+                        coerce QName(PackageNamespace("flash.geom"),"Point")
+                        dup
+                        setlocal 9
+                        getproperty Multiname("x",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        convert_d
+                        setlocal 10
+                        getlocal 9
+                        getproperty Multiname("y",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        convert_d
+                        setlocal 11
+                        getlocal 10
+                        convert_d
+                        setlocal 12
+                        getlocal 11
+                        convert_d
+                        setlocal 13
+                        pushfalse
+                        setlocal 14
+                        jump ofs01a5
+               ofs00cc:
+                        label
+                        getlocal 4
+                        pushbyte 1
+                        equals
+                        dup
+                        iffalse ofs00dd
+                        pop
+                        getlocal 6
+                        pushbyte 0
+                        equals
+               ofs00dd:
+                        iffalse ofs00e5
+                        jump ofs01ad
+               ofs00e5:
+                        getlocal 10
+                        getlocal 7
+                        add
+                        convert_d
+                        setlocal 10
+                        getlocal 11
+                        getlocal 8
+                        add
+                        convert_d
+                        setlocal 11
+                        getlex Multiname("GM",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT"),PackageNamespace("hotpointgame.Control")])
+                        getproperty Multiname("levelm",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlocal 10
+                        getlocal 11
+                        getlex Multiname("fda",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getproperty Multiname("flag",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        callproperty Multiname("hitTestByBullet",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")]), 3
+                        iffalse ofs0115
+                        pushtrue
+                        setlocal 14
+               ofs0115:
+                        getlocal 14
+                        not
+                        dup
+                        iffalse ofs0126
+                        pop
+                        getlocal0
+                        getproperty Multiname("chuanMonster",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        pushbyte 0
+                        equals
+               ofs0126:
+                        iffalse ofs0160
+                        pushbyte 0
+                        setlocal 17
+                        getlocal1
+                        coerce_a
+                        setlocal 18
+                        jump ofs0155
+               ofs0136:
+                        label
+                        getlocal 18
+                        getlocal 17
+                        nextvalue
+                        coerce QName(PackageNamespace("hotpointgame.gameobj"),"ZhangDouT")
+                        dup
+                        setlocal 15
+                        getlocal 10
+                        getlocal 11
+                        callproperty Multiname("bhitTestByPoint",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")]), 2
+                        iffalse ofs0155
+                        pushtrue
+                        setlocal 14
+                        jump ofs015c
+               ofs0155:
+                        hasnext2 18, 17
+                        iftrue ofs0136
+               ofs015c:
+                        kill 18
+                        kill 17
+               ofs0160:
+                        getlocal 14
+                        iffalse ofs01a0
+                        findproperty Multiname("bSpeed",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        pushbyte 0
+                        initproperty Multiname("bSpeed",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlex Multiname("mc",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlex Multiname("mc",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getproperty Multiname("x",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlocal 10
+                        getlocal 12
+                        subtract
+                        add
+                        setproperty Multiname("x",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlex Multiname("mc",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlex Multiname("mc",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getproperty Multiname("y",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlocal 11
+                        getlocal 13
+                        subtract
+                        add
+                        setproperty Multiname("y",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        jump ofs01ad
+               ofs01a0:
+                        getlocal 4
+                        decrement_i
+                        setlocal 4
+               ofs01a5:
+                        getlocal 4
+                        pushbyte 0
+                        ifgt ofs00cc
+               ofs01ad:
+                        getlex Multiname("bSpeed",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        pushbyte 0
+                        ifeq ofs025b
+                        getlocal 12
+                        getlocal2
+                        add
+                        convert_d
+                        setlocal 10
+                        getlocal 13
+                        getlocal3
+                        add
+                        convert_d
+                        setlocal 11
+                        getlex Multiname("mc",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlex Multiname("mc",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getproperty Multiname("x",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlocal2
+                        add
+                        setproperty Multiname("x",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlex Multiname("mc",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlex Multiname("mc",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getproperty Multiname("y",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlocal3
+                        add
+                        setproperty Multiname("y",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlex Multiname("GM",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT"),PackageNamespace("hotpointgame.Control")])
+                        getproperty Multiname("levelm",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlocal 10
+                        getlocal 11
+                        getlex Multiname("fda",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getproperty Multiname("flag",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        callproperty Multiname("hitTestByBullet",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")]), 3
+                        iffalse ofs0211
+                        findproperty Multiname("bSpeed",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        pushbyte 0
+                        initproperty Multiname("bSpeed",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        returnvoid
+               ofs0211:
+                        getlocal0
+                        getproperty Multiname("chuanMonster",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        pushbyte 0
+                        ifne ofs025b
+                        pushbyte 0
+                        setlocal 17
+                        getlocal1
+                        coerce_a
+                        setlocal 18
+                        jump ofs0250
+               ofs0228:
+                        label
+                        getlocal 18
+                        getlocal 17
+                        nextvalue
+                        coerce QName(PackageNamespace("hotpointgame.gameobj"),"ZhangDouT")
+                        dup
+                        setlocal 16
+                        findpropstrict Multiname("getAhit",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        callproperty Multiname("getAhit",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")]), 0
+                        callproperty Multiname("bhitTestByObject",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")]), 1
+                        iffalse ofs0250
+                        findproperty Multiname("bSpeed",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        pushbyte 0
+                        initproperty Multiname("bSpeed",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        returnvoid
+               ofs0250:
+                        hasnext2 18, 17
+                        iftrue ofs0228
+                        kill 18
+                        kill 17
+               ofs025b:
+                        getlex Multiname("runState",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        pushbyte 0
+                        equals
+                        dup
+                        iffalse ofs0270
+                        pop
+                        getlocal0
+                        getproperty Multiname("randoF",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        pushbyte 0
+                        equals
+               ofs0270:
+                        iffalse ofs02ad
+                        getlex Multiname("currentFrameNum",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        pushbyte 1
+                        ifngt ofs02ad
+                        getlex Multiname("GM",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT"),PackageNamespace("hotpointgame.Control")])
+                        getproperty Multiname("ckey",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        pushstring "引爆地雷"
+                        callproperty Multiname("isKey",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")]), 1
+                        iffalse ofs02ad
+                        getlocal0
+                        getlex Multiname("Math",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        callproperty Multiname("random",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")]), 0
+                        pushbyte 20
+                        multiply
+                        pushbyte 1
+                        add
+                        initproperty Multiname("randoF",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlocal0
+                        pushbyte 0
+                        initproperty Multiname("randoFJishi",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+               ofs02ad:
+                        getlex Multiname("runState",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        pushbyte 0
+                        equals
+                        dup
+                        iffalse ofs02c3
+                        pop
+                        getlocal0
+                        getproperty Multiname("randoF",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        pushbyte 0
+                        equals
+                        not
+               ofs02c3:
+                        iffalse ofs0300
+                        getlocal0
+                        dup
+                        setlocal 17
+                        getproperty Multiname("randoFJishi",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        increment_i
+                        setlocal 18
+                        getlocal 17
+                        getlocal 18
+                        setproperty Multiname("randoFJishi",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        kill 18
+                        kill 17
+                        getlocal0
+                        getproperty Multiname("randoFJishi",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlocal0
+                        getproperty Multiname("randoF",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        ifne ofs0300
+                        getlex Multiname("runState",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        getlex Multiname("GS",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT"),PackageNamespace("hotpointgame.common")])
+                        getproperty Multiname("a1",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        equals
+                        pop
+                        getlocal0
+                        callpropvoid Multiname("enterRunStataOne",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")]), 0
+               ofs0300:
+                        getlex Multiname("runState",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                        pushbyte 1
+                        ifne ofs0311
+                        getlocal0
+                        getlocal1
+                        callpropvoid Multiname("bombaAttack",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")]), 1
+               ofs0311:
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            protected function bombaAttack(param1:Vector.<ZhangDouT>) : void
+            {
+               trait method QName(ProtectedNamespace("hotpointgame.gBullet:CDiLei"),"bombaAttack")
+                  dispid 0
+                  method
+                     name null
+                     param TypeName(QName(PackageNamespace("__AS3__.vec"),"Vector")<QName(PackageNamespace("hotpointgame.gameobj"),"ZhangDouT")>)
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 4
+                        localcount 5
+                        initscopedepth 6
+                        maxscopedepth 7
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           pushnull
+                           coerce QName(PackageNamespace("hotpointgame.gameobj"),"ZhangDouT")
+                           setlocal2
+                           pushbyte 0
+                           setlocal3
+                           getlocal1
+                           coerce_a
+                           setlocal 4
+                           jump ofs0057
+                  ofs0011:
+                           label
+                           getlocal 4
+                           getlocal3
+                           nextvalue
+                           coerce QName(PackageNamespace("hotpointgame.gameobj"),"ZhangDouT")
+                           setlocal2
+                           getlocal0
+                           getproperty Multiname("hitEnemy",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                           getlocal2
+                           callproperty Multiname("indexOf",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")]), 1
+                           pushbyte -1
+                           ifne ofs0057
+                           getlocal2
+                           findpropstrict Multiname("getAhit",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                           callproperty Multiname("getAhit",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")]), 0
+                           getlex Multiname("fda",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                           getlocal0
+                           callproperty Multiname("bhitByObject",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")]), 3
+                           pushbyte -1
+                           ifeq ofs0057
+                           getlocal0
+                           getproperty Multiname("hitEnemy",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                           getlocal0
+                           getproperty Multiname("hitEnemy",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                           getproperty Multiname("length",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                           getlocal2
+                           setproperty MultinameL([PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                  ofs0057:
+                           hasnext2 4, 3
+                           iftrue ofs0011
+                           kill 4
+                           kill 3
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               override protected function enterRunStataOne() : void
+               {
+                  trait method QName(ProtectedNamespace("hotpointgame.gBullet:CDiLei"),"enterRunStataOne")
+                     flag OVERRIDE
+                     dispid 0
+                     method
+                        name null
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 2
+                           localcount 1
+                           initscopedepth 6
+                           maxscopedepth 7
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              getproperty Multiname("anglechang",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                              pushbyte 1
+                              ifne ofs0062
+                              getlex Multiname("_forth",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                              pushbyte 1
+                              equals
+                              dup
+                              iffalse ofs0026
+                              pop
+                              getlex Multiname("fz",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                              callproperty Multiname("getZTType",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")]), 0
+                              pushbyte 1
+                              equals
+                     ofs0026:
+                              dup
+                              iftrue ofs0045
+                              pop
+                              getlex Multiname("_forth",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                              pushbyte -1
+                              equals
+                              dup
+                              iffalse ofs0045
+                              pop
+                              getlex Multiname("fz",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                              callproperty Multiname("getZTType",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")]), 0
+                              pushbyte 2
+                              equals
+                     ofs0045:
+                              iffalse ofs0057
+                              getlex Multiname("mc",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                              pushbyte 0
+                              setproperty Multiname("rotation",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                              jump ofs0062
+                     ofs0057:
+                              getlex Multiname("mc",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                              pushshort 180
+                              setproperty Multiname("rotation",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                     ofs0062:
+                              getlocal0
+                              callsupervoid Multiname("enterRunStataOne",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT"),ProtectedNamespace("hotpointgame.gameobj:ZtB")]), 0
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  override public function remove() : void
+                  {
+                     trait method QName(PackageNamespace(""),"remove")
+                        flag OVERRIDE
+                        dispid 0
+                        method
+                           name null
+                           returns QName(PackageNamespace(""),"void")
+                           
+                           body
+                              maxstack 2
+                              localcount 1
+                              initscopedepth 6
+                              maxscopedepth 7
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal0
+                                 getproperty Multiname("hitEnemy",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                                 pushbyte 0
+                                 setproperty Multiname("length",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                                 getlocal0
+                                 pushbyte 0
+                                 initproperty Multiname("randoF",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                                 getlocal0
+                                 pushbyte 0
+                                 initproperty Multiname("randoFJishi",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT")])
+                                 getlocal0
+                                 callsupervoid Multiname("remove",[PrivateNamespace(null,"269"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin"),StaticProtectedNs("hotpointgame.gBullet:CDiLei"),StaticProtectedNs("hotpointgame.gameobj:ZtB"),StaticProtectedNs("hotpointgame.gameobj:ZhangDouT"),ProtectedNamespace("hotpointgame.gameobj:ZtB")]), 0
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                  }
+               }
+               
+               method
+                  name null
+                  returns null
+                  
+                  body
+                     maxstack 2
+                     localcount 1
+                     initscopedepth 1
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        findpropstrict Multiname("CDiLei",[PackageNamespace("hotpointgame.gBullet")])
+                        getlex QName(PackageNamespace(""),"Object")
+                        pushscope
+                        getlex QName(PackageNamespace("hotpointgame.gameobj"),"ZhangDouT")
+                        pushscope
+                        getlex QName(PackageNamespace("hotpointgame.gameobj"),"ZtB")
+                        pushscope
+                        getlex Multiname("ZtB",[PackageNamespace("hotpointgame.gameobj"),PackageNamespace(""),PrivateNamespace(null,"843"),PackageNamespace("hotpointgame.gBullet"),PackageInternalNs("hotpointgame.gBullet"),Namespace("http://adobe.com/AS3/2006/builtin")])
+                        newclass 375
+                        popscope
+                        popscope
+                        popscope
+                        initproperty QName(PackageNamespace("hotpointgame.gBullet"),"CDiLei")
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+               

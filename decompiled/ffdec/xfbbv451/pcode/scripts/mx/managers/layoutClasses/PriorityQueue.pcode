@@ -1,0 +1,1095 @@
+package mx.managers.layoutClasses
+{
+   import flash.display.DisplayObject;
+   import flash.display.DisplayObjectContainer;
+   import mx.core.IChildList;
+   import mx.core.IRawChildrenContainer;
+   import mx.core.mx_internal;
+   import mx.managers.ILayoutManagerClient;
+   
+   use namespace mx_internal;
+   
+   public class PriorityQueue
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var priorityBins:Array;
+      
+      private var minPriority:int = 0;
+      
+      private var maxPriority:int = -1;
+      
+      public function PriorityQueue()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 2
+               localcount 1
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  newarray 0
+                  initproperty QName(PrivateNamespace(null,"74"),"priorityBins")
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function addObject(param1:Object, param2:int) : void
+      {
+         trait method QName(PackageNamespace(""),"addObject")
+            dispid 0
+            method
+               name null
+               param QName(PackageNamespace(""),"Object")
+               param QName(PackageNamespace(""),"int")
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 4
+                  localcount 6
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"74"),"minPriority")
+                     ifnlt ofs0022
+                     getlocal0
+                     getlocal0
+                     getlocal2
+                     dup
+                     setlocal 4
+                     initproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                     getlocal 4
+                     kill 4
+                     initproperty QName(PrivateNamespace(null,"74"),"minPriority")
+                     jump ofs003e
+            ofs0022:
+                     getlocal2
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"74"),"minPriority")
+                     ifnlt ofs0030
+                     getlocal0
+                     getlocal2
+                     initproperty QName(PrivateNamespace(null,"74"),"minPriority")
+            ofs0030:
+                     getlocal2
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                     ifngt ofs003e
+                     getlocal0
+                     getlocal2
+                     initproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+            ofs003e:
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"74"),"priorityBins")
+                     getlocal2
+                     getproperty MultinameL([PrivateNamespace(null,"74"),PrivateNamespace(null,"75"),PackageNamespace(""),PackageNamespace("mx.managers.layoutClasses"),PackageInternalNs("mx.managers.layoutClasses"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.managers.layoutClasses:PriorityQueue"),StaticProtectedNs("mx.managers.layoutClasses:PriorityQueue")])
+                     coerce QName(PrivateNamespace(null,"75"),"PriorityBin")
+                     setlocal3
+                     getlocal3
+                     iftrue ofs0085
+                     findpropstrict QName(PrivateNamespace(null,"75"),"PriorityBin")
+                     constructprop QName(PrivateNamespace(null,"75"),"PriorityBin"), 0
+                     coerce QName(PrivateNamespace(null,"75"),"PriorityBin")
+                     setlocal3
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"74"),"priorityBins")
+                     getlocal2
+                     getlocal3
+                     setproperty MultinameL([PrivateNamespace(null,"74"),PrivateNamespace(null,"75"),PackageNamespace(""),PackageNamespace("mx.managers.layoutClasses"),PackageInternalNs("mx.managers.layoutClasses"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.managers.layoutClasses:PriorityQueue"),StaticProtectedNs("mx.managers.layoutClasses:PriorityQueue")])
+                     getlocal3
+                     getproperty QName(PackageNamespace(""),"items")
+                     getlocal1
+                     pushtrue
+                     setproperty MultinameL([PrivateNamespace(null,"74"),PrivateNamespace(null,"75"),PackageNamespace(""),PackageNamespace("mx.managers.layoutClasses"),PackageInternalNs("mx.managers.layoutClasses"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.managers.layoutClasses:PriorityQueue"),StaticProtectedNs("mx.managers.layoutClasses:PriorityQueue")])
+                     getlocal3
+                     dup
+                     setlocal 4
+                     getproperty QName(PackageNamespace(""),"length")
+                     increment_i
+                     setlocal 5
+                     getlocal 4
+                     getlocal 5
+                     setproperty QName(PackageNamespace(""),"length")
+                     kill 5
+                     kill 4
+                     jump ofs00b0
+            ofs0085:
+                     getlocal3
+                     getproperty QName(PackageNamespace(""),"items")
+                     getlocal1
+                     getproperty MultinameL([PrivateNamespace(null,"74"),PrivateNamespace(null,"75"),PackageNamespace(""),PackageNamespace("mx.managers.layoutClasses"),PackageInternalNs("mx.managers.layoutClasses"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.managers.layoutClasses:PriorityQueue"),StaticProtectedNs("mx.managers.layoutClasses:PriorityQueue")])
+                     pushnull
+                     ifne ofs00b0
+                     getlocal3
+                     getproperty QName(PackageNamespace(""),"items")
+                     getlocal1
+                     pushtrue
+                     setproperty MultinameL([PrivateNamespace(null,"74"),PrivateNamespace(null,"75"),PackageNamespace(""),PackageNamespace("mx.managers.layoutClasses"),PackageInternalNs("mx.managers.layoutClasses"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.managers.layoutClasses:PriorityQueue"),StaticProtectedNs("mx.managers.layoutClasses:PriorityQueue")])
+                     getlocal3
+                     dup
+                     setlocal 4
+                     getproperty QName(PackageNamespace(""),"length")
+                     increment_i
+                     setlocal 5
+                     getlocal 4
+                     getlocal 5
+                     setproperty QName(PackageNamespace(""),"length")
+                     kill 5
+                     kill 4
+            ofs00b0:
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function removeLargest() : Object
+         {
+            trait method QName(PackageNamespace(""),"removeLargest")
+               dispid 0
+               method
+                  name null
+                  returns QName(PackageNamespace(""),"Object")
+                  
+                  body
+                     maxstack 3
+                     localcount 6
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        pushnull
+                        coerce QName(PrivateNamespace(null,"75"),"PriorityBin")
+                        setlocal2
+                        pushnull
+                        coerce QName(PackageNamespace(""),"Object")
+                        setlocal3
+                        pushnull
+                        coerce QName(PackageNamespace(""),"Object")
+                        setlocal1
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"74"),"minPriority")
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                        ifnle ofs00fc
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"74"),"priorityBins")
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                        getproperty MultinameL([PrivateNamespace(null,"74"),PrivateNamespace(null,"75"),PackageNamespace(""),PackageNamespace("mx.managers.layoutClasses"),PackageInternalNs("mx.managers.layoutClasses"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.managers.layoutClasses:PriorityQueue"),StaticProtectedNs("mx.managers.layoutClasses:PriorityQueue")])
+                        coerce QName(PrivateNamespace(null,"75"),"PriorityBin")
+                        setlocal2
+                        jump ofs0061
+               ofs002e:
+                        label
+                        getlocal0
+                        dup
+                        setlocal 4
+                        getproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                        decrement_i
+                        setlocal 5
+                        getlocal 4
+                        getlocal 5
+                        setproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                        kill 5
+                        kill 4
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"74"),"minPriority")
+                        ifnlt ofs0052
+                        pushnull
+                        returnvalue
+               ofs0052:
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"74"),"priorityBins")
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                        getproperty MultinameL([PrivateNamespace(null,"74"),PrivateNamespace(null,"75"),PackageNamespace(""),PackageNamespace("mx.managers.layoutClasses"),PackageInternalNs("mx.managers.layoutClasses"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.managers.layoutClasses:PriorityQueue"),StaticProtectedNs("mx.managers.layoutClasses:PriorityQueue")])
+                        coerce QName(PrivateNamespace(null,"75"),"PriorityBin")
+                        setlocal2
+               ofs0061:
+                        getlocal2
+                        not
+                        dup
+                        iftrue ofs0070
+                        pop
+                        getlocal2
+                        getproperty QName(PackageNamespace(""),"length")
+                        pushbyte 0
+                        equals
+               ofs0070:
+                        iftrue ofs002e
+                        pushbyte 0
+                        setlocal 4
+                        getlocal2
+                        getproperty QName(PackageNamespace(""),"items")
+                        coerce_a
+                        setlocal 5
+                        jump ofs00a5
+               ofs0083:
+                        label
+                        getlocal 5
+                        getlocal 4
+                        nextname
+                        coerce QName(PackageNamespace(""),"Object")
+                        setlocal3
+                        getlocal3
+                        coerce QName(PackageNamespace(""),"Object")
+                        setlocal1
+                        getlocal0
+                        findpropstrict QName(PackageNamespace("mx.managers"),"ILayoutManagerClient")
+                        getlocal3
+                        callproperty QName(PackageNamespace("mx.managers"),"ILayoutManagerClient"), 1
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                        callpropvoid QName(PackageNamespace(""),"removeChild"), 2
+                        jump ofs00ac
+               ofs00a5:
+                        hasnext2 5, 4
+                        iftrue ofs0083
+               ofs00ac:
+                        kill 5
+                        kill 4
+                        jump ofs00e9
+               ofs00b4:
+                        label
+                        getlocal0
+                        dup
+                        setlocal 4
+                        getproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                        decrement_i
+                        setlocal 5
+                        getlocal 4
+                        getlocal 5
+                        setproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                        kill 5
+                        kill 4
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"74"),"minPriority")
+                        ifnlt ofs00da
+                        jump ofs00fc
+               ofs00da:
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"74"),"priorityBins")
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                        getproperty MultinameL([PrivateNamespace(null,"74"),PrivateNamespace(null,"75"),PackageNamespace(""),PackageNamespace("mx.managers.layoutClasses"),PackageInternalNs("mx.managers.layoutClasses"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.managers.layoutClasses:PriorityQueue"),StaticProtectedNs("mx.managers.layoutClasses:PriorityQueue")])
+                        coerce QName(PrivateNamespace(null,"75"),"PriorityBin")
+                        setlocal2
+               ofs00e9:
+                        getlocal2
+                        not
+                        dup
+                        iftrue ofs00f8
+                        pop
+                        getlocal2
+                        getproperty QName(PackageNamespace(""),"length")
+                        pushbyte 0
+                        equals
+               ofs00f8:
+                        iftrue ofs00b4
+               ofs00fc:
+                        getlocal1
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function removeLargestChild(param1:ILayoutManagerClient) : Object
+            {
+               trait method QName(PackageNamespace(""),"removeLargestChild")
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace("mx.managers"),"ILayoutManagerClient")
+                     returns QName(PackageNamespace(""),"Object")
+                     
+                     body
+                        maxstack 4
+                        localcount 8
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           pushnull
+                           coerce QName(PrivateNamespace(null,"75"),"PriorityBin")
+                           setlocal 4
+                           pushnull
+                           coerce QName(PackageNamespace(""),"Object")
+                           setlocal 5
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                           convert_i
+                           setlocal2
+                           getlocal1
+                           getproperty QName(Namespace("mx.managers:ILayoutManagerClient"),"nestLevel")
+                           convert_i
+                           setlocal3
+                           jump ofs00f3
+                  ofs001d:
+                           label
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"74"),"priorityBins")
+                           getlocal2
+                           getproperty MultinameL([PrivateNamespace(null,"74"),PrivateNamespace(null,"75"),PackageNamespace(""),PackageNamespace("mx.managers.layoutClasses"),PackageInternalNs("mx.managers.layoutClasses"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.managers.layoutClasses:PriorityQueue"),StaticProtectedNs("mx.managers.layoutClasses:PriorityQueue")])
+                           coerce QName(PrivateNamespace(null,"75"),"PriorityBin")
+                           dup
+                           setlocal 4
+                           convert_b
+                           dup
+                           iffalse ofs003b
+                           pop
+                           getlocal 4
+                           getproperty QName(PackageNamespace(""),"length")
+                           pushbyte 0
+                           greaterthan
+                  ofs003b:
+                           iffalse ofs00c8
+                           getlocal2
+                           getlocal1
+                           getproperty QName(Namespace("mx.managers:ILayoutManagerClient"),"nestLevel")
+                           ifne ofs0069
+                           getlocal 4
+                           getproperty QName(PackageNamespace(""),"items")
+                           getlocal1
+                           getproperty MultinameL([PrivateNamespace(null,"74"),PrivateNamespace(null,"75"),PackageNamespace(""),PackageNamespace("mx.managers.layoutClasses"),PackageInternalNs("mx.managers.layoutClasses"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.managers.layoutClasses:PriorityQueue"),StaticProtectedNs("mx.managers.layoutClasses:PriorityQueue")])
+                           iffalse ofs0065
+                           getlocal0
+                           findpropstrict QName(PackageNamespace("mx.managers"),"ILayoutManagerClient")
+                           getlocal1
+                           callproperty QName(PackageNamespace("mx.managers"),"ILayoutManagerClient"), 1
+                           getlocal2
+                           callpropvoid QName(PackageNamespace(""),"removeChild"), 2
+                           getlocal1
+                           returnvalue
+                  ofs0065:
+                           jump ofs00c1
+                  ofs0069:
+                           pushbyte 0
+                           setlocal 6
+                           getlocal 4
+                           getproperty QName(PackageNamespace(""),"items")
+                           coerce_a
+                           setlocal 7
+                           jump ofs00b6
+                  ofs0079:
+                           label
+                           getlocal 7
+                           getlocal 6
+                           nextname
+                           coerce QName(PackageNamespace(""),"Object")
+                           dup
+                           setlocal 5
+                           getlex QName(PackageNamespace("flash.display"),"DisplayObject")
+                           istypelate
+                           dup
+                           iffalse ofs00a0
+                           pop
+                           getlocal0
+                           findpropstrict QName(PackageNamespace("flash.display"),"DisplayObject")
+                           getlocal1
+                           callproperty QName(PackageNamespace("flash.display"),"DisplayObject"), 1
+                           findpropstrict QName(PackageNamespace("flash.display"),"DisplayObject")
+                           getlocal 5
+                           callproperty QName(PackageNamespace("flash.display"),"DisplayObject"), 1
+                           callproperty QName(PrivateNamespace(null,"74"),"contains"), 2
+                           convert_b
+                  ofs00a0:
+                           iffalse ofs00b6
+                           getlocal0
+                           findpropstrict QName(PackageNamespace("mx.managers"),"ILayoutManagerClient")
+                           getlocal 5
+                           callproperty QName(PackageNamespace("mx.managers"),"ILayoutManagerClient"), 1
+                           getlocal2
+                           callpropvoid QName(PackageNamespace(""),"removeChild"), 2
+                           getlocal 5
+                           returnvalue
+                  ofs00b6:
+                           hasnext2 7, 6
+                           iftrue ofs0079
+                           kill 7
+                           kill 6
+                  ofs00c1:
+                           getlocal2
+                           decrement_i
+                           setlocal2
+                           jump ofs00f3
+                  ofs00c8:
+                           getlocal2
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                           ifne ofs00e6
+                           getlocal0
+                           dup
+                           setlocal 6
+                           getproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                           decrement_i
+                           setlocal 7
+                           getlocal 6
+                           getlocal 7
+                           setproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                           kill 7
+                           kill 6
+                  ofs00e6:
+                           getlocal2
+                           decrement_i
+                           setlocal2
+                           getlocal2
+                           getlocal3
+                           ifnlt ofs00f3
+                           jump ofs00f9
+                  ofs00f3:
+                           getlocal3
+                           getlocal2
+                           ifle ofs001d
+                  ofs00f9:
+                           pushnull
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function removeSmallest() : Object
+               {
+                  trait method QName(PackageNamespace(""),"removeSmallest")
+                     dispid 0
+                     method
+                        name null
+                        returns QName(PackageNamespace(""),"Object")
+                        
+                        body
+                           maxstack 3
+                           localcount 6
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              pushnull
+                              coerce QName(PrivateNamespace(null,"75"),"PriorityBin")
+                              setlocal2
+                              pushnull
+                              coerce QName(PackageNamespace(""),"Object")
+                              setlocal3
+                              pushnull
+                              coerce QName(PackageNamespace(""),"Object")
+                              setlocal1
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"74"),"minPriority")
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                              ifnle ofs00fc
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"74"),"priorityBins")
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"74"),"minPriority")
+                              getproperty MultinameL([PrivateNamespace(null,"74"),PrivateNamespace(null,"75"),PackageNamespace(""),PackageNamespace("mx.managers.layoutClasses"),PackageInternalNs("mx.managers.layoutClasses"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.managers.layoutClasses:PriorityQueue"),StaticProtectedNs("mx.managers.layoutClasses:PriorityQueue")])
+                              coerce QName(PrivateNamespace(null,"75"),"PriorityBin")
+                              setlocal2
+                              jump ofs0061
+                     ofs002e:
+                              label
+                              getlocal0
+                              dup
+                              setlocal 4
+                              getproperty QName(PrivateNamespace(null,"74"),"minPriority")
+                              increment_i
+                              setlocal 5
+                              getlocal 4
+                              getlocal 5
+                              setproperty QName(PrivateNamespace(null,"74"),"minPriority")
+                              kill 5
+                              kill 4
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"74"),"minPriority")
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                              ifngt ofs0052
+                              pushnull
+                              returnvalue
+                     ofs0052:
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"74"),"priorityBins")
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"74"),"minPriority")
+                              getproperty MultinameL([PrivateNamespace(null,"74"),PrivateNamespace(null,"75"),PackageNamespace(""),PackageNamespace("mx.managers.layoutClasses"),PackageInternalNs("mx.managers.layoutClasses"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.managers.layoutClasses:PriorityQueue"),StaticProtectedNs("mx.managers.layoutClasses:PriorityQueue")])
+                              coerce QName(PrivateNamespace(null,"75"),"PriorityBin")
+                              setlocal2
+                     ofs0061:
+                              getlocal2
+                              not
+                              dup
+                              iftrue ofs0070
+                              pop
+                              getlocal2
+                              getproperty QName(PackageNamespace(""),"length")
+                              pushbyte 0
+                              equals
+                     ofs0070:
+                              iftrue ofs002e
+                              pushbyte 0
+                              setlocal 4
+                              getlocal2
+                              getproperty QName(PackageNamespace(""),"items")
+                              coerce_a
+                              setlocal 5
+                              jump ofs00a5
+                     ofs0083:
+                              label
+                              getlocal 5
+                              getlocal 4
+                              nextname
+                              coerce QName(PackageNamespace(""),"Object")
+                              setlocal3
+                              getlocal3
+                              coerce QName(PackageNamespace(""),"Object")
+                              setlocal1
+                              getlocal0
+                              findpropstrict QName(PackageNamespace("mx.managers"),"ILayoutManagerClient")
+                              getlocal3
+                              callproperty QName(PackageNamespace("mx.managers"),"ILayoutManagerClient"), 1
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"74"),"minPriority")
+                              callpropvoid QName(PackageNamespace(""),"removeChild"), 2
+                              jump ofs00ac
+                     ofs00a5:
+                              hasnext2 5, 4
+                              iftrue ofs0083
+                     ofs00ac:
+                              kill 5
+                              kill 4
+                              jump ofs00e9
+                     ofs00b4:
+                              label
+                              getlocal0
+                              dup
+                              setlocal 4
+                              getproperty QName(PrivateNamespace(null,"74"),"minPriority")
+                              increment_i
+                              setlocal 5
+                              getlocal 4
+                              getlocal 5
+                              setproperty QName(PrivateNamespace(null,"74"),"minPriority")
+                              kill 5
+                              kill 4
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"74"),"minPriority")
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                              ifngt ofs00da
+                              jump ofs00fc
+                     ofs00da:
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"74"),"priorityBins")
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"74"),"minPriority")
+                              getproperty MultinameL([PrivateNamespace(null,"74"),PrivateNamespace(null,"75"),PackageNamespace(""),PackageNamespace("mx.managers.layoutClasses"),PackageInternalNs("mx.managers.layoutClasses"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.managers.layoutClasses:PriorityQueue"),StaticProtectedNs("mx.managers.layoutClasses:PriorityQueue")])
+                              coerce QName(PrivateNamespace(null,"75"),"PriorityBin")
+                              setlocal2
+                     ofs00e9:
+                              getlocal2
+                              not
+                              dup
+                              iftrue ofs00f8
+                              pop
+                              getlocal2
+                              getproperty QName(PackageNamespace(""),"length")
+                              pushbyte 0
+                              equals
+                     ofs00f8:
+                              iftrue ofs00b4
+                     ofs00fc:
+                              getlocal1
+                              returnvalue
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function removeSmallestChild(param1:ILayoutManagerClient) : Object
+                  {
+                     trait method QName(PackageNamespace(""),"removeSmallestChild")
+                        dispid 0
+                        method
+                           name null
+                           param QName(PackageNamespace("mx.managers"),"ILayoutManagerClient")
+                           returns QName(PackageNamespace(""),"Object")
+                           
+                           body
+                              maxstack 4
+                              localcount 7
+                              initscopedepth 4
+                              maxscopedepth 5
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 pushnull
+                                 coerce QName(PrivateNamespace(null,"75"),"PriorityBin")
+                                 setlocal3
+                                 pushnull
+                                 coerce QName(PackageNamespace(""),"Object")
+                                 setlocal 4
+                                 getlocal1
+                                 getproperty QName(Namespace("mx.managers:ILayoutManagerClient"),"nestLevel")
+                                 convert_i
+                                 setlocal2
+                                 jump ofs00e9
+                        ofs0016:
+                                 label
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"74"),"priorityBins")
+                                 getlocal2
+                                 getproperty MultinameL([PrivateNamespace(null,"74"),PrivateNamespace(null,"75"),PackageNamespace(""),PackageNamespace("mx.managers.layoutClasses"),PackageInternalNs("mx.managers.layoutClasses"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.managers.layoutClasses:PriorityQueue"),StaticProtectedNs("mx.managers.layoutClasses:PriorityQueue")])
+                                 coerce QName(PrivateNamespace(null,"75"),"PriorityBin")
+                                 setlocal3
+                                 getlocal3
+                                 convert_b
+                                 dup
+                                 iffalse ofs0032
+                                 pop
+                                 getlocal3
+                                 getproperty QName(PackageNamespace(""),"length")
+                                 pushbyte 0
+                                 greaterthan
+                        ofs0032:
+                                 iffalse ofs00bc
+                                 getlocal2
+                                 getlocal1
+                                 getproperty QName(Namespace("mx.managers:ILayoutManagerClient"),"nestLevel")
+                                 ifne ofs005f
+                                 getlocal3
+                                 getproperty QName(PackageNamespace(""),"items")
+                                 getlocal1
+                                 getproperty MultinameL([PrivateNamespace(null,"74"),PrivateNamespace(null,"75"),PackageNamespace(""),PackageNamespace("mx.managers.layoutClasses"),PackageInternalNs("mx.managers.layoutClasses"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.managers.layoutClasses:PriorityQueue"),StaticProtectedNs("mx.managers.layoutClasses:PriorityQueue")])
+                                 iffalse ofs005b
+                                 getlocal0
+                                 findpropstrict QName(PackageNamespace("mx.managers"),"ILayoutManagerClient")
+                                 getlocal1
+                                 callproperty QName(PackageNamespace("mx.managers"),"ILayoutManagerClient"), 1
+                                 getlocal2
+                                 callpropvoid QName(PackageNamespace(""),"removeChild"), 2
+                                 getlocal1
+                                 returnvalue
+                        ofs005b:
+                                 jump ofs00b6
+                        ofs005f:
+                                 pushbyte 0
+                                 setlocal 5
+                                 getlocal3
+                                 getproperty QName(PackageNamespace(""),"items")
+                                 coerce_a
+                                 setlocal 6
+                                 jump ofs00ab
+                        ofs006e:
+                                 label
+                                 getlocal 6
+                                 getlocal 5
+                                 nextname
+                                 coerce QName(PackageNamespace(""),"Object")
+                                 dup
+                                 setlocal 4
+                                 getlex QName(PackageNamespace("flash.display"),"DisplayObject")
+                                 istypelate
+                                 dup
+                                 iffalse ofs0095
+                                 pop
+                                 getlocal0
+                                 findpropstrict QName(PackageNamespace("flash.display"),"DisplayObject")
+                                 getlocal1
+                                 callproperty QName(PackageNamespace("flash.display"),"DisplayObject"), 1
+                                 findpropstrict QName(PackageNamespace("flash.display"),"DisplayObject")
+                                 getlocal 4
+                                 callproperty QName(PackageNamespace("flash.display"),"DisplayObject"), 1
+                                 callproperty QName(PrivateNamespace(null,"74"),"contains"), 2
+                                 convert_b
+                        ofs0095:
+                                 iffalse ofs00ab
+                                 getlocal0
+                                 findpropstrict QName(PackageNamespace("mx.managers"),"ILayoutManagerClient")
+                                 getlocal 4
+                                 callproperty QName(PackageNamespace("mx.managers"),"ILayoutManagerClient"), 1
+                                 getlocal2
+                                 callpropvoid QName(PackageNamespace(""),"removeChild"), 2
+                                 getlocal 4
+                                 returnvalue
+                        ofs00ab:
+                                 hasnext2 6, 5
+                                 iftrue ofs006e
+                                 kill 6
+                                 kill 5
+                        ofs00b6:
+                                 inclocal_i 2
+                                 jump ofs00e9
+                        ofs00bc:
+                                 getlocal2
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"74"),"minPriority")
+                                 ifne ofs00da
+                                 getlocal0
+                                 dup
+                                 setlocal 5
+                                 getproperty QName(PrivateNamespace(null,"74"),"minPriority")
+                                 increment_i
+                                 setlocal 6
+                                 getlocal 5
+                                 getlocal 6
+                                 setproperty QName(PrivateNamespace(null,"74"),"minPriority")
+                                 kill 6
+                                 kill 5
+                        ofs00da:
+                                 inclocal_i 2
+                                 getlocal2
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                                 ifngt ofs00e9
+                                 jump ofs00f2
+                        ofs00e9:
+                                 getlocal2
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                                 ifle ofs0016
+                        ofs00f2:
+                                 pushnull
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public function removeChild(param1:ILayoutManagerClient, param2:int = -1) : Object
+                     {
+                        trait method QName(PackageNamespace(""),"removeChild")
+                           dispid 0
+                           method
+                              name null
+                              flag HAS_OPTIONAL
+                              param QName(PackageNamespace("mx.managers"),"ILayoutManagerClient")
+                              param QName(PackageNamespace(""),"int")
+                              optional Integer(-1)
+                              returns QName(PackageNamespace(""),"Object")
+                              
+                              body
+                                 maxstack 2
+                                 localcount 7
+                                 initscopedepth 4
+                                 maxscopedepth 5
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlocal2
+                                    pushbyte 0
+                                    ifnge ofs000f
+                                    getlocal2
+                                    convert_i
+                                    jump ofs0014
+                           ofs000f:
+                                    getlocal1
+                                    getproperty QName(Namespace("mx.managers:ILayoutManagerClient"),"nestLevel")
+                                    convert_i
+                           ofs0014:
+                                    convert_i
+                                    setlocal3
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"74"),"priorityBins")
+                                    getlocal3
+                                    getproperty MultinameL([PrivateNamespace(null,"74"),PrivateNamespace(null,"75"),PackageNamespace(""),PackageNamespace("mx.managers.layoutClasses"),PackageInternalNs("mx.managers.layoutClasses"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.managers.layoutClasses:PriorityQueue"),StaticProtectedNs("mx.managers.layoutClasses:PriorityQueue")])
+                                    coerce QName(PrivateNamespace(null,"75"),"PriorityBin")
+                                    dup
+                                    setlocal 4
+                                    convert_b
+                                    dup
+                                    iffalse ofs0037
+                                    pop
+                                    getlocal 4
+                                    getproperty QName(PackageNamespace(""),"items")
+                                    getlocal1
+                                    getproperty MultinameL([PrivateNamespace(null,"74"),PrivateNamespace(null,"75"),PackageNamespace(""),PackageNamespace("mx.managers.layoutClasses"),PackageInternalNs("mx.managers.layoutClasses"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.managers.layoutClasses:PriorityQueue"),StaticProtectedNs("mx.managers.layoutClasses:PriorityQueue")])
+                                    pushnull
+                                    equals
+                                    not
+                           ofs0037:
+                                    iffalse ofs005d
+                                    getlocal 4
+                                    getproperty QName(PackageNamespace(""),"items")
+                                    getlocal1
+                                    deleteproperty MultinameL([PrivateNamespace(null,"74"),PrivateNamespace(null,"75"),PackageNamespace(""),PackageNamespace("mx.managers.layoutClasses"),PackageInternalNs("mx.managers.layoutClasses"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.managers.layoutClasses:PriorityQueue"),StaticProtectedNs("mx.managers.layoutClasses:PriorityQueue")])
+                                    pop
+                                    getlocal 4
+                                    dup
+                                    setlocal 5
+                                    getproperty QName(PackageNamespace(""),"length")
+                                    decrement_i
+                                    setlocal 6
+                                    getlocal 5
+                                    getlocal 6
+                                    setproperty QName(PackageNamespace(""),"length")
+                                    kill 6
+                                    kill 5
+                                    getlocal1
+                                    returnvalue
+                           ofs005d:
+                                    pushnull
+                                    returnvalue
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        public function removeAll() : void
+                        {
+                           trait method QName(PackageNamespace(""),"removeAll")
+                              dispid 0
+                              method
+                                 name null
+                                 returns QName(PackageNamespace(""),"void")
+                                 
+                                 body
+                                    maxstack 2
+                                    localcount 1
+                                    initscopedepth 4
+                                    maxscopedepth 5
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"74"),"priorityBins")
+                                       pushbyte 0
+                                       setproperty QName(PackageNamespace(""),"length")
+                                       getlocal0
+                                       pushbyte 0
+                                       initproperty QName(PrivateNamespace(null,"74"),"minPriority")
+                                       getlocal0
+                                       pushbyte -1
+                                       initproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           public function isEmpty() : Boolean
+                           {
+                              trait method QName(PackageNamespace(""),"isEmpty")
+                                 dispid 0
+                                 method
+                                    name null
+                                    returns QName(PackageNamespace(""),"Boolean")
+                                    
+                                    body
+                                       maxstack 2
+                                       localcount 1
+                                       initscopedepth 4
+                                       maxscopedepth 5
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"74"),"minPriority")
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"74"),"maxPriority")
+                                          greaterthan
+                                          returnvalue
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              private function contains(param1:DisplayObject, param2:DisplayObject) : Boolean
+                              {
+                                 trait method QName(PrivateNamespace(null,"74"),"contains")
+                                    dispid 0
+                                    method
+                                       name null
+                                       param QName(PackageNamespace("flash.display"),"DisplayObject")
+                                       param QName(PackageNamespace("flash.display"),"DisplayObject")
+                                       returns QName(PackageNamespace(""),"Boolean")
+                                       
+                                       body
+                                          maxstack 2
+                                          localcount 4
+                                          initscopedepth 4
+                                          maxscopedepth 5
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             pushnull
+                                             coerce QName(PackageNamespace("mx.core"),"IChildList")
+                                             setlocal3
+                                             getlocal1
+                                             getlex QName(PackageNamespace("mx.core"),"IRawChildrenContainer")
+                                             istypelate
+                                             iffalse ofs0024
+                                             findpropstrict QName(PackageNamespace("mx.core"),"IRawChildrenContainer")
+                                             getlocal1
+                                             callproperty QName(PackageNamespace("mx.core"),"IRawChildrenContainer"), 1
+                                             getproperty QName(Namespace("mx.core:IRawChildrenContainer"),"rawChildren")
+                                             coerce QName(PackageNamespace("mx.core"),"IChildList")
+                                             setlocal3
+                                             getlocal3
+                                             getlocal2
+                                             callproperty QName(Namespace("mx.core:IChildList"),"contains"), 1
+                                             returnvalue
+                                    ofs0024:
+                                             getlocal1
+                                             getlex QName(PackageNamespace("flash.display"),"DisplayObjectContainer")
+                                             istypelate
+                                             iffalse ofs0038
+                                             findpropstrict QName(PackageNamespace("flash.display"),"DisplayObjectContainer")
+                                             getlocal1
+                                             callproperty QName(PackageNamespace("flash.display"),"DisplayObjectContainer"), 1
+                                             getlocal2
+                                             callproperty QName(PackageNamespace(""),"contains"), 1
+                                             returnvalue
+                                    ofs0038:
+                                             getlocal1
+                                             getlocal2
+                                             equals
+                                             returnvalue
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                              }
+                           }
+                           
+                           import flash.utils.Dictionary;
+                           
+                           class PriorityBin
+                           {
+                              
+                              method
+                                 name null
+                                 returns null
+                                 
+                                 body
+                                    maxstack 1
+                                    localcount 1
+                                    initscopedepth 3
+                                    maxscopedepth 4
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method
+                              
+                              public var length:int;
+                              
+                              public var items:Dictionary;
+                              
+                              public function PriorityBin()
+                              {
+                                 method
+                                    name null
+                                    returns null
+                                    
+                                    body
+                                       maxstack 2
+                                       localcount 1
+                                       initscopedepth 4
+                                       maxscopedepth 5
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlocal0
+                                          findpropstrict QName(PackageNamespace("flash.utils"),"Dictionary")
+                                          constructprop QName(PackageNamespace("flash.utils"),"Dictionary"), 0
+                                          initproperty QName(PackageNamespace(""),"items")
+                                          getlocal0
+                                          constructsuper 0
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                           }
+                           
+                           method
+                              name null
+                              returns null
+                              
+                              body
+                                 maxstack 2
+                                 localcount 1
+                                 initscopedepth 1
+                                 maxscopedepth 3
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    findpropstrict Multiname("PriorityQueue",[PackageNamespace("mx.managers.layoutClasses")])
+                                    getlex QName(PackageNamespace(""),"Object")
+                                    pushscope
+                                    getlex QName(PackageNamespace(""),"Object")
+                                    newclass 249
+                                    popscope
+                                    initproperty QName(PackageNamespace("mx.managers.layoutClasses"),"PriorityQueue")
+                                    findpropstrict Multiname("PriorityBin",[PrivateNamespace(null,"75")])
+                                    getlex QName(PackageNamespace(""),"Object")
+                                    pushscope
+                                    getlex QName(PackageNamespace(""),"Object")
+                                    newclass 250
+                                    popscope
+                                    initproperty QName(PrivateNamespace(null,"75"),"PriorityBin")
+                                    returnvoid
+                                 end ; code
+                              end ; body
+                           end ; method
+                           

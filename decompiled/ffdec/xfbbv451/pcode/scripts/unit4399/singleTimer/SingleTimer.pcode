@@ -1,0 +1,928 @@
+package unit4399.singleTimer
+{
+   import flash.events.TimerEvent;
+   import flash.utils.Timer;
+   import flash.utils.getTimer;
+   
+   public class SingleTimer
+   {
+      
+      private static var _instance:SingleTimer = null;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(PrivateNamespace(null,"2"),"_instance")
+               pushnull
+               setproperty QName(PrivateNamespace(null,"2"),"_instance")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var _runInterval:int = 100;
+      
+      private var _timer:Timer;
+      
+      private var _taskList:Array;
+      
+      private var _runTaskCount:int = 0;
+      
+      private var _isDisPose:Boolean = false;
+      
+      private var _curTime:int;
+      
+      private var _lastTime:int;
+      
+      private var _realRunInteral:int;
+      
+      public function SingleTimer(param1:SingleClass)
+      {
+         method
+            name null
+            param QName(PrivateNamespace(null),"SingleClass")
+            returns null
+            
+            body
+               maxstack 1
+               localcount 2
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public static function getInstance() : SingleTimer
+      {
+         trait method QName(PackageNamespace(""),"getInstance")
+            flag FINAL
+            dispid 3
+            method
+               name null
+               returns QName(PackageNamespace("unit4399.singleTimer"),"SingleTimer")
+               
+               body
+                  maxstack 3
+                  localcount 1
+                  initscopedepth 3
+                  maxscopedepth 4
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlex QName(PrivateNamespace(null,"2"),"_instance")
+                     pushnull
+                     ifne ofs0018
+                     findproperty QName(PrivateNamespace(null,"2"),"_instance")
+                     getlocal0
+                     findpropstrict QName(PrivateNamespace(null),"SingleClass")
+                     constructprop QName(PrivateNamespace(null),"SingleClass"), 0
+                     construct 1
+                     setproperty QName(PrivateNamespace(null,"2"),"_instance")
+            ofs0018:
+                     getlex QName(PrivateNamespace(null,"2"),"_instance")
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function addTask(param1:int = -1, param2:int = -1, param3:Object = null, param4:Function = null, ... rest) : int
+         {
+            trait method QName(PackageNamespace(""),"addTask")
+               dispid 0
+               method
+                  name null
+                  flag HAS_OPTIONAL
+                  flag NEED_REST
+                  param QName(PackageNamespace(""),"int")
+                  param QName(PackageNamespace(""),"int")
+                  param QName(PackageNamespace(""),"Object")
+                  param QName(PackageNamespace(""),"Function")
+                  optional Integer(-1)
+                  optional Integer(-1)
+                  optional Null()
+                  optional Null()
+                  returns QName(PackageNamespace(""),"int")
+                  
+                  body
+                     maxstack 9
+                     localcount 11
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        pushbyte 0
+                        setlocal 6
+                        pushbyte 0
+                        setlocal 7
+                        pushnull
+                        coerce QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskFormat")
+                        setlocal 8
+                        getlocal1
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"2"),"_runInterval")
+                        ifnlt ofs0027
+                        findpropstrict QName(PackageNamespace(""),"ArgumentError")
+                        getlex QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskRunErrorType")
+                        getproperty QName(PackageNamespace(""),"TIME_SHORT")
+                        constructprop QName(PackageNamespace(""),"ArgumentError"), 1
+                        throw
+               ofs0027:
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"2"),"_taskList")
+                        pushnull
+                        ifne ofs0036
+                        getlocal0
+                        newarray 0
+                        initproperty QName(PrivateNamespace(null,"2"),"_taskList")
+               ofs0036:
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"2"),"_taskList")
+                        getproperty QName(PackageNamespace(""),"length")
+                        convert_i
+                        dup
+                        setlocal 7
+                        pushbyte 0
+                        ifne ofs007c
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"2"),"_taskList")
+                        findpropstrict QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskFormat")
+                        getlocal1
+                        getlocal 7
+                        getlocal2
+                        getlocal3
+                        getlocal 4
+                        getlocal 5
+                        constructprop QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskFormat"), 6
+                        callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 1
+                        getlocal0
+                        dup
+                        setlocal 9
+                        getproperty QName(PrivateNamespace(null,"2"),"_runTaskCount")
+                        increment_i
+                        setlocal 10
+                        getlocal 9
+                        getlocal 10
+                        setproperty QName(PrivateNamespace(null,"2"),"_runTaskCount")
+                        kill 10
+                        kill 9
+                        getlocal0
+                        callpropvoid QName(PrivateNamespace(null,"2"),"testCanRun"), 0
+                        pushbyte 0
+                        returnvalue
+               ofs007c:
+                        pushbyte 0
+                        setlocal 6
+                        jump ofs012b
+               ofs0084:
+                        label
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"2"),"_taskList")
+                        getlocal 6
+                        getproperty MultinameL([PrivateNamespace(null,"2"),PrivateNamespace(null),PackageNamespace("unit4399.singleTimer"),PackageNamespace(""),Namespace("http://adobe.com/AS3/2006/builtin"),PackageInternalNs("unit4399.singleTimer"),ProtectedNamespace("unit4399.singleTimer:SingleTimer"),StaticProtectedNs("unit4399.singleTimer:SingleTimer")])
+                        coerce QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskFormat")
+                        dup
+                        setlocal 8
+                        pushnull
+                        ifne ofs00cf
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"2"),"_taskList")
+                        getlocal 6
+                        findpropstrict QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskFormat")
+                        getlocal1
+                        getlocal 6
+                        getlocal2
+                        getlocal3
+                        getlocal 4
+                        getlocal 5
+                        constructprop QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskFormat"), 6
+                        setproperty MultinameL([PrivateNamespace(null,"2"),PrivateNamespace(null),PackageNamespace("unit4399.singleTimer"),PackageNamespace(""),Namespace("http://adobe.com/AS3/2006/builtin"),PackageInternalNs("unit4399.singleTimer"),ProtectedNamespace("unit4399.singleTimer:SingleTimer"),StaticProtectedNs("unit4399.singleTimer:SingleTimer")])
+                        getlocal0
+                        dup
+                        setlocal 9
+                        getproperty QName(PrivateNamespace(null,"2"),"_runTaskCount")
+                        increment_i
+                        setlocal 10
+                        getlocal 9
+                        getlocal 10
+                        setproperty QName(PrivateNamespace(null,"2"),"_runTaskCount")
+                        kill 10
+                        kill 9
+                        getlocal0
+                        callpropvoid QName(PrivateNamespace(null,"2"),"testCanRun"), 0
+                        getlocal 6
+                        returnvalue
+               ofs00cf:
+                        getlocal 8
+                        getproperty QName(PackageNamespace(""),"isUse")
+                        iftrue ofs0129
+                        getlocal 8
+                        pushtrue
+                        setproperty QName(PackageNamespace(""),"isUse")
+                        getlocal 8
+                        getlocal 6
+                        setproperty QName(PackageNamespace(""),"id")
+                        getlocal 8
+                        getlocal1
+                        setproperty QName(PackageNamespace(""),"runInterval")
+                        getlocal 8
+                        pushbyte 0
+                        setproperty QName(PackageNamespace(""),"curCount")
+                        getlocal 8
+                        getlocal2
+                        setproperty QName(PackageNamespace(""),"totalCount")
+                        getlocal 8
+                        getlocal 4
+                        setproperty QName(PackageNamespace(""),"notifyMethod")
+                        getlocal 8
+                        getlocal3
+                        setproperty QName(PackageNamespace(""),"notifyContext")
+                        getlocal 8
+                        getlocal 5
+                        setproperty QName(PackageNamespace(""),"notifyArags")
+                        getlocal0
+                        dup
+                        setlocal 9
+                        getproperty QName(PrivateNamespace(null,"2"),"_runTaskCount")
+                        increment_i
+                        setlocal 10
+                        getlocal 9
+                        getlocal 10
+                        setproperty QName(PrivateNamespace(null,"2"),"_runTaskCount")
+                        kill 10
+                        kill 9
+                        getlocal0
+                        callpropvoid QName(PrivateNamespace(null,"2"),"testCanRun"), 0
+                        getlocal 6
+                        returnvalue
+               ofs0129:
+                        inclocal_i 6
+               ofs012b:
+                        getlocal 6
+                        getlocal 7
+                        iflt ofs0084
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"2"),"_taskList")
+                        findpropstrict QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskFormat")
+                        getlocal1
+                        getlocal 7
+                        getlocal2
+                        getlocal3
+                        getlocal 4
+                        getlocal 5
+                        constructprop QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskFormat"), 6
+                        callpropvoid QName(Namespace("http://adobe.com/AS3/2006/builtin"),"push"), 1
+                        getlocal0
+                        dup
+                        setlocal 9
+                        getproperty QName(PrivateNamespace(null,"2"),"_runTaskCount")
+                        increment_i
+                        setlocal 10
+                        getlocal 9
+                        getlocal 10
+                        setproperty QName(PrivateNamespace(null,"2"),"_runTaskCount")
+                        kill 10
+                        kill 9
+                        getlocal0
+                        callpropvoid QName(PrivateNamespace(null,"2"),"testCanRun"), 0
+                        getlocal 7
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function delTask(param1:int) : void
+            {
+               trait method QName(PackageNamespace(""),"delTask")
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace(""),"int")
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 2
+                        localcount 5
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           pushnull
+                           coerce QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskFormat")
+                           setlocal2
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"2"),"_taskList")
+                           pushnull
+                           equals
+                           dup
+                           iftrue ofs001c
+                           pop
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"2"),"_taskList")
+                           getproperty QName(PackageNamespace(""),"length")
+                           getlocal1
+                           lessequals
+                  ofs001c:
+                           iffalse ofs002e
+                           findpropstrict QName(PackageNamespace(""),"ArgumentError")
+                           getlex QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskRunErrorType")
+                           getproperty QName(PackageNamespace(""),"DEL_ID_ERROR")
+                           constructprop QName(PackageNamespace(""),"ArgumentError"), 1
+                           throw
+                  ofs002e:
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"2"),"_taskList")
+                           getlocal1
+                           getproperty MultinameL([PrivateNamespace(null,"2"),PrivateNamespace(null),PackageNamespace("unit4399.singleTimer"),PackageNamespace(""),Namespace("http://adobe.com/AS3/2006/builtin"),PackageInternalNs("unit4399.singleTimer"),ProtectedNamespace("unit4399.singleTimer:SingleTimer"),StaticProtectedNs("unit4399.singleTimer:SingleTimer")])
+                           getlex QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskFormat")
+                           astypelate
+                           coerce QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskFormat")
+                           setlocal2
+                           getlocal2
+                           callpropvoid QName(PackageNamespace(""),"setDisable"), 0
+                           getlocal0
+                           dup
+                           setlocal3
+                           getproperty QName(PrivateNamespace(null,"2"),"_runTaskCount")
+                           decrement_i
+                           setlocal 4
+                           getlocal3
+                           getlocal 4
+                           setproperty QName(PrivateNamespace(null,"2"),"_runTaskCount")
+                           kill 4
+                           kill 3
+                           getlocal0
+                           callpropvoid QName(PrivateNamespace(null,"2"),"testCanStop"), 0
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function set runInterval(param1:int) : void
+               {
+                  trait setter QName(PackageNamespace(""),"runInterval")
+                     dispid 0
+                     method
+                        name null
+                        param QName(PackageNamespace(""),"int")
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 2
+                           localcount 2
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal1
+                              pushbyte 5
+                              ifnle ofs0017
+                              findpropstrict QName(PackageNamespace(""),"ArgumentError")
+                              getlex QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskRunErrorType")
+                              getproperty QName(PackageNamespace(""),"INTERVAL_SHORT")
+                              constructprop QName(PackageNamespace(""),"ArgumentError"), 1
+                              throw
+                     ofs0017:
+                              getlocal0
+                              getlocal1
+                              initproperty QName(PrivateNamespace(null,"2"),"_runInterval")
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function get runInterval() : int
+                  {
+                     trait getter QName(PackageNamespace(""),"runInterval")
+                        dispid 0
+                        method
+                           name null
+                           returns QName(PackageNamespace(""),"int")
+                           
+                           body
+                              maxstack 1
+                              localcount 1
+                              initscopedepth 4
+                              maxscopedepth 5
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"2"),"_runInterval")
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public function dispose() : void
+                     {
+                        trait method QName(PackageNamespace(""),"dispose")
+                           dispid 0
+                           method
+                              name null
+                              returns QName(PackageNamespace(""),"void")
+                              
+                              body
+                                 maxstack 2
+                                 localcount 1
+                                 initscopedepth 4
+                                 maxscopedepth 5
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlocal0
+                                    pushtrue
+                                    initproperty QName(PrivateNamespace(null,"2"),"_isDisPose")
+                                    returnvoid
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        private function testCanRun() : void
+                        {
+                           trait method QName(PrivateNamespace(null,"2"),"testCanRun")
+                              dispid 0
+                              method
+                                 name null
+                                 returns QName(PackageNamespace(""),"void")
+                                 
+                                 body
+                                    maxstack 6
+                                    localcount 1
+                                    initscopedepth 4
+                                    maxscopedepth 5
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"2"),"_timer")
+                                       pushnull
+                                       ifne ofs002f
+                                       getlocal0
+                                       findpropstrict QName(PackageNamespace("flash.utils"),"Timer")
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"2"),"_runInterval")
+                                       constructprop QName(PackageNamespace("flash.utils"),"Timer"), 1
+                                       initproperty QName(PrivateNamespace(null,"2"),"_timer")
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"2"),"_timer")
+                                       getlex QName(PackageNamespace("flash.events"),"TimerEvent")
+                                       getproperty QName(PackageNamespace(""),"TIMER")
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"2"),"runFunc")
+                                       pushfalse
+                                       pushbyte 0
+                                       pushtrue
+                                       callpropvoid QName(PackageNamespace(""),"addEventListener"), 5
+                              ofs002f:
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"2"),"_timer")
+                                       getproperty QName(PackageNamespace(""),"running")
+                                       not
+                                       dup
+                                       iffalse ofs0044
+                                       pop
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"2"),"_runTaskCount")
+                                       pushbyte 0
+                                       greaterthan
+                              ofs0044:
+                                       iffalse ofs005b
+                                       getlocal0
+                                       findpropstrict QName(PackageNamespace("flash.utils"),"getTimer")
+                                       callproperty QName(PackageNamespace("flash.utils"),"getTimer"), 0
+                                       initproperty QName(PrivateNamespace(null,"2"),"_lastTime")
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"2"),"_timer")
+                                       callpropvoid QName(PackageNamespace(""),"start"), 0
+                              ofs005b:
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           private function runFunc(param1:TimerEvent) : void
+                           {
+                              trait method QName(PrivateNamespace(null,"2"),"runFunc")
+                                 dispid 0
+                                 method
+                                    name null
+                                    param QName(PackageNamespace("flash.events"),"TimerEvent")
+                                    returns QName(PackageNamespace(""),"void")
+                                    
+                                    body
+                                       maxstack 3
+                                       localcount 8
+                                       initscopedepth 4
+                                       maxscopedepth 5
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          pushbyte 0
+                                          setlocal2
+                                          pushbyte 0
+                                          setlocal3
+                                          pushnull
+                                          coerce QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskFormat")
+                                          setlocal 4
+                                          pushfalse
+                                          setlocal 5
+                                          pushfalse
+                                          setlocal 5
+                                          getlocal0
+                                          findpropstrict QName(PackageNamespace("flash.utils"),"getTimer")
+                                          callproperty QName(PackageNamespace("flash.utils"),"getTimer"), 0
+                                          initproperty QName(PrivateNamespace(null,"2"),"_curTime")
+                                          getlocal0
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"2"),"_curTime")
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"2"),"_lastTime")
+                                          subtract
+                                          initproperty QName(PrivateNamespace(null,"2"),"_realRunInteral")
+                                          getlocal0
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"2"),"_curTime")
+                                          initproperty QName(PrivateNamespace(null,"2"),"_lastTime")
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"2"),"_taskList")
+                                          pushnull
+                                          ifne ofs005a
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"2"),"_timer")
+                                          pushnull
+                                          ifeq ofs0059
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"2"),"_timer")
+                                          getproperty QName(PackageNamespace(""),"running")
+                                          iffalse ofs0059
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"2"),"_timer")
+                                          callpropvoid QName(PackageNamespace(""),"stop"), 0
+                                 ofs0059:
+                                          returnvoid
+                                 ofs005a:
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"2"),"_taskList")
+                                          getproperty QName(PackageNamespace(""),"length")
+                                          convert_i
+                                          setlocal3
+                                          pushbyte 0
+                                          setlocal2
+                                          jump ofs00bf
+                                 ofs006a:
+                                          label
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"2"),"_taskList")
+                                          getlocal2
+                                          getproperty MultinameL([PrivateNamespace(null,"2"),PrivateNamespace(null),PackageNamespace("unit4399.singleTimer"),PackageNamespace(""),Namespace("http://adobe.com/AS3/2006/builtin"),PackageInternalNs("unit4399.singleTimer"),ProtectedNamespace("unit4399.singleTimer:SingleTimer"),StaticProtectedNs("unit4399.singleTimer:SingleTimer")])
+                                          getlex QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskFormat")
+                                          astypelate
+                                          coerce QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskFormat")
+                                          dup
+                                          setlocal 4
+                                          pushnull
+                                          equals
+                                          not
+                                          dup
+                                          iffalse ofs008c
+                                          pop
+                                          getlocal 4
+                                          getproperty QName(PackageNamespace(""),"isUse")
+                                          convert_b
+                                 ofs008c:
+                                          iffalse ofs00bd
+                                          getlocal 4
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"2"),"_realRunInteral")
+                                          callproperty QName(PackageNamespace(""),"addRunTime"), 1
+                                          convert_b
+                                          dup
+                                          setlocal 5
+                                          iffalse ofs00bd
+                                          getlocal 4
+                                          callpropvoid QName(PackageNamespace(""),"setDisable"), 0
+                                          getlocal0
+                                          dup
+                                          setlocal 6
+                                          getproperty QName(PrivateNamespace(null,"2"),"_runTaskCount")
+                                          decrement_i
+                                          setlocal 7
+                                          getlocal 6
+                                          getlocal 7
+                                          setproperty QName(PrivateNamespace(null,"2"),"_runTaskCount")
+                                          kill 7
+                                          kill 6
+                                 ofs00bd:
+                                          inclocal_i 2
+                                 ofs00bf:
+                                          getlocal2
+                                          getlocal3
+                                          iflt ofs006a
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"2"),"_runTaskCount")
+                                          pushbyte 0
+                                          lessequals
+                                          dup
+                                          iffalse ofs00da
+                                          pop
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"2"),"_timer")
+                                          getproperty QName(PackageNamespace(""),"running")
+                                          convert_b
+                                 ofs00da:
+                                          iffalse ofs00e6
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"2"),"_timer")
+                                          callpropvoid QName(PackageNamespace(""),"stop"), 0
+                                 ofs00e6:
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"2"),"_isDisPose")
+                                          iffalse ofs00f3
+                                          getlocal0
+                                          callpropvoid QName(PrivateNamespace(null,"2"),"doDisPose"), 0
+                                 ofs00f3:
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              private function testCanStop() : void
+                              {
+                                 trait method QName(PrivateNamespace(null,"2"),"testCanStop")
+                                    dispid 0
+                                    method
+                                       name null
+                                       returns QName(PackageNamespace(""),"void")
+                                       
+                                       body
+                                          maxstack 2
+                                          localcount 1
+                                          initscopedepth 4
+                                          maxscopedepth 5
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlocal0
+                                             getproperty QName(PrivateNamespace(null,"2"),"_timer")
+                                             pushnull
+                                             equals
+                                             dup
+                                             iftrue ofs0014
+                                             pop
+                                             getlocal0
+                                             getproperty QName(PrivateNamespace(null,"2"),"_taskList")
+                                             pushnull
+                                             equals
+                                    ofs0014:
+                                             iffalse ofs0019
+                                             returnvoid
+                                    ofs0019:
+                                             getlocal0
+                                             getproperty QName(PrivateNamespace(null,"2"),"_runTaskCount")
+                                             pushbyte 0
+                                             ifngt ofs0024
+                                             returnvoid
+                                    ofs0024:
+                                             getlocal0
+                                             getproperty QName(PrivateNamespace(null,"2"),"_timer")
+                                             getproperty QName(PackageNamespace(""),"running")
+                                             iffalse ofs0037
+                                             getlocal0
+                                             getproperty QName(PrivateNamespace(null,"2"),"_timer")
+                                             callpropvoid QName(PackageNamespace(""),"stop"), 0
+                                    ofs0037:
+                                             returnvoid
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 private function doDisPose() : void
+                                 {
+                                    trait method QName(PrivateNamespace(null,"2"),"doDisPose")
+                                       dispid 0
+                                       method
+                                          name null
+                                          returns QName(PackageNamespace(""),"void")
+                                          
+                                          body
+                                             maxstack 3
+                                             localcount 4
+                                             initscopedepth 4
+                                             maxscopedepth 5
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                pushbyte 0
+                                                setlocal1
+                                                pushbyte 0
+                                                setlocal2
+                                                pushnull
+                                                coerce QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskFormat")
+                                                setlocal3
+                                                getlocal0
+                                                pushfalse
+                                                initproperty QName(PrivateNamespace(null,"2"),"_isDisPose")
+                                                getlocal0
+                                                pushbyte 0
+                                                initproperty QName(PrivateNamespace(null,"2"),"_runTaskCount")
+                                                getlocal0
+                                                callpropvoid QName(PrivateNamespace(null,"2"),"testCanStop"), 0
+                                                getlocal0
+                                                getproperty QName(PrivateNamespace(null,"2"),"_timer")
+                                                pushnull
+                                                ifeq ofs004d
+                                                getlocal0
+                                                getproperty QName(PrivateNamespace(null,"2"),"_timer")
+                                                getlex QName(PackageNamespace("flash.events"),"TimerEvent")
+                                                getproperty QName(PackageNamespace(""),"TIMER")
+                                                callproperty QName(PackageNamespace(""),"hasEventListener"), 1
+                                                iffalse ofs0048
+                                                getlocal0
+                                                getproperty QName(PrivateNamespace(null,"2"),"_timer")
+                                                getlex QName(PackageNamespace("flash.events"),"TimerEvent")
+                                                getproperty QName(PackageNamespace(""),"TIMER")
+                                                getlocal0
+                                                getproperty QName(PrivateNamespace(null,"2"),"runFunc")
+                                                callpropvoid QName(PackageNamespace(""),"removeEventListener"), 2
+                                       ofs0048:
+                                                getlocal0
+                                                pushnull
+                                                initproperty QName(PrivateNamespace(null,"2"),"_timer")
+                                       ofs004d:
+                                                getlocal0
+                                                getproperty QName(PrivateNamespace(null,"2"),"_taskList")
+                                                pushnull
+                                                ifne ofs0057
+                                                returnvoid
+                                       ofs0057:
+                                                getlocal0
+                                                getproperty QName(PrivateNamespace(null,"2"),"_taskList")
+                                                getproperty QName(PackageNamespace(""),"length")
+                                                convert_i
+                                                setlocal2
+                                                pushbyte 0
+                                                setlocal1
+                                                jump ofs009b
+                                       ofs0067:
+                                                label
+                                                getlocal0
+                                                getproperty QName(PrivateNamespace(null,"2"),"_taskList")
+                                                getlocal1
+                                                getproperty MultinameL([PrivateNamespace(null,"2"),PrivateNamespace(null),PackageNamespace("unit4399.singleTimer"),PackageNamespace(""),Namespace("http://adobe.com/AS3/2006/builtin"),PackageInternalNs("unit4399.singleTimer"),ProtectedNamespace("unit4399.singleTimer:SingleTimer"),StaticProtectedNs("unit4399.singleTimer:SingleTimer")])
+                                                getlex QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskFormat")
+                                                astypelate
+                                                coerce QName(PackageNamespace("unit4399.singleTimer"),"TimerTaskFormat")
+                                                setlocal3
+                                                getlocal3
+                                                pushnull
+                                                equals
+                                                not
+                                                dup
+                                                iffalse ofs0087
+                                                pop
+                                                getlocal3
+                                                getproperty QName(PackageNamespace(""),"isUse")
+                                                convert_b
+                                       ofs0087:
+                                                iffalse ofs0090
+                                                getlocal3
+                                                callpropvoid QName(PackageNamespace(""),"setDisable"), 0
+                                       ofs0090:
+                                                getlocal0
+                                                getproperty QName(PrivateNamespace(null,"2"),"_taskList")
+                                                getlocal1
+                                                pushnull
+                                                setproperty MultinameL([PrivateNamespace(null,"2"),PrivateNamespace(null),PackageNamespace("unit4399.singleTimer"),PackageNamespace(""),Namespace("http://adobe.com/AS3/2006/builtin"),PackageInternalNs("unit4399.singleTimer"),ProtectedNamespace("unit4399.singleTimer:SingleTimer"),StaticProtectedNs("unit4399.singleTimer:SingleTimer")])
+                                                inclocal_i 1
+                                       ofs009b:
+                                                getlocal1
+                                                getlocal2
+                                                iflt ofs0067
+                                                getlocal0
+                                                pushnull
+                                                initproperty QName(PrivateNamespace(null,"2"),"_taskList")
+                                                returnvoid
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                 }
+                              }
+                              
+                              class SingleClass
+                              {
+                                 
+                                 method
+                                    name null
+                                    returns null
+                                    
+                                    body
+                                       maxstack 1
+                                       localcount 1
+                                       initscopedepth 3
+                                       maxscopedepth 4
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                                 
+                                 public function SingleClass()
+                                 {
+                                    method
+                                       name null
+                                       returns null
+                                       
+                                       body
+                                          maxstack 1
+                                          localcount 1
+                                          initscopedepth 4
+                                          maxscopedepth 5
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlocal0
+                                             constructsuper 0
+                                             returnvoid
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                              }
+                              
+                              method
+                                 name null
+                                 returns null
+                                 
+                                 body
+                                    maxstack 2
+                                    localcount 1
+                                    initscopedepth 1
+                                    maxscopedepth 3
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       findpropstrict Multiname("SingleTimer",[PackageNamespace("unit4399.singleTimer")])
+                                       getlex QName(PackageNamespace(""),"Object")
+                                       pushscope
+                                       getlex QName(PackageNamespace(""),"Object")
+                                       newclass 2
+                                       popscope
+                                       initproperty QName(PackageNamespace("unit4399.singleTimer"),"SingleTimer")
+                                       findpropstrict Multiname("SingleClass",[PrivateNamespace(null)])
+                                       getlex QName(PackageNamespace(""),"Object")
+                                       pushscope
+                                       getlex QName(PackageNamespace(""),"Object")
+                                       newclass 3
+                                       popscope
+                                       initproperty QName(PrivateNamespace(null),"SingleClass")
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method
+                              

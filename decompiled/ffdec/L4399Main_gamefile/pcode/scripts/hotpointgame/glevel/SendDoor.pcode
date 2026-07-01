@@ -1,0 +1,782 @@
+package hotpointgame.glevel
+{
+   import flash.display.*;
+   import flash.text.*;
+   import hotpointgame.Control.*;
+   import hotpointgame.common.*;
+   import hotpointgame.utils.gameloader.*;
+   
+   public class SendDoor
+   {
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 1
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var _name:String = "a";
+      
+      private var sname:String = "b";
+      
+      private var showname:String = "";
+      
+      private var mcClass:String = "无";
+      
+      private var chuxian:Object;
+      
+      private var cxP:Array;
+      
+      private var effectObj:Array;
+      
+      private var usetype:int = 0;
+      
+      private var tObj:Object;
+      
+      private var _useTimesMax:VT;
+      
+      private var _useTimesCur:VT;
+      
+      public function SendDoor(param1:String, param2:String, param3:String, param4:String, param5:Object, param6:Array, param7:Array, param8:int, param9:Object, param10:int)
+      {
+         method
+            name null
+            param QName(PackageNamespace(""),"String")
+            param QName(PackageNamespace(""),"String")
+            param QName(PackageNamespace(""),"String")
+            param QName(PackageNamespace(""),"String")
+            param QName(PackageNamespace(""),"Object")
+            param QName(PackageNamespace(""),"Array")
+            param QName(PackageNamespace(""),"Array")
+            param QName(PackageNamespace(""),"int")
+            param QName(PackageNamespace(""),"Object")
+            param QName(PackageNamespace(""),"int")
+            returns null
+            
+            body
+               maxstack 3
+               localcount 11
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  pushbyte 0
+                  dup
+                  newarray 2
+                  initproperty QName(PrivateNamespace(null,"67"),"cxP")
+                  getlocal0
+                  findpropstrict Multiname("Array",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                  constructprop Multiname("Array",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")]), 0
+                  initproperty QName(PrivateNamespace(null,"67"),"effectObj")
+                  getlocal0
+                  findpropstrict Multiname("Object",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                  constructprop Multiname("Object",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")]), 0
+                  initproperty QName(PrivateNamespace(null,"67"),"tObj")
+                  getlocal0
+                  getlex Multiname("VT",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor"),PackageNamespace("hotpointgame.common")])
+                  pushbyte 0
+                  callproperty Multiname("createVT",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")]), 1
+                  initproperty QName(PrivateNamespace(null,"67"),"_useTimesMax")
+                  getlocal0
+                  getlex Multiname("VT",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor"),PackageNamespace("hotpointgame.common")])
+                  pushbyte 0
+                  callproperty Multiname("createVT",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")]), 1
+                  initproperty QName(PrivateNamespace(null,"67"),"_useTimesCur")
+                  getlocal0
+                  constructsuper 0
+                  getlocal0
+                  getlocal1
+                  initproperty Multiname("name",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                  getlocal0
+                  getlocal2
+                  initproperty Multiname("sname",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                  getlocal0
+                  getlocal3
+                  initproperty Multiname("showname",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                  getlocal0
+                  getlocal 4
+                  initproperty Multiname("mcClass",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                  getlocal0
+                  getlocal 5
+                  initproperty Multiname("chuxian",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                  getlocal0
+                  getlocal 6
+                  initproperty Multiname("cxP",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                  getlocal0
+                  getlocal 7
+                  initproperty Multiname("effectObj",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                  getlocal0
+                  getlocal 8
+                  initproperty Multiname("usetype",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                  getlocal0
+                  getlocal 9
+                  initproperty Multiname("tObj",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                  getlocal0
+                  getlocal 10
+                  initproperty Multiname("useTimesMax",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function remove() : void
+      {
+         trait method QName(PackageNamespace(""),"remove")
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 1
+                  localcount 1
+                  initscopedepth 4
+                  maxscopedepth 5
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function useDoor(param1:Number, param2:Number, param3:Boolean) : Object
+         {
+            trait method QName(PackageNamespace(""),"useDoor")
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace(""),"Number")
+                  param QName(PackageNamespace(""),"Number")
+                  param QName(PackageNamespace(""),"Boolean")
+                  returns QName(PackageNamespace(""),"Object")
+                  
+                  body
+                     maxstack 3
+                     localcount 6
+                     initscopedepth 4
+                     maxscopedepth 5
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal1
+                        getlocal0
+                        getproperty Multiname("effectObj",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                        pushbyte 0
+                        getproperty MultinameL([PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                        greaterthan
+                        dup
+                        iffalse ofs001e
+                        pop
+                        getlocal1
+                        getlocal0
+                        getproperty Multiname("effectObj",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                        pushbyte 1
+                        getproperty MultinameL([PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                        lessthan
+               ofs001e:
+                        dup
+                        iffalse ofs002f
+                        pop
+                        getlocal2
+                        getlocal0
+                        getproperty Multiname("effectObj",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                        pushbyte 2
+                        getproperty MultinameL([PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                        greaterthan
+               ofs002f:
+                        dup
+                        iffalse ofs0040
+                        pop
+                        getlocal2
+                        getlocal0
+                        getproperty Multiname("effectObj",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                        pushbyte 3
+                        getproperty MultinameL([PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                        lessthan
+               ofs0040:
+                        iffalse ofs009f
+                        getlocal0
+                        getproperty Multiname("usetype",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                        pushbyte 0
+                        ifne ofs0069
+                        getlocal0
+                        dup
+                        setlocal 4
+                        getproperty Multiname("useTimesCur",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                        decrement_i
+                        setlocal 5
+                        getlocal 4
+                        getlocal 5
+                        setproperty Multiname("useTimesCur",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                        kill 5
+                        kill 4
+                        getlocal0
+                        callproperty Multiname("getTarget",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")]), 0
+                        returnvalue
+               ofs0069:
+                        getlocal0
+                        getproperty Multiname("usetype",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                        pushbyte 1
+                        ifne ofs009f
+                        getlex Multiname("GM",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor"),PackageNamespace("hotpointgame.Control")])
+                        getproperty Multiname("ckey",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                        pushstring "传送门"
+                        callproperty Multiname("isKey",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")]), 1
+                        iffalse ofs009f
+                        getlocal0
+                        dup
+                        setlocal 4
+                        getproperty Multiname("useTimesCur",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                        decrement_i
+                        setlocal 5
+                        getlocal 4
+                        getlocal 5
+                        setproperty Multiname("useTimesCur",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                        kill 5
+                        kill 4
+                        getlocal0
+                        callproperty Multiname("getTarget",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")]), 0
+                        returnvalue
+               ofs009f:
+                        pushnull
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function getTarget() : Object
+            {
+               trait method QName(PackageNamespace(""),"getTarget")
+                  dispid 0
+                  method
+                     name null
+                     returns QName(PackageNamespace(""),"Object")
+                     
+                     body
+                        maxstack 2
+                        localcount 6
+                        initscopedepth 4
+                        maxscopedepth 5
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           pushnull
+                           coerce QName(PackageNamespace(""),"Array")
+                           setlocal1
+                           pushbyte 0
+                           setlocal2
+                           pushnull
+                           coerce QName(PackageNamespace(""),"Object")
+                           setlocal3
+                           jump ofs0084
+                  ofs0011:
+                           label
+                           getlocal0
+                           getproperty Multiname("tObj",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                           getproperty Multiname("md",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                           returnvalue
+                  ofs001a:
+                           label
+                           getlocal0
+                           getproperty Multiname("tObj",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                           getproperty Multiname("lb",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                           coerce QName(PackageNamespace(""),"Array")
+                           setlocal1
+                           getlex Multiname("Math",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                           callproperty Multiname("random",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")]), 0
+                           getlex Multiname("GS",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor"),PackageNamespace("hotpointgame.common")])
+                           getproperty Multiname("a100",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                           multiply
+                           convert_i
+                           setlocal2
+                           pushbyte 0
+                           setlocal 4
+                           getlocal1
+                           coerce_a
+                           setlocal 5
+                           jump ofs0065
+                  ofs0041:
+                           label
+                           getlocal 5
+                           getlocal 4
+                           nextvalue
+                           coerce QName(PackageNamespace(""),"Object")
+                           setlocal3
+                           getlocal2
+                           getlocal3
+                           getproperty Multiname("jla",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                           greaterequals
+                           dup
+                           iffalse ofs005c
+                           pop
+                           getlocal2
+                           getlocal3
+                           getproperty Multiname("jlb",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                           lessequals
+                  ofs005c:
+                           iffalse ofs0065
+                           getlocal3
+                           getproperty Multiname("md",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                           returnvalue
+                  ofs0065:
+                           hasnext2 5, 4
+                           iftrue ofs0041
+                           kill 5
+                           kill 4
+                           jump ofs00c7
+                  ofs0074:
+                           label
+                           findpropstrict Multiname("Error",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                           pushstring "target erroe!"
+                           constructprop Multiname("Error",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")]), 1
+                           throw
+                           jump ofs0084
+                  ofs0084:
+                           getlocal0
+                           getproperty Multiname("tObj",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                           getproperty Multiname("type",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                           setlocal 4
+                           pushstring "gd"
+                           getlocal 4
+                           ifstrictne ofs009c
+                           pushbyte 0
+                           jump ofs00b7
+                  ofs009c:
+                           pushstring "sj"
+                           getlocal 4
+                           ifstrictne ofs00ab
+                           pushbyte 1
+                           jump ofs00b7
+                  ofs00ab:
+                           jump ofs00b5
+                           pushbyte 2
+                           jump ofs00b5
+                  ofs00b5:
+                           pushbyte 2
+                  ofs00b7:
+                           kill 4
+                           lookupswitch ofs0074, [ofs0011, ofs001a, ofs0074]
+                  ofs00c7:
+                           pushnull
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function getDoorMc() : MovieClip
+               {
+                  trait method QName(PackageNamespace(""),"getDoorMc")
+                     dispid 0
+                     method
+                        name null
+                        returns QName(PackageNamespace("flash.display"),"MovieClip")
+                        
+                        body
+                           maxstack 3
+                           localcount 4
+                           initscopedepth 4
+                           maxscopedepth 5
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              pushnull
+                              coerce QName(PackageNamespace("flash.display"),"MovieClip")
+                              setlocal1
+                              pushnull
+                              coerce QName(PackageNamespace(""),"Class")
+                              setlocal2
+                              pushnull
+                              coerce QName(PackageNamespace("flash.text"),"TextField")
+                              setlocal3
+                              getlocal0
+                              getproperty Multiname("mcClass",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                              pushstring "yingcangmen"
+                              ifne ofs0028
+                              findpropstrict Multiname("MovieClip",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor"),PackageNamespace("flash.display")])
+                              constructprop Multiname("MovieClip",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor"),PackageNamespace("flash.display")]), 0
+                              coerce QName(PackageNamespace("flash.display"),"MovieClip")
+                              setlocal1
+                              jump ofs0080
+                     ofs0028:
+                              getlex Multiname("LoaderManager",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor"),PackageNamespace("hotpointgame.utils.gameloader")])
+                              getlocal0
+                              getproperty Multiname("mcClass",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                              callproperty Multiname("getSwfClass",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")]), 1
+                              getlex Multiname("Class",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                              astypelate
+                              coerce QName(PackageNamespace(""),"Class")
+                              setlocal2
+                              getlocal2
+                              construct 0
+                              getlex Multiname("MovieClip",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor"),PackageNamespace("flash.display")])
+                              astypelate
+                              coerce QName(PackageNamespace("flash.display"),"MovieClip")
+                              setlocal1
+                              getlocal1
+                              pushstring "qianwangmudi"
+                              getproperty MultinameL([PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                              pushstring "zhaoa"
+                              getproperty MultinameL([PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                              pushstring "doorname"
+                              getproperty MultinameL([PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                              getlex Multiname("TextField",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor"),PackageNamespace("flash.text")])
+                              astypelate
+                              coerce QName(PackageNamespace("flash.text"),"TextField")
+                              setlocal3
+                              getlocal3
+                              pushtrue
+                              setproperty Multiname("embedFonts",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                              getlocal3
+                              findpropstrict Multiname("TextFormat",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor"),PackageNamespace("flash.text")])
+                              getlex Multiname("GM",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor"),PackageNamespace("hotpointgame.Control")])
+                              getproperty Multiname("fzfont",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                              getproperty Multiname("fontName",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                              constructprop Multiname("TextFormat",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor"),PackageNamespace("flash.text")]), 1
+                              setproperty Multiname("defaultTextFormat",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                              getlocal3
+                              getlocal0
+                              getproperty Multiname("showname",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                              setproperty Multiname("text",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                     ofs0080:
+                              getlocal1
+                              getlocal0
+                              getproperty Multiname("cxP",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                              pushbyte 0
+                              getproperty MultinameL([PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                              setproperty Multiname("x",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                              getlocal1
+                              getlocal0
+                              getproperty Multiname("cxP",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                              pushbyte 1
+                              getproperty MultinameL([PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                              setproperty Multiname("y",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                              getlocal1
+                              getlocal0
+                              getproperty Multiname("name",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                              setproperty Multiname("name",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                              getlocal1
+                              returnvalue
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function isChuXian(param1:CLevel) : Boolean
+                  {
+                     trait method QName(PackageNamespace(""),"isChuXian")
+                        dispid 0
+                        method
+                           name null
+                           param QName(PackageNamespace("hotpointgame.glevel"),"CLevel")
+                           returns QName(PackageNamespace(""),"Boolean")
+                           
+                           body
+                              maxstack 4
+                              localcount 8
+                              initscopedepth 4
+                              maxscopedepth 5
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 pushnull
+                                 coerce QName(PackageNamespace(""),"Object")
+                                 setlocal3
+                                 pushnull
+                                 coerce QName(PackageNamespace(""),"Array")
+                                 setlocal 4
+                                 getlocal0
+                                 getproperty Multiname("chuxian",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                                 getproperty Multiname("cx",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                                 coerce QName(PackageNamespace(""),"Array")
+                                 setlocal2
+                                 pushbyte 0
+                                 setlocal 5
+                                 getlocal2
+                                 coerce_a
+                                 setlocal 6
+                                 jump ofs00a9
+                        ofs0021:
+                                 label
+                                 getlocal 6
+                                 getlocal 5
+                                 nextvalue
+                                 coerce QName(PackageNamespace(""),"Object")
+                                 setlocal3
+                                 jump ofs0069
+                        ofs002e:
+                                 label
+                                 jump ofs00a9
+                        ofs0033:
+                                 label
+                                 getlocal3
+                                 getproperty Multiname("fj",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                                 coerce QName(PackageNamespace(""),"Array")
+                                 setlocal 4
+                                 getlocal1
+                                 getlocal 4
+                                 pushbyte 0
+                                 getproperty MultinameL([PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                                 getlocal 4
+                                 pushbyte 1
+                                 getproperty MultinameL([PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                                 callproperty Multiname("getRoomOverNum",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")]), 2
+                                 getlocal 4
+                                 pushbyte 2
+                                 getproperty MultinameL([PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                                 ifnlt ofs005c
+                                 pushfalse
+                                 returnvalue
+                        ofs005c:
+                                 jump ofs00a9
+                        ofs0060:
+                                 label
+                                 jump ofs00a9
+                                 jump ofs0069
+                        ofs0069:
+                                 getlocal3
+                                 getproperty Multiname("tj",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                                 setlocal 7
+                                 pushstring "lv"
+                                 getlocal 7
+                                 ifstrictne ofs007e
+                                 pushbyte 0
+                                 jump ofs0099
+                        ofs007e:
+                                 pushstring "fjwc"
+                                 getlocal 7
+                                 ifstrictne ofs008d
+                                 pushbyte 1
+                                 jump ofs0099
+                        ofs008d:
+                                 jump ofs0097
+                                 pushbyte 2
+                                 jump ofs0097
+                        ofs0097:
+                                 pushbyte 2
+                        ofs0099:
+                                 kill 7
+                                 lookupswitch ofs0060, [ofs002e, ofs0033, ofs0060]
+                        ofs00a9:
+                                 hasnext2 6, 5
+                                 iftrue ofs0021
+                                 kill 6
+                                 kill 5
+                                 pushtrue
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public function get useTimesMax() : int
+                     {
+                        trait getter QName(PackageNamespace(""),"useTimesMax")
+                           dispid 0
+                           method
+                              name null
+                              returns QName(PackageNamespace(""),"int")
+                              
+                              body
+                                 maxstack 1
+                                 localcount 1
+                                 initscopedepth 4
+                                 maxscopedepth 5
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlocal0
+                                    getproperty Multiname("_useTimesMax",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                                    callproperty Multiname("getValue",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")]), 0
+                                    returnvalue
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        public function set useTimesMax(param1:int) : void
+                        {
+                           trait setter QName(PackageNamespace(""),"useTimesMax")
+                              dispid 0
+                              method
+                                 name null
+                                 param QName(PackageNamespace(""),"int")
+                                 returns QName(PackageNamespace(""),"void")
+                                 
+                                 body
+                                    maxstack 2
+                                    localcount 2
+                                    initscopedepth 4
+                                    maxscopedepth 5
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlocal0
+                                       getproperty Multiname("_useTimesMax",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                                       getlocal1
+                                       callpropvoid Multiname("setValue",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")]), 1
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           public function get useTimesCur() : int
+                           {
+                              trait getter QName(PackageNamespace(""),"useTimesCur")
+                                 dispid 0
+                                 method
+                                    name null
+                                    returns QName(PackageNamespace(""),"int")
+                                    
+                                    body
+                                       maxstack 1
+                                       localcount 1
+                                       initscopedepth 4
+                                       maxscopedepth 5
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlocal0
+                                          getproperty Multiname("_useTimesCur",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                                          callproperty Multiname("getValue",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")]), 0
+                                          returnvalue
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              public function set useTimesCur(param1:int) : void
+                              {
+                                 trait setter QName(PackageNamespace(""),"useTimesCur")
+                                    dispid 0
+                                    method
+                                       name null
+                                       param QName(PackageNamespace(""),"int")
+                                       returns QName(PackageNamespace(""),"void")
+                                       
+                                       body
+                                          maxstack 2
+                                          localcount 2
+                                          initscopedepth 4
+                                          maxscopedepth 5
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlocal0
+                                             getproperty Multiname("_useTimesCur",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                                             getlocal1
+                                             callpropvoid Multiname("setValue",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")]), 1
+                                             returnvoid
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 public function get name() : String
+                                 {
+                                    trait getter QName(PackageNamespace(""),"name")
+                                       dispid 0
+                                       method
+                                          name null
+                                          returns QName(PackageNamespace(""),"String")
+                                          
+                                          body
+                                             maxstack 1
+                                             localcount 1
+                                             initscopedepth 4
+                                             maxscopedepth 5
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                getlocal0
+                                                getproperty Multiname("_name",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                                                returnvalue
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    public function set name(param1:String) : void
+                                    {
+                                       trait setter QName(PackageNamespace(""),"name")
+                                          dispid 0
+                                          method
+                                             name null
+                                             param QName(PackageNamespace(""),"String")
+                                             returns QName(PackageNamespace(""),"void")
+                                             
+                                             body
+                                                maxstack 2
+                                                localcount 2
+                                                initscopedepth 4
+                                                maxscopedepth 5
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   getlocal0
+                                                   getlocal1
+                                                   initproperty Multiname("_name",[PrivateNamespace(null,"67"),PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.glevel:SendDoor"),StaticProtectedNs("hotpointgame.glevel:SendDoor")])
+                                                   returnvoid
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                    }
+                                 }
+                                 
+                                 method
+                                    name null
+                                    returns null
+                                    
+                                    body
+                                       maxstack 2
+                                       localcount 1
+                                       initscopedepth 1
+                                       maxscopedepth 3
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          findpropstrict Multiname("SendDoor",[PackageNamespace("hotpointgame.glevel")])
+                                          getlex QName(PackageNamespace(""),"Object")
+                                          pushscope
+                                          getlex Multiname("Object",[PackageNamespace(""),PrivateNamespace(null,"503"),PackageNamespace("hotpointgame.glevel"),PackageInternalNs("hotpointgame.glevel"),Namespace("http://adobe.com/AS3/2006/builtin")])
+                                          newclass 83
+                                          popscope
+                                          initproperty QName(PackageNamespace("hotpointgame.glevel"),"SendDoor")
+                                          returnvoid
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                                 

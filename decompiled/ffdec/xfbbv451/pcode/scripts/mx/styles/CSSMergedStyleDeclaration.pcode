@@ -1,0 +1,685 @@
+package mx.styles
+{
+   import flash.display.DisplayObject;
+   import mx.core.mx_internal;
+   
+   use namespace mx_internal;
+   
+   public class CSSMergedStyleDeclaration extends CSSStyleDeclaration
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 5
+            maxscopedepth 6
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var style:CSSStyleDeclaration;
+      
+      private var parentStyle:CSSStyleDeclaration;
+      
+      private var updateOverrides:Boolean;
+      
+      private var _defaultFactory:Function;
+      
+      private var _factory:Function;
+      
+      public function CSSMergedStyleDeclaration(param1:CSSStyleDeclaration, param2:CSSStyleDeclaration, param3:Object = null, param4:IStyleManager2 = null, param5:Boolean = false)
+      {
+         method
+            name null
+            flag HAS_OPTIONAL
+            param QName(PackageNamespace("mx.styles"),"CSSStyleDeclaration")
+            param QName(PackageNamespace("mx.styles"),"CSSStyleDeclaration")
+            param QName(PackageNamespace(""),"Object")
+            param QName(PackageNamespace("mx.styles"),"IStyleManager2")
+            param QName(PackageNamespace(""),"Boolean")
+            optional Null()
+            optional Null()
+            optional False()
+            returns null
+            
+            body
+               maxstack 4
+               localcount 9
+               initscopedepth 6
+               maxscopedepth 7
+               
+               code
+                  getlocal0
+                  pushscope
+                  pushbyte 0
+                  convert_u
+                  setlocal 6
+                  pushbyte 0
+                  convert_u
+                  setlocal 7
+                  pushnull
+                  coerce QName(PackageNamespace(""),"Array")
+                  setlocal 8
+                  getlocal0
+                  getlocal3
+                  getlocal 4
+                  getlocal 5
+                  constructsuper 3
+                  getlocal0
+                  getlocal1
+                  initproperty QName(PrivateNamespace(null,"56"),"style")
+                  getlocal0
+                  getlocal2
+                  initproperty QName(PrivateNamespace(null,"56"),"parentStyle")
+                  getlocal1
+                  convert_b
+                  dup
+                  iffalse ofs0030
+                  pop
+                  getlocal1
+                  getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"effects")
+                  convert_b
+         ofs0030:
+                  iffalse ofs0072
+                  findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"effects")
+                  newarray 0
+                  initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"effects")
+                  getlocal1
+                  getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"effects")
+                  coerce QName(PackageNamespace(""),"Array")
+                  dup
+                  setlocal 8
+                  getproperty QName(PackageNamespace(""),"length")
+                  convert_u
+                  setlocal 7
+                  pushbyte 0
+                  convert_u
+                  setlocal 6
+                  jump ofs006a
+         ofs0054:
+                  label
+                  getlex QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"effects")
+                  getlocal 6
+                  getlocal 8
+                  getlocal 6
+                  getproperty MultinameL([PrivateNamespace(null,"56"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"158"),PackageNamespace("mx.styles"),PackageInternalNs("mx.styles"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSStyleDeclaration"),StaticProtectedNs("flash.events:EventDispatcher")])
+                  setproperty MultinameL([PrivateNamespace(null,"56"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"158"),PackageNamespace("mx.styles"),PackageInternalNs("mx.styles"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSStyleDeclaration"),StaticProtectedNs("flash.events:EventDispatcher")])
+                  getlocal 6
+                  increment
+                  convert_u
+                  setlocal 6
+         ofs006a:
+                  getlocal 6
+                  getlocal 7
+                  iflt ofs0054
+         ofs0072:
+                  getlocal2
+                  convert_b
+                  dup
+                  iffalse ofs007f
+                  pop
+                  getlocal2
+                  getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"effects")
+                  convert_b
+         ofs007f:
+                  iffalse ofs00eb
+                  getlex QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"effects")
+                  iftrue ofs0092
+                  findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"effects")
+                  newarray 0
+                  initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"effects")
+         ofs0092:
+                  getlocal2
+                  getproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"effects")
+                  coerce QName(PackageNamespace(""),"Array")
+                  dup
+                  setlocal 8
+                  getproperty QName(PackageNamespace(""),"length")
+                  convert_u
+                  setlocal 7
+                  pushbyte 0
+                  convert_u
+                  setlocal 6
+                  jump ofs00e3
+         ofs00aa:
+                  label
+                  getlex QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"effects")
+                  getlocal 6
+                  getlocal 8
+                  getlocal 6
+                  getproperty MultinameL([PrivateNamespace(null,"56"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"158"),PackageNamespace("mx.styles"),PackageInternalNs("mx.styles"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSStyleDeclaration"),StaticProtectedNs("flash.events:EventDispatcher")])
+                  setproperty MultinameL([PrivateNamespace(null,"56"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"158"),PackageNamespace("mx.styles"),PackageInternalNs("mx.styles"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSStyleDeclaration"),StaticProtectedNs("flash.events:EventDispatcher")])
+                  getlex QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"effects")
+                  getlocal 8
+                  getlocal 6
+                  getproperty MultinameL([PrivateNamespace(null,"56"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"158"),PackageNamespace("mx.styles"),PackageInternalNs("mx.styles"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSStyleDeclaration"),StaticProtectedNs("flash.events:EventDispatcher")])
+                  callproperty QName(Namespace("http://adobe.com/AS3/2006/builtin"),"indexOf"), 1
+                  pushbyte -1
+                  ifne ofs00dd
+                  getlex QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"effects")
+                  getlocal 6
+                  getlocal 8
+                  getlocal 6
+                  getproperty MultinameL([PrivateNamespace(null,"56"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"158"),PackageNamespace("mx.styles"),PackageInternalNs("mx.styles"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSStyleDeclaration"),StaticProtectedNs("flash.events:EventDispatcher")])
+                  setproperty MultinameL([PrivateNamespace(null,"56"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"158"),PackageNamespace("mx.styles"),PackageInternalNs("mx.styles"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSStyleDeclaration"),StaticProtectedNs("flash.events:EventDispatcher")])
+         ofs00dd:
+                  getlocal 6
+                  increment
+                  convert_u
+                  setlocal 6
+         ofs00e3:
+                  getlocal 6
+                  getlocal 7
+                  iflt ofs00aa
+         ofs00eb:
+                  getlocal0
+                  pushtrue
+                  initproperty QName(PrivateNamespace(null,"56"),"updateOverrides")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      override public function get defaultFactory() : Function
+      {
+         trait getter QName(PackageNamespace(""),"defaultFactory")
+            flag OVERRIDE
+            dispid 0
+            method
+               name null
+               flag NEED_ACTIVATION
+               returns QName(PackageNamespace(""),"Function")
+               
+               body
+                  maxstack 2
+                  localcount 2
+                  initscopedepth 7
+                  maxscopedepth 9
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     newactivation
+                     dup
+                     setlocal1
+                     pushscope
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"56"),"_defaultFactory")
+                     pushnull
+                     ifeq ofs0014
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"56"),"_defaultFactory")
+                     returnvalue
+            ofs0014:
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"56"),"style")
+                     pushnull
+                     equals
+                     not
+                     dup
+                     iffalse ofs002b
+                     pop
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"56"),"style")
+                     getproperty QName(PackageNamespace(""),"defaultFactory")
+                     pushnull
+                     equals
+                     not
+            ofs002b:
+                     dup
+                     iftrue ofs0048
+                     pop
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"56"),"parentStyle")
+                     pushnull
+                     equals
+                     not
+                     dup
+                     iffalse ofs0048
+                     pop
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"56"),"parentStyle")
+                     getproperty QName(PackageNamespace(""),"defaultFactory")
+                     pushnull
+                     equals
+                     not
+            ofs0048:
+                     iffalse ofs0053
+                     getlocal0
+                     newfunction 3086
+                     initproperty QName(PrivateNamespace(null,"56"),"_defaultFactory")
+            ofs0053:
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"56"),"_defaultFactory")
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         override public function set defaultFactory(param1:Function) : void
+         {
+            trait setter QName(PackageNamespace(""),"defaultFactory")
+               flag OVERRIDE
+               dispid 0
+               method
+                  name null
+                  param QName(PackageNamespace(""),"Function")
+                  returns QName(PackageNamespace(""),"void")
+                  
+                  body
+                     maxstack 1
+                     localcount 2
+                     initscopedepth 6
+                     maxscopedepth 7
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        returnvoid
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            override public function get factory() : Function
+            {
+               trait getter QName(PackageNamespace(""),"factory")
+                  flag OVERRIDE
+                  dispid 0
+                  method
+                     name null
+                     flag NEED_ACTIVATION
+                     returns QName(PackageNamespace(""),"Function")
+                     
+                     body
+                        maxstack 2
+                        localcount 2
+                        initscopedepth 7
+                        maxscopedepth 9
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           newactivation
+                           dup
+                           setlocal1
+                           pushscope
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"56"),"_factory")
+                           pushnull
+                           ifeq ofs0014
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"56"),"_factory")
+                           returnvalue
+                  ofs0014:
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"56"),"style")
+                           pushnull
+                           equals
+                           not
+                           dup
+                           iffalse ofs002b
+                           pop
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"56"),"style")
+                           getproperty QName(PackageNamespace(""),"factory")
+                           pushnull
+                           equals
+                           not
+                  ofs002b:
+                           dup
+                           iftrue ofs0048
+                           pop
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"56"),"parentStyle")
+                           pushnull
+                           equals
+                           not
+                           dup
+                           iffalse ofs0048
+                           pop
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"56"),"parentStyle")
+                           getproperty QName(PackageNamespace(""),"factory")
+                           pushnull
+                           equals
+                           not
+                  ofs0048:
+                           iffalse ofs0053
+                           getlocal0
+                           newfunction 3089
+                           initproperty QName(PrivateNamespace(null,"56"),"_factory")
+                  ofs0053:
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"56"),"_factory")
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               override public function set factory(param1:Function) : void
+               {
+                  trait setter QName(PackageNamespace(""),"factory")
+                     flag OVERRIDE
+                     dispid 0
+                     method
+                        name null
+                        param QName(PackageNamespace(""),"Function")
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 1
+                           localcount 2
+                           initscopedepth 6
+                           maxscopedepth 7
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  override public function get overrides() : Object
+                  {
+                     trait getter QName(PackageNamespace(""),"overrides")
+                        flag OVERRIDE
+                        dispid 0
+                        method
+                           name null
+                           returns QName(PackageNamespace(""),"Object")
+                           
+                           body
+                              maxstack 4
+                              localcount 7
+                              initscopedepth 6
+                              maxscopedepth 7
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 pushnull
+                                 coerce QName(PackageNamespace(""),"Object")
+                                 setlocal1
+                                 pushnull
+                                 coerce QName(PackageNamespace(""),"Object")
+                                 setlocal3
+                                 pushnull
+                                 coerce QName(PackageNamespace(""),"Object")
+                                 setlocal 4
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"56"),"updateOverrides")
+                                 iftrue ofs001c
+                                 getlocal0
+                                 getsuper QName(PackageNamespace(""),"overrides")
+                                 returnvalue
+                        ofs001c:
+                                 pushnull
+                                 coerce QName(PackageNamespace(""),"Object")
+                                 setlocal2
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"56"),"style")
+                                 convert_b
+                                 dup
+                                 iffalse ofs0033
+                                 pop
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"56"),"style")
+                                 getproperty QName(PackageNamespace(""),"overrides")
+                                 convert_b
+                        ofs0033:
+                                 iffalse ofs0070
+                                 newarray 0
+                                 coerce QName(PackageNamespace(""),"Object")
+                                 setlocal2
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"56"),"style")
+                                 getproperty QName(PackageNamespace(""),"overrides")
+                                 coerce QName(PackageNamespace(""),"Object")
+                                 setlocal3
+                                 pushbyte 0
+                                 setlocal 5
+                                 getlocal3
+                                 coerce_a
+                                 setlocal 6
+                                 jump ofs0065
+                        ofs0052:
+                                 label
+                                 getlocal 6
+                                 getlocal 5
+                                 nextname
+                                 coerce QName(PackageNamespace(""),"Object")
+                                 setlocal1
+                                 getlocal2
+                                 getlocal1
+                                 getlocal3
+                                 getlocal1
+                                 getproperty MultinameL([PrivateNamespace(null,"56"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"158"),PackageNamespace("mx.styles"),PackageInternalNs("mx.styles"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSStyleDeclaration"),StaticProtectedNs("flash.events:EventDispatcher")])
+                                 setproperty MultinameL([PrivateNamespace(null,"56"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"158"),PackageNamespace("mx.styles"),PackageInternalNs("mx.styles"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSStyleDeclaration"),StaticProtectedNs("flash.events:EventDispatcher")])
+                        ofs0065:
+                                 hasnext2 6, 5
+                                 iftrue ofs0052
+                                 kill 6
+                                 kill 5
+                        ofs0070:
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"56"),"parentStyle")
+                                 convert_b
+                                 dup
+                                 iffalse ofs0083
+                                 pop
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"56"),"parentStyle")
+                                 getproperty QName(PackageNamespace(""),"overrides")
+                                 convert_b
+                        ofs0083:
+                                 iffalse ofs00d4
+                                 getlocal2
+                                 iftrue ofs0091
+                                 newarray 0
+                                 coerce QName(PackageNamespace(""),"Object")
+                                 setlocal2
+                        ofs0091:
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"56"),"parentStyle")
+                                 getproperty QName(PackageNamespace(""),"overrides")
+                                 coerce QName(PackageNamespace(""),"Object")
+                                 setlocal 4
+                                 pushbyte 0
+                                 setlocal 5
+                                 getlocal 4
+                                 coerce_a
+                                 setlocal 6
+                                 jump ofs00c9
+                        ofs00a9:
+                                 label
+                                 getlocal 6
+                                 getlocal 5
+                                 nextname
+                                 coerce QName(PackageNamespace(""),"Object")
+                                 setlocal1
+                                 getlocal2
+                                 getlocal1
+                                 getproperty MultinameL([PrivateNamespace(null,"56"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"158"),PackageNamespace("mx.styles"),PackageInternalNs("mx.styles"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSStyleDeclaration"),StaticProtectedNs("flash.events:EventDispatcher")])
+                                 getlex QName(PackageNamespace(""),"undefined")
+                                 ifstrictne ofs00c9
+                                 getlocal2
+                                 getlocal1
+                                 getlocal 4
+                                 getlocal1
+                                 getproperty MultinameL([PrivateNamespace(null,"56"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"158"),PackageNamespace("mx.styles"),PackageInternalNs("mx.styles"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSStyleDeclaration"),StaticProtectedNs("flash.events:EventDispatcher")])
+                                 setproperty MultinameL([PrivateNamespace(null,"56"),Namespace("http://www.adobe.com/2006/flex/mx/internal"),PackageNamespace(""),PrivateNamespace(null,"158"),PackageNamespace("mx.styles"),PackageInternalNs("mx.styles"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSMergedStyleDeclaration"),StaticProtectedNs("mx.styles:CSSStyleDeclaration"),StaticProtectedNs("flash.events:EventDispatcher")])
+                        ofs00c9:
+                                 hasnext2 6, 5
+                                 iftrue ofs00a9
+                                 kill 6
+                                 kill 5
+                        ofs00d4:
+                                 getlocal0
+                                 getlocal2
+                                 setsuper QName(PackageNamespace(""),"overrides")
+                                 getlocal0
+                                 pushfalse
+                                 initproperty QName(PrivateNamespace(null,"56"),"updateOverrides")
+                                 getlocal2
+                                 returnvalue
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     override public function set overrides(param1:Object) : void
+                     {
+                        trait setter QName(PackageNamespace(""),"overrides")
+                           flag OVERRIDE
+                           dispid 0
+                           method
+                              name null
+                              param QName(PackageNamespace(""),"Object")
+                              returns QName(PackageNamespace(""),"void")
+                              
+                              body
+                                 maxstack 1
+                                 localcount 2
+                                 initscopedepth 6
+                                 maxscopedepth 7
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    returnvoid
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        override public function setStyle(param1:String, param2:*) : void
+                        {
+                           trait method QName(PackageNamespace(""),"setStyle")
+                              flag OVERRIDE
+                              dispid 0
+                              method
+                                 name null
+                                 param QName(PackageNamespace(""),"String")
+                                 param null
+                                 returns QName(PackageNamespace(""),"void")
+                                 
+                                 body
+                                    maxstack 1
+                                    localcount 3
+                                    initscopedepth 6
+                                    maxscopedepth 7
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           override mx_internal function addStyleToProtoChain(param1:Object, param2:DisplayObject, param3:Object = null) : Object
+                           {
+                              trait method QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"addStyleToProtoChain")
+                                 flag OVERRIDE
+                                 dispid 0
+                                 method
+                                    name null
+                                    flag HAS_OPTIONAL
+                                    param QName(PackageNamespace(""),"Object")
+                                    param QName(PackageNamespace("flash.display"),"DisplayObject")
+                                    param QName(PackageNamespace(""),"Object")
+                                    optional Null()
+                                    returns QName(PackageNamespace(""),"Object")
+                                    
+                                    body
+                                       maxstack 4
+                                       localcount 4
+                                       initscopedepth 6
+                                       maxscopedepth 7
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"56"),"style")
+                                          iffalse ofs0016
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"56"),"style")
+                                          getlocal1
+                                          getlocal2
+                                          getlocal3
+                                          callproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"addStyleToProtoChain"), 3
+                                          returnvalue
+                                 ofs0016:
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"56"),"parentStyle")
+                                          iffalse ofs002a
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"56"),"parentStyle")
+                                          getlocal1
+                                          getlocal2
+                                          getlocal3
+                                          callproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"addStyleToProtoChain"), 3
+                                          returnvalue
+                                 ofs002a:
+                                          getlocal1
+                                          returnvalue
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                           }
+                        }
+                        
+                        method
+                           name null
+                           returns null
+                           
+                           body
+                              maxstack 2
+                              localcount 1
+                              initscopedepth 1
+                              maxscopedepth 5
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 findpropstrict Multiname("CSSMergedStyleDeclaration",[PackageNamespace("mx.styles")])
+                                 getlex QName(PackageNamespace(""),"Object")
+                                 pushscope
+                                 getlex QName(PackageNamespace("flash.events"),"EventDispatcher")
+                                 pushscope
+                                 getlex QName(PackageNamespace("mx.styles"),"CSSStyleDeclaration")
+                                 pushscope
+                                 getlex QName(PackageNamespace("mx.styles"),"CSSStyleDeclaration")
+                                 newclass 190
+                                 popscope
+                                 popscope
+                                 popscope
+                                 initproperty QName(PackageNamespace("mx.styles"),"CSSMergedStyleDeclaration")
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                        

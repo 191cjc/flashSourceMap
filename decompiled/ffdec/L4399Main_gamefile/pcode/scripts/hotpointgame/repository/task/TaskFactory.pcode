@@ -1,0 +1,928 @@
+package hotpointgame.repository.task
+{
+   import hotpointgame.models.task.Task;
+   
+   public class TaskFactory
+   {
+      
+      private static var taskDataList:Array;
+      
+      public static var taskList:Array;
+      
+      public static var talkArr:Array;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 3
+            maxscopedepth 4
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(PrivateNamespace(null,"386"),"taskDataList")
+               newarray 0
+               setproperty QName(PrivateNamespace(null,"386"),"taskDataList")
+               findproperty QName(PackageNamespace(""),"taskList")
+               newarray 0
+               setproperty QName(PackageNamespace(""),"taskList")
+               findproperty QName(PackageNamespace(""),"talkArr")
+               newarray 0
+               setproperty QName(PackageNamespace(""),"talkArr")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      public function TaskFactory()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 1
+               localcount 1
+               initscopedepth 4
+               maxscopedepth 5
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public static function creatSayFactory(param1:XML) : void
+      {
+         trait method QName(PackageNamespace(""),"creatSayFactory")
+            flag FINAL
+            dispid 3
+            method
+               name null
+               param QName(PackageNamespace(""),"XML")
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 9
+                  localcount 17
+                  initscopedepth 3
+                  maxscopedepth 4
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     pushnull
+                     coerce QName(PackageNamespace(""),"XML")
+                     setlocal 5
+                     pushnan
+                     setlocal 6
+                     pushnan
+                     setlocal 7
+                     pushnull
+                     coerce_s
+                     setlocal 8
+                     pushnull
+                     coerce_s
+                     setlocal 9
+                     pushnull
+                     coerce_s
+                     setlocal 10
+                     pushnull
+                     coerce_s
+                     setlocal 11
+                     pushnull
+                     coerce_s
+                     setlocal 12
+                     pushnull
+                     coerce_s
+                     setlocal 13
+                     pushnull
+                     coerce QName(PackageNamespace("hotpointgame.repository.task"),"NpcTalkData")
+                     setlocal 14
+                     getlocal1
+                     callproperty Multiname("toXMLString",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 0
+                     coerce_s
+                     setlocal2
+                     getlex QName(PackageNamespace(""),"RegExp")
+                     pushstring "&lt;"
+                     pushstring "g"
+                     construct 2
+                     coerce QName(PackageNamespace(""),"RegExp")
+                     setlocal3
+                     getlex QName(PackageNamespace(""),"RegExp")
+                     pushstring "&gt;"
+                     pushstring "g"
+                     construct 2
+                     coerce QName(PackageNamespace(""),"RegExp")
+                     setlocal 4
+                     getlocal2
+                     getlocal3
+                     pushstring "<"
+                     callproperty Multiname("replace",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 2
+                     coerce_s
+                     setlocal2
+                     getlocal2
+                     getlocal 4
+                     pushstring ">"
+                     callproperty Multiname("replace",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 2
+                     coerce_s
+                     setlocal2
+                     findpropstrict Multiname("XML",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                     getlocal2
+                     constructprop Multiname("XML",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                     coerce QName(PackageNamespace(""),"XML")
+                     setlocal1
+                     pushbyte 0
+                     setlocal 15
+                     getlocal1
+                     getproperty Multiname("对话",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                     coerce_a
+                     setlocal 16
+                     jump ofs0149
+            ofs0087:
+                     label
+                     getlocal 16
+                     getlocal 15
+                     nextvalue
+                     coerce QName(PackageNamespace(""),"XML")
+                     setlocal 5
+                     findpropstrict Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                     getlocal 5
+                     getproperty Multiname("id",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                     callproperty Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                     convert_d
+                     setlocal 6
+                     findpropstrict Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                     getlocal 5
+                     getproperty Multiname("任务id",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                     callproperty Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                     convert_d
+                     setlocal 7
+                     findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                     getlocal 5
+                     getproperty Multiname("接任务NPC头像",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                     callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                     coerce_s
+                     setlocal 8
+                     findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                     getlocal 5
+                     getproperty Multiname("接任务对话",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                     callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                     coerce_s
+                     setlocal 9
+                     findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                     getlocal 5
+                     getproperty Multiname("任务中NPC头像",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                     callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                     coerce_s
+                     setlocal 10
+                     findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                     getlocal 5
+                     getproperty Multiname("任务中对话",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                     callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                     coerce_s
+                     setlocal 11
+                     findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                     getlocal 5
+                     getproperty Multiname("任务结束NPC头像",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                     callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                     coerce_s
+                     setlocal 12
+                     findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                     getlocal 5
+                     getproperty Multiname("任务结束对话",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                     callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                     coerce_s
+                     setlocal 13
+                     getlex Multiname("NpcTalkData",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                     getlocal 6
+                     getlocal 7
+                     getlocal 8
+                     getlocal 9
+                     getlocal 10
+                     getlocal 11
+                     getlocal 12
+                     getlocal 13
+                     callproperty Multiname("createNpcTalk",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 8
+                     coerce QName(PackageNamespace("hotpointgame.repository.task"),"NpcTalkData")
+                     setlocal 14
+                     getlex Multiname("talkArr",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                     getlocal 14
+                     callpropvoid Multiname("push",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+            ofs0149:
+                     hasnext2 16, 15
+                     iftrue ofs0087
+                     kill 16
+                     kill 15
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public static function getSayByTaskId(param1:Number) : NpcTalkData
+         {
+            trait method QName(PackageNamespace(""),"getSayByTaskId")
+               flag FINAL
+               dispid 4
+               method
+                  name null
+                  param QName(PackageNamespace(""),"Number")
+                  returns QName(PackageNamespace("hotpointgame.repository.task"),"NpcTalkData")
+                  
+                  body
+                     maxstack 2
+                     localcount 5
+                     initscopedepth 3
+                     maxscopedepth 4
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        pushnull
+                        coerce QName(PackageNamespace("hotpointgame.repository.task"),"NpcTalkData")
+                        setlocal2
+                        pushbyte 0
+                        setlocal3
+                        getlex Multiname("talkArr",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                        coerce_a
+                        setlocal 4
+                        jump ofs0029
+               ofs0014:
+                        label
+                        getlocal 4
+                        getlocal3
+                        nextvalue
+                        coerce QName(PackageNamespace("hotpointgame.repository.task"),"NpcTalkData")
+                        setlocal2
+                        getlocal2
+                        callproperty Multiname("getTaskId",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 0
+                        getlocal1
+                        ifne ofs0029
+                        getlocal2
+                        returnvalue
+               ofs0029:
+                        hasnext2 4, 3
+                        iftrue ofs0014
+                        kill 4
+                        kill 3
+                        pushnull
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public static function getTalkFrameByTaskIdAndType(param1:Number, param2:Number) : Array
+            {
+               trait method QName(PackageNamespace(""),"getTalkFrameByTaskIdAndType")
+                  flag FINAL
+                  dispid 5
+                  method
+                     name null
+                     param QName(PackageNamespace(""),"Number")
+                     param QName(PackageNamespace(""),"Number")
+                     returns QName(PackageNamespace(""),"Array")
+                     
+                     body
+                        maxstack 2
+                        localcount 4
+                        initscopedepth 3
+                        maxscopedepth 4
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           findpropstrict Multiname("getSayByTaskId",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                           getlocal1
+                           callproperty Multiname("getSayByTaskId",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                           coerce QName(PackageNamespace("hotpointgame.repository.task"),"NpcTalkData")
+                           setlocal3
+                           getlocal2
+                           pushbyte 1
+                           ifne ofs0025
+                           getlocal3
+                           callproperty Multiname("getNpca",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 0
+                           getlocal3
+                           callproperty Multiname("getTalka",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 0
+                           newarray 2
+                           returnvalue
+                  ofs0025:
+                           getlocal2
+                           pushbyte 2
+                           ifne ofs003b
+                           getlocal3
+                           callproperty Multiname("getNpcb",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 0
+                           getlocal3
+                           callproperty Multiname("getTalkb",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 0
+                           newarray 2
+                           returnvalue
+                  ofs003b:
+                           getlocal2
+                           pushbyte 3
+                           ifne ofs0051
+                           getlocal3
+                           callproperty Multiname("getNpcc",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 0
+                           getlocal3
+                           callproperty Multiname("getTalkc",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 0
+                           newarray 2
+                           returnvalue
+                  ofs0051:
+                           newarray 0
+                           returnvalue
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public static function creatTaskFactory(param1:XML) : void
+               {
+                  trait method QName(PackageNamespace(""),"creatTaskFactory")
+                     flag FINAL
+                     dispid 6
+                     method
+                        name null
+                        param QName(PackageNamespace(""),"XML")
+                        returns QName(PackageNamespace(""),"void")
+                        
+                        body
+                           maxstack 38
+                           localcount 46
+                           initscopedepth 3
+                           maxscopedepth 4
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              pushnull
+                              coerce QName(PackageNamespace(""),"XML")
+                              setlocal 5
+                              pushnan
+                              setlocal 6
+                              pushnull
+                              coerce_s
+                              setlocal 7
+                              pushnull
+                              coerce_s
+                              setlocal 8
+                              pushnan
+                              setlocal 9
+                              pushnan
+                              setlocal 10
+                              pushnan
+                              setlocal 11
+                              pushnan
+                              setlocal 12
+                              pushnan
+                              setlocal 13
+                              pushnan
+                              setlocal 14
+                              pushnan
+                              setlocal 15
+                              pushnan
+                              setlocal 16
+                              pushfalse
+                              setlocal 17
+                              pushundefined
+                              coerce_a
+                              setlocal 18
+                              pushundefined
+                              coerce_a
+                              setlocal 19
+                              pushundefined
+                              coerce_a
+                              setlocal 20
+                              pushnull
+                              coerce_s
+                              setlocal 21
+                              pushnull
+                              coerce_s
+                              setlocal 22
+                              pushnan
+                              setlocal 23
+                              pushnan
+                              setlocal 24
+                              pushnan
+                              setlocal 25
+                              pushnull
+                              coerce_s
+                              setlocal 26
+                              pushnan
+                              setlocal 27
+                              pushnull
+                              coerce_s
+                              setlocal 28
+                              pushnan
+                              setlocal 29
+                              pushnull
+                              coerce_s
+                              setlocal 30
+                              pushnull
+                              coerce_s
+                              setlocal 31
+                              pushnull
+                              coerce_s
+                              setlocal 32
+                              pushnull
+                              coerce_s
+                              setlocal 33
+                              pushnull
+                              coerce_s
+                              setlocal 34
+                              pushnull
+                              coerce_s
+                              setlocal 35
+                              pushnan
+                              setlocal 36
+                              pushnan
+                              setlocal 37
+                              pushnull
+                              coerce_s
+                              setlocal 38
+                              pushnull
+                              coerce_s
+                              setlocal 39
+                              pushnan
+                              setlocal 40
+                              pushnan
+                              setlocal 41
+                              pushnull
+                              coerce_s
+                              setlocal 42
+                              pushnull
+                              coerce QName(PackageNamespace("hotpointgame.repository.task"),"TaskBasicData")
+                              setlocal 43
+                              getlocal1
+                              callproperty Multiname("toXMLString",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 0
+                              coerce_s
+                              setlocal2
+                              getlex QName(PackageNamespace(""),"RegExp")
+                              pushstring "&lt;"
+                              pushstring "g"
+                              construct 2
+                              coerce QName(PackageNamespace(""),"RegExp")
+                              setlocal3
+                              getlex QName(PackageNamespace(""),"RegExp")
+                              pushstring "&gt;"
+                              pushstring "g"
+                              construct 2
+                              coerce QName(PackageNamespace(""),"RegExp")
+                              setlocal 4
+                              getlocal2
+                              getlocal3
+                              pushstring "<"
+                              callproperty Multiname("replace",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 2
+                              coerce_s
+                              setlocal2
+                              getlocal2
+                              getlocal 4
+                              pushstring ">"
+                              callproperty Multiname("replace",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 2
+                              coerce_s
+                              setlocal2
+                              findpropstrict Multiname("XML",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal2
+                              constructprop Multiname("XML",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              coerce QName(PackageNamespace(""),"XML")
+                              setlocal1
+                              pushbyte 0
+                              setlocal 44
+                              getlocal1
+                              getproperty Multiname("任务",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              coerce_a
+                              setlocal 45
+                              jump ofs046b
+                     ofs00ea:
+                              label
+                              getlocal 45
+                              getlocal 44
+                              nextvalue
+                              coerce QName(PackageNamespace(""),"XML")
+                              setlocal 5
+                              findpropstrict Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("id",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              convert_d
+                              setlocal 6
+                              findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("名称",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              coerce_s
+                              setlocal 7
+                              findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("介绍",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              coerce_s
+                              setlocal 8
+                              findpropstrict Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("npc",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              convert_d
+                              setlocal 9
+                              findpropstrict Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("阶段",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              convert_d
+                              setlocal 10
+                              findpropstrict Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("类型",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              convert_d
+                              setlocal 11
+                              findpropstrict Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("军团",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              convert_d
+                              setlocal 12
+                              findpropstrict Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("接受帧",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              convert_d
+                              setlocal 13
+                              findpropstrict Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("进行帧",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              convert_d
+                              setlocal 14
+                              findpropstrict Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("完成帧",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              convert_d
+                              setlocal 15
+                              findpropstrict Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("完成时间",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              convert_d
+                              setlocal 16
+                              getlocal 5
+                              getproperty Multiname("删除",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("toString",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 0
+                              pushstring "true"
+                              equals
+                              getlex Multiname("Boolean",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              astypelate
+                              convert_b
+                              setlocal 17
+                              findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("道具",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("道具id",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              coerce_a
+                              setlocal 18
+                              findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("道具",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("道具数量",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              coerce_a
+                              setlocal 19
+                              findpropstrict Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("道具",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("道具金币",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              coerce_a
+                              setlocal 20
+                              findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("出现",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("关卡条件",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              coerce_s
+                              setlocal 21
+                              findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("出现",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("小关卡条件",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              coerce_s
+                              setlocal 22
+                              findpropstrict Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("出现",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("等级",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              convert_d
+                              setlocal 23
+                              findpropstrict Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("出现",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("前置id",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              convert_d
+                              setlocal 24
+                              findpropstrict Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("出现",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("卷轴id",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              convert_d
+                              setlocal 25
+                              findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("出现",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("关卡ok",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              coerce_s
+                              setlocal 26
+                              findpropstrict Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("出现",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("角色",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              convert_d
+                              setlocal 27
+                              findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("完成",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("关卡要求",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              coerce_s
+                              setlocal 28
+                              findpropstrict Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("完成",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("难度要求",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              convert_d
+                              setlocal 29
+                              findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("完成",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("通关关卡",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              coerce_s
+                              setlocal 30
+                              findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("完成",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("怪物id",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              coerce_s
+                              setlocal 31
+                              findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("完成",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("怪物名",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              coerce_s
+                              setlocal 32
+                              findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("完成",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("怪物数量",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              coerce_s
+                              setlocal 33
+                              findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("完成",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("物品id",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              coerce_s
+                              setlocal 34
+                              findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("完成",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("物品数量",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              coerce_s
+                              setlocal 35
+                              findpropstrict Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("完成",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("系统类型",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              convert_d
+                              setlocal 36
+                              findpropstrict Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("完成",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("完成金币",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              convert_d
+                              setlocal 37
+                              findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("奖励",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("奖励id",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              coerce_s
+                              setlocal 38
+                              findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("奖励",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("奖励数量",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              coerce_s
+                              setlocal 39
+                              findpropstrict Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("奖励",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("奖励金币",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              convert_d
+                              setlocal 40
+                              findpropstrict Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("奖励",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("奖励经验",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("Number",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              convert_d
+                              setlocal 41
+                              findpropstrict Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 5
+                              getproperty Multiname("奖励",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getproperty Multiname("奖励概率",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              callproperty Multiname("String",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                              coerce_s
+                              setlocal 42
+                              getlex Multiname("TaskBasicData",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 6
+                              getlocal 7
+                              getlocal 8
+                              getlocal 9
+                              getlocal 10
+                              getlocal 11
+                              getlocal 12
+                              getlocal 13
+                              getlocal 14
+                              getlocal 15
+                              getlocal 16
+                              getlocal 17
+                              getlocal 18
+                              getlocal 19
+                              getlocal 20
+                              getlocal 21
+                              getlocal 22
+                              getlocal 23
+                              getlocal 24
+                              getlocal 25
+                              getlocal 26
+                              getlocal 27
+                              getlocal 28
+                              getlocal 29
+                              getlocal 30
+                              getlocal 31
+                              getlocal 32
+                              getlocal 33
+                              getlocal 34
+                              getlocal 35
+                              getlocal 36
+                              getlocal 37
+                              getlocal 38
+                              getlocal 39
+                              getlocal 40
+                              getlocal 41
+                              getlocal 42
+                              callproperty Multiname("createTaskData",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 37
+                              coerce QName(PackageNamespace("hotpointgame.repository.task"),"TaskBasicData")
+                              setlocal 43
+                              getlex Multiname("taskDataList",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 6
+                              getlocal 43
+                              setproperty MultinameL([PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlex Multiname("taskList",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                              getlocal 6
+                              getlocal 43
+                              callproperty Multiname("createTask",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 0
+                              setproperty MultinameL([PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                     ofs046b:
+                              hasnext2 45, 44
+                              iftrue ofs00ea
+                              kill 45
+                              kill 44
+                              returnvoid
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public static function getDataById(param1:Number) : TaskBasicData
+                  {
+                     trait method QName(PackageNamespace(""),"getDataById")
+                        flag FINAL
+                        dispid 7
+                        method
+                           name null
+                           param QName(PackageNamespace(""),"Number")
+                           returns QName(PackageNamespace("hotpointgame.repository.task"),"TaskBasicData")
+                           
+                           body
+                              maxstack 3
+                              localcount 2
+                              initscopedepth 3
+                              maxscopedepth 4
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlex Multiname("taskDataList",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                                 getlocal1
+                                 getproperty MultinameL([PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                                 pushnull
+                                 ifeq ofs001a
+                                 getlex Multiname("taskDataList",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                                 getlocal1
+                                 getproperty MultinameL([PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                                 returnvalue
+                        ofs001a:
+                                 findpropstrict Multiname("Error",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                                 pushstring "不存在此任务ID"
+                                 getlocal1
+                                 add
+                                 constructprop Multiname("Error",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                                 throw
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public static function getTaskById(param1:Number) : Task
+                     {
+                        trait method QName(PackageNamespace(""),"getTaskById")
+                           flag FINAL
+                           dispid 8
+                           method
+                              name null
+                              param QName(PackageNamespace(""),"Number")
+                              returns QName(PackageNamespace("hotpointgame.models.task"),"Task")
+                              
+                              body
+                                 maxstack 3
+                                 localcount 2
+                                 initscopedepth 3
+                                 maxscopedepth 4
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlex Multiname("taskList",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                                    getlocal1
+                                    getproperty MultinameL([PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                                    pushnull
+                                    ifeq ofs001a
+                                    getlex Multiname("taskList",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                                    getlocal1
+                                    getproperty MultinameL([PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                                    returnvalue
+                           ofs001a:
+                                    findpropstrict Multiname("Error",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")])
+                                    pushstring "不存在此任务ID"
+                                    getlocal1
+                                    add
+                                    constructprop Multiname("Error",[PrivateNamespace(null,"386"),PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin"),ProtectedNamespace("hotpointgame.repository.task:TaskFactory"),StaticProtectedNs("hotpointgame.repository.task:TaskFactory")]), 1
+                                    throw
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                     }
+                  }
+                  
+                  method
+                     name null
+                     returns null
+                     
+                     body
+                        maxstack 2
+                        localcount 1
+                        initscopedepth 1
+                        maxscopedepth 3
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           findpropstrict Multiname("TaskFactory",[PackageNamespace("hotpointgame.repository.task")])
+                           getlex QName(PackageNamespace(""),"Object")
+                           pushscope
+                           getlex Multiname("Object",[PackageNamespace(""),PackageNamespace("hotpointgame.repository.task"),PrivateNamespace(null,"561"),PackageInternalNs("hotpointgame.repository.task"),Namespace("http://adobe.com/AS3/2006/builtin")])
+                           newclass 130
+                           popscope
+                           initproperty QName(PackageNamespace("hotpointgame.repository.task"),"TaskFactory")
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+                  

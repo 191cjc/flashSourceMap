@@ -1,0 +1,861 @@
+package mx.geom
+{
+   import flash.events.Event;
+   import flash.events.EventDispatcher;
+   import mx.core.AdvancedLayoutFeatures;
+   import mx.core.mx_internal;
+   
+   use namespace mx_internal;
+   
+   public class TransformOffsets extends EventDispatcher
+   {
+      
+      private static const IS_3D:uint = 512;
+      
+      private static const M3D_FLAGS_VALID:uint = 1024;
+      
+      private static const EPSILON:Number = 0.001;
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 4
+            maxscopedepth 5
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(PrivateNamespace(null,"34"),"IS_3D")
+               pushshort 512
+               initproperty QName(PrivateNamespace(null,"34"),"IS_3D")
+               findproperty QName(PrivateNamespace(null,"34"),"M3D_FLAGS_VALID")
+               pushshort 1024
+               initproperty QName(PrivateNamespace(null,"34"),"M3D_FLAGS_VALID")
+               findproperty QName(PrivateNamespace(null,"34"),"EPSILON")
+               pushdouble 0.001
+               initproperty QName(PrivateNamespace(null,"34"),"EPSILON")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      private var _rotationX:Number = 0;
+      
+      private var _rotationY:Number = 0;
+      
+      private var _rotationZ:Number = 0;
+      
+      private var _scaleX:Number = 1;
+      
+      private var _scaleY:Number = 1;
+      
+      private var _scaleZ:Number = 1;
+      
+      private var _x:Number = 0;
+      
+      private var _y:Number = 0;
+      
+      private var _z:Number = 0;
+      
+      private var _flags:uint = 0;
+      
+      mx_internal var owner:AdvancedLayoutFeatures;
+      
+      public function TransformOffsets()
+      {
+         method
+            name null
+            returns null
+            
+            body
+               maxstack 1
+               localcount 1
+               initscopedepth 5
+               maxscopedepth 6
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  constructsuper 0
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      public function set x(param1:Number) : void
+      {
+         trait setter QName(PackageNamespace(""),"x")
+            dispid 0
+            method
+               name null
+               param QName(PackageNamespace(""),"Number")
+               returns QName(PackageNamespace(""),"void")
+               
+               body
+                  maxstack 2
+                  localcount 2
+                  initscopedepth 5
+                  maxscopedepth 6
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     getlocal1
+                     getlocal0
+                     getproperty QName(PrivateNamespace(null,"34"),"_x")
+                     ifne ofs000c
+                     returnvoid
+            ofs000c:
+                     getlocal0
+                     getlocal1
+                     initproperty QName(PrivateNamespace(null,"34"),"_x")
+                     getlocal0
+                     pushfalse
+                     callpropvoid QName(PrivateNamespace(null,"34"),"invalidate"), 1
+                     returnvoid
+                  end ; code
+               end ; body
+            end ; method
+         }
+         
+         public function get x() : Number
+         {
+            trait getter QName(PackageNamespace(""),"x")
+               dispid 0
+               method
+                  name null
+                  returns QName(PackageNamespace(""),"Number")
+                  
+                  body
+                     maxstack 1
+                     localcount 1
+                     initscopedepth 5
+                     maxscopedepth 6
+                     
+                     code
+                        getlocal0
+                        pushscope
+                        getlocal0
+                        getproperty QName(PrivateNamespace(null,"34"),"_x")
+                        returnvalue
+                     end ; code
+                  end ; body
+               end ; method
+            }
+            
+            public function set y(param1:Number) : void
+            {
+               trait setter QName(PackageNamespace(""),"y")
+                  dispid 0
+                  method
+                     name null
+                     param QName(PackageNamespace(""),"Number")
+                     returns QName(PackageNamespace(""),"void")
+                     
+                     body
+                        maxstack 2
+                        localcount 2
+                        initscopedepth 5
+                        maxscopedepth 6
+                        
+                        code
+                           getlocal0
+                           pushscope
+                           getlocal1
+                           getlocal0
+                           getproperty QName(PrivateNamespace(null,"34"),"_y")
+                           ifne ofs000c
+                           returnvoid
+                  ofs000c:
+                           getlocal0
+                           getlocal1
+                           initproperty QName(PrivateNamespace(null,"34"),"_y")
+                           getlocal0
+                           pushfalse
+                           callpropvoid QName(PrivateNamespace(null,"34"),"invalidate"), 1
+                           returnvoid
+                        end ; code
+                     end ; body
+                  end ; method
+               }
+               
+               public function get y() : Number
+               {
+                  trait getter QName(PackageNamespace(""),"y")
+                     dispid 0
+                     method
+                        name null
+                        returns QName(PackageNamespace(""),"Number")
+                        
+                        body
+                           maxstack 1
+                           localcount 1
+                           initscopedepth 5
+                           maxscopedepth 6
+                           
+                           code
+                              getlocal0
+                              pushscope
+                              getlocal0
+                              getproperty QName(PrivateNamespace(null,"34"),"_y")
+                              returnvalue
+                           end ; code
+                        end ; body
+                     end ; method
+                  }
+                  
+                  public function set z(param1:Number) : void
+                  {
+                     trait setter QName(PackageNamespace(""),"z")
+                        dispid 0
+                        method
+                           name null
+                           param QName(PackageNamespace(""),"Number")
+                           returns QName(PackageNamespace(""),"void")
+                           
+                           body
+                              maxstack 2
+                              localcount 2
+                              initscopedepth 5
+                              maxscopedepth 6
+                              
+                              code
+                                 getlocal0
+                                 pushscope
+                                 getlocal1
+                                 getlocal0
+                                 getproperty QName(PrivateNamespace(null,"34"),"_z")
+                                 ifne ofs000c
+                                 returnvoid
+                        ofs000c:
+                                 getlocal0
+                                 getlocal1
+                                 initproperty QName(PrivateNamespace(null,"34"),"_z")
+                                 getlocal0
+                                 pushtrue
+                                 callpropvoid QName(PrivateNamespace(null,"34"),"invalidate"), 1
+                                 returnvoid
+                              end ; code
+                           end ; body
+                        end ; method
+                     }
+                     
+                     public function get z() : Number
+                     {
+                        trait getter QName(PackageNamespace(""),"z")
+                           dispid 0
+                           method
+                              name null
+                              returns QName(PackageNamespace(""),"Number")
+                              
+                              body
+                                 maxstack 1
+                                 localcount 1
+                                 initscopedepth 5
+                                 maxscopedepth 6
+                                 
+                                 code
+                                    getlocal0
+                                    pushscope
+                                    getlocal0
+                                    getproperty QName(PrivateNamespace(null,"34"),"_z")
+                                    returnvalue
+                                 end ; code
+                              end ; body
+                           end ; method
+                        }
+                        
+                        public function set rotationX(param1:Number) : void
+                        {
+                           trait setter QName(PackageNamespace(""),"rotationX")
+                              dispid 0
+                              method
+                                 name null
+                                 param QName(PackageNamespace(""),"Number")
+                                 returns QName(PackageNamespace(""),"void")
+                                 
+                                 body
+                                    maxstack 2
+                                    localcount 2
+                                    initscopedepth 5
+                                    maxscopedepth 6
+                                    
+                                    code
+                                       getlocal0
+                                       pushscope
+                                       getlocal1
+                                       getlocal0
+                                       getproperty QName(PrivateNamespace(null,"34"),"_rotationX")
+                                       ifne ofs000c
+                                       returnvoid
+                              ofs000c:
+                                       getlocal0
+                                       getlocal1
+                                       initproperty QName(PrivateNamespace(null,"34"),"_rotationX")
+                                       getlocal0
+                                       pushtrue
+                                       callpropvoid QName(PrivateNamespace(null,"34"),"invalidate"), 1
+                                       returnvoid
+                                    end ; code
+                                 end ; body
+                              end ; method
+                           }
+                           
+                           public function get rotationX() : Number
+                           {
+                              trait getter QName(PackageNamespace(""),"rotationX")
+                                 dispid 0
+                                 method
+                                    name null
+                                    returns QName(PackageNamespace(""),"Number")
+                                    
+                                    body
+                                       maxstack 1
+                                       localcount 1
+                                       initscopedepth 5
+                                       maxscopedepth 6
+                                       
+                                       code
+                                          getlocal0
+                                          pushscope
+                                          getlocal0
+                                          getproperty QName(PrivateNamespace(null,"34"),"_rotationX")
+                                          returnvalue
+                                       end ; code
+                                    end ; body
+                                 end ; method
+                              }
+                              
+                              public function set rotationY(param1:Number) : void
+                              {
+                                 trait setter QName(PackageNamespace(""),"rotationY")
+                                    dispid 0
+                                    method
+                                       name null
+                                       param QName(PackageNamespace(""),"Number")
+                                       returns QName(PackageNamespace(""),"void")
+                                       
+                                       body
+                                          maxstack 2
+                                          localcount 2
+                                          initscopedepth 5
+                                          maxscopedepth 6
+                                          
+                                          code
+                                             getlocal0
+                                             pushscope
+                                             getlocal1
+                                             getlocal0
+                                             getproperty QName(PrivateNamespace(null,"34"),"_rotationY")
+                                             ifne ofs000c
+                                             returnvoid
+                                    ofs000c:
+                                             getlocal0
+                                             getlocal1
+                                             initproperty QName(PrivateNamespace(null,"34"),"_rotationY")
+                                             getlocal0
+                                             pushtrue
+                                             callpropvoid QName(PrivateNamespace(null,"34"),"invalidate"), 1
+                                             returnvoid
+                                          end ; code
+                                       end ; body
+                                    end ; method
+                                 }
+                                 
+                                 public function get rotationY() : Number
+                                 {
+                                    trait getter QName(PackageNamespace(""),"rotationY")
+                                       dispid 0
+                                       method
+                                          name null
+                                          returns QName(PackageNamespace(""),"Number")
+                                          
+                                          body
+                                             maxstack 1
+                                             localcount 1
+                                             initscopedepth 5
+                                             maxscopedepth 6
+                                             
+                                             code
+                                                getlocal0
+                                                pushscope
+                                                getlocal0
+                                                getproperty QName(PrivateNamespace(null,"34"),"_rotationY")
+                                                returnvalue
+                                             end ; code
+                                          end ; body
+                                       end ; method
+                                    }
+                                    
+                                    public function set rotationZ(param1:Number) : void
+                                    {
+                                       trait setter QName(PackageNamespace(""),"rotationZ")
+                                          dispid 0
+                                          method
+                                             name null
+                                             param QName(PackageNamespace(""),"Number")
+                                             returns QName(PackageNamespace(""),"void")
+                                             
+                                             body
+                                                maxstack 2
+                                                localcount 2
+                                                initscopedepth 5
+                                                maxscopedepth 6
+                                                
+                                                code
+                                                   getlocal0
+                                                   pushscope
+                                                   getlocal1
+                                                   getlocal0
+                                                   getproperty QName(PrivateNamespace(null,"34"),"_rotationZ")
+                                                   ifne ofs000c
+                                                   returnvoid
+                                          ofs000c:
+                                                   getlocal0
+                                                   getlocal1
+                                                   initproperty QName(PrivateNamespace(null,"34"),"_rotationZ")
+                                                   getlocal0
+                                                   pushfalse
+                                                   callpropvoid QName(PrivateNamespace(null,"34"),"invalidate"), 1
+                                                   returnvoid
+                                                end ; code
+                                             end ; body
+                                          end ; method
+                                       }
+                                       
+                                       public function get rotationZ() : Number
+                                       {
+                                          trait getter QName(PackageNamespace(""),"rotationZ")
+                                             dispid 0
+                                             method
+                                                name null
+                                                returns QName(PackageNamespace(""),"Number")
+                                                
+                                                body
+                                                   maxstack 1
+                                                   localcount 1
+                                                   initscopedepth 5
+                                                   maxscopedepth 6
+                                                   
+                                                   code
+                                                      getlocal0
+                                                      pushscope
+                                                      getlocal0
+                                                      getproperty QName(PrivateNamespace(null,"34"),"_rotationZ")
+                                                      returnvalue
+                                                   end ; code
+                                                end ; body
+                                             end ; method
+                                          }
+                                          
+                                          public function set scaleX(param1:Number) : void
+                                          {
+                                             trait setter QName(PackageNamespace(""),"scaleX")
+                                                dispid 0
+                                                method
+                                                   name null
+                                                   param QName(PackageNamespace(""),"Number")
+                                                   returns QName(PackageNamespace(""),"void")
+                                                   
+                                                   body
+                                                      maxstack 2
+                                                      localcount 2
+                                                      initscopedepth 5
+                                                      maxscopedepth 6
+                                                      
+                                                      code
+                                                         getlocal0
+                                                         pushscope
+                                                         getlocal1
+                                                         getlocal0
+                                                         getproperty QName(PrivateNamespace(null,"34"),"_scaleX")
+                                                         ifne ofs000c
+                                                         returnvoid
+                                                ofs000c:
+                                                         getlocal0
+                                                         getlocal1
+                                                         initproperty QName(PrivateNamespace(null,"34"),"_scaleX")
+                                                         getlocal0
+                                                         pushfalse
+                                                         callpropvoid QName(PrivateNamespace(null,"34"),"invalidate"), 1
+                                                         returnvoid
+                                                      end ; code
+                                                   end ; body
+                                                end ; method
+                                             }
+                                             
+                                             public function get scaleX() : Number
+                                             {
+                                                trait getter QName(PackageNamespace(""),"scaleX")
+                                                   dispid 0
+                                                   method
+                                                      name null
+                                                      returns QName(PackageNamespace(""),"Number")
+                                                      
+                                                      body
+                                                         maxstack 1
+                                                         localcount 1
+                                                         initscopedepth 5
+                                                         maxscopedepth 6
+                                                         
+                                                         code
+                                                            getlocal0
+                                                            pushscope
+                                                            getlocal0
+                                                            getproperty QName(PrivateNamespace(null,"34"),"_scaleX")
+                                                            returnvalue
+                                                         end ; code
+                                                      end ; body
+                                                   end ; method
+                                                }
+                                                
+                                                public function set scaleY(param1:Number) : void
+                                                {
+                                                   trait setter QName(PackageNamespace(""),"scaleY")
+                                                      dispid 0
+                                                      method
+                                                         name null
+                                                         param QName(PackageNamespace(""),"Number")
+                                                         returns QName(PackageNamespace(""),"void")
+                                                         
+                                                         body
+                                                            maxstack 2
+                                                            localcount 2
+                                                            initscopedepth 5
+                                                            maxscopedepth 6
+                                                            
+                                                            code
+                                                               getlocal0
+                                                               pushscope
+                                                               getlocal1
+                                                               getlocal0
+                                                               getproperty QName(PrivateNamespace(null,"34"),"_scaleY")
+                                                               ifne ofs000c
+                                                               returnvoid
+                                                      ofs000c:
+                                                               getlocal0
+                                                               getlocal1
+                                                               initproperty QName(PrivateNamespace(null,"34"),"_scaleY")
+                                                               getlocal0
+                                                               pushfalse
+                                                               callpropvoid QName(PrivateNamespace(null,"34"),"invalidate"), 1
+                                                               returnvoid
+                                                            end ; code
+                                                         end ; body
+                                                      end ; method
+                                                   }
+                                                   
+                                                   public function get scaleY() : Number
+                                                   {
+                                                      trait getter QName(PackageNamespace(""),"scaleY")
+                                                         dispid 0
+                                                         method
+                                                            name null
+                                                            returns QName(PackageNamespace(""),"Number")
+                                                            
+                                                            body
+                                                               maxstack 1
+                                                               localcount 1
+                                                               initscopedepth 5
+                                                               maxscopedepth 6
+                                                               
+                                                               code
+                                                                  getlocal0
+                                                                  pushscope
+                                                                  getlocal0
+                                                                  getproperty QName(PrivateNamespace(null,"34"),"_scaleY")
+                                                                  returnvalue
+                                                               end ; code
+                                                            end ; body
+                                                         end ; method
+                                                      }
+                                                      
+                                                      public function set scaleZ(param1:Number) : void
+                                                      {
+                                                         trait setter QName(PackageNamespace(""),"scaleZ")
+                                                            dispid 0
+                                                            method
+                                                               name null
+                                                               param QName(PackageNamespace(""),"Number")
+                                                               returns QName(PackageNamespace(""),"void")
+                                                               
+                                                               body
+                                                                  maxstack 2
+                                                                  localcount 2
+                                                                  initscopedepth 5
+                                                                  maxscopedepth 6
+                                                                  
+                                                                  code
+                                                                     getlocal0
+                                                                     pushscope
+                                                                     getlocal1
+                                                                     getlocal0
+                                                                     getproperty QName(PrivateNamespace(null,"34"),"_scaleZ")
+                                                                     ifne ofs000c
+                                                                     returnvoid
+                                                            ofs000c:
+                                                                     getlocal0
+                                                                     getlocal1
+                                                                     initproperty QName(PrivateNamespace(null,"34"),"_scaleZ")
+                                                                     getlocal0
+                                                                     pushtrue
+                                                                     callpropvoid QName(PrivateNamespace(null,"34"),"invalidate"), 1
+                                                                     returnvoid
+                                                                  end ; code
+                                                               end ; body
+                                                            end ; method
+                                                         }
+                                                         
+                                                         public function get scaleZ() : Number
+                                                         {
+                                                            trait getter QName(PackageNamespace(""),"scaleZ")
+                                                               dispid 0
+                                                               method
+                                                                  name null
+                                                                  returns QName(PackageNamespace(""),"Number")
+                                                                  
+                                                                  body
+                                                                     maxstack 1
+                                                                     localcount 1
+                                                                     initscopedepth 5
+                                                                     maxscopedepth 6
+                                                                     
+                                                                     code
+                                                                        getlocal0
+                                                                        pushscope
+                                                                        getlocal0
+                                                                        getproperty QName(PrivateNamespace(null,"34"),"_scaleZ")
+                                                                        returnvalue
+                                                                     end ; code
+                                                                  end ; body
+                                                               end ; method
+                                                            }
+                                                            
+                                                            mx_internal function get is3D() : Boolean
+                                                            {
+                                                               trait getter QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"is3D")
+                                                                  dispid 0
+                                                                  method
+                                                                     name null
+                                                                     returns QName(PackageNamespace(""),"Boolean")
+                                                                     
+                                                                     body
+                                                                        maxstack 2
+                                                                        localcount 1
+                                                                        initscopedepth 5
+                                                                        maxscopedepth 6
+                                                                        
+                                                                        code
+                                                                           getlocal0
+                                                                           pushscope
+                                                                           getlocal0
+                                                                           getproperty QName(PrivateNamespace(null,"34"),"_flags")
+                                                                           getlex QName(PrivateNamespace(null,"34"),"M3D_FLAGS_VALID")
+                                                                           bitand
+                                                                           pushbyte 0
+                                                                           ifne ofs0015
+                                                                           getlocal0
+                                                                           callpropvoid QName(PrivateNamespace(null,"34"),"update3DFlags"), 0
+                                                                  ofs0015:
+                                                                           getlocal0
+                                                                           getproperty QName(PrivateNamespace(null,"34"),"_flags")
+                                                                           getlex QName(PrivateNamespace(null,"34"),"IS_3D")
+                                                                           bitand
+                                                                           pushbyte 0
+                                                                           equals
+                                                                           not
+                                                                           returnvalue
+                                                                        end ; code
+                                                                     end ; body
+                                                                  end ; method
+                                                               }
+                                                               
+                                                               private function invalidate(param1:Boolean, param2:Boolean = true) : void
+                                                               {
+                                                                  trait method QName(PrivateNamespace(null,"34"),"invalidate")
+                                                                     dispid 0
+                                                                     method
+                                                                        name null
+                                                                        flag HAS_OPTIONAL
+                                                                        param QName(PackageNamespace(""),"Boolean")
+                                                                        param QName(PackageNamespace(""),"Boolean")
+                                                                        optional True()
+                                                                        returns QName(PackageNamespace(""),"void")
+                                                                        
+                                                                        body
+                                                                           maxstack 3
+                                                                           localcount 3
+                                                                           initscopedepth 5
+                                                                           maxscopedepth 6
+                                                                           
+                                                                           code
+                                                                              getlocal0
+                                                                              pushscope
+                                                                              getlocal1
+                                                                              iffalse ofs0014
+                                                                              getlocal0
+                                                                              getlocal0
+                                                                              getproperty QName(PrivateNamespace(null,"34"),"_flags")
+                                                                              getlex QName(PrivateNamespace(null,"34"),"M3D_FLAGS_VALID")
+                                                                              bitnot
+                                                                              bitand
+                                                                              initproperty QName(PrivateNamespace(null,"34"),"_flags")
+                                                                     ofs0014:
+                                                                              getlocal2
+                                                                              iffalse ofs002a
+                                                                              findpropstrict QName(PackageNamespace(""),"dispatchEvent")
+                                                                              findpropstrict QName(PackageNamespace("flash.events"),"Event")
+                                                                              getlex QName(PackageNamespace("flash.events"),"Event")
+                                                                              getproperty QName(PackageNamespace(""),"CHANGE")
+                                                                              constructprop QName(PackageNamespace("flash.events"),"Event"), 1
+                                                                              callpropvoid QName(PackageNamespace(""),"dispatchEvent"), 1
+                                                                     ofs002a:
+                                                                              returnvoid
+                                                                           end ; code
+                                                                        end ; body
+                                                                     end ; method
+                                                                  }
+                                                                  
+                                                                  private function update3DFlags() : void
+                                                                  {
+                                                                     trait method QName(PrivateNamespace(null,"34"),"update3DFlags")
+                                                                        dispid 0
+                                                                        method
+                                                                           name null
+                                                                           returns QName(PackageNamespace(""),"void")
+                                                                           
+                                                                           body
+                                                                              maxstack 3
+                                                                              localcount 2
+                                                                              initscopedepth 5
+                                                                              maxscopedepth 6
+                                                                              
+                                                                              code
+                                                                                 getlocal0
+                                                                                 pushscope
+                                                                                 pushfalse
+                                                                                 setlocal1
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"34"),"_flags")
+                                                                                 getlex QName(PrivateNamespace(null,"34"),"M3D_FLAGS_VALID")
+                                                                                 bitand
+                                                                                 pushbyte 0
+                                                                                 ifne ofs00a7
+                                                                                 getlex QName(PackageNamespace(""),"Math")
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"34"),"_scaleZ")
+                                                                                 decrement
+                                                                                 callproperty QName(PackageNamespace(""),"abs"), 1
+                                                                                 getlex QName(PrivateNamespace(null,"34"),"EPSILON")
+                                                                                 greaterthan
+                                                                                 dup
+                                                                                 iftrue ofs0042
+                                                                                 pop
+                                                                                 getlex QName(PackageNamespace(""),"Math")
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"34"),"_rotationX")
+                                                                                 callproperty QName(PackageNamespace(""),"abs"), 1
+                                                                                 getlex QName(PrivateNamespace(null,"34"),"EPSILON")
+                                                                                 add
+                                                                                 pushshort 360
+                                                                                 modulo
+                                                                                 pushbyte 2
+                                                                                 getlex QName(PrivateNamespace(null,"34"),"EPSILON")
+                                                                                 multiply
+                                                                                 greaterthan
+                                                                        ofs0042:
+                                                                                 dup
+                                                                                 iftrue ofs0062
+                                                                                 pop
+                                                                                 getlex QName(PackageNamespace(""),"Math")
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"34"),"_rotationY")
+                                                                                 callproperty QName(PackageNamespace(""),"abs"), 1
+                                                                                 getlex QName(PrivateNamespace(null,"34"),"EPSILON")
+                                                                                 add
+                                                                                 pushshort 360
+                                                                                 modulo
+                                                                                 pushbyte 2
+                                                                                 getlex QName(PrivateNamespace(null,"34"),"EPSILON")
+                                                                                 multiply
+                                                                                 greaterthan
+                                                                        ofs0062:
+                                                                                 dup
+                                                                                 iftrue ofs0077
+                                                                                 pop
+                                                                                 getlex QName(PackageNamespace(""),"Math")
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"34"),"_z")
+                                                                                 callproperty QName(PackageNamespace(""),"abs"), 1
+                                                                                 getlex QName(PrivateNamespace(null,"34"),"EPSILON")
+                                                                                 greaterthan
+                                                                        ofs0077:
+                                                                                 convert_b
+                                                                                 setlocal1
+                                                                                 getlocal1
+                                                                                 iffalse ofs008e
+                                                                                 getlocal0
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"34"),"_flags")
+                                                                                 getlex QName(PrivateNamespace(null,"34"),"IS_3D")
+                                                                                 bitor
+                                                                                 initproperty QName(PrivateNamespace(null,"34"),"_flags")
+                                                                                 jump ofs009b
+                                                                        ofs008e:
+                                                                                 getlocal0
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"34"),"_flags")
+                                                                                 getlex QName(PrivateNamespace(null,"34"),"IS_3D")
+                                                                                 bitnot
+                                                                                 bitand
+                                                                                 initproperty QName(PrivateNamespace(null,"34"),"_flags")
+                                                                        ofs009b:
+                                                                                 getlocal0
+                                                                                 getlocal0
+                                                                                 getproperty QName(PrivateNamespace(null,"34"),"_flags")
+                                                                                 getlex QName(PrivateNamespace(null,"34"),"M3D_FLAGS_VALID")
+                                                                                 bitor
+                                                                                 initproperty QName(PrivateNamespace(null,"34"),"_flags")
+                                                                        ofs00a7:
+                                                                                 returnvoid
+                                                                              end ; code
+                                                                           end ; body
+                                                                        end ; method
+                                                                     }
+                                                                  }
+                                                               }
+                                                               
+                                                               method
+                                                                  name null
+                                                                  returns null
+                                                                  
+                                                                  body
+                                                                     maxstack 2
+                                                                     localcount 1
+                                                                     initscopedepth 1
+                                                                     maxscopedepth 4
+                                                                     
+                                                                     code
+                                                                        getlocal0
+                                                                        pushscope
+                                                                        findpropstrict Multiname("TransformOffsets",[PackageNamespace("mx.geom")])
+                                                                        getlex QName(PackageNamespace(""),"Object")
+                                                                        pushscope
+                                                                        getlex QName(PackageNamespace("flash.events"),"EventDispatcher")
+                                                                        pushscope
+                                                                        getlex QName(PackageNamespace("flash.events"),"EventDispatcher")
+                                                                        newclass 103
+                                                                        popscope
+                                                                        popscope
+                                                                        initproperty QName(PackageNamespace("mx.geom"),"TransformOffsets")
+                                                                        returnvoid
+                                                                     end ; code
+                                                                  end ; body
+                                                               end ; method
+                                                               

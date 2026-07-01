@@ -1,0 +1,152 @@
+package mx.events
+{
+   import flash.events.Event;
+   import mx.core.mx_internal;
+   
+   use namespace mx_internal;
+   
+   public class StateChangeEvent extends Event
+   {
+      
+      mx_internal static const VERSION:String = "4.6.0.23201";
+      
+      public static const CURRENT_STATE_CHANGE:String = "currentStateChange";
+      
+      public static const CURRENT_STATE_CHANGING:String = "currentStateChanging";
+      
+      method
+         name null
+         returns null
+         
+         body
+            maxstack 2
+            localcount 1
+            initscopedepth 4
+            maxscopedepth 5
+            
+            code
+               getlocal0
+               pushscope
+               findproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               pushstring "4.6.0.23201"
+               initproperty QName(Namespace("http://www.adobe.com/2006/flex/mx/internal"),"VERSION")
+               findproperty QName(PackageNamespace(""),"CURRENT_STATE_CHANGE")
+               pushstring "currentStateChange"
+               initproperty QName(PackageNamespace(""),"CURRENT_STATE_CHANGE")
+               findproperty QName(PackageNamespace(""),"CURRENT_STATE_CHANGING")
+               pushstring "currentStateChanging"
+               initproperty QName(PackageNamespace(""),"CURRENT_STATE_CHANGING")
+               returnvoid
+            end ; code
+         end ; body
+      end ; method
+      
+      public var newState:String;
+      
+      public var oldState:String;
+      
+      public function StateChangeEvent(param1:String, param2:Boolean = false, param3:Boolean = false, param4:String = null, param5:String = null)
+      {
+         method
+            name null
+            flag HAS_OPTIONAL
+            param QName(PackageNamespace(""),"String")
+            param QName(PackageNamespace(""),"Boolean")
+            param QName(PackageNamespace(""),"Boolean")
+            param QName(PackageNamespace(""),"String")
+            param QName(PackageNamespace(""),"String")
+            optional False()
+            optional False()
+            optional Null()
+            optional Null()
+            returns null
+            
+            body
+               maxstack 4
+               localcount 6
+               initscopedepth 5
+               maxscopedepth 6
+               
+               code
+                  getlocal0
+                  pushscope
+                  getlocal0
+                  getlocal1
+                  getlocal2
+                  getlocal3
+                  constructsuper 3
+                  getlocal0
+                  getlocal 4
+                  initproperty QName(PackageNamespace(""),"oldState")
+                  getlocal0
+                  getlocal 5
+                  initproperty QName(PackageNamespace(""),"newState")
+                  returnvoid
+               end ; code
+            end ; body
+         end ; method
+      }
+      
+      override public function clone() : Event
+      {
+         trait method QName(PackageNamespace(""),"clone")
+            flag OVERRIDE
+            dispid 0
+            method
+               name null
+               returns QName(PackageNamespace("flash.events"),"Event")
+               
+               body
+                  maxstack 6
+                  localcount 1
+                  initscopedepth 5
+                  maxscopedepth 6
+                  
+                  code
+                     getlocal0
+                     pushscope
+                     findpropstrict QName(PackageNamespace("mx.events"),"StateChangeEvent")
+                     getlex QName(PackageNamespace(""),"type")
+                     getlex QName(PackageNamespace(""),"bubbles")
+                     getlex QName(PackageNamespace(""),"cancelable")
+                     getlocal0
+                     getproperty QName(PackageNamespace(""),"oldState")
+                     getlocal0
+                     getproperty QName(PackageNamespace(""),"newState")
+                     constructprop QName(PackageNamespace("mx.events"),"StateChangeEvent"), 5
+                     returnvalue
+                  end ; code
+               end ; body
+            end ; method
+         }
+      }
+   }
+   
+   method
+      name null
+      returns null
+      
+      body
+         maxstack 2
+         localcount 1
+         initscopedepth 1
+         maxscopedepth 4
+         
+         code
+            getlocal0
+            pushscope
+            findpropstrict Multiname("StateChangeEvent",[PackageNamespace("mx.events")])
+            getlex QName(PackageNamespace(""),"Object")
+            pushscope
+            getlex QName(PackageNamespace("flash.events"),"Event")
+            pushscope
+            getlex QName(PackageNamespace("flash.events"),"Event")
+            newclass 118
+            popscope
+            popscope
+            initproperty QName(PackageNamespace("mx.events"),"StateChangeEvent")
+            returnvoid
+         end ; code
+      end ; body
+   end ; method
+   
