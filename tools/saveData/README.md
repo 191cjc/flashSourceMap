@@ -1,0 +1,135 @@
+# saveData 分析记录
+
+这个目录用于沉淀项目中保存和读取存档相关逻辑的阅读结论，并为后续开发独立存档系统、账号系统或桌面端本地存档适配层做准备。当前阶段只记录分析结果，不修改发布包、不改写存档数据。
+
+## 分析目标
+
+1. 找出主存档从客户端写出到平台接口的调用链。
+2. 找出读档时各个业务模块如何恢复数据。
+3. 明确主存档字段和主要子存档字段，为之后替换 4399 页面层、接入自建存档系统做结构准备。
+
+## 当前结论
+
+项目的主存档逻辑集中在 `ApiInterface` 和 `Api4399`：
+
+- `ApiInterface.writeData()` 负责把角色、关卡、技能、背包、活动和反作弊标记等内容组装成一个普通对象。
+- `ApiInterface.readData()` 负责按相同结构恢复游戏运行状态。
+- `Api4399.saveDataBefore()` 会先查询平台存档状态，再进入真正保存。
+- `Api4399.saveDataBeforeNoState()` 会跳过存档状态查询，直接保存。
+- `Api4399.saveDataStart()` 是最终保存入口，保存前还会做若干客户端异常检查。
+- `Api4399.getData()` 和 `Api4399.getDataList()` 分别读取当前存档位和存档列表。
+
+这意味着后续如果抛弃 4399 页面层，比较理想的做法不是直接让业务模块感知新后端，而是在 `serviceHold` 或 `ApiInterface/Api4399` 等接口层做适配，把原本的平台存档接口替换为自建存档接口。
+
+## 主调用链
+
+保存链路：
+
+1. 游戏内触发保存。
+2. 调用 `GM.testapi.saveDataBefore()` 或 `saveDataBeforeNoState()`。
+3. `Api4399.saveDataBefore()` 调用 `getSaveStateByFun(saveDataStart)`。
+4. `Api4399.saveDataStart()` 执行保存前检查。
+5. `ApiInterface.writeData()` 组装存档对象。
+6. `Main.serviceHold.saveData(title, data, false, dataIndex)` 把数据交给平台层。
+
+读取链路：
+
+1. 选择存档位或进入游戏时调用 `Api4399.getData()`。
+2. `Main.serviceHold.getData(false, dataIndex)` 向平台层请求数据。
+3. `Api4399.saveProcess()` 收到 `SaveEvent.SAVE_GET`。
+4. `ApiInterface.readData(param1.ret.data)` 恢复存档对象。
+5. `GM.enterGame()` 进入游戏。
+
+存档列表链路：
+
+1. `Api4399.getDataList()` 优先使用已有 `dataList`。
+2. 如果没有列表缓存，则调用 `Main.serviceHold.getList()`。
+3. `Api4399.saveProcess()` 收到 `SaveEvent.SAVE_LIST` 后更新列表并刷新界面。
+
+## 主存档结构
+
+`ApiInterface.writeData()` 组装的主对象包含：
+
+- `jxv`：职业标识 `jobFlag`。
+- `jxid`：用户 ID。
+- `sidx`：存档位索引。
+- `newnn`：编码后的用户名。
+- `idn`：账号和存档位组合标识。
+- `jxsflag`：游戏标记对象 `GM.flagobj`。
+- `jxrole`：角色数据，来自 `GM.cp.save()`。
+- `jxguanka`：关卡进度，来自 `GM.levelSD.save()`。
+- `jxjinenglv`：技能等级，来自 `GM.skillLvM.save()`。
+- `jxkaizhong`：背包、商城、任务、活动等综合数据，来自 `FlowInterface.save()`。
+- `kpji`：开牌计时数据，来自 `GM.kaipaijssavedata.save()`。
+- `asaved`：新增活动和扩展数据，来自 `GM.aSaveData.save()`。
+
+对应读取时，`ApiInterface.readData()` 会读取 `jxid/sidx/jxv/jxrole/jxguanka/jxjinenglv/kpji/asaved/jxkaizhong` 等字段。若传入数据为空，则初始化新档。
+
+## 关键子结构
+
+`FlowInterface.save()` 实际代理到 `GoodsManger.save()`。其中保存的内容包括：
+
+- `addEq`：装备槽。
+- `jxbag`：背包。
+- `jxtask`：任务。
+- `jxshop`：商城数据。
+- `jxfengj`：背包显示或分解相关数据。
+- `jxware`：仓库。
+- `gene`：基因数据。
+- `gift`：礼包数据。
+- `vp`：VIP 数据。
+- `fb/fmv`：副本相关数据。
+- `zp`：转盘数据。
+- `tim`：时间计数。
+- `ship`：飞船或航运相关数据。
+- `pgj`：宠物攻击相关数据。
+- `dl`：`DataList` 的综合数据。
+
+`NewSDList.save()` 保存扩展存档 `asaved`，主要字段包括：
+
+- `ndf`：每日刷新记录。
+- `sxd/sxlv`：十二生肖相关数据。
+- `pm`：宠物管理器。
+- `gv`：游戏版本或数据版本。
+- `pkl/pks`：PK 敌人与 PK 数据。
+- `tr`：挑战塔数据。
+- `cm`：反作弊标记 `CheckFlagM`。
+- `nlel`：新关卡数据。
+- `jsha`：劫杀数据。
+- `sum/summr`：活动记录。
+
+## 保存前检查
+
+`Api4399.saveDataStart()` 保存前会执行几类检查：
+
+- `FlowInterface.isXg()`：判断基础数据或职业标识是否异常。
+- `BagFactory.getShopG()` 与累计充值额 `allChongGod` 比较，判断背包中商城物品总价值是否异常。
+- `BagFactory.getGoodsMaxNum()` 检查物品数量是否超过上限。
+
+这些检查与反作弊标记有关，但此目录只记录存档读写流程。相关异常标记细节见 `tools/noCheat/README.md`。
+
+## 关键文件索引
+
+- `decompiled/ffdec/L4399Main_gamefile/as3/scripts/hotpointgame/gameobj/ApiInterface.as`
+- `decompiled/ffdec/L4399Main_gamefile/as3/scripts/hotpointgame/gameobj/Api4399.as`
+- `decompiled/ffdec/L4399Main_gamefile/as3/scripts/hotpointgame/Control/FlowInterface.as`
+- `decompiled/ffdec/L4399Main_gamefile/as3/scripts/hotpointgame/Control/GoodsManger.as`
+- `decompiled/ffdec/L4399Main_gamefile/as3/scripts/hotpointgame/Control/DataList.as`
+- `decompiled/ffdec/L4399Main_gamefile/as3/scripts/hotpointgame/grole/MPlayer.as`
+- `decompiled/ffdec/L4399Main_gamefile/as3/scripts/hotpointgame/savedatal/NewSDList.as`
+
+## 后续开发方向
+
+后续如果要做自建存档系统，建议按以下顺序推进：
+
+1. 先写只读导出工具，把 `writeData()` 的结构整理成 JSON schema 风格文档。
+2. 再设计一个平台无关的存档适配层，接口保持接近 `getData/getList/saveData`。
+3. 桌面端可以优先落地为本地文件存档，再抽象出远程账号存档。
+4. 原始 `downloads/` 发布包保持只读，修改产物输出到独立目录。
+5. 任何二进制补丁都应基于明确的调用点和可回滚产物，不直接覆盖原包。
+
+## 尚未确认
+
+- `Main.serviceHold` 在页面层和 4399 平台之间的完整实现还需要继续追踪。
+- `DataList` 下各活动数据的业务含义尚未逐个展开。
+- 新账号系统需要的用户 ID、存档位、角色名之间的映射策略尚未设计。
