@@ -128,6 +128,40 @@
 4. 原始 `downloads/` 发布包保持只读，修改产物输出到独立目录。
 5. 任何二进制补丁都应基于明确的调用点和可回滚产物，不直接覆盖原包。
 
+## 当前 mock 日志策略
+
+当前阶段先只在外层接口和本地 mock 层加日志，不修改 SWF 发布包。日志用于观察平台接口调用链，包括保存、读取、存档列表、session、服务器时间和部分付费 stub。
+
+运行 `npm run saveData:serve` 后，日志会写入：
+
+- `workspace/saveData/logs/mock-api.ndjson`
+
+也可以通过本地接口查看：
+
+- `GET /api/saveData/logs?limit=200`：查看最近日志。
+- `GET /api/saveData/logs/clear`：清空日志。
+- `GET /api/saveData/slots`：查看当前 mock 数据库中的存档位摘要。
+
+保存日志不会直接把完整存档 payload 全量写入日志，只记录：
+
+- `uid/gameid/slotIndex/title`
+- 接口事件名与结果
+- payload 长度
+- payload `sha256`
+- payload 前缀预览
+
+完整 payload 仍保存在 SQLite 的 `save_slots.raw_data` 中。由于 4399 ctrl 层传入 mock 接口的 `data` 是压缩/Base64 后的字符串，mock 层目前无法直接看到 `jxrole/jxguanka/jxkaizhong/asaved` 这类真实对象字段。
+
+手动保存后已确认 `raw_data` 的外层格式是 `Base64(zlib deflate(saveXml))`。解压后可得到 `saveXml`，其中包含 `jxsflag/jxrole/jxv/jxid/jxjinenglv/sidx/newnn/kpji/jxguanka/jxkaizhong/asaved/idn` 等顶层字段。当前代码仍只保存原始 payload，尚未内置 XML 解码和字段类型化工具。
+
+如果需要查看运行时对象在进入平台序列化前的状态，再做小范围 SWF patch，优先 patch 以下位置输出结构化日志：
+
+- `ApiInterface.writeData()`
+- `ApiInterface.readData()`
+- `Api4399.saveDataStart()`
+
+patch 产物应输出到独立运行目录，不覆盖 `downloads/` 原始发布包。
+
 ## 尚未确认
 
 - `Main.serviceHold` 在页面层和 4399 平台之间的完整实现还需要继续追踪。
