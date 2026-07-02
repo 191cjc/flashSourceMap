@@ -236,6 +236,15 @@ export type Wallet = {
   totalRecharged: number;
 };
 
+export type RechargeWalletRequest = {
+  uid: string;
+  amount: number;
+};
+
+export type RechargeWalletResult = Wallet & {
+  amount: number;
+};
+
 export type BuyPropRequest = {
   uid: string;
   propId: number;

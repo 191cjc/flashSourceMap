@@ -78,7 +78,18 @@ function qname(multiname: Multiname | null | undefined): string {
   return multiname?.qname ?? "";
 }
 
-function isRuffleCrossSwfEventQname(value: string): boolean {
+function isRuffleCrossSwfEventParamQname(value: string): boolean {
+  return (
+    value === "unit4399.events::PayEvent" ||
+    value === "unit4399.events.PayEvent" ||
+    value === "unit4399.events::ShopEvent" ||
+    value === "unit4399.events.ShopEvent" ||
+    value === "unit4399.events::UnionEvent" ||
+    value === "unit4399.events.UnionEvent"
+  );
+}
+
+function isRuffleCrossSwfEventCoerceQname(value: string): boolean {
   return (
     value === "unit4399.events::PayEvent" ||
     value === "unit4399.events.PayEvent" ||
@@ -334,21 +345,26 @@ export function patchRuffleEventCompatibility(swf: DecodedSwf): number {
     const abcRelativeStart = doAbcStart(tag.data);
     const abc = parseAbc(tag.data.subarray(abcRelativeStart));
     const abcStart = tag.dataOffset + abcRelativeStart;
-    const eventMultinames = new Set<number>();
+    const eventParamMultinames = new Set<number>();
+    const eventCoerceMultinames = new Set<number>();
 
     for (let i = 1; i < abc.multinames.length; i += 1) {
-      if (isRuffleCrossSwfEventQname(qname(abc.multinames[i]))) {
-        eventMultinames.add(i);
+      const value = qname(abc.multinames[i]);
+      if (isRuffleCrossSwfEventParamQname(value)) {
+        eventParamMultinames.add(i);
+      }
+      if (isRuffleCrossSwfEventCoerceQname(value)) {
+        eventCoerceMultinames.add(i);
       }
     }
 
-    if (eventMultinames.size === 0) {
+    if (eventParamMultinames.size === 0 && eventCoerceMultinames.size === 0) {
       continue;
     }
 
     for (const method of abc.methods) {
       for (let index = 0; index < method.params.length; index += 1) {
-        if (!eventMultinames.has(method.params[index])) {
+        if (!eventParamMultinames.has(method.params[index])) {
           continue;
         }
 
@@ -376,7 +392,7 @@ export function patchRuffleEventCompatibility(swf: DecodedSwf): number {
         } catch {
           continue;
         }
-        if (!eventMultinames.has(operand.value)) {
+        if (!eventCoerceMultinames.has(operand.value)) {
           continue;
         }
 

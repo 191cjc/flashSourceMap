@@ -32,6 +32,38 @@ function parseBodyParams(body: string): URLSearchParams {
   return new URLSearchParams(body);
 }
 
+function parseDebugParams(body: string): URLSearchParams {
+  const trimmed = body.trim();
+  if (!trimmed) {
+    return new URLSearchParams();
+  }
+
+  if (trimmed.startsWith("{")) {
+    const value = JSON.parse(trimmed) as Record<string, unknown>;
+    const params = new URLSearchParams();
+    for (const [key, entry] of Object.entries(value)) {
+      if (entry != null && (typeof entry === "string" || typeof entry === "number" || typeof entry === "boolean")) {
+        params.set(key, String(entry));
+      }
+    }
+    return params;
+  }
+
+  return parseBodyParams(body);
+}
+
+function parseRechargeAmount(value: string | null): number {
+  const amount = Number(value);
+  if (!Number.isFinite(amount) || amount <= 0) {
+    throw new RangeError("amount must be a positive number");
+  }
+  const integerAmount = Math.floor(amount);
+  if (!Number.isSafeInteger(integerAmount)) {
+    throw new RangeError("amount must be a safe integer");
+  }
+  return integerAmount;
+}
+
 function pad2(value: number): string {
   return String(value).padStart(2, "0");
 }
@@ -263,14 +295,53 @@ export class SaveDataMockApi {
     return null;
   }
 
-  handleDebugApi(url: URL): MockResponse | null {
-    if (url.pathname !== "/api/saveData/slots") {
-      return null;
+  handleDebugApi(url: URL, method: string, body: string): MockResponse | null {
+    if (url.pathname === "/api/saveData/slots") {
+      const uid = getFirst(url.searchParams, "uid", this.account.uid);
+      const gameid = getFirst(url.searchParams, "gameid", "100025235");
+      return json(this.db.listSlots(uid, gameid));
     }
 
-    const uid = getFirst(url.searchParams, "uid", this.account.uid);
-    const gameid = getFirst(url.searchParams, "gameid", "100025235");
-    return json(this.db.listSlots(uid, gameid));
+    if (url.pathname === "/api/saveData/wallet") {
+      const uid = getFirst(url.searchParams, "uid", this.account.uid);
+      return json({ uid, ...this.db.getWallet(uid) });
+    }
+
+    if (url.pathname === "/api/saveData/recharge") {
+      if (method !== "POST") {
+        return json({ ok: false, error: "method_not_allowed" }, 405);
+      }
+
+      try {
+        const params = parseDebugParams(body);
+        const uid = getFirst(params, "uid", getFirst(url.searchParams, "uid", this.account.uid));
+        const amount = parseRechargeAmount(params.get("amount") ?? url.searchParams.get("amount"));
+        const result = this.db.rechargeWallet({ uid, amount });
+        this.log({
+          event: "payment.local_recharge",
+          method,
+          pathname: url.pathname,
+          uid,
+          status: 200,
+          result: "ok",
+          details: result,
+        });
+        return json({ ok: true, uid, wallet: result });
+      } catch (error) {
+        this.log({
+          event: "payment.local_recharge",
+          method,
+          pathname: url.pathname,
+          uid: this.account.uid,
+          status: 400,
+          result: "invalid_amount",
+          details: { message: error instanceof Error ? error.message : String(error) },
+        });
+        return json({ ok: false, error: "invalid_amount" }, 400);
+      }
+    }
+
+    return null;
   }
 
   private save(params: URLSearchParams): MockResponse {

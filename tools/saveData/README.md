@@ -155,6 +155,8 @@
 - `GET /api/saveData/logs?limit=200`：查看最近日志。
 - `GET /api/saveData/logs/clear`：清空日志。
 - `GET /api/saveData/slots`：查看当前 mock 数据库中的存档位摘要。
+- `GET /api/saveData/wallet`：查看当前本地 mock 钱包。
+- `POST /api/saveData/recharge`：本地模拟充值，更新 `wallet_mock.balance` 和 `wallet_mock.total_recharged`，并写入 `recharge_records`。
 
 保存日志不会直接把完整存档 payload 全量写入日志，只记录：
 
@@ -175,6 +177,27 @@
 - `Api4399.saveDataStart()`
 
 patch 产物应输出到独立运行目录，不覆盖 `downloads/` 原始发布包。
+
+## 本地充值 mock
+
+当前本地运行页侧边栏提供 `点击充值` 按钮。它只作用于本地 SQLite mock 数据库，不访问 4399 真实充值接口，也不会修改线上账号余额。
+
+按钮提交金额后：
+
+1. 调用 `POST /api/saveData/recharge`。
+2. 本地数据库同时增加当前余额 `balance` 和累计充值 `total_recharged`。
+3. 后续游戏调用 `GetMoney` 时返回新的当前余额。
+4. 后续游戏调用 `GetTotalRecharge` 时返回新的累计充值。
+5. 页面只尝试通过 Ruffle 暴露回调通知游戏刷新当前余额，不主动触发累计充值刷新。
+
+反编译代码里 `ApiInterface.allChongGod` 的普通 setter 只允许从初始负值写入一次，二次写入会进入异常逻辑。因此本地 mock 充值的推荐测试顺序是：
+
+1. 先在本地运行页点击 `点击充值`。
+2. 再选择存档进入游戏。
+3. 进入游戏时原有 `GM.testapi.getAllChongeMoney()` 链路会首次读取 `GetTotalRecharge`，把本地 mock 的累计充值写入 `allChongGod`。
+4. 之后进商城购买、保存、切换存档并读档，购买得到的道具会随 `jxkaizhong.jxbag` 存档结构持久化。
+
+如果以后必须支持游戏中途充值后立即刷新累计充值，需要做一个仅本地运行产物使用的小范围 SWF patch，专门走 `allChongGodbbb` 或等价本地入口更新累计充值；不要复用普通 `rechargedMoney` 二次写入路径。
 
 ## 尚未确认
 

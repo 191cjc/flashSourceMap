@@ -21,6 +21,13 @@ function request(api: SaveDataMockApi, rawUrl: string, method = "GET", body = ""
   return response.body.toString();
 }
 
+function debugRequest(api: SaveDataMockApi, rawUrl: string, method = "GET", body = ""): string {
+  const response = api.handleDebugApi(new URL(rawUrl), method, body);
+  assert.ok(response, `no debug response for ${rawUrl}`);
+  assert.equal(response.status, 200);
+  return response.body.toString();
+}
+
 function decryptPaymentPayload(body: string): string {
   return CryptoJS.DES.decrypt(
     CryptoJS.lib.CipherParams.create({ ciphertext: CryptoJS.enc.Base64.parse(body) }),
@@ -102,12 +109,32 @@ try {
     decryptPaymentPayload(request(api, "https://save.api.4399.com/exchange/v2/flash/GetTotalRecharge?time=123")),
     `123####${wallet.totalRecharged}`
   );
+  const recharge = JSON.parse(
+    debugRequest(
+      api,
+      "http://local.test/api/saveData/recharge",
+      "POST",
+      JSON.stringify({ uid: DEFAULT_ACCOUNT.uid, amount: 250 })
+    )
+  );
+  assert.equal(recharge.ok, true);
+  assert.equal(recharge.wallet.balance, purchase.balance + 250);
+  assert.equal(recharge.wallet.totalRecharged, wallet.totalRecharged + 250);
+  assert.equal(
+    decryptPaymentPayload(request(api, "https://save.api.4399.com/exchange/v2/flash/GetMoney?time=124")),
+    `124####${purchase.balance + 250}`
+  );
+  assert.equal(
+    decryptPaymentPayload(request(api, "https://save.api.4399.com/exchange/v2/flash/GetTotalRecharge?time=125")),
+    `125####${wallet.totalRecharged + 250}`
+  );
 
   const events = logger.list();
   assert.ok(events.some((event) => event.event === "save.write" && event.slotIndex === 0 && event.dataSha256));
   assert.ok(events.some((event) => event.event === "save.read" && event.result === "hit"));
   assert.ok(events.some((event) => event.event === "save.list" && event.result === "hit"));
   assert.ok(events.some((event) => event.event === "payment.get_total_recharge" && event.details?.responsePlain === "123####100000"));
+  assert.ok(events.some((event) => event.event === "payment.local_recharge" && event.details?.amount === 250));
 
   console.log("saveData db flow ok");
 } finally {

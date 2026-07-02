@@ -3,7 +3,17 @@ import { mkdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
 import { saveDataPaths } from "./paths.js";
-import type { Account, AccountSeed, BuyPropRequest, BuyPropResult, SavePayload, SaveSlot, Wallet } from "./types.js";
+import type {
+  Account,
+  AccountSeed,
+  BuyPropRequest,
+  BuyPropResult,
+  RechargeWalletRequest,
+  RechargeWalletResult,
+  SavePayload,
+  SaveSlot,
+  Wallet,
+} from "./types.js";
 
 type AccountRow = {
   id: number;
@@ -215,6 +225,48 @@ export class LocalSaveDatabase {
       balance: row.balance,
       totalPaid: row.total_paid,
       totalRecharged: row.total_recharged,
+    };
+  }
+
+  rechargeWallet(request: RechargeWalletRequest): RechargeWalletResult {
+    const amount = Math.floor(request.amount);
+    if (!Number.isSafeInteger(amount) || amount <= 0) {
+      throw new RangeError("Recharge amount must be a positive safe integer");
+    }
+
+    const account = this.ensureAccount(request.uid);
+    const wallet = this.getWallet(request.uid);
+    const balanceAfter = wallet.balance + amount;
+    const totalRechargedAfter = wallet.totalRecharged + amount;
+
+    if (!Number.isSafeInteger(balanceAfter) || !Number.isSafeInteger(totalRechargedAfter)) {
+      throw new RangeError("Recharge result exceeds safe integer range");
+    }
+
+    this.db
+      .prepare(
+        [
+          "UPDATE wallet_mock",
+          "SET balance = balance + ?, total_recharged = total_recharged + ?, updated_at = datetime('now')",
+          "WHERE account_id = ?",
+        ].join(" ")
+      )
+      .run(amount, amount, account.id);
+    this.db
+      .prepare(
+        [
+          "INSERT INTO recharge_records",
+          "(account_id, amount, balance_after, total_recharged_after)",
+          "VALUES (?, ?, ?, ?)",
+        ].join(" ")
+      )
+      .run(account.id, amount, balanceAfter, totalRechargedAfter);
+
+    return {
+      amount,
+      balance: balanceAfter,
+      totalPaid: wallet.totalPaid,
+      totalRecharged: totalRechargedAfter,
     };
   }
 

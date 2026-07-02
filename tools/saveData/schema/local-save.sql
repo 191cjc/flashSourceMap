@@ -54,8 +54,20 @@ CREATE TABLE IF NOT EXISTS purchase_records (
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
+CREATE TABLE IF NOT EXISTS recharge_records (
+  id INTEGER PRIMARY KEY,
+  account_id INTEGER NOT NULL REFERENCES accounts(id) ON DELETE CASCADE,
+  amount INTEGER NOT NULL,
+  balance_after INTEGER NOT NULL,
+  total_recharged_after INTEGER NOT NULL,
+  created_at TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
 CREATE INDEX IF NOT EXISTS idx_save_slots_account_game
 ON save_slots(account_id, game_id);
 
 CREATE INDEX IF NOT EXISTS idx_save_snapshots_slot
 ON save_snapshots(save_slot_id, created_at DESC);
+
+CREATE INDEX IF NOT EXISTS idx_recharge_records_account
+ON recharge_records(account_id, created_at DESC);
