@@ -199,6 +199,26 @@ patch 产物应输出到独立运行目录，不覆盖 `downloads/` 原始发布
 
 如果以后必须支持游戏中途充值后立即刷新累计充值，需要做一个仅本地运行产物使用的小范围 SWF patch，专门走 `allChongGodbbb` 或等价本地入口更新累计充值；不要复用普通 `rechargedMoney` 二次写入路径。
 
+## 本地商城购买 mock
+
+当前本地 mock 已接管 `POST /api/4399/mall/FlashStoreApi` 的 Thrift 二进制协议：
+
+- `getPropList` 返回空列表，避免平台商城列表请求 404。
+- `buyProp` 解析 `Head` 和 `PropInfo`，成功时返回 `RES_BuyData`，字段保持 `propId/count/tag` 与请求一致，让游戏侧 `buySuccFun()` 校验通过。
+- 余额不足、价格不匹配或累计充值不足时返回 `Err_Store`，错误码使用游戏会当作普通购买失败处理的 `20002/20003`，不返回通用 Thrift exception。
+
+购买 mock 会读取 `workspace/saveData/remote-assets/.../dataxmlvav447.swf` 中的商城和物品基础数据：
+
+1. 用商城 XML 的 `平台随机ID` 找到平台商品。
+2. 用商品的 `商城ID` 找到物品 XML 中的 `商城价格`。
+3. 估算本次购买会新增的背包商城价值。
+4. 读取当前存档位 `jxkaizhong.jxbag` 中 `b1/b2/b3/b4/b5/b9` 的已有商城价值。
+5. 按游戏保存前检查里的倍率 `0.75` 计算所需累计充值：`ceil((已有商城价值 + 新增商城价值) * 0.75)`。
+
+`GetTotalRecharge` 本身没有存档位参数，因此 mock 会按当前账号所有本地存档中的最高商城价值，把返回的累计充值抬高到保存检查需要的安全线以上。`buyProp` 仍按请求中的 `Head.index` 对当前购买存档位做投影校验；如果投影后超过游戏本轮已经能看到的累计充值，会返回 `20003`，需要先本地充值并重新进入游戏。
+
+注意：本地充值和购买记录只更新 SQLite mock 数据库，不会修改线上账号，也不会直接改存档。购买成功后仍由游戏自己的 `buySuccFun()` 把道具加入背包，是否持久化取决于玩家之后是否走原游戏保存流程。
+
 ## 尚未确认
 
 - `Main.serviceHold` 在页面层和 4399 平台之间的完整实现还需要继续追踪。

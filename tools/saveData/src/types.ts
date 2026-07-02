@@ -247,6 +247,8 @@ export type RechargeWalletResult = Wallet & {
 
 export type BuyPropRequest = {
   uid: string;
+  gameId?: string;
+  slotIndex?: number;
   propId: number;
   count: number;
   price: number;

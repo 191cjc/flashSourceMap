@@ -1,8 +1,18 @@
 import { URLSearchParams } from "node:url";
 import CryptoJS from "crypto-js";
 import { LocalSaveDatabase } from "./db.js";
+import {
+  antiCheatRequiredRecharge,
+  estimateAccountShopValue,
+  estimateProductShopValue,
+  estimateSaveShopValue,
+  loadGameDataCatalog,
+  type AccountShopValueEstimate,
+  type ProductShopValueEstimate,
+  type SaveShopValueEstimate,
+} from "./gameData.js";
 import { payloadSummary, SaveDataLogger } from "./logger.js";
-import type { AccountSeed, SaveDataLogEvent } from "./types.js";
+import type { AccountSeed, BuyPropRequest, BuyPropResult, SaveDataLogEvent, Wallet } from "./types.js";
 
 export const DEFAULT_ACCOUNT: AccountSeed = {
   uid: "10001",
@@ -15,6 +25,28 @@ type MockResponse = {
   contentType: string;
   body: string | Buffer;
 };
+
+type TotalRechargeView = {
+  wallet: Wallet;
+  totalRecharged: number;
+  accountShopValue: AccountShopValueEstimate;
+};
+
+type LocalPurchaseResult = BuyPropResult & {
+  totalPrice: number;
+  product: ProductShopValueEstimate;
+  slotShopValue: SaveShopValueEstimate | null;
+  projectedShopValue: number;
+  requiredTotalRecharge: number;
+  availableTotalRecharge: number;
+};
+
+export class MockShopError extends Error {
+  constructor(readonly code: number, readonly result: string, message: string, readonly details?: Record<string, unknown>) {
+    super(message);
+    this.name = "MockShopError";
+  }
+}
 
 function text(body: string, status = 200, contentType = "text/plain; charset=utf-8"): MockResponse {
   return { status, contentType, body };
@@ -119,6 +151,102 @@ export class SaveDataMockApi {
 
   private log(event: Omit<SaveDataLogEvent, "ts">): void {
     this.logger?.appendSync(event);
+  }
+
+  getTotalRechargeView(uid = this.account.uid, gameid = "100025235"): TotalRechargeView {
+    const wallet = this.db.getWallet(uid);
+    const catalog = loadGameDataCatalog();
+    const accountShopValue = estimateAccountShopValue(this.db.listSlotsWithData(uid, gameid), catalog);
+    return {
+      wallet,
+      totalRecharged: Math.max(wallet.totalRecharged, accountShopValue.requiredTotalRecharge),
+      accountShopValue,
+    };
+  }
+
+  buyProp(request: BuyPropRequest): LocalPurchaseResult {
+    const uid = request.uid;
+    const gameId = request.gameId ?? "100025235";
+    const propId = Math.floor(request.propId);
+    const count = Math.floor(request.count);
+    const price = Math.floor(request.price);
+    const tag = Math.floor(request.tag);
+
+    if (!Number.isSafeInteger(propId) || propId < 0) {
+      throw new MockShopError(20003, "invalid_prop_id", "invalid prop id", { propId: request.propId });
+    }
+    if (!Number.isSafeInteger(count) || count <= 0) {
+      throw new MockShopError(20003, "invalid_count", "invalid prop count", { count: request.count });
+    }
+    if (!Number.isSafeInteger(price) || price < 0) {
+      throw new MockShopError(20003, "invalid_price", "invalid prop price", { price: request.price });
+    }
+    if (!Number.isSafeInteger(tag)) {
+      throw new MockShopError(20003, "invalid_tag", "invalid prop tag", { tag: request.tag });
+    }
+
+    const totalPrice = price * count;
+    if (!Number.isSafeInteger(totalPrice)) {
+      throw new MockShopError(20003, "invalid_total_price", "purchase total is too large", { price, count });
+    }
+
+    const catalog = loadGameDataCatalog();
+    if (!catalog.loaded) {
+      throw new MockShopError(20003, "shop_data_missing", "local shop data is not loaded", { sourceFile: catalog.sourceFile });
+    }
+
+    const product = estimateProductShopValue(catalog, propId, count);
+    if (product.productKnown && !product.candidates.some((candidate) => candidate.realPrice === price)) {
+      throw new MockShopError(20003, "price_mismatch", "purchase price does not match shop data", {
+        propId,
+        price,
+        expectedPrices: [...new Set(product.candidates.map((candidate) => candidate.realPrice))],
+      });
+    }
+    if (product.unknownGoodsIds.length > 0) {
+      throw new MockShopError(20003, "goods_price_missing", "local goods price data is incomplete", {
+        propId,
+        unknownGoodsIds: product.unknownGoodsIds,
+      });
+    }
+
+    const rechargeView = this.getTotalRechargeView(uid, gameId);
+    if (rechargeView.wallet.balance < totalPrice) {
+      throw new MockShopError(20002, "insufficient_balance", "local wallet balance is insufficient", {
+        balance: rechargeView.wallet.balance,
+        totalPrice,
+      });
+    }
+
+    const slotIndex = request.slotIndex;
+    const slot =
+      Number.isSafeInteger(slotIndex) && slotIndex != null ? this.db.getSlot(uid, gameId, slotIndex) : null;
+    const slotShopValue =
+      slot && typeof slot.data === "string" ? estimateSaveShopValue(slot.data, catalog) : null;
+    const existingShopValue = slotShopValue?.decoded ? slotShopValue.shopValue : 0;
+    const projectedShopValue = existingShopValue + product.addedShopValue;
+    const requiredTotalRecharge = antiCheatRequiredRecharge(projectedShopValue);
+
+    if (requiredTotalRecharge > rechargeView.totalRecharged) {
+      throw new MockShopError(20003, "recharge_required", "local total recharge is below the save anti-cheat requirement", {
+        existingShopValue,
+        addedShopValue: product.addedShopValue,
+        projectedShopValue,
+        requiredTotalRecharge,
+        availableTotalRecharge: rechargeView.totalRecharged,
+      });
+    }
+
+    const result = this.db.buyProp({ uid, propId, count, price, tag });
+    return {
+      ...result,
+      totalPrice,
+      product,
+      slotShopValue,
+      projectedShopValue,
+      requiredTotalRecharge,
+      availableTotalRecharge: rechargeView.totalRecharged,
+    };
   }
 
   handleUniLogin(pathname: string): MockResponse | null {
@@ -254,8 +382,8 @@ export class SaveDataMockApi {
     }
 
     if (pathname === "/exchange/v2/flash/GetTotalRecharge") {
-      const wallet = this.db.getWallet(this.account.uid);
-      const payload = encryptedPaymentPayload(params, wallet.totalRecharged);
+      const rechargeView = this.getTotalRechargeView(this.account.uid, "100025235");
+      const payload = encryptedPaymentPayload(params, rechargeView.totalRecharged);
       this.log({
         event: "payment.get_total_recharge",
         method,
@@ -263,7 +391,23 @@ export class SaveDataMockApi {
         uid: this.account.uid,
         status: 200,
         result: "ok",
-        details: { ...wallet, responsePlain: payload.plain },
+        details: {
+          ...rechargeView.wallet,
+          responseTotalRecharged: rechargeView.totalRecharged,
+          responsePlain: payload.plain,
+          antiCheat: {
+            shopValue: rechargeView.accountShopValue.shopValue,
+            requiredTotalRecharge: rechargeView.accountShopValue.requiredTotalRecharge,
+            slots: rechargeView.accountShopValue.slots.map((slot) => ({
+              slotIndex: slot.slotIndex,
+              decoded: slot.decoded,
+              shopValue: slot.shopValue,
+              requiredTotalRecharge: antiCheatRequiredRecharge(slot.shopValue),
+              unpricedGoodsIds: slot.unpricedGoodsIds.slice(0, 20),
+              error: slot.error,
+            })),
+          },
+        },
       });
       return text(payload.encrypted);
     }
@@ -273,23 +417,43 @@ export class SaveDataMockApi {
     }
 
     if (pathname === "/mall/index.php/Api/BuyPropNd" || pathname === "/mall/index.php/Api/BuyProp") {
-      const result = this.db.buyProp({
-        uid: getFirst(params, "uid", this.account.uid),
-        propId: Number(getFirst(params, "propId", getFirst(params, "prop_id", "0"))),
-        count: Number(getFirst(params, "count", "1")),
-        price: Number(getFirst(params, "price", "0")),
-        tag: Number(getFirst(params, "tag", "0")),
-      });
-      this.log({
-        event: "payment.buy_prop",
-        method,
-        pathname,
-        uid: getFirst(params, "uid", this.account.uid),
-        status: 200,
-        result: "ok",
-        details: result,
-      });
-      return json(result);
+      const uid = getFirst(params, "uid", this.account.uid);
+      try {
+        const result = this.buyProp({
+          uid,
+          gameId: getFirst(params, "gameid", "100025235"),
+          slotIndex: Number(getFirst(params, "idx", getFirst(params, "index", "-1"))),
+          propId: Number(getFirst(params, "propId", getFirst(params, "prop_id", "0"))),
+          count: Number(getFirst(params, "count", "1")),
+          price: Number(getFirst(params, "price", "0")),
+          tag: Number(getFirst(params, "tag", "0")),
+        });
+        this.log({
+          event: "payment.buy_prop",
+          method,
+          pathname,
+          uid,
+          status: 200,
+          result: "ok",
+          details: result,
+        });
+        return json(result);
+      } catch (error) {
+        const shopError =
+          error instanceof MockShopError
+            ? error
+            : new MockShopError(20003, "invalid_request", error instanceof Error ? error.message : String(error));
+        this.log({
+          event: "payment.buy_prop",
+          method,
+          pathname,
+          uid,
+          status: 200,
+          result: shopError.result,
+          details: { code: shopError.code, message: shopError.message, ...shopError.details },
+        });
+        return json({ eId: String(shopError.code), msg: shopError.message });
+      }
     }
 
     return null;

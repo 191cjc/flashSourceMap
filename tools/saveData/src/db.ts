@@ -192,6 +192,28 @@ export class LocalSaveDatabase {
     }));
   }
 
+  listSlotsWithData(uid: string, gameId: string): SaveSlot[] {
+    const account = this.ensureAccount(uid);
+    const rows = this.db
+      .prepare(
+        [
+          "SELECT id, slot_index, title, raw_data, status, updated_at",
+          "FROM save_slots",
+          "WHERE account_id = ? AND game_id = ?",
+          "ORDER BY slot_index ASC",
+        ].join(" ")
+      )
+      .all(account.id, gameId) as SaveSlotRow[];
+
+    return rows.map((row) => ({
+      index: row.slot_index,
+      title: row.title,
+      datetime: row.updated_at,
+      data: row.raw_data,
+      status: row.status,
+    }));
+  }
+
   countSnapshots(uid: string, gameId: string, slotIndex: number): number {
     const account = this.ensureAccount(uid);
     const row = this.db
@@ -273,8 +295,37 @@ export class LocalSaveDatabase {
   buyProp(request: BuyPropRequest): BuyPropResult {
     const account = this.ensureAccount(request.uid);
     const wallet = this.getWallet(request.uid);
-    const totalPrice = request.price * request.count;
-    const balanceAfter = Math.max(0, wallet.balance - totalPrice);
+    const propId = Math.floor(request.propId);
+    const count = Math.floor(request.count);
+    const price = Math.floor(request.price);
+    const tag = Math.floor(request.tag);
+
+    if (!Number.isSafeInteger(propId) || propId < 0) {
+      throw new RangeError("Prop id must be a non-negative safe integer");
+    }
+    if (!Number.isSafeInteger(count) || count <= 0) {
+      throw new RangeError("Prop count must be a positive safe integer");
+    }
+    if (!Number.isSafeInteger(price) || price < 0) {
+      throw new RangeError("Prop price must be a non-negative safe integer");
+    }
+    if (!Number.isSafeInteger(tag)) {
+      throw new RangeError("Prop tag must be a safe integer");
+    }
+
+    const totalPrice = price * count;
+    if (!Number.isSafeInteger(totalPrice)) {
+      throw new RangeError("Purchase total exceeds safe integer range");
+    }
+    if (wallet.balance < totalPrice) {
+      throw new RangeError("Insufficient wallet balance");
+    }
+
+    const balanceAfter = wallet.balance - totalPrice;
+    const totalPaidAfter = wallet.totalPaid + totalPrice;
+    if (!Number.isSafeInteger(totalPaidAfter)) {
+      throw new RangeError("Total paid exceeds safe integer range");
+    }
 
     this.db
       .prepare("UPDATE wallet_mock SET balance = ?, total_paid = total_paid + ?, updated_at = datetime('now') WHERE account_id = ?")
@@ -287,12 +338,12 @@ export class LocalSaveDatabase {
           "VALUES (?, ?, ?, ?, ?, ?)",
         ].join(" ")
       )
-      .run(account.id, request.propId, request.count, request.price, request.tag, balanceAfter);
+      .run(account.id, propId, count, price, tag, balanceAfter);
 
     return {
-      propId: request.propId,
-      count: request.count,
-      tag: request.tag,
+      propId,
+      count,
+      tag,
       balance: balanceAfter,
     };
   }

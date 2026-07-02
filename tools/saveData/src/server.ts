@@ -9,7 +9,7 @@ import { patchRuffleEventCompatibility } from "../../../src/swf/payEventPatch.js
 import { decodeSwf, encodeSwf, replaceDefineBinaryData } from "../../../src/swf/swf.js";
 import { LocalSaveDatabase } from "./db.js";
 import { SaveDataLogger } from "./logger.js";
-import { SaveDataMockApi } from "./mockApi.js";
+import { MockShopError, SaveDataMockApi } from "./mockApi.js";
 import { saveDataPaths } from "./paths.js";
 
 type ServerOptions = {
@@ -182,6 +182,12 @@ type ShopThriftResponse = {
   apiName: string;
   result: string;
   request?: ShopBuyPropRequest;
+  error?: {
+    code: number;
+    message: string;
+    details?: Record<string, unknown>;
+  };
+  details?: Record<string, unknown>;
 };
 
 class ThriftBinaryReader {
@@ -513,6 +519,18 @@ function thriftShopBuyPropResponse(seqid: number, propId: string, count: number,
   return writer.toBuffer();
 }
 
+function thriftShopBuyPropErrorResponse(seqid: number, code: number, message: string): Buffer {
+  const writer = new ThriftBinaryWriter();
+  writer.writeMessageBegin("buyProp", THRIFT_MESSAGE_TYPE.REPLY, seqid);
+  writeThriftStructField(writer, 1, () => {
+    writeThriftI32Field(writer, 1, code);
+    writeThriftStringField(writer, 2, message);
+    writer.writeFieldStop();
+  });
+  writer.writeFieldStop();
+  return writer.toBuffer();
+}
+
 function thriftShopGetPropListResponse(seqid: number): Buffer {
   const writer = new ThriftBinaryWriter();
   writer.writeMessageBegin("getPropList", THRIFT_MESSAGE_TYPE.REPLY, seqid);
@@ -558,8 +576,10 @@ function shopMockResponse(api: SaveDataMockApi, body: Buffer): ShopThriftRespons
     const price = request.prop.propPrice ?? 0;
     const tag = request.prop.tag ?? "";
     const uid = request.head.uId ?? api.account.uid;
-    const result = api.db.buyProp({
+    const result = api.buyProp({
       uid,
+      gameId: request.head.gameId ?? "100025235",
+      slotIndex: request.head.index,
       propId: Number(propId),
       count,
       price,
@@ -570,13 +590,40 @@ function shopMockResponse(api: SaveDataMockApi, body: Buffer): ShopThriftRespons
       apiName,
       result: "ok",
       request,
+      details: {
+        balance: result.balance,
+        totalPrice: result.totalPrice,
+        projectedShopValue: result.projectedShopValue,
+        requiredTotalRecharge: result.requiredTotalRecharge,
+        availableTotalRecharge: result.availableTotalRecharge,
+        productKnown: result.product.productKnown,
+        perItemShopValue: result.product.perItemShopValue,
+        candidateGoodsIds: result.product.candidates.map((candidate) => candidate.goodsId),
+        slotShopValue: result.slotShopValue?.shopValue,
+      },
       body: thriftShopBuyPropResponse(request.message.seqid, propId, count, result.balance, tag),
     };
   } catch (error) {
+    if (error instanceof MockShopError) {
+      return {
+        apiName,
+        result: error.result,
+        error: {
+          code: error.code,
+          message: error.message,
+          details: error.details,
+        },
+        body: thriftShopBuyPropErrorResponse(seqid, error.code, error.message),
+      };
+    }
     return {
       apiName,
       result: "invalid_request",
-      body: thriftExceptionResponse(apiName, seqid, error instanceof Error ? error.message : String(error)),
+      error: {
+        code: 20003,
+        message: error instanceof Error ? error.message : String(error),
+      },
+      body: thriftShopBuyPropErrorResponse(seqid, 20003, error instanceof Error ? error.message : String(error)),
     };
   }
 }
@@ -964,6 +1011,8 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
             responseBytes: response.body.length,
             head: response.request?.head,
             prop: response.request?.prop,
+            error: response.error,
+            result: response.details,
             hexPreview: bodyBuffer.subarray(0, 96).toString("hex"),
           },
         });
