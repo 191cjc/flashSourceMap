@@ -62,8 +62,20 @@
 - `jxkaizhong`：背包、商城、任务、活动等综合数据，来自 `FlowInterface.save()`。
 - `kpji`：开牌计时数据，来自 `GM.kaipaijssavedata.save()`。
 - `asaved`：新增活动和扩展数据，来自 `GM.aSaveData.save()`。
+- `lactd`：旧线上档中出现过的遗留活动字段，只在部分早期存档存在，读取时应按可选字段处理。
 
 对应读取时，`ApiInterface.readData()` 会读取 `jxid/sidx/jxv/jxrole/jxguanka/jxjinenglv/kpji/asaved/jxkaizhong` 等字段。若传入数据为空，则初始化新档。
+
+当前已根据 6 个线上存档补充了 TypeScript 类型定义，位置为 `tools/saveData/src/types.ts`。核心类型为：
+
+- `GameSaveData`：解码后的完整游戏存档对象。
+- `GameSaveRole`：`jxrole`，字段为 `job/lv/sn/ec/g/d`。
+- `GameSaveLevelProgress`：`jxguanka` 中单个关卡进度，字段为 `id/ach/ov`。
+- `GameSaveSkillLevels`：`jxjinenglv`，字段为 `bs/wid/wlv`。
+- `GameSaveFlowData`：`jxkaizhong`，对应 `GoodsManger.save()` 的第一层结构。
+- `GameSaveExtendedData`：`asaved`，对应 `NewSDList.save()` 的第一层结构。
+
+线上存档外层接口返回的 `data` 是字符串，解码流程为 `Base64 -> zlib inflate -> AMF3 String -> saveXml`。因此接口层可以使用 `OnlineSaveSlot`，解码后再使用 `DecodedSaveSlot/GameSaveData`。
 
 ## 关键子结构
 
@@ -97,6 +109,8 @@
 - `nlel`：新关卡数据。
 - `jsha`：劫杀数据。
 - `sum/summr`：活动记录。
+
+线上对比发现，`asaved.jsha/sum/summr` 在个别旧档中可能不存在，因此类型中定义为可选。`jxkaizhong.dl.dl` 也可能缺失，属于旧版本结构漂移，读取代码应保持兼容。
 
 ## 保存前检查
 
