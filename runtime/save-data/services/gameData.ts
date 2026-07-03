@@ -7,7 +7,7 @@ import { saveDataPaths } from "../server/paths.js";
 export const SHOP_VALUE_RECHARGE_MULTIPLIER = 0.75;
 
 const COUNTED_BAG_NAMES = new Set(["b1", "b2", "b3", "b4", "b5", "b9"]);
-const DATA_XML_SWF = path.join(
+export const DATA_XML_SWF = path.join(
   saveDataPaths.remoteAssetsRoot,
   "sbai.4399.com",
   "4399swf",
@@ -228,7 +228,7 @@ function tagText(record: string, tagName: string): string | null {
   return match ? match[1].trim() : null;
 }
 
-function readDefineBinaryText(swfFile: string, binaryId: number): string {
+export function readDefineBinaryText(swfFile: string, binaryId: number): string {
   const swf = decodeSwf(readFileSync(swfFile));
   for (const tag of parseTags(swf.body)) {
     if (tag.code === 87 && tag.data.length >= 6 && tag.data.readUInt16LE(0) === binaryId) {

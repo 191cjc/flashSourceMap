@@ -11,6 +11,14 @@ import { LocalSaveDatabase } from "../persistence/db.js";
 import { SaveDataLogger } from "./logger.js";
 import { MockShopError, SaveDataMockApi } from "../platform4399/mockApi.js";
 import { saveDataPaths } from "./paths.js";
+import {
+  clearAllLevelRewardOverrides,
+  clearLevelRewardOverride,
+  ensurePatchedLevelRewardAsset,
+  getLevelRewardState,
+  LEVEL_REWARD_ASSET_NAME,
+  setLevelRewardOverride,
+} from "../services/levelRewards.js";
 
 type ServerOptions = {
   host?: string;
@@ -119,6 +127,14 @@ function parseClientLog(body: string): { event: string; result: string; details:
       result: "invalid_json",
       details: { message: error instanceof Error ? error.message : String(error) },
     };
+  }
+}
+
+function parseJsonRequestBody(body: string): unknown {
+  try {
+    return JSON.parse(body);
+  } catch (error) {
+    throw new Error(`Invalid JSON request body: ${error instanceof Error ? error.message : String(error)}`);
   }
 }
 
@@ -744,6 +760,8 @@ async function ensureGameAsset(assetName: string, logger: SaveDataLogger): Promi
 
   const assetFile = gameAssetFile(assetName);
   if (existsSync(assetFile)) {
+    const effectiveAsset =
+      assetName.toLowerCase() === LEVEL_REWARD_ASSET_NAME ? ensurePatchedLevelRewardAsset(assetFile) ?? assetFile : assetFile;
     if (LOG_ASSET_HITS) {
       logger.appendSync({
         event: "asset.local_hit",
@@ -751,10 +769,10 @@ async function ensureGameAsset(assetName: string, logger: SaveDataLogger): Promi
         pathname: `/${assetName}`,
         status: 200,
         result: "ok",
-        details: { assetName, file: assetFile, size: statSync(assetFile).size },
+        details: { assetName, file: effectiveAsset, sourceFile: assetFile, size: statSync(effectiveAsset).size },
       });
     }
-    return assetFile;
+    return effectiveAsset;
   }
 
   const sourceUrl = new URL(assetName, GAME_ASSET_BASE_URL).toString();
@@ -797,7 +815,7 @@ async function ensureGameAsset(assetName: string, logger: SaveDataLogger): Promi
     result: "ok",
     details: { assetName, sourceUrl, file: assetFile, size: body.length },
   });
-  return assetFile;
+  return assetName.toLowerCase() === LEVEL_REWARD_ASSET_NAME ? ensurePatchedLevelRewardAsset(assetFile) ?? assetFile : assetFile;
 }
 
 function patchedRuffleEventSwfBytes(inputFile: string): Buffer {
@@ -993,6 +1011,87 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
       const debugResponse = api.handleDebugApi(url, req.method ?? "GET", body);
       if (debugResponse) {
         send(res, debugResponse.status, debugResponse.contentType, debugResponse.body);
+        return;
+      }
+
+      if (url.pathname === "/api/saveData/level-rewards") {
+        if (req.method === "GET") {
+          send(res, 200, "application/json; charset=utf-8", JSON.stringify(getLevelRewardState()));
+          return;
+        }
+        if (req.method === "POST") {
+          try {
+            const state = setLevelRewardOverride(parseJsonRequestBody(body));
+            logger.appendSync({
+              event: "level_rewards.override",
+              method: req.method,
+              pathname: url.pathname,
+              status: 200,
+              result: "ok",
+              details: { overridesCount: state.overridesCount },
+            });
+            send(res, 200, "application/json; charset=utf-8", JSON.stringify(state));
+          } catch (error) {
+            logger.appendSync({
+              event: "level_rewards.override",
+              method: req.method,
+              pathname: url.pathname,
+              status: 400,
+              result: "invalid_request",
+              details: { message: error instanceof Error ? error.message : String(error) },
+            });
+            send(
+              res,
+              400,
+              "application/json; charset=utf-8",
+              JSON.stringify({ ok: false, error: error instanceof Error ? error.message : String(error) })
+            );
+          }
+          return;
+        }
+        send(res, 405, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "method_not_allowed" }));
+        return;
+      }
+
+      if (url.pathname === "/api/saveData/level-rewards/clear") {
+        if (req.method !== "POST") {
+          send(res, 405, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "method_not_allowed" }));
+          return;
+        }
+        try {
+          const parsedBody = body.trim() ? parseJsonRequestBody(body) : {};
+          const state =
+            parsedBody &&
+            typeof parsedBody === "object" &&
+            !Array.isArray(parsedBody) &&
+            (parsedBody as Record<string, unknown>).all === true
+              ? clearAllLevelRewardOverrides()
+              : clearLevelRewardOverride(parsedBody);
+          logger.appendSync({
+            event: "level_rewards.clear",
+            method: req.method,
+            pathname: url.pathname,
+            status: 200,
+            result: "ok",
+            details: { overridesCount: state.overridesCount },
+          });
+          send(res, 200, "application/json; charset=utf-8", JSON.stringify(state));
+        } catch (error) {
+          logger.appendSync({
+            event: "level_rewards.clear",
+            method: req.method,
+            pathname: url.pathname,
+            status: 400,
+            result: "invalid_request",
+            details: { message: error instanceof Error ? error.message : String(error) },
+          });
+          send(
+            res,
+            400,
+            "application/json; charset=utf-8",
+            JSON.stringify({ ok: false, error: error instanceof Error ? error.message : String(error) })
+          );
+        }
         return;
       }
 

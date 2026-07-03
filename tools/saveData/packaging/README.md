@@ -1,6 +1,6 @@
-# saveData 运行与打包整理
+# saveData 访问方式与桌面打包边界
 
-这个目录记录本地 mock Flash 游戏平台的运行边界。当前目标是让同一套
+这个文档记录本地 mock Flash 游戏平台的访问方式和打包边界。核心原则是让同一套
 `runtime/save-data` mock server 同时服务两种入口：
 
 - 公网访问：启动 HTTP 服务，让浏览器通过公网地址访问。

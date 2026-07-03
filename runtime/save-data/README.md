@@ -7,7 +7,7 @@
 ```text
 runtime/save-data/
   persistence/          # SQLite 连接、schema 初始化、存档/钱包/购买记录读写
-  services/             # 存档 XML 解析、商城价值估算、反作弊金额规则
+  services/             # 存档 XML 解析、商城价值估算、反作弊金额规则、关卡奖励覆盖
   platform4399/         # 4399 save/pay/mall 接口适配和 FlashStoreApi 处理
   server/               # HTTP server、静态资源、日志、路径配置
   public/               # 浏览器运行页；未来桌面 WebView 也复用
