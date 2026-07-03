@@ -7,6 +7,8 @@ import CryptoJS from "crypto-js";
 import { LocalSaveDatabase } from "../src/db.js";
 import {
   antiCheatRequiredRecharge,
+  canonicalizeLocalSaveIdentity,
+  decodeSaveXml,
   estimateSaveShopValue,
   loadGameDataCatalog,
   type GameDataCatalog,
@@ -84,6 +86,38 @@ const SHOP_SAVE_XML = [
 ].join("\n");
 
 const SHOP_SAVE_DATA = compressedSaveXml(SHOP_SAVE_XML);
+const LEGACY_IDENTITY_SAVE_DATA = compressedSaveXml(
+  [
+    '<saveXml type="Object" game4399="true">',
+    '  <s type="Object" name="null">',
+    '    <s type="Number" name="jxid">395614828</s>',
+    '    <s type="Number" name="sidx">4</s>',
+    '    <s type="String" name="idn">191chenjiachun</s>',
+    '    <s type="Object" name="asaved">',
+    '      <s type="Object" name="cm">',
+    '        <s type="Number" name="co">1</s>',
+    '        <s type="Number" name="idai">1978074140</s>',
+    '        <s type="Array" name="dm"/>',
+    '        <s type="Array" name="fa">',
+    '          <s type="Object" name="null">',
+    '            <s type="Number" name="cd">70308</s>',
+    '            <s type="Number" name="cm">1</s>',
+    '            <s type="Number" name="cf">1</s>',
+    '            <s type="Number" name="cv">1978074140</s>',
+    '          </s>',
+    '          <s type="Object" name="null">',
+    '            <s type="Number" name="cd">70308</s>',
+    '            <s type="Number" name="cm">100123</s>',
+    '            <s type="Number" name="cf">3</s>',
+    '            <s type="Number" name="cv">19600</s>',
+    '          </s>',
+    '        </s>',
+    '      </s>',
+    '    </s>',
+    '  </s>',
+    "</saveXml>",
+  ].join("\n")
+);
 const TEST_CATALOG: GameDataCatalog = {
   sourceFile: "test",
   loaded: true,
@@ -167,6 +201,19 @@ try {
   assert.equal(saveEstimate.shopValue, 100);
   assert.equal(saveEstimate.stackCount, 7);
   assert.equal(antiCheatRequiredRecharge(saveEstimate.shopValue), 75);
+  const canonicalSave = canonicalizeLocalSaveIdentity(LEGACY_IDENTITY_SAVE_DATA, {
+    uid: DEFAULT_ACCOUNT.uid,
+    username: DEFAULT_ACCOUNT.username,
+    slotIndex: 4,
+  });
+  const canonicalXml = decodeSaveXml(canonicalSave);
+  assert.ok(canonicalXml);
+  assert.match(canonicalXml, /name="jxid">10001</);
+  assert.match(canonicalXml, /name="sidx">4</);
+  assert.match(canonicalXml, /name="idn">local_user</);
+  assert.match(canonicalXml, /name="idai">50005</);
+  assert.doesNotMatch(canonicalXml, /name="cf">1</);
+  assert.match(canonicalXml, /name="cf">3</);
 
   const wallet = db.getWallet(DEFAULT_ACCOUNT.uid);
   const purchase = db.buyProp({ uid: DEFAULT_ACCOUNT.uid, propId: 12, count: 2, price: 30, tag: 7 });

@@ -1,6 +1,6 @@
 import { existsSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
-import { inflateSync } from "node:zlib";
+import { deflateSync, inflateSync } from "node:zlib";
 import { decodeSwf, parseTags } from "../../../src/swf/swf.js";
 import { saveDataPaths } from "./paths.js";
 
@@ -63,6 +63,12 @@ export type AccountShopValueEstimate = {
   slots: SlotShopValueEstimate[];
 };
 
+export type LocalSaveIdentity = {
+  uid: string;
+  username: string;
+  slotIndex: number;
+};
+
 type SaveXmlContext = {
   name: string;
   type: string;
@@ -76,6 +82,32 @@ type SaveXmlContext = {
 };
 
 let catalogCache: GameDataCatalog | null = null;
+
+function decodeSaveXmlParts(rawData: string): { prefix: Buffer; xml: string; compressed: boolean } | null {
+  const trimmed = rawData.trim();
+  if (trimmed.includes("<saveXml")) {
+    const start = trimmed.indexOf("<saveXml");
+    return {
+      prefix: Buffer.from(trimmed.slice(0, start), "utf8"),
+      xml: trimmed.slice(start),
+      compressed: false,
+    };
+  }
+
+  try {
+    const inflated = inflateSync(Buffer.from(trimmed, "base64"));
+    const start = inflated.indexOf(Buffer.from("<saveXml", "utf8"));
+    return start >= 0
+      ? {
+          prefix: inflated.subarray(0, start),
+          xml: inflated.subarray(start).toString("utf8"),
+          compressed: true,
+        }
+      : null;
+  } catch {
+    return null;
+  }
+}
 
 function numberFromText(value: string | null): number | null {
   if (value == null || value.trim() === "") {
@@ -227,18 +259,107 @@ export function estimateProductShopValue(
 }
 
 export function decodeSaveXml(rawData: string): string | null {
-  const trimmed = rawData.trim();
-  if (trimmed.includes("<saveXml")) {
-    return trimmed.slice(trimmed.indexOf("<saveXml"));
+  return decodeSaveXmlParts(rawData)?.xml ?? null;
+}
+
+function replaceNumberField(xml: string, name: string, value: number): string {
+  const field = `<s type="Number" name="${name}">${value}</s>`;
+  const fieldRe = new RegExp(`<s type="Number" name="${name}">[^<]*</s>`);
+  return fieldRe.test(xml) ? xml.replace(fieldRe, field) : xml;
+}
+
+function replaceStringField(xml: string, name: string, value: string): string {
+  const field = `<s type="String" name="${name}">${escapeSaveXmlText(value)}</s>`;
+  const fieldRe = new RegExp(`<s type="String" name="${name}">[\\s\\S]*?</s>`);
+  return fieldRe.test(xml) ? xml.replace(fieldRe, field) : xml;
+}
+
+function escapeSaveXmlText(value: string): string {
+  return value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function findNamedSaveElement(xml: string, name: string): { start: number; end: number; innerStart: number; innerEnd: number } | null {
+  const tagRe = /<\/?s\b[^>]*>/g;
+  const stack: Array<{ name: string; start: number; innerStart: number }> = [];
+  let match: RegExpExecArray | null;
+
+  while ((match = tagRe.exec(xml))) {
+    const tag = match[0];
+    if (tag.startsWith("</")) {
+      const closed = stack.pop();
+      if (closed?.name === name) {
+        return {
+          start: closed.start,
+          end: match.index + tag.length,
+          innerStart: closed.innerStart,
+          innerEnd: match.index,
+        };
+      }
+      continue;
+    }
+
+    const attrs = parseSaveTagAttributes(tag);
+    if (!attrs) {
+      continue;
+    }
+    if (attrs.name === name && tag.endsWith("/>")) {
+      return {
+        start: match.index,
+        end: match.index + tag.length,
+        innerStart: match.index + tag.length,
+        innerEnd: match.index + tag.length,
+      };
+    }
+    if (!tag.endsWith("/>")) {
+      stack.push({ name: attrs.name, start: match.index, innerStart: match.index + tag.length });
+    }
   }
 
-  try {
-    const inflated = inflateSync(Buffer.from(trimmed, "base64")).toString("utf8");
-    const start = inflated.indexOf("<saveXml");
-    return start >= 0 ? inflated.slice(start) : null;
-  } catch {
-    return null;
+  return null;
+}
+
+function removeLocalIdentityFlags(xml: string): string {
+  const fa = findNamedSaveElement(xml, "fa");
+  if (!fa || fa.innerStart === fa.innerEnd) {
+    return xml;
   }
+
+  const objectRe =
+    /<s type="Object" name="null">(?:\s*<s type="Number" name="(?:cd|cm|cf|cv)">[^<]*<\/s>)+\s*<\/s>/g;
+  const inner = xml.slice(fa.innerStart, fa.innerEnd);
+  const filtered = inner.replace(objectRe, (objectXml) => {
+    const flag = Number(/<s type="Number" name="cf">([^<]*)<\/s>/.exec(objectXml)?.[1] ?? NaN);
+    return flag === 1 || flag === 2 ? "" : objectXml;
+  });
+  return filtered === inner ? xml : `${xml.slice(0, fa.innerStart)}${filtered}${xml.slice(fa.innerEnd)}`;
+}
+
+export function canonicalizeLocalSaveIdentity(rawData: string, identity: LocalSaveIdentity): string {
+  const decoded = decodeSaveXmlParts(rawData);
+  const uidNumber = Number(identity.uid);
+  if (!decoded || !Number.isSafeInteger(uidNumber)) {
+    return rawData;
+  }
+
+  const expectedIdAndIndex = uidNumber * (identity.slotIndex + 1);
+  if (!Number.isSafeInteger(expectedIdAndIndex)) {
+    return rawData;
+  }
+
+  let xml = decoded.xml;
+  xml = replaceNumberField(xml, "jxid", uidNumber);
+  xml = replaceNumberField(xml, "sidx", identity.slotIndex);
+  xml = replaceStringField(xml, "idn", identity.username);
+  xml = replaceNumberField(xml, "idai", expectedIdAndIndex);
+  xml = removeLocalIdentityFlags(xml);
+
+  if (xml === decoded.xml) {
+    return rawData;
+  }
+  if (!decoded.compressed) {
+    return Buffer.concat([decoded.prefix, Buffer.from(xml, "utf8")]).toString("utf8");
+  }
+  return deflateSync(Buffer.concat([decoded.prefix, Buffer.from(xml, "utf8")])).toString("base64");
 }
 
 function parseSaveTagAttributes(tag: string): { name: string; type: string } | null {

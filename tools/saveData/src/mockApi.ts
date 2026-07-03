@@ -3,6 +3,7 @@ import CryptoJS from "crypto-js";
 import { LocalSaveDatabase } from "./db.js";
 import {
   antiCheatRequiredRecharge,
+  canonicalizeLocalSaveIdentity,
   estimateAccountShopValue,
   estimateProductShopValue,
   estimateSaveShopValue,
@@ -513,7 +514,12 @@ export class SaveDataMockApi {
     const gameid = getFirst(params, "gameid", "100025235");
     const index = Number(getFirst(params, "index", "0"));
     const title = getFirst(params, "title", `slot-${index}`);
-    const data = getFirst(params, "data", "");
+    const account = this.db.ensureAccount(uid);
+    const data = canonicalizeLocalSaveIdentity(getFirst(params, "data", ""), {
+      uid,
+      username: account.username,
+      slotIndex: index,
+    });
 
     if (!Number.isFinite(index) || index < 0 || index > 7) {
       this.log({
@@ -547,6 +553,7 @@ export class SaveDataMockApi {
     const uid = getFirst(params, "uid", this.account.uid);
     const gameid = getFirst(params, "gameid", "100025235");
     const index = Number(getFirst(params, "index", "0"));
+    const account = this.db.ensureAccount(uid);
     const slot = this.db.getSlot(uid, gameid, index);
 
     if (!slot) {
@@ -571,7 +578,13 @@ export class SaveDataMockApi {
       result: "hit",
       ...(typeof slot.data === "string" ? payloadSummary(slot.data, this.logger?.previewLength) : {}),
     });
-    return json(slot);
+    return json({
+      ...slot,
+      data:
+        typeof slot.data === "string"
+          ? canonicalizeLocalSaveIdentity(slot.data, { uid, username: account.username, slotIndex: index })
+          : slot.data,
+    });
   }
 
   private list(params: URLSearchParams): MockResponse {
