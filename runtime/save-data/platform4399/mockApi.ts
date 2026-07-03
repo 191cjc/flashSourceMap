@@ -1,6 +1,6 @@
 import { URLSearchParams } from "node:url";
 import CryptoJS from "crypto-js";
-import { LocalSaveDatabase } from "./db.js";
+import { LocalSaveDatabase } from "../persistence/db.js";
 import {
   antiCheatRequiredRecharge,
   canonicalizeLocalSaveIdentity,
@@ -11,9 +11,9 @@ import {
   type AccountShopValueEstimate,
   type ProductShopValueEstimate,
   type SaveShopValueEstimate,
-} from "./gameData.js";
-import { payloadSummary, SaveDataLogger } from "./logger.js";
-import type { AccountSeed, BuyPropRequest, BuyPropResult, SaveDataLogEvent, Wallet } from "./types.js";
+} from "../services/gameData.js";
+import { payloadSummary, SaveDataLogger } from "../server/logger.js";
+import type { AccountSeed, BuyPropRequest, BuyPropResult, SaveDataLogEvent, Wallet } from "../types.js";
 
 export const DEFAULT_ACCOUNT: AccountSeed = {
   uid: "10001",

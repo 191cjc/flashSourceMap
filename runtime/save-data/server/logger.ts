@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { appendFileSync, existsSync, mkdirSync, readFileSync, truncateSync } from "node:fs";
 import path from "node:path";
 import { saveDataPaths } from "./paths.js";
-import type { SaveDataLogEvent } from "./types.js";
+import type { SaveDataLogEvent } from "../types.js";
 
 type LoggerOptions = {
   logFile?: string;

@@ -47,6 +47,9 @@
   };
 
   window.__saveDataAccount = account;
+  let gameState = "selecting";
+  let rechargeBusy = false;
+
   window.__saveDataLog = function (message) {
     const log = document.getElementById("log");
     if (!log) {
@@ -57,6 +60,47 @@
     log.prepend(li);
     while (log.children.length > 80) {
       log.lastElementChild?.remove();
+    }
+  };
+
+  function rechargeBlockedMessage() {
+    return "已进入游戏，充值暂不可用；请重载游戏后先充值，再进入存档。";
+  }
+
+  function isRechargeBlocked() {
+    return gameState === "in_game";
+  }
+
+  function updateRechargeControls() {
+    const input = document.getElementById("rechargeAmount");
+    const button = document.getElementById("localRecharge");
+    const hint = document.getElementById("rechargeHint");
+    const blocked = isRechargeBlocked();
+
+    if (input) {
+      input.disabled = blocked || rechargeBusy;
+    }
+    if (button) {
+      button.disabled = blocked || rechargeBusy;
+      button.textContent = blocked ? "游戏中不可充值" : rechargeBusy ? "充值中" : "点击充值";
+    }
+    if (hint) {
+      hint.textContent = blocked ? rechargeBlockedMessage() : "请先充值，再进入存档；进入游戏后充值暂不可用。";
+      hint.classList.toggle("is-warning", blocked);
+    }
+  }
+
+  window.__saveDataSetGameState = function (state) {
+    if (state !== "selecting" && state !== "in_game") {
+      return;
+    }
+    if (gameState === state) {
+      return;
+    }
+    gameState = state;
+    updateRechargeControls();
+    if (state === "in_game") {
+      window.__saveDataLog?.("已进入游戏，本地充值入口已暂时禁用");
     }
   };
 
@@ -104,17 +148,21 @@
 
   async function rechargeLocally() {
     const input = document.getElementById("rechargeAmount");
-    const button = document.getElementById("localRecharge");
     const amount = Math.floor(Number(input?.value ?? 0));
+
+    if (isRechargeBlocked()) {
+      window.__saveDataLog?.(rechargeBlockedMessage());
+      updateRechargeControls();
+      return;
+    }
 
     if (!Number.isSafeInteger(amount) || amount <= 0) {
       window.__saveDataLog?.("充值金额无效");
       return;
     }
 
-    if (button) {
-      button.disabled = true;
-    }
+    rechargeBusy = true;
+    updateRechargeControls();
 
     try {
       const response = await fetch("/api/saveData/recharge", {
@@ -139,9 +187,8 @@
     } catch (error) {
       window.__saveDataLog?.(error instanceof Error ? error.message : String(error));
     } finally {
-      if (button) {
-        button.disabled = false;
-      }
+      rechargeBusy = false;
+      updateRechargeControls();
     }
   }
 
@@ -150,5 +197,6 @@
     rechargeLocally();
   });
 
+  updateRechargeControls();
   refreshWallet().catch((error) => window.__saveDataLog?.(error instanceof Error ? error.message : String(error)));
 })();

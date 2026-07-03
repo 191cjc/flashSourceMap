@@ -1,0 +1,59 @@
+# saveData Runtime
+
+这个目录是本地 mock Flash 平台的运行时代码。公网访问和未来 Windows 桌面应用都应复用这里的 server、services 和 persistence，不再从 `tools/` 目录复制逻辑。
+
+## 目录结构
+
+```text
+runtime/save-data/
+  persistence/          # SQLite 连接、schema 初始化、存档/钱包/购买记录读写
+  services/             # 存档 XML 解析、商城价值估算、反作弊金额规则
+  platform4399/         # 4399 save/pay/mall 接口适配和 FlashStoreApi 处理
+  server/               # HTTP server、静态资源、日志、路径配置
+  public/               # 浏览器运行页；未来桌面 WebView 也复用
+  schema/               # SQLite schema
+  tests/                # saveData 流程测试
+  types.ts              # 存档、钱包、购买和日志共享类型
+```
+
+## 启动
+
+本地启动：
+
+```bash
+npm run saveData:serve
+```
+
+无日志启动：
+
+```bash
+SAVE_DATA_LOGS=0 npm run saveData:serve
+```
+
+公网测试启动：
+
+```bash
+SAVE_DATA_LOGS=0 SAVE_DATA_HOST=0.0.0.0 SAVE_DATA_PORT=80 npm run saveData:serve
+```
+
+## 数据位置
+
+默认运行数据仍在：
+
+```text
+workspace/saveData/local-save.db
+workspace/saveData/remote-assets/
+workspace/saveData/platform-assets/
+workspace/saveData/public/
+workspace/saveData/logs/
+```
+
+未来 Windows 桌面应用应通过 `SAVE_DATA_DB` 和后续路径配置把数据库与缓存目录指向用户数据目录，例如 `%APPDATA%/flashSourceMap/saveData/`。
+
+## 验证
+
+```bash
+npm run saveData:test:db
+npx tsc --noEmit
+git diff --check
+```

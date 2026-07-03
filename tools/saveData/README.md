@@ -4,7 +4,10 @@
 
 运行方式、公网访问和未来 Windows 桌面应用的目录边界见：
 
+- `runtime/save-data/README.md`
 - `tools/saveData/packaging/README.md`
+
+当前可运行的 saveData mock 平台代码已经迁移到 `runtime/save-data/`。本目录保留为存档、商城、充值和反作弊相关分析记录。
 
 ## 分析目标
 
@@ -70,7 +73,7 @@
 
 对应读取时，`ApiInterface.readData()` 会读取 `jxid/sidx/jxv/jxrole/jxguanka/jxjinenglv/kpji/asaved/jxkaizhong` 等字段。若传入数据为空，则初始化新档。
 
-当前已根据 6 个线上存档补充了 TypeScript 类型定义，位置为 `tools/saveData/src/types.ts`。核心类型为：
+当前已根据 6 个线上存档补充了 TypeScript 类型定义，位置为 `runtime/save-data/types.ts`。核心类型为：
 
 - `GameSaveData`：解码后的完整游戏存档对象。
 - `GameSaveRole`：`jxrole`，字段为 `job/lv/sn/ec/g/d`。
@@ -218,6 +221,8 @@ patch 产物应输出到独立运行目录，不覆盖 `downloads/` 原始发布
 ## 本地充值 mock
 
 当前本地运行页侧边栏提供 `点击充值` 按钮。它只作用于本地 SQLite mock 数据库，不访问 4399 真实充值接口，也不会修改线上账号余额。
+
+页面会在检测到当前已经进入存档后暂时禁用本地充值入口，避免游戏内存里的累计充值 `allChongGod` 与 SQLite 中的新累计充值不同步。需要充值时，先重载游戏或回到进入存档前的状态，充值完成后再进入存档。
 
 按钮提交金额后：
 

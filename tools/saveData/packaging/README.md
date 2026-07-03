@@ -1,7 +1,7 @@
 # saveData 运行与打包整理
 
 这个目录记录本地 mock Flash 游戏平台的运行边界。当前目标是让同一套
-`tools/saveData/src` mock server 同时服务两种入口：
+`runtime/save-data` mock server 同时服务两种入口：
 
 - 公网访问：启动 HTTP 服务，让浏览器通过公网地址访问。
 - Windows 桌面应用：本机启动同一套 HTTP 服务，再由桌面壳打开内置 WebView。
@@ -9,13 +9,19 @@
 ## 推荐目录结构
 
 ```text
-tools/saveData/
-  src/                  # mock 平台能力：存档、商城、钱包、资源服务
+runtime/save-data/
+  persistence/          # SQLite 连接、schema 初始化和数据读写
+  services/             # 存档解析、商城价值估算和业务规则
+  platform4399/         # 4399 save/pay/mall 接口适配
+  server/               # HTTP 服务、静态资源和启动入口
   public/               # 浏览器页面源码，公网和桌面 WebView 共用
   schema/               # SQLite schema
   tests/                # saveData 单元/流程测试
+  README.md             # 运行时代码结构和入口
+
+tools/saveData/
   packaging/            # 访问方式、桌面打包和运行边界说明
-  README.md             # 存档/商城/运行调试主说明
+  README.md             # 存档/商城/运行调试分析记录
 
 workspace/saveData/
   local-save.db         # 当前本地存档与钱包数据库，不能随手删除
@@ -63,11 +69,11 @@ stall，游戏会明显变卡。
 apps/
   saveData-desktop/
     main/               # 桌面主进程：启动/停止本机 saveData server
-    renderer/           # 可选；也可以直接加载 tools/saveData/public
+    renderer/           # 可选；也可以直接加载 runtime/save-data/public
     package/            # Windows 安装包配置和图标
 
-tools/saveData/
-  src/                  # 继续作为唯一 mock server 实现
+runtime/save-data/
+  server/               # 继续作为唯一 mock server 实现
   public/               # 继续作为唯一游戏承载页面
 ```
 

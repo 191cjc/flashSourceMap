@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { DatabaseSync } from "node:sqlite";
-import { saveDataPaths } from "./paths.js";
+import { saveDataPaths } from "../server/paths.js";
 import type {
   Account,
   AccountSeed,
@@ -13,7 +13,7 @@ import type {
   SavePayload,
   SaveSlot,
   Wallet,
-} from "./types.js";
+} from "../types.js";
 
 type AccountRow = {
   id: number;

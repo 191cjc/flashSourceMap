@@ -27,9 +27,26 @@ These notes are project-specific operating rules for agents working in this repo
 ### Current Focus
 
 - The project is mocking local Flash platform capabilities for an original 4399 game.
-- The active runtime area is `tools/saveData/`: local saves, wallet/recharge mock, mall purchase mock, resource serving, and browser host page.
+- The active runtime area is `runtime/save-data/`: local saves, wallet/recharge mock, mall purchase mock, resource serving, and browser host page.
+- `tools/saveData/` is now documentation and analysis context, not the runtime implementation.
 - Payment and anti-cheat analysis lives in `tools/paymentLogic/README.md` and `tools/noCheat/README.md`.
 - Public web access and future Windows desktop packaging boundaries are documented in `tools/saveData/packaging/README.md`.
+
+### Runtime Structure
+
+Keep saveData runtime code in these layers:
+
+```text
+runtime/save-data/persistence/     # SQLite connection, schema init, repositories
+runtime/save-data/services/        # save parsing, identity canonicalization, shop value rules
+runtime/save-data/platform4399/    # 4399 API and FlashStoreApi protocol adaptation
+runtime/save-data/server/          # HTTP routing, static assets, logging, startup
+runtime/save-data/public/          # shared browser/WebView UI
+runtime/save-data/schema/          # SQLite schema
+runtime/save-data/tests/           # runtime flow tests
+```
+
+`tools/` is for analysis notes, FFDec/decompile helpers, and temporary diagnostics. Do not add new runtime save, wallet, shop, or resource-serving logic under `tools/saveData/`.
 
 ### Setup And Checks
 
@@ -103,4 +120,6 @@ temporary FFDec logs
 - Local recharge and mall purchase mock data is stored in the SQLite database; it does not affect real 4399 accounts or real recharge totals.
 - Mall purchase mock must stay consistent with the game's anti-cheat expectations: current balance and cumulative recharge are separate concepts, and saved mall item value is compared against cumulative recharge.
 - The browser host defaults to `canvas` rendering for smoother public gameplay. Use `?renderer=webgl` only when checking original-like Flash filters such as text outlines.
-- Do not duplicate save, wallet, mall, or resource-serving logic in future desktop packaging. A desktop shell should start the same `tools/saveData/src` server and load the shared `tools/saveData/public` UI in a local WebView.
+- The local recharge button is disabled after the page detects that a save slot has entered gameplay, because in-game recharge can leave SQLite `total_recharged` newer than the game's in-memory `allChongGod`.
+- Do not duplicate save, wallet, mall, or resource-serving logic in future desktop packaging. A desktop shell should start the same `runtime/save-data/server` server and load the shared `runtime/save-data/public` UI in a local WebView.
+- Desktop packaging should store `local-save.db`, WAL/SHM files, resource caches, generated public assets, and logs in a user data directory, not in the application install directory.

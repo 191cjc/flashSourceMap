@@ -4,7 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import { deflateSync, inflateSync } from "node:zlib";
 import CryptoJS from "crypto-js";
-import { LocalSaveDatabase } from "../src/db.js";
+import { LocalSaveDatabase } from "../persistence/db.js";
 import {
   antiCheatRequiredRecharge,
   canonicalizeLocalSaveIdentity,
@@ -12,9 +12,9 @@ import {
   estimateSaveShopValue,
   loadGameDataCatalog,
   type GameDataCatalog,
-} from "../src/gameData.js";
-import { SaveDataLogger } from "../src/logger.js";
-import { DEFAULT_ACCOUNT, MockShopError, SaveDataMockApi } from "../src/mockApi.js";
+} from "../services/gameData.js";
+import { SaveDataLogger } from "../server/logger.js";
+import { DEFAULT_ACCOUNT, MockShopError, SaveDataMockApi } from "../platform4399/mockApi.js";
 
 const GAME_ID = "100025235";
 

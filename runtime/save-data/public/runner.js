@@ -132,11 +132,70 @@
     return ms >= 750;
   }
 
+  function requestBodyParams(init) {
+    const body = init?.body;
+    if (!body) {
+      return new URLSearchParams();
+    }
+    if (typeof body === "string" || body instanceof URLSearchParams) {
+      return new URLSearchParams(body.toString());
+    }
+    if (body instanceof FormData) {
+      const params = new URLSearchParams();
+      for (const [key, value] of body.entries()) {
+        if (typeof value === "string") {
+          params.append(key, value);
+        }
+      }
+      return params;
+    }
+    return new URLSearchParams();
+  }
+
+  function platformAction(url, init) {
+    if (!url) {
+      return "";
+    }
+    let parsed;
+    try {
+      parsed = new URL(url, window.location.href);
+    } catch (_error) {
+      return "";
+    }
+
+    const isSaveHost = parsed.hostname === "save.api.4399.com";
+    const isSaveApi = parsed.pathname.startsWith("/api/4399") || isSaveHost;
+    const isMallApi =
+      parsed.pathname === "/api/4399/mall/FlashStoreApi" ||
+      (isSaveHost && parsed.pathname === "/mall/FlashStoreApi");
+    if (isMallApi) {
+      return "mall";
+    }
+    if (!isSaveApi) {
+      return "";
+    }
+
+    const bodyParams = requestBodyParams(init);
+    return parsed.searchParams.get("ac") || bodyParams.get("ac") || "";
+  }
+
+  function updateGameStateFromPlatformRequest(url, init, status) {
+    if (status >= 400) {
+      return;
+    }
+
+    const action = platformAction(url, init);
+    if (action === "get" || action === "save" || action === "mall") {
+      window.__saveDataSetGameState?.("in_game");
+    }
+  }
+
   window.fetch = async function instrumentedFetch(input, init) {
     const url = fetchUrl(input);
     const started = performance.now();
     try {
       const response = await originalFetch(input, init);
+      updateGameStateFromPlatformRequest(url, init, response.status);
       const ms = Math.round(performance.now() - started);
       if (shouldLogFetch(url, ms, response.status, false)) {
         logClientEvent("client.fetch_slow", "ok", {
@@ -268,6 +327,7 @@
   };
 
   async function loadGame() {
+    window.__saveDataSetGameState?.("selecting");
     resource.textContent = gameSwf.split("/").pop();
     holder.textContent = "";
 

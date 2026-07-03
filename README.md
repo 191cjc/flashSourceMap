@@ -1,6 +1,6 @@
 # flashSourceMap
 
-这个项目用于归档和分析原 4399 Flash 游戏包，并在本地 mock 平台能力，让游戏可以脱离线上 4399 saveData 服务运行。当前重点是本地存档、充值 mock、商城购买链路和后续 Windows 桌面应用打包边界。
+这个项目用于归档和分析原 4399 Flash 游戏包，并提供一套本地 mock 平台运行时，让游戏可以脱离线上 4399 saveData 服务运行。当前运行时已经支持本地存档、钱包/充值 mock、商城购买 mock、资源缓存和浏览器承载页；后续 Windows 桌面应用会复用同一套运行时代码。
 
 `downloads/` 视为只读原始材料。修改、测试和生成产物应放在 `workspace/`，最终构建产物放在 `builds/`。
 
@@ -28,6 +28,33 @@ npm run decompile         # 反编译参考文件
 npm run saveData:serve    # 启动本地 saveData mock server
 npm run saveData:test:db  # 跑 saveData 数据库流程测试
 ```
+
+## 主要目录
+
+```text
+runtime/save-data/        # 本地 mock 平台运行时代码
+  persistence/            # SQLite 连接、schema 初始化和数据读写
+  services/               # 存档解析、商城价值估算和业务规则
+  platform4399/           # 4399 save/pay/mall 接口适配
+  server/                 # HTTP 服务、静态资源和启动入口
+  public/                 # 浏览器运行页，未来桌面 WebView 也复用
+  schema/                 # SQLite schema
+  tests/                  # saveData 流程测试
+
+tools/                    # 分析记录、反编译辅助和调试工具
+workspace/                # 本地数据库、资源缓存和线上存档基准
+builds/                   # 构建产物
+downloads/                # 原始资源，只读
+```
+
+当前职责边界：
+
+- `runtime/save-data/persistence/` 负责 SQLite 连接、schema 初始化和数据读写。
+- `runtime/save-data/services/` 负责存档解析、身份修正、商城价值估算和反作弊金额规则。
+- `runtime/save-data/platform4399/` 负责把 4399 save/pay/mall 接口适配到本地 service。
+- `runtime/save-data/server/` 负责 HTTP 服务、静态资源、日志和启动入口。
+- `runtime/save-data/public/` 是浏览器运行页，未来桌面 WebView 也应复用它。
+- `tools/` 只放分析记录、反编译辅助和临时调试工具，不再承载 saveData 运行时代码。
 
 ## 启动本地 mock 平台
 
@@ -83,9 +110,24 @@ workspace/onlineSave/decoded/         # 线上存档解码结果和摘要
 
 不要随手删除这些内容。可清理的通常只有运行日志、临时截图和可再生成的分析日志。
 
+## Windows 桌面应用方向
+
+桌面应用应作为薄壳复用 `runtime/save-data`，不要复制存档、钱包、商城或资源服务逻辑。推荐后续结构：
+
+```text
+apps/saveData-desktop/
+  main/                   # 启动/停止本机 saveData server，管理窗口生命周期
+  preload/                # 可选的桌面桥接 API
+  renderer/               # 桌面专属控制页；游戏页仍加载 runtime/save-data/public
+  packaging/              # Windows 图标、安装包和签名配置
+```
+
+桌面壳启动时应选择本机端口，启动同一套 `runtime/save-data/server`，再用 WebView 打开本机 URL。数据库和缓存目录应指向用户数据目录，例如 `%APPDATA%/flashSourceMap/saveData/`，不要写入安装目录或 asar 包。
+
 ## 重要文档
 
-- `tools/saveData/README.md`：存档、充值 mock、商城购买 mock 和运行日志策略。
+- `runtime/save-data/README.md`：saveData 运行时代码结构和入口。
+- `tools/saveData/README.md`：存档、充值 mock、商城购买 mock 和运行日志策略分析。
 - `tools/saveData/packaging/README.md`：公网访问方式、未来 Windows 桌面应用打包边界和推荐目录结构。
 - `tools/paymentLogic/README.md`：付费、余额、累计充值和商城购买链路分析。
 - `tools/noCheat/README.md`：游戏反作弊判断逻辑，尤其是商城物品价值和累计充值比较。

@@ -1,7 +1,7 @@
 import path from "node:path";
 
 export const projectRoot = path.resolve(import.meta.dirname, "..", "..", "..");
-export const saveDataRoot = path.join(projectRoot, "tools", "saveData");
+export const saveDataRoot = path.join(projectRoot, "runtime", "save-data");
 export const workspaceRoot = path.join(projectRoot, "workspace", "saveData");
 
 export const saveDataPaths = {

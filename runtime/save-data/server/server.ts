@@ -7,9 +7,9 @@ import { fileURLToPath } from "node:url";
 import { createGzip } from "node:zlib";
 import { patchRuffleEventCompatibility } from "../../../src/swf/payEventPatch.js";
 import { decodeSwf, encodeSwf, replaceDefineBinaryData } from "../../../src/swf/swf.js";
-import { LocalSaveDatabase } from "./db.js";
+import { LocalSaveDatabase } from "../persistence/db.js";
 import { SaveDataLogger } from "./logger.js";
-import { MockShopError, SaveDataMockApi } from "./mockApi.js";
+import { MockShopError, SaveDataMockApi } from "../platform4399/mockApi.js";
 import { saveDataPaths } from "./paths.js";
 
 type ServerOptions = {

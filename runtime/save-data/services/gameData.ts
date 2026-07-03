@@ -2,7 +2,7 @@ import { existsSync, readFileSync, statSync } from "node:fs";
 import path from "node:path";
 import { deflateSync, inflateSync } from "node:zlib";
 import { decodeSwf, parseTags } from "../../../src/swf/swf.js";
-import { saveDataPaths } from "./paths.js";
+import { saveDataPaths } from "../server/paths.js";
 
 export const SHOP_VALUE_RECHARGE_MULTIPLIER = 0.75;
 
