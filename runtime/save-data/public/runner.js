@@ -4,7 +4,7 @@
   const holder = document.getElementById("player");
   const gameSwf = "/swf/xfbbv451.swf";
   const query = new URLSearchParams(window.location.search);
-  const renderer = query.get("renderer") || "canvas";
+  const renderer = "webgl";
   const configuredMaxExecutionDuration = Number(query.get("timeout") || 60);
   const telemetryEnabled = query.get("telemetry") !== "0";
   const warmupEnabled = query.get("warmup") !== "0";
@@ -56,7 +56,7 @@
     allowScriptAccess: true,
     allowNetworking: "all",
     logLevel: "warn",
-    preferredRenderer: renderer === "auto" ? null : renderer,
+    preferredRenderer: renderer,
     maxExecutionDuration: Number.isFinite(configuredMaxExecutionDuration) ? configuredMaxExecutionDuration : 20,
     upgradeToHttps: false,
     openUrlMode: "allow",

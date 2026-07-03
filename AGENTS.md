@@ -120,7 +120,7 @@ temporary FFDec logs
 
 - Local recharge and mall purchase mock data is stored in the SQLite database; it does not affect real 4399 accounts or real recharge totals.
 - Mall purchase mock must stay consistent with the game's anti-cheat expectations: current balance and cumulative recharge are separate concepts, and saved mall item value is compared against cumulative recharge.
-- The browser host defaults to `canvas` rendering for smoother public gameplay. Use `?renderer=webgl` only when checking original-like Flash filters such as text outlines.
+- The browser host uses Ruffle `webgl` rendering by default. Do not switch it back to `canvas`; canvas loses important Flash filter effects such as text outlines.
 - The local recharge button is disabled after the page detects that a save slot has entered gameplay, because in-game recharge can leave SQLite `total_recharged` newer than the game's in-memory `allChongGod`.
 - Do not duplicate save, wallet, mall, or resource-serving logic in future desktop packaging. A desktop shell should start the same `runtime/save-data/server` server and load the shared `runtime/save-data/public` UI in a local WebView.
 - Desktop packaging should store `local-save.db`, WAL/SHM files, resource caches, generated public assets, and logs in a user data directory, not in the application install directory.

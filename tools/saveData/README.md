@@ -196,9 +196,10 @@ SAVE_DATA_NO_LOGS=1 npm run saveData:serve
 
 URL 上可用以下开关临时调整：
 
-- `renderer=webgl`：手动切回 WebGL 渲染；公网默认使用 `canvas`，因为当前 Ruffle WebGL 路径在部分环境会出现密集长帧。
 - `telemetry=0`：关闭客户端性能日志。
 - `warmup=0`：关闭常用战斗资源预热。
+
+运行页现在固定使用 Ruffle `webgl` 渲染。不要再切回 `canvas`：canvas 会丢失部分 Flash 滤镜效果，表现为黄色文字黑描边、发光或阴影和原版不一致。
 
 服务端默认只记录首次远程拉取和接口调用，不再为每个已缓存 SWF 资源写 `asset.local_hit`，避免资源密集加载时同步日志写入干扰响应。若需要详细资源命中日志，可启动时加：
 

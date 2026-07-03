@@ -7,16 +7,12 @@ import { DATA_XML_SWF, readDefineBinaryText } from "./gameData.js";
 
 export const LEVEL_REWARD_BINARY_ID = 52;
 export const LEVEL_REWARD_ASSET_NAME = "dataxmlvav447.swf";
+export const LEVEL_REWARD_ACHIEVEMENT_BOOST_VALUE = 9999;
 
 export type LevelRewardValues = {
   exp: number;
   gold: number;
   achievement: number;
-};
-
-export type LevelRewardOverride = LevelRewardValues & {
-  levelId: number;
-  difficulty: number;
 };
 
 export type LevelRewardRecord = {
@@ -34,6 +30,8 @@ export type LevelRewardState = {
   loaded: boolean;
   sourceFile: string;
   overridesFile: string;
+  achievementBoostEnabled: boolean;
+  achievementBoostValue: number;
   overridesCount: number;
   levels: LevelRewardRecord[];
 };
@@ -46,10 +44,10 @@ type LevelRewardSourceCache = {
   records: Array<Omit<LevelRewardRecord, "effective" | "hasOverride">>;
 };
 
-type LevelRewardOverrideFile = {
-  version: 1;
+type LevelRewardConfigFile = {
+  version: 2;
   updatedAt: string;
-  overrides: LevelRewardOverride[];
+  achievementBoostEnabled: boolean;
 };
 
 const FIELD_TAGS = {
@@ -92,54 +90,11 @@ function numberFromTag(record: string, tagName: string): number | null {
   return Number.isFinite(parsed) ? parsed : null;
 }
 
-function integerFromInput(value: unknown, fieldName: string, minValue: number): number {
-  const parsed = typeof value === "number" ? value : typeof value === "string" ? Number(value.trim()) : NaN;
-  if (!Number.isFinite(parsed)) {
-    throw new RangeError(`${fieldName} must be a finite number`);
-  }
-  const integer = Math.floor(parsed);
-  if (!Number.isSafeInteger(integer) || integer < minValue) {
-    throw new RangeError(`${fieldName} must be a safe integer >= ${minValue}`);
-  }
-  return integer;
-}
-
 function asInputObject(input: unknown): Record<string, unknown> {
   if (!input || typeof input !== "object" || Array.isArray(input)) {
     throw new RangeError("level reward payload must be an object");
   }
   return input as Record<string, unknown>;
-}
-
-function parseLevelRewardOverride(input: unknown): LevelRewardOverride {
-  const object = asInputObject(input);
-  return {
-    levelId: integerFromInput(object.levelId, "levelId", 1),
-    difficulty: integerFromInput(object.difficulty, "difficulty", 0),
-    exp: integerFromInput(object.exp, "exp", 0),
-    gold: integerFromInput(object.gold, "gold", 0),
-    achievement: integerFromInput(object.achievement, "achievement", 0),
-  };
-}
-
-function parseLevelRewardSelector(input: unknown): { levelId: number; difficulty: number } {
-  const object = asInputObject(input);
-  return {
-    levelId: integerFromInput(object.levelId, "levelId", 1),
-    difficulty: integerFromInput(object.difficulty, "difficulty", 0),
-  };
-}
-
-function overrideMap(overrides: LevelRewardOverride[]): Map<string, LevelRewardOverride> {
-  const map = new Map<string, LevelRewardOverride>();
-  for (const override of overrides) {
-    map.set(levelRewardKey(override.levelId, override.difficulty), override);
-  }
-  return map;
-}
-
-function sortOverrides(overrides: LevelRewardOverride[]): LevelRewardOverride[] {
-  return [...overrides].sort((left, right) => left.levelId - right.levelId || left.difficulty - right.difficulty);
 }
 
 export function parseLevelRewardRecords(xml: string): Array<Omit<LevelRewardRecord, "effective" | "hasOverride">> {
@@ -192,12 +147,16 @@ function coalesceLevelRewardRecords(
   return [...byKey.values()];
 }
 
-export function applyLevelRewardOverridesToXml(xml: string, overrides: LevelRewardOverride[]): string {
-  const overridesByKey = overrideMap(overrides);
-  if (overridesByKey.size === 0) {
+export function applyLevelRewardAchievementBoostToXml(
+  xml: string,
+  enabled: boolean,
+  value = LEVEL_REWARD_ACHIEVEMENT_BOOST_VALUE
+): string {
+  if (!enabled) {
     return xml;
   }
 
+  const escaped = escapeRegExp(FIELD_TAGS.achievement);
   return xml.replace(/<关卡>([\s\S]*?)<\/关卡>/g, (fullMatch, inner: string) => {
     const levelId = numberFromTag(inner, "关卡ID");
     const difficulty = numberFromTag(inner, "难度");
@@ -205,51 +164,42 @@ export function applyLevelRewardOverridesToXml(xml: string, overrides: LevelRewa
       return fullMatch;
     }
 
-    const override = overridesByKey.get(levelRewardKey(levelId, difficulty));
-    if (!override) {
-      return fullMatch;
-    }
-
-    let patched = inner;
-    for (const [field, tagName] of Object.entries(FIELD_TAGS) as Array<[keyof LevelRewardValues, string]>) {
-      const escaped = escapeRegExp(tagName);
-      patched = patched.replace(
-        new RegExp(`(<${escaped}>)[\\s\\S]*?(</${escaped}>)`),
-        (_match, open: string, close: string) => `${open}${override[field]}${close}`
-      );
-    }
+    const patched = inner.replace(
+      new RegExp(`(<${escaped}>)[\\s\\S]*?(</${escaped}>)`),
+      (_match, open: string, close: string) => `${open}${value}${close}`
+    );
     return `<关卡>${patched}</关卡>`;
   });
 }
 
-function readOverridesFile(overridesFile = saveDataPaths.levelRewardOverridesFile): LevelRewardOverrideFile {
+function readLevelRewardConfig(overridesFile = saveDataPaths.levelRewardOverridesFile): LevelRewardConfigFile {
   if (!existsSync(overridesFile)) {
-    return { version: 1, updatedAt: "", overrides: [] };
+    return { version: 2, updatedAt: "", achievementBoostEnabled: false };
   }
 
-  const parsed = JSON.parse(readFileSync(overridesFile, "utf8")) as Partial<LevelRewardOverrideFile>;
-  const overrides = Array.isArray(parsed.overrides)
-    ? parsed.overrides.map((override) => parseLevelRewardOverride(override))
-    : [];
+  const parsed = JSON.parse(readFileSync(overridesFile, "utf8")) as Partial<LevelRewardConfigFile>;
   return {
-    version: 1,
+    version: 2,
     updatedAt: typeof parsed.updatedAt === "string" ? parsed.updatedAt : "",
-    overrides: sortOverrides(overrides),
+    achievementBoostEnabled: parsed.achievementBoostEnabled === true,
   };
 }
 
-function writeOverridesFile(overrides: LevelRewardOverride[], overridesFile = saveDataPaths.levelRewardOverridesFile): void {
+function writeLevelRewardConfig(
+  config: Pick<LevelRewardConfigFile, "achievementBoostEnabled">,
+  overridesFile = saveDataPaths.levelRewardOverridesFile
+): void {
   mkdirSync(path.dirname(overridesFile), { recursive: true });
-  const payload: LevelRewardOverrideFile = {
-    version: 1,
+  const payload: LevelRewardConfigFile = {
+    version: 2,
     updatedAt: new Date().toISOString(),
-    overrides: sortOverrides(overrides),
+    achievementBoostEnabled: config.achievementBoostEnabled,
   };
   writeFileSync(overridesFile, `${JSON.stringify(payload, null, 2)}\n`);
 }
 
-export function loadLevelRewardOverrides(overridesFile = saveDataPaths.levelRewardOverridesFile): LevelRewardOverride[] {
-  return readOverridesFile(overridesFile).overrides;
+export function getLevelRewardAchievementBoostEnabled(overridesFile = saveDataPaths.levelRewardOverridesFile): boolean {
+  return readLevelRewardConfig(overridesFile).achievementBoostEnabled;
 }
 
 function loadLevelRewardSource(sourceFile = DATA_XML_SWF): LevelRewardSourceCache | null {
@@ -283,27 +233,17 @@ export function clearLevelRewardSourceCache(): void {
   sourceCache = null;
 }
 
-function assertKnownLevel(source: LevelRewardSourceCache | null, selector: { levelId: number; difficulty: number }): void {
-  if (!source) {
-    throw new Error(`level reward source is missing: ${DATA_XML_SWF}`);
-  }
-  if (!source.records.some((record) => record.key === levelRewardKey(selector.levelId, selector.difficulty))) {
-    throw new RangeError(`level reward record not found: ${selector.levelId}:${selector.difficulty}`);
-  }
-}
-
 export function getLevelRewardState(): LevelRewardState {
   const source = loadLevelRewardSource();
-  const overrides = loadLevelRewardOverrides();
-  const overridesByKey = overrideMap(overrides);
+  const achievementBoostEnabled = getLevelRewardAchievementBoostEnabled();
   const levels = (source?.records ?? []).map((record) => {
-    const override = overridesByKey.get(record.key);
     return {
       ...record,
-      effective: override
-        ? { exp: override.exp, gold: override.gold, achievement: override.achievement }
-        : { ...record.original },
-      hasOverride: Boolean(override),
+      effective: {
+        ...record.original,
+        achievement: achievementBoostEnabled ? LEVEL_REWARD_ACHIEVEMENT_BOOST_VALUE : record.original.achievement,
+      },
+      hasOverride: achievementBoostEnabled,
     };
   });
 
@@ -312,40 +252,26 @@ export function getLevelRewardState(): LevelRewardState {
     loaded: Boolean(source),
     sourceFile: DATA_XML_SWF,
     overridesFile: saveDataPaths.levelRewardOverridesFile,
-    overridesCount: overrides.length,
+    achievementBoostEnabled,
+    achievementBoostValue: LEVEL_REWARD_ACHIEVEMENT_BOOST_VALUE,
+    overridesCount: achievementBoostEnabled ? levels.length : 0,
     levels,
   };
 }
 
-export function setLevelRewardOverride(input: unknown): LevelRewardState {
-  const override = parseLevelRewardOverride(input);
-  const source = loadLevelRewardSource();
-  assertKnownLevel(source, override);
-
-  const existing = loadLevelRewardOverrides().filter(
-    (entry) => levelRewardKey(entry.levelId, entry.difficulty) !== levelRewardKey(override.levelId, override.difficulty)
-  );
-  existing.push(override);
-  writeOverridesFile(existing);
+export function setLevelRewardAchievementBoost(input: unknown): LevelRewardState {
+  const object = asInputObject(input);
+  const enabled = object.enabled === true || object.achievementBoostEnabled === true;
+  writeLevelRewardConfig({ achievementBoostEnabled: enabled });
   return getLevelRewardState();
 }
 
-export function clearLevelRewardOverride(input: unknown): LevelRewardState {
-  const selector = parseLevelRewardSelector(input);
-  const existing = loadLevelRewardOverrides();
-  const next = existing.filter(
-    (entry) => levelRewardKey(entry.levelId, entry.difficulty) !== levelRewardKey(selector.levelId, selector.difficulty)
-  );
-  writeOverridesFile(next);
+export function clearLevelRewardAchievementBoost(): LevelRewardState {
+  writeLevelRewardConfig({ achievementBoostEnabled: false });
   return getLevelRewardState();
 }
 
-export function clearAllLevelRewardOverrides(): LevelRewardState {
-  writeOverridesFile([]);
-  return getLevelRewardState();
-}
-
-function patchedAssetSignature(sourceFile: string, overrides: LevelRewardOverride[]): string {
+function patchedAssetSignature(sourceFile: string, achievementBoostEnabled: boolean): string {
   const stat = statSync(sourceFile);
   return createHash("sha256")
     .update(
@@ -353,7 +279,8 @@ function patchedAssetSignature(sourceFile: string, overrides: LevelRewardOverrid
         sourceFile,
         sourceMtimeMs: stat.mtimeMs,
         sourceSize: stat.size,
-        overrides: sortOverrides(overrides),
+        achievementBoostEnabled,
+        achievementBoostValue: LEVEL_REWARD_ACHIEVEMENT_BOOST_VALUE,
       })
     )
     .digest("hex");
@@ -372,11 +299,11 @@ function cachedPatchMatches(metaFile: string, signature: string): boolean {
 }
 
 export function ensurePatchedLevelRewardAsset(sourceFile = DATA_XML_SWF): string | null {
-  const overrides = loadLevelRewardOverrides();
+  const achievementBoostEnabled = getLevelRewardAchievementBoostEnabled();
   if (!existsSync(sourceFile)) {
     return null;
   }
-  if (overrides.length === 0) {
+  if (!achievementBoostEnabled) {
     return sourceFile;
   }
 
@@ -385,7 +312,7 @@ export function ensurePatchedLevelRewardAsset(sourceFile = DATA_XML_SWF): string
     return null;
   }
 
-  const patchedXml = applyLevelRewardOverridesToXml(source.xml, overrides);
+  const patchedXml = applyLevelRewardAchievementBoostToXml(source.xml, achievementBoostEnabled);
   if (patchedXml === source.xml) {
     return sourceFile;
   }
@@ -393,7 +320,7 @@ export function ensurePatchedLevelRewardAsset(sourceFile = DATA_XML_SWF): string
   const outputDir = path.join(saveDataPaths.generatedAssetsRoot, "level-rewards");
   const outputFile = path.join(outputDir, LEVEL_REWARD_ASSET_NAME);
   const metaFile = `${outputFile}.json`;
-  const signature = patchedAssetSignature(sourceFile, overrides);
+  const signature = patchedAssetSignature(sourceFile, achievementBoostEnabled);
   if (existsSync(outputFile) && cachedPatchMatches(metaFile, signature)) {
     return outputFile;
   }
@@ -413,7 +340,8 @@ export function ensurePatchedLevelRewardAsset(sourceFile = DATA_XML_SWF): string
         signature,
         sourceFile,
         generatedAt: new Date().toISOString(),
-        overrides: sortOverrides(overrides),
+        achievementBoostEnabled,
+        achievementBoostValue: LEVEL_REWARD_ACHIEVEMENT_BOOST_VALUE,
       },
       null,
       2

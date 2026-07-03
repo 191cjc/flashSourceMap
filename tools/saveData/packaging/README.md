@@ -51,15 +51,8 @@ SAVE_DATA_LOGS=0 SAVE_DATA_HOST=0.0.0.0 SAVE_DATA_PORT=80 npm run saveData:serve
 SAVE_DATA_HOST=0.0.0.0 SAVE_DATA_PORT=80 npm run saveData:serve
 ```
 
-当前默认 renderer 是 `canvas`，优先保证流畅。需要对比原版滤镜描边时，可在
-URL 后加：
-
-```text
-?renderer=webgl
-```
-
-`webgl` 更接近原版滤镜效果，但在当前 Ruffle 版本和部分环境中会出现 GPU
-stall，游戏会明显变卡。
+当前运行页固定使用 Ruffle `webgl` renderer。不要再切回 `canvas`：canvas
+会丢失部分 Flash 滤镜效果，表现为黄色文字黑描边、发光或阴影和原版不一致。
 
 ## Windows 桌面应用方向
 

@@ -132,16 +132,7 @@
     }
   }
 
-  function selectedLevelReward() {
-    const select = document.getElementById("levelRewardSelect");
-    const key = select?.value;
-    if (!key || !levelRewardState?.levels) {
-      return null;
-    }
-    return levelRewardState.levels.find((level) => level.key === key) ?? null;
-  }
-
-  function updateLevelRewardHint(level) {
+  function updateLevelRewardHint() {
     const hint = document.getElementById("levelRewardHint");
     if (!hint) {
       return;
@@ -155,192 +146,54 @@
       hint.textContent = "未找到 dataxmlvav447.swf，启动游戏加载资源后再试。";
       return;
     }
-    if (!level) {
-      hint.textContent = "请选择一个关卡。";
-      return;
-    }
 
-    const original = level.original;
-    const base = level.hasOverride
-      ? `已覆盖，原始 ${formatAmount(original.exp)}/${formatAmount(original.gold)}/${formatAmount(original.achievement)}。`
-      : `原始 ${formatAmount(original.exp)}/${formatAmount(original.gold)}/${formatAmount(original.achievement)}。`;
-    hint.textContent =
-      gameState === "in_game" ? `${base} 修改会保存，但需要重载游戏后生效。` : `${base} 修改后重载游戏生效。`;
+    const value = formatAmount(levelRewardState.achievementBoostValue);
+    const prefix = levelRewardState.achievementBoostEnabled ? `已启用，通关成就基础值 ${value}。` : "未启用。";
+    hint.textContent = gameState === "in_game" ? `${prefix} 需要重载游戏后生效。` : `${prefix} 切换后重载游戏生效。`;
   }
 
   function updateLevelRewardControls() {
-    const select = document.getElementById("levelRewardSelect");
-    const exp = document.getElementById("levelRewardExp");
-    const gold = document.getElementById("levelRewardGold");
-    const achievement = document.getElementById("levelRewardAchievement");
-    const apply = document.getElementById("applyLevelReward");
-    const reset = document.getElementById("resetLevelReward");
-    const level = selectedLevelReward();
-    const available = Boolean(levelRewardState?.loaded && levelRewardState.levels?.length);
+    const checkbox = document.getElementById("levelRewardAchievementBoost");
+    const available = Boolean(levelRewardState?.loaded);
 
-    if (select) {
-      select.disabled = levelRewardBusy || !available;
+    if (checkbox) {
+      checkbox.disabled = levelRewardBusy || !available;
+      checkbox.checked = Boolean(levelRewardState?.achievementBoostEnabled);
     }
-    for (const input of [exp, gold, achievement]) {
-      if (input) {
-        input.disabled = levelRewardBusy || !available || !level;
-      }
-    }
-    if (apply) {
-      apply.disabled = levelRewardBusy || !available || !level;
-      apply.textContent = levelRewardBusy ? "保存中" : "应用";
-    }
-    if (reset) {
-      reset.disabled = levelRewardBusy || !available || !level?.hasOverride;
-    }
-    updateLevelRewardHint(level);
-  }
-
-  function updateLevelRewardInputs() {
-    const level = selectedLevelReward();
-    const exp = document.getElementById("levelRewardExp");
-    const gold = document.getElementById("levelRewardGold");
-    const achievement = document.getElementById("levelRewardAchievement");
-    if (!level) {
-      for (const input of [exp, gold, achievement]) {
-        if (input) {
-          input.value = "";
-        }
-      }
-      return;
-    }
-
-    if (exp) {
-      exp.value = String(level.effective.exp);
-    }
-    if (gold) {
-      gold.value = String(level.effective.gold);
-    }
-    if (achievement) {
-      achievement.value = String(level.effective.achievement);
-    }
-  }
-
-  function renderLevelRewards(previousKey) {
-    const select = document.getElementById("levelRewardSelect");
-    if (!select) {
-      return;
-    }
-    select.textContent = "";
-
-    if (!levelRewardState?.loaded || !levelRewardState.levels.length) {
-      const option = document.createElement("option");
-      option.value = "";
-      option.textContent = levelRewardState?.loaded ? "无关卡数据" : "未加载资源";
-      select.append(option);
-      updateLevelRewardInputs();
-      updateLevelRewardControls();
-      return;
-    }
-
-    for (const level of levelRewardState.levels) {
-      const option = document.createElement("option");
-      option.value = level.key;
-      option.textContent = `${level.levelId} ${level.name} / 难度${level.difficulty}${level.hasOverride ? " *" : ""}`;
-      select.append(option);
-    }
-
-    const nextKey =
-      previousKey && levelRewardState.levels.some((level) => level.key === previousKey)
-        ? previousKey
-        : levelRewardState.levels[0].key;
-    select.value = nextKey;
-    updateLevelRewardInputs();
-    updateLevelRewardControls();
+    updateLevelRewardHint();
   }
 
   async function refreshLevelRewards() {
-    const select = document.getElementById("levelRewardSelect");
-    const previousKey = select?.value;
     const response = await fetch("/api/saveData/level-rewards", { cache: "no-store" });
     const result = await readJsonResponse(response);
     if (!response.ok || result.ok !== true) {
       throw new Error(result.error ?? `读取关卡奖励失败: ${response.status}`);
     }
     levelRewardState = result;
-    renderLevelRewards(previousKey);
+    updateLevelRewardControls();
     return result;
   }
 
-  function readRewardInput(id, label) {
-    const input = document.getElementById(id);
-    const value = Math.floor(Number(input?.value ?? NaN));
-    if (!Number.isSafeInteger(value) || value < 0) {
-      throw new Error(`${label}必须是大于等于 0 的整数`);
-    }
-    return value;
-  }
-
-  async function applyLevelReward() {
-    const level = selectedLevelReward();
-    if (!level) {
-      window.__saveDataLog?.("请选择关卡");
-      return;
-    }
-
+  async function setLevelRewardAchievementBoost(enabled) {
     levelRewardBusy = true;
     updateLevelRewardControls();
     try {
-      const payload = {
-        levelId: level.levelId,
-        difficulty: level.difficulty,
-        exp: readRewardInput("levelRewardExp", "经验"),
-        gold: readRewardInput("levelRewardGold", "金币"),
-        achievement: readRewardInput("levelRewardAchievement", "成就"),
-      };
       const response = await fetch("/api/saveData/level-rewards", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ enabled }),
       });
       const result = await readJsonResponse(response);
       if (!response.ok || result.ok !== true) {
         throw new Error(result.error ?? `保存关卡奖励失败: ${response.status}`);
       }
       levelRewardState = result;
-      renderLevelRewards(level.key);
-      window.__saveDataLog?.(
-        `已修改 ${level.levelId} ${level.name} 难度${level.difficulty}: ${formatAmount(payload.exp)}/${formatAmount(
-          payload.gold
-        )}/${formatAmount(payload.achievement)}，重载游戏后生效`
-      );
-    } catch (error) {
-      window.__saveDataLog?.(error instanceof Error ? error.message : String(error));
-    } finally {
-      levelRewardBusy = false;
       updateLevelRewardControls();
-    }
-  }
-
-  async function resetLevelReward() {
-    const level = selectedLevelReward();
-    if (!level) {
-      window.__saveDataLog?.("请选择关卡");
-      return;
-    }
-
-    levelRewardBusy = true;
-    updateLevelRewardControls();
-    try {
-      const response = await fetch("/api/saveData/level-rewards/clear", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ levelId: level.levelId, difficulty: level.difficulty }),
-      });
-      const result = await readJsonResponse(response);
-      if (!response.ok || result.ok !== true) {
-        throw new Error(result.error ?? `还原关卡奖励失败: ${response.status}`);
-      }
-      levelRewardState = result;
-      renderLevelRewards(level.key);
-      window.__saveDataLog?.(`已还原 ${level.levelId} ${level.name} 难度${level.difficulty}，重载游戏后生效`);
+      const value = formatAmount(result.achievementBoostValue);
+      window.__saveDataLog?.(enabled ? `已启用通关成就 ${value}，重载游戏后生效` : "已关闭通关成就增强");
     } catch (error) {
       window.__saveDataLog?.(error instanceof Error ? error.message : String(error));
+      await refreshLevelRewards().catch(() => undefined);
     } finally {
       levelRewardBusy = false;
       updateLevelRewardControls();
@@ -423,15 +276,8 @@
   document.getElementById("localRecharge")?.addEventListener("click", () => {
     rechargeLocally();
   });
-  document.getElementById("levelRewardSelect")?.addEventListener("change", () => {
-    updateLevelRewardInputs();
-    updateLevelRewardControls();
-  });
-  document.getElementById("applyLevelReward")?.addEventListener("click", () => {
-    applyLevelReward();
-  });
-  document.getElementById("resetLevelReward")?.addEventListener("click", () => {
-    resetLevelReward();
+  document.getElementById("levelRewardAchievementBoost")?.addEventListener("change", (event) => {
+    setLevelRewardAchievementBoost(Boolean(event.currentTarget?.checked));
   });
 
   updateRechargeControls();

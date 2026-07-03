@@ -13,7 +13,7 @@ import {
   loadGameDataCatalog,
   type GameDataCatalog,
 } from "../services/gameData.js";
-import { applyLevelRewardOverridesToXml, parseLevelRewardRecords } from "../services/levelRewards.js";
+import { applyLevelRewardAchievementBoostToXml, parseLevelRewardRecords } from "../services/levelRewards.js";
 import { SaveDataLogger } from "../server/logger.js";
 import { DEFAULT_ACCOUNT, MockShopError, SaveDataMockApi } from "../platform4399/mockApi.js";
 
@@ -283,13 +283,12 @@ try {
   assert.equal(levelRewards[0].key, "1:1");
   assert.equal(levelRewards[0].name, "溪谷小筑");
   assert.deepEqual(levelRewards[0].original, { exp: 1045, gold: 1178, achievement: 23 });
-  const patchedLevelRewards = applyLevelRewardOverridesToXml(LEVEL_REWARD_XML, [
-    { levelId: 1, difficulty: 1, exp: 9000, gold: 8000, achievement: 70 },
-  ]);
-  assert.match(patchedLevelRewards, /<关卡ID>1<\/关卡ID>[\s\S]*?<过关奖励经验>9000<\/过关奖励经验>/);
-  assert.match(patchedLevelRewards, /<关卡ID>1<\/关卡ID>[\s\S]*?<过关奖励金币>8000<\/过关奖励金币>/);
-  assert.match(patchedLevelRewards, /<关卡ID>1<\/关卡ID>[\s\S]*?<过关奖励成就>70<\/过关奖励成就>/);
-  assert.match(patchedLevelRewards, /<关卡ID>2<\/关卡ID>[\s\S]*?<过关奖励经验>1131<\/过关奖励经验>/);
+  const boostedLevelRewards = applyLevelRewardAchievementBoostToXml(LEVEL_REWARD_XML, true);
+  assert.match(boostedLevelRewards, /<关卡ID>1<\/关卡ID>[\s\S]*?<过关奖励经验>1045<\/过关奖励经验>/);
+  assert.match(boostedLevelRewards, /<关卡ID>1<\/关卡ID>[\s\S]*?<过关奖励金币>1178<\/过关奖励金币>/);
+  assert.match(boostedLevelRewards, /<关卡ID>1<\/关卡ID>[\s\S]*?<过关奖励成就>9999<\/过关奖励成就>/);
+  assert.match(boostedLevelRewards, /<关卡ID>2<\/关卡ID>[\s\S]*?<过关奖励成就>9999<\/过关奖励成就>/);
+  assert.equal(applyLevelRewardAchievementBoostToXml(LEVEL_REWARD_XML, false), LEVEL_REWARD_XML);
 
   const wallet = db.getWallet(DEFAULT_ACCOUNT.uid);
   const purchase = db.buyProp({ uid: DEFAULT_ACCOUNT.uid, propId: 12, count: 2, price: 30, tag: 7 });

@@ -164,17 +164,16 @@
 
 ### 已接入的本地覆盖能力
 
-`runtime/save-data` 左侧操作面板现在提供“通关奖励”编辑区，可修改单个关卡难度的基础通关奖励：
+`runtime/save-data` 左侧操作面板现在提供“通关奖励”勾选开关。启用后，任意关卡、任意难度的基础通关成就点都会改为 `9999`：
 
-- `过关奖励经验`
-- `过关奖励金币`
-- `过关奖励成就`
+- 修改字段：`过关奖励成就`
+- 不修改字段：`过关奖励经验`、`过关奖励金币`
 
 实现边界：
 
 - 覆盖配置保存到 `workspace/saveData/level-rewards.json`。
 - 原始资源仍来自 `workspace/saveData/remote-assets/.../dataxmlvav447.swf`。
-- 服务端读取 DefineBinaryData `52` 中的关卡 XML，按覆盖配置替换上述三个字段，再生成 `workspace/saveData/generated-assets/level-rewards/dataxmlvav447.swf`。
+- 服务端读取 DefineBinaryData `52` 中的关卡 XML，开关启用时把所有关卡记录的 `过关奖励成就` 替换为 `9999`，再生成 `workspace/saveData/generated-assets/level-rewards/dataxmlvav447.swf`。
 - 游戏初始化加载 `dataxmlvav447.swf` 时才会读取奖励配置，所以修改后需要重载游戏才能生效；已进入的关卡不会即时刷新。
 - 当前不修改 `开牌奖励`、解锁条件、成就上限、怪物或场景配置。
 

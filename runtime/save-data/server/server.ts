@@ -12,12 +12,11 @@ import { SaveDataLogger } from "./logger.js";
 import { MockShopError, SaveDataMockApi } from "../platform4399/mockApi.js";
 import { saveDataPaths } from "./paths.js";
 import {
-  clearAllLevelRewardOverrides,
-  clearLevelRewardOverride,
+  clearLevelRewardAchievementBoost,
   ensurePatchedLevelRewardAsset,
   getLevelRewardState,
   LEVEL_REWARD_ASSET_NAME,
-  setLevelRewardOverride,
+  setLevelRewardAchievementBoost,
 } from "../services/levelRewards.js";
 
 type ServerOptions = {
@@ -1024,14 +1023,18 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
         }
         if (req.method === "POST") {
           try {
-            const state = setLevelRewardOverride(parseJsonRequestBody(body));
+            const state = setLevelRewardAchievementBoost(parseJsonRequestBody(body));
             logger.appendSync({
               event: "level_rewards.override",
               method: req.method,
               pathname: url.pathname,
               status: 200,
               result: "ok",
-              details: { overridesCount: state.overridesCount },
+              details: {
+                achievementBoostEnabled: state.achievementBoostEnabled,
+                achievementBoostValue: state.achievementBoostValue,
+                overridesCount: state.overridesCount,
+              },
             });
             send(res, 200, "application/json; charset=utf-8", JSON.stringify(state));
           } catch (error) {
@@ -1062,21 +1065,18 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
           return;
         }
         try {
-          const parsedBody = body.trim() ? parseJsonRequestBody(body) : {};
-          const state =
-            parsedBody &&
-            typeof parsedBody === "object" &&
-            !Array.isArray(parsedBody) &&
-            (parsedBody as Record<string, unknown>).all === true
-              ? clearAllLevelRewardOverrides()
-              : clearLevelRewardOverride(parsedBody);
+          const state = clearLevelRewardAchievementBoost();
           logger.appendSync({
             event: "level_rewards.clear",
             method: req.method,
             pathname: url.pathname,
             status: 200,
             result: "ok",
-            details: { overridesCount: state.overridesCount },
+            details: {
+              achievementBoostEnabled: state.achievementBoostEnabled,
+              achievementBoostValue: state.achievementBoostValue,
+              overridesCount: state.overridesCount,
+            },
           });
           send(res, 200, "application/json; charset=utf-8", JSON.stringify(state));
         } catch (error) {
