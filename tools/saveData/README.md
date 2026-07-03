@@ -150,6 +150,20 @@
 
 - `workspace/saveData/logs/mock-api.ndjson`
 
+如果只想尽量减少运行期 I/O 和公网测试抖动，可以无日志启动：
+
+```bash
+SAVE_DATA_LOGS=0 npm run saveData:serve
+```
+
+也可以使用等价别名：
+
+```bash
+SAVE_DATA_NO_LOGS=1 npm run saveData:serve
+```
+
+无日志模式下接口仍会正常返回，`/api/saveData/logs` 返回空列表，客户端 `client.fetch_slow/client.frame_jank` telemetry 也会被服务端丢弃。
+
 也可以通过本地接口查看：
 
 - `GET /api/saveData/logs?limit=200`：查看最近日志。
@@ -184,6 +198,8 @@ URL 上可用以下开关临时调整：
 ```bash
 SAVE_DATA_LOG_ASSET_HITS=1 npm run saveData:serve
 ```
+
+`SAVE_DATA_LOG_ASSET_HITS=1` 只在日志开启时生效。
 
 手动保存后已确认 `raw_data` 的外层格式是 `Base64(zlib deflate(saveXml))`。解压后可得到 `saveXml`，其中包含 `jxsflag/jxrole/jxv/jxid/jxjinenglv/sidx/newnn/kpji/jxguanka/jxkaizhong/asaved/idn` 等顶层字段。当前代码仍只保存原始 payload，尚未内置 XML 解码和字段类型化工具。
 

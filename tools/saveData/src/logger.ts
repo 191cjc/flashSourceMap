@@ -7,6 +7,7 @@ import type { SaveDataLogEvent } from "./types.js";
 type LoggerOptions = {
   logFile?: string;
   previewLength?: number;
+  enabled?: boolean;
 };
 
 export function sha256(value: string): string {
@@ -24,20 +25,32 @@ export function payloadSummary(data: string, previewLength = 96) {
 export class SaveDataLogger {
   readonly logFile: string;
   readonly previewLength: number;
+  readonly enabled: boolean;
 
   constructor(options: LoggerOptions = {}) {
     this.logFile = options.logFile ?? saveDataPaths.mockApiLogFile;
     this.previewLength = options.previewLength ?? 96;
-    mkdirSync(path.dirname(this.logFile), { recursive: true });
+    this.enabled = options.enabled ?? true;
+    if (this.enabled) {
+      mkdirSync(path.dirname(this.logFile), { recursive: true });
+    }
   }
 
   appendSync(event: Omit<SaveDataLogEvent, "ts">): void {
+    if (!this.enabled) {
+      return;
+    }
+
     const line = JSON.stringify({ ts: new Date().toISOString(), ...event }) + "\n";
     mkdirSync(path.dirname(this.logFile), { recursive: true });
     appendFileSync(this.logFile, line, "utf8");
   }
 
   list(limit = 200): SaveDataLogEvent[] {
+    if (!this.enabled) {
+      return [];
+    }
+
     if (!existsSync(this.logFile)) {
       return [];
     }
@@ -47,6 +60,10 @@ export class SaveDataLogger {
   }
 
   clear(): void {
+    if (!this.enabled) {
+      return;
+    }
+
     mkdirSync(path.dirname(this.logFile), { recursive: true });
     truncateSync(this.logFile);
   }

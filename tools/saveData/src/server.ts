@@ -44,6 +44,14 @@ const SWF_FILE_RE = /^[A-Za-z0-9_.-]+\.swf$/i;
 const GZIP_STATIC_EXTENSIONS = new Set([".css", ".html", ".js", ".json", ".wasm", ".xml"]);
 const LOG_ASSET_HITS = process.env.SAVE_DATA_LOG_ASSET_HITS === "1";
 
+function saveDataLoggingEnabled(): boolean {
+  const value = process.env.SAVE_DATA_LOGS?.trim().toLowerCase();
+  if (process.env.SAVE_DATA_NO_LOGS === "1") {
+    return false;
+  }
+  return value == null || !["0", "false", "no", "off"].includes(value);
+}
+
 function getContentType(filePath: string): string {
   return MIME_TYPES[path.extname(filePath).toLowerCase()] ?? "application/octet-stream";
 }
@@ -914,7 +922,7 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
   const host = options.host ?? process.env.SAVE_DATA_HOST ?? "127.0.0.1";
   const port = options.port ?? Number(process.env.SAVE_DATA_PORT ?? 8787);
   const db = new LocalSaveDatabase(options.dbFile ?? process.env.SAVE_DATA_DB ?? saveDataPaths.defaultDbFile);
-  const logger = new SaveDataLogger();
+  const logger = new SaveDataLogger({ enabled: saveDataLoggingEnabled() });
   const api = new SaveDataMockApi(db, undefined, logger);
 
   const server = createServer(async (req, res) => {

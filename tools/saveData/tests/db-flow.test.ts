@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtempSync, rmSync } from "node:fs";
+import { existsSync, mkdtempSync, rmSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { deflateSync, inflateSync } from "node:zlib";
@@ -181,8 +181,16 @@ const TEST_CATALOG: GameDataCatalog = {
 const { dir, dbFile } = tempDbFile();
 const db = new LocalSaveDatabase(dbFile);
 const logger = new SaveDataLogger({ logFile: path.join(dir, "mock-api.ndjson") });
+const disabledLogFile = path.join(dir, "disabled-log.ndjson");
+const disabledLogger = new SaveDataLogger({ logFile: disabledLogFile, enabled: false });
 
 try {
+  disabledLogger.appendSync({ event: "disabled.log", result: "ignored" });
+  assert.equal(disabledLogger.list().length, 0);
+  assert.equal(existsSync(disabledLogFile), false);
+  disabledLogger.clear();
+  assert.equal(existsSync(disabledLogFile), false);
+
   const api = new SaveDataMockApi(db, DEFAULT_ACCOUNT, logger);
   const firstData = "compressed-save-payload-v1";
   const secondData = "compressed-save-payload-v2";
