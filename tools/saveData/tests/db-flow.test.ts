@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { mkdtempSync, rmSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { deflateSync } from "node:zlib";
+import { deflateSync, inflateSync } from "node:zlib";
 import CryptoJS from "crypto-js";
 import { LocalSaveDatabase } from "../src/db.js";
 import {
@@ -48,8 +48,53 @@ function decryptPaymentPayload(body: string): string {
   ).toString(CryptoJS.enc.Utf8);
 }
 
+function encodeAmf3U29(value: number): Buffer {
+  if (value < 0x80) {
+    return Buffer.from([value]);
+  }
+  if (value < 0x4000) {
+    return Buffer.from([(value >> 7) | 0x80, value & 0x7f]);
+  }
+  if (value < 0x200000) {
+    return Buffer.from([(value >> 14) | 0x80, ((value >> 7) & 0x7f) | 0x80, value & 0x7f]);
+  }
+  return Buffer.from([
+    Math.floor(value / 0x400000) | 0x80,
+    (Math.floor(value / 0x8000) & 0x7f) | 0x80,
+    (Math.floor(value / 0x100) & 0x7f) | 0x80,
+    value & 0xff,
+  ]);
+}
+
+function readAmf3U29(buffer: Buffer, offset: number): { value: number; offset: number } {
+  let value = 0;
+  let cursor = offset;
+  for (let index = 0; index < 3; index += 1) {
+    const byte = buffer[cursor++];
+    value = (value << 7) | (byte & 0x7f);
+    if ((byte & 0x80) === 0) {
+      return { value, offset: cursor };
+    }
+  }
+  value = (value << 8) | buffer[cursor++];
+  return { value, offset: cursor };
+}
+
 function compressedSaveXml(xml: string): string {
-  return deflateSync(Buffer.from(`\u0006mock-prefix${xml}`, "utf8")).toString("base64");
+  const xmlBytes = Buffer.from(xml, "utf8");
+  return deflateSync(Buffer.concat([Buffer.from([0x06]), encodeAmf3U29(xmlBytes.length * 2 + 1), xmlBytes])).toString(
+    "base64"
+  );
+}
+
+function amf3SaveXmlStats(rawData: string): { declaredBytes: number; actualBytes: number; inflatedBytes: number } {
+  const inflated = inflateSync(Buffer.from(rawData, "base64"));
+  assert.equal(inflated[0], 0x06);
+  const header = readAmf3U29(inflated, 1);
+  assert.equal(header.value & 1, 1);
+  const declaredBytes = Math.floor(header.value / 2);
+  const actualBytes = inflated.length - header.offset;
+  return { declaredBytes, actualBytes, inflatedBytes: inflated.length };
 }
 
 const SHOP_SAVE_XML = [
@@ -214,6 +259,9 @@ try {
   assert.match(canonicalXml, /name="idai">50005</);
   assert.doesNotMatch(canonicalXml, /name="cf">1</);
   assert.match(canonicalXml, /name="cf">3</);
+  const canonicalStats = amf3SaveXmlStats(canonicalSave);
+  assert.equal(canonicalStats.declaredBytes, canonicalStats.actualBytes);
+  assert.equal(canonicalStats.actualBytes, Buffer.byteLength(canonicalXml, "utf8"));
 
   const wallet = db.getWallet(DEFAULT_ACCOUNT.uid);
   const purchase = db.buyProp({ uid: DEFAULT_ACCOUNT.uid, propId: 12, count: 2, price: 30, tag: 7 });

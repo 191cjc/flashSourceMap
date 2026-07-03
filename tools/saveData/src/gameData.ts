@@ -81,27 +81,133 @@ type SaveXmlContext = {
   };
 };
 
+type SaveXmlParts = {
+  xml: string;
+  compressed: boolean;
+  encoding:
+    | {
+        kind: "amf3-string";
+      }
+    | {
+        kind: "raw-prefix";
+        prefix: Buffer;
+      };
+};
+
 let catalogCache: GameDataCatalog | null = null;
 
-function decodeSaveXmlParts(rawData: string): { prefix: Buffer; xml: string; compressed: boolean } | null {
+function readAmf3U29(buffer: Buffer, offset: number): { value: number; offset: number } | null {
+  let value = 0;
+  let cursor = offset;
+
+  for (let index = 0; index < 3; index += 1) {
+    const byte = buffer[cursor];
+    if (byte == null) {
+      return null;
+    }
+    cursor += 1;
+    value = (value << 7) | (byte & 0x7f);
+    if ((byte & 0x80) === 0) {
+      return { value, offset: cursor };
+    }
+  }
+
+  const byte = buffer[cursor];
+  if (byte == null) {
+    return null;
+  }
+  cursor += 1;
+  value = (value << 8) | byte;
+  return { value, offset: cursor };
+}
+
+function encodeAmf3U29(value: number): Buffer {
+  if (!Number.isSafeInteger(value) || value < 0 || value > 0x1fffffff) {
+    throw new RangeError(`AMF3 U29 value out of range: ${value}`);
+  }
+
+  if (value < 0x80) {
+    return Buffer.from([value]);
+  }
+  if (value < 0x4000) {
+    return Buffer.from([(value >> 7) | 0x80, value & 0x7f]);
+  }
+  if (value < 0x200000) {
+    return Buffer.from([(value >> 14) | 0x80, ((value >> 7) & 0x7f) | 0x80, value & 0x7f]);
+  }
+
+  return Buffer.from([
+    Math.floor(value / 0x400000) | 0x80,
+    (Math.floor(value / 0x8000) & 0x7f) | 0x80,
+    (Math.floor(value / 0x100) & 0x7f) | 0x80,
+    value & 0xff,
+  ]);
+}
+
+function decodeAmf3SaveXml(buffer: Buffer): string | null {
+  if (buffer[0] !== 0x06) {
+    return null;
+  }
+
+  const header = readAmf3U29(buffer, 1);
+  if (!header || (header.value & 1) === 0) {
+    return null;
+  }
+
+  const declaredLength = Math.floor(header.value / 2);
+  const declaredEnd = header.offset + declaredLength;
+  const declaredXml =
+    declaredEnd <= buffer.length ? buffer.subarray(header.offset, declaredEnd).toString("utf8") : "";
+  if (declaredXml.startsWith("<saveXml") && declaredXml.trimEnd().endsWith("</saveXml>")) {
+    return declaredXml;
+  }
+
+  const remainingXml = buffer.subarray(header.offset).toString("utf8");
+  return remainingXml.startsWith("<saveXml") ? remainingXml : null;
+}
+
+function encodeAmf3SaveXml(xml: string): Buffer {
+  const xmlBytes = Buffer.from(xml, "utf8");
+  const header = encodeAmf3U29(xmlBytes.length * 2 + 1);
+  return Buffer.concat([Buffer.from([0x06]), header, xmlBytes]);
+}
+
+function decodeSaveXmlParts(rawData: string): SaveXmlParts | null {
   const trimmed = rawData.trim();
   if (trimmed.includes("<saveXml")) {
     const start = trimmed.indexOf("<saveXml");
     return {
-      prefix: Buffer.from(trimmed.slice(0, start), "utf8"),
       xml: trimmed.slice(start),
       compressed: false,
+      encoding: {
+        kind: "raw-prefix",
+        prefix: Buffer.from(trimmed.slice(0, start), "utf8"),
+      },
     };
   }
 
   try {
     const inflated = inflateSync(Buffer.from(trimmed, "base64"));
+    const amf3Xml = decodeAmf3SaveXml(inflated);
+    if (amf3Xml) {
+      return {
+        xml: amf3Xml,
+        compressed: true,
+        encoding: {
+          kind: "amf3-string",
+        },
+      };
+    }
+
     const start = inflated.indexOf(Buffer.from("<saveXml", "utf8"));
     return start >= 0
       ? {
-          prefix: inflated.subarray(0, start),
           xml: inflated.subarray(start).toString("utf8"),
           compressed: true,
+          encoding: {
+            kind: "raw-prefix",
+            prefix: inflated.subarray(0, start),
+          },
         }
       : null;
   } catch {
@@ -357,9 +463,15 @@ export function canonicalizeLocalSaveIdentity(rawData: string, identity: LocalSa
     return rawData;
   }
   if (!decoded.compressed) {
-    return Buffer.concat([decoded.prefix, Buffer.from(xml, "utf8")]).toString("utf8");
+    const prefix = decoded.encoding.kind === "raw-prefix" ? decoded.encoding.prefix : Buffer.alloc(0);
+    return Buffer.concat([prefix, Buffer.from(xml, "utf8")]).toString("utf8");
   }
-  return deflateSync(Buffer.concat([decoded.prefix, Buffer.from(xml, "utf8")])).toString("base64");
+
+  const payload =
+    decoded.encoding.kind === "amf3-string"
+      ? encodeAmf3SaveXml(xml)
+      : Buffer.concat([decoded.encoding.prefix, Buffer.from(xml, "utf8")]);
+  return deflateSync(payload).toString("base64");
 }
 
 function parseSaveTagAttributes(tag: string): { name: string; type: string } | null {
