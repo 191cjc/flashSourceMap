@@ -27,6 +27,9 @@ npm run extract           # 提取内嵌 SWF
 npm run decompile         # 反编译参考文件
 npm run saveData:serve    # 启动本地 saveData mock server
 npm run saveData:test:db  # 跑 saveData 数据库流程测试
+npm run desktop:dev       # 编译并启动 Electron 桌面壳
+npm run desktop:pack      # 生成本机目录包，用于打包配置检查
+npm run desktop:build:win # 生成 Windows NSIS 安装包
 ```
 
 ## 主要目录
@@ -45,6 +48,8 @@ tools/                    # 分析记录、反编译辅助和调试工具
 workspace/                # 本地数据库、资源缓存和线上存档基准
 builds/                   # 构建产物
 downloads/                # 原始资源，只读
+apps/saveData-desktop/    # Electron 桌面薄壳
+.github/workflows/        # GitHub Release 自动构建
 ```
 
 当前职责边界：
@@ -124,9 +129,12 @@ apps/saveData-desktop/
 
 桌面壳启动时应选择本机端口，启动同一套 `runtime/save-data/server`，再用 WebView 打开本机 URL。数据库和缓存目录应指向用户数据目录，例如 `%APPDATA%/flashSourceMap/saveData/`，不要写入安装目录或 asar 包。
 
+GitHub Release 对接已经预留在 `.github/workflows/release-desktop.yml`。推送 `v*` tag 时，GitHub Actions 会在 `windows-latest` 上运行检查、构建 Windows 安装包、生成校验文件并上传到 Release。
+
 ## 重要文档
 
 - `runtime/save-data/README.md`：saveData 运行时代码结构和入口。
+- `apps/saveData-desktop/README.md`：Electron 桌面壳、数据目录和 Release 流程。
 - `tools/saveData/README.md`：存档、充值 mock、商城购买 mock 和运行日志策略分析。
 - `tools/saveData/packaging/README.md`：公网访问方式、未来 Windows 桌面应用打包边界和推荐目录结构。
 - `tools/paymentLogic/README.md`：付费、余额、累计充值和商城购买链路分析。

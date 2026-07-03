@@ -1,8 +1,14 @@
 import path from "node:path";
 
-export const projectRoot = path.resolve(import.meta.dirname, "..", "..", "..");
-export const saveDataRoot = path.join(projectRoot, "runtime", "save-data");
-export const workspaceRoot = path.join(projectRoot, "workspace", "saveData");
+export const projectRoot = process.env.SAVE_DATA_PROJECT_ROOT
+  ? path.resolve(process.env.SAVE_DATA_PROJECT_ROOT)
+  : path.resolve(import.meta.dirname, "..", "..", "..");
+export const saveDataRoot = process.env.SAVE_DATA_RUNTIME_ROOT
+  ? path.resolve(process.env.SAVE_DATA_RUNTIME_ROOT)
+  : path.join(projectRoot, "runtime", "save-data");
+export const workspaceRoot = process.env.SAVE_DATA_WORKSPACE_ROOT
+  ? path.resolve(process.env.SAVE_DATA_WORKSPACE_ROOT)
+  : path.join(projectRoot, "workspace", "saveData");
 
 export const saveDataPaths = {
   projectRoot,
@@ -18,5 +24,7 @@ export const saveDataPaths = {
   defaultDbFile: path.join(workspaceRoot, "local-save.db"),
   downloadsSwf: path.join(projectRoot, "downloads", "swf"),
   extractedSwf: path.join(projectRoot, "extracted", "swf"),
-  ruffleRoot: path.join(projectRoot, "node_modules", "@ruffle-rs", "ruffle"),
+  ruffleRoot: process.env.SAVE_DATA_RUFFLE_ROOT
+    ? path.resolve(process.env.SAVE_DATA_RUFFLE_ROOT)
+    : path.join(projectRoot, "node_modules", "@ruffle-rs", "ruffle"),
 } as const;

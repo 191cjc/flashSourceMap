@@ -3,21 +3,68 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "main": "dist/apps/saveData-desktop/main/main.js",
   "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc --noEmit",
     "download": "tsx src/tools/downloadOriginals.ts",
     "extract": "tsx src/tools/extractInnerSwf.ts",
     "decompile": "bash tools/decompile.sh",
     "saveData:serve": "tsx runtime/save-data/server/server.ts",
-    "saveData:test:db": "tsx runtime/save-data/tests/db-flow.test.ts"
+    "saveData:test:db": "tsx runtime/save-data/tests/db-flow.test.ts",
+    "desktop:dev": "npm run build && electron .",
+    "desktop:pack": "npm run build && electron-builder --dir",
+    "desktop:build:win": "npm run build && electron-builder --win nsis --x64"
+  },
+  "build": {
+    "appId": "com.flashsourcemap.savedata",
+    "productName": "FlashSourceMap SaveData",
+    "directories": {
+      "output": "builds/desktop"
+    },
+    "files": [
+      "dist/**/*",
+      "runtime/save-data/public/**/*",
+      "runtime/save-data/schema/**/*",
+      "downloads/swf/**/*",
+      "extracted/swf/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "node_modules/@ruffle-rs/ruffle",
+        "to": "ruffle"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "${productName}-${version}-${os}-${arch}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
   },
   "devDependencies": {
-    "@ruffle-rs/ruffle": "^0.4.0-nightly.2026.7.1",
     "@types/crypto-js": "^4.2.2",
     "@types/node": "^24.0.7",
+    "electron": "^43.0.0",
+    "electron-builder": "^26.15.3",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   },
   "dependencies": {
+    "@ruffle-rs/ruffle": "^0.4.0-nightly.2026.7.1",
     "crypto-js": "^4.2.0"
   }
 }
