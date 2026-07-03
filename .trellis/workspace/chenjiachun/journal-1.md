@@ -38,3 +38,36 @@ Rewrote local save canonicalization to re-encode AMF3 string length headers afte
 ### Next Steps
 
 - None - task complete
+
+
+## Session 2: Investigate public gameplay stutter
+
+**Date**: 2026-07-03
+**Task**: Investigate public gameplay stutter
+**Branch**: `main`
+
+### Summary
+
+Compared default Ruffle WebGL with canvas using client frame telemetry. Found WebGL GPU stalls and dense long frames while canvas stayed stable after startup. Switched default renderer to canvas, added client slow-fetch/frame-jank telemetry, warmup prefetch assets, content-length for static assets, and reduced cached asset hit log spam.
+
+### Main Changes
+
+(Add details)
+
+### Git Commits
+
+| Hash | Message |
+|------|---------|
+| `39398fd` | (see git log) |
+
+### Testing
+
+- [OK] (Add test results)
+
+### Status
+
+[OK] **Completed**
+
+### Next Steps
+
+- None - task complete
