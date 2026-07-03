@@ -32,7 +32,7 @@ jobs:
           npm run saveData:test:db
           npm run typecheck
 
-      - name: Build Windows installer
+      - name: Build Windows desktop package
         run: npm run desktop:build:win
 
       - name: Collect release assets
@@ -40,7 +40,7 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force builds/release-assets | Out-Null
           Get-ChildItem builds/desktop -File |
-            Where-Object { $_.Extension -in ".exe", ".blockmap", ".yml" } |
+            Where-Object { $_.Extension -in ".zip", ".exe", ".blockmap", ".yml" } |
             Copy-Item -Destination builds/release-assets
           Get-FileHash builds/release-assets/* -Algorithm SHA256 |
             ForEach-Object { "$($_.Hash.ToLowerInvariant())  $([System.IO.Path]::GetFileName($_.Path))" } |

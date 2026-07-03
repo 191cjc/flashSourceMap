@@ -124,4 +124,4 @@ temporary FFDec logs
 - The local recharge button is disabled after the page detects that a save slot has entered gameplay, because in-game recharge can leave SQLite `total_recharged` newer than the game's in-memory `allChongGod`.
 - Do not duplicate save, wallet, mall, or resource-serving logic in future desktop packaging. A desktop shell should start the same `runtime/save-data/server` server and load the shared `runtime/save-data/public` UI in a local WebView.
 - Desktop packaging should store `local-save.db`, WAL/SHM files, resource caches, generated public assets, and logs in a user data directory, not in the application install directory.
-- GitHub Release packaging is driven by `.github/workflows/release-desktop.yml`; push a `v*` tag to build and upload the Windows installer.
+- GitHub Release packaging is driven by `.github/workflows/release-desktop.yml`; push a `v*` tag to build and upload the Windows desktop zip package.

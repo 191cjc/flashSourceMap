@@ -29,7 +29,7 @@ npm run saveData:serve    # 启动本地 saveData mock server
 npm run saveData:test:db  # 跑 saveData 数据库流程测试
 npm run desktop:dev       # 编译并启动 Electron 桌面壳
 npm run desktop:pack      # 生成本机目录包，用于打包配置检查
-npm run desktop:build:win # 生成 Windows NSIS 安装包
+npm run desktop:build:win # 生成 Windows 桌面 zip 包
 ```
 
 ## 主要目录
@@ -124,12 +124,12 @@ apps/saveData-desktop/
   main/                   # 启动/停止本机 saveData server，管理窗口生命周期
   preload/                # 可选的桌面桥接 API
   renderer/               # 桌面专属控制页；游戏页仍加载 runtime/save-data/public
-  packaging/              # Windows 图标、安装包和签名配置
+  packaging/              # Windows 图标、打包和签名配置
 ```
 
 桌面壳启动时应选择本机端口，启动同一套 `runtime/save-data/server`，再用 WebView 打开本机 URL。数据库和缓存目录应指向用户数据目录，例如 `%APPDATA%/flashSourceMap/saveData/`，不要写入安装目录或 asar 包。
 
-GitHub Release 对接已经预留在 `.github/workflows/release-desktop.yml`。推送 `v*` tag 时，GitHub Actions 会在 `windows-latest` 上运行检查、构建 Windows 安装包、生成校验文件并上传到 Release。
+GitHub Release 对接已经预留在 `.github/workflows/release-desktop.yml`。推送 `v*` tag 时，GitHub Actions 会在 `windows-latest` 上运行检查、构建 Windows 桌面 zip 包、生成校验文件并上传到 Release。
 
 ## 重要文档
 

@@ -18,7 +18,7 @@ npm run desktop:dev
 npm run desktop:pack
 ```
 
-Windows 安装包：
+Windows 桌面包：
 
 ```bash
 npm run desktop:build:win
@@ -48,4 +48,4 @@ git tag v0.1.0
 git push origin v0.1.0
 ```
 
-workflow 会在 Windows runner 上运行测试、构建 NSIS 安装包、生成 `checksums.txt`，并上传到 GitHub Release。
+workflow 会在 Windows runner 上运行测试、构建 Windows 桌面 zip 包、生成 `checksums.txt`，并上传到 GitHub Release。
