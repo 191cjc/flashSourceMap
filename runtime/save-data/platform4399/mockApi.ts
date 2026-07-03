@@ -34,6 +34,8 @@ type TotalRechargeView = {
 };
 
 type LocalPurchaseResult = BuyPropResult & {
+  requestedUid: string;
+  paymentUid: string;
   totalPrice: number;
   product: ProductShopValueEstimate;
   slotShopValue: SaveShopValueEstimate | null;
@@ -154,10 +156,16 @@ export class SaveDataMockApi {
     this.logger?.appendSync(event);
   }
 
+  resolvePaymentUid(uid?: string | null): string {
+    const requested = uid?.trim();
+    return requested === this.account.uid ? requested : this.account.uid;
+  }
+
   getTotalRechargeView(uid = this.account.uid, gameid = "100025235"): TotalRechargeView {
-    const wallet = this.db.getWallet(uid);
+    const paymentUid = this.resolvePaymentUid(uid);
+    const wallet = this.db.getWallet(paymentUid);
     const catalog = loadGameDataCatalog();
-    const accountShopValue = estimateAccountShopValue(this.db.listSlotsWithData(uid, gameid), catalog);
+    const accountShopValue = estimateAccountShopValue(this.db.listSlotsWithData(paymentUid, gameid), catalog);
     return {
       wallet,
       totalRecharged: Math.max(wallet.totalRecharged, accountShopValue.requiredTotalRecharge),
@@ -166,7 +174,8 @@ export class SaveDataMockApi {
   }
 
   buyProp(request: BuyPropRequest): LocalPurchaseResult {
-    const uid = request.uid;
+    const requestedUid = request.uid;
+    const uid = this.resolvePaymentUid(request.uid);
     const gameId = request.gameId ?? "100025235";
     const propId = Math.floor(request.propId);
     const count = Math.floor(request.count);
@@ -241,6 +250,8 @@ export class SaveDataMockApi {
     const result = this.db.buyProp({ uid, propId, count, price, tag });
     return {
       ...result,
+      requestedUid,
+      paymentUid: uid,
       totalPrice,
       product,
       slotShopValue,
@@ -418,10 +429,11 @@ export class SaveDataMockApi {
     }
 
     if (pathname === "/mall/index.php/Api/BuyPropNd" || pathname === "/mall/index.php/Api/BuyProp") {
-      const uid = getFirst(params, "uid", this.account.uid);
+      const requestedUid = getFirst(params, "uid", this.account.uid);
+      const uid = this.resolvePaymentUid(requestedUid);
       try {
         const result = this.buyProp({
-          uid,
+          uid: requestedUid,
           gameId: getFirst(params, "gameid", "100025235"),
           slotIndex: Number(getFirst(params, "idx", getFirst(params, "index", "-1"))),
           propId: Number(getFirst(params, "propId", getFirst(params, "prop_id", "0"))),
@@ -436,7 +448,7 @@ export class SaveDataMockApi {
           uid,
           status: 200,
           result: "ok",
-          details: result,
+          details: { ...result, requestedUid },
         });
         return json(result);
       } catch (error) {
@@ -451,7 +463,7 @@ export class SaveDataMockApi {
           uid,
           status: 200,
           result: shopError.result,
-          details: { code: shopError.code, message: shopError.message, ...shopError.details },
+          details: { requestedUid, code: shopError.code, message: shopError.message, ...shopError.details },
         });
         return json({ eId: String(shopError.code), msg: shopError.message });
       }

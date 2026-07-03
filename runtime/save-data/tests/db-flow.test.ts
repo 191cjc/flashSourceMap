@@ -373,6 +373,20 @@ try {
       });
       assert.equal(okPurchase.balance, 1000150);
       assert.equal(okPurchase.requiredTotalRecharge, 113);
+
+      const mismatchUidPurchase = api2.buyProp({
+        uid: "legacy-platform-uid",
+        gameId: GAME_ID,
+        slotIndex: 2,
+        propId: 1652,
+        count: 1,
+        price: 50,
+        tag: 3,
+      });
+      assert.equal(mismatchUidPurchase.requestedUid, "legacy-platform-uid");
+      assert.equal(mismatchUidPurchase.paymentUid, DEFAULT_ACCOUNT.uid);
+      assert.equal(mismatchUidPurchase.balance, 1000100);
+      assert.equal(db2.getAccountByUid("legacy-platform-uid"), null);
     } finally {
       db2.close();
       rmSync(second.dir, { recursive: true, force: true });

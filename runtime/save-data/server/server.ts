@@ -642,9 +642,10 @@ function shopMockResponse(api: SaveDataMockApi, body: Buffer): ShopThriftRespons
     const count = request.prop.propCount ?? 1;
     const price = request.prop.propPrice ?? 0;
     const tag = request.prop.tag ?? "";
-    const uid = request.head.uId ?? api.account.uid;
+    const requestedUid = request.head.uId ?? api.account.uid;
+    const uid = api.resolvePaymentUid(requestedUid);
     const result = api.buyProp({
-      uid,
+      uid: requestedUid,
       gameId: request.head.gameId ?? "100025235",
       slotIndex: request.head.index,
       propId: Number(propId),
@@ -658,6 +659,8 @@ function shopMockResponse(api: SaveDataMockApi, body: Buffer): ShopThriftRespons
       result: "ok",
       request,
       details: {
+        requestedUid,
+        paymentUid: uid,
         balance: result.balance,
         totalPrice: result.totalPrice,
         projectedShopValue: result.projectedShopValue,
@@ -1176,7 +1179,7 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
           event: "payment.shop_thrift",
           method: req.method ?? "GET",
           pathname: url.pathname,
-          uid: response.request?.head.uId ?? api.account.uid,
+          uid: typeof response.details?.paymentUid === "string" ? response.details.paymentUid : api.account.uid,
           gameid: response.request?.head.gameId ?? "100025235",
           status: 200,
           result: response.result,
