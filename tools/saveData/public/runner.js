@@ -4,8 +4,10 @@
   const holder = document.getElementById("player");
   const gameSwf = "/swf/xfbbv451.swf";
   const query = new URLSearchParams(window.location.search);
-  const renderer = query.get("renderer") || "webgl";
+  const renderer = query.get("renderer") || "canvas";
   const configuredMaxExecutionDuration = Number(query.get("timeout") || 60);
+  const telemetryEnabled = query.get("telemetry") !== "0";
+  const warmupEnabled = query.get("warmup") !== "0";
   const criticalAssets = [
     "/yinxiaov33.swf",
     "/j_otherscv35.swf",
@@ -22,7 +24,30 @@
     "/WuqiB_xinshouqiangv33.swf",
     "/e_chushitaov12.swf",
   ];
+  const warmupAssets = [
+    "/pmodes2v43.swf",
+    "/pmodes1v43.swf",
+    "/t_boxv44.swf",
+    "/j_shangchengv29.swf",
+    "/j_sxpanelv44.swf",
+    "/WuqiB_hyemqiangv42.swf",
+    "/e_cyzmkaijiav39.swf",
+    "/e_cyzmyaodaiv39.swf",
+    "/e_cyzmhuwanv39.swf",
+    "/sz_cqzhkaijiav27.swf",
+    "/sz_cqzhchibangv27.swf",
+    "/WuqiB_cqzhv33.swf",
+    "/sz_cqzhxgv232.swf",
+    "/chjjyznv40.swf",
+    "/skin_wmanv295.swf",
+    "/WuqiB_leitingxueyuv33.swf",
+    "/e_wkaijiajinav28.swf",
+    "/e_wyaodaijinav28.swf",
+    "/e_wchushitaov28.swf",
+  ];
   let prefetchPromise = null;
+  const startedAt = performance.now();
+  const originalFetch = window.fetch.bind(window);
 
   window.RufflePlayer = window.RufflePlayer || {};
   window.RufflePlayer.config = {
@@ -52,9 +77,158 @@
     ],
   };
 
+  function logClientEvent(event, result, details) {
+    if (!telemetryEnabled) {
+      return;
+    }
+
+    const payload = JSON.stringify({
+      event,
+      result,
+      href: window.location.href,
+      elapsedMs: Math.round(performance.now() - startedAt),
+      renderer,
+      details,
+    });
+
+    if (navigator.sendBeacon) {
+      const sent = navigator.sendBeacon("/api/saveData/client-log", new Blob([payload], { type: "application/json" }));
+      if (sent) {
+        return;
+      }
+    }
+
+    originalFetch("/api/saveData/client-log", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: payload,
+      keepalive: true,
+    }).catch(() => {});
+  }
+
+  function fetchUrl(input) {
+    if (typeof input === "string") {
+      return input;
+    }
+    if (input instanceof URL) {
+      return input.toString();
+    }
+    return input?.url || "";
+  }
+
+  function shouldLogFetch(url, ms, status, failed) {
+    if (!url || url.includes("/api/saveData/client-log")) {
+      return false;
+    }
+    if (failed || status >= 400) {
+      return true;
+    }
+    if (/\.swf(?:\?|$)/i.test(url)) {
+      return ms >= 350;
+    }
+    if (/\/api\/4399|\/api\/saveData|save\.api\.4399\.com/i.test(url)) {
+      return ms >= 250;
+    }
+    return ms >= 750;
+  }
+
+  window.fetch = async function instrumentedFetch(input, init) {
+    const url = fetchUrl(input);
+    const started = performance.now();
+    try {
+      const response = await originalFetch(input, init);
+      const ms = Math.round(performance.now() - started);
+      if (shouldLogFetch(url, ms, response.status, false)) {
+        logClientEvent("client.fetch_slow", "ok", {
+          url,
+          status: response.status,
+          ms,
+          contentLength: response.headers.get("content-length") || "",
+        });
+      }
+      return response;
+    } catch (error) {
+      const ms = Math.round(performance.now() - started);
+      logClientEvent("client.fetch_slow", "error", {
+        url,
+        ms,
+        message: error instanceof Error ? error.message : String(error),
+      });
+      throw error;
+    }
+  };
+
+  function startFrameMonitor() {
+    let intervalStart = performance.now();
+    let lastFrame = intervalStart;
+    let frameCount = 0;
+    let longFrames = 0;
+    let maxFrameMs = 0;
+
+    function tick(now) {
+      const delta = now - lastFrame;
+      lastFrame = now;
+      frameCount += 1;
+      if (delta >= 80) {
+        longFrames += 1;
+        maxFrameMs = Math.max(maxFrameMs, delta);
+      }
+
+      if (now - intervalStart >= 15000) {
+        if (longFrames > 0) {
+          logClientEvent("client.frame_jank", "ok", {
+            intervalMs: Math.round(now - intervalStart),
+            frames: frameCount,
+            longFrames,
+            maxFrameMs: Math.round(maxFrameMs),
+          });
+        }
+        intervalStart = now;
+        frameCount = 0;
+        longFrames = 0;
+        maxFrameMs = 0;
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  }
+
   function setStatus(value) {
     status.textContent = value;
     window.__saveDataLog?.(value);
+  }
+
+  async function prefetchAssets(label, assets, batchSize) {
+    const uniqueAssets = [...new Set(assets)];
+    let ok = 0;
+    let failed = 0;
+    const started = performance.now();
+
+    for (let index = 0; index < uniqueAssets.length; index += batchSize) {
+      await Promise.all(
+        uniqueAssets.slice(index, index + batchSize).map(async (asset) => {
+          try {
+            const response = await fetch(asset, { cache: "force-cache" });
+            if (!response.ok) {
+              throw new Error(`HTTP ${response.status}`);
+            }
+            ok += 1;
+          } catch (error) {
+            failed += 1;
+            console.warn(`Failed to prefetch ${asset}`, error);
+          }
+        })
+      );
+    }
+
+    logClientEvent("client.prefetch", failed > 0 ? "partial" : "ok", {
+      label,
+      ok,
+      failed,
+      ms: Math.round(performance.now() - started),
+    });
   }
 
   async function prefetchCriticalAssets() {
@@ -64,19 +238,10 @@
 
     prefetchPromise = (async () => {
       window.__saveDataLog?.("预缓存读档资源");
-      for (let index = 0; index < criticalAssets.length; index += 2) {
-        await Promise.all(
-          criticalAssets.slice(index, index + 2).map(async (asset) => {
-            try {
-              const response = await fetch(asset, { cache: "force-cache" });
-              if (!response.ok) {
-                throw new Error(`HTTP ${response.status}`);
-              }
-            } catch (error) {
-              console.warn(`Failed to prefetch ${asset}`, error);
-            }
-          })
-        );
+      await prefetchAssets("critical", criticalAssets, 2);
+      if (warmupEnabled) {
+        window.__saveDataLog?.("预热常用战斗资源");
+        await prefetchAssets("warmup", warmupAssets, 2);
       }
       window.__saveDataLog?.("读档资源预缓存完成");
     })();
@@ -134,5 +299,6 @@
 
   document.getElementById("reloadGame").addEventListener("click", () => loadGame());
 
+  startFrameMonitor();
   loadGame().catch((error) => setStatus(error instanceof Error ? error.message : String(error)));
 })();

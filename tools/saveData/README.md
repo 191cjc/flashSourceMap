@@ -168,6 +168,23 @@
 
 完整 payload 仍保存在 SQLite 的 `save_slots.raw_data` 中。由于 4399 ctrl 层传入 mock 接口的 `data` 是压缩/Base64 后的字符串，mock 层目前无法直接看到 `jxrole/jxguanka/jxkaizhong/asaved` 这类真实对象字段。
 
+公网调试卡顿时，页面会把两类轻量客户端事件写入同一个日志：
+
+- `client.fetch_slow`：SWF、存档、商城等请求耗时超过阈值，或请求失败。
+- `client.frame_jank`：浏览器 `requestAnimationFrame` 在 15 秒窗口内出现 80ms 以上长帧。
+
+URL 上可用以下开关临时调整：
+
+- `renderer=webgl`：手动切回 WebGL 渲染；公网默认使用 `canvas`，因为当前 Ruffle WebGL 路径在部分环境会出现密集长帧。
+- `telemetry=0`：关闭客户端性能日志。
+- `warmup=0`：关闭常用战斗资源预热。
+
+服务端默认只记录首次远程拉取和接口调用，不再为每个已缓存 SWF 资源写 `asset.local_hit`，避免资源密集加载时同步日志写入干扰响应。若需要详细资源命中日志，可启动时加：
+
+```bash
+SAVE_DATA_LOG_ASSET_HITS=1 npm run saveData:serve
+```
+
 手动保存后已确认 `raw_data` 的外层格式是 `Base64(zlib deflate(saveXml))`。解压后可得到 `saveXml`，其中包含 `jxsflag/jxrole/jxv/jxid/jxjinenglv/sidx/newnn/kpji/jxguanka/jxkaizhong/asaved/idn` 等顶层字段。当前代码仍只保存原始 payload，尚未内置 XML 解码和字段类型化工具。
 
 如果需要查看运行时对象在进入平台序列化前的状态，再做小范围 SWF patch，优先 patch 以下位置输出结构化日志：

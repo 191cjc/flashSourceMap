@@ -42,6 +42,7 @@ const GAME_ASSET_BASE_URL = "https://sbai.4399.com/4399swf/upload_swf/ftp10/hong
 const GAME_ASSET_REFERER = `${GAME_ASSET_BASE_URL}jjxzfcms.htm`;
 const SWF_FILE_RE = /^[A-Za-z0-9_.-]+\.swf$/i;
 const GZIP_STATIC_EXTENSIONS = new Set([".css", ".html", ".js", ".json", ".wasm", ".xml"]);
+const LOG_ASSET_HITS = process.env.SAVE_DATA_LOG_ASSET_HITS === "1";
 
 function getContentType(filePath: string): string {
   return MIME_TYPES[path.extname(filePath).toLowerCase()] ?? "application/octet-stream";
@@ -69,6 +70,48 @@ function send(res: ServerResponse, status: number, contentType: string, body: st
 
 function sendNotFound(res: ServerResponse): void {
   send(res, 404, "text/plain; charset=utf-8", "not found");
+}
+
+function clampLogText(value: unknown, maxLength = 500): unknown {
+  if (typeof value !== "string") {
+    return value;
+  }
+  return value.length > maxLength ? `${value.slice(0, maxLength)}...` : value;
+}
+
+function sanitizeClientLogDetails(value: unknown, depth = 0): Record<string, unknown> {
+  if (!value || typeof value !== "object" || Array.isArray(value) || depth > 2) {
+    return {};
+  }
+
+  const output: Record<string, unknown> = {};
+  for (const [key, entry] of Object.entries(value)) {
+    if (entry == null || typeof entry === "number" || typeof entry === "boolean" || typeof entry === "string") {
+      output[key] = clampLogText(entry);
+    } else if (typeof entry === "object" && !Array.isArray(entry)) {
+      output[key] = sanitizeClientLogDetails(entry, depth + 1);
+    }
+  }
+  return output;
+}
+
+function parseClientLog(body: string): { event: string; result: string; details: Record<string, unknown> } {
+  try {
+    const parsed = JSON.parse(body) as Record<string, unknown>;
+    const eventName = typeof parsed.event === "string" && parsed.event ? parsed.event : "client.event";
+    const result = typeof parsed.result === "string" && parsed.result ? parsed.result : "ok";
+    return {
+      event: eventName.startsWith("client.") || eventName.startsWith("ruffle.") ? eventName : `client.${eventName}`,
+      result,
+      details: sanitizeClientLogDetails(parsed),
+    };
+  } catch (error) {
+    return {
+      event: "client.log_parse_error",
+      result: "invalid_json",
+      details: { message: error instanceof Error ? error.message : String(error) },
+    };
+  }
 }
 
 const THRIFT_VERSION_1 = 0x80010000;
@@ -693,14 +736,16 @@ async function ensureGameAsset(assetName: string, logger: SaveDataLogger): Promi
 
   const assetFile = gameAssetFile(assetName);
   if (existsSync(assetFile)) {
-    logger.appendSync({
-      event: "asset.local_hit",
-      method: "GET",
-      pathname: `/${assetName}`,
-      status: 200,
-      result: "ok",
-      details: { assetName, file: assetFile, size: statSync(assetFile).size },
-    });
+    if (LOG_ASSET_HITS) {
+      logger.appendSync({
+        event: "asset.local_hit",
+        method: "GET",
+        pathname: `/${assetName}`,
+        status: 200,
+        result: "ok",
+        details: { assetName, file: assetFile, size: statSync(assetFile).size },
+      });
+    }
     return assetFile;
   }
 
@@ -822,7 +867,11 @@ async function ensureRuntimeAssets(): Promise<void> {
 
 async function serveStatic(req: IncomingMessage, res: ServerResponse, root: string, requestPath: string): Promise<boolean> {
   const filePath = safeJoin(root, requestPath);
-  if (!filePath || !existsSync(filePath) || !statSync(filePath).isFile()) {
+  if (!filePath || !existsSync(filePath)) {
+    return false;
+  }
+  const fileStat = statSync(filePath);
+  if (!fileStat.isFile()) {
     return false;
   }
 
@@ -832,6 +881,7 @@ async function serveStatic(req: IncomingMessage, res: ServerResponse, root: stri
     "content-type": getContentType(filePath),
     "access-control-allow-origin": "*",
     "cache-control": "public, max-age=3600",
+    ...(gzip ? {} : { "content-length": fileStat.size }),
     ...(gzip ? { "content-encoding": "gzip", vary: "accept-encoding" } : {}),
   });
   if (req.method === "HEAD") {
@@ -946,6 +996,24 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
 
       if (url.pathname === "/api/saveData/logs/clear") {
         logger.clear();
+        send(res, 200, "application/json; charset=utf-8", JSON.stringify({ ok: true }));
+        return;
+      }
+
+      if (url.pathname === "/api/saveData/client-log") {
+        if (req.method !== "POST") {
+          send(res, 405, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "method_not_allowed" }));
+          return;
+        }
+        const clientLog = parseClientLog(body);
+        logger.appendSync({
+          event: clientLog.event,
+          method: req.method,
+          pathname: url.pathname,
+          status: 200,
+          result: clientLog.result,
+          details: clientLog.details,
+        });
         send(res, 200, "application/json; charset=utf-8", JSON.stringify({ ok: true }));
         return;
       }
