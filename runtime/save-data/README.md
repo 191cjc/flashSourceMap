@@ -31,6 +31,14 @@ npm run native-flash:prepare
 npm run start:native-flash:mock
 ```
 
+生成可发布的 Windows 便携包：
+
+```bash
+npm run native-flash:package
+```
+
+native Flash 页面左侧侧栏提供钱包、物品添加和通关奖励 tab。物品添加依赖启动器生成的 native SWF 回调补丁，不需要再打开参考项目。
+
 无日志模式可减少运行期 I/O：
 
 ```bash

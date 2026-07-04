@@ -18,14 +18,14 @@ const bundledPepperFlash = path.join(cefCacheDir, "pepflashplayer64.dll");
 const legacyBundledPepperFlash = path.join(projectRoot, "workspace", "native-cef", "pepflashplayer64.dll");
 const defaultPepperFlashVersion = "99.9.9.999";
 const sourceOuterSwf = path.join(projectRoot, "downloads", "swf", "xfbbv451.swf");
+const sourceInnerSwf = path.join(projectRoot, "extracted", "swf", "L4399Main_gamefile.swf");
 const legacySavesFileName = path.join("data", "runtime-mock-saves.json");
-const legacySavesFileCandidates = [
-  path.join(projectRoot, legacySavesFileName),
+const projectLegacySavesFileCandidates = [path.join(projectRoot, legacySavesFileName)];
+const referenceLegacySavesFileCandidates = [
   path.join(path.dirname(projectRoot), "flash-4399-115225-dev", legacySavesFileName),
   path.join(os.homedir(), "flash-4399-115225-dev", legacySavesFileName),
   path.join(os.homedir(), "Desktop", "flash-4399-115225-dev", legacySavesFileName),
 ];
-const nativePatchedSwfPath = path.join(projectRoot, "workspace", "saveData", "public", "swf", "xfbbv451-native.swf");
 const nativePatchedSwfUrlPath = "/swf/xfbbv451-native.swf";
 const nativeProxyHttpsPrefix = "http://127.000.000.001:80";
 const nativeProxyHttpPrefix = "http://127.000.000.01:80";
@@ -67,6 +67,20 @@ const nativePlatformPrefixReplacements = [
   ["https://my.4399.com/services/game-play", "http://127.1/services/game-play?xxxxxx"],
 ];
 
+function saveDataWorkspaceRoot() {
+  return process.env.SAVE_DATA_WORKSPACE_ROOT
+    ? path.resolve(process.env.SAVE_DATA_WORKSPACE_ROOT)
+    : path.join(projectRoot, "workspace", "saveData");
+}
+
+function nativePatchedSwfPath() {
+  return path.join(saveDataWorkspaceRoot(), "public", "swf", "xfbbv451-native.swf");
+}
+
+function nativeBagPatchedInnerSwfPath() {
+  return path.join(saveDataWorkspaceRoot(), "generated-assets", "native-bag", "L4399Main_gamefile.swf");
+}
+
 function envPath(name) {
   const value = process.env[name];
   return value && value.trim() ? value.trim() : null;
@@ -98,7 +112,11 @@ function configuredLegacySavesFile(env = process.env) {
   if (env.SAVE_DATA_DB && env.SAVE_DATA_DB.trim()) {
     return null;
   }
-  return firstExistingFile(legacySavesFileCandidates);
+  const candidates = [...projectLegacySavesFileCandidates];
+  if (env.NATIVE_FLASH_ALLOW_REFERENCE_SAVES === "1") {
+    candidates.push(...referenceLegacySavesFileCandidates);
+  }
+  return firstExistingFile(candidates);
 }
 
 function configureLegacySavesEnv(env = process.env) {
@@ -385,6 +403,162 @@ function compressSwf({ signature, header, body }) {
   return Buffer.concat([header, zlib.deflateSync(body, { level: 9 })]);
 }
 
+function readRectByteLength(buffer, offset) {
+  const nbits = buffer[offset] >> 3;
+  const totalBits = 5 + nbits * 4;
+  return Math.ceil(totalBits / 8);
+}
+
+function parseSwfTags(body) {
+  const rectLength = readRectByteLength(body, 0);
+  let offset = rectLength + 4;
+  const tags = [];
+
+  while (offset + 2 <= body.length) {
+    const headerOffset = offset;
+    const tagHeader = body.readUInt16LE(offset);
+    offset += 2;
+
+    const code = tagHeader >> 6;
+    let length = tagHeader & 0x3f;
+    if (length === 0x3f) {
+      if (offset + 4 > body.length) {
+        throw new Error(`Truncated long tag header at ${headerOffset}`);
+      }
+      length = body.readUInt32LE(offset);
+      offset += 4;
+    }
+
+    if (offset + length > body.length) {
+      throw new Error(`Tag ${code} at ${headerOffset} exceeds body length`);
+    }
+
+    tags.push({
+      code,
+      length,
+      offset: headerOffset,
+      dataOffset: offset,
+      data: body.subarray(offset, offset + length),
+    });
+    offset += length;
+
+    if (code === 0) {
+      break;
+    }
+  }
+
+  return tags;
+}
+
+function encodeSwfTag(code, payload) {
+  if (payload.length < 0x3f) {
+    const header = Buffer.alloc(2);
+    header.writeUInt16LE((code << 6) | payload.length, 0);
+    return Buffer.concat([header, payload]);
+  }
+
+  const header = Buffer.alloc(6);
+  header.writeUInt16LE((code << 6) | 0x3f, 0);
+  header.writeUInt32LE(payload.length, 2);
+  return Buffer.concat([header, payload]);
+}
+
+function replaceDefineBinaryDataInBody(body, binaryId, replacementData) {
+  const tags = parseSwfTags(body);
+  const firstTagOffset = tags[0]?.offset;
+  if (firstTagOffset == null) {
+    throw new Error("SWF has no tags");
+  }
+
+  const chunks = [body.subarray(0, firstTagOffset)];
+  let replacements = 0;
+  for (const tag of tags) {
+    const originalEnd = tag.dataOffset + tag.length;
+    if (tag.code === 87 && tag.data.length >= 6 && tag.data.readUInt16LE(0) === binaryId) {
+      chunks.push(encodeSwfTag(tag.code, Buffer.concat([tag.data.subarray(0, 6), replacementData])));
+      replacements += 1;
+    } else {
+      chunks.push(body.subarray(tag.offset, originalEnd));
+    }
+  }
+
+  return {
+    body: Buffer.concat(chunks),
+    replacements,
+  };
+}
+
+function newestMtimeMs(files) {
+  let newest = 0;
+  for (const file of files) {
+    if (fs.existsSync(file)) {
+      newest = Math.max(newest, fs.statSync(file).mtimeMs);
+    }
+  }
+  return newest;
+}
+
+function ensureNativeBagPatchedInnerSwf() {
+  if (process.env.NATIVE_FLASH_ENABLE_ITEM_MOCK === "0") {
+    return null;
+  }
+
+  const source = existingFile(sourceInnerSwf);
+  if (!source) {
+    console.log(`[native-flash] Item mock skipped; inner SWF not found: ${sourceInnerSwf}`);
+    return null;
+  }
+
+  const patchScript = path.join(projectRoot, "tools", "patch-runtime-mock-bag.cjs");
+  const patchDependencies = [
+    patchScript,
+    path.join(projectRoot, "tools", "patch-pay-event-listener.cjs"),
+    path.join(projectRoot, "tools", "inspect-abc-references.cjs"),
+  ];
+  for (const dependency of patchDependencies) {
+    if (!existingFile(dependency)) {
+      throw new Error(`Native item mock patch dependency is missing: ${dependency}`);
+    }
+  }
+
+  const outputFile = nativeBagPatchedInnerSwfPath();
+  const inputNewest = newestMtimeMs([source, ...patchDependencies]);
+  if (fs.existsSync(outputFile) && fs.statSync(outputFile).mtimeMs >= inputNewest) {
+    return outputFile;
+  }
+
+  fs.mkdirSync(path.dirname(outputFile), { recursive: true });
+  fs.copyFileSync(source, outputFile);
+
+  const result = spawnSync(process.execPath, [patchScript], {
+    cwd: projectRoot,
+    env: {
+      ...process.env,
+      CODEX_RUNTIME_MOCK_SWF: outputFile,
+      CODEX_RUNTIME_MOCK_BACKUP: `${outputFile}.before-native-bag-patch.swf`,
+      CODEX_DISABLE_PET_MOCK_PATCH: "1",
+      CODEX_DISABLE_CURRENCY_MOCK_PATCH: "1",
+      CODEX_DISABLE_SAVE_GUARD_PATCH: "1",
+      CODEX_ENABLE_BAG_PANEL_BUTTON_MOCK: "1",
+    },
+    encoding: "utf8",
+    windowsHide: true,
+  });
+
+  if (result.status !== 0) {
+    throw new Error(
+      [
+        "Native item mock SWF patch failed.",
+        result.stdout ? `stdout:\n${result.stdout.trim()}` : "",
+        result.stderr ? `stderr:\n${result.stderr.trim()}` : "",
+      ].filter(Boolean).join("\n")
+    );
+  }
+
+  console.log(`[native-flash] Wrote native item mock inner SWF: ${outputFile}`);
+  return outputFile;
+}
+
 function ensureNativePatchedSwf(serverUrl) {
   if (process.env.NATIVE_FLASH_PATCH_SWF === "0") {
     return null;
@@ -395,7 +569,7 @@ function ensureNativePatchedSwf(serverUrl) {
   }
 
   const swf = decompressSwf(fs.readFileSync(source));
-  const body = Buffer.from(swf.body);
+  let body = Buffer.from(swf.body);
   const replacementCounts = {};
   for (const [remoteUrl, localPath] of nativeSwfUrlReplacements) {
     const replacement = fitReplacementUrl(serverUrl, localPath, remoteUrl.length);
@@ -406,9 +580,20 @@ function ensureNativePatchedSwf(serverUrl) {
     }
   }
 
-  fs.mkdirSync(path.dirname(nativePatchedSwfPath), { recursive: true });
-  fs.writeFileSync(nativePatchedSwfPath, compressSwf({ ...swf, body }));
-  console.log(`[native-flash] Wrote native patched SWF: ${nativePatchedSwfPath}`);
+  const patchedInnerSwf = ensureNativeBagPatchedInnerSwf();
+  if (patchedInnerSwf) {
+    const replacedInner = replaceDefineBinaryDataInBody(body, 13, fs.readFileSync(patchedInnerSwf));
+    if (replacedInner.replacements !== 1) {
+      throw new Error(`Expected one embedded game SWF replacement, found ${replacedInner.replacements}`);
+    }
+    body = replacedInner.body;
+    replacementCounts["DefineBinaryData:13"] = replacedInner.replacements;
+  }
+
+  const outputFile = nativePatchedSwfPath();
+  fs.mkdirSync(path.dirname(outputFile), { recursive: true });
+  fs.writeFileSync(outputFile, compressSwf({ ...swf, body }));
+  console.log(`[native-flash] Wrote native patched SWF: ${outputFile}`);
   console.log(`[native-flash] SWF URL replacements: ${JSON.stringify(replacementCounts)}`);
   return nativePatchedSwfUrlPath;
 }
@@ -443,7 +628,7 @@ function ensureNativePatchedPlatformSwfs() {
     return;
   }
 
-  const publicRoot = path.join(projectRoot, "workspace", "saveData", "public");
+  const publicRoot = path.join(saveDataWorkspaceRoot(), "public");
   const summary = {};
   for (const [sourceRelative, targetRelative] of nativePlatformAssets) {
     const sourceFile = path.join(publicRoot, sourceRelative);
@@ -853,16 +1038,20 @@ function localPathForNativeProxyRequest(source) {
 }
 
 function startServerIfNeeded(serverUrl) {
+  const distServer = path.join(projectRoot, "dist", "runtime", "save-data", "server", "server.js");
   const tsxCli = path.join(projectRoot, "node_modules", "tsx", "dist", "cli.cjs");
-  if (!fs.existsSync(tsxCli)) {
-    throw new Error(`tsx CLI not found: ${tsxCli}. Run npm install first.`);
+  const useDistServer = process.env.NATIVE_FLASH_USE_TSX !== "1" && fs.existsSync(distServer);
+  if (!useDistServer && !fs.existsSync(tsxCli)) {
+    throw new Error(`Neither compiled server nor tsx CLI was found. Expected ${distServer} or ${tsxCli}.`);
   }
   const env = {
     ...process.env,
+    SAVE_DATA_PROJECT_ROOT: process.env.SAVE_DATA_PROJECT_ROOT || projectRoot,
     SAVE_DATA_HOST: process.env.SAVE_DATA_HOST || defaultHost,
     SAVE_DATA_PORT: String(process.env.SAVE_DATA_PORT || defaultPort),
   };
-  const child = spawn(process.execPath, [tsxCli, path.join(projectRoot, "runtime", "save-data", "server", "server.ts")], {
+  const args = useDistServer ? [distServer] : [tsxCli, path.join(projectRoot, "runtime", "save-data", "server", "server.ts")];
+  const child = spawn(process.execPath, args, {
     cwd: projectRoot,
     env,
     stdio: "inherit",
@@ -929,6 +1118,28 @@ async function fulfillFromLocalMock(serverUrl, params, localPath) {
       .map(([name, value]) => ({ name, value: Array.isArray(value) ? value.join(", ") : String(value) })),
     body: response.body.toString("base64"),
   };
+}
+
+function shouldRefreshWalletForLocalPath(localPath, responseCode) {
+  if (responseCode >= 400) {
+    return false;
+  }
+  let parsed;
+  try {
+    parsed = new URL(localPath, "http://local");
+  } catch {
+    return false;
+  }
+  return parsed.pathname === "/api/4399/mall/FlashStoreApi"
+    || parsed.pathname === "/api/4399/mall/index.php/Api/BuyProp"
+    || parsed.pathname === "/api/4399/mall/index.php/Api/BuyPropNd";
+}
+
+async function notifyWalletChanged(client) {
+  await client.send("Runtime.evaluate", {
+    expression: "window.__saveDataNotifyWalletChanged && window.__saveDataNotifyWalletChanged();",
+    awaitPromise: false,
+  }).catch(() => undefined);
 }
 
 function readIncomingBody(req) {
@@ -1107,7 +1318,7 @@ async function main() {
     ? path.resolve(process.env.NATIVE_FLASH_USER_DATA_DIR)
     : defaultUserDataDirForBrowser(browserPath);
   const pageUrl = process.env.NATIVE_FLASH_URL || `${serverUrl}/native.html`;
-  let launchUrl = withSearchParam(pageUrl, "autostart", "0");
+  let launchUrl = withSearchParam(pageUrl, "autostart", useCdpNavigation ? "0" : "1");
   const nativeSwfUrlPath = useNativeFlashProxy ? ensureNativePatchedSwf(serverUrl) : null;
   if (nativeSwfUrlPath) {
     launchUrl = withSearchParam(launchUrl, "swf", nativeSwfUrlPath);
@@ -1217,6 +1428,12 @@ async function main() {
     cleanup();
   });
 
+  if (!useCdpNavigation) {
+    console.log("[native-flash] Direct CEF mode uses page autostart; CDP attach is skipped.");
+    console.log("[native-flash] Keep this terminal open while playing; press Ctrl+C to stop.");
+    return;
+  }
+
   const target = await findPageTarget(debugPort);
   const client = new CdpClient(target.webSocketDebuggerUrl);
   await client.connect();
@@ -1230,12 +1447,21 @@ async function main() {
           requestId: params.requestId,
           ...fulfillment,
         });
+        if (shouldRefreshWalletForLocalPath(localPath, fulfillment.responseCode)) {
+          await notifyWalletChanged(client);
+        }
         return;
       }
       await client.send("Fetch.continueRequest", { requestId: params.requestId });
     } catch (error) {
       console.log(`[native-flash] request proxy failed: ${error instanceof Error ? error.message : String(error)}`);
       await client.send("Fetch.continueRequest", { requestId: params.requestId }).catch(() => undefined);
+    }
+  });
+
+  client.on("Page.javascriptDialogOpening", async (params) => {
+    if (/space bar/i.test(params.message || "")) {
+      await client.send("Page.handleJavaScriptDialog", { accept: false }).catch(() => undefined);
     }
   });
 

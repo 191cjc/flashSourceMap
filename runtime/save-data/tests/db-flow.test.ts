@@ -168,6 +168,7 @@ const LEGACY_IDENTITY_SAVE_DATA = compressedSaveXml(
 const TEST_CATALOG: GameDataCatalog = {
   sourceFile: "test",
   loaded: true,
+  items: [],
   productsByPlatformId: new Map([
     [
       1652,

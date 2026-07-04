@@ -19,14 +19,25 @@ npm run start:native-flash:mock
 
 `start:native-flash:mock` 会启动同一套 saveData mock server，并用 CEF/Pepper Flash 打开 `runtime/save-data/public/native.html`。
 
+生成 Windows 便携桌面包：
+
+```bash
+npm run native-flash:package
+```
+
+产物会写入 `builds/release-assets/FlashSourceMap-NativeFlash-v*-win-x64.zip`。这个包内置 Node、CEF、Pepper Flash、本地运行代码和启动脚本；用户解压后双击 `start-native-flash.bat` 即可运行。
+
+native 包不再依赖参考对象 exe。启动器会使用包内 CEF/Pepper Flash，并自动生成带物品添加回调的 native SWF。
+
 ## 当前边界
 
 - `runtime/save-data/server` 是唯一 mock server 实现。
 - `runtime/save-data/public/index.html` 和 `runner.js` 保留为 Ruffle 浏览器备用入口。
 - `runtime/save-data/public/native.html` 和 `native-player.js` 是 native Flash 承载入口。
 - `tools/launch-native-flash-mock.cjs` 负责准备/启动本地 CEF 和 Pepper Flash。
+- `tools/package-native-flash.cjs` 负责生成可发布的 native Flash 便携包。
 - 旧桌面壳已移除，不再维护 `desktop:*` 脚本或桌面打包器配置。
-- `.github/workflows/release.yml` 只负责在 `v*` tag 推送后跑校验并创建 GitHub Release 页面，不上传旧桌面包。
+- `.github/workflows/release.yml` 会在 `v*` tag 推送后跑校验、创建 GitHub Release，并在配置了 `PEPPER_FLASH_BASE64` secret 时上传 native Flash 桌面包。
 
 ## 运行数据
 

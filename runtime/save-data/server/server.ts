@@ -21,6 +21,7 @@ import {
   LEVEL_REWARD_ASSET_NAME,
   setLevelRewardAchievementBoost,
 } from "../services/levelRewards.js";
+import { loadGameDataCatalog } from "../services/gameData.js";
 
 type ServerOptions = {
   host?: string;
@@ -1102,6 +1103,28 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
       const debugResponse = api.handleDebugApi(url, req.method ?? "GET", body);
       if (debugResponse) {
         send(res, debugResponse.status, debugResponse.contentType, debugResponse.body);
+        return;
+      }
+
+      if (url.pathname === "/api/saveData/items") {
+        if (req.method !== "GET") {
+          send(res, 405, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "method_not_allowed" }));
+          return;
+        }
+
+        const catalog = loadGameDataCatalog();
+        send(
+          res,
+          200,
+          "application/json; charset=utf-8",
+          JSON.stringify({
+            ok: true,
+            loaded: catalog.loaded,
+            sourceFile: catalog.sourceFile,
+            mtimeMs: catalog.mtimeMs,
+            items: catalog.items,
+          })
+        );
         return;
       }
 

@@ -17,7 +17,12 @@
         <div class="actions">
           <button id="reloadGame" type="button">重载</button>
         </div>
-        <section class="panel" aria-label="本地钱包">
+        <nav class="side-tabs" aria-label="本地工具">
+          <button class="is-active" data-tab-button="wallet" type="button">钱包</button>
+          <button data-tab-button="items" type="button">物品</button>
+          <button data-tab-button="rewards" type="button">奖励</button>
+        </nav>
+        <section class="panel tab-panel is-active" data-tab-panel="wallet" aria-label="本地钱包">
           <h2>本地钱包</h2>
           <dl class="wallet">
             <dt>余额</dt>
@@ -34,7 +39,42 @@
           <button id="localRecharge" type="button">点击充值</button>
           <p id="rechargeHint" class="hint">请先充值，再进入存档；进入游戏后充值暂不可用。</p>
         </section>
-        <section class="panel" aria-label="关卡通关奖励">
+        <section class="panel tab-panel" data-tab-panel="items" aria-label="物品工具">
+          <h2>物品添加</h2>
+          <label class="field">
+            <span>搜索</span>
+            <input id="itemSearch" type="search" placeholder="名称、ID、类型或背包" />
+          </label>
+          <div class="item-filters">
+            <label class="field">
+              <span>背包</span>
+              <select id="itemBagFilter"></select>
+            </label>
+            <label class="field">
+              <span>类型</span>
+              <select id="itemTypeFilter"></select>
+            </label>
+          </div>
+          <div id="itemResults" class="item-results" aria-live="polite"></div>
+          <div class="item-pick">
+            <label class="field">
+              <span>物品 ID</span>
+              <input id="itemId" type="number" inputmode="numeric" min="1" step="1" />
+            </label>
+            <label class="field">
+              <span>数量</span>
+              <input id="itemCount" type="number" inputmode="numeric" min="1" max="999" step="1" value="1" />
+            </label>
+          </div>
+          <div class="button-row">
+            <button id="addItemToQueue" type="button">加入队列</button>
+            <button id="sendItemsToGame" type="button">发送</button>
+          </div>
+          <button id="clearItemQueue" type="button">清空队列</button>
+          <div id="itemQueue" class="item-queue"></div>
+          <p id="itemHint" class="hint">进入存档后，将队列里的物品发送到游戏。</p>
+        </section>
+        <section class="panel tab-panel" data-tab-panel="rewards" aria-label="关卡通关奖励">
           <h2>通关奖励</h2>
           <p id="levelRewardHint" class="hint">通关成就奖励已固定启用为 9999，重载游戏后生效。</p>
         </section>

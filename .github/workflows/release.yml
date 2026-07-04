@@ -37,9 +37,37 @@ jobs:
           npm run typecheck
           npm run saveData:test:db
           node --check tools\launch-native-flash-mock.cjs
+          node --check tools\package-native-flash.cjs
+          node --check tools\patch-runtime-mock-bag.cjs
+          node --check tools\patch-pay-event-listener.cjs
+          node --check tools\inspect-abc-references.cjs
           node --check runtime\save-data\public\native-player.js
           node --check runtime\save-data\public\mock-platform.js
           node --check runtime\save-data\public\runner.js
+
+      - name: Restore Pepper Flash from secret
+        env:
+          PEPPER_FLASH_BASE64: ${{ secrets.PEPPER_FLASH_BASE64 }}
+        shell: pwsh
+        run: |
+          if (-not $env:PEPPER_FLASH_BASE64) {
+            "PEPPER_FLASH_BASE64 is not configured; native desktop package will be skipped."
+            exit 0
+          }
+          New-Item -ItemType Directory -Force workspace/native-cef | Out-Null
+          [IO.File]::WriteAllBytes(
+            "workspace/native-cef/pepflashplayer64.dll",
+            [Convert]::FromBase64String($env:PEPPER_FLASH_BASE64)
+          )
+
+      - name: Build native Flash desktop package
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "workspace/native-cef/pepflashplayer64.dll")) {
+            "Pepper Flash is unavailable; skipping native desktop package."
+            exit 0
+          }
+          npm run native-flash:package
 
       - name: Resolve release tag
         id: release_tag
@@ -61,4 +89,7 @@ jobs:
             echo "Release $RELEASE_TAG already exists."
           else
             gh release create "$RELEASE_TAG" --title "$RELEASE_TAG" --generate-notes
+          fi
+          if compgen -G "builds/release-assets/*" > /dev/null; then
+            gh release upload "$RELEASE_TAG" builds/release-assets/* --clobber
           fi

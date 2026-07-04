@@ -342,12 +342,23 @@
     }
   }
 
+  function refreshWalletAfterPlatformRequest(url, init, status) {
+    if (status >= 400) {
+      return;
+    }
+    const action = platformAction(url, init);
+    if (action === "mall" || /^buy/i.test(action)) {
+      window.__saveDataNotifyWalletChanged?.();
+    }
+  }
+
   window.fetch = async function instrumentedFetch(input, init) {
     const url = fetchUrl(input);
     const started = performance.now();
     try {
       const response = await originalFetch(input, init);
       updateGameStateFromPlatformRequest(url, init, response.status);
+      refreshWalletAfterPlatformRequest(url, init, response.status);
       const ms = Math.round(performance.now() - started);
       if (telemetryEnabled && shouldLogFetch(url, ms, response.status, false)) {
         logClientEvent("client.fetch_slow", "ok", {

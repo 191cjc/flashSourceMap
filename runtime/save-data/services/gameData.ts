@@ -28,10 +28,24 @@ export type ShopProduct = {
   job: number;
 };
 
+export type GameItem = {
+  id: number;
+  name: string;
+  type: number;
+  smallType: number;
+  bag: number;
+  stack: number;
+  price: number;
+  mallPrice: number;
+  hasMallPrice: boolean;
+  canUse: boolean;
+};
+
 export type GameDataCatalog = {
   sourceFile: string;
   loaded: boolean;
   mtimeMs?: number;
+  items: GameItem[];
   productsByPlatformId: Map<number, ShopProduct[]>;
   goodsShopPriceById: Map<number, number>;
 };
@@ -287,6 +301,37 @@ function parseGoodsShopPrices(xml: string): Map<number, number> {
   return prices;
 }
 
+function parseGameItems(xml: string): GameItem[] {
+  const items: GameItem[] = [];
+  const recordRe = /<物品>([\s\S]*?)<\/物品>/g;
+  let match: RegExpExecArray | null;
+
+  while ((match = recordRe.exec(xml))) {
+    const record = match[1];
+    const id = numberFromText(tagText(record, "id"));
+    if (id == null) {
+      continue;
+    }
+
+    const mallPriceText = tagText(record, "商城价格") ?? "";
+    const mallPrice = numberFromText(mallPriceText);
+    items.push({
+      id,
+      name: tagText(record, "名称") ?? "",
+      type: numberFromText(tagText(record, "类型")) ?? -1,
+      smallType: numberFromText(tagText(record, "小类型")) ?? -1,
+      bag: numberFromText(tagText(record, "背包")) ?? -1,
+      stack: numberFromText(tagText(record, "叠加数")) ?? -1,
+      price: numberFromText(tagText(record, "价格")) ?? -1,
+      mallPrice: mallPrice ?? -1,
+      hasMallPrice: mallPriceText !== "" && mallPrice != null,
+      canUse: tagText(record, "是否使用") === "true",
+    });
+  }
+
+  return items.sort((left, right) => left.id - right.id);
+}
+
 export function loadGameDataCatalog(): GameDataCatalog {
   if (catalogCache) {
     return catalogCache;
@@ -296,6 +341,7 @@ export function loadGameDataCatalog(): GameDataCatalog {
     catalogCache = {
       sourceFile: DATA_XML_SWF,
       loaded: false,
+      items: [],
       productsByPlatformId: new Map(),
       goodsShopPriceById: new Map(),
     };
@@ -309,6 +355,7 @@ export function loadGameDataCatalog(): GameDataCatalog {
     sourceFile: DATA_XML_SWF,
     loaded: true,
     mtimeMs: stat.mtimeMs,
+    items: parseGameItems(goodsXml),
     productsByPlatformId: parseShopProducts(shopXml),
     goodsShopPriceById: parseGoodsShopPrices(goodsXml),
   };

@@ -29,6 +29,7 @@ npm run saveData:serve    # 启动本地 saveData mock server
 npm run saveData:test:db  # 跑 saveData 数据库流程测试
 npm run native-flash:prepare     # 准备本地 CEF/Flash 运行文件
 npm run start:native-flash:mock  # 启动 native Flash mock
+npm run native-flash:package     # 生成 Windows 便携桌面包
 ```
 
 ## 主要目录
@@ -125,6 +126,14 @@ npm run native-flash:prepare
 ```bash
 npm run start:native-flash:mock
 ```
+
+生成可发布的 Windows 便携桌面包：
+
+```bash
+npm run native-flash:package
+```
+
+native Flash 侧栏包含钱包、物品添加、通关奖励三个 tab。物品添加会在启动时自动使用带 `codexSendBagItems` 回调补丁的 SWF，进入存档后可把队列里的物品发送到游戏内。
 
 这条链路复用 `runtime/save-data/server`，不会再通过旧桌面壳承载游戏。Ruffle 仍保留为浏览器备用页，便于对照和排查。
 
