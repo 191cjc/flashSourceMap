@@ -1,9 +1,8 @@
 {
   "name": "flash-source-map",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "private": true,
   "type": "module",
-  "main": "dist/apps/saveData-desktop/main/main.js",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc --noEmit",
@@ -12,47 +11,12 @@
     "decompile": "bash tools/decompile.sh",
     "saveData:serve": "tsx runtime/save-data/server/server.ts",
     "saveData:test:db": "tsx runtime/save-data/tests/db-flow.test.ts",
-    "desktop:dev": "npm run build && electron .",
-    "desktop:pack": "npm run build && electron-builder --dir",
-    "desktop:build:win": "npm run build && electron-builder --win zip --x64"
-  },
-  "build": {
-    "appId": "com.flashsourcemap.savedata",
-    "productName": "FlashSourceMap SaveData",
-    "directories": {
-      "output": "builds/desktop"
-    },
-    "files": [
-      "dist/**/*",
-      "runtime/save-data/public/**/*",
-      "runtime/save-data/schema/**/*",
-      "downloads/swf/**/*",
-      "extracted/swf/**/*",
-      "package.json"
-    ],
-    "extraResources": [
-      {
-        "from": "node_modules/@ruffle-rs/ruffle",
-        "to": "ruffle"
-      }
-    ],
-    "win": {
-      "target": [
-        {
-          "target": "zip",
-          "arch": [
-            "x64"
-          ]
-        }
-      ],
-      "artifactName": "${productName}-${version}-${os}-${arch}.${ext}"
-    }
+    "native-flash:prepare": "node tools/launch-native-flash-mock.cjs --prepare",
+    "start:native-flash:mock": "node tools/launch-native-flash-mock.cjs"
   },
   "devDependencies": {
     "@types/crypto-js": "^4.2.2",
     "@types/node": "^24.0.7",
-    "electron": "^43.0.0",
-    "electron-builder": "^26.15.3",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   },

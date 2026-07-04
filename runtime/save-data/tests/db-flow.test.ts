@@ -1,9 +1,10 @@
 import assert from "node:assert/strict";
-import { existsSync, mkdtempSync, rmSync } from "node:fs";
+import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { deflateSync, inflateSync } from "node:zlib";
 import CryptoJS from "crypto-js";
+import { LegacyJsonSaveDatabase } from "../persistence/legacyJsonDb.js";
 import { LocalSaveDatabase } from "../persistence/db.js";
 import {
   antiCheatRequiredRecharge,
@@ -327,6 +328,59 @@ try {
   assert.ok(events.some((event) => event.event === "save.list" && event.result === "hit"));
   assert.ok(events.some((event) => event.event === "payment.get_total_recharge" && event.details?.responsePlain === "123####100000"));
   assert.ok(events.some((event) => event.event === "payment.local_recharge" && event.details?.amount === 250));
+
+  const legacySavesFile = path.join(dir, "runtime-mock-saves.json");
+  writeFileSync(
+    legacySavesFile,
+    JSON.stringify({
+      slots: {
+        "1": {
+          index: 1,
+          title: "legacy-slot-1",
+          datetime: "2026-06-30 21:26:11",
+          data: "legacy-save-data",
+          status: "0",
+        },
+      },
+    })
+  );
+  const legacyDb = new LegacyJsonSaveDatabase(legacySavesFile);
+  const legacyApi = new SaveDataMockApi(legacyDb, DEFAULT_ACCOUNT, logger);
+  try {
+    const legacyList = JSON.parse(
+      request(legacyApi, `https://save.api.4399.com/?ac=get_list&uid=${DEFAULT_ACCOUNT.uid}&gameid=${GAME_ID}`)
+    );
+    assert.equal(legacyList.length, 1);
+    assert.equal(legacyList[0].index, 1);
+    assert.equal(legacyList[0].title, "legacy-slot-1");
+
+    const legacyLoaded = JSON.parse(
+      request(legacyApi, `https://save.api.4399.com/?ac=get&uid=${DEFAULT_ACCOUNT.uid}&gameid=${GAME_ID}&index=1`)
+    );
+    assert.equal(legacyLoaded.index, 1);
+    assert.equal(legacyLoaded.data, "legacy-save-data");
+
+    assert.equal(
+      request(
+        legacyApi,
+        "https://save.api.4399.com/?ac=save",
+        "POST",
+        new URLSearchParams({
+          uid: DEFAULT_ACCOUNT.uid,
+          gameid: GAME_ID,
+          index: "1",
+          title: "legacy-slot-1-updated",
+          data: "legacy-save-data-updated",
+        }).toString()
+      ),
+      "1"
+    );
+    const persistedLegacyStore = JSON.parse(readFileSync(legacySavesFile, "utf8"));
+    assert.equal(persistedLegacyStore.slots["1"].title, "legacy-slot-1-updated");
+    assert.equal(persistedLegacyStore.slots["1"].data, "legacy-save-data-updated");
+  } finally {
+    legacyDb.close();
+  }
 
   const catalog = loadGameDataCatalog();
   if (catalog.loaded) {

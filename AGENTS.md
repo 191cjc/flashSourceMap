@@ -30,7 +30,7 @@ These notes are project-specific operating rules for agents working in this repo
 - The active runtime area is `runtime/save-data/`: local saves, wallet/recharge mock, mall purchase mock, resource serving, and browser host page.
 - `tools/saveData/` is now documentation and analysis context, not the runtime implementation.
 - Payment and anti-cheat analysis lives in `tools/paymentLogic/README.md` and `tools/noCheat/README.md`.
-- Public web access and future Windows desktop packaging boundaries are documented in `tools/saveData/packaging/README.md`.
+- Public web access and native Flash/CEF runtime boundaries are documented in `tools/saveData/packaging/README.md`.
 
 ### Runtime Structure
 
@@ -41,10 +41,9 @@ runtime/save-data/persistence/     # SQLite connection, schema init, repositorie
 runtime/save-data/services/        # save parsing, identity canonicalization, shop value rules
 runtime/save-data/platform4399/    # 4399 API and FlashStoreApi protocol adaptation
 runtime/save-data/server/          # HTTP routing, static assets, logging, startup
-runtime/save-data/public/          # shared browser/WebView UI
+runtime/save-data/public/          # browser/Ruffle fallback and native Flash host pages
 runtime/save-data/schema/          # SQLite schema
 runtime/save-data/tests/           # runtime flow tests
-apps/saveData-desktop/             # Electron desktop shell
 ```
 
 `tools/` is for analysis notes, FFDec/decompile helpers, and temporary diagnostics. Do not add new runtime save, wallet, shop, or resource-serving logic under `tools/saveData/`.
@@ -122,6 +121,6 @@ temporary FFDec logs
 - Mall purchase mock must stay consistent with the game's anti-cheat expectations: current balance and cumulative recharge are separate concepts, and saved mall item value is compared against cumulative recharge.
 - The browser host prefers Ruffle `webgl` rendering for Flash filters, and uses Ruffle `deviceFontRenderer: "canvas"` so Windows browsers/WebViews can render the game's device fonts (`SimSun`, `宋体`, `微软雅黑`, etc.) through system fonts. This is different from Ruffle's main canvas renderer. If WebGL cannot be created, Ruffle may still fall back to its canvas renderer; check `ruffle.renderer` client logs before assuming the active renderer. `?deviceFonts=embedded` is a fallback/diagnostic mode that loads generated SWF font aliases from `/font-aliases/*.swf`; keep it off by default because it is heavier than system device-font rendering.
 - The local recharge button is disabled after the page detects that a save slot has entered gameplay, because in-game recharge can leave SQLite `total_recharged` newer than the game's in-memory `allChongGod`.
-- Do not duplicate save, wallet, mall, or resource-serving logic in future desktop packaging. A desktop shell should start the same `runtime/save-data/server` server and load the shared `runtime/save-data/public` UI in a local WebView.
-- Desktop packaging should store `local-save.db`, WAL/SHM files, resource caches, generated public assets, and logs in a user data directory, not in the application install directory.
-- GitHub Release packaging is driven by `.github/workflows/release-desktop.yml`; push a `v*` tag to build and upload the Windows desktop zip package.
+- Do not duplicate save, wallet, mall, or resource-serving logic in native packaging. The native launcher should start the same `runtime/save-data/server` server and load `runtime/save-data/public/native.html` in CEF/Pepper Flash.
+- Native packaging should store `local-save.db`, WAL/SHM files, resource caches, generated public assets, and logs in a user data directory, not in the application install directory.
+- The old desktop shell has been removed. Do not add desktop-only windowing, desktop package builders, or `desktop:*` scripts back unless the runtime strategy changes again.

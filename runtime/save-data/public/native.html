@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>saveData Native Flash Mock</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <main class="layout">
+      <aside class="side">
+        <h1>Native Flash</h1>
+        <div class="status">
+          <span>Runtime</span>
+          <strong id="status">starting</strong>
+        </div>
+        <div class="actions">
+          <button id="reloadGame" type="button">Reload</button>
+        </div>
+        <section class="panel" aria-label="Local wallet">
+          <h2>Wallet</h2>
+          <dl class="wallet">
+            <dt>Balance</dt>
+            <dd id="walletBalance">loading</dd>
+            <dt>Total recharge</dt>
+            <dd id="walletTotalRecharged">loading</dd>
+            <dt>Total paid</dt>
+            <dd id="walletTotalPaid">loading</dd>
+          </dl>
+          <label class="field">
+            <span>Amount</span>
+            <input id="rechargeAmount" type="number" inputmode="numeric" min="1" step="1" value="1000" />
+          </label>
+          <button id="localRecharge" type="button">Recharge</button>
+          <p id="rechargeHint" class="hint">Recharge before entering a save slot.</p>
+        </section>
+        <section class="panel" aria-label="Level rewards">
+          <h2>Level Rewards</h2>
+          <p id="levelRewardHint" class="hint">Achievement reward boost is always enabled at 9999. Reload the game to apply it.</p>
+        </section>
+        <dl>
+          <dt>Account</dt>
+          <dd id="account">loading</dd>
+          <dt>Resource</dt>
+          <dd id="resource">xfbbv451.swf</dd>
+        </dl>
+        <ol id="log" class="log"></ol>
+      </aside>
+      <section class="stage">
+        <div id="player"></div>
+      </section>
+    </main>
+    <script src="/mock-platform.js"></script>
+    <script src="/native-player.js"></script>
+  </body>
+</html>

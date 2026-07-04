@@ -1,6 +1,6 @@
 import { URLSearchParams } from "node:url";
 import CryptoJS from "crypto-js";
-import { LocalSaveDatabase } from "../persistence/db.js";
+import type { SaveDataStore } from "../persistence/store.js";
 import {
   antiCheatRequiredRecharge,
   canonicalizeLocalSaveIdentity,
@@ -147,7 +147,7 @@ function encryptedPaymentPayload(params: URLSearchParams, amount: number): { enc
 export class SaveDataMockApi {
   readonly account: AccountSeed;
 
-  constructor(readonly db: LocalSaveDatabase, account: AccountSeed = DEFAULT_ACCOUNT, readonly logger?: SaveDataLogger) {
+  constructor(readonly db: SaveDataStore, account: AccountSeed = DEFAULT_ACCOUNT, readonly logger?: SaveDataLogger) {
     this.account = account;
     this.db.getOrCreateAccount(account);
   }

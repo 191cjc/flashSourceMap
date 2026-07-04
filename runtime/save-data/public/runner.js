@@ -26,7 +26,7 @@
   ];
   const fontSources = deviceFontRenderer === "embedded" ? embeddedFontSources : [];
   const configuredMaxExecutionDuration = Number(query.get("timeout") || 60);
-  const telemetryEnabled = query.get("telemetry") !== "0";
+  const telemetryEnabled = query.get("telemetry") === "1";
   const warmupEnabled = query.get("warmup") !== "0";
   const criticalAssets = [
     "/yinxiaov33.swf",
@@ -64,6 +64,27 @@
     "/e_wkaijiajinav28.swf",
     "/e_wyaodaijinav28.swf",
     "/e_wchushitaov28.swf",
+    "/map_0_1.swf",
+    "/m_gebulina.swf",
+    "/mp_shiliankongjian.swf",
+    "/WuqiM_zhuijizhelueyingv33.swf",
+    "/WuqiM_zhuijizhelieyanv33.swf",
+    "/WuqiL_liuxingfeipanv33.swf",
+    "/WuqiL_binglingdanatv33.swf",
+    "/WuqiH_leimangjiyingv33.swf",
+    "/WuqiB_wleimangjiyingv38.swf",
+    "/WuqiB_wliuxingfeipanv38.swf",
+    "/WuqiB_wzhaohuanzhev38.swf",
+    "/WuqiB_wzhuijizhelieyanv38.swf",
+    "/WuqiB_wzhuijizhelueyingv38.swf",
+    "/yinxiaogwv33.swf",
+    "/yinxiaocwv33.swf",
+    "/j_bossxuetiaov43.swf",
+    "/j_pengfenv43.swf",
+    "/j_playerpanelv34.swf",
+    "/j_bagpanelv20.swf",
+    "/ts_44v42.swf",
+    "/j_playertaskpanelv32.swf",
   ];
   let prefetchPromise = null;
   const startedAt = performance.now();
@@ -233,7 +254,9 @@
     }
   }
 
-  installRuffleConsoleObserver();
+  if (telemetryEnabled) {
+    installRuffleConsoleObserver();
+  }
 
   function fetchUrl(input) {
     if (typeof input === "string") {
@@ -326,7 +349,7 @@
       const response = await originalFetch(input, init);
       updateGameStateFromPlatformRequest(url, init, response.status);
       const ms = Math.round(performance.now() - started);
-      if (shouldLogFetch(url, ms, response.status, false)) {
+      if (telemetryEnabled && shouldLogFetch(url, ms, response.status, false)) {
         logClientEvent("client.fetch_slow", "ok", {
           url,
           status: response.status,
@@ -337,11 +360,13 @@
       return response;
     } catch (error) {
       const ms = Math.round(performance.now() - started);
-      logClientEvent("client.fetch_slow", "error", {
-        url,
-        ms,
-        message: error instanceof Error ? error.message : String(error),
-      });
+      if (telemetryEnabled) {
+        logClientEvent("client.fetch_slow", "error", {
+          url,
+          ms,
+          message: error instanceof Error ? error.message : String(error),
+        });
+      }
       throw error;
     }
   };
@@ -491,7 +516,9 @@
 
     player.addEventListener("loadedmetadata", () => {
       setStatus("游戏已加载");
-      void logRendererInfo();
+      if (telemetryEnabled) {
+        void logRendererInfo();
+      }
       void prefetchCriticalAssets();
     });
     player.addEventListener("error", (event) => {
@@ -509,6 +536,8 @@
 
   document.getElementById("reloadGame").addEventListener("click", () => loadGame());
 
-  startFrameMonitor();
+  if (telemetryEnabled) {
+    startFrameMonitor();
+  }
   loadGame().catch((error) => setStatus(error instanceof Error ? error.message : String(error)));
 })();

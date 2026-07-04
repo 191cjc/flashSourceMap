@@ -172,19 +172,6 @@ export function applyLevelRewardAchievementBoostToXml(
   });
 }
 
-function readLevelRewardConfig(overridesFile = saveDataPaths.levelRewardOverridesFile): LevelRewardConfigFile {
-  if (!existsSync(overridesFile)) {
-    return { version: 2, updatedAt: "", achievementBoostEnabled: false };
-  }
-
-  const parsed = JSON.parse(readFileSync(overridesFile, "utf8")) as Partial<LevelRewardConfigFile>;
-  return {
-    version: 2,
-    updatedAt: typeof parsed.updatedAt === "string" ? parsed.updatedAt : "",
-    achievementBoostEnabled: parsed.achievementBoostEnabled === true,
-  };
-}
-
 function writeLevelRewardConfig(
   config: Pick<LevelRewardConfigFile, "achievementBoostEnabled">,
   overridesFile = saveDataPaths.levelRewardOverridesFile
@@ -198,8 +185,8 @@ function writeLevelRewardConfig(
   writeFileSync(overridesFile, `${JSON.stringify(payload, null, 2)}\n`);
 }
 
-export function getLevelRewardAchievementBoostEnabled(overridesFile = saveDataPaths.levelRewardOverridesFile): boolean {
-  return readLevelRewardConfig(overridesFile).achievementBoostEnabled;
+export function getLevelRewardAchievementBoostEnabled(): boolean {
+  return true;
 }
 
 function loadLevelRewardSource(sourceFile = DATA_XML_SWF): LevelRewardSourceCache | null {
@@ -260,14 +247,13 @@ export function getLevelRewardState(): LevelRewardState {
 }
 
 export function setLevelRewardAchievementBoost(input: unknown): LevelRewardState {
-  const object = asInputObject(input);
-  const enabled = object.enabled === true || object.achievementBoostEnabled === true;
-  writeLevelRewardConfig({ achievementBoostEnabled: enabled });
+  asInputObject(input);
+  writeLevelRewardConfig({ achievementBoostEnabled: true });
   return getLevelRewardState();
 }
 
 export function clearLevelRewardAchievementBoost(): LevelRewardState {
-  writeLevelRewardConfig({ achievementBoostEnabled: false });
+  writeLevelRewardConfig({ achievementBoostEnabled: true });
   return getLevelRewardState();
 }
 

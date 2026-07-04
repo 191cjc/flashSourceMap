@@ -1,104 +1,49 @@
-# saveData 访问方式与桌面打包边界
+# saveData 访问方式与 native Flash 边界
 
-这个文档记录本地 mock Flash 游戏平台的访问方式和打包边界。核心原则是让同一套
-`runtime/save-data` mock server 同时服务两种入口：
+这个项目的 mock 逻辑统一放在 `runtime/save-data`。无论是浏览器调试、native Flash 运行，还是后续打包，都不要复制存档、钱包、商城或资源服务逻辑。
 
-- 公网访问：启动 HTTP 服务，让浏览器通过公网地址访问。
-- Windows 桌面应用：本机启动同一套 HTTP 服务，再由桌面壳打开内置 WebView。
+## 入口
 
-## 推荐目录结构
-
-```text
-runtime/save-data/
-  persistence/          # SQLite 连接、schema 初始化和数据读写
-  services/             # 存档解析、商城价值估算和业务规则
-  platform4399/         # 4399 save/pay/mall 接口适配
-  server/               # HTTP 服务、静态资源和启动入口
-  public/               # 浏览器页面源码，公网和桌面 WebView 共用
-  schema/               # SQLite schema
-  tests/                # saveData 单元/流程测试
-  README.md             # 运行时代码结构和入口
-
-tools/saveData/
-  packaging/            # 访问方式、桌面打包和运行边界说明
-  README.md             # 存档/商城/运行调试分析记录
-
-workspace/saveData/
-  local-save.db         # 当前本地存档与钱包数据库，不能随手删除
-  remote-assets/        # 游戏远程 SWF 缓存，公网和桌面运行都要复用
-  platform-assets/      # 4399 控件资源缓存，可重建但不建议频繁清
-  public/               # 启动时生成的运行产物，可重建
-  logs/                 # 运行日志，可清理；无日志模式不会继续写入
-
-workspace/onlineSave/
-  raw/                  # 线上原始 6 个存档抓取结果，保留作基准
-  decoded/              # 线上存档解码结果和摘要，保留作排障基准
-  analysis/             # 对比分析产物，保留
-```
-
-## 公网访问
-
-公网访问只需要启动现有 saveData server。推荐默认无日志启动，减少运行期
-I/O 对游戏帧率的影响：
+公网或普通浏览器调试：
 
 ```bash
 SAVE_DATA_LOGS=0 SAVE_DATA_HOST=0.0.0.0 SAVE_DATA_PORT=80 npm run saveData:serve
 ```
 
-需要诊断时再打开日志：
+Windows native Flash 运行：
 
 ```bash
-SAVE_DATA_HOST=0.0.0.0 SAVE_DATA_PORT=80 npm run saveData:serve
+npm run native-flash:prepare
+npm run start:native-flash:mock
 ```
 
-当前运行页优先使用 Ruffle `webgl` renderer，并启用 canvas device-font renderer
-读取系统字体。桌面包应保留这一配置：WebGL 负责更接近原版的滤镜效果，设备
-字体 renderer 负责 `宋体`、`SimSun`、`微软雅黑`、`Arial` 等 Flash 设备字体。
-这里的 canvas 是设备字体渲染路径，不是 Ruffle 主 canvas renderer。
+`start:native-flash:mock` 会启动同一套 saveData mock server，并用 CEF/Pepper Flash 打开 `runtime/save-data/public/native.html`。
 
-注意：如果用户机器或远程浏览器无法创建 WebGL，Ruffle 仍可能回退到 canvas
-renderer；如果 Windows 缺少对应中文字体，文字形状也会和原版 Flash 有差异。
-`?deviceFonts=embedded` 会额外加载 `/font-aliases/*.swf` 字体别名，仅建议作为诊断
-设备字体缺失的备用模式。
+## 当前边界
 
-## Windows 桌面应用方向
+- `runtime/save-data/server` 是唯一 mock server 实现。
+- `runtime/save-data/public/index.html` 和 `runner.js` 保留为 Ruffle 浏览器备用入口。
+- `runtime/save-data/public/native.html` 和 `native-player.js` 是 native Flash 承载入口。
+- `tools/launch-native-flash-mock.cjs` 负责准备/启动本地 CEF 和 Pepper Flash。
+- 旧桌面壳已移除，不再维护 `desktop:*` 脚本或桌面打包器配置。
 
-桌面应用不要复制一套 mock 逻辑。推荐结构是：
+## 运行数据
+
+保留这些数据目录，不要随手清理：
 
 ```text
-apps/
-  saveData-desktop/
-    main/               # 桌面主进程：启动/停止本机 saveData server
-    renderer/           # 可选；也可以直接加载 runtime/save-data/public
-    package/            # Windows 安装包配置和图标
-
-runtime/save-data/
-  server/               # 继续作为唯一 mock server 实现
-  public/               # 继续作为唯一游戏承载页面
+workspace/saveData/local-save.db
+workspace/saveData/remote-assets/
+workspace/saveData/platform-assets/
+workspace/onlineSave/raw/
+workspace/onlineSave/decoded/
 ```
 
-桌面壳的职责应尽量薄：
+可清理的通常只有日志、截图和可再生成的临时产物：
 
-1. 选择一个本地端口启动 `startSaveDataServer()`。
-2. 用 WebView 打开本机 URL。
-3. 把 `workspace/saveData/local-save.db` 和资源缓存目录放到用户数据目录。
-4. 提供“打开存档目录”“备份数据库”“清理日志”这类桌面按钮。
-
-不要在桌面壳里重新实现存档、商城或钱包逻辑；否则公网版和桌面版会很快分叉。
-
-## 可清理与不可清理
-
-可以清理：
-
-- `workspace/saveData/*.png`
-- `workspace/saveData/logs/*.ndjson`
-- `workspace/saveData/logs/*.out`
-- 根目录 `logs/` 下临时反编译日志
-
-不要清理：
-
-- `workspace/saveData/local-save.db`
-- `workspace/saveData/remote-assets/`
-- `workspace/saveData/public/`
-- `workspace/onlineSave/raw/`
-- `workspace/onlineSave/decoded/`
+```text
+workspace/saveData/*.png
+workspace/saveData/logs/*.ndjson
+workspace/saveData/logs/*.out
+logs/
+```

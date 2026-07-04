@@ -14,6 +14,7 @@ import type {
   SaveSlot,
   Wallet,
 } from "../types.js";
+import type { SaveDataStore } from "./store.js";
 
 type AccountRow = {
   id: number;
@@ -50,7 +51,7 @@ function asAccount(row: AccountRow): Account {
   };
 }
 
-export class LocalSaveDatabase {
+export class LocalSaveDatabase implements SaveDataStore {
   readonly db: DatabaseSync;
 
   constructor(readonly dbFile: string = saveDataPaths.defaultDbFile) {

@@ -49,7 +49,6 @@
   window.__saveDataAccount = account;
   let gameState = "selecting";
   let rechargeBusy = false;
-  let levelRewardBusy = false;
   let levelRewardState = null;
 
   window.__saveDataLog = function (message) {
@@ -61,7 +60,9 @@
     li.textContent = message;
     log.prepend(li);
     while (log.children.length > 80) {
-      log.lastElementChild?.remove();
+      if (log.lastElementChild) {
+        log.lastElementChild.remove();
+      }
     }
   };
 
@@ -103,7 +104,7 @@
     updateRechargeControls();
     updateLevelRewardControls();
     if (state === "in_game") {
-      window.__saveDataLog?.("已进入游戏，本地充值入口已暂时禁用");
+      window.__saveDataLog && window.__saveDataLog("已进入游戏，本地充值入口已暂时禁用");
     }
   };
 
@@ -120,7 +121,7 @@
     });
 
   function formatAmount(value) {
-    return Number(value ?? 0).toLocaleString("zh-CN");
+    return Number(value == null ? 0 : value).toLocaleString("zh-CN");
   }
 
   async function readJsonResponse(response) {
@@ -137,7 +138,7 @@
     if (!hint) {
       return;
     }
-    hint.classList.toggle("is-warning", gameState === "in_game");
+    hint.classList.remove("is-warning");
     if (!levelRewardState) {
       hint.textContent = "正在读取关卡奖励配置。";
       return;
@@ -148,18 +149,10 @@
     }
 
     const value = formatAmount(levelRewardState.achievementBoostValue);
-    const prefix = levelRewardState.achievementBoostEnabled ? `已启用，通关成就基础值 ${value}。` : "未启用。";
-    hint.textContent = gameState === "in_game" ? `${prefix} 需要重载游戏后生效。` : `${prefix} 切换后重载游戏生效。`;
+    hint.textContent = `通关成就奖励已固定启用为 ${value}，重载游戏后生效。`;
   }
 
   function updateLevelRewardControls() {
-    const checkbox = document.getElementById("levelRewardAchievementBoost");
-    const available = Boolean(levelRewardState?.loaded);
-
-    if (checkbox) {
-      checkbox.disabled = levelRewardBusy || !available;
-      checkbox.checked = Boolean(levelRewardState?.achievementBoostEnabled);
-    }
     updateLevelRewardHint();
   }
 
@@ -167,37 +160,11 @@
     const response = await fetch("/api/saveData/level-rewards", { cache: "no-store" });
     const result = await readJsonResponse(response);
     if (!response.ok || result.ok !== true) {
-      throw new Error(result.error ?? `读取关卡奖励失败: ${response.status}`);
+      throw new Error(result.error == null ? `读取关卡奖励失败: ${response.status}` : result.error);
     }
     levelRewardState = result;
     updateLevelRewardControls();
     return result;
-  }
-
-  async function setLevelRewardAchievementBoost(enabled) {
-    levelRewardBusy = true;
-    updateLevelRewardControls();
-    try {
-      const response = await fetch("/api/saveData/level-rewards", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ enabled }),
-      });
-      const result = await readJsonResponse(response);
-      if (!response.ok || result.ok !== true) {
-        throw new Error(result.error ?? `保存关卡奖励失败: ${response.status}`);
-      }
-      levelRewardState = result;
-      updateLevelRewardControls();
-      const value = formatAmount(result.achievementBoostValue);
-      window.__saveDataLog?.(enabled ? `已启用通关成就 ${value}，重载游戏后生效` : "已关闭通关成就增强");
-    } catch (error) {
-      window.__saveDataLog?.(error instanceof Error ? error.message : String(error));
-      await refreshLevelRewards().catch(() => undefined);
-    } finally {
-      levelRewardBusy = false;
-      updateLevelRewardControls();
-    }
   }
 
   function renderWallet(wallet) {
@@ -228,16 +195,16 @@
 
   async function rechargeLocally() {
     const input = document.getElementById("rechargeAmount");
-    const amount = Math.floor(Number(input?.value ?? 0));
+    const amount = Math.floor(Number(input ? input.value : 0));
 
     if (isRechargeBlocked()) {
-      window.__saveDataLog?.(rechargeBlockedMessage());
+      window.__saveDataLog && window.__saveDataLog(rechargeBlockedMessage());
       updateRechargeControls();
       return;
     }
 
     if (!Number.isSafeInteger(amount) || amount <= 0) {
-      window.__saveDataLog?.("充值金额无效");
+      window.__saveDataLog && window.__saveDataLog("充值金额无效");
       return;
     }
 
@@ -252,20 +219,20 @@
       });
       const result = await response.json();
       if (!response.ok || !result.ok) {
-        throw new Error(result.error ?? `HTTP ${response.status}`);
+        throw new Error(result.error == null ? `HTTP ${response.status}` : result.error);
       }
 
       renderWallet(result.wallet);
-      window.__saveDataLog?.(`本地充值 +${formatAmount(result.wallet.amount)}，余额 ${formatAmount(result.wallet.balance)}`);
+      window.__saveDataLog && window.__saveDataLog(`本地充值 +${formatAmount(result.wallet.amount)}，余额 ${formatAmount(result.wallet.balance)}`);
 
-      const notified = await window.__refreshGamePaymentState?.();
+      const notified = window.__refreshGamePaymentState ? await window.__refreshGamePaymentState() : undefined;
       if (notified) {
-        window.__saveDataLog?.("已请求游戏刷新余额");
+        window.__saveDataLog && window.__saveDataLog("已请求游戏刷新余额");
       } else {
-        window.__saveDataLog?.("游戏将在下一次余额查询时读取新值");
+        window.__saveDataLog && window.__saveDataLog("游戏将在下一次余额查询时读取新值");
       }
     } catch (error) {
-      window.__saveDataLog?.(error instanceof Error ? error.message : String(error));
+      window.__saveDataLog && window.__saveDataLog(error instanceof Error ? error.message : String(error));
     } finally {
       rechargeBusy = false;
       updateRechargeControls();
@@ -273,15 +240,14 @@
   }
 
   window.__saveDataRefreshWallet = refreshWallet;
-  document.getElementById("localRecharge")?.addEventListener("click", () => {
-    rechargeLocally();
-  });
-  document.getElementById("levelRewardAchievementBoost")?.addEventListener("change", (event) => {
-    setLevelRewardAchievementBoost(Boolean(event.currentTarget?.checked));
-  });
-
+  const localRechargeButton = document.getElementById("localRecharge");
+  if (localRechargeButton) {
+    localRechargeButton.addEventListener("click", () => {
+      rechargeLocally();
+    });
+  }
   updateRechargeControls();
   updateLevelRewardControls();
-  refreshWallet().catch((error) => window.__saveDataLog?.(error instanceof Error ? error.message : String(error)));
-  refreshLevelRewards().catch((error) => window.__saveDataLog?.(error instanceof Error ? error.message : String(error)));
+  refreshWallet().catch((error) => window.__saveDataLog && window.__saveDataLog(error instanceof Error ? error.message : String(error)));
+  refreshLevelRewards().catch((error) => window.__saveDataLog && window.__saveDataLog(error instanceof Error ? error.message : String(error)));
 })();

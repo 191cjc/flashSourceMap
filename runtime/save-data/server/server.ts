@@ -9,6 +9,8 @@ import { aliasSwfFontName } from "../../../src/swf/fontAlias.js";
 import { patchRuffleEventCompatibility } from "../../../src/swf/payEventPatch.js";
 import { decodeSwf, encodeSwf, replaceDefineBinaryData } from "../../../src/swf/swf.js";
 import { LocalSaveDatabase } from "../persistence/db.js";
+import { LegacyJsonSaveDatabase } from "../persistence/legacyJsonDb.js";
+import type { SaveDataStore } from "../persistence/store.js";
 import { SaveDataLogger } from "./logger.js";
 import { MockShopError, SaveDataMockApi } from "../platform4399/mockApi.js";
 import { saveDataPaths } from "./paths.js";
@@ -24,6 +26,7 @@ type ServerOptions = {
   host?: string;
   port?: number;
   dbFile?: string;
+  legacySavesFile?: string;
 };
 
 const MIME_TYPES: Record<string, string> = {
@@ -79,6 +82,24 @@ function saveDataLoggingEnabled(): boolean {
     return false;
   }
   return value == null || !["0", "false", "no", "off"].includes(value);
+}
+
+function configuredLegacySavesFile(options: ServerOptions): string | null {
+  const value =
+    options.legacySavesFile ??
+    process.env.SAVE_DATA_LEGACY_SAVES_FILE ??
+    process.env.SAVE_DATA_LEGACY_SAVES ??
+    "";
+  const trimmed = value.trim();
+  return trimmed ? path.resolve(trimmed) : null;
+}
+
+function createSaveDataStore(options: ServerOptions): SaveDataStore {
+  const legacySavesFile = configuredLegacySavesFile(options);
+  if (legacySavesFile) {
+    return new LegacyJsonSaveDatabase(legacySavesFile);
+  }
+  return new LocalSaveDatabase(options.dbFile ?? process.env.SAVE_DATA_DB ?? saveDataPaths.defaultDbFile);
 }
 
 function getContentType(filePath: string): string {
@@ -853,6 +874,10 @@ async function ensureFontAliasAsset(assetName: string, logger: SaveDataLogger): 
   }
 
   const outputFile = fontAliasFile(assetName);
+  if (existsSync(outputFile)) {
+    return outputFile;
+  }
+
   const sourceFile = await ensureGameAsset(FONT_ALIAS_SOURCE_SWF, logger);
   if (!sourceFile || !existsSync(sourceFile)) {
     return null;
@@ -1005,7 +1030,7 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
 
   const host = options.host ?? process.env.SAVE_DATA_HOST ?? "127.0.0.1";
   const port = options.port ?? Number(process.env.SAVE_DATA_PORT ?? 8787);
-  const db = new LocalSaveDatabase(options.dbFile ?? process.env.SAVE_DATA_DB ?? saveDataPaths.defaultDbFile);
+  const db = createSaveDataStore(options);
   const logger = new SaveDataLogger({ enabled: saveDataLoggingEnabled() });
   const api = new SaveDataMockApi(db, undefined, logger);
 
@@ -1340,7 +1365,12 @@ if (process.argv[1] && path.resolve(fileURLToPath(import.meta.url)) === path.res
   startSaveDataServer()
     .then(({ url }) => {
       console.log(`saveData mock server: ${url}`);
-      console.log(`database: ${process.env.SAVE_DATA_DB ?? saveDataPaths.defaultDbFile}`);
+      const legacySavesFile = configuredLegacySavesFile({});
+      if (legacySavesFile) {
+        console.log(`legacy saves: ${legacySavesFile}`);
+      } else {
+        console.log(`database: ${process.env.SAVE_DATA_DB ?? saveDataPaths.defaultDbFile}`);
+      }
     })
     .catch((error) => {
       console.error(error);
