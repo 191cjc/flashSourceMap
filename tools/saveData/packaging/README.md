@@ -51,8 +51,15 @@ SAVE_DATA_LOGS=0 SAVE_DATA_HOST=0.0.0.0 SAVE_DATA_PORT=80 npm run saveData:serve
 SAVE_DATA_HOST=0.0.0.0 SAVE_DATA_PORT=80 npm run saveData:serve
 ```
 
-当前运行页固定使用 Ruffle `webgl` renderer。不要再切回 `canvas`：canvas
-会丢失部分 Flash 滤镜效果，表现为黄色文字黑描边、发光或阴影和原版不一致。
+当前运行页优先使用 Ruffle `webgl` renderer，并启用 canvas device-font renderer
+读取系统字体。桌面包应保留这一配置：WebGL 负责更接近原版的滤镜效果，设备
+字体 renderer 负责 `宋体`、`SimSun`、`微软雅黑`、`Arial` 等 Flash 设备字体。
+这里的 canvas 是设备字体渲染路径，不是 Ruffle 主 canvas renderer。
+
+注意：如果用户机器或远程浏览器无法创建 WebGL，Ruffle 仍可能回退到 canvas
+renderer；如果 Windows 缺少对应中文字体，文字形状也会和原版 Flash 有差异。
+`?deviceFonts=embedded` 会额外加载 `/font-aliases/*.swf` 字体别名，仅建议作为诊断
+设备字体缺失的备用模式。
 
 ## Windows 桌面应用方向
 

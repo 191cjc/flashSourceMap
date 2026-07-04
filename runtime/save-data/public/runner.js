@@ -4,7 +4,27 @@
   const holder = document.getElementById("player");
   const gameSwf = "/swf/xfbbv451.swf";
   const query = new URLSearchParams(window.location.search);
-  const renderer = "webgl";
+  const renderer = query.get("renderer") || "webgl";
+  const deviceFontRenderer = query.get("deviceFonts") || "canvas";
+  const embeddedFontSources = [
+    "/font-aliases/ziti-simsun.swf",
+    "/font-aliases/ziti-simsun-bold.swf",
+    "/font-aliases/ziti-songti.swf",
+    "/font-aliases/ziti-songti-bold.swf",
+    "/font-aliases/ziti-arial.swf",
+    "/font-aliases/ziti-arial-bold.swf",
+    "/font-aliases/ziti-yahei.swf",
+    "/font-aliases/ziti-yahei-bold.swf",
+    "/font-aliases/ziti-microsoft-yahei.swf",
+    "/font-aliases/ziti-microsoft-yahei-bold.swf",
+    "/font-aliases/ziti-heiti.swf",
+    "/font-aliases/ziti-newsimsun.swf",
+    "/font-aliases/ziti-newsimsun-bold.swf",
+    "/font-aliases/ziti-nsimsun.swf",
+    "/font-aliases/ziti-nsimsun-bold.swf",
+    "/font-aliases/ziti-times-new-roman.swf",
+  ];
+  const fontSources = deviceFontRenderer === "embedded" ? embeddedFontSources : [];
   const configuredMaxExecutionDuration = Number(query.get("timeout") || 60);
   const telemetryEnabled = query.get("telemetry") !== "0";
   const warmupEnabled = query.get("warmup") !== "0";
@@ -57,6 +77,19 @@
     allowNetworking: "all",
     logLevel: "warn",
     preferredRenderer: renderer,
+    deviceFontRenderer,
+    fontSources,
+    defaultFonts: {
+      sans: ["SimSun", "宋体", "NSimSun", "新宋体", "Microsoft YaHei", "微软雅黑", "Arial", "FZZongYi-M05S", "Droid Sans Fallback", "Noto Sans"],
+      _sans: ["SimSun", "宋体", "NSimSun", "新宋体", "Microsoft YaHei", "微软雅黑", "Arial", "FZZongYi-M05S", "Droid Sans Fallback", "Noto Sans"],
+      serif: ["SimSun", "宋体", "NSimSun", "新宋体", "Times New Roman", "FZZongYi-M05S", "Droid Sans Fallback", "Noto Serif"],
+      _serif: ["SimSun", "宋体", "NSimSun", "新宋体", "Times New Roman", "FZZongYi-M05S", "Droid Sans Fallback", "Noto Serif"],
+      typewriter: ["SimSun", "宋体", "NSimSun", "新宋体", "Consolas", "Courier New", "FZZongYi-M05S", "Droid Sans Mono", "Noto Sans Mono"],
+      _typewriter: ["SimSun", "宋体", "NSimSun", "新宋体", "Consolas", "Courier New", "FZZongYi-M05S", "Droid Sans Mono", "Noto Sans Mono"],
+      japaneseGothic: ["MS PGothic", "SimSun", "宋体", "NSimSun", "新宋体", "Microsoft YaHei", "微软雅黑", "FZZongYi-M05S", "Droid Sans Fallback"],
+      japaneseGothicMono: ["MS Gothic", "SimSun", "宋体", "NSimSun", "新宋体", "FZZongYi-M05S", "Droid Sans Mono"],
+      japaneseMincho: ["MS Mincho", "SimSun", "宋体", "NSimSun", "新宋体", "FZZongYi-M05S", "Droid Serif"],
+    },
     maxExecutionDuration: Number.isFinite(configuredMaxExecutionDuration) ? configuredMaxExecutionDuration : 20,
     upgradeToHttps: false,
     openUrlMode: "allow",
@@ -76,6 +109,7 @@
       [/^http:\/\/save\.api\.4399\.com(\/.*)?$/, "/api/4399$1"],
     ],
   };
+  window.__saveDataRunnerConfig = { renderer, deviceFontRenderer, fontSources };
 
   function logClientEvent(event, result, details) {
     if (!telemetryEnabled) {
@@ -105,6 +139,101 @@
       keepalive: true,
     }).catch(() => {});
   }
+
+  function installRuffleConsoleObserver() {
+    const observed = new Set();
+    const originalConsole = {
+      log: console.log.bind(console),
+      info: console.info.bind(console),
+      warn: console.warn.bind(console),
+      error: console.error.bind(console),
+    };
+
+    function messageFromArgs(args) {
+      return args
+        .map((arg) => {
+          if (typeof arg === "string") {
+            return arg;
+          }
+          if (arg instanceof Error) {
+            return `${arg.name}: ${arg.message}`;
+          }
+          return "";
+        })
+        .filter(Boolean)
+        .join(" ")
+        .replaceAll("%c", "")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function emitOnce(key, event, result, details) {
+      if (observed.has(key)) {
+        return;
+      }
+      observed.add(key);
+      logClientEvent(event, result, details);
+    }
+
+    function observe(method, args) {
+      const message = messageFromArgs(args);
+      if (!message) {
+        return;
+      }
+
+      const rendererMatch = message.match(/Used renderer:\s*([^)]+)/i);
+      if (rendererMatch) {
+        emitOnce("renderer", "ruffle.renderer", "ok", {
+          configuredRenderer: renderer,
+          actualRenderer: rendererMatch[1],
+          deviceFontRenderer,
+          fontSources,
+          message,
+        });
+        return;
+      }
+
+      const rendererErrorMatch = message.match(/Error creating ([^:]+ renderer):\s*(.+)$/i);
+      if (rendererErrorMatch) {
+        emitOnce(`renderer_error:${rendererErrorMatch[1]}`, "ruffle.renderer_error", "error", {
+          configuredRenderer: renderer,
+          renderer: rendererErrorMatch[1],
+          message: rendererErrorMatch[2],
+        });
+        return;
+      }
+
+      const unknownFontMatch = message.match(/Unknown device font "([^"]+)"/i);
+      if (unknownFontMatch) {
+        emitOnce(`font:${unknownFontMatch[1]}`, "ruffle.font_warning", "warning", {
+          fontName: unknownFontMatch[1],
+          deviceFontRenderer,
+          message,
+        });
+        return;
+      }
+
+      if (/Couldn't download font source|Couldn't register font|Failed to parse font|Failed to load device font/i.test(message)) {
+        emitOnce(`font_error:${message}`, "ruffle.font_error", "error", {
+          deviceFontRenderer,
+          message,
+        });
+      }
+    }
+
+    for (const method of Object.keys(originalConsole)) {
+      console[method] = (...args) => {
+        try {
+          observe(method, args);
+        } catch (_error) {
+          // Keep console observation best-effort; never break the player.
+        }
+        originalConsole[method](...args);
+      };
+    }
+  }
+
+  installRuffleConsoleObserver();
 
   function fetchUrl(input) {
     if (typeof input === "string") {
@@ -326,6 +455,26 @@
     return callExposedCallback("getBalance", []);
   };
 
+  async function logRendererInfo() {
+    const handle = window.__ruffleHandle;
+    if (!handle || typeof handle.renderer_debug_info !== "function") {
+      return;
+    }
+    try {
+      logClientEvent("ruffle.renderer", "ok", {
+        configuredRenderer: renderer,
+        deviceFontRenderer,
+        info: await handle.renderer_debug_info(),
+      });
+    } catch (error) {
+      logClientEvent("ruffle.renderer", "error", {
+        configuredRenderer: renderer,
+        deviceFontRenderer,
+        message: error instanceof Error ? error.message : String(error),
+      });
+    }
+  }
+
   async function loadGame() {
     window.__saveDataSetGameState?.("selecting");
     resource.textContent = gameSwf.split("/").pop();
@@ -342,6 +491,7 @@
 
     player.addEventListener("loadedmetadata", () => {
       setStatus("游戏已加载");
+      void logRendererInfo();
       void prefetchCriticalAssets();
     });
     player.addEventListener("error", (event) => {

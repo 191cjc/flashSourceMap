@@ -5,6 +5,7 @@ import { cp, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createGzip } from "node:zlib";
+import { aliasSwfFontName } from "../../../src/swf/fontAlias.js";
 import { patchRuffleEventCompatibility } from "../../../src/swf/payEventPatch.js";
 import { decodeSwf, encodeSwf, replaceDefineBinaryData } from "../../../src/swf/swf.js";
 import { LocalSaveDatabase } from "../persistence/db.js";
@@ -48,6 +49,27 @@ const REMOTE_SWF_ASSETS = {
 const GAME_ASSET_BASE_URL = "https://sbai.4399.com/4399swf/upload_swf/ftp10/honghao/20130530/27/";
 const GAME_ASSET_REFERER = `${GAME_ASSET_BASE_URL}jjxzfcms.htm`;
 const SWF_FILE_RE = /^[A-Za-z0-9_.-]+\.swf$/i;
+const FONT_ALIAS_PATH_PREFIX = "/font-aliases/";
+const FONT_ALIAS_SOURCE_SWF = "ziti.swf";
+const FONT_ALIAS_SOURCE_FONT_ID = 1;
+const FONT_ALIAS_ASSETS: Record<string, { fontName: string; bold?: boolean }> = {
+  "ziti-simsun.swf": { fontName: "SimSun" },
+  "ziti-simsun-bold.swf": { fontName: "SimSun", bold: true },
+  "ziti-songti.swf": { fontName: "宋体" },
+  "ziti-songti-bold.swf": { fontName: "宋体", bold: true },
+  "ziti-arial.swf": { fontName: "Arial" },
+  "ziti-arial-bold.swf": { fontName: "Arial", bold: true },
+  "ziti-yahei.swf": { fontName: "微软雅黑" },
+  "ziti-yahei-bold.swf": { fontName: "微软雅黑", bold: true },
+  "ziti-microsoft-yahei.swf": { fontName: "Microsoft YaHei" },
+  "ziti-microsoft-yahei-bold.swf": { fontName: "Microsoft YaHei", bold: true },
+  "ziti-heiti.swf": { fontName: "黑体" },
+  "ziti-newsimsun.swf": { fontName: "新宋体" },
+  "ziti-newsimsun-bold.swf": { fontName: "新宋体", bold: true },
+  "ziti-nsimsun.swf": { fontName: "NSimSun" },
+  "ziti-nsimsun-bold.swf": { fontName: "NSimSun", bold: true },
+  "ziti-times-new-roman.swf": { fontName: "Times New Roman" },
+};
 const GZIP_STATIC_EXTENSIONS = new Set([".css", ".html", ".js", ".json", ".wasm", ".xml"]);
 const LOG_ASSET_HITS = process.env.SAVE_DATA_LOG_ASSET_HITS === "1";
 
@@ -820,6 +842,48 @@ async function ensureGameAsset(assetName: string, logger: SaveDataLogger): Promi
   return assetName.toLowerCase() === LEVEL_REWARD_ASSET_NAME ? ensurePatchedLevelRewardAsset(assetFile) ?? assetFile : assetFile;
 }
 
+function fontAliasFile(assetName: string): string {
+  return path.join(saveDataPaths.generatedAssetsRoot, "font-aliases", assetName);
+}
+
+async function ensureFontAliasAsset(assetName: string, logger: SaveDataLogger): Promise<string | null> {
+  const alias = FONT_ALIAS_ASSETS[assetName];
+  if (!alias) {
+    return null;
+  }
+
+  const outputFile = fontAliasFile(assetName);
+  const sourceFile = await ensureGameAsset(FONT_ALIAS_SOURCE_SWF, logger);
+  if (!sourceFile || !existsSync(sourceFile)) {
+    return null;
+  }
+
+  mkdirSync(path.dirname(outputFile), { recursive: true });
+  const swf = decodeSwf(readFileSync(sourceFile));
+  const replacements = aliasSwfFontName(swf, FONT_ALIAS_SOURCE_FONT_ID, alias.fontName, { bold: alias.bold });
+  if (replacements < 1) {
+    return null;
+  }
+  writeFileSync(outputFile, encodeSwf(swf));
+  logger.appendSync({
+    event: "font.alias",
+    method: "GET",
+    pathname: `${FONT_ALIAS_PATH_PREFIX}${assetName}`,
+    status: 200,
+    result: "ok",
+    details: {
+      assetName,
+      fontName: alias.fontName,
+      bold: alias.bold === true,
+      sourceFile,
+      outputFile,
+      replacements,
+      size: statSync(outputFile).size,
+    },
+  });
+  return outputFile;
+}
+
 function patchedRuffleEventSwfBytes(inputFile: string): Buffer {
   const swf = decodeSwf(readFileSync(inputFile));
   const patchCount = patchRuffleEventCompatibility(swf);
@@ -1130,6 +1194,21 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
 
       if (url.pathname.startsWith("/api/stat")) {
         send(res, 200, "text/plain; charset=utf-8", "1");
+        return;
+      }
+
+      if ((req.method === "GET" || req.method === "HEAD") && url.pathname.startsWith(FONT_ALIAS_PATH_PREFIX)) {
+        const assetName = path.basename(url.pathname);
+        if (url.pathname !== `${FONT_ALIAS_PATH_PREFIX}${assetName}`) {
+          sendNotFound(res);
+          return;
+        }
+
+        const assetFile = await ensureFontAliasAsset(assetName, logger);
+        if (assetFile && (await serveStatic(req, res, path.dirname(assetFile), `/${path.basename(assetFile)}`))) {
+          return;
+        }
+        sendNotFound(res);
         return;
       }
 

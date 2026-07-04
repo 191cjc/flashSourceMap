@@ -199,7 +199,14 @@ URL 上可用以下开关临时调整：
 - `telemetry=0`：关闭客户端性能日志。
 - `warmup=0`：关闭常用战斗资源预热。
 
-运行页现在固定使用 Ruffle `webgl` 渲染。不要再切回 `canvas`：canvas 会丢失部分 Flash 滤镜效果，表现为黄色文字黑描边、发光或阴影和原版不一致。
+运行页现在优先使用 Ruffle `webgl` 渲染 Flash 滤镜效果，并启用 `deviceFontRenderer: "canvas"` 读取系统设备字体。黄色文字黑描边、发光或阴影异常通常有两类原因：
+
+1. 浏览器/GPU 无法创建 WebGL，Ruffle 会回退到 canvas renderer，部分滤镜效果会和原版 Flash 不一致。
+2. 游戏 SWF 使用 `宋体`、`SimSun`、`微软雅黑`、`Arial` 等设备字体；默认嵌入字体渲染器无法访问系统字体时会出现字体差异。canvas device-font renderer 能在安装了对应字体的 Windows 浏览器/桌面 WebView 中更接近原版。这里的 canvas 指设备字体渲染路径，不是 Ruffle 主渲染器。
+
+`?deviceFonts=embedded` 会启用 `/font-aliases/*.swf` 备用字体别名，用于排查设备字体缺失；它会额外加载多份字体 SWF，默认不启用。
+
+可通过 `mock-api.ndjson` 中的 `ruffle.renderer` 客户端日志确认实际 renderer；不要只看运行页配置判断。
 
 服务端默认只记录首次远程拉取和接口调用，不再为每个已缓存 SWF 资源写 `asset.local_hit`，避免资源密集加载时同步日志写入干扰响应。若需要详细资源命中日志，可启动时加：
 
