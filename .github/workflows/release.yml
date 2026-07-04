@@ -45,29 +45,8 @@ jobs:
           node --check runtime\save-data\public\mock-platform.js
           node --check runtime\save-data\public\runner.js
 
-      - name: Restore Pepper Flash from secret
-        env:
-          PEPPER_FLASH_BASE64: ${{ secrets.PEPPER_FLASH_BASE64 }}
-        shell: pwsh
-        run: |
-          if (-not $env:PEPPER_FLASH_BASE64) {
-            "PEPPER_FLASH_BASE64 is not configured; native desktop package will be skipped."
-            exit 0
-          }
-          New-Item -ItemType Directory -Force workspace/native-cef | Out-Null
-          [IO.File]::WriteAllBytes(
-            "workspace/native-cef/pepflashplayer64.dll",
-            [Convert]::FromBase64String($env:PEPPER_FLASH_BASE64)
-          )
-
       - name: Build native Flash desktop package
-        shell: pwsh
-        run: |
-          if (-not (Test-Path "workspace/native-cef/pepflashplayer64.dll")) {
-            "Pepper Flash is unavailable; skipping native desktop package."
-            exit 0
-          }
-          npm run native-flash:package
+        run: npm run native-flash:package
 
       - name: Resolve release tag
         id: release_tag

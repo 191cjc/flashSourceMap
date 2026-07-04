@@ -14,6 +14,7 @@ const zipFile = path.join(releaseRoot, `${packageName}.zip`);
 const checksumFile = path.join(releaseRoot, "checksums.txt");
 const cefBuildName = "cef_binary_75.1.14+gc81164e+chromium-75.0.3770.100_windows64_client";
 const cefReleaseDir = path.join(projectRoot, "workspace", "native-cef75", cefBuildName, "Release");
+const vendoredPepperFlash = path.join(projectRoot, "vendor", "native-flash", "pepflashplayer64.dll");
 
 function run(command, args, options = {}) {
   const result = spawnSync(command, args, {
@@ -88,6 +89,7 @@ function existingFile(candidates) {
 function pepperFlashPath() {
   return existingFile([
     process.env.NATIVE_FLASH_PEPPER_PATH,
+    vendoredPepperFlash,
     path.join(cefReleaseDir, "pepflashplayer64.dll"),
     path.join(projectRoot, "workspace", "native-cef75", "pepflashplayer64.dll"),
     path.join(projectRoot, "workspace", "native-cef", "pepflashplayer64.dll"),
@@ -120,7 +122,7 @@ function main() {
     throw new Error(
       [
         "pepflashplayer64.dll was not found.",
-        "Set NATIVE_FLASH_PEPPER_PATH or place it under workspace/native-cef/ before packaging.",
+        "Set NATIVE_FLASH_PEPPER_PATH or place it under vendor/native-flash/ before packaging.",
       ].join(" ")
     );
   }

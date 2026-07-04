@@ -16,6 +16,7 @@ const cefArchive = path.join(cefCacheDir, "cef_binary_75.1.14_windows64_client.t
 const preparedCefClient = path.join(cefCacheDir, cefBuildName, "Release", "cefclient.exe");
 const bundledPepperFlash = path.join(cefCacheDir, "pepflashplayer64.dll");
 const legacyBundledPepperFlash = path.join(projectRoot, "workspace", "native-cef", "pepflashplayer64.dll");
+const vendoredPepperFlash = path.join(projectRoot, "vendor", "native-flash", "pepflashplayer64.dll");
 const defaultPepperFlashVersion = "99.9.9.999";
 const sourceOuterSwf = path.join(projectRoot, "downloads", "swf", "xfbbv451.swf");
 const sourceInnerSwf = path.join(projectRoot, "extracted", "swf", "L4399Main_gamefile.swf");
@@ -181,6 +182,11 @@ function ensurePepperFlash() {
   const bundled = existingFile(bundledPepperFlash);
   if (bundled) {
     return bundled;
+  }
+
+  const vendored = existingFile(vendoredPepperFlash);
+  if (vendored) {
+    return vendored;
   }
 
   const legacyBundled = existingFile(legacyBundledPepperFlash);
@@ -1309,7 +1315,7 @@ async function main() {
       console.log(`[native-flash] Local Flash proxy: http://${process.env.NATIVE_FLASH_POLICY_HOST || defaultPolicyProxyHost}:${process.env.NATIVE_FLASH_POLICY_PORT || defaultPolicyProxyPort}`);
     }
     if (!pepperFlashPath) {
-      throw new Error("Pepper Flash was not found. Set NATIVE_FLASH_PEPPER_PATH or NATIVE_FLASH_BUNDLE_DIR.");
+      throw new Error("Pepper Flash was not found. Set NATIVE_FLASH_PEPPER_PATH, place it under vendor/native-flash/, or set NATIVE_FLASH_BUNDLE_DIR.");
     }
     return;
   }
