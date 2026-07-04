@@ -38,15 +38,14 @@ jobs:
           npm run saveData:test:db
           node --check tools\launch-native-flash-mock.cjs
           node --check tools\package-native-flash.cjs
-          node --check tools\patch-runtime-mock-bag.cjs
-          node --check tools\patch-pay-event-listener.cjs
-          node --check tools\inspect-abc-references.cjs
           node --check runtime\save-data\public\native-player.js
           node --check runtime\save-data\public\mock-platform.js
           node --check runtime\save-data\public\runner.js
 
       - name: Build native Flash desktop package
-        run: npm run native-flash:package
+        run: |
+          npm run native-flash:build-host
+          npm run native-flash:package
 
       - name: Resolve release tag
         id: release_tag

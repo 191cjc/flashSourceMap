@@ -27,7 +27,7 @@ npm run native-flash:package
 
 产物会写入 `builds/release-assets/FlashSourceMap-NativeFlash-v*-win-x64.zip`。这个包内置 Node、CEF、Pepper Flash、本地运行代码和启动脚本；用户解压后双击 `start-native-flash.bat` 即可运行。
 
-native 包不再依赖参考对象 exe。启动器会使用包内 CEF/Pepper Flash，并自动生成带物品添加回调的 native SWF。
+native 包不再依赖参考对象 exe。启动器会使用包内 CEF/Pepper Flash 启动本地 mock 运行时。
 
 ## 当前边界
 

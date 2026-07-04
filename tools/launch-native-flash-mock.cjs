@@ -14,13 +14,16 @@ const cefDownloadUrl = "https://cef-builds.spotifycdn.com/cef_binary_75.1.14%2Bg
 const cefCacheDir = path.join(projectRoot, "workspace", "native-cef75");
 const cefArchive = path.join(cefCacheDir, "cef_binary_75.1.14_windows64_client.tar.bz2");
 const preparedCefClient = path.join(cefCacheDir, cefBuildName, "Release", "cefclient.exe");
+const nativeHostExeName = "flash-native-host.exe";
+const preparedNativeHost = path.join(projectRoot, "workspace", "native-host", "Release", nativeHostExeName);
 const bundledPepperFlash = path.join(cefCacheDir, "pepflashplayer64.dll");
 const legacyBundledPepperFlash = path.join(projectRoot, "workspace", "native-cef", "pepflashplayer64.dll");
 const vendoredPepperFlash = path.join(projectRoot, "vendor", "native-flash", "pepflashplayer64.dll");
 const defaultPepperFlashVersion = "99.9.9.999";
 const sourceOuterSwf = path.join(projectRoot, "downloads", "swf", "xfbbv451.swf");
-const sourceInnerSwf = path.join(projectRoot, "extracted", "swf", "L4399Main_gamefile.swf");
 const legacySavesFileName = path.join("data", "runtime-mock-saves.json");
+const desktopAppDataRoot = process.env.APPDATA || path.join(os.homedir(), "AppData", "Roaming");
+const legacyDesktopDbFile = path.join(desktopAppDataRoot, "flash-source-map", "saveData", "local-save.db");
 const projectLegacySavesFileCandidates = [path.join(projectRoot, legacySavesFileName)];
 const referenceLegacySavesFileCandidates = [
   path.join(path.dirname(projectRoot), "flash-4399-115225-dev", legacySavesFileName),
@@ -78,10 +81,6 @@ function nativePatchedSwfPath() {
   return path.join(saveDataWorkspaceRoot(), "public", "swf", "xfbbv451-native.swf");
 }
 
-function nativeBagPatchedInnerSwfPath() {
-  return path.join(saveDataWorkspaceRoot(), "generated-assets", "native-bag", "L4399Main_gamefile.swf");
-}
-
 function envPath(name) {
   const value = process.env[name];
   return value && value.trim() ? value.trim() : null;
@@ -118,6 +117,22 @@ function configuredLegacySavesFile(env = process.env) {
     candidates.push(...referenceLegacySavesFileCandidates);
   }
   return firstExistingFile(candidates);
+}
+
+function configuredDbFile(env = process.env) {
+  const explicit = env.SAVE_DATA_DB;
+  if (explicit && explicit.trim()) {
+    return path.resolve(explicit.trim());
+  }
+  return existingFile(legacyDesktopDbFile);
+}
+
+function configureDbEnv(env = process.env) {
+  const dbFile = configuredDbFile(env);
+  if (dbFile && !(env.SAVE_DATA_DB && env.SAVE_DATA_DB.trim())) {
+    env.SAVE_DATA_DB = dbFile;
+  }
+  return dbFile;
 }
 
 function configureLegacySavesEnv(env = process.env) {
@@ -249,6 +264,13 @@ function explicitBrowserCandidates() {
   ];
 }
 
+function nativeHostCandidates() {
+  return [
+    envPath("NATIVE_FLASH_HOST_PATH"),
+    preparedNativeHost,
+  ];
+}
+
 function fallbackBrowserCandidates(preferredCefClient) {
   const env = process.env;
   return [
@@ -275,6 +297,11 @@ async function findBrowser() {
     }
   }
 
+  const nativeHost = firstExistingFile(nativeHostCandidates());
+  if (nativeHost) {
+    return nativeHost;
+  }
+
   const preferredCefClient = await ensureCefClient();
   const browser = firstExistingFile(fallbackBrowserCandidates(preferredCefClient));
   if (browser) {
@@ -289,8 +316,8 @@ async function findBrowser() {
   throw new Error(
     [
       "Native Flash browser was not found.",
-      "Run npm run native-flash:prepare to prepare the local CEF client,",
-      "or set NATIVE_FLASH_BROWSER_PATH / CEF_FLASH_BROWSER_PATH.",
+      "Run npm run native-flash:build-host to build the local CEF host,",
+      "or set NATIVE_FLASH_HOST_PATH / NATIVE_FLASH_BROWSER_PATH / CEF_FLASH_BROWSER_PATH.",
       "Set NATIVE_FLASH_ALLOW_REFERENCE=1 only if you want to use the old reference bundle.",
     ].join(" ")
   );
@@ -313,8 +340,15 @@ function isReferenceHost(browserPath) {
     .some((candidate) => fs.existsSync(candidate) && samePath(candidate, browserPath));
 }
 
+function isNativeHost(browserPath) {
+  return path.basename(browserPath).toLowerCase() === nativeHostExeName;
+}
+
 function defaultUserDataDirForBrowser(browserPath) {
   const lower = String(browserPath || "").toLowerCase();
+  if (isNativeHost(browserPath)) {
+    return path.join(projectRoot, "workspace", "native-flash-profile-host");
+  }
   if (lower.includes("cef_binary_75")) {
     return path.join(projectRoot, "workspace", "native-flash-profile-cef75");
   }
@@ -409,162 +443,6 @@ function compressSwf({ signature, header, body }) {
   return Buffer.concat([header, zlib.deflateSync(body, { level: 9 })]);
 }
 
-function readRectByteLength(buffer, offset) {
-  const nbits = buffer[offset] >> 3;
-  const totalBits = 5 + nbits * 4;
-  return Math.ceil(totalBits / 8);
-}
-
-function parseSwfTags(body) {
-  const rectLength = readRectByteLength(body, 0);
-  let offset = rectLength + 4;
-  const tags = [];
-
-  while (offset + 2 <= body.length) {
-    const headerOffset = offset;
-    const tagHeader = body.readUInt16LE(offset);
-    offset += 2;
-
-    const code = tagHeader >> 6;
-    let length = tagHeader & 0x3f;
-    if (length === 0x3f) {
-      if (offset + 4 > body.length) {
-        throw new Error(`Truncated long tag header at ${headerOffset}`);
-      }
-      length = body.readUInt32LE(offset);
-      offset += 4;
-    }
-
-    if (offset + length > body.length) {
-      throw new Error(`Tag ${code} at ${headerOffset} exceeds body length`);
-    }
-
-    tags.push({
-      code,
-      length,
-      offset: headerOffset,
-      dataOffset: offset,
-      data: body.subarray(offset, offset + length),
-    });
-    offset += length;
-
-    if (code === 0) {
-      break;
-    }
-  }
-
-  return tags;
-}
-
-function encodeSwfTag(code, payload) {
-  if (payload.length < 0x3f) {
-    const header = Buffer.alloc(2);
-    header.writeUInt16LE((code << 6) | payload.length, 0);
-    return Buffer.concat([header, payload]);
-  }
-
-  const header = Buffer.alloc(6);
-  header.writeUInt16LE((code << 6) | 0x3f, 0);
-  header.writeUInt32LE(payload.length, 2);
-  return Buffer.concat([header, payload]);
-}
-
-function replaceDefineBinaryDataInBody(body, binaryId, replacementData) {
-  const tags = parseSwfTags(body);
-  const firstTagOffset = tags[0]?.offset;
-  if (firstTagOffset == null) {
-    throw new Error("SWF has no tags");
-  }
-
-  const chunks = [body.subarray(0, firstTagOffset)];
-  let replacements = 0;
-  for (const tag of tags) {
-    const originalEnd = tag.dataOffset + tag.length;
-    if (tag.code === 87 && tag.data.length >= 6 && tag.data.readUInt16LE(0) === binaryId) {
-      chunks.push(encodeSwfTag(tag.code, Buffer.concat([tag.data.subarray(0, 6), replacementData])));
-      replacements += 1;
-    } else {
-      chunks.push(body.subarray(tag.offset, originalEnd));
-    }
-  }
-
-  return {
-    body: Buffer.concat(chunks),
-    replacements,
-  };
-}
-
-function newestMtimeMs(files) {
-  let newest = 0;
-  for (const file of files) {
-    if (fs.existsSync(file)) {
-      newest = Math.max(newest, fs.statSync(file).mtimeMs);
-    }
-  }
-  return newest;
-}
-
-function ensureNativeBagPatchedInnerSwf() {
-  if (process.env.NATIVE_FLASH_ENABLE_ITEM_MOCK === "0") {
-    return null;
-  }
-
-  const source = existingFile(sourceInnerSwf);
-  if (!source) {
-    console.log(`[native-flash] Item mock skipped; inner SWF not found: ${sourceInnerSwf}`);
-    return null;
-  }
-
-  const patchScript = path.join(projectRoot, "tools", "patch-runtime-mock-bag.cjs");
-  const patchDependencies = [
-    patchScript,
-    path.join(projectRoot, "tools", "patch-pay-event-listener.cjs"),
-    path.join(projectRoot, "tools", "inspect-abc-references.cjs"),
-  ];
-  for (const dependency of patchDependencies) {
-    if (!existingFile(dependency)) {
-      throw new Error(`Native item mock patch dependency is missing: ${dependency}`);
-    }
-  }
-
-  const outputFile = nativeBagPatchedInnerSwfPath();
-  const inputNewest = newestMtimeMs([source, ...patchDependencies]);
-  if (fs.existsSync(outputFile) && fs.statSync(outputFile).mtimeMs >= inputNewest) {
-    return outputFile;
-  }
-
-  fs.mkdirSync(path.dirname(outputFile), { recursive: true });
-  fs.copyFileSync(source, outputFile);
-
-  const result = spawnSync(process.execPath, [patchScript], {
-    cwd: projectRoot,
-    env: {
-      ...process.env,
-      CODEX_RUNTIME_MOCK_SWF: outputFile,
-      CODEX_RUNTIME_MOCK_BACKUP: `${outputFile}.before-native-bag-patch.swf`,
-      CODEX_DISABLE_PET_MOCK_PATCH: "1",
-      CODEX_DISABLE_CURRENCY_MOCK_PATCH: "1",
-      CODEX_DISABLE_SAVE_GUARD_PATCH: "1",
-      CODEX_ENABLE_BAG_PANEL_BUTTON_MOCK: "1",
-    },
-    encoding: "utf8",
-    windowsHide: true,
-  });
-
-  if (result.status !== 0) {
-    throw new Error(
-      [
-        "Native item mock SWF patch failed.",
-        result.stdout ? `stdout:\n${result.stdout.trim()}` : "",
-        result.stderr ? `stderr:\n${result.stderr.trim()}` : "",
-      ].filter(Boolean).join("\n")
-    );
-  }
-
-  console.log(`[native-flash] Wrote native item mock inner SWF: ${outputFile}`);
-  return outputFile;
-}
-
 function ensureNativePatchedSwf(serverUrl) {
   if (process.env.NATIVE_FLASH_PATCH_SWF === "0") {
     return null;
@@ -575,7 +453,7 @@ function ensureNativePatchedSwf(serverUrl) {
   }
 
   const swf = decompressSwf(fs.readFileSync(source));
-  let body = Buffer.from(swf.body);
+  const body = Buffer.from(swf.body);
   const replacementCounts = {};
   for (const [remoteUrl, localPath] of nativeSwfUrlReplacements) {
     const replacement = fitReplacementUrl(serverUrl, localPath, remoteUrl.length);
@@ -584,16 +462,6 @@ function ensureNativePatchedSwf(serverUrl) {
     if (count === 0) {
       throw new Error(`Native SWF patch did not find URL: ${remoteUrl}`);
     }
-  }
-
-  const patchedInnerSwf = ensureNativeBagPatchedInnerSwf();
-  if (patchedInnerSwf) {
-    const replacedInner = replaceDefineBinaryDataInBody(body, 13, fs.readFileSync(patchedInnerSwf));
-    if (replacedInner.replacements !== 1) {
-      throw new Error(`Expected one embedded game SWF replacement, found ${replacedInner.replacements}`);
-    }
-    body = replacedInner.body;
-    replacementCounts["DefineBinaryData:13"] = replacedInner.replacements;
   }
 
   const outputFile = nativePatchedSwfPath();
@@ -1075,6 +943,9 @@ async function ensureServer(serverUrl) {
   try {
     await waitForHttp(`${serverUrl}/native.html`, 1500);
     console.log(`[native-flash] Reusing saveData server: ${serverUrl}`);
+    if (process.env.SAVE_DATA_DB) {
+      console.log("[native-flash] If this server was already running, restart it to apply the save database path.");
+    }
     if (process.env.SAVE_DATA_LEGACY_SAVES_FILE || process.env.SAVE_DATA_LEGACY_SAVES) {
       console.log("[native-flash] If this server was already running, restart it to apply the legacy saves file.");
     }
@@ -1298,6 +1169,7 @@ async function main() {
   const port = Number(process.env.SAVE_DATA_PORT || defaultPort);
   const serverUrl = `http://${host}:${port}`;
   const debugPort = Number(process.env.NATIVE_FLASH_DEBUG_PORT || defaultDebugPort);
+  const dbFile = configureDbEnv(process.env);
   const legacySavesFile = configureLegacySavesEnv(process.env);
   const browserPath = await findBrowser();
   const useCdpNavigation = isReferenceHost(browserPath);
@@ -1306,8 +1178,14 @@ async function main() {
   const pepperFlashPath = findPepperFlash(browserPath);
   if (prepareOnly) {
     console.log(`[native-flash] Browser: ${browserPath}`);
+    if (path.basename(browserPath).toLowerCase() === "cefclient.exe") {
+      console.log("[native-flash] Warning: official cefclient.exe can consume Space; run npm run native-flash:build-host for the custom host.");
+    }
     console.log(`[native-flash] Host mode: ${useCdpNavigation ? "reference-cdp" : "direct-url"}`);
     console.log(`[native-flash] Pepper Flash: ${pepperFlashPath || "missing"}`);
+    if (dbFile) {
+      console.log(`[native-flash] Database: ${dbFile}`);
+    }
     if (legacySavesFile) {
       console.log(`[native-flash] Legacy saves: ${legacySavesFile}`);
     }
@@ -1341,6 +1219,7 @@ async function main() {
   }
 
   const isCefClient = path.basename(browserPath).toLowerCase() === "cefclient.exe";
+  const isCustomNativeHost = isNativeHost(browserPath);
   const args = [`--remote-debugging-port=${debugPort}`];
   if (useCdpNavigation) {
     // The borrowed Qt/CEF host ignores --url and opens its own page first.
@@ -1370,7 +1249,7 @@ async function main() {
       args.push(`--ppapi-flash-path=${pepperFlashPath}`);
       args.push(`--ppapi-flash-version=${process.env.NATIVE_FLASH_PEPPER_VERSION || defaultPepperFlashVersion}`);
     }
-    if (isCefClient) {
+    if (isCefClient || isCustomNativeHost) {
       args.push(`--url=${launchUrl}`);
     } else {
       args.push("--new-window", launchUrl);
@@ -1378,8 +1257,14 @@ async function main() {
   }
 
   console.log(`[native-flash] Browser: ${browserPath}`);
+  if (isCefClient) {
+    console.log("[native-flash] Warning: official cefclient.exe can consume Space; run npm run native-flash:build-host for the custom host.");
+  }
   console.log(`[native-flash] Host mode: ${useCdpNavigation ? "reference-cdp" : "direct-url"}`);
   console.log(`[native-flash] Pepper Flash: ${pepperFlashPath || "browser/system default"}`);
+  if (dbFile) {
+    console.log(`[native-flash] Database: ${dbFile}`);
+  }
   if (legacySavesFile) {
     console.log(`[native-flash] Legacy saves: ${legacySavesFile}`);
   }
@@ -1462,12 +1347,6 @@ async function main() {
     } catch (error) {
       console.log(`[native-flash] request proxy failed: ${error instanceof Error ? error.message : String(error)}`);
       await client.send("Fetch.continueRequest", { requestId: params.requestId }).catch(() => undefined);
-    }
-  });
-
-  client.on("Page.javascriptDialogOpening", async (params) => {
-    if (/space bar/i.test(params.message || "")) {
-      await client.send("Page.handleJavaScriptDialog", { accept: false }).catch(() => undefined);
     }
   });
 

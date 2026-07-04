@@ -14,6 +14,10 @@ const zipFile = path.join(releaseRoot, `${packageName}.zip`);
 const checksumFile = path.join(releaseRoot, "checksums.txt");
 const cefBuildName = "cef_binary_75.1.14+gc81164e+chromium-75.0.3770.100_windows64_client";
 const cefReleaseDir = path.join(projectRoot, "workspace", "native-cef75", cefBuildName, "Release");
+const nativeHostExeName = "flash-native-host.exe";
+const nativeHostReleaseDir = path.join(projectRoot, "workspace", "native-host", "Release");
+const nativeHostExe = path.join(nativeHostReleaseDir, nativeHostExeName);
+const packageLauncherExe = path.join(projectRoot, "workspace", "native-launcher", "FlashSourceMap.exe");
 const vendoredPepperFlash = path.join(projectRoot, "vendor", "native-flash", "pepflashplayer64.dll");
 
 function run(command, args, options = {}) {
@@ -90,9 +94,18 @@ function pepperFlashPath() {
   return existingFile([
     process.env.NATIVE_FLASH_PEPPER_PATH,
     vendoredPepperFlash,
+    path.join(nativeHostReleaseDir, "pepflashplayer64.dll"),
     path.join(cefReleaseDir, "pepflashplayer64.dll"),
     path.join(projectRoot, "workspace", "native-cef75", "pepflashplayer64.dll"),
     path.join(projectRoot, "workspace", "native-cef", "pepflashplayer64.dll"),
+  ]);
+}
+
+function nativeHostPath() {
+  return existingFile([
+    process.env.NATIVE_FLASH_HOST_PATH,
+    process.env.NATIVE_FLASH_BROWSER_PATH,
+    nativeHostExe,
   ]);
 }
 
@@ -116,7 +129,31 @@ function buildZip() {
   ]);
 }
 
+function buildPackageLauncher() {
+  run("powershell.exe", [
+    "-NoProfile",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    path.join(projectRoot, "tools", "build-native-package-launcher.ps1"),
+  ]);
+  if (!fs.existsSync(packageLauncherExe)) {
+    throw new Error(`Package launcher was not created: ${packageLauncherExe}`);
+  }
+}
+
 function main() {
+  const nativeHost = nativeHostPath();
+  if (!nativeHost) {
+    throw new Error(
+      [
+        "flash-native-host.exe was not found.",
+        "Run npm run native-flash:build-host before packaging,",
+        "or set NATIVE_FLASH_HOST_PATH to an existing custom CEF host.",
+      ].join(" ")
+    );
+  }
+
   const pepper = pepperFlashPath();
   if (!pepper) {
     throw new Error(
@@ -130,13 +167,18 @@ function main() {
   run(process.execPath, [path.join(projectRoot, "tools", "launch-native-flash-mock.cjs"), "--prepare"], {
     env: {
       ...process.env,
-      NATIVE_FLASH_ALLOW_REFERENCE: process.env.NATIVE_FLASH_ALLOW_REFERENCE || "1",
+      NATIVE_FLASH_BROWSER_PATH: nativeHost,
+      NATIVE_FLASH_DISABLE_REFERENCE: "1",
+      NATIVE_FLASH_AUTO_DOWNLOAD_CEF: "0",
     },
   });
 
-  if (!fs.existsSync(cefReleaseDir)) {
-    throw new Error(`CEF release directory is missing: ${cefReleaseDir}`);
+  const nativeHostRuntimeDir = path.dirname(nativeHost);
+  if (!fs.existsSync(nativeHostRuntimeDir)) {
+    throw new Error(`Native host runtime directory is missing: ${nativeHostRuntimeDir}`);
   }
+
+  buildPackageLauncher();
 
   fs.rmSync(path.join(projectRoot, "dist"), { recursive: true, force: true });
   runNpmScript("build");
@@ -153,9 +195,6 @@ function main() {
   copyFile(path.join(projectRoot, "package.json"), path.join(appRoot, "package.json"));
   copyDir(path.join(projectRoot, "dist"), path.join(appRoot, "dist"));
   copyFile(path.join(projectRoot, "tools", "launch-native-flash-mock.cjs"), path.join(appRoot, "tools", "launch-native-flash-mock.cjs"));
-  copyFile(path.join(projectRoot, "tools", "patch-runtime-mock-bag.cjs"), path.join(appRoot, "tools", "patch-runtime-mock-bag.cjs"));
-  copyFile(path.join(projectRoot, "tools", "patch-pay-event-listener.cjs"), path.join(appRoot, "tools", "patch-pay-event-listener.cjs"));
-  copyFile(path.join(projectRoot, "tools", "inspect-abc-references.cjs"), path.join(appRoot, "tools", "inspect-abc-references.cjs"));
   copyDir(path.join(projectRoot, "runtime", "save-data", "public"), path.join(appRoot, "runtime", "save-data", "public"));
   copyDir(path.join(projectRoot, "runtime", "save-data", "schema"), path.join(appRoot, "runtime", "save-data", "schema"));
   copyDir(path.join(projectRoot, "downloads", "swf"), path.join(appRoot, "downloads", "swf"));
@@ -163,8 +202,9 @@ function main() {
   copyDir(path.join(projectRoot, "node_modules", "crypto-js"), path.join(appRoot, "node_modules", "crypto-js"));
   copyDir(path.join(projectRoot, "node_modules", "@ruffle-rs", "ruffle"), path.join(appRoot, "node_modules", "@ruffle-rs", "ruffle"));
 
-  copyDir(cefReleaseDir, cefTarget);
+  copyDir(nativeHostRuntimeDir, cefTarget);
   copyFile(pepper, path.join(cefTarget, "pepflashplayer64.dll"));
+  copyFile(packageLauncherExe, path.join(packageRoot, "FlashSourceMap.exe"));
 
   fs.mkdirSync(path.join(dataRoot, "saveData"), { recursive: true });
   copyOptionalDir(path.join(projectRoot, "workspace", "saveData", "platform-assets"), path.join(dataRoot, "saveData", "platform-assets"));
@@ -182,7 +222,7 @@ function main() {
   }
 
   writeText(
-    path.join(packageRoot, "start-native-flash.bat"),
+    path.join(packageRoot, "start-native-flash-debug.bat"),
     `@echo off
 setlocal
 cd /d "%~dp0"
@@ -191,9 +231,14 @@ set "APP_ROOT=%ROOT%app"
 set "NODE_EXE=%ROOT%node\\node.exe"
 set "SAVE_DATA_PROJECT_ROOT=%APP_ROOT%"
 set "SAVE_DATA_WORKSPACE_ROOT=%ROOT%data\\saveData"
-set "SAVE_DATA_DB=%ROOT%data\\saveData\\local-save.db"
-if exist "%ROOT%data\\runtime-mock-saves.json" set "SAVE_DATA_LEGACY_SAVES_FILE=%ROOT%data\\runtime-mock-saves.json"
-set "NATIVE_FLASH_BROWSER_PATH=%ROOT%cef\\Release\\cefclient.exe"
+set "LEGACY_DESKTOP_DB=%APPDATA%\\flash-source-map\\saveData\\local-save.db"
+if exist "%LEGACY_DESKTOP_DB%" (
+  set "SAVE_DATA_DB=%LEGACY_DESKTOP_DB%"
+) else (
+  set "SAVE_DATA_DB=%ROOT%data\\saveData\\local-save.db"
+  if exist "%ROOT%data\\runtime-mock-saves.json" set "SAVE_DATA_LEGACY_SAVES_FILE=%ROOT%data\\runtime-mock-saves.json"
+)
+set "NATIVE_FLASH_BROWSER_PATH=%ROOT%cef\\Release\\flash-native-host.exe"
 set "NATIVE_FLASH_PEPPER_PATH=%ROOT%cef\\Release\\pepflashplayer64.dll"
 set "NATIVE_FLASH_USER_DATA_DIR=%ROOT%data\\cef-profile"
 set "NATIVE_FLASH_AUTO_DOWNLOAD_CEF=0"
@@ -209,11 +254,14 @@ if errorlevel 1 pause
     `FlashSourceMap Native Flash ${version}
 
 1. Extract the whole folder to a writable location.
-2. Double-click start-native-flash.bat.
-3. Keep the terminal open while playing; closing it stops the local mock server.
+2. Double-click FlashSourceMap.exe.
+3. No console window is shown. Diagnostic output is written to data\\launcher.log.
 
-Runtime data is stored under data\\saveData.
-If you need to reuse an old JSON save file, put it at data\\runtime-mock-saves.json before starting.
+For troubleshooting, start-native-flash-debug.bat keeps the console open.
+
+Saves are read from %APPDATA%\\flash-source-map\\saveData\\local-save.db when that old desktop database exists.
+If that database is missing, runtime data is stored under data\\saveData.
+If you need to reuse an old JSON save file, put it at data\\runtime-mock-saves.json before starting; SQLite takes priority when present.
 `
   );
 

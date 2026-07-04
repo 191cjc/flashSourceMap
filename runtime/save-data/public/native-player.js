@@ -7,6 +7,21 @@
 
   window.__saveDataRunnerConfig = { renderer: "native-flash" };
 
+  function flashObject() {
+    return document.getElementById("flashgame");
+  }
+
+  function focusFlashGame() {
+    const object = flashObject();
+    if (object && typeof object.focus === "function") {
+      try {
+        object.focus({ preventScroll: true });
+      } catch {
+        object.focus();
+      }
+    }
+  }
+
   function setStatus(value) {
     if (status) {
       status.textContent = value;
@@ -25,6 +40,7 @@
     object.data = gameSwf;
     object.width = "960";
     object.height = "600";
+    object.tabIndex = 0;
     object.style.width = "100%";
     object.style.height = "100%";
 
@@ -50,6 +66,8 @@
     object.appendChild(fallback);
     holder.appendChild(object);
     setStatus("native flash");
+    window.setTimeout(focusFlashGame, 0);
+    window.setTimeout(focusFlashGame, 250);
     if (window.__saveDataLog) {
       window.__saveDataLog("Native Flash player mounted");
     }

@@ -21,7 +21,6 @@ import {
   LEVEL_REWARD_ASSET_NAME,
   setLevelRewardAchievementBoost,
 } from "../services/levelRewards.js";
-import { loadGameDataCatalog } from "../services/gameData.js";
 
 type ServerOptions = {
   host?: string;
@@ -95,12 +94,22 @@ function configuredLegacySavesFile(options: ServerOptions): string | null {
   return trimmed ? path.resolve(trimmed) : null;
 }
 
+function configuredDbFile(options: ServerOptions): string | null {
+  const value = options.dbFile ?? process.env.SAVE_DATA_DB ?? "";
+  const trimmed = value.trim();
+  return trimmed ? path.resolve(trimmed) : null;
+}
+
 function createSaveDataStore(options: ServerOptions): SaveDataStore {
+  const dbFile = configuredDbFile(options);
+  if (dbFile) {
+    return new LocalSaveDatabase(dbFile);
+  }
   const legacySavesFile = configuredLegacySavesFile(options);
   if (legacySavesFile) {
     return new LegacyJsonSaveDatabase(legacySavesFile);
   }
-  return new LocalSaveDatabase(options.dbFile ?? process.env.SAVE_DATA_DB ?? saveDataPaths.defaultDbFile);
+  return new LocalSaveDatabase(saveDataPaths.defaultDbFile);
 }
 
 function getContentType(filePath: string): string {
@@ -1106,28 +1115,6 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
         return;
       }
 
-      if (url.pathname === "/api/saveData/items") {
-        if (req.method !== "GET") {
-          send(res, 405, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "method_not_allowed" }));
-          return;
-        }
-
-        const catalog = loadGameDataCatalog();
-        send(
-          res,
-          200,
-          "application/json; charset=utf-8",
-          JSON.stringify({
-            ok: true,
-            loaded: catalog.loaded,
-            sourceFile: catalog.sourceFile,
-            mtimeMs: catalog.mtimeMs,
-            items: catalog.items,
-          })
-        );
-        return;
-      }
-
       if (url.pathname === "/api/saveData/level-rewards") {
         if (req.method === "GET") {
           send(res, 200, "application/json; charset=utf-8", JSON.stringify(getLevelRewardState()));
@@ -1388,11 +1375,16 @@ if (process.argv[1] && path.resolve(fileURLToPath(import.meta.url)) === path.res
   startSaveDataServer()
     .then(({ url }) => {
       console.log(`saveData mock server: ${url}`);
-      const legacySavesFile = configuredLegacySavesFile({});
-      if (legacySavesFile) {
-        console.log(`legacy saves: ${legacySavesFile}`);
+      const dbFile = configuredDbFile({});
+      if (dbFile) {
+        console.log(`database: ${dbFile}`);
       } else {
-        console.log(`database: ${process.env.SAVE_DATA_DB ?? saveDataPaths.defaultDbFile}`);
+        const legacySavesFile = configuredLegacySavesFile({});
+        if (legacySavesFile) {
+          console.log(`legacy saves: ${legacySavesFile}`);
+        } else {
+          console.log(`database: ${saveDataPaths.defaultDbFile}`);
+        }
       }
     })
     .catch((error) => {

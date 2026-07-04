@@ -1,6 +1,6 @@
 {
   "name": "flash-source-map",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "private": true,
   "type": "module",
   "scripts": {
@@ -11,6 +11,8 @@
     "decompile": "bash tools/decompile.sh",
     "saveData:serve": "tsx runtime/save-data/server/server.ts",
     "saveData:test:db": "tsx runtime/save-data/tests/db-flow.test.ts",
+    "native-flash:build-host": "powershell -NoProfile -ExecutionPolicy Bypass -File tools/build-native-cef-host.ps1",
+    "native-flash:build-launcher": "powershell -NoProfile -ExecutionPolicy Bypass -File tools/build-native-package-launcher.ps1",
     "native-flash:prepare": "node tools/launch-native-flash-mock.cjs --prepare",
     "start:native-flash:mock": "node tools/launch-native-flash-mock.cjs",
     "native-flash:package": "node tools/package-native-flash.cjs"

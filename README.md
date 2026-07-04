@@ -133,7 +133,7 @@ npm run start:native-flash:mock
 npm run native-flash:package
 ```
 
-native Flash 侧栏包含钱包、物品添加、通关奖励三个 tab。物品添加会在启动时自动使用带 `codexSendBagItems` 回调补丁的 SWF，进入存档后可把队列里的物品发送到游戏内。
+native Flash 侧栏包含钱包和通关奖励 tab。
 打包所需的 Pepper Flash DLL 位于 `vendor/native-flash/pepflashplayer64.dll`，GitHub Actions 发布时会直接使用这个文件。
 
 这条链路复用 `runtime/save-data/server`，不会再通过旧桌面壳承载游戏。Ruffle 仍保留为浏览器备用页，便于对照和排查。
