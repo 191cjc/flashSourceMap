@@ -30,9 +30,29 @@ if (-not $vswhere) {
   throw "vswhere.exe was not found. Install Visual Studio Build Tools."
 }
 
-$VsInstall = & $vswhere -latest -products * -requires Microsoft.VisualStudio.Workload.VCTools -property installationPath
-if ($LASTEXITCODE -ne 0 -or -not $VsInstall) {
-  throw "Visual Studio Build Tools with C++ workload was not found."
+function Find-VsInstall {
+  $requirements = @(
+    "Microsoft.VisualStudio.Workload.VCTools",
+    "Microsoft.VisualStudio.Component.VC.Tools.x86.x64"
+  )
+  foreach ($requirement in $requirements) {
+    $install = & $vswhere -latest -products * -requires $requirement -property installationPath
+    if ($LASTEXITCODE -eq 0 -and $install) {
+      return $install
+    }
+  }
+
+  $install = & $vswhere -latest -products * -property installationPath
+  if ($LASTEXITCODE -eq 0 -and $install) {
+    return $install
+  }
+
+  return $null
+}
+
+$VsInstall = Find-VsInstall
+if (-not $VsInstall) {
+  throw "Visual Studio Build Tools with C++ tools was not found."
 }
 
 $VcVars = Join-Path $VsInstall "VC\Auxiliary\Build\vcvars64.bat"

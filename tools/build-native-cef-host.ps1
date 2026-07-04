@@ -48,7 +48,21 @@ function Find-CMake {
 
   $vswhere = Find-VsWhere
   if ($vswhere) {
-    $vsInstall = & $vswhere -latest -products * -requires Microsoft.VisualStudio.Workload.VCTools -property installationPath
+    $requirements = @(
+      "Microsoft.VisualStudio.Workload.VCTools",
+      "Microsoft.VisualStudio.Component.VC.Tools.x86.x64"
+    )
+    foreach ($requirement in $requirements) {
+      $vsInstall = & $vswhere -latest -products * -requires $requirement -property installationPath
+      if ($LASTEXITCODE -eq 0 -and $vsInstall) {
+        $vsCMake = Join-Path $vsInstall "Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe"
+        if (Test-Path $vsCMake) {
+          return $vsCMake
+        }
+      }
+    }
+
+    $vsInstall = & $vswhere -latest -products * -property installationPath
     if ($LASTEXITCODE -eq 0 -and $vsInstall) {
       $vsCMake = Join-Path $vsInstall "Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe"
       if (Test-Path $vsCMake) {
