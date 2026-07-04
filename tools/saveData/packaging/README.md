@@ -26,6 +26,7 @@ npm run start:native-flash:mock
 - `runtime/save-data/public/native.html` 和 `native-player.js` 是 native Flash 承载入口。
 - `tools/launch-native-flash-mock.cjs` 负责准备/启动本地 CEF 和 Pepper Flash。
 - 旧桌面壳已移除，不再维护 `desktop:*` 脚本或桌面打包器配置。
+- `.github/workflows/release.yml` 只负责在 `v*` tag 推送后跑校验并创建 GitHub Release 页面，不上传旧桌面包。
 
 ## 运行数据
 

@@ -124,3 +124,4 @@ temporary FFDec logs
 - Do not duplicate save, wallet, mall, or resource-serving logic in native packaging. The native launcher should start the same `runtime/save-data/server` server and load `runtime/save-data/public/native.html` in CEF/Pepper Flash.
 - Native packaging should store `local-save.db`, WAL/SHM files, resource caches, generated public assets, and logs in a user data directory, not in the application install directory.
 - The old desktop shell has been removed. Do not add desktop-only windowing, desktop package builders, or `desktop:*` scripts back unless the runtime strategy changes again.
+- `.github/workflows/release.yml` creates GitHub Release pages for `v*` tags after running checks; it does not build or upload the old desktop package.
