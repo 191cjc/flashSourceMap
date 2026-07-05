@@ -59,7 +59,7 @@
 
   window.__saveDataAccount = account;
   const MAX_ITEM_QUEUE = 12;
-  const QUICK_ITEM_COUNTS = [1, 99, 999];
+  const QUICK_ITEM_COUNTS = [1, 9, 99, 999];
   let gameState = "selecting";
   let rechargeBusy = false;
   let walletRefreshInFlight = false;
