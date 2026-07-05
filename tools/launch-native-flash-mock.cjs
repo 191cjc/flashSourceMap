@@ -685,6 +685,10 @@ class CdpClient {
     }
     this.handlers.get(method).push(handler);
   }
+
+  close() {
+    this.socket?.close();
+  }
 }
 
 async function findPageTarget(port) {
@@ -959,12 +963,51 @@ function startServerIfNeeded(serverUrl) {
     stdio: "inherit",
     windowsHide: true,
   });
+  child.__nativeFlashExpectedExit = false;
   child.on("exit", (code, signal) => {
-    if (code !== 0 && code !== null) {
+    if (!child.__nativeFlashExpectedExit && code !== 0 && code !== null) {
       console.log(`[native-flash] saveData server exited: code=${code} signal=${signal || "null"}`);
     }
   });
   return child;
+}
+
+function hasProcessExited(child) {
+  return !child || child.exitCode !== null || child.signalCode !== null;
+}
+
+function waitForProcessExit(child, timeoutMs = 5000) {
+  if (hasProcessExited(child)) {
+    return Promise.resolve(true);
+  }
+
+  return new Promise((resolve) => {
+    const timer = setTimeout(() => {
+      child.off("exit", onExit);
+      resolve(false);
+    }, timeoutMs);
+    function onExit() {
+      clearTimeout(timer);
+      resolve(true);
+    }
+    child.once("exit", onExit);
+  });
+}
+
+function terminateProcessTree(child, options = {}) {
+  if (hasProcessExited(child) || !child.pid) {
+    return;
+  }
+
+  if (options.force && process.platform === "win32") {
+    spawnSync("taskkill.exe", ["/pid", String(child.pid), "/t", "/f"], {
+      stdio: "ignore",
+      windowsHide: true,
+    });
+    return;
+  }
+
+  child.kill("SIGTERM");
 }
 
 async function ensureServer(serverUrl) {
@@ -1335,42 +1378,65 @@ async function main() {
     windowsHide: false,
   });
 
-  let closing = false;
   let browserExited = false;
+  let cleanupPromise = null;
+  let client = null;
   function cleanup(options = {}) {
-    if (closing) {
-      return;
+    if (cleanupPromise) {
+      return cleanupPromise;
     }
-    closing = true;
-    if (options.killBrowser && !browserExited) {
-      browser.kill();
-    }
-    policyProxy?.close().catch(() => undefined);
-    serverProcess?.kill();
+    cleanupPromise = (async () => {
+      if (options.killBrowser && !browserExited) {
+        terminateProcessTree(browser, { force: true });
+        await waitForProcessExit(browser, 5000);
+      }
+      try {
+        client?.close();
+      } catch {
+        // CDP may already be closed when the browser exits.
+      }
+      await policyProxy?.close().catch(() => undefined);
+      if (serverProcess) {
+        serverProcess.__nativeFlashExpectedExit = true;
+        terminateProcessTree(serverProcess);
+        let stopped = await waitForProcessExit(serverProcess, 3000);
+        if (!stopped) {
+          terminateProcessTree(serverProcess, { force: true });
+          stopped = await waitForProcessExit(serverProcess, 5000);
+        }
+        if (!stopped) {
+          console.log("[native-flash] saveData server did not exit within timeout after termination request.");
+        }
+      }
+    })();
+    return cleanupPromise;
   }
 
   process.on("SIGINT", () => {
-    cleanup({ killBrowser: true });
-    process.exit(130);
+    cleanup({ killBrowser: true }).finally(() => process.exit(130));
   });
   process.on("SIGTERM", () => {
-    cleanup({ killBrowser: true });
-    process.exit(143);
+    cleanup({ killBrowser: true }).finally(() => process.exit(143));
   });
-  browser.on("exit", (code, signal) => {
-    browserExited = true;
-    console.log(`[native-flash] Browser exited: code=${code ?? "null"} signal=${signal || "null"}`);
-    cleanup();
+  const browserExit = new Promise((resolve, reject) => {
+    browser.once("error", reject);
+    browser.once("exit", async (code, signal) => {
+      browserExited = true;
+      console.log(`[native-flash] Browser exited: code=${code ?? "null"} signal=${signal || "null"}`);
+      await cleanup();
+      resolve({ code, signal });
+    });
   });
 
   if (!useCdpNavigation) {
     console.log("[native-flash] Direct CEF mode uses page autostart; CDP attach is skipped.");
-    console.log("[native-flash] Keep this terminal open while playing; press Ctrl+C to stop.");
+    console.log("[native-flash] Close the native window or press Ctrl+C to stop.");
+    await browserExit;
     return;
   }
 
   const target = await findPageTarget(debugPort);
-  const client = new CdpClient(target.webSocketDebuggerUrl);
+  client = new CdpClient(target.webSocketDebuggerUrl);
   await client.connect();
   client.on("Fetch.requestPaused", async (params) => {
     try {
@@ -1431,7 +1497,8 @@ async function main() {
     console.log(`[native-flash] Probe: url=${probe.href} plugin=${probe.flashPlugin || "missing"} objectCount=${probe.objectCount}`);
   }
 
-  console.log("[native-flash] Keep this terminal open while playing; press Ctrl+C to stop.");
+  console.log("[native-flash] Close the native window or press Ctrl+C to stop.");
+  await browserExit;
 }
 
 main().catch((error) => {
