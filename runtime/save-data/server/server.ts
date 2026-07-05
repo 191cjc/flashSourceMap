@@ -17,6 +17,7 @@ import { createGzip } from "node:zlib";
 import { patchBagItemSenderCompatibility } from "../../../src/swf/bagItemSenderPatch.js";
 import { patchCrossSwfEventCompatibility } from "../../../src/swf/crossSwfEventPatch.js";
 import { decodeSwf, encodeSwf, replaceDefineBinaryData } from "../../../src/swf/swf.js";
+import { inspectZodiacSoulExpOptimization, patchZodiacSoulExpOptimization } from "../../../src/swf/zodiacSoulExpPatch.js";
 import { LocalSaveDatabase } from "../persistence/db.js";
 import { LegacyJsonSaveDatabase } from "../persistence/legacyJsonDb.js";
 import type { SaveDataStore } from "../persistence/store.js";
@@ -36,6 +37,7 @@ import {
   setLevelRewardAchievementBoost,
 } from "../services/levelRewards.js";
 import { loadGameDataCatalog } from "../services/gameData.js";
+import { getZodiacSoulExpOptimizationState } from "../services/zodiacSoulExp.js";
 
 type ServerOptions = {
   host?: string;
@@ -891,12 +893,17 @@ function patchedInnerGameSwfBytes(inputFile: string): Buffer {
   const swf = decodeSwf(readFileSync(inputFile));
   const eventPatchCount = patchCrossSwfEventCompatibility(swf);
   const bagPatchCount = patchBagItemSenderCompatibility(swf);
+  const zodiacSoulPatchCount = patchZodiacSoulExpOptimization(swf);
+  const zodiacSoulInspection = inspectZodiacSoulExpOptimization(swf);
 
   if (eventPatchCount < 1) {
     throw new Error(`Expected cross-SWF event compatibility target in ${inputFile}, patched ${eventPatchCount}`);
   }
   if (bagPatchCount < 1) {
     throw new Error(`Expected bag item sender target in ${inputFile}, patched ${bagPatchCount}`);
+  }
+  if (zodiacSoulPatchCount < 1 && !zodiacSoulInspection.optimized) {
+    throw new Error(`Expected zodiac soul exp optimization target in ${inputFile}, patched ${zodiacSoulPatchCount}`);
   }
 
   return encodeSwf(swf);
@@ -1196,6 +1203,15 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
           return;
         }
         send(res, 200, "application/json; charset=utf-8", JSON.stringify(getPetSkillOptimizationState()));
+        return;
+      }
+
+      if (url.pathname === "/api/saveData/zodiac-soul-exp") {
+        if (req.method !== "GET") {
+          send(res, 405, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "method_not_allowed" }));
+          return;
+        }
+        send(res, 200, "application/json; charset=utf-8", JSON.stringify(getZodiacSoulExpOptimizationState()));
         return;
       }
 

@@ -58,7 +58,6 @@
   };
 
   window.__saveDataAccount = account;
-  const ITEM_QUEUE_STORAGE_KEY = "__saveDataItemSendQueue";
   const MAX_ITEM_QUEUE = 12;
   const QUICK_ITEM_COUNTS = [1, 99, 999];
   let gameState = "selecting";
@@ -68,10 +67,11 @@
   let activityVisibilityState = null;
   let equipmentStrengtheningState = null;
   let petSkillState = null;
+  let zodiacSoulExpState = null;
   let advancedPetEggState = null;
   let petFusionExpState = null;
   let itemCatalog = [];
-  let itemQueue = loadItemQueue();
+  let itemQueue = [];
   let itemSearchTerm = "";
   let itemPopover = null;
   let optimizationPopover = null;
@@ -117,37 +117,6 @@
       return fallback;
     }
     return Math.min(max, Math.max(min, parsed));
-  }
-
-  function normalizeItemQueue(value) {
-    const source = Array.isArray(value) ? value : [];
-    return source
-      .map((entry) => ({
-        id: clampInteger(entry && entry.id, 0, 0, 999999),
-        count: clampInteger(entry && entry.count, 1, 1, 999),
-      }))
-      .filter((entry) => entry.id > 0)
-      .slice(0, MAX_ITEM_QUEUE);
-  }
-
-  function loadItemQueue() {
-    try {
-      return normalizeItemQueue(JSON.parse(localStorage.getItem(ITEM_QUEUE_STORAGE_KEY)));
-    } catch {
-      return [];
-    }
-  }
-
-  function saveItemQueue(nextQueue) {
-    itemQueue = normalizeItemQueue(nextQueue);
-    try {
-      localStorage.setItem(ITEM_QUEUE_STORAGE_KEY, JSON.stringify(itemQueue));
-    } catch {
-      // Keep the live queue usable if storage is unavailable.
-    }
-    renderItemQueue();
-    renderItemSearchResults();
-    return itemQueue;
   }
 
   function readText(response) {
@@ -373,6 +342,39 @@
     );
   }
 
+  function updateZodiacSoulExpHint() {
+    const status = document.getElementById("zodiacSoulExpStatus");
+    if (!optimizationItem("zodiacSoulExp") && !status) {
+      return;
+    }
+
+    if (!zodiacSoulExpState) {
+      setOptimizationStatus(status, "…", "is-pending", "检测中");
+      setOptimizationDescription("zodiacSoulExp", "正在检测斗魂升级补丁状态。", false);
+      return;
+    }
+    if (!zodiacSoulExpState.loaded) {
+      setOptimizationStatus(status, "×", "is-error", "未生效");
+      setOptimizationDescription(
+        "zodiacSoulExp",
+        zodiacSoulExpState.error
+          ? `斗魂升级优化加载失败：${zodiacSoulExpState.error}`
+          : "斗魂升级补丁还未生成完成。请先成功进入一次游戏，关闭后重新打开；重启后该优化会自动生效。",
+        true
+      );
+      return;
+    }
+
+    const targetLevel = formatAmount(zodiacSoulExpState.targetLevel || 100);
+    const targetUpLimit = formatAmount(zodiacSoulExpState.targetUpLimit || 3);
+    setOptimizationStatus(status, "✓", "is-ok", "已生效");
+    setOptimizationDescription(
+      "zodiacSoulExp",
+      `斗魂升级优化已生效：融化斗魂时直接升到 ${targetLevel} 级，并同步写入最高等级上限 ${targetUpLimit}。`,
+      false
+    );
+  }
+
   function updateAdvancedPetEggHint() {
     const status = document.getElementById("advancedPetEggStatus");
     if (!optimizationItem("advancedPetEgg") && !status) {
@@ -452,6 +454,7 @@
     updateActivityVisibilityHint();
     updateEquipmentStrengtheningHint();
     updatePetSkillHint();
+    updateZodiacSoulExpHint();
     updateAdvancedPetEggHint();
     updatePetFusionExpHint();
   }
@@ -677,45 +680,6 @@
     hint.classList.toggle("is-warning", Boolean(warning));
   }
 
-  function renderItemQueue() {
-    const queueEl = document.getElementById("itemSendQueue");
-    const countEl = document.getElementById("itemQueueCount");
-    const sendButton = document.getElementById("sendItems");
-    const clearButton = document.getElementById("clearItemQueue");
-
-    if (countEl) {
-      countEl.textContent = `${itemQueue.length}/${MAX_ITEM_QUEUE}`;
-    }
-    if (sendButton) {
-      sendButton.disabled = itemQueue.length === 0;
-    }
-    if (clearButton) {
-      clearButton.disabled = itemQueue.length === 0;
-    }
-    if (!queueEl) {
-      return;
-    }
-
-    if (itemQueue.length === 0) {
-      queueEl.innerHTML = `<div class="empty-state">队列为空。</div>`;
-      return;
-    }
-
-    queueEl.innerHTML = itemQueue.map((entry, index) => {
-      const item = itemById(entry.id);
-      const meta = item ? itemSummary(item) : `ID ${entry.id}`;
-      return `
-        <div class="queued-item">
-          <div class="queued-item-main">
-            <div class="queued-item-name">${escapeHtml(`${index + 1}. ${itemLabel(entry)}`)}</div>
-            <button type="button" data-remove-item="${index}">移除</button>
-          </div>
-          <div class="queued-item-meta">${escapeHtml(meta)}</div>
-        </div>
-      `;
-    }).join("");
-  }
-
   function renderItemSearchResults() {
     const list = document.getElementById("itemSearchResults");
     if (!list) {
@@ -748,13 +712,12 @@
       return;
     }
 
-    const queueFull = itemQueue.length >= MAX_ITEM_QUEUE;
     list.innerHTML = filtered.map((item) => {
       const maxStack = maxStackForItem(item);
       const actions = QUICK_ITEM_COUNTS.map((count) => {
-        const disabled = queueFull || count > maxStack;
-        const reason = queueFull ? "队列已满" : `堆叠上限 ${maxStack}`;
-        return `<button type="button" data-add-item="${item.id}" data-add-count="${count}" ${disabled ? "disabled" : ""} title="${escapeHtml(disabled ? reason : `加入 ${count} 个`)}">+${count}</button>`;
+        const disabled = count > maxStack;
+        const reason = `堆叠上限 ${maxStack}`;
+        return `<button type="button" data-add-item="${item.id}" data-add-count="${count}" ${disabled ? "disabled" : ""} title="${escapeHtml(disabled ? reason : `发送 ${count} 个`)}">+${count}</button>`;
       }).join("");
       return `
         <div class="item-result" data-item-id="${item.id}" tabindex="0">
@@ -772,7 +735,6 @@
       throw new Error(result.error == null ? `读取物品列表失败: ${response.status}` : result.error);
     }
     itemCatalog = Array.isArray(result.items) ? result.items : [];
-    renderItemQueue();
     renderItemSearchResults();
     if (!result.loaded) {
       setItemHint("物品数据尚未加载。请先成功进入一次游戏，或等待资源缓存完成后重载。", true);
@@ -780,24 +742,38 @@
     return result;
   }
 
-  function addItemToQueue(itemId, count) {
+  async function sendItemImmediately(itemId, count) {
     const item = itemById(itemId);
     if (!item) {
       setItemHint(`未找到物品 ID ${itemId}`, true);
       return;
     }
-    if (itemQueue.length >= MAX_ITEM_QUEUE) {
-      setItemHint(`队列最多 ${MAX_ITEM_QUEUE} 项。`, true);
-      return;
-    }
     const amount = clampInteger(count, 1, 1, 999);
     const maxStack = maxStackForItem(item);
     if (amount > maxStack) {
-      setItemHint(`${item.name || item.id} 的堆叠上限是 ${maxStack}，不能加入 +${amount}。`, true);
+      setItemHint(`${item.name || item.id} 的堆叠上限是 ${maxStack}，不能发送 +${amount}。`, true);
       return;
     }
-    saveItemQueue([...itemQueue, { id: item.id, count: amount }]);
-    setItemHint(`已加入 ${item.name || item.id} x${amount}。${hasItemMallValue(item) ? ` 商城价值 ${formatAmount(item.mallPrice)}。` : ""}`, hasItemMallValue(item));
+
+    itemQueue = [{ id: item.id, count: amount }];
+    try {
+      const called = await callFlashCallback("codexSendBagItems");
+      if (!called) {
+        itemQueue = [];
+        setItemHint("未找到 Flash 回调 codexSendBagItems。请重载游戏并进入存档后再试。", true);
+        window.__saveDataLog && window.__saveDataLog("发送物品失败：未找到 Flash 回调");
+        return;
+      }
+      if (itemQueue.length > 0) {
+        setItemHint(`已请求发送 ${item.name || item.id} x${amount}。${hasItemMallValue(item) ? ` 商城价值 ${formatAmount(item.mallPrice)}。` : ""}`, hasItemMallValue(item));
+        window.__saveDataLog && window.__saveDataLog(`发送物品已触发：${itemLabel(itemQueue[0])}`);
+      }
+    } catch (error) {
+      itemQueue = [];
+      const message = error instanceof Error ? error.message : String(error);
+      setItemHint(message, true);
+      window.__saveDataLog && window.__saveDataLog(`发送物品异常：${message}`);
+    }
   }
 
   function findFlashCallback(callbackName) {
@@ -818,29 +794,6 @@
     }
     target[callbackName]();
     return true;
-  }
-
-  async function sendQueuedItems() {
-    if (itemQueue.length === 0) {
-      setItemHint("队列为空。", true);
-      window.__saveDataLog && window.__saveDataLog("发送物品失败：队列为空");
-      return;
-    }
-
-    try {
-      const called = await callFlashCallback("codexSendBagItems");
-      if (!called) {
-        setItemHint("未找到 Flash 回调 codexSendBagItems。请重载游戏并进入存档后再试。", true);
-        window.__saveDataLog && window.__saveDataLog("发送物品失败：未找到 Flash 回调");
-        return;
-      }
-      setItemHint(`已请求发送 ${itemQueue.length} 项物品。`, false);
-      window.__saveDataLog && window.__saveDataLog(`发送物品已触发：${itemQueue.map(itemLabel).join("；")}`);
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      setItemHint(message, true);
-      window.__saveDataLog && window.__saveDataLog(`发送物品异常：${message}`);
-    }
   }
 
   window.dataIndexYouData = function (kind, payload) {
@@ -867,8 +820,10 @@
     if (itemQueue.length === 0) {
       return "0";
     }
-    setItemHint(`Flash 已读取 ${itemQueue.length} 项物品队列。`, false);
-    window.__saveDataLog && window.__saveDataLog(`Flash 已读取发送物品队列：${itemQueue.map(itemLabel).join("；")}`);
+    const sentItems = itemQueue.slice();
+    itemQueue = [];
+    setItemHint(`Flash 已读取 ${sentItems.map(itemLabel).join("；")}。`, false);
+    window.__saveDataLog && window.__saveDataLog(`Flash 已读取发送物品：${sentItems.map(itemLabel).join("；")}`);
     return "1";
   };
 
@@ -912,6 +867,17 @@
       throw new Error(result.error == null ? `读取宠物技能配置失败: ${response.status}` : result.error);
     }
     petSkillState = result;
+    updateOptimizationControls();
+    return result;
+  }
+
+  async function refreshZodiacSoulExp() {
+    const response = await fetch("/api/saveData/zodiac-soul-exp", { cache: "no-store" });
+    const result = await readJsonResponse(response);
+    if (!response.ok || result.ok !== true) {
+      throw new Error(result.error == null ? `读取斗魂升级补丁状态失败: ${response.status}` : result.error);
+    }
+    zodiacSoulExpState = result;
     updateOptimizationControls();
     return result;
   }
@@ -1047,7 +1013,6 @@
   };
 
   setupTabs();
-  renderItemQueue();
   renderItemSearchResults();
 
   const localRechargeButton = document.getElementById("localRecharge");
@@ -1104,7 +1069,7 @@
       if (!button || button.disabled) {
         return;
       }
-      addItemToQueue(button.getAttribute("data-add-item"), button.getAttribute("data-add-count"));
+      sendItemImmediately(button.getAttribute("data-add-item"), button.getAttribute("data-add-count"));
     });
     itemSearchResults.addEventListener("pointerover", (event) => {
       const result = event.target && event.target.closest ? event.target.closest(".item-result") : null;
@@ -1138,33 +1103,6 @@
       hideItemPopover();
     });
   }
-  const itemSendQueue = document.getElementById("itemSendQueue");
-  if (itemSendQueue) {
-    itemSendQueue.addEventListener("click", (event) => {
-      const button = event.target && event.target.closest ? event.target.closest("[data-remove-item]") : null;
-      if (!button) {
-        return;
-      }
-      const index = clampInteger(button.getAttribute("data-remove-item"), -1, -1, MAX_ITEM_QUEUE - 1);
-      if (index >= 0) {
-        saveItemQueue(itemQueue.filter((_, itemIndex) => itemIndex !== index));
-      }
-    });
-  }
-  const sendItemsButton = document.getElementById("sendItems");
-  if (sendItemsButton) {
-    sendItemsButton.addEventListener("click", () => {
-      sendQueuedItems();
-    });
-  }
-  const clearItemQueueButton = document.getElementById("clearItemQueue");
-  if (clearItemQueueButton) {
-    clearItemQueueButton.addEventListener("click", () => {
-      saveItemQueue([]);
-      setItemHint("队列已清空。", false);
-    });
-  }
-
   updateRechargeControls();
   updateOptimizationControls();
   refreshWallet().catch((error) => window.__saveDataLog && window.__saveDataLog(error instanceof Error ? error.message : String(error)));
@@ -1174,6 +1112,7 @@
     window.__saveDataLog && window.__saveDataLog(error instanceof Error ? error.message : String(error))
   );
   refreshPetSkills().catch((error) => window.__saveDataLog && window.__saveDataLog(error instanceof Error ? error.message : String(error)));
+  refreshZodiacSoulExp().catch((error) => window.__saveDataLog && window.__saveDataLog(error instanceof Error ? error.message : String(error)));
   refreshAdvancedPetEggs().catch((error) => window.__saveDataLog && window.__saveDataLog(error instanceof Error ? error.message : String(error)));
   refreshPetFusionExp().catch((error) => window.__saveDataLog && window.__saveDataLog(error instanceof Error ? error.message : String(error)));
   refreshItems().catch((error) => {

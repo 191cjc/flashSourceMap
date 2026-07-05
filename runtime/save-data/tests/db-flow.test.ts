@@ -4,6 +4,8 @@ import os from "node:os";
 import path from "node:path";
 import { deflateSync, inflateSync } from "node:zlib";
 import CryptoJS from "crypto-js";
+import { decodeSwf } from "../../../src/swf/swf.js";
+import { inspectZodiacSoulExpOptimization, patchZodiacSoulExpOptimization } from "../../../src/swf/zodiacSoulExpPatch.js";
 import { LegacyJsonSaveDatabase } from "../persistence/legacyJsonDb.js";
 import { LocalSaveDatabase } from "../persistence/db.js";
 import {
@@ -24,6 +26,7 @@ import { SaveDataLogger } from "../server/logger.js";
 import { DEFAULT_ACCOUNT, MockShopError, SaveDataMockApi } from "../platform4399/mockApi.js";
 
 const GAME_ID = "100025235";
+const INNER_GAME_SWF = path.join(process.cwd(), "extracted", "swf", "L4399Main_gamefile.swf");
 
 function tempDbFile(): { dir: string; dbFile: string } {
   const dir = mkdtempSync(path.join(os.tmpdir(), "flash-save-data-"));
@@ -355,6 +358,17 @@ try {
   const petSkillPatchAgain = applyPetSkillLearningOptimizationToXml(petSkillPatch.learningXml, petSkillPatch.skillShowXml);
   assert.equal(petSkillPatchAgain.learningXml, petSkillPatch.learningXml);
   assert.equal(petSkillPatchAgain.skillShowXml, petSkillPatch.skillShowXml);
+
+  assert.equal(existsSync(INNER_GAME_SWF), true);
+  const innerGameSwf = decodeSwf(readFileSync(INNER_GAME_SWF));
+  const zodiacInspectionBefore = inspectZodiacSoulExpOptimization(innerGameSwf);
+  assert.equal(zodiacInspectionBefore.targetFound, true);
+  if (!zodiacInspectionBefore.optimized) {
+    assert.equal(patchZodiacSoulExpOptimization(innerGameSwf), 2);
+  }
+  const zodiacInspectionAfter = inspectZodiacSoulExpOptimization(innerGameSwf);
+  assert.deepEqual(zodiacInspectionAfter, { targetFound: true, optimized: true });
+  assert.equal(patchZodiacSoulExpOptimization(innerGameSwf), 0);
 
   const wallet = db.getWallet(DEFAULT_ACCOUNT.uid);
   const purchase = db.buyProp({ uid: DEFAULT_ACCOUNT.uid, propId: 12, count: 2, price: 30, tag: 7 });
