@@ -81,6 +81,10 @@ function nativePatchedSwfPath() {
   return path.join(saveDataWorkspaceRoot(), "public", "swf", "xfbbv451-native.swf");
 }
 
+function runtimePatchedOuterSwfPath() {
+  return path.join(saveDataWorkspaceRoot(), "public", "swf", "xfbbv451.swf");
+}
+
 function envPath(name) {
   const value = process.env[name];
   return value && value.trim() ? value.trim() : null;
@@ -355,6 +359,26 @@ function defaultUserDataDirForBrowser(browserPath) {
   return path.join(projectRoot, "workspace", "native-flash-profile");
 }
 
+function clearNativeFlashCache(userDataDir) {
+  const cacheDirs = [
+    "Cache",
+    "Code Cache",
+    "GPUCache",
+    path.join("Default", "Cache"),
+    path.join("Default", "Code Cache"),
+    path.join("Default", "GPUCache"),
+    path.join("Default", "Service Worker", "CacheStorage"),
+  ];
+  const root = path.resolve(userDataDir);
+  for (const relativeDir of cacheDirs) {
+    const target = path.resolve(root, relativeDir);
+    if (!target.startsWith(root + path.sep) || !fs.existsSync(target)) {
+      continue;
+    }
+    fs.rmSync(target, { recursive: true, force: true });
+  }
+}
+
 function splitEnvList(value) {
   return value
     .split(/[,\s]+/)
@@ -447,9 +471,9 @@ function ensureNativePatchedSwf(serverUrl) {
   if (process.env.NATIVE_FLASH_PATCH_SWF === "0") {
     return null;
   }
-  const source = existingFile(sourceOuterSwf);
+  const source = firstExistingFile([runtimePatchedOuterSwfPath(), sourceOuterSwf]);
   if (!source) {
-    throw new Error(`Source SWF not found: ${sourceOuterSwf}`);
+    throw new Error(`Source SWF not found: ${runtimePatchedOuterSwfPath()} or ${sourceOuterSwf}`);
   }
 
   const swf = decompressSwf(fs.readFileSync(source));
@@ -469,7 +493,8 @@ function ensureNativePatchedSwf(serverUrl) {
   fs.writeFileSync(outputFile, compressSwf({ ...swf, body }));
   console.log(`[native-flash] Wrote native patched SWF: ${outputFile}`);
   console.log(`[native-flash] SWF URL replacements: ${JSON.stringify(replacementCounts)}`);
-  return nativePatchedSwfUrlPath;
+  const stat = fs.statSync(outputFile);
+  return `${nativePatchedSwfUrlPath}?v=${Math.round(stat.mtimeMs)}-${stat.size}`;
 }
 
 function patchSwfFile(sourceFile, targetFile, replacements, options = {}) {
@@ -914,7 +939,10 @@ function localPathForNativeProxyRequest(source) {
 function startServerIfNeeded(serverUrl) {
   const distServer = path.join(projectRoot, "dist", "runtime", "save-data", "server", "server.js");
   const tsxCli = path.join(projectRoot, "node_modules", "tsx", "dist", "cli.cjs");
-  const useDistServer = process.env.NATIVE_FLASH_USE_TSX !== "1" && fs.existsSync(distServer);
+  const useDistServer =
+    process.env.NATIVE_FLASH_USE_TSX !== "1" &&
+    fs.existsSync(distServer) &&
+    (process.env.NATIVE_FLASH_USE_DIST === "1" || !fs.existsSync(tsxCli));
   if (!useDistServer && !fs.existsSync(tsxCli)) {
     throw new Error(`Neither compiled server nor tsx CLI was found. Expected ${distServer} or ${tsxCli}.`);
   }
@@ -1044,13 +1072,25 @@ function sendText(res, statusCode, contentType, body) {
   res.end(body);
 }
 
+function nativePublicAssetUrl(serverUrl, relativePath) {
+  const normalizedPath = relativePath.replaceAll("\\", "/").replace(/^\/+/, "");
+  const filePath = path.join(saveDataWorkspaceRoot(), "public", normalizedPath);
+  const url = new URL(normalizedPath, `${serverUrl}/`);
+  const file = existingFile(filePath);
+  if (file) {
+    const stat = fs.statSync(file);
+    url.searchParams.set("v", `${Math.round(stat.mtimeMs)}-${stat.size}`);
+  }
+  return url.toString();
+}
+
 function nativeCtrlXml(serverUrl) {
   return [
     '<?xml version="1.0" encoding="utf-8"?>',
     "<resInfos>",
-    `  <info resName="zwsf">${serverUrl}/assets/empty.gif</info>`,
-    `  <info resName="ctrl_v5">${serverUrl}/ctrl_mo_v5-native.swf</info>`,
-    `  <info resName="ads">${serverUrl}/assets/A4399dv_base-native.swf</info>`,
+    `  <info resName="zwsf">${nativePublicAssetUrl(serverUrl, "assets/empty.gif")}</info>`,
+    `  <info resName="ctrl_v5">${nativePublicAssetUrl(serverUrl, "ctrl_mo_v5-native.swf")}</info>`,
+    `  <info resName="ads">${nativePublicAssetUrl(serverUrl, "assets/A4399dv_base-native.swf")}</info>`,
     "</resInfos>",
   ].join("\n");
 }
@@ -1091,7 +1131,7 @@ async function startPolicyProxy(serverUrl, domains) {
           res,
           200,
           "application/xml; charset=utf-8",
-          `<?xml version="1.0" encoding="utf-8"?><info>${serverUrl}/assets/A4399dv_base_main-native.swf</info>`
+          `<?xml version="1.0" encoding="utf-8"?><info>${nativePublicAssetUrl(serverUrl, "assets/A4399dv_base_main-native.swf")}</info>`
         );
         return;
       }
@@ -1203,16 +1243,17 @@ async function main() {
     : defaultUserDataDirForBrowser(browserPath);
   const pageUrl = process.env.NATIVE_FLASH_URL || `${serverUrl}/native.html`;
   let launchUrl = withSearchParam(pageUrl, "autostart", useCdpNavigation ? "0" : "1");
+  const serverProcess = await ensureServer(serverUrl);
   const nativeSwfUrlPath = useNativeFlashProxy ? ensureNativePatchedSwf(serverUrl) : null;
   if (nativeSwfUrlPath) {
     launchUrl = withSearchParam(launchUrl, "swf", nativeSwfUrlPath);
   }
-  const serverProcess = await ensureServer(serverUrl);
   if (useNativeFlashProxy) {
     ensureNativePatchedPlatformSwfs();
   }
 
   fs.mkdirSync(userDataDir, { recursive: true });
+  clearNativeFlashCache(userDataDir);
   if (!useCdpNavigation) {
     allowFlashForProfile(userDataDir, launchUrl);
     allowFlashWithChromiumPolicy(launchUrl);
@@ -1241,6 +1282,9 @@ async function main() {
       "--plugin-policy=allow",
       "--allow-outdated-plugins",
       "--always-authorize-plugins",
+      "--disable-application-cache",
+      "--disk-cache-size=1",
+      "--media-cache-size=1",
       "--no-first-run",
       "--no-default-browser-check",
       "--no-sandbox",

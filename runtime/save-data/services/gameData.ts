@@ -28,10 +28,34 @@ export type ShopProduct = {
   job: number;
 };
 
+export type GameItem = {
+  id: number;
+  name: string;
+  type: number;
+  smallType: number;
+  bag: number;
+  stack: number;
+  price: number;
+  mallPrice: number;
+  hasMallPrice: boolean;
+  canUse: boolean;
+  job: number;
+  useLevel: number;
+  createLevel: number;
+  color: number;
+  quality: number;
+  value: number;
+  frame: number;
+  needId: number;
+  needCount: number;
+  description: string;
+};
+
 export type GameDataCatalog = {
   sourceFile: string;
   loaded: boolean;
   mtimeMs?: number;
+  items: GameItem[];
   productsByPlatformId: Map<number, ShopProduct[]>;
   goodsShopPriceById: Map<number, number>;
 };
@@ -228,6 +252,33 @@ function tagText(record: string, tagName: string): string | null {
   return match ? match[1].trim() : null;
 }
 
+function unescapeXmlText(value: string): string {
+  return value
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, "\"")
+    .replace(/&apos;/g, "'")
+    .replace(/&amp;/g, "&");
+}
+
+function cleanItemDescription(value: string | null): string {
+  if (!value) {
+    return "";
+  }
+  return unescapeXmlText(value)
+    .replace(/<!\[CDATA\[|\]\]>/g, "")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<[^>]+>/g, "")
+    .replace(/\*/g, "")
+    .replace(/[ \t]+\n/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
+function numberFromTag(record: string, tagName: string, fallback = -1): number {
+  return numberFromText(tagText(record, tagName)) ?? fallback;
+}
+
 export function readDefineBinaryText(swfFile: string, binaryId: number): string {
   const swf = decodeSwf(readFileSync(swfFile));
   for (const tag of parseTags(swf.body)) {
@@ -270,6 +321,46 @@ function parseShopProducts(xml: string): Map<number, ShopProduct[]> {
   return productsByPlatformId;
 }
 
+function parseGameItems(xml: string): GameItem[] {
+  const items: GameItem[] = [];
+  const recordRe = /<物品>([\s\S]*?)<\/物品>/g;
+  let match: RegExpExecArray | null;
+
+  while ((match = recordRe.exec(xml))) {
+    const record = match[1];
+    const id = numberFromText(tagText(record, "id"));
+    if (id == null) {
+      continue;
+    }
+
+    const mallPriceText = tagText(record, "商城价格") ?? "";
+    items.push({
+      id,
+      name: tagText(record, "名称") ?? "",
+      type: numberFromTag(record, "类型"),
+      smallType: numberFromTag(record, "小类型"),
+      bag: numberFromTag(record, "背包"),
+      stack: numberFromTag(record, "叠加数"),
+      price: numberFromTag(record, "价格"),
+      mallPrice: numberFromText(mallPriceText) ?? -1,
+      hasMallPrice: mallPriceText !== "",
+      canUse: tagText(record, "是否使用") === "true",
+      job: numberFromTag(record, "职业"),
+      useLevel: numberFromTag(record, "使用等级"),
+      createLevel: numberFromTag(record, "创建等级"),
+      color: numberFromTag(record, "颜色"),
+      quality: numberFromTag(record, "阶段"),
+      value: numberFromTag(record, "价值"),
+      frame: numberFromTag(record, "帧数"),
+      needId: numberFromTag(record, "需求id"),
+      needCount: numberFromTag(record, "需求数量"),
+      description: cleanItemDescription(tagText(record, "说明")),
+    });
+  }
+
+  return items.sort((left, right) => left.id - right.id);
+}
+
 function parseGoodsShopPrices(xml: string): Map<number, number> {
   const prices = new Map<number, number>();
   const recordRe = /<物品>([\s\S]*?)<\/物品>/g;
@@ -299,6 +390,7 @@ export function loadGameDataCatalog(): GameDataCatalog {
     catalogCache = {
       sourceFile: DATA_XML_SWF,
       loaded: false,
+      items: [],
       productsByPlatformId: new Map(),
       goodsShopPriceById: new Map(),
     };
@@ -312,6 +404,7 @@ export function loadGameDataCatalog(): GameDataCatalog {
     sourceFile: DATA_XML_SWF,
     loaded: true,
     mtimeMs: stat.mtimeMs,
+    items: parseGameItems(goodsXml),
     productsByPlatformId: parseShopProducts(shopXml),
     goodsShopPriceById: parseGoodsShopPrices(goodsXml),
   };

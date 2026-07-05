@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>saveData 本地 Mock</title>
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/style.css?v=20260705-fusion" />
   </head>
   <body>
     <main class="layout">
@@ -20,6 +20,7 @@
         <nav class="side-tabs" aria-label="本地工具">
           <button class="is-active" data-tab-button="wallet" type="button">钱包</button>
           <button data-tab-button="rewards" type="button">体验优化</button>
+          <button data-tab-button="items" type="button">发送物品</button>
         </nav>
         <section class="panel tab-panel is-active" data-tab-panel="wallet" aria-label="本地钱包">
           <h2>本地钱包</h2>
@@ -42,12 +43,42 @@
           <h2>体验优化</h2>
           <p class="hint">本功能自动开启，会用于优化游戏的一些体验，避免一些不必要的操作，部分功能需要首次成功加载游戏后重启游戏才生效</p>
           <ul class="optimization-list" aria-label="体验优化项目">
-            <li class="optimization-item">
-              <span>关卡成就点奖励优化9999</span>
+            <li class="optimization-item" data-optimization-key="levelReward" tabindex="0">
+              <span>关卡成就点奖励优化</span>
               <span id="levelRewardStatus" class="optimization-status is-pending" aria-label="检测中">…</span>
             </li>
+            <li class="optimization-item" data-optimization-key="activityVisibility" tabindex="0">
+              <span>限时活动全展示</span>
+              <span id="activityVisibilityStatus" class="optimization-status is-pending" aria-label="检测中">…</span>
+            </li>
+            <li class="optimization-item" data-optimization-key="advancedPetEgg" tabindex="0">
+              <span>高级宠物蛋池优化</span>
+              <span id="advancedPetEggStatus" class="optimization-status is-pending" aria-label="检测中">…</span>
+            </li>
+            <li class="optimization-item" data-optimization-key="petFusionExp" tabindex="0">
+              <span>宠物初始融合经验优化</span>
+              <span id="petFusionExpStatus" class="optimization-status is-pending" aria-label="检测中">…</span>
+            </li>
           </ul>
-          <p id="levelRewardHint" class="hint">正在检测体验优化状态。</p>
+        </section>
+        <section class="panel tab-panel" data-tab-panel="items" aria-label="发送物品">
+          <h2>发送物品</h2>
+          <p class="hint is-warning">请注意发送物品注意物品的商城价值，要尽可能拉高你的充值额度避免触发封号监测</p>
+          <label class="field">
+            <span>搜索</span>
+            <input id="itemSearch" type="search" placeholder="名称、ID、类型、背包或职业" autocomplete="off" />
+          </label>
+          <div id="itemSearchResults" class="item-search-results" aria-label="物品搜索结果"></div>
+          <div class="send-queue-header">
+            <h3>队列</h3>
+            <span id="itemQueueCount">0/12</span>
+          </div>
+          <div id="itemSendQueue" class="item-send-queue"></div>
+          <div class="button-row">
+            <button id="sendItems" type="button">发送</button>
+            <button id="clearItemQueue" type="button">清空队列</button>
+          </div>
+          <p id="itemSendHint" class="hint">进入存档后再发送；若按钮无效，请先重载游戏让补丁完成注册。</p>
         </section>
         <dl>
           <dt>账号</dt>
@@ -61,8 +92,7 @@
         <div id="player"></div>
       </section>
     </main>
-    <script src="/mock-platform.js"></script>
-    <script src="/ruffle/ruffle.js"></script>
-    <script src="/runner.js"></script>
+    <script src="/mock-platform.js?v=20260705-fusion"></script>
+    <script src="/native-player.js?v=20260705-cef"></script>
   </body>
 </html>

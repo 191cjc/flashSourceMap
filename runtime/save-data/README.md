@@ -10,19 +10,13 @@ runtime/save-data/
   services/             # 存档解析、商城价值估算、反作弊金额规则、关卡奖励覆盖
   platform4399/         # 4399 save/pay/mall 接口和 FlashStoreApi 适配
   server/               # HTTP server、静态资源、日志、路径配置
-  public/               # Ruffle 备用页和 native Flash 承载页
+  public/               # native Flash 承载页和侧栏脚本
   schema/               # SQLite schema
   tests/                # saveData 流程测试
   types.ts              # 共享类型
 ```
 
 ## 启动
-
-普通浏览器/Ruffle 备用入口：
-
-```bash
-npm run saveData:serve
-```
 
 Windows native Flash 入口：
 
@@ -60,8 +54,6 @@ workspace/saveData/logs/
 后续如果做 native 打包，应通过环境变量或启动器配置把数据库和缓存目录指向用户数据目录，例如 `%APPDATA%/flashSourceMap/saveData/`。
 
 ## 渲染路径
-
-`index.html + runner.js` 是 Ruffle 备用路径，仍可用于浏览器对照调试。
 
 `native.html + native-player.js` 是 CEF/Pepper Flash 路径，目标是接近原版 Flash 的运行性能和音频表现。
 

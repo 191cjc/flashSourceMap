@@ -1,5 +1,7 @@
 #include "native_app.h"
 
+#include <windows.h>
+
 #include "include/cef_browser.h"
 #include "include/cef_command_line.h"
 #include "include/cef_parser.h"
@@ -11,6 +13,34 @@
 namespace {
 
 constexpr const char* kDefaultUrl = "http://127.0.0.1:8787/native.html";
+constexpr int kSidebarWidth = 320;
+constexpr int kGameWidth = 960;
+constexpr int kGameHeight = 600;
+constexpr int kStagePadding = 20;
+
+int SystemDpi() {
+  HDC screen_dc = ::GetDC(nullptr);
+  if (screen_dc == nullptr) {
+    return 96;
+  }
+  const int dpi = ::GetDeviceCaps(screen_dc, LOGPIXELSX);
+  ::ReleaseDC(nullptr, screen_dc);
+  return dpi > 0 ? dpi : 96;
+}
+
+int ScaleForDpi(int value) {
+  return ::MulDiv(value, SystemDpi(), 96);
+}
+
+SIZE OuterWindowSizeForClientArea(int client_width, int client_height, DWORD style, DWORD ex_style) {
+  RECT bounds = {0, 0, ScaleForDpi(client_width), ScaleForDpi(client_height)};
+  if (::AdjustWindowRectEx(&bounds, style, FALSE, ex_style) == FALSE) {
+    SIZE fallback = {ScaleForDpi(client_width), ScaleForDpi(client_height)};
+    return fallback;
+  }
+  SIZE size = {bounds.right - bounds.left, bounds.bottom - bounds.top};
+  return size;
+}
 
 void AppendSwitchIfMissing(CefRefPtr<CefCommandLine> command_line, const char* name) {
   if (!command_line->HasSwitch(name)) {
@@ -94,6 +124,14 @@ void NativeApp::OnContextInitialized() {
   CefRefPtr<CefCommandLine> command_line = CefCommandLine::GetGlobalCommandLine();
   CefWindowInfo window_info;
   window_info.SetAsPopup(nullptr, "FlashSourceMap Native Flash");
+  const SIZE window_size = OuterWindowSizeForClientArea(
+    kSidebarWidth + kGameWidth + kStagePadding * 2,
+    kGameHeight + kStagePadding * 2,
+    window_info.style,
+    window_info.ex_style
+  );
+  window_info.width = window_size.cx;
+  window_info.height = window_size.cy;
 
   CefBrowserSettings browser_settings;
   browser_settings.plugins = STATE_ENABLED;

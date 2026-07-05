@@ -3,11 +3,29 @@ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "no
 import path from "node:path";
 import { decodeSwf, encodeSwf, replaceDefineBinaryData } from "../../../src/swf/swf.js";
 import { saveDataPaths } from "../server/paths.js";
-import { DATA_XML_SWF, readDefineBinaryText } from "./gameData.js";
+import { clearGameDataCatalogCache, DATA_XML_SWF, readDefineBinaryText } from "./gameData.js";
 
 export const LEVEL_REWARD_BINARY_ID = 52;
+export const ACTIVITY_GIFT_BINARY_ID = 16;
+export const GOODS_BINARY_ID = 15;
+export const PET_BINARY_ID = 42;
 export const LEVEL_REWARD_ASSET_NAME = "dataxmlvav447.swf";
 export const LEVEL_REWARD_ACHIEVEMENT_BOOST_VALUE = 9999;
+export const ACTIVITY_VISIBILITY_START_TIME = "1900-01-01|00:00:00";
+export const ACTIVITY_VISIBILITY_END_TIME = "2999-12-31|23:59:59";
+export const ACTIVITY_VISIBILITY_VISIBLE_FLAG = "0";
+export const ADVANCED_PET_EGG_GOODS_IDS = [331196, 331198] as const;
+export const ADVANCED_PET_EGG_DARK_PET_ID = 19;
+export const ADVANCED_PET_EGG_MIN_APTITUDE = 4;
+export const PET_EGG_PROBABILITY_TOTAL = 1_000_000;
+export const PET_INITIAL_FUSION_EXP_MULTIPLIER = 10;
+export const PET_INITIAL_FUSION_EXP_TARGETS = [
+  { petId: 12, baseFusionExp: 100 },
+  { petId: 17, baseFusionExp: 1200 },
+  { petId: 15, baseFusionExp: 1200 },
+  { petId: 25, baseFusionExp: 1200 },
+  { petId: 19, baseFusionExp: 2000 },
+] as const;
 
 export type LevelRewardValues = {
   exp: number;
@@ -36,6 +54,79 @@ export type LevelRewardState = {
   levels: LevelRewardRecord[];
 };
 
+export type ActivityVisibilityState = {
+  ok: true;
+  loaded: boolean;
+  sourceFile: string;
+  assetName: string;
+  patchedAssetFile: string | null;
+  patchedAssetReady: boolean;
+  allActivitiesVisible: boolean;
+  giftCount: number;
+  timedGiftCount: number;
+  delistedGiftCount: number;
+  patchedTimedGiftCount: number;
+  patchedDelistedGiftCount: number;
+  startTime: string;
+  endTime: string;
+  error?: string;
+};
+
+export type AdvancedPetEggTarget = {
+  goodsId: number;
+  name: string;
+  originalPetIds: number[];
+  patchedPetIds: number[];
+  patchedPetNames: string[];
+  patchedProbabilities: number[];
+  changed: boolean;
+};
+
+export type AdvancedPetEggOptimizationState = {
+  ok: true;
+  loaded: boolean;
+  sourceFile: string;
+  assetName: string;
+  patchedAssetFile: string | null;
+  patchedAssetReady: boolean;
+  advancedPetEggOptimized: boolean;
+  goodsIds: number[];
+  minAptitude: number;
+  addedPetId: number;
+  probabilityTotal: number;
+  targets: AdvancedPetEggTarget[];
+  error?: string;
+};
+
+export type PetInitialFusionExpTarget = {
+  petId: number;
+  name: string;
+  originalFusionExp: number;
+  targetFusionExp: number;
+  multiplier: number;
+  changed: boolean;
+};
+
+export type PetInitialFusionExpOptimizationState = {
+  ok: true;
+  loaded: boolean;
+  sourceFile: string;
+  assetName: string;
+  patchedAssetFile: string | null;
+  patchedAssetReady: boolean;
+  petInitialFusionExpOptimized: boolean;
+  multiplier: number;
+  targetPetIds: number[];
+  targets: PetInitialFusionExpTarget[];
+  error?: string;
+};
+
+type ActivityGiftCounts = {
+  giftCount: number;
+  timedGiftCount: number;
+  delistedGiftCount: number;
+};
+
 type LevelRewardSourceCache = {
   sourceFile: string;
   mtimeMs: number;
@@ -57,6 +148,22 @@ const FIELD_TAGS = {
 } as const;
 
 let sourceCache: LevelRewardSourceCache | null = null;
+
+type PetDefinition = {
+  id: number;
+  name: string;
+  aptitude: number;
+};
+
+type AdvancedPetEggPatchResult = {
+  xml: string;
+  targets: AdvancedPetEggTarget[];
+};
+
+type PetInitialFusionExpPatchResult = {
+  xml: string;
+  targets: PetInitialFusionExpTarget[];
+};
 
 export function levelRewardKey(levelId: number, difficulty: number): string {
   return `${levelId}:${difficulty}`;
@@ -88,6 +195,146 @@ function numberFromTag(record: string, tagName: string): number | null {
   }
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : null;
+}
+
+function splitNumberList(value: string | null, separator = "*"): number[] {
+  if (!value || value === "-1") {
+    return [];
+  }
+  return value
+    .split(separator)
+    .map((entry) => Number(entry.trim()))
+    .filter((entry) => Number.isSafeInteger(entry) && entry > 0);
+}
+
+function uniqueNumbers(values: number[]): number[] {
+  const seen = new Set<number>();
+  const result: number[] = [];
+  for (const value of values) {
+    if (seen.has(value)) {
+      continue;
+    }
+    seen.add(value);
+    result.push(value);
+  }
+  return result;
+}
+
+function replaceTagContent(record: string, tagName: string, value: string): string {
+  const escaped = escapeRegExp(tagName);
+  return record.replace(new RegExp(`(<${escaped}>)[\\s\\S]*?(</${escaped}>)`), `$1${value}$2`);
+}
+
+function equalProbabilities(count: number): number[] {
+  if (!Number.isSafeInteger(count) || count <= 0) {
+    throw new Error("advanced pet egg target pool is empty");
+  }
+  const base = Math.floor(PET_EGG_PROBABILITY_TOTAL / count);
+  let remainder = PET_EGG_PROBABILITY_TOTAL - base * count;
+  return Array.from({ length: count }, () => {
+    const value = base + (remainder > 0 ? 1 : 0);
+    remainder -= 1;
+    return value;
+  });
+}
+
+function parsePetDefinitions(xml: string): Map<number, PetDefinition> {
+  const pets = new Map<number, PetDefinition>();
+  const petRe = /<宠物>([\s\S]*?)<\/宠物>/g;
+  let match: RegExpExecArray | null;
+
+  while ((match = petRe.exec(xml))) {
+    const record = match[1];
+    const id = numberFromTag(record, "ID");
+    const aptitude = numberFromTag(record, "资质");
+    if (id == null || aptitude == null) {
+      continue;
+    }
+    pets.set(id, {
+      id,
+      name: tagText(record, "名字") ?? `宠物 ${id}`,
+      aptitude,
+    });
+  }
+
+  return pets;
+}
+
+function targetAdvancedPetIds(originalPetIds: number[], pets: Map<number, PetDefinition>): number[] {
+  const highAptitudeIds = originalPetIds.filter((petId) => {
+    const pet = pets.get(petId);
+    return pet != null && pet.aptitude >= ADVANCED_PET_EGG_MIN_APTITUDE;
+  });
+  return uniqueNumbers([...highAptitudeIds, ADVANCED_PET_EGG_DARK_PET_ID]);
+}
+
+export function applyAdvancedPetEggPatchToXml(goodsXml: string, petXml: string): AdvancedPetEggPatchResult {
+  const pets = parsePetDefinitions(petXml);
+  const targetIds = new Set<number>(ADVANCED_PET_EGG_GOODS_IDS);
+  const targets: AdvancedPetEggTarget[] = [];
+
+  const xml = goodsXml.replace(/<物品>[\s\S]*?<\/物品>/g, (record: string) => {
+    const goodsId = numberFromTag(record, "id");
+    if (goodsId == null || !targetIds.has(goodsId)) {
+      return record;
+    }
+
+    const originalPetIds = splitNumberList(tagText(record, "需求id"));
+    const patchedPetIds = targetAdvancedPetIds(originalPetIds, pets);
+    const patchedProbabilities = equalProbabilities(patchedPetIds.length);
+    const patchedPetNames = patchedPetIds.map((petId) => pets.get(petId)?.name ?? `宠物 ${petId}`);
+    const patchedRecord = replaceTagContent(
+      replaceTagContent(record, "需求id", patchedPetIds.join("*")),
+      "奖励概率",
+      patchedProbabilities.join("*")
+    );
+
+    targets.push({
+      goodsId,
+      name: tagText(record, "名称") ?? `物品 ${goodsId}`,
+      originalPetIds,
+      patchedPetIds,
+      patchedPetNames,
+      patchedProbabilities,
+      changed: patchedRecord !== record,
+    });
+    return patchedRecord;
+  });
+
+  return { xml, targets };
+}
+
+export function applyPetInitialFusionExpPatchToXml(petXml: string): PetInitialFusionExpPatchResult {
+  const targetByPetId = new Map<number, (typeof PET_INITIAL_FUSION_EXP_TARGETS)[number]>(
+    PET_INITIAL_FUSION_EXP_TARGETS.map((target) => [target.petId, target])
+  );
+  const targets: PetInitialFusionExpTarget[] = [];
+
+  const xml = petXml.replace(/<宠物>[\s\S]*?<\/宠物>/g, (record: string) => {
+    const petId = numberFromTag(record, "ID");
+    if (petId == null) {
+      return record;
+    }
+    const target = targetByPetId.get(petId);
+    if (!target) {
+      return record;
+    }
+
+    const currentFusionExp = numberFromTag(record, "融合经验") ?? target.baseFusionExp;
+    const targetFusionExp = target.baseFusionExp * PET_INITIAL_FUSION_EXP_MULTIPLIER;
+    const patchedRecord = replaceTagContent(record, "融合经验", String(targetFusionExp));
+    targets.push({
+      petId,
+      name: tagText(record, "名字") ?? `宠物 ${petId}`,
+      originalFusionExp: currentFusionExp,
+      targetFusionExp,
+      multiplier: PET_INITIAL_FUSION_EXP_MULTIPLIER,
+      changed: patchedRecord !== record,
+    });
+    return patchedRecord;
+  });
+
+  return { xml, targets };
 }
 
 function asInputObject(input: unknown): Record<string, unknown> {
@@ -189,6 +436,234 @@ export function getLevelRewardAchievementBoostEnabled(): boolean {
   return true;
 }
 
+function countActivityGifts(xml: string): ActivityGiftCounts {
+  let giftCount = 0;
+  let timedGiftCount = 0;
+  let delistedGiftCount = 0;
+  const giftRe = /<礼包>([\s\S]*?)<\/礼包>/g;
+  let match: RegExpExecArray | null;
+
+  while ((match = giftRe.exec(xml))) {
+    const record = match[1];
+    giftCount += 1;
+    const start = tagText(record, "起始时间");
+    const end = tagText(record, "结束时间");
+    const delisted = tagText(record, "下架");
+    if ((start != null && start !== "-1") || (end != null && end !== "-1")) {
+      timedGiftCount += 1;
+    }
+    if (delisted != null && delisted !== "0") {
+      delistedGiftCount += 1;
+    }
+  }
+
+  return { giftCount, timedGiftCount, delistedGiftCount };
+}
+
+export function applyActivityVisibilityPatchToXml(xml: string): string {
+  return xml.replace(/<礼包>[\s\S]*?<\/礼包>/g, (record: string) => {
+    return record
+      .replace(/<下架>[\s\S]*?<\/下架>/g, `<下架>${ACTIVITY_VISIBILITY_VISIBLE_FLAG}</下架>`)
+      .replace(
+        /<起始时间>(?!-1<\/起始时间>)[\s\S]*?<\/起始时间>/g,
+        `<起始时间>${ACTIVITY_VISIBILITY_START_TIME}</起始时间>`
+      )
+      .replace(
+        /<结束时间>(?!-1<\/结束时间>)[\s\S]*?<\/结束时间>/g,
+        `<结束时间>${ACTIVITY_VISIBILITY_END_TIME}</结束时间>`
+      );
+  });
+}
+
+export function getActivityVisibilityState(): ActivityVisibilityState {
+  if (!existsSync(DATA_XML_SWF)) {
+    return {
+      ok: true,
+      loaded: false,
+      sourceFile: DATA_XML_SWF,
+      assetName: LEVEL_REWARD_ASSET_NAME,
+      patchedAssetFile: null,
+      patchedAssetReady: false,
+      allActivitiesVisible: false,
+      giftCount: 0,
+      timedGiftCount: 0,
+      delistedGiftCount: 0,
+      patchedTimedGiftCount: 0,
+      patchedDelistedGiftCount: 0,
+      startTime: ACTIVITY_VISIBILITY_START_TIME,
+      endTime: ACTIVITY_VISIBILITY_END_TIME,
+    };
+  }
+
+  try {
+    const xml = readDefineBinaryText(DATA_XML_SWF, ACTIVITY_GIFT_BINARY_ID);
+    const sourceCounts = countActivityGifts(xml);
+    const patchedCounts = countActivityGifts(applyActivityVisibilityPatchToXml(xml));
+    const patchedAssetFile = ensurePatchedLevelRewardAsset(DATA_XML_SWF);
+    const patchedAssetReady = patchedAssetFile != null && existsSync(patchedAssetFile);
+    return {
+      ok: true,
+      loaded: patchedAssetReady,
+      sourceFile: DATA_XML_SWF,
+      assetName: LEVEL_REWARD_ASSET_NAME,
+      patchedAssetFile,
+      patchedAssetReady,
+      allActivitiesVisible: patchedAssetReady,
+      giftCount: sourceCounts.giftCount,
+      timedGiftCount: sourceCounts.timedGiftCount,
+      delistedGiftCount: sourceCounts.delistedGiftCount,
+      patchedTimedGiftCount: patchedCounts.timedGiftCount,
+      patchedDelistedGiftCount: patchedCounts.delistedGiftCount,
+      startTime: ACTIVITY_VISIBILITY_START_TIME,
+      endTime: ACTIVITY_VISIBILITY_END_TIME,
+    };
+  } catch (error) {
+    return {
+      ok: true,
+      loaded: false,
+      sourceFile: DATA_XML_SWF,
+      assetName: LEVEL_REWARD_ASSET_NAME,
+      patchedAssetFile: null,
+      patchedAssetReady: false,
+      allActivitiesVisible: false,
+      giftCount: 0,
+      timedGiftCount: 0,
+      delistedGiftCount: 0,
+      patchedTimedGiftCount: 0,
+      patchedDelistedGiftCount: 0,
+      startTime: ACTIVITY_VISIBILITY_START_TIME,
+      endTime: ACTIVITY_VISIBILITY_END_TIME,
+      error: error instanceof Error ? error.message : String(error),
+    };
+  }
+}
+
+export function getAdvancedPetEggOptimizationState(): AdvancedPetEggOptimizationState {
+  if (!existsSync(DATA_XML_SWF)) {
+    return {
+      ok: true,
+      loaded: false,
+      sourceFile: DATA_XML_SWF,
+      assetName: LEVEL_REWARD_ASSET_NAME,
+      patchedAssetFile: null,
+      patchedAssetReady: false,
+      advancedPetEggOptimized: false,
+      goodsIds: [...ADVANCED_PET_EGG_GOODS_IDS],
+      minAptitude: ADVANCED_PET_EGG_MIN_APTITUDE,
+      addedPetId: ADVANCED_PET_EGG_DARK_PET_ID,
+      probabilityTotal: PET_EGG_PROBABILITY_TOTAL,
+      targets: [],
+    };
+  }
+
+  try {
+    const goodsXml = readDefineBinaryText(DATA_XML_SWF, GOODS_BINARY_ID);
+    const petXml = readDefineBinaryText(DATA_XML_SWF, PET_BINARY_ID);
+    const patched = applyAdvancedPetEggPatchToXml(goodsXml, petXml);
+    const patchedAssetFile = ensurePatchedLevelRewardAsset(DATA_XML_SWF);
+    const patchedAssetReady = patchedAssetFile != null && existsSync(patchedAssetFile);
+    const targetGoodsIds = new Set<number>(patched.targets.map((target) => target.goodsId));
+    const hasAllTargets = ADVANCED_PET_EGG_GOODS_IDS.every((goodsId) => targetGoodsIds.has(goodsId));
+    const targetsValid = patched.targets.every((target) => {
+      return (
+        target.patchedPetIds.includes(ADVANCED_PET_EGG_DARK_PET_ID) &&
+        target.patchedProbabilities.reduce((total, value) => total + value, 0) === PET_EGG_PROBABILITY_TOTAL
+      );
+    });
+
+    return {
+      ok: true,
+      loaded: patchedAssetReady && hasAllTargets && targetsValid,
+      sourceFile: DATA_XML_SWF,
+      assetName: LEVEL_REWARD_ASSET_NAME,
+      patchedAssetFile,
+      patchedAssetReady,
+      advancedPetEggOptimized: patchedAssetReady && hasAllTargets && targetsValid,
+      goodsIds: [...ADVANCED_PET_EGG_GOODS_IDS],
+      minAptitude: ADVANCED_PET_EGG_MIN_APTITUDE,
+      addedPetId: ADVANCED_PET_EGG_DARK_PET_ID,
+      probabilityTotal: PET_EGG_PROBABILITY_TOTAL,
+      targets: patched.targets,
+    };
+  } catch (error) {
+    return {
+      ok: true,
+      loaded: false,
+      sourceFile: DATA_XML_SWF,
+      assetName: LEVEL_REWARD_ASSET_NAME,
+      patchedAssetFile: null,
+      patchedAssetReady: false,
+      advancedPetEggOptimized: false,
+      goodsIds: [...ADVANCED_PET_EGG_GOODS_IDS],
+      minAptitude: ADVANCED_PET_EGG_MIN_APTITUDE,
+      addedPetId: ADVANCED_PET_EGG_DARK_PET_ID,
+      probabilityTotal: PET_EGG_PROBABILITY_TOTAL,
+      targets: [],
+      error: error instanceof Error ? error.message : String(error),
+    };
+  }
+}
+
+export function getPetInitialFusionExpOptimizationState(): PetInitialFusionExpOptimizationState {
+  if (!existsSync(DATA_XML_SWF)) {
+    return {
+      ok: true,
+      loaded: false,
+      sourceFile: DATA_XML_SWF,
+      assetName: LEVEL_REWARD_ASSET_NAME,
+      patchedAssetFile: null,
+      patchedAssetReady: false,
+      petInitialFusionExpOptimized: false,
+      multiplier: PET_INITIAL_FUSION_EXP_MULTIPLIER,
+      targetPetIds: PET_INITIAL_FUSION_EXP_TARGETS.map((target) => target.petId),
+      targets: [],
+    };
+  }
+
+  try {
+    const petXml = readDefineBinaryText(DATA_XML_SWF, PET_BINARY_ID);
+    const patched = applyPetInitialFusionExpPatchToXml(petXml);
+    const patchedAssetFile = ensurePatchedLevelRewardAsset(DATA_XML_SWF);
+    const patchedAssetReady = patchedAssetFile != null && existsSync(patchedAssetFile);
+    const targetIds = new Set<number>(patched.targets.map((target) => target.petId));
+    const hasAllTargets = PET_INITIAL_FUSION_EXP_TARGETS.every((target) => targetIds.has(target.petId));
+    const expectedFusionExpByPetId = new Map<number, number>(
+      PET_INITIAL_FUSION_EXP_TARGETS.map((target) => [
+        target.petId,
+        target.baseFusionExp * PET_INITIAL_FUSION_EXP_MULTIPLIER,
+      ])
+    );
+    const targetsValid = patched.targets.every((target) => target.targetFusionExp === expectedFusionExpByPetId.get(target.petId));
+
+    return {
+      ok: true,
+      loaded: patchedAssetReady && hasAllTargets && targetsValid,
+      sourceFile: DATA_XML_SWF,
+      assetName: LEVEL_REWARD_ASSET_NAME,
+      patchedAssetFile,
+      patchedAssetReady,
+      petInitialFusionExpOptimized: patchedAssetReady && hasAllTargets && targetsValid,
+      multiplier: PET_INITIAL_FUSION_EXP_MULTIPLIER,
+      targetPetIds: PET_INITIAL_FUSION_EXP_TARGETS.map((target) => target.petId),
+      targets: patched.targets,
+    };
+  } catch (error) {
+    return {
+      ok: true,
+      loaded: false,
+      sourceFile: DATA_XML_SWF,
+      assetName: LEVEL_REWARD_ASSET_NAME,
+      patchedAssetFile: null,
+      patchedAssetReady: false,
+      petInitialFusionExpOptimized: false,
+      multiplier: PET_INITIAL_FUSION_EXP_MULTIPLIER,
+      targetPetIds: PET_INITIAL_FUSION_EXP_TARGETS.map((target) => target.petId),
+      targets: [],
+      error: error instanceof Error ? error.message : String(error),
+    };
+  }
+}
+
 function loadLevelRewardSource(sourceFile = DATA_XML_SWF): LevelRewardSourceCache | null {
   if (!existsSync(sourceFile)) {
     sourceCache = null;
@@ -267,6 +742,19 @@ function patchedAssetSignature(sourceFile: string, achievementBoostEnabled: bool
         sourceSize: stat.size,
         achievementBoostEnabled,
         achievementBoostValue: LEVEL_REWARD_ACHIEVEMENT_BOOST_VALUE,
+        activityVisibilityEnabled: true,
+        activityGiftBinaryId: ACTIVITY_GIFT_BINARY_ID,
+        activityVisibilityVisibleFlag: ACTIVITY_VISIBILITY_VISIBLE_FLAG,
+        activityVisibilityStartTime: ACTIVITY_VISIBILITY_START_TIME,
+        activityVisibilityEndTime: ACTIVITY_VISIBILITY_END_TIME,
+        advancedPetEggOptimizationEnabled: true,
+        advancedPetEggGoodsIds: ADVANCED_PET_EGG_GOODS_IDS,
+        advancedPetEggDarkPetId: ADVANCED_PET_EGG_DARK_PET_ID,
+        advancedPetEggMinAptitude: ADVANCED_PET_EGG_MIN_APTITUDE,
+        petEggProbabilityTotal: PET_EGG_PROBABILITY_TOTAL,
+        petInitialFusionExpOptimizationEnabled: true,
+        petInitialFusionExpMultiplier: PET_INITIAL_FUSION_EXP_MULTIPLIER,
+        petInitialFusionExpTargets: PET_INITIAL_FUSION_EXP_TARGETS,
       })
     )
     .digest("hex");
@@ -289,21 +777,31 @@ export function ensurePatchedLevelRewardAsset(sourceFile = DATA_XML_SWF): string
   if (!existsSync(sourceFile)) {
     return null;
   }
-  if (!achievementBoostEnabled) {
-    return sourceFile;
-  }
 
   const source = loadLevelRewardSource(sourceFile);
   if (!source) {
     return null;
   }
 
-  const patchedXml = applyLevelRewardAchievementBoostToXml(source.xml, achievementBoostEnabled);
-  if (patchedXml === source.xml) {
+  const activityXml = readDefineBinaryText(sourceFile, ACTIVITY_GIFT_BINARY_ID);
+  const goodsXml = readDefineBinaryText(sourceFile, GOODS_BINARY_ID);
+  const petXml = readDefineBinaryText(sourceFile, PET_BINARY_ID);
+  const patchedLevelXml = applyLevelRewardAchievementBoostToXml(source.xml, achievementBoostEnabled);
+  const patchedActivityXml = applyActivityVisibilityPatchToXml(activityXml);
+  const petEggPatch = applyAdvancedPetEggPatchToXml(goodsXml, petXml);
+  const petFusionExpPatch = applyPetInitialFusionExpPatchToXml(petXml);
+  const activityCounts = countActivityGifts(activityXml);
+  const patchedActivityCounts = countActivityGifts(patchedActivityXml);
+  if (
+    patchedLevelXml === source.xml &&
+    patchedActivityXml === activityXml &&
+    petEggPatch.xml === goodsXml &&
+    petFusionExpPatch.xml === petXml
+  ) {
     return sourceFile;
   }
 
-  const outputDir = path.join(saveDataPaths.generatedAssetsRoot, "level-rewards");
+  const outputDir = path.join(saveDataPaths.generatedAssetsRoot, "game-data-optimizations");
   const outputFile = path.join(outputDir, LEVEL_REWARD_ASSET_NAME);
   const metaFile = `${outputFile}.json`;
   const signature = patchedAssetSignature(sourceFile, achievementBoostEnabled);
@@ -312,13 +810,39 @@ export function ensurePatchedLevelRewardAsset(sourceFile = DATA_XML_SWF): string
   }
 
   const swf = decodeSwf(readFileSync(sourceFile));
-  const replacements = replaceDefineBinaryData(swf, LEVEL_REWARD_BINARY_ID, Buffer.from(patchedXml, "utf8"));
-  if (replacements !== 1) {
-    throw new Error(`Expected one level reward binary replacement, found ${replacements}`);
+  if (patchedLevelXml !== source.xml) {
+    const replacements = replaceDefineBinaryData(swf, LEVEL_REWARD_BINARY_ID, Buffer.from(patchedLevelXml, "utf8"));
+    if (replacements !== 1) {
+      throw new Error(`Expected one level reward binary replacement, found ${replacements}`);
+    }
+  }
+  if (patchedActivityXml !== activityXml) {
+    const replacements = replaceDefineBinaryData(swf, ACTIVITY_GIFT_BINARY_ID, Buffer.from(patchedActivityXml, "utf8"));
+    if (replacements !== 1) {
+      throw new Error(`Expected one activity gift binary replacement, found ${replacements}`);
+    }
+  }
+  if (petEggPatch.xml !== goodsXml) {
+    const replacements = replaceDefineBinaryData(swf, GOODS_BINARY_ID, Buffer.from(petEggPatch.xml, "utf8"));
+    if (replacements !== 1) {
+      throw new Error(`Expected one goods binary replacement, found ${replacements}`);
+    }
+  }
+  if (petFusionExpPatch.xml !== petXml) {
+    const replacements = replaceDefineBinaryData(swf, PET_BINARY_ID, Buffer.from(petFusionExpPatch.xml, "utf8"));
+    if (replacements !== 1) {
+      throw new Error(`Expected one pet binary replacement, found ${replacements}`);
+    }
   }
 
   mkdirSync(outputDir, { recursive: true });
-  writeFileSync(outputFile, encodeSwf(swf));
+  const patchedSwfBytes = encodeSwf(swf);
+  writeFileSync(outputFile, patchedSwfBytes);
+  if (path.resolve(outputFile) !== path.resolve(sourceFile)) {
+    writeFileSync(sourceFile, patchedSwfBytes);
+  }
+  sourceCache = null;
+  clearGameDataCatalogCache();
   writeFileSync(
     metaFile,
     `${JSON.stringify(
@@ -328,6 +852,24 @@ export function ensurePatchedLevelRewardAsset(sourceFile = DATA_XML_SWF): string
         generatedAt: new Date().toISOString(),
         achievementBoostEnabled,
         achievementBoostValue: LEVEL_REWARD_ACHIEVEMENT_BOOST_VALUE,
+        activityVisibilityEnabled: true,
+        activityVisibilityVisibleFlag: ACTIVITY_VISIBILITY_VISIBLE_FLAG,
+        activityGiftCount: activityCounts.giftCount,
+        activityTimedGiftCount: activityCounts.timedGiftCount,
+        activityDelistedGiftCount: activityCounts.delistedGiftCount,
+        patchedActivityTimedGiftCount: patchedActivityCounts.timedGiftCount,
+        patchedActivityDelistedGiftCount: patchedActivityCounts.delistedGiftCount,
+        activityVisibilityStartTime: ACTIVITY_VISIBILITY_START_TIME,
+        activityVisibilityEndTime: ACTIVITY_VISIBILITY_END_TIME,
+        advancedPetEggOptimizationEnabled: true,
+        advancedPetEggGoodsIds: ADVANCED_PET_EGG_GOODS_IDS,
+        advancedPetEggDarkPetId: ADVANCED_PET_EGG_DARK_PET_ID,
+        advancedPetEggMinAptitude: ADVANCED_PET_EGG_MIN_APTITUDE,
+        petEggProbabilityTotal: PET_EGG_PROBABILITY_TOTAL,
+        advancedPetEggTargets: petEggPatch.targets,
+        petInitialFusionExpOptimizationEnabled: true,
+        petInitialFusionExpMultiplier: PET_INITIAL_FUSION_EXP_MULTIPLIER,
+        petInitialFusionExpTargets: petFusionExpPatch.targets,
       },
       null,
       2

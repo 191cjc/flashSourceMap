@@ -78,7 +78,7 @@ function qname(multiname: Multiname | null | undefined): string {
   return multiname?.qname ?? "";
 }
 
-function isRuffleCrossSwfEventParamQname(value: string): boolean {
+function isPlatformCrossSwfEventParamQname(value: string): boolean {
   return (
     value === "unit4399.events::PayEvent" ||
     value === "unit4399.events.PayEvent" ||
@@ -89,7 +89,7 @@ function isRuffleCrossSwfEventParamQname(value: string): boolean {
   );
 }
 
-function isRuffleCrossSwfEventCoerceQname(value: string): boolean {
+function isPlatformCrossSwfEventCoerceQname(value: string): boolean {
   return (
     value === "unit4399.events::PayEvent" ||
     value === "unit4399.events.PayEvent" ||
@@ -334,7 +334,7 @@ function doAbcStart(data: Buffer): number {
   return reader.offset;
 }
 
-export function patchRuffleEventCompatibility(swf: DecodedSwf): number {
+export function patchCrossSwfEventCompatibility(swf: DecodedSwf): number {
   let patchCount = 0;
 
   for (const tag of parseTags(swf.body)) {
@@ -350,10 +350,10 @@ export function patchRuffleEventCompatibility(swf: DecodedSwf): number {
 
     for (let i = 1; i < abc.multinames.length; i += 1) {
       const value = qname(abc.multinames[i]);
-      if (isRuffleCrossSwfEventParamQname(value)) {
+      if (isPlatformCrossSwfEventParamQname(value)) {
         eventParamMultinames.add(i);
       }
-      if (isRuffleCrossSwfEventCoerceQname(value)) {
+      if (isPlatformCrossSwfEventCoerceQname(value)) {
         eventCoerceMultinames.add(i);
       }
     }
@@ -408,5 +408,3 @@ export function patchRuffleEventCompatibility(swf: DecodedSwf): number {
 
   return patchCount;
 }
-
-export const patchPayEventCompatibility = patchRuffleEventCompatibility;

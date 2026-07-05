@@ -28,7 +28,4 @@ export const saveDataPaths = {
   defaultDbFile: path.join(workspaceRoot, "local-save.db"),
   downloadsSwf: path.join(projectRoot, "downloads", "swf"),
   extractedSwf: path.join(projectRoot, "extracted", "swf"),
-  ruffleRoot: process.env.SAVE_DATA_RUFFLE_ROOT
-    ? path.resolve(process.env.SAVE_DATA_RUFFLE_ROOT)
-    : path.join(projectRoot, "node_modules", "@ruffle-rs", "ruffle"),
 } as const;

@@ -201,7 +201,6 @@ function main() {
   copyDir(path.join(projectRoot, "downloads", "swf"), path.join(appRoot, "downloads", "swf"));
   copyDir(path.join(projectRoot, "extracted", "swf"), path.join(appRoot, "extracted", "swf"));
   copyDir(path.join(projectRoot, "node_modules", "crypto-js"), path.join(appRoot, "node_modules", "crypto-js"));
-  copyDir(path.join(projectRoot, "node_modules", "@ruffle-rs", "ruffle"), path.join(appRoot, "node_modules", "@ruffle-rs", "ruffle"));
 
   copyDir(nativeHostRuntimeDir, cefTarget);
   copyFile(pepper, path.join(cefTarget, "pepflashplayer64.dll"));

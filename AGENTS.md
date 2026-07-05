@@ -27,7 +27,9 @@ These notes are project-specific operating rules for agents working in this repo
 ### Current Focus
 
 - The project is mocking local Flash platform capabilities for an original 4399 game.
-- The active runtime area is `runtime/save-data/`: local saves, wallet/recharge mock, mall purchase mock, resource serving, and browser host page.
+- The active runtime area is `runtime/save-data/`: local saves, wallet/recharge mock, mall purchase mock, resource serving, and the native Flash host page.
+- The current Windows runtime path is native CEF + Pepper Flash.
+- Native packaging is a self-contained portable Windows bundle with `FlashSourceMap.exe`; it starts the Node mock server and CEF host without showing a console window.
 - `tools/saveData/` is now documentation and analysis context, not the runtime implementation.
 - Payment and anti-cheat analysis lives in `tools/paymentLogic/README.md` and `tools/noCheat/README.md`.
 - Public web access and native Flash/CEF runtime boundaries are documented in `tools/saveData/packaging/README.md`.
@@ -41,7 +43,7 @@ runtime/save-data/persistence/     # SQLite connection, schema init, repositorie
 runtime/save-data/services/        # save parsing, identity canonicalization, shop value rules
 runtime/save-data/platform4399/    # 4399 API and FlashStoreApi protocol adaptation
 runtime/save-data/server/          # HTTP routing, static assets, logging, startup
-runtime/save-data/public/          # browser/Ruffle fallback and native Flash host pages
+runtime/save-data/public/          # native Flash host page and side-panel scripts
 runtime/save-data/schema/          # SQLite schema
 runtime/save-data/tests/           # runtime flow tests
 ```
@@ -56,6 +58,8 @@ Use the existing npm scripts:
 npm install
 npm run saveData:test:db
 npm run typecheck
+npm run native-flash:build-host
+npm run native-flash:package
 ```
 
 Run these checks after changing saveData logic, schema, or TypeScript types:
@@ -65,6 +69,16 @@ npm run saveData:test:db
 npm run typecheck
 git diff --check
 ```
+
+Run these checks after changing native CEF, native launcher, package contents, or the native Flash page layout:
+
+```bash
+npm run native-flash:build-host
+npm run native-flash:package
+git diff --check
+```
+
+When only JavaScript in `runtime/save-data/public/` changes, also run `node --check` on the changed browser scripts.
 
 ### Running saveData
 
@@ -88,6 +102,15 @@ SAVE_DATA_LOGS=0 SAVE_DATA_HOST=0.0.0.0 SAVE_DATA_PORT=80 npm run saveData:serve
 
 If detailed runtime logs are needed, omit `SAVE_DATA_LOGS=0`, but prefer no-log mode for gameplay testing because logging can add I/O jitter.
 
+Native Flash gameplay testing:
+
+```bash
+npm run native-flash:build-host
+npm run start:native-flash:mock
+```
+
+`start:native-flash:mock` should prefer `workspace/native-host/Release/flash-native-host.exe`. The official CEF sample `cefclient.exe` can consume Space before Pepper Flash receives it, so do not switch back to it unless explicitly debugging host differences.
+
 When asked to close public access, stop the matching saveData server process and verify that `80` and `8787` are no longer listening:
 
 ```bash
@@ -104,6 +127,7 @@ workspace/saveData/remote-assets/
 workspace/saveData/public/
 workspace/onlineSave/raw/
 workspace/onlineSave/decoded/
+vendor/native-flash/pepflashplayer64.dll
 ```
 
 These can usually be cleaned when they are clearly temporary:
@@ -119,9 +143,11 @@ temporary FFDec logs
 
 - Local recharge and mall purchase mock data is stored in the SQLite database; it does not affect real 4399 accounts or real recharge totals.
 - Mall purchase mock must stay consistent with the game's anti-cheat expectations: current balance and cumulative recharge are separate concepts, and saved mall item value is compared against cumulative recharge.
-- The browser host prefers Ruffle `webgl` rendering for Flash filters, and uses Ruffle `deviceFontRenderer: "canvas"` so Windows browsers/WebViews can render the game's device fonts (`SimSun`, `宋体`, `微软雅黑`, etc.) through system fonts. This is different from Ruffle's main canvas renderer. If WebGL cannot be created, Ruffle may still fall back to its canvas renderer; check `ruffle.renderer` client logs before assuming the active renderer. `?deviceFonts=embedded` is a fallback/diagnostic mode that loads generated SWF font aliases from `/font-aliases/*.swf`; keep it off by default because it is heavier than system device-font rendering.
 - The local recharge button is disabled after the page detects that a save slot has entered gameplay, because in-game recharge can leave SQLite `total_recharged` newer than the game's in-memory `allChongGod`.
+- The native Flash side panel uses fixed left-sidebar width and a game viewport matching the SWF stage (`960x600`). The CEF host must size the outer window from the desired client area and account for Windows DPI and window chrome; otherwise high-DPI screens can make the game appear half-sized.
+- The native Flash side panel currently has Chinese tabs, including the wallet/recharge tab and the `体验优化` tab. Level reward boosting is always on when its generated SWF is available; the UI should show status instead of exposing a toggle.
 - Do not duplicate save, wallet, mall, or resource-serving logic in native packaging. The native launcher should start the same `runtime/save-data/server` server and load `runtime/save-data/public/native.html` in CEF/Pepper Flash.
-- Native packaging should store `local-save.db`, WAL/SHM files, resource caches, generated public assets, and logs in a user data directory, not in the application install directory.
+- Native packaging should store package-local caches and logs under the package `data/` directory. For save compatibility, the GUI launcher first reuses `%APPDATA%/flash-source-map/saveData/local-save.db` when it already exists; otherwise it uses `data/saveData/local-save.db` in the extracted package.
 - The old desktop shell has been removed. Do not add desktop-only windowing, desktop package builders, or `desktop:*` scripts back unless the runtime strategy changes again.
-- `.github/workflows/release.yml` creates GitHub Release pages for `v*` tags after running checks; it does not build or upload the old desktop package.
+- `npm run native-flash:package` writes `builds/release-assets/FlashSourceMap-NativeFlash-v*-win-x64.zip` and `.sha256`. The package contains `FlashSourceMap.exe`, Node, the custom CEF host, Pepper Flash, runtime code, resources, and a debug batch file.
+- `.github/workflows/release.yml` creates GitHub Release pages for `v*` tags after running checks and can upload the native Flash release assets. It must not resurrect the old Electron desktop package.

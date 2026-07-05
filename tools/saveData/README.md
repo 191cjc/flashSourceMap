@@ -199,14 +199,7 @@ URL 上可用以下开关临时调整：
 - `telemetry=0`：关闭客户端性能日志。
 - `warmup=0`：关闭常用战斗资源预热。
 
-运行页现在优先使用 Ruffle `webgl` 渲染 Flash 滤镜效果，并启用 `deviceFontRenderer: "canvas"` 读取系统设备字体。黄色文字黑描边、发光或阴影异常通常有两类原因：
-
-1. 浏览器/GPU 无法创建 WebGL，Ruffle 会回退到 canvas renderer，部分滤镜效果会和原版 Flash 不一致。
-2. 游戏 SWF 使用 `宋体`、`SimSun`、`微软雅黑`、`Arial` 等设备字体；默认嵌入字体渲染器无法访问系统字体时会出现字体差异。canvas device-font renderer 能在安装了对应字体的 Windows 浏览器/桌面 WebView 中更接近原版。这里的 canvas 指设备字体渲染路径，不是 Ruffle 主渲染器。
-
-`?deviceFonts=embedded` 会启用 `/font-aliases/*.swf` 备用字体别名，用于排查设备字体缺失；它会额外加载多份字体 SWF，默认不启用。
-
-可通过 `mock-api.ndjson` 中的 `ruffle.renderer` 客户端日志确认实际 renderer；不要只看运行页配置判断。
+运行页现在使用 CEF/Pepper Flash 承载游戏，滤镜、字体和音频表现以原生 Flash 插件为准。
 
 服务端默认只记录首次远程拉取和接口调用，不再为每个已缓存 SWF 资源写 `asset.local_hit`，避免资源密集加载时同步日志写入干扰响应。若需要详细资源命中日志，可启动时加：
 
@@ -238,7 +231,7 @@ patch 产物应输出到独立运行目录，不覆盖 `downloads/` 原始发布
 2. 本地数据库同时增加当前余额 `balance` 和累计充值 `total_recharged`。
 3. 后续游戏调用 `GetMoney` 时返回新的当前余额。
 4. 后续游戏调用 `GetTotalRecharge` 时返回新的累计充值。
-5. 页面只尝试通过 Ruffle 暴露回调通知游戏刷新当前余额，不主动触发累计充值刷新。
+5. 页面只尝试通过 native Flash object 暴露回调通知游戏刷新当前余额，不主动触发累计充值刷新。
 
 反编译代码里 `ApiInterface.allChongGod` 的普通 setter 只允许从初始负值写入一次，二次写入会进入异常逻辑。因此本地 mock 充值的推荐测试顺序是：
 

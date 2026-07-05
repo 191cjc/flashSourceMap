@@ -1,10 +1,10 @@
 # saveData 访问方式与 native Flash 边界
 
-这个项目的 mock 逻辑统一放在 `runtime/save-data`。无论是浏览器调试、native Flash 运行，还是后续打包，都不要复制存档、钱包、商城或资源服务逻辑。
+这个项目的 mock 逻辑统一放在 `runtime/save-data`。无论是 native Flash 运行还是后续打包，都不要复制存档、钱包、商城或资源服务逻辑。
 
 ## 入口
 
-公网或普通浏览器调试：
+公网调试 mock server：
 
 ```bash
 SAVE_DATA_LOGS=0 SAVE_DATA_HOST=0.0.0.0 SAVE_DATA_PORT=80 npm run saveData:serve
@@ -32,7 +32,6 @@ native 包不再依赖参考对象 exe。启动器会使用包内 CEF/Pepper Fla
 ## 当前边界
 
 - `runtime/save-data/server` 是唯一 mock server 实现。
-- `runtime/save-data/public/index.html` 和 `runner.js` 保留为 Ruffle 浏览器备用入口。
 - `runtime/save-data/public/native.html` 和 `native-player.js` 是 native Flash 承载入口。
 - `tools/launch-native-flash-mock.cjs` 负责准备/启动本地 CEF 和 Pepper Flash。
 - `tools/package-native-flash.cjs` 负责生成可发布的 native Flash 便携包。
