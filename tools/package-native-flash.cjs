@@ -197,6 +197,7 @@ function main() {
   copyFile(path.join(projectRoot, "tools", "launch-native-flash-mock.cjs"), path.join(appRoot, "tools", "launch-native-flash-mock.cjs"));
   copyDir(path.join(projectRoot, "runtime", "save-data", "public"), path.join(appRoot, "runtime", "save-data", "public"));
   copyDir(path.join(projectRoot, "runtime", "save-data", "schema"), path.join(appRoot, "runtime", "save-data", "schema"));
+  copyOptionalDir(path.join(projectRoot, "runtime", "save-data", "assets"), path.join(appRoot, "runtime", "save-data", "assets"));
   copyDir(path.join(projectRoot, "downloads", "swf"), path.join(appRoot, "downloads", "swf"));
   copyDir(path.join(projectRoot, "extracted", "swf"), path.join(appRoot, "extracted", "swf"));
   copyDir(path.join(projectRoot, "node_modules", "crypto-js"), path.join(appRoot, "node_modules", "crypto-js"));

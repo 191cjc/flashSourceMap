@@ -19,6 +19,8 @@ export const saveDataPaths = {
   platformAssetsRoot: path.join(workspaceRoot, "platform-assets"),
   remoteAssetsRoot: path.join(workspaceRoot, "remote-assets"),
   generatedAssetsRoot: path.join(workspaceRoot, "generated-assets"),
+  bundledAssetsRoot: path.join(saveDataRoot, "assets"),
+  bundledRemoteAssetsRoot: path.join(saveDataRoot, "assets", "remote-assets"),
   logsRoot: path.join(workspaceRoot, "logs"),
   mockApiLogFile: path.join(workspaceRoot, "logs", "mock-api.ndjson"),
   levelRewardOverridesFile: path.join(workspaceRoot, "level-rewards.json"),

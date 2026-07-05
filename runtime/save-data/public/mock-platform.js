@@ -151,21 +151,45 @@
 
   function updateLevelRewardHint() {
     const hint = document.getElementById("levelRewardHint");
-    if (!hint) {
+    const status = document.getElementById("levelRewardStatus");
+    if (!hint && !status) {
       return;
     }
-    hint.classList.remove("is-warning");
+
+    function setStatus(text, className, label) {
+      if (!status) {
+        return;
+      }
+      status.textContent = text;
+      status.classList.remove("is-pending", "is-ok", "is-error");
+      status.classList.add(className);
+      status.setAttribute("aria-label", label);
+    }
+
+    if (hint) {
+      hint.classList.remove("is-warning");
+    }
     if (!levelRewardState) {
-      hint.textContent = "正在读取关卡奖励配置。";
+      setStatus("…", "is-pending", "检测中");
+      if (hint) {
+        hint.textContent = "正在检测体验优化状态。";
+      }
       return;
     }
     if (!levelRewardState.loaded) {
-      hint.textContent = "未找到 dataxmlvav447.swf，启动游戏加载资源后再试。";
+      setStatus("×", "is-error", "未生效");
+      if (hint) {
+        hint.textContent = "关卡数据还未加载完成。请先成功进入一次游戏，关闭后重新打开；重启后该优化会自动生效。";
+        hint.classList.add("is-warning");
+      }
       return;
     }
 
     const value = formatAmount(levelRewardState.achievementBoostValue);
-    hint.textContent = `通关成就奖励已固定启用为 ${value}，重载游戏后生效。`;
+    setStatus("✓", "is-ok", "已生效");
+    if (hint) {
+      hint.textContent = `关卡成就点奖励优化已生效：通关成就点奖励固定为 ${value}。`;
+    }
   }
 
   function updateLevelRewardControls() {

@@ -1,6 +1,15 @@
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import type { AddressInfo } from "node:net";
-import { createReadStream, existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import {
+  copyFileSync,
+  createReadStream,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  statSync,
+  writeFileSync,
+} from "node:fs";
 import { cp, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -804,6 +813,26 @@ async function ensureRemoteAsset(assetFile: string, sourceUrl: string): Promise<
   await writeFile(assetFile, Buffer.from(await response.arrayBuffer()));
 }
 
+function copyMissingFiles(sourceRoot: string, targetRoot: string): void {
+  if (!existsSync(sourceRoot)) {
+    return;
+  }
+
+  for (const entry of readdirSync(sourceRoot, { withFileTypes: true })) {
+    const sourcePath = path.join(sourceRoot, entry.name);
+    const targetPath = path.join(targetRoot, entry.name);
+    if (entry.isDirectory()) {
+      copyMissingFiles(sourcePath, targetPath);
+      continue;
+    }
+    if (!entry.isFile() || existsSync(targetPath)) {
+      continue;
+    }
+    mkdirSync(path.dirname(targetPath), { recursive: true });
+    copyFileSync(sourcePath, targetPath);
+  }
+}
+
 function gameAssetFile(assetName: string): string {
   return path.join(saveDataPaths.remoteAssetsRoot, "sbai.4399.com", "4399swf", "upload_swf", "ftp10", "honghao", "20130530", "27", assetName);
 }
@@ -953,6 +982,7 @@ async function ensureRuntimeAssets(): Promise<void> {
   mkdirSync(path.join(saveDataPaths.runtimePublicRoot, "assets"), { recursive: true });
   mkdirSync(path.join(saveDataPaths.runtimePublicRoot, "swf"), { recursive: true });
   mkdirSync(path.join(saveDataPaths.runtimePublicRoot, "ruffle"), { recursive: true });
+  copyMissingFiles(saveDataPaths.bundledRemoteAssetsRoot, saveDataPaths.remoteAssetsRoot);
 
   const outerSwf = path.join(saveDataPaths.downloadsSwf, "xfbbv451.swf");
   const innerSwf = path.join(saveDataPaths.extractedSwf, "L4399Main_gamefile.swf");

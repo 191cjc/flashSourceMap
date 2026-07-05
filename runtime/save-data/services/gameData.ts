@@ -289,7 +289,10 @@ function parseGoodsShopPrices(xml: string): Map<number, number> {
 
 export function loadGameDataCatalog(): GameDataCatalog {
   if (catalogCache) {
-    return catalogCache;
+    if (catalogCache.loaded || !existsSync(DATA_XML_SWF)) {
+      return catalogCache;
+    }
+    catalogCache = null;
   }
 
   if (!existsSync(DATA_XML_SWF)) {

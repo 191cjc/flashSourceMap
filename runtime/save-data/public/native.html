@@ -3,49 +3,56 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>saveData Native Flash Mock</title>
+    <title>saveData 本地原生 Flash</title>
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
     <main class="layout">
       <aside class="side">
-        <h1>Native Flash</h1>
+        <h1>原生 Flash</h1>
         <div class="status">
-          <span>Runtime</span>
-          <strong id="status">starting</strong>
+          <span>运行状态</span>
+          <strong id="status">启动中</strong>
         </div>
         <div class="actions">
-          <button id="reloadGame" type="button">Reload</button>
+          <button id="reloadGame" type="button">重载游戏</button>
         </div>
-        <nav class="side-tabs" aria-label="Native tools">
-          <button class="is-active" data-tab-button="wallet" type="button">Wallet</button>
-          <button data-tab-button="rewards" type="button">Rewards</button>
+        <nav class="side-tabs" aria-label="本地工具">
+          <button class="is-active" data-tab-button="wallet" type="button">钱包</button>
+          <button data-tab-button="rewards" type="button">体验优化</button>
         </nav>
-        <section class="panel tab-panel is-active" data-tab-panel="wallet" aria-label="Local wallet">
-          <h2>Wallet</h2>
+        <section class="panel tab-panel is-active" data-tab-panel="wallet" aria-label="本地钱包">
+          <h2>本地钱包</h2>
           <dl class="wallet">
-            <dt>Balance</dt>
-            <dd id="walletBalance">loading</dd>
-            <dt>Total recharge</dt>
-            <dd id="walletTotalRecharged">loading</dd>
-            <dt>Total paid</dt>
-            <dd id="walletTotalPaid">loading</dd>
+            <dt>余额</dt>
+            <dd id="walletBalance">读取中</dd>
+            <dt>累计充值</dt>
+            <dd id="walletTotalRecharged">读取中</dd>
+            <dt>累计消费</dt>
+            <dd id="walletTotalPaid">读取中</dd>
           </dl>
           <label class="field">
-            <span>Amount</span>
+            <span>金额</span>
             <input id="rechargeAmount" type="number" inputmode="numeric" min="1" step="1" value="1000" />
           </label>
-          <button id="localRecharge" type="button">Recharge</button>
-          <p id="rechargeHint" class="hint">Recharge before entering a save slot.</p>
+          <button id="localRecharge" type="button">点击充值</button>
+          <p id="rechargeHint" class="hint">请先充值，再进入存档；进入游戏后充值暂不可用。</p>
         </section>
-        <section class="panel tab-panel" data-tab-panel="rewards" aria-label="Level rewards">
-          <h2>Level Rewards</h2>
-          <p id="levelRewardHint" class="hint">Achievement reward boost is always enabled at 9999. Reload the game to apply it.</p>
+        <section class="panel tab-panel" data-tab-panel="rewards" aria-label="体验优化">
+          <h2>体验优化</h2>
+          <p class="hint">本功能自动开启，会用于优化游戏的一些体验，避免一些不必要的操作，部分功能需要首次成功加载游戏后重启游戏才生效</p>
+          <ul class="optimization-list" aria-label="体验优化项目">
+            <li class="optimization-item">
+              <span>关卡成就点奖励优化9999</span>
+              <span id="levelRewardStatus" class="optimization-status is-pending" aria-label="检测中">…</span>
+            </li>
+          </ul>
+          <p id="levelRewardHint" class="hint">正在检测体验优化状态。</p>
         </section>
         <dl>
-          <dt>Account</dt>
-          <dd id="account">loading</dd>
-          <dt>Resource</dt>
+          <dt>账号</dt>
+          <dd id="account">读取中</dd>
+          <dt>资源</dt>
           <dd id="resource">xfbbv451.swf</dd>
         </dl>
         <ol id="log" class="log"></ol>

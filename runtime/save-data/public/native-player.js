@@ -62,14 +62,14 @@
     }
 
     const fallback = document.createElement("p");
-    fallback.textContent = "Native Flash plugin is unavailable.";
+    fallback.textContent = "未找到原生 Flash 插件。";
     object.appendChild(fallback);
     holder.appendChild(object);
-    setStatus("native flash");
+    setStatus("原生 Flash");
     window.setTimeout(focusFlashGame, 0);
     window.setTimeout(focusFlashGame, 250);
     if (window.__saveDataLog) {
-      window.__saveDataLog("Native Flash player mounted");
+      window.__saveDataLog("原生 Flash 播放器已挂载");
     }
   }
 
@@ -90,9 +90,9 @@
   }
 
   if (query.get("autostart") === "0") {
-    setStatus("waiting");
+    setStatus("等待启动器");
     if (window.__saveDataLog) {
-      window.__saveDataLog("Waiting for native launcher");
+      window.__saveDataLog("等待原生启动器");
     }
   } else {
     mountFlash();
