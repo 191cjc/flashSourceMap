@@ -66,6 +66,8 @@
   let walletRefreshInFlight = false;
   let levelRewardState = null;
   let activityVisibilityState = null;
+  let equipmentStrengtheningState = null;
+  let petSkillState = null;
   let advancedPetEggState = null;
   let petFusionExpState = null;
   let itemCatalog = [];
@@ -301,6 +303,76 @@
     );
   }
 
+  function updateEquipmentStrengtheningHint() {
+    const status = document.getElementById("equipmentStrengtheningStatus");
+    if (!optimizationItem("equipmentStrengthening") && !status) {
+      return;
+    }
+
+    if (!equipmentStrengtheningState) {
+      setOptimizationStatus(status, "…", "is-pending", "检测中");
+      setOptimizationDescription("equipmentStrengthening", "正在检测装备强化配置状态。", false);
+      return;
+    }
+    if (!equipmentStrengtheningState.loaded) {
+      setOptimizationStatus(status, "×", "is-error", "未生效");
+      setOptimizationDescription(
+        "equipmentStrengthening",
+        equipmentStrengtheningState.error
+          ? `装备强化优化加载失败：${equipmentStrengtheningState.error}`
+          : "强化配置还未加载完成。请先成功进入一次游戏，关闭后重新打开；重启后该优化会自动生效。",
+        true
+      );
+      return;
+    }
+
+    const recordCount = formatAmount(equipmentStrengtheningState.probabilityRecordCount || equipmentStrengtheningState.recordCount || 0);
+    const entryCount = formatAmount(equipmentStrengtheningState.patchedProbabilityEntryCount || equipmentStrengtheningState.probabilityEntryCount || 0);
+    const probability = Number(equipmentStrengtheningState.successProbability) || 100;
+    setOptimizationStatus(status, "✓", "is-ok", "已生效");
+    setOptimizationDescription(
+      "equipmentStrengthening",
+      `装备强化优化已生效：${recordCount} 条强化配置、${entryCount} 个强化等级成功率均为 ${probability}%。`,
+      false
+    );
+  }
+
+  function updatePetSkillHint() {
+    const status = document.getElementById("petSkillStatus");
+    if (!optimizationItem("petSkill") && !status) {
+      return;
+    }
+
+    if (!petSkillState) {
+      setOptimizationStatus(status, "…", "is-pending", "检测中");
+      setOptimizationDescription("petSkill", "正在检测宠物技能领悟配置状态。", false);
+      return;
+    }
+    if (!petSkillState.loaded) {
+      setOptimizationStatus(status, "×", "is-error", "未生效");
+      setOptimizationDescription(
+        "petSkill",
+        petSkillState.error
+          ? `宠物技能优化加载失败：${petSkillState.error}`
+          : "宠物技能配置还未加载完成。请先成功进入一次游戏，关闭后重新打开；重启后该优化会自动生效。",
+        true
+      );
+      return;
+    }
+
+    const pools = formatAmount(petSkillState.optimizedPoolCount || petSkillState.learningPoolCount || 0);
+    const skills = formatAmount(petSkillState.affectedSkillCount || 0);
+    const fragments = formatAmount(petSkillState.fragmentEntryRemovalCount || 0);
+    const multiplier = Number(petSkillState.initialExpMultiplier) || 20;
+    const nextLevelProbability = Math.round(((Number(petSkillState.nextLevelUnlockProbability) || 10000) / 10000) * 100);
+    setOptimizationStatus(status, "✓", "is-ok", "已生效");
+    setOptimizationDescription(
+      "petSkill",
+      `宠物技能优化已生效：${pools} 个领悟池只保留最高品质技能，移除 ${fragments} 个技能碎片结果，下一等级解锁概率 ${nextLevelProbability}%，${skills} 个可领悟技能初始经验提升为 ${multiplier} 倍。`,
+      false
+    );
+  }
+
   function updateAdvancedPetEggHint() {
     const status = document.getElementById("advancedPetEggStatus");
     if (!optimizationItem("advancedPetEgg") && !status) {
@@ -378,6 +450,8 @@
   function updateOptimizationControls() {
     updateLevelRewardHint();
     updateActivityVisibilityHint();
+    updateEquipmentStrengtheningHint();
+    updatePetSkillHint();
     updateAdvancedPetEggHint();
     updatePetFusionExpHint();
   }
@@ -820,6 +894,28 @@
     return result;
   }
 
+  async function refreshEquipmentStrengthening() {
+    const response = await fetch("/api/saveData/equipment-strengthening", { cache: "no-store" });
+    const result = await readJsonResponse(response);
+    if (!response.ok || result.ok !== true) {
+      throw new Error(result.error == null ? `读取装备强化配置失败: ${response.status}` : result.error);
+    }
+    equipmentStrengtheningState = result;
+    updateOptimizationControls();
+    return result;
+  }
+
+  async function refreshPetSkills() {
+    const response = await fetch("/api/saveData/pet-skills", { cache: "no-store" });
+    const result = await readJsonResponse(response);
+    if (!response.ok || result.ok !== true) {
+      throw new Error(result.error == null ? `读取宠物技能配置失败: ${response.status}` : result.error);
+    }
+    petSkillState = result;
+    updateOptimizationControls();
+    return result;
+  }
+
   async function refreshAdvancedPetEggs() {
     const response = await fetch("/api/saveData/advanced-pet-eggs", { cache: "no-store" });
     const result = await readJsonResponse(response);
@@ -1074,6 +1170,10 @@
   refreshWallet().catch((error) => window.__saveDataLog && window.__saveDataLog(error instanceof Error ? error.message : String(error)));
   refreshLevelRewards().catch((error) => window.__saveDataLog && window.__saveDataLog(error instanceof Error ? error.message : String(error)));
   refreshActivityVisibility().catch((error) => window.__saveDataLog && window.__saveDataLog(error instanceof Error ? error.message : String(error)));
+  refreshEquipmentStrengthening().catch((error) =>
+    window.__saveDataLog && window.__saveDataLog(error instanceof Error ? error.message : String(error))
+  );
+  refreshPetSkills().catch((error) => window.__saveDataLog && window.__saveDataLog(error instanceof Error ? error.message : String(error)));
   refreshAdvancedPetEggs().catch((error) => window.__saveDataLog && window.__saveDataLog(error instanceof Error ? error.message : String(error)));
   refreshPetFusionExp().catch((error) => window.__saveDataLog && window.__saveDataLog(error instanceof Error ? error.message : String(error)));
   refreshItems().catch((error) => {

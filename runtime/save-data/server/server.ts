@@ -28,8 +28,10 @@ import {
   ensurePatchedLevelRewardAsset,
   getAdvancedPetEggOptimizationState,
   getActivityVisibilityState,
+  getEquipmentStrengtheningOptimizationState,
   getLevelRewardState,
   getPetInitialFusionExpOptimizationState,
+  getPetSkillOptimizationState,
   LEVEL_REWARD_ASSET_NAME,
   setLevelRewardAchievementBoost,
 } from "../services/levelRewards.js";
@@ -1176,6 +1178,24 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
           return;
         }
         send(res, 200, "application/json; charset=utf-8", JSON.stringify(getActivityVisibilityState()));
+        return;
+      }
+
+      if (url.pathname === "/api/saveData/equipment-strengthening") {
+        if (req.method !== "GET") {
+          send(res, 405, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "method_not_allowed" }));
+          return;
+        }
+        send(res, 200, "application/json; charset=utf-8", JSON.stringify(getEquipmentStrengtheningOptimizationState()));
+        return;
+      }
+
+      if (url.pathname === "/api/saveData/pet-skills") {
+        if (req.method !== "GET") {
+          send(res, 405, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "method_not_allowed" }));
+          return;
+        }
+        send(res, 200, "application/json; charset=utf-8", JSON.stringify(getPetSkillOptimizationState()));
         return;
       }
 

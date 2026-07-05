@@ -14,7 +14,12 @@ import {
   loadGameDataCatalog,
   type GameDataCatalog,
 } from "../services/gameData.js";
-import { applyLevelRewardAchievementBoostToXml, parseLevelRewardRecords } from "../services/levelRewards.js";
+import {
+  applyEquipmentStrengtheningSuccessPatchToXml,
+  applyLevelRewardAchievementBoostToXml,
+  applyPetSkillLearningOptimizationToXml,
+  parseLevelRewardRecords,
+} from "../services/levelRewards.js";
 import { SaveDataLogger } from "../server/logger.js";
 import { DEFAULT_ACCOUNT, MockShopError, SaveDataMockApi } from "../platform4399/mockApi.js";
 
@@ -186,6 +191,29 @@ const LEVEL_REWARD_XML = [
   "<关卡><关卡ID>2</关卡ID><关卡名>原始森林</关卡名><难度>1</难度><过关奖励经验>1131</过关奖励经验><过关奖励金币>1336</过关奖励金币><过关奖励成就>23</过关奖励成就></关卡>",
   "</root>",
 ].join("");
+const STRENGTHENING_XML = [
+  "<root>",
+  "<强化><掉落等级>1131000</掉落等级><品质>2</品质><强化值>6*12*19</强化值><强化概率>98*95*90</强化概率><金币>70*140*209</金币><材料id>321000*321000*321000</材料id></强化>",
+  "<强化><掉落等级>1131001</掉落等级><品质>3</品质><强化值>9*18</强化值><强化概率>80*70</强化概率><金币>90*180</金币><材料id>321001*321001</材料id></强化>",
+  "</root>",
+].join("");
+const PET_SKILL_SHOW_XML = [
+  "<root>",
+  "<宠物技能显示与说明><技能编号>1</技能编号><技能名称>爪击</技能名称><技能品质>0</技能品质><初始经验>10</初始经验></宠物技能显示与说明>",
+  "<宠物技能显示与说明><技能编号>2</技能编号><技能名称>爪击</技能名称><技能品质>1</技能品质><初始经验>150</初始经验></宠物技能显示与说明>",
+  "<宠物技能显示与说明><技能编号>3</技能编号><技能名称>爪击</技能名称><技能品质>2</技能品质><初始经验>300</初始经验></宠物技能显示与说明>",
+  "<宠物技能显示与说明><技能编号>4</技能编号><技能名称>爪击</技能名称><技能品质>3</技能品质><初始经验>700</初始经验></宠物技能显示与说明>",
+  "<宠物技能显示与说明><技能编号>5</技能编号><技能名称>唤雷</技能名称><技能品质>3</技能品质><初始经验>700</初始经验></宠物技能显示与说明>",
+  "<宠物技能显示与说明><技能编号>10001</技能编号><技能名称>技能碎片</技能名称><技能品质>0</技能品质><初始经验>5</初始经验></宠物技能显示与说明>",
+  "<宠物技能显示与说明><技能编号>10002</技能编号><技能名称>技能碎片</技能名称><技能品质>1</技能品质><初始经验>75</初始经验></宠物技能显示与说明>",
+  "</root>",
+].join("");
+const PET_SKILL_LEARNING_XML = [
+  "<root>",
+  "<宠物技能领悟><针对的宠物ID>1</针对的宠物ID><领悟等级>1</领悟等级><进入下一等级概率>2000</进入下一等级概率><领悟后获得技能与概率>1*1000,2*1000,\n10001*8000</领悟后获得技能与概率><领悟需求晶币>1900</领悟需求晶币></宠物技能领悟>",
+  "<宠物技能领悟><针对的宠物ID>1</针对的宠物ID><领悟等级>2</领悟等级><进入下一等级概率>5000</进入下一等级概率><领悟后获得技能与概率>3*500,4*1000,5*3000,\n10002*5500</领悟后获得技能与概率><领悟需求晶币>2500</领悟需求晶币></宠物技能领悟>",
+  "</root>",
+].join("");
 
 const { dir, dbFile } = tempDbFile();
 const db = new LocalSaveDatabase(dbFile);
@@ -291,6 +319,42 @@ try {
   assert.match(boostedLevelRewards, /<关卡ID>1<\/关卡ID>[\s\S]*?<过关奖励成就>9999<\/过关奖励成就>/);
   assert.match(boostedLevelRewards, /<关卡ID>2<\/关卡ID>[\s\S]*?<过关奖励成就>9999<\/过关奖励成就>/);
   assert.equal(applyLevelRewardAchievementBoostToXml(LEVEL_REWARD_XML, false), LEVEL_REWARD_XML);
+
+  const strengthened = applyEquipmentStrengtheningSuccessPatchToXml(STRENGTHENING_XML);
+  assert.equal(strengthened.recordCount, 2);
+  assert.equal(strengthened.targets.length, 2);
+  assert.equal(strengthened.probabilityEntryCount, 5);
+  assert.deepEqual(strengthened.targets[0].originalProbabilities, [98, 95, 90]);
+  assert.deepEqual(strengthened.targets[0].patchedProbabilities, [100, 100, 100]);
+  assert.deepEqual(strengthened.targets[1].patchedProbabilities, [100, 100]);
+  assert.match(strengthened.xml, /<掉落等级>1131000<\/掉落等级>[\s\S]*?<强化概率>100\*100\*100<\/强化概率>/);
+  assert.match(strengthened.xml, /<掉落等级>1131001<\/掉落等级>[\s\S]*?<强化概率>100\*100<\/强化概率>/);
+  assert.match(strengthened.xml, /<金币>70\*140\*209<\/金币>/);
+  assert.match(strengthened.xml, /<材料id>321001\*321001<\/材料id>/);
+
+  const petSkillPatch = applyPetSkillLearningOptimizationToXml(PET_SKILL_LEARNING_XML, PET_SKILL_SHOW_XML);
+  assert.equal(petSkillPatch.learningPoolCount, 2);
+  assert.equal(petSkillPatch.targets.length, 2);
+  assert.equal(petSkillPatch.nextLevelUnlockRecordCount, 2);
+  assert.equal(petSkillPatch.fragmentEntryRemovalCount, 2);
+  assert.equal(petSkillPatch.lowerQualityEntryRemovalCount, 2);
+  assert.equal(petSkillPatch.targets[0].originalNextLevelProbability, 2000);
+  assert.equal(petSkillPatch.targets[0].patchedNextLevelProbability, 10000);
+  assert.equal(petSkillPatch.targets[1].originalNextLevelProbability, 5000);
+  assert.equal(petSkillPatch.targets[1].patchedNextLevelProbability, 10000);
+  assert.deepEqual(petSkillPatch.affectedSkillIds, [2, 4, 5]);
+  assert.match(petSkillPatch.learningXml, /<领悟等级>1<\/领悟等级>[\s\S]*?<进入下一等级概率>10000<\/进入下一等级概率>/);
+  assert.match(petSkillPatch.learningXml, /<领悟等级>2<\/领悟等级>[\s\S]*?<进入下一等级概率>10000<\/进入下一等级概率>/);
+  assert.match(petSkillPatch.learningXml, /<领悟等级>1<\/领悟等级>[\s\S]*?<领悟后获得技能与概率>2\*10000<\/领悟后获得技能与概率>/);
+  assert.match(petSkillPatch.learningXml, /<领悟等级>2<\/领悟等级>[\s\S]*?<领悟后获得技能与概率>4\*2500,5\*7500<\/领悟后获得技能与概率>/);
+  assert.doesNotMatch(petSkillPatch.learningXml, /10001|10002/);
+  assert.match(petSkillPatch.skillShowXml, /<技能编号>2<\/技能编号>[\s\S]*?<初始经验>3000<\/初始经验>/);
+  assert.match(petSkillPatch.skillShowXml, /<技能编号>4<\/技能编号>[\s\S]*?<初始经验>14000<\/初始经验>/);
+  assert.match(petSkillPatch.skillShowXml, /<技能编号>5<\/技能编号>[\s\S]*?<初始经验>14000<\/初始经验>/);
+  assert.match(petSkillPatch.skillShowXml, /<技能编号>1<\/技能编号>[\s\S]*?<初始经验>10<\/初始经验>/);
+  const petSkillPatchAgain = applyPetSkillLearningOptimizationToXml(petSkillPatch.learningXml, petSkillPatch.skillShowXml);
+  assert.equal(petSkillPatchAgain.learningXml, petSkillPatch.learningXml);
+  assert.equal(petSkillPatchAgain.skillShowXml, petSkillPatch.skillShowXml);
 
   const wallet = db.getWallet(DEFAULT_ACCOUNT.uid);
   const purchase = db.buyProp({ uid: DEFAULT_ACCOUNT.uid, propId: 12, count: 2, price: 30, tag: 7 });

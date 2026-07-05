@@ -6,11 +6,15 @@ import { saveDataPaths } from "../server/paths.js";
 import { clearGameDataCatalogCache, DATA_XML_SWF, readDefineBinaryText } from "./gameData.js";
 
 export const LEVEL_REWARD_BINARY_ID = 52;
+export const STRENGTHEN_BINARY_ID = 30;
 export const ACTIVITY_GIFT_BINARY_ID = 16;
 export const GOODS_BINARY_ID = 15;
 export const PET_BINARY_ID = 42;
+export const PET_SKILL_SHOW_BINARY_ID = 18;
+export const PET_SKILL_LEARNING_BINARY_ID = 56;
 export const LEVEL_REWARD_ASSET_NAME = "dataxmlvav447.swf";
 export const LEVEL_REWARD_ACHIEVEMENT_BOOST_VALUE = 9999;
+export const EQUIPMENT_STRENGTHEN_SUCCESS_PROBABILITY = 100;
 export const ACTIVITY_VISIBILITY_START_TIME = "1900-01-01|00:00:00";
 export const ACTIVITY_VISIBILITY_END_TIME = "2999-12-31|23:59:59";
 export const ACTIVITY_VISIBILITY_VISIBLE_FLAG = "0";
@@ -18,7 +22,16 @@ export const ADVANCED_PET_EGG_GOODS_IDS = [331196, 331198] as const;
 export const ADVANCED_PET_EGG_DARK_PET_ID = 19;
 export const ADVANCED_PET_EGG_MIN_APTITUDE = 4;
 export const PET_EGG_PROBABILITY_TOTAL = 1_000_000;
+export const PET_SKILL_LEARNING_PROBABILITY_TOTAL = 10_000;
+export const PET_SKILL_NEXT_LEVEL_UNLOCK_PROBABILITY = PET_SKILL_LEARNING_PROBABILITY_TOTAL;
+export const PET_SKILL_INITIAL_EXP_MULTIPLIER = 20;
 export const PET_INITIAL_FUSION_EXP_MULTIPLIER = 10;
+export const PET_SKILL_BASE_INITIAL_EXP_BY_QUALITY: Readonly<Record<number, number>> = {
+  0: 10,
+  1: 150,
+  2: 300,
+  3: 700,
+};
 export const PET_INITIAL_FUSION_EXP_TARGETS = [
   { petId: 12, baseFusionExp: 100 },
   { petId: 17, baseFusionExp: 1200 },
@@ -72,6 +85,30 @@ export type ActivityVisibilityState = {
   error?: string;
 };
 
+export type EquipmentStrengtheningTarget = {
+  dropLevel: number | null;
+  quality: number | null;
+  originalProbabilities: number[];
+  patchedProbabilities: number[];
+  changed: boolean;
+};
+
+export type EquipmentStrengtheningOptimizationState = {
+  ok: true;
+  loaded: boolean;
+  sourceFile: string;
+  assetName: string;
+  patchedAssetFile: string | null;
+  patchedAssetReady: boolean;
+  equipmentStrengtheningOptimized: boolean;
+  successProbability: number;
+  recordCount: number;
+  probabilityRecordCount: number;
+  probabilityEntryCount: number;
+  patchedProbabilityEntryCount: number;
+  error?: string;
+};
+
 export type AdvancedPetEggTarget = {
   goodsId: number;
   name: string;
@@ -95,6 +132,58 @@ export type AdvancedPetEggOptimizationState = {
   addedPetId: number;
   probabilityTotal: number;
   targets: AdvancedPetEggTarget[];
+  error?: string;
+};
+
+export type PetSkillLearningEntry = {
+  skillId: number;
+  probability: number;
+  name: string;
+  quality: number;
+  fragment: boolean;
+};
+
+export type PetSkillLearningTarget = {
+  petId: number | null;
+  learnLevel: number | null;
+  originalNextLevelProbability: number | null;
+  patchedNextLevelProbability: number | null;
+  originalEntries: PetSkillLearningEntry[];
+  patchedEntries: PetSkillLearningEntry[];
+  highestQuality: number;
+  removedFragmentEntries: number;
+  removedLowerQualityEntries: number;
+  changed: boolean;
+};
+
+export type PetSkillInitialExpTarget = {
+  skillId: number;
+  name: string;
+  quality: number;
+  originalInitialExp: number;
+  targetInitialExp: number;
+  multiplier: number;
+  changed: boolean;
+};
+
+export type PetSkillOptimizationState = {
+  ok: true;
+  loaded: boolean;
+  sourceFile: string;
+  assetName: string;
+  patchedAssetFile: string | null;
+  patchedAssetReady: boolean;
+  petSkillOptimized: boolean;
+  initialExpMultiplier: number;
+  learningProbabilityTotal: number;
+  nextLevelUnlockProbability: number;
+  learningPoolCount: number;
+  optimizedPoolCount: number;
+  nextLevelUnlockRecordCount: number;
+  affectedSkillCount: number;
+  fragmentEntryRemovalCount: number;
+  lowerQualityEntryRemovalCount: number;
+  expTargetCount: number;
   error?: string;
 };
 
@@ -160,6 +249,32 @@ type AdvancedPetEggPatchResult = {
   targets: AdvancedPetEggTarget[];
 };
 
+type EquipmentStrengtheningPatchResult = {
+  xml: string;
+  targets: EquipmentStrengtheningTarget[];
+  recordCount: number;
+  probabilityEntryCount: number;
+};
+
+type PetSkillDefinition = {
+  id: number;
+  name: string;
+  quality: number;
+  initialExp: number;
+};
+
+type PetSkillLearningPatchResult = {
+  learningXml: string;
+  skillShowXml: string;
+  targets: PetSkillLearningTarget[];
+  expTargets: PetSkillInitialExpTarget[];
+  affectedSkillIds: number[];
+  learningPoolCount: number;
+  nextLevelUnlockRecordCount: number;
+  fragmentEntryRemovalCount: number;
+  lowerQualityEntryRemovalCount: number;
+};
+
 type PetInitialFusionExpPatchResult = {
   xml: string;
   targets: PetInitialFusionExpTarget[];
@@ -220,6 +335,20 @@ function uniqueNumbers(values: number[]): number[] {
   return result;
 }
 
+function parseStrengtheningProbabilityList(value: string): number[] {
+  const entries = value.split("*").map((entry) => entry.trim());
+  if (entries.length === 0 || entries.some((entry) => entry === "")) {
+    throw new Error("strengthening probability list contains an empty entry");
+  }
+  return entries.map((entry) => {
+    const parsed = Number(entry);
+    if (!Number.isFinite(parsed) || parsed < 0) {
+      throw new Error(`invalid strengthening probability: ${entry}`);
+    }
+    return parsed;
+  });
+}
+
 function replaceTagContent(record: string, tagName: string, value: string): string {
   const escaped = escapeRegExp(tagName);
   return record.replace(new RegExp(`(<${escaped}>)[\\s\\S]*?(</${escaped}>)`), `$1${value}$2`);
@@ -236,6 +365,42 @@ function equalProbabilities(count: number): number[] {
     remainder -= 1;
     return value;
   });
+}
+
+function scaleWeightsToTotal(weights: number[], total: number): number[] {
+  if (!Number.isSafeInteger(total) || total <= 0) {
+    throw new Error("probability total must be a positive integer");
+  }
+  if (weights.length === 0) {
+    throw new Error("probability weight list is empty");
+  }
+  if (weights.some((weight) => !Number.isFinite(weight) || weight <= 0)) {
+    throw new Error("probability weights must be positive");
+  }
+
+  const weightTotal = weights.reduce((sum, weight) => sum + weight, 0);
+  const scaled = weights.map((weight, index) => {
+    const exact = (weight * total) / weightTotal;
+    const floor = Math.floor(exact);
+    return {
+      index,
+      value: floor,
+      remainder: exact - floor,
+    };
+  });
+  let remaining = total - scaled.reduce((sum, entry) => sum + entry.value, 0);
+  scaled
+    .slice()
+    .sort((a, b) => b.remainder - a.remainder || a.index - b.index)
+    .forEach((entry) => {
+      if (remaining <= 0) {
+        return;
+      }
+      entry.value += 1;
+      remaining -= 1;
+    });
+
+  return scaled.sort((a, b) => a.index - b.index).map((entry) => entry.value);
 }
 
 function parsePetDefinitions(xml: string): Map<number, PetDefinition> {
@@ -258,6 +423,77 @@ function parsePetDefinitions(xml: string): Map<number, PetDefinition> {
   }
 
   return pets;
+}
+
+function parsePetSkillDefinitions(xml: string): Map<number, PetSkillDefinition> {
+  const skills = new Map<number, PetSkillDefinition>();
+  const skillRe = /<宠物技能显示与说明>([\s\S]*?)<\/宠物技能显示与说明>/g;
+  let match: RegExpExecArray | null;
+
+  while ((match = skillRe.exec(xml))) {
+    const record = match[1];
+    const id = numberFromTag(record, "技能编号");
+    const quality = numberFromTag(record, "技能品质");
+    const initialExp = numberFromTag(record, "初始经验");
+    if (id == null || quality == null || initialExp == null) {
+      continue;
+    }
+    skills.set(id, {
+      id,
+      name: tagText(record, "技能名称") ?? `宠物技能 ${id}`,
+      quality,
+      initialExp,
+    });
+  }
+
+  return skills;
+}
+
+function isPetSkillFragment(skill: PetSkillDefinition): boolean {
+  return skill.id === 10000 || skill.name === "技能碎片" || skill.name === "融合的宠物技能";
+}
+
+function parsePetSkillLearningEntries(value: string, skills: Map<number, PetSkillDefinition>): PetSkillLearningEntry[] {
+  const entries: PetSkillLearningEntry[] = [];
+  for (const rawEntry of value.split(",")) {
+    const entry = rawEntry.trim();
+    if (!entry) {
+      continue;
+    }
+    const [skillIdText, probabilityText, ...extra] = entry.split("*").map((part) => part.trim());
+    if (!skillIdText || !probabilityText || extra.length > 0) {
+      throw new Error(`invalid pet skill learning entry: ${entry}`);
+    }
+    const skillId = Number(skillIdText);
+    const probability = Number(probabilityText);
+    if (!Number.isSafeInteger(skillId) || !Number.isFinite(probability) || probability < 0) {
+      throw new Error(`invalid pet skill learning entry: ${entry}`);
+    }
+    const skill = skills.get(skillId);
+    if (!skill) {
+      throw new Error(`pet skill ${skillId} is missing from skill display config`);
+    }
+    entries.push({
+      skillId,
+      probability,
+      name: skill.name,
+      quality: skill.quality,
+      fragment: isPetSkillFragment(skill),
+    });
+  }
+  return entries;
+}
+
+function formatPetSkillLearningEntries(entries: PetSkillLearningEntry[]): string {
+  return entries.map((entry) => `${entry.skillId}*${entry.probability}`).join(",");
+}
+
+function petSkillTargetInitialExp(skill: { quality: number }): number {
+  const baseInitialExp = PET_SKILL_BASE_INITIAL_EXP_BY_QUALITY[skill.quality];
+  if (baseInitialExp == null) {
+    throw new Error(`missing base initial experience for pet skill quality ${skill.quality}`);
+  }
+  return baseInitialExp * PET_SKILL_INITIAL_EXP_MULTIPLIER;
 }
 
 function targetAdvancedPetIds(originalPetIds: number[], pets: Map<number, PetDefinition>): number[] {
@@ -302,6 +538,143 @@ export function applyAdvancedPetEggPatchToXml(goodsXml: string, petXml: string):
   });
 
   return { xml, targets };
+}
+
+export function applyEquipmentStrengtheningSuccessPatchToXml(strengtheningXml: string): EquipmentStrengtheningPatchResult {
+  const targets: EquipmentStrengtheningTarget[] = [];
+  let recordCount = 0;
+  let probabilityEntryCount = 0;
+
+  const xml = strengtheningXml.replace(/<强化>[\s\S]*?<\/强化>/g, (record: string) => {
+    recordCount += 1;
+    const probabilityText = tagText(record, "强化概率");
+    if (probabilityText == null || probabilityText === "") {
+      return record;
+    }
+
+    const originalProbabilities = parseStrengtheningProbabilityList(probabilityText);
+    const patchedProbabilities = originalProbabilities.map(() => EQUIPMENT_STRENGTHEN_SUCCESS_PROBABILITY);
+    const patchedRecord = replaceTagContent(record, "强化概率", patchedProbabilities.join("*"));
+    probabilityEntryCount += patchedProbabilities.length;
+    targets.push({
+      dropLevel: numberFromTag(record, "掉落等级"),
+      quality: numberFromTag(record, "品质"),
+      originalProbabilities,
+      patchedProbabilities,
+      changed: patchedRecord !== record,
+    });
+    return patchedRecord;
+  });
+
+  return { xml, targets, recordCount, probabilityEntryCount };
+}
+
+export function applyPetSkillLearningOptimizationToXml(
+  learningXml: string,
+  skillShowXml: string
+): PetSkillLearningPatchResult {
+  const skills = parsePetSkillDefinitions(skillShowXml);
+  const affectedSkillIds = new Set<number>();
+  const targets: PetSkillLearningTarget[] = [];
+  let learningPoolCount = 0;
+  let nextLevelUnlockRecordCount = 0;
+  let fragmentEntryRemovalCount = 0;
+  let lowerQualityEntryRemovalCount = 0;
+
+  const patchedLearningXml = learningXml.replace(/<宠物技能领悟>[\s\S]*?<\/宠物技能领悟>/g, (record: string) => {
+    learningPoolCount += 1;
+    const poolText = tagText(record, "领悟后获得技能与概率");
+    if (poolText == null || poolText === "") {
+      return record;
+    }
+
+    const originalEntries = parsePetSkillLearningEntries(poolText, skills);
+    const learnableEntries = originalEntries.filter((entry) => !entry.fragment && entry.probability > 0);
+    if (learnableEntries.length === 0) {
+      throw new Error("pet skill learning pool has no learnable skill candidates");
+    }
+
+    const highestQuality = Math.max(...learnableEntries.map((entry) => entry.quality));
+    const retainedEntries = learnableEntries.filter((entry) => entry.quality === highestQuality);
+    const patchedProbabilities = scaleWeightsToTotal(
+      retainedEntries.map((entry) => entry.probability),
+      PET_SKILL_LEARNING_PROBABILITY_TOTAL
+    );
+    const patchedEntries = retainedEntries.map((entry, index) => {
+      affectedSkillIds.add(entry.skillId);
+      return {
+        ...entry,
+        probability: patchedProbabilities[index],
+      };
+    });
+    const patchedPoolText = formatPetSkillLearningEntries(patchedEntries);
+    const originalNextLevelProbability = numberFromTag(record, "进入下一等级概率");
+    if (originalNextLevelProbability == null) {
+      throw new Error("pet skill learning pool is missing next-level unlock probability");
+    }
+    nextLevelUnlockRecordCount += 1;
+    const patchedRecord = replaceTagContent(
+      replaceTagContent(record, "领悟后获得技能与概率", patchedPoolText),
+      "进入下一等级概率",
+      String(PET_SKILL_NEXT_LEVEL_UNLOCK_PROBABILITY)
+    );
+    const removedFragmentEntries = originalEntries.filter((entry) => entry.fragment).length;
+    const removedLowerQualityEntries = learnableEntries.length - retainedEntries.length;
+    fragmentEntryRemovalCount += removedFragmentEntries;
+    lowerQualityEntryRemovalCount += removedLowerQualityEntries;
+    targets.push({
+      petId: numberFromTag(record, "针对的宠物ID"),
+      learnLevel: numberFromTag(record, "领悟等级"),
+      originalNextLevelProbability,
+      patchedNextLevelProbability: PET_SKILL_NEXT_LEVEL_UNLOCK_PROBABILITY,
+      originalEntries,
+      patchedEntries,
+      highestQuality,
+      removedFragmentEntries,
+      removedLowerQualityEntries,
+      changed: patchedRecord !== record,
+    });
+    return patchedRecord;
+  });
+
+  const expTargets: PetSkillInitialExpTarget[] = [];
+  const patchedSkillShowXml = skillShowXml.replace(
+    /<宠物技能显示与说明>[\s\S]*?<\/宠物技能显示与说明>/g,
+    (record: string) => {
+      const skillId = numberFromTag(record, "技能编号");
+      if (skillId == null || !affectedSkillIds.has(skillId)) {
+        return record;
+      }
+      const skill = skills.get(skillId);
+      if (!skill) {
+        return record;
+      }
+      const targetInitialExp = petSkillTargetInitialExp(skill);
+      const patchedRecord = replaceTagContent(record, "初始经验", String(targetInitialExp));
+      expTargets.push({
+        skillId,
+        name: skill.name,
+        quality: skill.quality,
+        originalInitialExp: skill.initialExp,
+        targetInitialExp,
+        multiplier: PET_SKILL_INITIAL_EXP_MULTIPLIER,
+        changed: patchedRecord !== record,
+      });
+      return patchedRecord;
+    }
+  );
+
+  return {
+    learningXml: patchedLearningXml,
+    skillShowXml: patchedSkillShowXml,
+    targets,
+    expTargets,
+    affectedSkillIds: [...affectedSkillIds].sort((a, b) => a - b),
+    learningPoolCount,
+    nextLevelUnlockRecordCount,
+    fragmentEntryRemovalCount,
+    lowerQualityEntryRemovalCount,
+  };
 }
 
 export function applyPetInitialFusionExpPatchToXml(petXml: string): PetInitialFusionExpPatchResult {
@@ -538,6 +911,163 @@ export function getActivityVisibilityState(): ActivityVisibilityState {
   }
 }
 
+export function getEquipmentStrengtheningOptimizationState(): EquipmentStrengtheningOptimizationState {
+  if (!existsSync(DATA_XML_SWF)) {
+    return {
+      ok: true,
+      loaded: false,
+      sourceFile: DATA_XML_SWF,
+      assetName: LEVEL_REWARD_ASSET_NAME,
+      patchedAssetFile: null,
+      patchedAssetReady: false,
+      equipmentStrengtheningOptimized: false,
+      successProbability: EQUIPMENT_STRENGTHEN_SUCCESS_PROBABILITY,
+      recordCount: 0,
+      probabilityRecordCount: 0,
+      probabilityEntryCount: 0,
+      patchedProbabilityEntryCount: 0,
+    };
+  }
+
+  try {
+    const strengtheningXml = readDefineBinaryText(DATA_XML_SWF, STRENGTHEN_BINARY_ID);
+    const patched = applyEquipmentStrengtheningSuccessPatchToXml(strengtheningXml);
+    const patchedAssetFile = ensurePatchedLevelRewardAsset(DATA_XML_SWF);
+    const patchedAssetReady = patchedAssetFile != null && existsSync(patchedAssetFile);
+    const targetsValid =
+      patched.targets.length > 0 &&
+      patched.targets.every((target) => {
+        return (
+          target.patchedProbabilities.length > 0 &&
+          target.patchedProbabilities.every((value) => value === EQUIPMENT_STRENGTHEN_SUCCESS_PROBABILITY)
+        );
+      });
+
+    return {
+      ok: true,
+      loaded: patchedAssetReady && targetsValid,
+      sourceFile: DATA_XML_SWF,
+      assetName: LEVEL_REWARD_ASSET_NAME,
+      patchedAssetFile,
+      patchedAssetReady,
+      equipmentStrengtheningOptimized: patchedAssetReady && targetsValid,
+      successProbability: EQUIPMENT_STRENGTHEN_SUCCESS_PROBABILITY,
+      recordCount: patched.recordCount,
+      probabilityRecordCount: patched.targets.length,
+      probabilityEntryCount: patched.probabilityEntryCount,
+      patchedProbabilityEntryCount: patched.targets.reduce(
+        (total, target) =>
+          total +
+          target.patchedProbabilities.filter((value) => value === EQUIPMENT_STRENGTHEN_SUCCESS_PROBABILITY).length,
+        0
+      ),
+    };
+  } catch (error) {
+    return {
+      ok: true,
+      loaded: false,
+      sourceFile: DATA_XML_SWF,
+      assetName: LEVEL_REWARD_ASSET_NAME,
+      patchedAssetFile: null,
+      patchedAssetReady: false,
+      equipmentStrengtheningOptimized: false,
+      successProbability: EQUIPMENT_STRENGTHEN_SUCCESS_PROBABILITY,
+      recordCount: 0,
+      probabilityRecordCount: 0,
+      probabilityEntryCount: 0,
+      patchedProbabilityEntryCount: 0,
+      error: error instanceof Error ? error.message : String(error),
+    };
+  }
+}
+
+export function getPetSkillOptimizationState(): PetSkillOptimizationState {
+  if (!existsSync(DATA_XML_SWF)) {
+    return {
+      ok: true,
+      loaded: false,
+      sourceFile: DATA_XML_SWF,
+      assetName: LEVEL_REWARD_ASSET_NAME,
+      patchedAssetFile: null,
+      patchedAssetReady: false,
+      petSkillOptimized: false,
+      initialExpMultiplier: PET_SKILL_INITIAL_EXP_MULTIPLIER,
+      learningProbabilityTotal: PET_SKILL_LEARNING_PROBABILITY_TOTAL,
+      nextLevelUnlockProbability: PET_SKILL_NEXT_LEVEL_UNLOCK_PROBABILITY,
+      learningPoolCount: 0,
+      optimizedPoolCount: 0,
+      nextLevelUnlockRecordCount: 0,
+      affectedSkillCount: 0,
+      fragmentEntryRemovalCount: 0,
+      lowerQualityEntryRemovalCount: 0,
+      expTargetCount: 0,
+    };
+  }
+
+  try {
+    const skillShowXml = readDefineBinaryText(DATA_XML_SWF, PET_SKILL_SHOW_BINARY_ID);
+    const skillLearningXml = readDefineBinaryText(DATA_XML_SWF, PET_SKILL_LEARNING_BINARY_ID);
+    const patched = applyPetSkillLearningOptimizationToXml(skillLearningXml, skillShowXml);
+    const patchedAssetFile = ensurePatchedLevelRewardAsset(DATA_XML_SWF);
+    const patchedAssetReady = patchedAssetFile != null && existsSync(patchedAssetFile);
+    const poolsValid =
+      patched.targets.length > 0 &&
+      patched.targets.every((target) => {
+        const probabilityTotal = target.patchedEntries.reduce((total, entry) => total + entry.probability, 0);
+        return (
+          target.patchedEntries.length > 0 &&
+          probabilityTotal === PET_SKILL_LEARNING_PROBABILITY_TOTAL &&
+          target.patchedNextLevelProbability === PET_SKILL_NEXT_LEVEL_UNLOCK_PROBABILITY &&
+          target.patchedEntries.every((entry) => !entry.fragment && entry.quality === target.highestQuality)
+        );
+      });
+    const expTargetsValid =
+      patched.expTargets.length === patched.affectedSkillIds.length &&
+      patched.expTargets.every((target) => target.targetInitialExp === petSkillTargetInitialExp(target));
+
+    return {
+      ok: true,
+      loaded: patchedAssetReady && poolsValid && expTargetsValid,
+      sourceFile: DATA_XML_SWF,
+      assetName: LEVEL_REWARD_ASSET_NAME,
+      patchedAssetFile,
+      patchedAssetReady,
+      petSkillOptimized: patchedAssetReady && poolsValid && expTargetsValid,
+      initialExpMultiplier: PET_SKILL_INITIAL_EXP_MULTIPLIER,
+      learningProbabilityTotal: PET_SKILL_LEARNING_PROBABILITY_TOTAL,
+      nextLevelUnlockProbability: PET_SKILL_NEXT_LEVEL_UNLOCK_PROBABILITY,
+      learningPoolCount: patched.learningPoolCount,
+      optimizedPoolCount: patched.targets.length,
+      nextLevelUnlockRecordCount: patched.nextLevelUnlockRecordCount,
+      affectedSkillCount: patched.affectedSkillIds.length,
+      fragmentEntryRemovalCount: patched.fragmentEntryRemovalCount,
+      lowerQualityEntryRemovalCount: patched.lowerQualityEntryRemovalCount,
+      expTargetCount: patched.expTargets.length,
+    };
+  } catch (error) {
+    return {
+      ok: true,
+      loaded: false,
+      sourceFile: DATA_XML_SWF,
+      assetName: LEVEL_REWARD_ASSET_NAME,
+      patchedAssetFile: null,
+      patchedAssetReady: false,
+      petSkillOptimized: false,
+      initialExpMultiplier: PET_SKILL_INITIAL_EXP_MULTIPLIER,
+      learningProbabilityTotal: PET_SKILL_LEARNING_PROBABILITY_TOTAL,
+      nextLevelUnlockProbability: PET_SKILL_NEXT_LEVEL_UNLOCK_PROBABILITY,
+      learningPoolCount: 0,
+      optimizedPoolCount: 0,
+      nextLevelUnlockRecordCount: 0,
+      affectedSkillCount: 0,
+      fragmentEntryRemovalCount: 0,
+      lowerQualityEntryRemovalCount: 0,
+      expTargetCount: 0,
+      error: error instanceof Error ? error.message : String(error),
+    };
+  }
+}
+
 export function getAdvancedPetEggOptimizationState(): AdvancedPetEggOptimizationState {
   if (!existsSync(DATA_XML_SWF)) {
     return {
@@ -742,6 +1272,9 @@ function patchedAssetSignature(sourceFile: string, achievementBoostEnabled: bool
         sourceSize: stat.size,
         achievementBoostEnabled,
         achievementBoostValue: LEVEL_REWARD_ACHIEVEMENT_BOOST_VALUE,
+        equipmentStrengtheningOptimizationEnabled: true,
+        equipmentStrengtheningBinaryId: STRENGTHEN_BINARY_ID,
+        equipmentStrengtheningSuccessProbability: EQUIPMENT_STRENGTHEN_SUCCESS_PROBABILITY,
         activityVisibilityEnabled: true,
         activityGiftBinaryId: ACTIVITY_GIFT_BINARY_ID,
         activityVisibilityVisibleFlag: ACTIVITY_VISIBILITY_VISIBLE_FLAG,
@@ -752,6 +1285,13 @@ function patchedAssetSignature(sourceFile: string, achievementBoostEnabled: bool
         advancedPetEggDarkPetId: ADVANCED_PET_EGG_DARK_PET_ID,
         advancedPetEggMinAptitude: ADVANCED_PET_EGG_MIN_APTITUDE,
         petEggProbabilityTotal: PET_EGG_PROBABILITY_TOTAL,
+        petSkillOptimizationEnabled: true,
+        petSkillShowBinaryId: PET_SKILL_SHOW_BINARY_ID,
+        petSkillLearningBinaryId: PET_SKILL_LEARNING_BINARY_ID,
+        petSkillInitialExpMultiplier: PET_SKILL_INITIAL_EXP_MULTIPLIER,
+        petSkillLearningProbabilityTotal: PET_SKILL_LEARNING_PROBABILITY_TOTAL,
+        petSkillNextLevelUnlockProbability: PET_SKILL_NEXT_LEVEL_UNLOCK_PROBABILITY,
+        petSkillBaseInitialExpByQuality: PET_SKILL_BASE_INITIAL_EXP_BY_QUALITY,
         petInitialFusionExpOptimizationEnabled: true,
         petInitialFusionExpMultiplier: PET_INITIAL_FUSION_EXP_MULTIPLIER,
         petInitialFusionExpTargets: PET_INITIAL_FUSION_EXP_TARGETS,
@@ -784,10 +1324,15 @@ export function ensurePatchedLevelRewardAsset(sourceFile = DATA_XML_SWF): string
   }
 
   const activityXml = readDefineBinaryText(sourceFile, ACTIVITY_GIFT_BINARY_ID);
+  const strengtheningXml = readDefineBinaryText(sourceFile, STRENGTHEN_BINARY_ID);
+  const skillShowXml = readDefineBinaryText(sourceFile, PET_SKILL_SHOW_BINARY_ID);
+  const skillLearningXml = readDefineBinaryText(sourceFile, PET_SKILL_LEARNING_BINARY_ID);
   const goodsXml = readDefineBinaryText(sourceFile, GOODS_BINARY_ID);
   const petXml = readDefineBinaryText(sourceFile, PET_BINARY_ID);
   const patchedLevelXml = applyLevelRewardAchievementBoostToXml(source.xml, achievementBoostEnabled);
   const patchedActivityXml = applyActivityVisibilityPatchToXml(activityXml);
+  const strengtheningPatch = applyEquipmentStrengtheningSuccessPatchToXml(strengtheningXml);
+  const petSkillPatch = applyPetSkillLearningOptimizationToXml(skillLearningXml, skillShowXml);
   const petEggPatch = applyAdvancedPetEggPatchToXml(goodsXml, petXml);
   const petFusionExpPatch = applyPetInitialFusionExpPatchToXml(petXml);
   const activityCounts = countActivityGifts(activityXml);
@@ -795,6 +1340,9 @@ export function ensurePatchedLevelRewardAsset(sourceFile = DATA_XML_SWF): string
   if (
     patchedLevelXml === source.xml &&
     patchedActivityXml === activityXml &&
+    strengtheningPatch.xml === strengtheningXml &&
+    petSkillPatch.learningXml === skillLearningXml &&
+    petSkillPatch.skillShowXml === skillShowXml &&
     petEggPatch.xml === goodsXml &&
     petFusionExpPatch.xml === petXml
   ) {
@@ -820,6 +1368,28 @@ export function ensurePatchedLevelRewardAsset(sourceFile = DATA_XML_SWF): string
     const replacements = replaceDefineBinaryData(swf, ACTIVITY_GIFT_BINARY_ID, Buffer.from(patchedActivityXml, "utf8"));
     if (replacements !== 1) {
       throw new Error(`Expected one activity gift binary replacement, found ${replacements}`);
+    }
+  }
+  if (strengtheningPatch.xml !== strengtheningXml) {
+    const replacements = replaceDefineBinaryData(swf, STRENGTHEN_BINARY_ID, Buffer.from(strengtheningPatch.xml, "utf8"));
+    if (replacements !== 1) {
+      throw new Error(`Expected one strengthening binary replacement, found ${replacements}`);
+    }
+  }
+  if (petSkillPatch.skillShowXml !== skillShowXml) {
+    const replacements = replaceDefineBinaryData(swf, PET_SKILL_SHOW_BINARY_ID, Buffer.from(petSkillPatch.skillShowXml, "utf8"));
+    if (replacements !== 1) {
+      throw new Error(`Expected one pet skill display binary replacement, found ${replacements}`);
+    }
+  }
+  if (petSkillPatch.learningXml !== skillLearningXml) {
+    const replacements = replaceDefineBinaryData(
+      swf,
+      PET_SKILL_LEARNING_BINARY_ID,
+      Buffer.from(petSkillPatch.learningXml, "utf8")
+    );
+    if (replacements !== 1) {
+      throw new Error(`Expected one pet skill learning binary replacement, found ${replacements}`);
     }
   }
   if (petEggPatch.xml !== goodsXml) {
@@ -852,6 +1422,12 @@ export function ensurePatchedLevelRewardAsset(sourceFile = DATA_XML_SWF): string
         generatedAt: new Date().toISOString(),
         achievementBoostEnabled,
         achievementBoostValue: LEVEL_REWARD_ACHIEVEMENT_BOOST_VALUE,
+        equipmentStrengtheningOptimizationEnabled: true,
+        equipmentStrengtheningBinaryId: STRENGTHEN_BINARY_ID,
+        equipmentStrengtheningSuccessProbability: EQUIPMENT_STRENGTHEN_SUCCESS_PROBABILITY,
+        equipmentStrengtheningRecordCount: strengtheningPatch.recordCount,
+        equipmentStrengtheningProbabilityRecordCount: strengtheningPatch.targets.length,
+        equipmentStrengtheningProbabilityEntryCount: strengtheningPatch.probabilityEntryCount,
         activityVisibilityEnabled: true,
         activityVisibilityVisibleFlag: ACTIVITY_VISIBILITY_VISIBLE_FLAG,
         activityGiftCount: activityCounts.giftCount,
@@ -867,6 +1443,19 @@ export function ensurePatchedLevelRewardAsset(sourceFile = DATA_XML_SWF): string
         advancedPetEggMinAptitude: ADVANCED_PET_EGG_MIN_APTITUDE,
         petEggProbabilityTotal: PET_EGG_PROBABILITY_TOTAL,
         advancedPetEggTargets: petEggPatch.targets,
+        petSkillOptimizationEnabled: true,
+        petSkillShowBinaryId: PET_SKILL_SHOW_BINARY_ID,
+        petSkillLearningBinaryId: PET_SKILL_LEARNING_BINARY_ID,
+        petSkillInitialExpMultiplier: PET_SKILL_INITIAL_EXP_MULTIPLIER,
+        petSkillLearningProbabilityTotal: PET_SKILL_LEARNING_PROBABILITY_TOTAL,
+        petSkillNextLevelUnlockProbability: PET_SKILL_NEXT_LEVEL_UNLOCK_PROBABILITY,
+        petSkillLearningPoolCount: petSkillPatch.learningPoolCount,
+        petSkillOptimizedPoolCount: petSkillPatch.targets.length,
+        petSkillNextLevelUnlockRecordCount: petSkillPatch.nextLevelUnlockRecordCount,
+        petSkillAffectedSkillIds: petSkillPatch.affectedSkillIds,
+        petSkillFragmentEntryRemovalCount: petSkillPatch.fragmentEntryRemovalCount,
+        petSkillLowerQualityEntryRemovalCount: petSkillPatch.lowerQualityEntryRemovalCount,
+        petSkillInitialExpTargets: petSkillPatch.expTargets,
         petInitialFusionExpOptimizationEnabled: true,
         petInitialFusionExpMultiplier: PET_INITIAL_FUSION_EXP_MULTIPLIER,
         petInitialFusionExpTargets: petFusionExpPatch.targets,
