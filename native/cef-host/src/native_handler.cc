@@ -55,6 +55,7 @@ bool NativeHandler::DoClose(CefRefPtr<CefBrowser> browser) {
 
   if (browsers_.size() == 1) {
     is_closing_ = true;
+    CefQuitMessageLoop();
   }
   return false;
 }

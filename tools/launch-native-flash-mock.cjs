@@ -1010,83 +1010,6 @@ function terminateProcessTree(child, options = {}) {
   child.kill("SIGTERM");
 }
 
-function processTreeHasMainWindow(rootPid) {
-  if (process.platform !== "win32" || !rootPid) {
-    return null;
-  }
-
-  const script = `
-$ErrorActionPreference = "SilentlyContinue"
-$root = ${Number(rootPid)}
-$ids = [System.Collections.Generic.HashSet[int]]::new()
-[void]$ids.Add($root)
-$all = Get-CimInstance Win32_Process | Select-Object ProcessId,ParentProcessId
-do {
-  $changed = $false
-  foreach ($process in $all) {
-    if ($ids.Contains([int]$process.ParentProcessId) -and -not $ids.Contains([int]$process.ProcessId)) {
-      [void]$ids.Add([int]$process.ProcessId)
-      $changed = $true
-    }
-  }
-} while ($changed)
-$window = Get-Process | Where-Object { $ids.Contains([int]$_.Id) -and $_.MainWindowHandle -ne 0 } | Select-Object -First 1
-if ($window) { "1" } else { "0" }
-`.trim();
-  const result = spawnSync("powershell.exe", ["-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", script], {
-    stdio: "pipe",
-    windowsHide: true,
-  });
-  if (result.status !== 0) {
-    return null;
-  }
-  return result.stdout.toString("utf8").trim() === "1";
-}
-
-function watchNativeWindowClose(browser) {
-  if (process.platform !== "win32" || !browser.pid) {
-    return {
-      promise: new Promise(() => undefined),
-      stop: () => undefined,
-    };
-  }
-
-  let seenWindow = false;
-  let stopped = false;
-  let timer = null;
-  const promise = new Promise((resolve) => {
-    timer = setInterval(() => {
-      if (stopped || hasProcessExited(browser)) {
-        return;
-      }
-      const hasWindow = processTreeHasMainWindow(browser.pid);
-      if (hasWindow == null) {
-        return;
-      }
-      if (hasWindow) {
-        seenWindow = true;
-        return;
-      }
-      if (seenWindow) {
-        stopped = true;
-        clearInterval(timer);
-        console.log("[native-flash] Native window closed; stopping runtime.");
-        resolve({ code: null, signal: "window-closed" });
-      }
-    }, 1000);
-  });
-
-  return {
-    promise,
-    stop: () => {
-      stopped = true;
-      if (timer) {
-        clearInterval(timer);
-      }
-    },
-  };
-}
-
 async function ensureServer(serverUrl) {
   try {
     await waitForHttp(`${serverUrl}/native.html`, 1500);
@@ -1459,7 +1382,6 @@ async function main() {
   let browserExpectedExit = false;
   let cleanupPromise = null;
   let client = null;
-  const windowCloseWatcher = watchNativeWindowClose(browser);
   function cleanup(options = {}) {
     if (cleanupPromise) {
       return cleanupPromise;
@@ -1502,7 +1424,6 @@ async function main() {
     browser.once("error", reject);
     browser.once("exit", async (code, signal) => {
       browserExited = true;
-      windowCloseWatcher.stop();
       if (!browserExpectedExit) {
         console.log(`[native-flash] Browser exited: code=${code ?? "null"} signal=${signal || "null"}`);
       }
@@ -1510,18 +1431,11 @@ async function main() {
       resolve({ code, signal });
     });
   });
-  const browserStopped = Promise.race([
-    browserExit,
-    windowCloseWatcher.promise.then(async (result) => {
-      await cleanup({ killBrowser: true });
-      return result;
-    }),
-  ]);
 
   if (!useCdpNavigation) {
     console.log("[native-flash] Direct CEF mode uses page autostart; CDP attach is skipped.");
     console.log("[native-flash] Close the native window or press Ctrl+C to stop.");
-    await browserStopped;
+    await browserExit;
     return;
   }
 
@@ -1588,7 +1502,7 @@ async function main() {
   }
 
   console.log("[native-flash] Close the native window or press Ctrl+C to stop.");
-  await browserStopped;
+  await browserExit;
 }
 
 main().catch((error) => {
