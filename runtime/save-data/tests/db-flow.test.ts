@@ -5,6 +5,7 @@ import path from "node:path";
 import { deflateSync, inflateSync } from "node:zlib";
 import CryptoJS from "crypto-js";
 import { decodeSwf } from "../../../src/swf/swf.js";
+import { inspectSolarPetRuntimePatch, patchSolarPetRuntime } from "../../../src/swf/solarPetPatch.js";
 import {
   inspectEquipmentStrengtheningOptimization,
   patchEquipmentStrengtheningOptimization,
@@ -24,7 +25,27 @@ import {
   applyEquipmentStrengtheningSuccessPatchToXml,
   applyLevelRewardAchievementBoostToXml,
   applyPetSkillLearningOptimizationToXml,
+  applySolarPetEggPatchToXml,
+  applySolarPetPatchToXml,
+  applySolarPetSummonMonsterPatchToXml,
+  applyPetFusionLevelAttributePatchToXml,
   parseLevelRewardRecords,
+  PET_FUSION_LEVEL_MAX,
+  SOLAR_PET_APTITUDE,
+  SOLAR_PET_BULLET_ATTACK2_CLASS_ALIAS,
+  SOLAR_PET_BULLET_ATTACK4_CLASS_ALIAS,
+  SOLAR_PET_BULLET_SELECT_CLASS_ALIAS,
+  SOLAR_PET_EGG_GOODS_ID,
+  SOLAR_PET_EGG_NAME,
+  SOLAR_PET_ID,
+  SOLAR_PET_NAME,
+  SOLAR_PET_QUALITY,
+  SOLAR_PET_RESOURCE_NAME,
+  SOLAR_PET_SKILL_BASE_ID,
+  SOLAR_PET_SKILL_GROUP_COUNT,
+  SOLAR_PET_SKILL_QUALITY_COUNT,
+  SOLAR_PET_SUMMON_MONSTER_NAME,
+  SOLAR_PET_SUMMON_SOURCE_MONSTER_NAME,
 } from "../services/levelRewards.js";
 import { SaveDataLogger } from "../server/logger.js";
 import { DEFAULT_ACCOUNT, MockShopError, SaveDataMockApi } from "../platform4399/mockApi.js";
@@ -222,6 +243,150 @@ const PET_SKILL_LEARNING_XML = [
   "</root>",
 ].join("");
 
+function solarBossAction(level: string, bullet = "{}"): string {
+  return [
+    "<技能>",
+    "<技能名称>帝王谷太阳神</技能名称>",
+    `<技能等级>${level}</技能等级>`,
+    "<动作名>待机</动作名>",
+    "<动作类名>CASkillOneHiAndOneBullet</动作类名>",
+    "<技能CD>900</技能CD>",
+    "<CD随机浮动>30</CD随机浮动>",
+    "<技能声音>{}</技能声音>",
+    `<生成子弹>${bullet}</生成子弹>`,
+    "</技能>",
+  ].join("");
+}
+
+function solarBossBullet(level: string, className: string, monster = "null"): string {
+  return [
+    "<子弹>",
+    "<源名>帝王谷太阳神</源名>",
+    `<二名>${level}</二名>`,
+    `<元件名>${className}</元件名>`,
+    "<动作类名>CBBulletOne</动作类名>",
+    "<生成声音>mp_taiyangshen</生成声音>",
+    "<爆炸声音>mp_taiyangshen_boom</爆炸声音>",
+    `<出那个怪>${monster}</出那个怪>`,
+    "<存在帧数>80</存在帧数>",
+    "<伤害增幅>1</伤害增幅>",
+    "</子弹>",
+  ].join("");
+}
+
+function solarMonster(name: string, secondName = "null", group = 2, className = "CMonster"): string {
+  return [
+    "<怪物>",
+    `<怪物名>${name}</怪物名>`,
+    `<怪物二名>${secondName}</怪物二名>`,
+    "<真实名称>眼睛怪</真实名称>",
+    "<头像帧数>1</头像帧数>",
+    "<怪物等级>62</怪物等级>",
+    "<类型>1</类型>",
+    "<怪物级别分类>1</怪物级别分类>",
+    "<怪物五行>0</怪物五行>",
+    "<血量条基数>12415</血量条基数>",
+    "<血量>111695</血量>",
+    "<攻击力>68000</攻击力>",
+    "<护甲>4993</护甲>",
+    "<重力>3</重力>",
+    "<金>0</金>",
+    "<木>0</木>",
+    "<水>0</水>",
+    "<火>0</火>",
+    "<土>0</土>",
+    "<混沌>0</混沌>",
+    "<死亡给予玩家经验>null</死亡给予玩家经验>",
+    "<死亡掉落>null</死亡掉落>",
+    "<死亡掉落2>null</死亡掉落2>",
+    "<任务掉落>null</任务掉落>",
+    "<特殊物品掉落上限>null</特殊物品掉落上限>",
+    "<走帧定>30</走帧定>",
+    "<走帧浮动>60</走帧浮动>",
+    "<攻击列表>帝王谷眼球攻击1</攻击列表>",
+    "<警戒>-2000,2000,-2000,2000</警戒>",
+    "<追踪距离>-2000,2000,-2000,2000</追踪距离>",
+    `<阵营>${group}</阵营>`,
+    "<存在控制>0</存在控制>",
+    "<存在时间>450</存在时间>",
+    "<死亡后出现的球>null</死亡后出现的球>",
+    "<元件名>m_yanqiu</元件名>",
+    `<类名>${className}</类名>`,
+    "</怪物>",
+  ].join("");
+}
+
+const SOLAR_PET_XML = [
+  "<root>",
+  "<宠物><ID>1</ID><帧数>1</帧数><名字>测试宠物</名字><加载需求文件>c_test</加载需求文件><品质>1</品质><资质>1</资质><品种>普通</品种><融合经验>100</融合经验><重力>3</重力><警戒>0,1,2,3</警戒><追踪距离>0,1,2,3</追踪距离></宠物>",
+  "</root>",
+].join("");
+const PET_FUSION_ATTRIBUTE_XML = [
+  "<root>",
+  "<融合等级属性><等级>65</等级><生命>7493</生命><能量>0</能量><攻击>460</攻击><防御>5478</防御><暴击>0</暴击><速度>0</速度><金>0</金><木>0</木><水>0</水><火>0</火><土>0</土><混沌>472</混沌></融合等级属性>",
+  "<融合等级属性><等级>66</等级><生命>7661</生命><能量>0</能量><攻击>468</攻击><防御>5615</防御><暴击>0</暴击><速度>0</速度><金>0</金><木>0</木><水>0</水><火>0</火><土>0</土><混沌>484</混沌></融合等级属性>",
+  "</root>",
+].join("");
+const SOLAR_PET_ACTION_XML = ["<root>", "<技能><技能名称>通用宠物</技能名称><技能等级>待机</技能等级></技能>", "</root>"].join("");
+const SOLAR_MONSTER_ACTION_XML = [
+  "<root>",
+  solarBossAction("待机"),
+  solarBossAction("移动"),
+  solarBossAction("被打"),
+  solarBossAction("倒地"),
+  solarBossAction("眩晕"),
+  solarBossAction("攻击1"),
+  solarBossAction("攻击2", '{"59":"帝王谷太阳神攻击2"}'),
+  solarBossAction("攻击3", '{"47":"帝王谷太阳神攻击3"}'),
+  solarBossAction("攻击4", '{"35":"帝王谷太阳神攻击4"}'),
+  "</root>",
+].join("");
+const SOLAR_BULLET_XML = [
+  "<root>",
+  solarBossBullet("攻击2", "abullet_taiyangshenBossgjb"),
+  solarBossBullet("攻击3", "BulletM_taiyangshenBossgj3"),
+  solarBossBullet("攻击4", "abullet_taiyangshenBossgjd", "帝王谷眼球"),
+  "</root>",
+].join("");
+const SOLAR_PET_BULLET_XML = [
+  "<root>",
+  "<子弹><源名>旧太阳神技能</源名><二名>10</二名></子弹>",
+  "</root>",
+].join("");
+const SOLAR_MONSTER_XML = [
+  "<root>",
+  solarMonster("帝王谷眼球"),
+  solarMonster("帝王谷眼球", "噩梦_"),
+  "</root>",
+].join("");
+const SOLAR_GOODS_XML = [
+  "<root>",
+  "<物品>",
+  "<共有>",
+  "<id>331398</id>",
+  "<帧数>1358</帧数>",
+  "<名称>光之白虎宠物蛋</名称>",
+  "<颜色>2</颜色>",
+  "<创建等级>1331401</创建等级>",
+  "<类型>2</类型>",
+  "<小类型>18</小类型>",
+  '<说明>&lt;![CDATA[&lt;font color="#36ccff"&gt;使用后可孵化出上古神宠——光之白虎&lt;/font&gt;]]&gt;*</说明>',
+  "<价格>1</价格>",
+  "<叠加数>-1</叠加数>",
+  "<背包>2</背包>",
+  "<是否出售>true</是否出售>",
+  "<是否使用>true</是否使用>",
+  "</共有>",
+  "<其他>",
+  "<值>1800000</值>",
+  "<需求id>26</需求id>",
+  "<需求数量>-1</需求数量>",
+  "<奖励概率>1000000</奖励概率>",
+  "</其他>",
+  "</物品>",
+  "</root>",
+].join("");
+
 const { dir, dbFile } = tempDbFile();
 const db = new LocalSaveDatabase(dbFile);
 const logger = new SaveDataLogger({ logFile: path.join(dir, "mock-api.ndjson") });
@@ -363,6 +528,133 @@ try {
   assert.equal(petSkillPatchAgain.learningXml, petSkillPatch.learningXml);
   assert.equal(petSkillPatchAgain.skillShowXml, petSkillPatch.skillShowXml);
 
+  const petFusionAttributePatch = applyPetFusionLevelAttributePatchToXml(PET_FUSION_ATTRIBUTE_XML);
+  assert.equal(petFusionAttributePatch.originalMaxLevel, 66);
+  assert.equal(petFusionAttributePatch.targetMaxLevel, PET_FUSION_LEVEL_MAX);
+  assert.equal(petFusionAttributePatch.addedRecordCount, 4);
+  assert.match(petFusionAttributePatch.xml, /<等级>70<\/等级>[\s\S]*?<生命>8333<\/生命>/);
+  assert.match(petFusionAttributePatch.xml, /<等级>70<\/等级>[\s\S]*?<攻击>500<\/攻击>/);
+  assert.match(petFusionAttributePatch.xml, /<等级>70<\/等级>[\s\S]*?<防御>6163<\/防御>/);
+  assert.match(petFusionAttributePatch.xml, /<等级>70<\/等级>[\s\S]*?<混沌>532<\/混沌>/);
+  const petFusionAttributePatchAgain = applyPetFusionLevelAttributePatchToXml(petFusionAttributePatch.xml);
+  assert.equal(petFusionAttributePatchAgain.xml, petFusionAttributePatch.xml);
+  assert.equal(petFusionAttributePatchAgain.addedRecordCount, 0);
+
+  const solarPetPatch = applySolarPetPatchToXml(
+    SOLAR_PET_XML,
+    SOLAR_PET_ACTION_XML,
+    SOLAR_MONSTER_ACTION_XML,
+    SOLAR_BULLET_XML,
+    SOLAR_PET_BULLET_XML,
+    PET_SKILL_SHOW_XML,
+    PET_SKILL_LEARNING_XML
+  );
+  const solarPetSummonMonsterPatch = applySolarPetSummonMonsterPatchToXml(SOLAR_MONSTER_XML);
+  const solarPetSkillActionRecordCount =
+    (SOLAR_PET_SKILL_GROUP_COUNT * (SOLAR_PET_SKILL_GROUP_COUNT + 1)) / 2 * SOLAR_PET_SKILL_QUALITY_COUNT;
+  assert.equal(solarPetPatch.petRecordPresent, true);
+  assert.equal(solarPetPatch.actionRecordCount, SOLAR_PET_APTITUDE + 1 + 5 + solarPetSkillActionRecordCount);
+  assert.equal(solarPetPatch.bulletRecordCount, 3);
+  assert.equal(solarPetPatch.petBulletRecordCount, (SOLAR_PET_SKILL_GROUP_COUNT - 1) * SOLAR_PET_SKILL_QUALITY_COUNT);
+  assert.equal(solarPetPatch.skillActionRecordCount, solarPetSkillActionRecordCount);
+  assert.equal(solarPetPatch.skillShowRecordCount, SOLAR_PET_SKILL_GROUP_COUNT * SOLAR_PET_SKILL_QUALITY_COUNT);
+  assert.equal(solarPetPatch.skillLearningRecordCount, 7);
+  assert.match(solarPetPatch.petXml, new RegExp(`<ID>${SOLAR_PET_ID}</ID>[\\s\\S]*?<名字>${SOLAR_PET_NAME}</名字>`));
+  assert.match(solarPetPatch.petXml, new RegExp(`<加载需求文件>${SOLAR_PET_RESOURCE_NAME}</加载需求文件>`));
+  assert.match(solarPetPatch.petXml, new RegExp(`<品质>${SOLAR_PET_QUALITY}</品质>`));
+  assert.match(solarPetPatch.petXml, new RegExp(`<资质>${SOLAR_PET_APTITUDE}</资质>`));
+  assert.equal((solarPetPatch.petActionXml.match(new RegExp(`<技能名称>${SOLAR_PET_NAME}</技能名称>`, "g")) ?? []).length, 13);
+  assert.match(solarPetPatch.petActionXml, /<技能等级>0墨攻<\/技能等级>[\s\S]*?<生成子弹>{}<\/生成子弹>/);
+  assert.match(
+    solarPetPatch.petActionXml,
+    /<技能等级>2墨攻<\/技能等级>[\s\S]*?<生成子弹>{"59":"太阳神宠物攻击2"}<\/生成子弹>/
+  );
+  assert.match(
+    solarPetPatch.petActionXml,
+    /<技能等级>4墨攻<\/技能等级>[\s\S]*?<生成子弹>{"47":"太阳神宠物攻击3"}<\/生成子弹>/
+  );
+  assert.match(
+    solarPetPatch.petActionXml,
+    /<技能等级>7墨攻<\/技能等级>[\s\S]*?<生成子弹>{"35":"太阳神宠物攻击4"}<\/生成子弹>/
+  );
+  assert.doesNotMatch(solarPetPatch.petActionXml, /<技能名称>帝王谷太阳神<\/技能名称>/);
+  assert.doesNotMatch(solarPetPatch.petActionXml, /帝王谷太阳神攻击[234]/);
+  assert.equal((solarPetPatch.bulletXml.match(/<源名>太阳神宠物<\/源名>/g) ?? []).length, 3);
+  assert.match(solarPetPatch.bulletXml, new RegExp(`<二名>攻击2</二名>[\\s\\S]*?<元件名>${SOLAR_PET_BULLET_ATTACK2_CLASS_ALIAS}</元件名>`));
+  assert.match(solarPetPatch.bulletXml, new RegExp(`<二名>攻击3</二名>[\\s\\S]*?<元件名>${SOLAR_PET_BULLET_SELECT_CLASS_ALIAS}</元件名>`));
+  assert.match(solarPetPatch.bulletXml, new RegExp(`<二名>攻击4</二名>[\\s\\S]*?<元件名>${SOLAR_PET_BULLET_ATTACK4_CLASS_ALIAS}</元件名>`));
+  assert.match(
+    solarPetPatch.bulletXml,
+    new RegExp(`<二名>攻击4</二名>[\\s\\S]*?<出那个怪>${SOLAR_PET_SUMMON_MONSTER_NAME}</出那个怪>`)
+  );
+  const solarPetBulletRecords = solarPetPatch.bulletXml.match(/<子弹><源名>太阳神宠物<\/源名>[\s\S]*?<\/子弹>/g) ?? [];
+  assert.equal(solarPetBulletRecords.length, 3);
+  assert.ok(solarPetBulletRecords.every((record) => !record.includes("<源名>帝王谷太阳神</源名>")));
+  assert.ok(solarPetBulletRecords.every((record) => !record.includes("taiyangshenBoss")));
+  assert.match(solarPetPatch.petSkillShowXml, new RegExp(`<技能编号>${SOLAR_PET_SKILL_BASE_ID}</技能编号>[\\s\\S]*?<技能名称>技能1</技能名称>`));
+  assert.match(solarPetPatch.petSkillShowXml, /<针对的技能列表ID>技能1白<\/针对的技能列表ID>/);
+  assert.match(solarPetPatch.petSkillShowXml, /<技能名称>技能7<\/技能名称>[\s\S]*?<针对的技能列表ID>技能7橙<\/针对的技能列表ID>/);
+  assert.match(solarPetPatch.petSkillShowXml, /<最低资质限制>7<\/最低资质限制>/);
+  assert.match(
+    solarPetPatch.petSkillLearningXml,
+    /<针对的宠物ID>27<\/针对的宠物ID>[\s\S]*?<领悟等级>1<\/领悟等级>[\s\S]*?<领悟后获得技能与概率>193\*1429,197\*1429,201\*1429,205\*1429,209\*1428,213\*1428,217\*1428<\/领悟后获得技能与概率>/
+  );
+  assert.match(
+    solarPetPatch.petSkillLearningXml,
+    /<领悟等级>7<\/领悟等级>[\s\S]*?<领悟后获得技能与概率>196\*1429,200\*1429,204\*1429,208\*1429,212\*1428,216\*1428,220\*1428<\/领悟后获得技能与概率>/
+  );
+  assert.match(solarPetPatch.petActionXml, /<技能名称>7技能7橙<\/技能名称>[\s\S]*?<技能等级>1<\/技能等级>/);
+  assert.match(solarPetPatch.petActionXml, /<技能名称>7技能7橙<\/技能名称>[\s\S]*?<生成子弹>{"35":"技能7橙"}<\/生成子弹>/);
+  assert.match(solarPetPatch.petBulletXml, /<源名>技能7橙<\/源名>[\s\S]*?<二名>10<\/二名>/);
+  assert.match(solarPetPatch.petBulletXml, /<源名>技能7橙<\/源名>[\s\S]*?<伤害增幅>9.12\*0.5472<\/伤害增幅>/);
+  assert.match(
+    solarPetPatch.petBulletXml,
+    new RegExp(`<源名>技能7橙</源名>[\\s\\S]*?<出那个怪>${SOLAR_PET_SUMMON_MONSTER_NAME}</出那个怪>`)
+  );
+  assert.equal(solarPetSummonMonsterPatch.summonMonsterRecordPresent, true);
+  assert.match(
+    solarPetSummonMonsterPatch.monsterXml,
+    new RegExp(
+      `<怪物名>${SOLAR_PET_SUMMON_MONSTER_NAME}</怪物名>[\\s\\S]*?<阵营>1</阵营>[\\s\\S]*?<元件名>m_yanqiu</元件名>[\\s\\S]*?<类名>CMonsterFollowMe</类名>`
+    )
+  );
+  assert.match(
+    solarPetSummonMonsterPatch.monsterXml,
+    new RegExp(`<怪物二名>噩梦_</怪物二名>[\\s\\S]*?<怪物名>帝王谷眼球</怪物名>|<怪物名>帝王谷眼球</怪物名>[\\s\\S]*?<怪物二名>噩梦_</怪物二名>`)
+  );
+  assert.equal((solarPetSummonMonsterPatch.monsterXml.match(new RegExp(`<怪物名>${SOLAR_PET_SUMMON_MONSTER_NAME}</怪物名>`, "g")) ?? []).length, 1);
+  assert.notEqual(SOLAR_PET_SUMMON_MONSTER_NAME, SOLAR_PET_SUMMON_SOURCE_MONSTER_NAME);
+  const solarPetPatchAgain = applySolarPetPatchToXml(
+    solarPetPatch.petXml,
+    solarPetPatch.petActionXml,
+    SOLAR_MONSTER_ACTION_XML,
+    solarPetPatch.bulletXml,
+    solarPetPatch.petBulletXml,
+    solarPetPatch.petSkillShowXml,
+    solarPetPatch.petSkillLearningXml
+  );
+  assert.equal(solarPetPatchAgain.petXml, solarPetPatch.petXml);
+  assert.equal(solarPetPatchAgain.petActionXml, solarPetPatch.petActionXml);
+  assert.equal(solarPetPatchAgain.bulletXml, solarPetPatch.bulletXml);
+  assert.equal(solarPetPatchAgain.petBulletXml, solarPetPatch.petBulletXml);
+  assert.equal(solarPetPatchAgain.petSkillShowXml, solarPetPatch.petSkillShowXml);
+  assert.equal(solarPetPatchAgain.petSkillLearningXml, solarPetPatch.petSkillLearningXml);
+  const solarPetSummonMonsterPatchAgain = applySolarPetSummonMonsterPatchToXml(solarPetSummonMonsterPatch.monsterXml);
+  assert.equal(solarPetSummonMonsterPatchAgain.monsterXml, solarPetSummonMonsterPatch.monsterXml);
+
+  const solarPetEggPatch = applySolarPetEggPatchToXml(SOLAR_GOODS_XML);
+  assert.equal(solarPetEggPatch.eggRecordPresent, true);
+  assert.match(solarPetEggPatch.goodsXml, new RegExp(`<id>${SOLAR_PET_EGG_GOODS_ID}</id>[\\s\\S]*?<名称>${SOLAR_PET_EGG_NAME}</名称>`));
+  assert.match(solarPetEggPatch.goodsXml, /<类型>2<\/类型>[\s\S]*?<小类型>18<\/小类型>/);
+  assert.match(solarPetEggPatch.goodsXml, /<帧数>1358<\/帧数>/);
+  assert.match(solarPetEggPatch.goodsXml, /<值>1800000<\/值>/);
+  assert.match(solarPetEggPatch.goodsXml, new RegExp(`<需求id>${SOLAR_PET_ID}</需求id>`));
+  assert.match(solarPetEggPatch.goodsXml, /<奖励概率>1000000<\/奖励概率>/);
+  assert.match(solarPetEggPatch.goodsXml, /使用后可孵化出上古神宠——太阳神/);
+  assert.equal((solarPetEggPatch.goodsXml.match(new RegExp(`<名称>${SOLAR_PET_EGG_NAME}</名称>`, "g")) ?? []).length, 1);
+  const solarPetEggPatchAgain = applySolarPetEggPatchToXml(solarPetEggPatch.goodsXml);
+  assert.equal(solarPetEggPatchAgain.goodsXml, solarPetEggPatch.goodsXml);
+
   assert.equal(existsSync(INNER_GAME_SWF), true);
   const innerGameSwf = decodeSwf(readFileSync(INNER_GAME_SWF));
   const strengtheningInspectionBefore = inspectEquipmentStrengtheningOptimization(innerGameSwf);
@@ -382,6 +674,26 @@ try {
   const zodiacInspectionAfter = inspectZodiacSoulExpOptimization(innerGameSwf);
   assert.deepEqual(zodiacInspectionAfter, { targetFound: true, optimized: true });
   assert.equal(patchZodiacSoulExpOptimization(innerGameSwf), 0);
+
+  const solarPetRuntimeBefore = inspectSolarPetRuntimePatch(innerGameSwf);
+  assert.equal(solarPetRuntimeBefore.targetFound, true);
+  if (
+    !solarPetRuntimeBefore.filenameMapping ||
+    !solarPetRuntimeBefore.classMappings ||
+    !solarPetRuntimeBefore.classAliases ||
+    !solarPetRuntimeBefore.fusionLevelMax
+  ) {
+    assert.equal(patchSolarPetRuntime(innerGameSwf), 4);
+  }
+  const solarPetRuntimeAfter = inspectSolarPetRuntimePatch(innerGameSwf);
+  assert.deepEqual(solarPetRuntimeAfter, {
+    targetFound: true,
+    filenameMapping: true,
+    classMappings: true,
+    classAliases: true,
+    fusionLevelMax: true,
+  });
+  assert.equal(patchSolarPetRuntime(innerGameSwf), 0);
 
   const wallet = db.getWallet(DEFAULT_ACCOUNT.uid);
   const purchase = db.buyProp({ uid: DEFAULT_ACCOUNT.uid, propId: 12, count: 2, price: 30, tag: 7 });

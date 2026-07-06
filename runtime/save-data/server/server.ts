@@ -16,6 +16,7 @@ import { fileURLToPath } from "node:url";
 import { createGzip } from "node:zlib";
 import { patchBagItemSenderCompatibility } from "../../../src/swf/bagItemSenderPatch.js";
 import { patchCrossSwfEventCompatibility } from "../../../src/swf/crossSwfEventPatch.js";
+import { inspectSolarPetRuntimePatch, patchSolarPetRuntime } from "../../../src/swf/solarPetPatch.js";
 import { decodeSwf, encodeSwf, replaceDefineBinaryData } from "../../../src/swf/swf.js";
 import {
   inspectEquipmentStrengtheningOptimization,
@@ -37,7 +38,9 @@ import {
   getLevelRewardState,
   getPetInitialFusionExpOptimizationState,
   getPetSkillOptimizationState,
+  getSolarPetPatchState,
   LEVEL_REWARD_ASSET_NAME,
+  SOLAR_PET_ASSET_NAME,
   setLevelRewardAchievementBoost,
 } from "../services/levelRewards.js";
 import { loadGameDataCatalog } from "../services/gameData.js";
@@ -72,6 +75,7 @@ const REMOTE_SWF_ASSETS = {
 } as const;
 const GAME_ASSET_BASE_URL = "https://sbai.4399.com/4399swf/upload_swf/ftp10/honghao/20130530/27/";
 const GAME_ASSET_REFERER = `${GAME_ASSET_BASE_URL}jjxzfcms.htm`;
+const SOLAR_BOSS_ASSET_NAME = "m_taiyangshenBossv41.swf";
 const SWF_FILE_RE = /^[A-Za-z0-9_.-]+\.swf$/i;
 const GZIP_STATIC_EXTENSIONS = new Set([".css", ".html", ".js", ".json", ".wasm", ".xml"]);
 const LOG_ASSET_HITS = process.env.SAVE_DATA_LOG_ASSET_HITS === "1";
@@ -828,9 +832,103 @@ function gameAssetFile(assetName: string): string {
   return path.join(saveDataPaths.remoteAssetsRoot, "sbai.4399.com", "4399swf", "upload_swf", "ftp10", "honghao", "20130530", "27", assetName);
 }
 
+function bundledGameAssetFile(assetName: string): string {
+  return path.join(
+    saveDataPaths.bundledRemoteAssetsRoot,
+    "sbai.4399.com",
+    "4399swf",
+    "upload_swf",
+    "ftp10",
+    "honghao",
+    "20130530",
+    "27",
+    assetName
+  );
+}
+
+async function ensureSolarPetAsset(logger: SaveDataLogger): Promise<string | null> {
+  const assetFile = gameAssetFile(SOLAR_PET_ASSET_NAME);
+  const bundledAssetFile = bundledGameAssetFile(SOLAR_PET_ASSET_NAME);
+  if (existsSync(bundledAssetFile)) {
+    if (!existsSync(assetFile)) {
+      mkdirSync(path.dirname(assetFile), { recursive: true });
+      copyFileSync(bundledAssetFile, assetFile);
+      logger.appendSync({
+        event: "asset.bundled_copy",
+        method: "GET",
+        pathname: `/${SOLAR_PET_ASSET_NAME}`,
+        status: 200,
+        result: "ok",
+        details: {
+          assetName: SOLAR_PET_ASSET_NAME,
+          sourceFile: bundledAssetFile,
+          file: assetFile,
+          size: statSync(assetFile).size,
+        },
+      });
+    } else if (LOG_ASSET_HITS) {
+      logger.appendSync({
+        event: "asset.bundled_hit",
+        method: "GET",
+        pathname: `/${SOLAR_PET_ASSET_NAME}`,
+        status: 200,
+        result: "ok",
+        details: {
+          assetName: SOLAR_PET_ASSET_NAME,
+          file: bundledAssetFile,
+          workspaceFile: assetFile,
+          size: statSync(bundledAssetFile).size,
+        },
+      });
+    }
+    return bundledAssetFile;
+  }
+
+  if (existsSync(assetFile)) {
+    if (LOG_ASSET_HITS) {
+      logger.appendSync({
+        event: "asset.local_hit",
+        method: "GET",
+        pathname: `/${SOLAR_PET_ASSET_NAME}`,
+        status: 200,
+        result: "ok",
+        details: { assetName: SOLAR_PET_ASSET_NAME, file: assetFile, size: statSync(assetFile).size },
+      });
+    }
+    return assetFile;
+  }
+
+  const sourceFile = (await ensureGameAsset(SOLAR_BOSS_ASSET_NAME, logger)) ?? gameAssetFile(SOLAR_BOSS_ASSET_NAME);
+  if (!existsSync(sourceFile)) {
+    return null;
+  }
+
+  mkdirSync(path.dirname(assetFile), { recursive: true });
+  copyFileSync(sourceFile, assetFile);
+  logger.appendSync({
+    event: "asset.generated",
+    method: "GET",
+    pathname: `/${SOLAR_PET_ASSET_NAME}`,
+    status: 200,
+    result: "ok",
+    details: {
+      assetName: SOLAR_PET_ASSET_NAME,
+      sourceAssetName: SOLAR_BOSS_ASSET_NAME,
+      sourceFile,
+      file: assetFile,
+      size: statSync(assetFile).size,
+    },
+  });
+  return assetFile;
+}
+
 async function ensureGameAsset(assetName: string, logger: SaveDataLogger): Promise<string | null> {
   if (!SWF_FILE_RE.test(assetName)) {
     return null;
+  }
+
+  if (assetName.toLowerCase() === SOLAR_PET_ASSET_NAME.toLowerCase()) {
+    return ensureSolarPetAsset(logger);
   }
 
   const assetFile = gameAssetFile(assetName);
@@ -901,6 +999,8 @@ function patchedInnerGameSwfBytes(inputFile: string): Buffer {
   const strengtheningInspection = inspectEquipmentStrengtheningOptimization(swf);
   const zodiacSoulPatchCount = patchZodiacSoulExpOptimization(swf);
   const zodiacSoulInspection = inspectZodiacSoulExpOptimization(swf);
+  const solarPetPatchCount = patchSolarPetRuntime(swf);
+  const solarPetInspection = inspectSolarPetRuntimePatch(swf);
 
   if (eventPatchCount < 1) {
     throw new Error(`Expected cross-SWF event compatibility target in ${inputFile}, patched ${eventPatchCount}`);
@@ -916,6 +1016,15 @@ function patchedInnerGameSwfBytes(inputFile: string): Buffer {
   }
   if (zodiacSoulPatchCount < 1 && !zodiacSoulInspection.optimized) {
     throw new Error(`Expected zodiac soul exp optimization target in ${inputFile}, patched ${zodiacSoulPatchCount}`);
+  }
+  if (
+    solarPetPatchCount < 1 &&
+    (!solarPetInspection.filenameMapping ||
+      !solarPetInspection.classMappings ||
+      !solarPetInspection.classAliases ||
+      !solarPetInspection.fusionLevelMax)
+  ) {
+    throw new Error(`Expected solar pet runtime patch target in ${inputFile}, patched ${solarPetPatchCount}`);
   }
 
   return encodeSwf(swf);
@@ -1245,7 +1354,17 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
         return;
       }
 
+      if (url.pathname === "/api/saveData/solar-pet") {
+        if (req.method !== "GET") {
+          send(res, 405, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "method_not_allowed" }));
+          return;
+        }
+        send(res, 200, "application/json; charset=utf-8", JSON.stringify(getSolarPetPatchState()));
+        return;
+      }
+
       if (url.pathname === "/api/saveData/items") {
+        ensurePatchedLevelRewardAsset();
         const catalog = loadGameDataCatalog();
         send(
           res,

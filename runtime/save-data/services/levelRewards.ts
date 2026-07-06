@@ -10,6 +10,12 @@ export const STRENGTHEN_BINARY_ID = 30;
 export const ACTIVITY_GIFT_BINARY_ID = 16;
 export const GOODS_BINARY_ID = 15;
 export const PET_BINARY_ID = 42;
+export const BULLET_BINARY_ID = 14;
+export const MONSTER_ACTION_BINARY_ID = 17;
+export const MONSTER_BINARY_ID = 58;
+export const PET_ACTION_BINARY_ID = 45;
+export const PET_BULLET_BINARY_ID = 53;
+export const PET_FUSION_ATTRIBUTE_BINARY_ID = 27;
 export const PET_SKILL_SHOW_BINARY_ID = 18;
 export const PET_SKILL_LEARNING_BINARY_ID = 56;
 export const LEVEL_REWARD_ASSET_NAME = "dataxmlvav447.swf";
@@ -26,6 +32,33 @@ export const PET_SKILL_LEARNING_PROBABILITY_TOTAL = 10_000;
 export const PET_SKILL_NEXT_LEVEL_UNLOCK_PROBABILITY = PET_SKILL_LEARNING_PROBABILITY_TOTAL;
 export const PET_SKILL_INITIAL_EXP_MULTIPLIER = 20;
 export const PET_INITIAL_FUSION_EXP_MULTIPLIER = 10;
+export const PET_FUSION_LEVEL_MAX = 70;
+export const SOLAR_PET_ID = 27;
+export const SOLAR_PET_NAME = "太阳神";
+export const SOLAR_PET_RESOURCE_NAME = "c_taiyangshen_pet";
+export const SOLAR_PET_ASSET_NAME = "c_taiyangshen_petv1.swf";
+export const SOLAR_PET_APTITUDE = 7;
+export const SOLAR_PET_QUALITY = 4;
+export const SOLAR_PET_FRAME = 18;
+export const SOLAR_PET_FUSION_EXP = 3000;
+export const SOLAR_PET_EGG_GOODS_ID = 331412;
+export const SOLAR_PET_EGG_NAME = "太阳神宠物蛋";
+export const SOLAR_PET_EGG_TEMPLATE_GOODS_ID = 331398;
+export const SOLAR_BOSS_ACTION_NAME = "帝王谷太阳神";
+export const SOLAR_PET_BULLET_SOURCE_NAME = "太阳神宠物";
+export const SOLAR_PET_BULLET_ATTACK2_CLASS_ALIAS = "abullet_taiyangshenPetgjb";
+export const SOLAR_PET_BULLET_SELECT_CLASS_ALIAS = "BulletM_taiyangshenPetgj3";
+export const SOLAR_PET_BULLET_ATTACK4_CLASS_ALIAS = "abullet_taiyangshenPetgjd";
+export const SOLAR_PET_SUMMON_SOURCE_MONSTER_NAME = "噩梦_帝王谷眼球";
+export const SOLAR_PET_SUMMON_MONSTER_NAME = "太阳神宠物_噩梦_帝王谷眼球";
+export const SOLAR_PET_SKILL_BASE_ID = 193;
+export const SOLAR_PET_SKILL_GROUP_COUNT = SOLAR_PET_APTITUDE;
+export const SOLAR_PET_SKILL_QUALITY_COUNT = 4;
+const SOLAR_PET_SKILL_ICON_FRAME = 1;
+const SOLAR_PET_SKILL_QUALITY_SUFFIXES = ["白", "蓝", "粉", "橙"] as const;
+const SOLAR_PET_SKILL_QUALITY_MULTIPLIERS = [1, 1.3, 1.6, 1.9] as const;
+const SOLAR_PET_SKILL_BASE_DAMAGE_BY_GROUP = [0.09, 1.56, 1.8, 0.149538461538462, 3.6, 4.8, 4.8] as const;
+const SOLAR_PET_SKILL_GROWTH_DAMAGE_BY_GROUP = [0.005914285714286, 0.144, 0.18, 0.010523076923077, 0.24, 0.288, 0.288] as const;
 export const PET_SKILL_BASE_INITIAL_EXP_BY_QUALITY: Readonly<Record<number, number>> = {
   0: 10,
   1: 150,
@@ -212,6 +245,34 @@ export type PetInitialFusionExpOptimizationState = {
   error?: string;
 };
 
+export type SolarPetPatchState = {
+  ok: true;
+  loaded: boolean;
+  sourceFile: string;
+  assetName: string;
+  patchedAssetFile: string | null;
+  patchedAssetReady: boolean;
+  solarPetEnabled: boolean;
+  petId: number;
+  petName: string;
+  aptitude: number;
+  quality: number;
+  resourceName: string;
+  petRecordPresent: boolean;
+  petEggGoodsId: number;
+  petEggName: string;
+  petEggRecordPresent: boolean;
+  actionRecordCount: number;
+  bulletRecordCount: number;
+  petBulletRecordCount: number;
+  summonMonsterName: string;
+  summonMonsterRecordPresent: boolean;
+  skillActionRecordCount: number;
+  skillShowRecordCount: number;
+  skillLearningRecordCount: number;
+  error?: string;
+};
+
 type ActivityGiftCounts = {
   giftCount: number;
   timedGiftCount: number;
@@ -280,6 +341,39 @@ type PetSkillLearningPatchResult = {
 type PetInitialFusionExpPatchResult = {
   xml: string;
   targets: PetInitialFusionExpTarget[];
+};
+
+type PetFusionLevelAttributePatchResult = {
+  xml: string;
+  originalMaxLevel: number;
+  targetMaxLevel: number;
+  addedRecordCount: number;
+};
+
+type SolarPetPatchResult = {
+  petXml: string;
+  petActionXml: string;
+  bulletXml: string;
+  petBulletXml: string;
+  petSkillShowXml: string;
+  petSkillLearningXml: string;
+  petRecordPresent: boolean;
+  actionRecordCount: number;
+  bulletRecordCount: number;
+  petBulletRecordCount: number;
+  skillActionRecordCount: number;
+  skillShowRecordCount: number;
+  skillLearningRecordCount: number;
+};
+
+type SolarPetSummonMonsterPatchResult = {
+  monsterXml: string;
+  summonMonsterRecordPresent: boolean;
+};
+
+type SolarPetEggPatchResult = {
+  goodsXml: string;
+  eggRecordPresent: boolean;
 };
 
 export function levelRewardKey(levelId: number, difficulty: number): string {
@@ -354,6 +448,29 @@ function parseStrengtheningProbabilityList(value: string): number[] {
 function replaceTagContent(record: string, tagName: string, value: string): string {
   const escaped = escapeRegExp(tagName);
   return record.replace(new RegExp(`(<${escaped}>)[\\s\\S]*?(</${escaped}>)`), `$1${value}$2`);
+}
+
+function xmlRecords(xml: string, tagName: string): string[] {
+  const escaped = escapeRegExp(tagName);
+  return [...xml.matchAll(new RegExp(`<${escaped}>[\\s\\S]*?</${escaped}>`, "g"))].map((match) => match[0]);
+}
+
+function withoutXmlRecords(xml: string, tagName: string, predicate: (record: string) => boolean): string {
+  const escaped = escapeRegExp(tagName);
+  return xml.replace(new RegExp(`<${escaped}>[\\s\\S]*?</${escaped}>\\s*`, "g"), (record: string) => {
+    return predicate(record) ? "" : record;
+  });
+}
+
+function appendXmlRecords(xml: string, records: string[]): string {
+  if (records.length === 0) {
+    return xml;
+  }
+  const body = records.join("\n");
+  if (!/<\/(?:info|root)>\s*$/.test(xml)) {
+    throw new Error("XML root closing tag not found");
+  }
+  return xml.replace(/\s*(<\/(?:info|root)>\s*)$/, `\n${body}\n$1`);
 }
 
 function equalProbabilities(count: number): number[] {
@@ -710,6 +827,454 @@ export function applyPetInitialFusionExpPatchToXml(petXml: string): PetInitialFu
   });
 
   return { xml, targets };
+}
+
+function fusionAttributeNumber(record: string, tagName: string): number {
+  const value = numberFromTag(record, tagName);
+  if (value == null) {
+    throw new Error(`fusion level attribute record is missing ${tagName}`);
+  }
+  return value;
+}
+
+function fusionLevelAttributeRecord(previousRecord: string, deltas: Map<string, number>, level: number): string {
+  const numericTags = ["生命", "能量", "攻击", "防御", "暴击", "速度", "金", "木", "水", "火", "土", "混沌"];
+  let record = replaceTagContent(previousRecord, "等级", String(level));
+  for (const tagName of numericTags) {
+    const previousValue = fusionAttributeNumber(previousRecord, tagName);
+    record = replaceTagContent(record, tagName, String(previousValue + (deltas.get(tagName) ?? 0)));
+  }
+  return record;
+}
+
+export function applyPetFusionLevelAttributePatchToXml(
+  fusionAttributeXml: string,
+  targetMaxLevel = PET_FUSION_LEVEL_MAX
+): PetFusionLevelAttributePatchResult {
+  const records = xmlRecords(fusionAttributeXml, "融合等级属性")
+    .map((record) => ({ record, level: numberFromTag(record, "等级") }))
+    .filter((entry): entry is { record: string; level: number } => entry.level != null)
+    .sort((a, b) => a.level - b.level);
+  if (records.length < 2) {
+    throw new Error("fusion level attribute table needs at least two records");
+  }
+
+  const maxLevel = records[records.length - 1].level;
+  if (maxLevel >= targetMaxLevel) {
+    return { xml: fusionAttributeXml, originalMaxLevel: maxLevel, targetMaxLevel, addedRecordCount: 0 };
+  }
+
+  const previous = records[records.length - 2];
+  let current = records[records.length - 1];
+  const deltaTags = ["生命", "能量", "攻击", "防御", "暴击", "速度", "金", "木", "水", "火", "土", "混沌"];
+  const deltas = new Map(
+    deltaTags.map((tagName) => [
+      tagName,
+      fusionAttributeNumber(current.record, tagName) - fusionAttributeNumber(previous.record, tagName),
+    ])
+  );
+  const addedRecords: string[] = [];
+  for (let level = maxLevel + 1; level <= targetMaxLevel; level += 1) {
+    const record = fusionLevelAttributeRecord(current.record, deltas, level);
+    addedRecords.push(record);
+    current = { record, level };
+  }
+
+  return {
+    xml: appendXmlRecords(fusionAttributeXml, addedRecords),
+    originalMaxLevel: maxLevel,
+    targetMaxLevel,
+    addedRecordCount: addedRecords.length,
+  };
+}
+
+function solarPetRecord(): string {
+  return [
+    "\t<宠物>",
+    `\t\t<ID>${SOLAR_PET_ID}</ID>`,
+    `\t\t<帧数>${SOLAR_PET_FRAME}</帧数>`,
+    `\t\t<名字>${SOLAR_PET_NAME}</名字>`,
+    `\t\t<加载需求文件>${SOLAR_PET_RESOURCE_NAME}</加载需求文件>`,
+    `\t\t<品质>${SOLAR_PET_QUALITY}</品质>`,
+    `\t\t<资质>${SOLAR_PET_APTITUDE}</资质>`,
+    "\t\t<品种>传说</品种>",
+    `\t\t<融合经验>${SOLAR_PET_FUSION_EXP}</融合经验>`,
+    "\t\t<重力>3</重力>",
+    "\t\t<警戒>0,2000,-250,180</警戒>",
+    "\t\t<追踪距离>0,280,-250,250</追踪距离>",
+    "\t</宠物>",
+  ].join("\n");
+}
+
+function solarPetActionLevelForPot(pot: number): string {
+  if (pot <= 1) {
+    return "攻击1";
+  }
+  if (pot <= 3) {
+    return "攻击2";
+  }
+  if (pot <= 5) {
+    return "攻击3";
+  }
+  return "攻击4";
+}
+
+function solarPetBulletKey(attackLevel: string): string | null {
+  if (attackLevel === "攻击2" || attackLevel === "攻击3" || attackLevel === "攻击4") {
+    return `${SOLAR_PET_BULLET_SOURCE_NAME}${attackLevel}`;
+  }
+  return null;
+}
+
+function solarPetActionRecord(
+  template: string,
+  petSkillLevel: string,
+  sourceActionLevel: string,
+  options: { skillName?: string; bulletKey?: string | null; randomCd?: string } = {}
+): string {
+  let record = replaceTagContent(template, "技能名称", options.skillName ?? SOLAR_PET_NAME);
+  record = replaceTagContent(record, "技能等级", petSkillLevel);
+  record = replaceTagContent(record, "技能CD", "0");
+  record = replaceTagContent(record, "CD随机浮动", options.randomCd ?? (petSkillLevel.endsWith("墨攻") ? "240" : "0"));
+  record = replaceTagContent(record, "技能声音", "{}");
+
+  const bulletKey = options.bulletKey === undefined ? solarPetBulletKey(sourceActionLevel) : options.bulletKey;
+  if (bulletKey != null) {
+    const frame = sourceActionLevel === "攻击2" ? "59" : sourceActionLevel === "攻击3" ? "47" : "35";
+    record = replaceTagContent(record, "生成子弹", `{"${frame}":"${bulletKey}"}`);
+  }
+
+  return record;
+}
+
+function solarPetBulletRecord(template: string, bulletLevel: string): string {
+  let record = replaceTagContent(template, "源名", SOLAR_PET_BULLET_SOURCE_NAME);
+  record = replaceTagContent(record, "二名", bulletLevel);
+  record = replaceTagContent(record, "生成声音", "null");
+  record = replaceTagContent(record, "爆炸声音", "null");
+  if (bulletLevel === "攻击2") {
+    record = replaceTagContent(record, "元件名", SOLAR_PET_BULLET_ATTACK2_CLASS_ALIAS);
+  } else if (bulletLevel === "攻击3") {
+    record = replaceTagContent(record, "元件名", SOLAR_PET_BULLET_SELECT_CLASS_ALIAS);
+  } else if (bulletLevel === "攻击4") {
+    record = replaceTagContent(record, "元件名", SOLAR_PET_BULLET_ATTACK4_CLASS_ALIAS);
+  }
+  if (bulletLevel === "攻击4") {
+    record = replaceTagContent(record, "出那个怪", SOLAR_PET_SUMMON_MONSTER_NAME);
+  }
+  return record;
+}
+
+function solarPetSkillName(group: number): string {
+  return `技能${group}`;
+}
+
+function solarPetSkillId(group: number, quality: number): number {
+  return SOLAR_PET_SKILL_BASE_ID + (group - 1) * SOLAR_PET_SKILL_QUALITY_COUNT + quality;
+}
+
+function solarPetSkillListId(group: number, quality: number): string {
+  return `${solarPetSkillName(group)}${SOLAR_PET_SKILL_QUALITY_SUFFIXES[quality]}`;
+}
+
+function solarPetSkillQualityForLearningLevel(learnLevel: number): number {
+  if (learnLevel <= 1) {
+    return 0;
+  }
+  if (learnLevel <= 3) {
+    return 1;
+  }
+  if (learnLevel <= 4) {
+    return 2;
+  }
+  return 3;
+}
+
+function solarPetSkillDamageValue(group: number, quality: number, values: readonly number[]): string {
+  const value = values[group - 1] * SOLAR_PET_SKILL_QUALITY_MULTIPLIERS[quality];
+  return Number(value.toFixed(12)).toString();
+}
+
+function solarPetSkillDamageText(group: number, quality: number): string {
+  return `${solarPetSkillDamageValue(group, quality, SOLAR_PET_SKILL_BASE_DAMAGE_BY_GROUP)}*${solarPetSkillDamageValue(
+    group,
+    quality,
+    SOLAR_PET_SKILL_GROWTH_DAMAGE_BY_GROUP
+  )}`;
+}
+
+function solarPetSkillRecord(group: number, quality: number): string {
+  const skillName = solarPetSkillName(group);
+  return [
+    "\t<宠物技能显示与说明>",
+    `\t\t<技能编号>${solarPetSkillId(group, quality)}</技能编号>`,
+    `\t\t<技能名称>${skillName}</技能名称>`,
+    `\t\t<图标帧数>${SOLAR_PET_SKILL_ICON_FRAME}</图标帧数>`,
+    `\t\t<技能品质>${quality}</技能品质>`,
+    "\t\t<技能等级>1</技能等级>",
+    `\t\t<针对的技能列表ID>${solarPetSkillListId(group, quality)}</针对的技能列表ID>`,
+    `\t\t<初始经验>${petSkillTargetInitialExp({ quality })}</初始经验>`,
+    `\t\t<等级成长的技能伤害系数>${solarPetSkillDamageValue(group, quality, SOLAR_PET_SKILL_GROWTH_DAMAGE_BY_GROUP)}</等级成长的技能伤害系数>`,
+    `\t\t<基数>${solarPetSkillDamageValue(group, quality, SOLAR_PET_SKILL_BASE_DAMAGE_BY_GROUP)}</基数>`,
+    "\t\t<技能说明>对敌人造成Z%的伤害。</技能说明>",
+    `\t\t<最低资质限制>${group}</最低资质限制>`,
+    "\t</宠物技能显示与说明>",
+  ].join("\n");
+}
+
+function solarPetSkillLearningRecord(learnLevel: number): string {
+  const quality = solarPetSkillQualityForLearningLevel(learnLevel);
+  const ids = Array.from({ length: SOLAR_PET_SKILL_GROUP_COUNT }, (_value, index) => solarPetSkillId(index + 1, quality));
+  const probabilities = scaleWeightsToTotal(
+    Array.from({ length: ids.length }, () => 1),
+    PET_SKILL_LEARNING_PROBABILITY_TOTAL
+  );
+  const pool = ids.map((id, index) => `${id}*${probabilities[index]}`).join(",");
+  const costByLevel = [0, 1900, 2500, 6000, 13500, 18000, 13500, 18000];
+  return [
+    "\t<宠物技能领悟>",
+    `\t\t<针对的宠物ID>${SOLAR_PET_ID}</针对的宠物ID>`,
+    `\t\t<领悟等级>${learnLevel}</领悟等级>`,
+    `\t\t<进入下一等级概率>${PET_SKILL_NEXT_LEVEL_UNLOCK_PROBABILITY}</进入下一等级概率>`,
+    `\t\t<领悟后获得技能与概率>${pool}</领悟后获得技能与概率>`,
+    `\t\t<领悟需求晶币>${costByLevel[learnLevel]}</领悟需求晶币>`,
+    "\t</宠物技能领悟>",
+  ].join("\n");
+}
+
+function isSolarPetSkillListId(value: string | null): boolean {
+  return value != null && /^技能[1-7][白蓝粉橙]$/.test(value);
+}
+
+function isSolarPetSkillActionName(value: string | null): boolean {
+  return value != null && /^[1-7]技能[1-7][白蓝粉橙]$/.test(value);
+}
+
+function solarPetSkillActionRecord(template: string, pot: number, group: number, quality: number): string {
+  const sourceActionLevel = solarPetActionLevelForPot(group);
+  const listId = solarPetSkillListId(group, quality);
+  const bulletKey = sourceActionLevel === "攻击1" ? null : listId;
+  return solarPetActionRecord(template, "1", sourceActionLevel, {
+    skillName: `${pot}${listId}`,
+    bulletKey,
+    randomCd: "600",
+  });
+}
+
+function solarPetSkillBulletRecord(template: string, group: number, quality: number): string {
+  const sourceActionLevel = solarPetActionLevelForPot(group);
+  let record = replaceTagContent(template, "源名", solarPetSkillListId(group, quality));
+  record = replaceTagContent(record, "二名", "10");
+  record = replaceTagContent(record, "伤害增幅", solarPetSkillDamageText(group, quality));
+  record = replaceTagContent(record, "生成声音", "null");
+  record = replaceTagContent(record, "爆炸声音", "null");
+  if (sourceActionLevel === "攻击2") {
+    record = replaceTagContent(record, "元件名", SOLAR_PET_BULLET_ATTACK2_CLASS_ALIAS);
+  } else if (sourceActionLevel === "攻击3") {
+    record = replaceTagContent(record, "元件名", SOLAR_PET_BULLET_SELECT_CLASS_ALIAS);
+  } else if (sourceActionLevel === "攻击4") {
+    record = replaceTagContent(record, "元件名", SOLAR_PET_BULLET_ATTACK4_CLASS_ALIAS);
+    record = replaceTagContent(record, "出那个怪", SOLAR_PET_SUMMON_MONSTER_NAME);
+  }
+  return record;
+}
+
+function monsterRecordKey(record: string): string {
+  const secondName = tagText(record, "怪物二名");
+  const monsterName = tagText(record, "怪物名") ?? "";
+  return `${secondName == null || secondName === "null" ? "" : secondName}${monsterName}`;
+}
+
+function findMonsterTemplate(xml: string, monsterKey: string): string {
+  const record = xmlRecords(xml, "怪物").find((candidate) => monsterRecordKey(candidate) === monsterKey);
+  if (!record) {
+    throw new Error(`missing monster template: ${monsterKey}`);
+  }
+  return record;
+}
+
+function solarPetSummonMonsterRecord(template: string): string {
+  let record = replaceTagContent(template, "怪物名", SOLAR_PET_SUMMON_MONSTER_NAME);
+  record = replaceTagContent(record, "怪物二名", "null");
+  record = replaceTagContent(record, "阵营", "1");
+  record = replaceTagContent(record, "类名", "CMonsterFollowMe");
+  return record;
+}
+
+function findSkillTemplate(xml: string, skillName: string, skillLevel: string): string {
+  const record = xmlRecords(xml, "技能").find((candidate) => {
+    return tagText(candidate, "技能名称") === skillName && tagText(candidate, "技能等级") === skillLevel;
+  });
+  if (!record) {
+    throw new Error(`missing skill template: ${skillName}${skillLevel}`);
+  }
+  return record;
+}
+
+function findBulletTemplate(xml: string, sourceName: string, bulletLevel: string): string {
+  const record = xmlRecords(xml, "子弹").find((candidate) => {
+    return tagText(candidate, "源名") === sourceName && tagText(candidate, "二名") === bulletLevel;
+  });
+  if (!record) {
+    throw new Error(`missing bullet template: ${sourceName}${bulletLevel}`);
+  }
+  return record;
+}
+
+export function applySolarPetPatchToXml(
+  petXml: string,
+  petActionXml: string,
+  monsterActionXml: string,
+  bulletXml: string,
+  petBulletXml: string,
+  petSkillShowXml: string,
+  petSkillLearningXml: string
+): SolarPetPatchResult {
+  const patchedPetXml = appendXmlRecords(
+    withoutXmlRecords(petXml, "宠物", (record) => numberFromTag(record, "ID") === SOLAR_PET_ID),
+    [solarPetRecord()]
+  );
+
+  const baseActionLevels = ["待机", "移动", "被打", "倒地", "眩晕"];
+  const actionRecords: string[] = baseActionLevels.map((level) => {
+    return solarPetActionRecord(findSkillTemplate(monsterActionXml, SOLAR_BOSS_ACTION_NAME, level), level, level);
+  });
+  for (let pot = 0; pot <= SOLAR_PET_APTITUDE; pot += 1) {
+    const sourceActionLevel = solarPetActionLevelForPot(pot);
+    actionRecords.push(
+      solarPetActionRecord(
+        findSkillTemplate(monsterActionXml, SOLAR_BOSS_ACTION_NAME, sourceActionLevel),
+        `${pot}墨攻`,
+        sourceActionLevel
+      )
+    );
+  }
+
+  const skillActionRecords: string[] = [];
+  const skillBulletRecords: string[] = [];
+  const skillShowRecords: string[] = [];
+  for (let group = 1; group <= SOLAR_PET_SKILL_GROUP_COUNT; group += 1) {
+    const sourceActionLevel = solarPetActionLevelForPot(group);
+    const actionTemplate = findSkillTemplate(monsterActionXml, SOLAR_BOSS_ACTION_NAME, sourceActionLevel);
+    const bulletTemplate = sourceActionLevel === "攻击1" ? null : findBulletTemplate(bulletXml, SOLAR_BOSS_ACTION_NAME, sourceActionLevel);
+    for (let quality = 0; quality < SOLAR_PET_SKILL_QUALITY_COUNT; quality += 1) {
+      skillShowRecords.push(solarPetSkillRecord(group, quality));
+      for (let pot = group; pot <= SOLAR_PET_APTITUDE; pot += 1) {
+        skillActionRecords.push(solarPetSkillActionRecord(actionTemplate, pot, group, quality));
+      }
+      if (bulletTemplate != null) {
+        skillBulletRecords.push(solarPetSkillBulletRecord(bulletTemplate, group, quality));
+      }
+    }
+  }
+  actionRecords.push(...skillActionRecords);
+
+  const solarPetActionLevels = new Set<string>([
+    ...baseActionLevels,
+    ...Array.from({ length: SOLAR_PET_APTITUDE + 1 }, (_value, index) => `${index}墨攻`),
+  ]);
+  const patchedPetActionXml = appendXmlRecords(
+    withoutXmlRecords(petActionXml, "技能", (record) => {
+      return (
+        (tagText(record, "技能名称") === SOLAR_PET_NAME && solarPetActionLevels.has(tagText(record, "技能等级") ?? "")) ||
+        isSolarPetSkillActionName(tagText(record, "技能名称"))
+      );
+    }),
+    actionRecords
+  );
+
+  const bulletLevels = ["攻击2", "攻击3", "攻击4"];
+  const bulletRecords = bulletLevels.map((level) =>
+    solarPetBulletRecord(findBulletTemplate(bulletXml, SOLAR_BOSS_ACTION_NAME, level), level)
+  );
+  const patchedBulletXml = appendXmlRecords(
+    withoutXmlRecords(bulletXml, "子弹", (record) => tagText(record, "源名") === SOLAR_PET_BULLET_SOURCE_NAME),
+    bulletRecords
+  );
+  const patchedPetBulletXml = appendXmlRecords(
+    withoutXmlRecords(petBulletXml, "子弹", (record) => isSolarPetSkillListId(tagText(record, "源名"))),
+    skillBulletRecords
+  );
+  const patchedPetSkillShowXml = appendXmlRecords(
+    withoutXmlRecords(petSkillShowXml, "宠物技能显示与说明", (record) => {
+      const skillId = numberFromTag(record, "技能编号");
+      return (
+        (skillId != null &&
+          skillId >= SOLAR_PET_SKILL_BASE_ID &&
+          skillId < SOLAR_PET_SKILL_BASE_ID + SOLAR_PET_SKILL_GROUP_COUNT * SOLAR_PET_SKILL_QUALITY_COUNT) ||
+        isSolarPetSkillListId(tagText(record, "针对的技能列表ID"))
+      );
+    }),
+    skillShowRecords
+  );
+  const skillLearningRecords = Array.from({ length: 7 }, (_value, index) => solarPetSkillLearningRecord(index + 1));
+  const patchedPetSkillLearningXml = appendXmlRecords(
+    withoutXmlRecords(petSkillLearningXml, "宠物技能领悟", (record) => numberFromTag(record, "针对的宠物ID") === SOLAR_PET_ID),
+    skillLearningRecords
+  );
+
+  return {
+    petXml: patchedPetXml,
+    petActionXml: patchedPetActionXml,
+    bulletXml: patchedBulletXml,
+    petBulletXml: patchedPetBulletXml,
+    petSkillShowXml: patchedPetSkillShowXml,
+    petSkillLearningXml: patchedPetSkillLearningXml,
+    petRecordPresent: true,
+    actionRecordCount: actionRecords.length,
+    bulletRecordCount: bulletRecords.length,
+    petBulletRecordCount: skillBulletRecords.length,
+    skillActionRecordCount: skillActionRecords.length,
+    skillShowRecordCount: skillShowRecords.length,
+    skillLearningRecordCount: skillLearningRecords.length,
+  };
+}
+
+export function applySolarPetSummonMonsterPatchToXml(monsterXml: string): SolarPetSummonMonsterPatchResult {
+  const patchedMonsterXml = appendXmlRecords(
+    withoutXmlRecords(monsterXml, "怪物", (record) => monsterRecordKey(record) === SOLAR_PET_SUMMON_MONSTER_NAME),
+    [solarPetSummonMonsterRecord(findMonsterTemplate(monsterXml, SOLAR_PET_SUMMON_SOURCE_MONSTER_NAME))]
+  );
+
+  return {
+    monsterXml: patchedMonsterXml,
+    summonMonsterRecordPresent: true,
+  };
+}
+
+function findGoodsTemplate(xml: string, goodsId: number): string {
+  const record = xmlRecords(xml, "物品").find((candidate) => numberFromTag(candidate, "id") === goodsId);
+  if (!record) {
+    throw new Error(`missing goods template: ${goodsId}`);
+  }
+  return record;
+}
+
+function solarPetEggRecord(template: string): string {
+  let record = replaceTagContent(template, "id", String(SOLAR_PET_EGG_GOODS_ID));
+  record = replaceTagContent(record, "名称", SOLAR_PET_EGG_NAME);
+  record = replaceTagContent(
+    record,
+    "说明",
+    `&lt;![CDATA[&lt;font color="#36ccff"&gt;使用后可孵化出上古神宠——${SOLAR_PET_NAME}&lt;/font&gt;]]&gt;*`
+  );
+  record = replaceTagContent(record, "需求id", String(SOLAR_PET_ID));
+  record = replaceTagContent(record, "奖励概率", String(PET_EGG_PROBABILITY_TOTAL));
+  return record;
+}
+
+export function applySolarPetEggPatchToXml(goodsXml: string): SolarPetEggPatchResult {
+  const patchedGoodsXml = appendXmlRecords(
+    withoutXmlRecords(goodsXml, "物品", (record) => {
+      return numberFromTag(record, "id") === SOLAR_PET_EGG_GOODS_ID || tagText(record, "名称") === SOLAR_PET_EGG_NAME;
+    }),
+    [solarPetEggRecord(findGoodsTemplate(goodsXml, SOLAR_PET_EGG_TEMPLATE_GOODS_ID))]
+  );
+
+  return {
+    goodsXml: patchedGoodsXml,
+    eggRecordPresent: true,
+  };
 }
 
 function asInputObject(input: unknown): Record<string, unknown> {
@@ -1202,6 +1767,155 @@ export function getPetInitialFusionExpOptimizationState(): PetInitialFusionExpOp
   }
 }
 
+export function getSolarPetPatchState(): SolarPetPatchState {
+  if (!existsSync(DATA_XML_SWF)) {
+    return {
+      ok: true,
+      loaded: false,
+      sourceFile: DATA_XML_SWF,
+      assetName: LEVEL_REWARD_ASSET_NAME,
+      patchedAssetFile: null,
+      patchedAssetReady: false,
+      solarPetEnabled: false,
+      petId: SOLAR_PET_ID,
+      petName: SOLAR_PET_NAME,
+      aptitude: SOLAR_PET_APTITUDE,
+      quality: SOLAR_PET_QUALITY,
+      resourceName: SOLAR_PET_RESOURCE_NAME,
+      petRecordPresent: false,
+      petEggGoodsId: SOLAR_PET_EGG_GOODS_ID,
+      petEggName: SOLAR_PET_EGG_NAME,
+      petEggRecordPresent: false,
+      actionRecordCount: 0,
+      bulletRecordCount: 0,
+      petBulletRecordCount: 0,
+      summonMonsterName: SOLAR_PET_SUMMON_MONSTER_NAME,
+      summonMonsterRecordPresent: false,
+      skillActionRecordCount: 0,
+      skillShowRecordCount: 0,
+      skillLearningRecordCount: 0,
+    };
+  }
+
+  try {
+    const goodsXml = readDefineBinaryText(DATA_XML_SWF, GOODS_BINARY_ID);
+    const petXml = readDefineBinaryText(DATA_XML_SWF, PET_BINARY_ID);
+    const petActionXml = readDefineBinaryText(DATA_XML_SWF, PET_ACTION_BINARY_ID);
+    const monsterActionXml = readDefineBinaryText(DATA_XML_SWF, MONSTER_ACTION_BINARY_ID);
+    const bulletXml = readDefineBinaryText(DATA_XML_SWF, BULLET_BINARY_ID);
+    const petBulletXml = readDefineBinaryText(DATA_XML_SWF, PET_BULLET_BINARY_ID);
+    const monsterXml = readDefineBinaryText(DATA_XML_SWF, MONSTER_BINARY_ID);
+    const petSkillShowXml = readDefineBinaryText(DATA_XML_SWF, PET_SKILL_SHOW_BINARY_ID);
+    const petSkillLearningXml = readDefineBinaryText(DATA_XML_SWF, PET_SKILL_LEARNING_BINARY_ID);
+    const patched = applySolarPetPatchToXml(
+      petXml,
+      petActionXml,
+      monsterActionXml,
+      bulletXml,
+      petBulletXml,
+      petSkillShowXml,
+      petSkillLearningXml
+    );
+    const summonMonsterPatch = applySolarPetSummonMonsterPatchToXml(monsterXml);
+    const eggPatch = applySolarPetEggPatchToXml(goodsXml);
+    const patchedAssetFile = ensurePatchedLevelRewardAsset(DATA_XML_SWF);
+    const patchedAssetReady = patchedAssetFile != null && existsSync(patchedAssetFile);
+    const petRecord = xmlRecords(patched.petXml, "宠物").find((record) => numberFromTag(record, "ID") === SOLAR_PET_ID);
+    const petRecordPresent =
+      petRecord != null &&
+      tagText(petRecord, "名字") === SOLAR_PET_NAME &&
+      tagText(petRecord, "加载需求文件") === SOLAR_PET_RESOURCE_NAME &&
+      numberFromTag(petRecord, "资质") === SOLAR_PET_APTITUDE &&
+      numberFromTag(petRecord, "品质") === SOLAR_PET_QUALITY;
+    const actionRecordCount = patched.actionRecordCount;
+    const bulletRecordCount = patched.bulletRecordCount;
+    const petBulletRecordCount = patched.petBulletRecordCount;
+    const summonMonsterRecord = xmlRecords(summonMonsterPatch.monsterXml, "怪物").find(
+      (record) => monsterRecordKey(record) === SOLAR_PET_SUMMON_MONSTER_NAME
+    );
+    const summonMonsterRecordPresent =
+      summonMonsterRecord != null &&
+      numberFromTag(summonMonsterRecord, "阵营") === 1 &&
+      tagText(summonMonsterRecord, "类名") === "CMonsterFollowMe" &&
+      tagText(summonMonsterRecord, "元件名") === "m_yanqiu";
+    const skillActionRecordCount = patched.skillActionRecordCount;
+    const skillShowRecordCount = patched.skillShowRecordCount;
+    const skillLearningRecordCount = patched.skillLearningRecordCount;
+    const eggRecord = xmlRecords(eggPatch.goodsXml, "物品").find((record) => numberFromTag(record, "id") === SOLAR_PET_EGG_GOODS_ID);
+    const petEggRecordPresent =
+      eggRecord != null &&
+      tagText(eggRecord, "名称") === SOLAR_PET_EGG_NAME &&
+      numberFromTag(eggRecord, "需求id") === SOLAR_PET_ID &&
+      numberFromTag(eggRecord, "奖励概率") === PET_EGG_PROBABILITY_TOTAL;
+    const complete =
+      petRecordPresent &&
+      petEggRecordPresent &&
+      actionRecordCount >= SOLAR_PET_APTITUDE + 1 + 5 &&
+      bulletRecordCount >= 3 &&
+      petBulletRecordCount >= (SOLAR_PET_SKILL_GROUP_COUNT - 1) * SOLAR_PET_SKILL_QUALITY_COUNT &&
+      summonMonsterRecordPresent &&
+      skillActionRecordCount >= SOLAR_PET_SKILL_GROUP_COUNT * SOLAR_PET_SKILL_QUALITY_COUNT &&
+      skillShowRecordCount === SOLAR_PET_SKILL_GROUP_COUNT * SOLAR_PET_SKILL_QUALITY_COUNT &&
+      skillLearningRecordCount === 7 &&
+      patchedAssetReady;
+
+    return {
+      ok: true,
+      loaded: complete,
+      sourceFile: DATA_XML_SWF,
+      assetName: LEVEL_REWARD_ASSET_NAME,
+      patchedAssetFile,
+      patchedAssetReady,
+      solarPetEnabled: complete,
+      petId: SOLAR_PET_ID,
+      petName: SOLAR_PET_NAME,
+      aptitude: SOLAR_PET_APTITUDE,
+      quality: SOLAR_PET_QUALITY,
+      resourceName: SOLAR_PET_RESOURCE_NAME,
+      petRecordPresent,
+      petEggGoodsId: SOLAR_PET_EGG_GOODS_ID,
+      petEggName: SOLAR_PET_EGG_NAME,
+      petEggRecordPresent,
+      actionRecordCount,
+      bulletRecordCount,
+      petBulletRecordCount,
+      summonMonsterName: SOLAR_PET_SUMMON_MONSTER_NAME,
+      summonMonsterRecordPresent,
+      skillActionRecordCount,
+      skillShowRecordCount,
+      skillLearningRecordCount,
+    };
+  } catch (error) {
+    return {
+      ok: true,
+      loaded: false,
+      sourceFile: DATA_XML_SWF,
+      assetName: LEVEL_REWARD_ASSET_NAME,
+      patchedAssetFile: null,
+      patchedAssetReady: false,
+      solarPetEnabled: false,
+      petId: SOLAR_PET_ID,
+      petName: SOLAR_PET_NAME,
+      aptitude: SOLAR_PET_APTITUDE,
+      quality: SOLAR_PET_QUALITY,
+      resourceName: SOLAR_PET_RESOURCE_NAME,
+      petRecordPresent: false,
+      petEggGoodsId: SOLAR_PET_EGG_GOODS_ID,
+      petEggName: SOLAR_PET_EGG_NAME,
+      petEggRecordPresent: false,
+      actionRecordCount: 0,
+      bulletRecordCount: 0,
+      petBulletRecordCount: 0,
+      summonMonsterName: SOLAR_PET_SUMMON_MONSTER_NAME,
+      summonMonsterRecordPresent: false,
+      skillActionRecordCount: 0,
+      skillShowRecordCount: 0,
+      skillLearningRecordCount: 0,
+      error: error instanceof Error ? error.message : String(error),
+    };
+  }
+}
+
 function loadLevelRewardSource(sourceFile = DATA_XML_SWF): LevelRewardSourceCache | null {
   if (!existsSync(sourceFile)) {
     sourceCache = null;
@@ -1298,13 +2012,41 @@ function patchedAssetSignature(sourceFile: string, achievementBoostEnabled: bool
         petSkillOptimizationEnabled: true,
         petSkillShowBinaryId: PET_SKILL_SHOW_BINARY_ID,
         petSkillLearningBinaryId: PET_SKILL_LEARNING_BINARY_ID,
+        petBulletBinaryId: PET_BULLET_BINARY_ID,
+        monsterBinaryId: MONSTER_BINARY_ID,
         petSkillInitialExpMultiplier: PET_SKILL_INITIAL_EXP_MULTIPLIER,
         petSkillLearningProbabilityTotal: PET_SKILL_LEARNING_PROBABILITY_TOTAL,
         petSkillNextLevelUnlockProbability: PET_SKILL_NEXT_LEVEL_UNLOCK_PROBABILITY,
         petSkillBaseInitialExpByQuality: PET_SKILL_BASE_INITIAL_EXP_BY_QUALITY,
+        petFusionAttributeBinaryId: PET_FUSION_ATTRIBUTE_BINARY_ID,
+        petFusionLevelMax: PET_FUSION_LEVEL_MAX,
         petInitialFusionExpOptimizationEnabled: true,
         petInitialFusionExpMultiplier: PET_INITIAL_FUSION_EXP_MULTIPLIER,
         petInitialFusionExpTargets: PET_INITIAL_FUSION_EXP_TARGETS,
+        solarPetEnabled: true,
+        solarPetId: SOLAR_PET_ID,
+        solarPetName: SOLAR_PET_NAME,
+        solarPetResourceName: SOLAR_PET_RESOURCE_NAME,
+        solarPetAssetName: SOLAR_PET_ASSET_NAME,
+        solarPetAptitude: SOLAR_PET_APTITUDE,
+        solarPetQuality: SOLAR_PET_QUALITY,
+        solarPetFusionExp: SOLAR_PET_FUSION_EXP,
+        solarPetEggGoodsId: SOLAR_PET_EGG_GOODS_ID,
+        solarPetEggName: SOLAR_PET_EGG_NAME,
+        solarPetEggTemplateGoodsId: SOLAR_PET_EGG_TEMPLATE_GOODS_ID,
+        solarPetBulletAttack2ClassAlias: SOLAR_PET_BULLET_ATTACK2_CLASS_ALIAS,
+        solarPetBulletSelectClassAlias: SOLAR_PET_BULLET_SELECT_CLASS_ALIAS,
+        solarPetBulletAttack4ClassAlias: SOLAR_PET_BULLET_ATTACK4_CLASS_ALIAS,
+        solarPetSummonSourceMonsterName: SOLAR_PET_SUMMON_SOURCE_MONSTER_NAME,
+        solarPetSummonMonsterName: SOLAR_PET_SUMMON_MONSTER_NAME,
+        solarPetSkillBaseId: SOLAR_PET_SKILL_BASE_ID,
+        solarPetSkillGroupCount: SOLAR_PET_SKILL_GROUP_COUNT,
+        solarPetSkillQualityCount: SOLAR_PET_SKILL_QUALITY_COUNT,
+        solarPetSkillIconFrame: SOLAR_PET_SKILL_ICON_FRAME,
+        solarPetSkillQualitySuffixes: SOLAR_PET_SKILL_QUALITY_SUFFIXES,
+        solarPetSkillQualityMultipliers: SOLAR_PET_SKILL_QUALITY_MULTIPLIERS,
+        solarPetSkillBaseDamageByGroup: SOLAR_PET_SKILL_BASE_DAMAGE_BY_GROUP,
+        solarPetSkillGrowthDamageByGroup: SOLAR_PET_SKILL_GROWTH_DAMAGE_BY_GROUP,
       })
     )
     .digest("hex");
@@ -1339,22 +2081,45 @@ export function ensurePatchedLevelRewardAsset(sourceFile = DATA_XML_SWF): string
   const skillLearningXml = readDefineBinaryText(sourceFile, PET_SKILL_LEARNING_BINARY_ID);
   const goodsXml = readDefineBinaryText(sourceFile, GOODS_BINARY_ID);
   const petXml = readDefineBinaryText(sourceFile, PET_BINARY_ID);
+  const petFusionAttributeXml = readDefineBinaryText(sourceFile, PET_FUSION_ATTRIBUTE_BINARY_ID);
+  const bulletXml = readDefineBinaryText(sourceFile, BULLET_BINARY_ID);
+  const petBulletXml = readDefineBinaryText(sourceFile, PET_BULLET_BINARY_ID);
+  const monsterXml = readDefineBinaryText(sourceFile, MONSTER_BINARY_ID);
+  const monsterActionXml = readDefineBinaryText(sourceFile, MONSTER_ACTION_BINARY_ID);
+  const petActionXml = readDefineBinaryText(sourceFile, PET_ACTION_BINARY_ID);
   const patchedLevelXml = applyLevelRewardAchievementBoostToXml(source.xml, achievementBoostEnabled);
   const patchedActivityXml = applyActivityVisibilityPatchToXml(activityXml);
   const strengtheningPatch = applyEquipmentStrengtheningSuccessPatchToXml(strengtheningXml);
   const petSkillPatch = applyPetSkillLearningOptimizationToXml(skillLearningXml, skillShowXml);
   const petEggPatch = applyAdvancedPetEggPatchToXml(goodsXml, petXml);
+  const solarPetEggPatch = applySolarPetEggPatchToXml(petEggPatch.xml);
+  const petFusionAttributePatch = applyPetFusionLevelAttributePatchToXml(petFusionAttributeXml);
   const petFusionExpPatch = applyPetInitialFusionExpPatchToXml(petXml);
+  const solarPetPatch = applySolarPetPatchToXml(
+    petFusionExpPatch.xml,
+    petActionXml,
+    monsterActionXml,
+    bulletXml,
+    petBulletXml,
+    petSkillPatch.skillShowXml,
+    petSkillPatch.learningXml
+  );
+  const summonMonsterPatch = applySolarPetSummonMonsterPatchToXml(monsterXml);
   const activityCounts = countActivityGifts(activityXml);
   const patchedActivityCounts = countActivityGifts(patchedActivityXml);
   if (
     patchedLevelXml === source.xml &&
     patchedActivityXml === activityXml &&
     strengtheningPatch.xml === strengtheningXml &&
-    petSkillPatch.learningXml === skillLearningXml &&
-    petSkillPatch.skillShowXml === skillShowXml &&
-    petEggPatch.xml === goodsXml &&
-    petFusionExpPatch.xml === petXml
+    solarPetPatch.petSkillLearningXml === skillLearningXml &&
+    solarPetPatch.petSkillShowXml === skillShowXml &&
+    solarPetEggPatch.goodsXml === goodsXml &&
+    petFusionAttributePatch.xml === petFusionAttributeXml &&
+    solarPetPatch.petXml === petXml &&
+    solarPetPatch.petActionXml === petActionXml &&
+    solarPetPatch.bulletXml === bulletXml &&
+    solarPetPatch.petBulletXml === petBulletXml &&
+    summonMonsterPatch.monsterXml === monsterXml
   ) {
     return sourceFile;
   }
@@ -1386,32 +2151,66 @@ export function ensurePatchedLevelRewardAsset(sourceFile = DATA_XML_SWF): string
       throw new Error(`Expected one strengthening binary replacement, found ${replacements}`);
     }
   }
-  if (petSkillPatch.skillShowXml !== skillShowXml) {
-    const replacements = replaceDefineBinaryData(swf, PET_SKILL_SHOW_BINARY_ID, Buffer.from(petSkillPatch.skillShowXml, "utf8"));
+  if (solarPetPatch.petSkillShowXml !== skillShowXml) {
+    const replacements = replaceDefineBinaryData(swf, PET_SKILL_SHOW_BINARY_ID, Buffer.from(solarPetPatch.petSkillShowXml, "utf8"));
     if (replacements !== 1) {
       throw new Error(`Expected one pet skill display binary replacement, found ${replacements}`);
     }
   }
-  if (petSkillPatch.learningXml !== skillLearningXml) {
+  if (solarPetPatch.petSkillLearningXml !== skillLearningXml) {
     const replacements = replaceDefineBinaryData(
       swf,
       PET_SKILL_LEARNING_BINARY_ID,
-      Buffer.from(petSkillPatch.learningXml, "utf8")
+      Buffer.from(solarPetPatch.petSkillLearningXml, "utf8")
     );
     if (replacements !== 1) {
       throw new Error(`Expected one pet skill learning binary replacement, found ${replacements}`);
     }
   }
-  if (petEggPatch.xml !== goodsXml) {
-    const replacements = replaceDefineBinaryData(swf, GOODS_BINARY_ID, Buffer.from(petEggPatch.xml, "utf8"));
+  if (petFusionAttributePatch.xml !== petFusionAttributeXml) {
+    const replacements = replaceDefineBinaryData(
+      swf,
+      PET_FUSION_ATTRIBUTE_BINARY_ID,
+      Buffer.from(petFusionAttributePatch.xml, "utf8")
+    );
+    if (replacements !== 1) {
+      throw new Error(`Expected one pet fusion attribute binary replacement, found ${replacements}`);
+    }
+  }
+  if (solarPetEggPatch.goodsXml !== goodsXml) {
+    const replacements = replaceDefineBinaryData(swf, GOODS_BINARY_ID, Buffer.from(solarPetEggPatch.goodsXml, "utf8"));
     if (replacements !== 1) {
       throw new Error(`Expected one goods binary replacement, found ${replacements}`);
     }
   }
-  if (petFusionExpPatch.xml !== petXml) {
-    const replacements = replaceDefineBinaryData(swf, PET_BINARY_ID, Buffer.from(petFusionExpPatch.xml, "utf8"));
+  if (solarPetPatch.petXml !== petXml) {
+    const replacements = replaceDefineBinaryData(swf, PET_BINARY_ID, Buffer.from(solarPetPatch.petXml, "utf8"));
     if (replacements !== 1) {
       throw new Error(`Expected one pet binary replacement, found ${replacements}`);
+    }
+  }
+  if (solarPetPatch.petActionXml !== petActionXml) {
+    const replacements = replaceDefineBinaryData(swf, PET_ACTION_BINARY_ID, Buffer.from(solarPetPatch.petActionXml, "utf8"));
+    if (replacements !== 1) {
+      throw new Error(`Expected one pet action binary replacement, found ${replacements}`);
+    }
+  }
+  if (solarPetPatch.bulletXml !== bulletXml) {
+    const replacements = replaceDefineBinaryData(swf, BULLET_BINARY_ID, Buffer.from(solarPetPatch.bulletXml, "utf8"));
+    if (replacements !== 1) {
+      throw new Error(`Expected one bullet binary replacement, found ${replacements}`);
+    }
+  }
+  if (solarPetPatch.petBulletXml !== petBulletXml) {
+    const replacements = replaceDefineBinaryData(swf, PET_BULLET_BINARY_ID, Buffer.from(solarPetPatch.petBulletXml, "utf8"));
+    if (replacements !== 1) {
+      throw new Error(`Expected one pet bullet binary replacement, found ${replacements}`);
+    }
+  }
+  if (summonMonsterPatch.monsterXml !== monsterXml) {
+    const replacements = replaceDefineBinaryData(swf, MONSTER_BINARY_ID, Buffer.from(summonMonsterPatch.monsterXml, "utf8"));
+    if (replacements !== 1) {
+      throw new Error(`Expected one monster binary replacement, found ${replacements}`);
     }
   }
 
@@ -1458,6 +2257,8 @@ export function ensurePatchedLevelRewardAsset(sourceFile = DATA_XML_SWF): string
         petSkillOptimizationEnabled: true,
         petSkillShowBinaryId: PET_SKILL_SHOW_BINARY_ID,
         petSkillLearningBinaryId: PET_SKILL_LEARNING_BINARY_ID,
+        petBulletBinaryId: PET_BULLET_BINARY_ID,
+        monsterBinaryId: MONSTER_BINARY_ID,
         petSkillInitialExpMultiplier: PET_SKILL_INITIAL_EXP_MULTIPLIER,
         petSkillLearningProbabilityTotal: PET_SKILL_LEARNING_PROBABILITY_TOTAL,
         petSkillNextLevelUnlockProbability: PET_SKILL_NEXT_LEVEL_UNLOCK_PROBABILITY,
@@ -1468,9 +2269,37 @@ export function ensurePatchedLevelRewardAsset(sourceFile = DATA_XML_SWF): string
         petSkillFragmentEntryRemovalCount: petSkillPatch.fragmentEntryRemovalCount,
         petSkillLowerQualityEntryRemovalCount: petSkillPatch.lowerQualityEntryRemovalCount,
         petSkillInitialExpTargets: petSkillPatch.expTargets,
+        petFusionAttributeBinaryId: PET_FUSION_ATTRIBUTE_BINARY_ID,
+        petFusionAttributeOriginalMaxLevel: petFusionAttributePatch.originalMaxLevel,
+        petFusionAttributeTargetMaxLevel: petFusionAttributePatch.targetMaxLevel,
+        petFusionAttributeAddedRecordCount: petFusionAttributePatch.addedRecordCount,
         petInitialFusionExpOptimizationEnabled: true,
         petInitialFusionExpMultiplier: PET_INITIAL_FUSION_EXP_MULTIPLIER,
         petInitialFusionExpTargets: petFusionExpPatch.targets,
+        solarPetEnabled: true,
+        solarPetId: SOLAR_PET_ID,
+        solarPetName: SOLAR_PET_NAME,
+        solarPetResourceName: SOLAR_PET_RESOURCE_NAME,
+        solarPetAssetName: SOLAR_PET_ASSET_NAME,
+        solarPetAptitude: SOLAR_PET_APTITUDE,
+        solarPetQuality: SOLAR_PET_QUALITY,
+        solarPetEggGoodsId: SOLAR_PET_EGG_GOODS_ID,
+        solarPetEggName: SOLAR_PET_EGG_NAME,
+        solarPetEggRecordPresent: solarPetEggPatch.eggRecordPresent,
+        solarPetBulletAttack2ClassAlias: SOLAR_PET_BULLET_ATTACK2_CLASS_ALIAS,
+        solarPetActionRecordCount: solarPetPatch.actionRecordCount,
+        solarPetBulletRecordCount: solarPetPatch.bulletRecordCount,
+        solarPetPetBulletRecordCount: solarPetPatch.petBulletRecordCount,
+        solarPetSummonSourceMonsterName: SOLAR_PET_SUMMON_SOURCE_MONSTER_NAME,
+        solarPetSummonMonsterName: SOLAR_PET_SUMMON_MONSTER_NAME,
+        solarPetSummonMonsterRecordPresent: summonMonsterPatch.summonMonsterRecordPresent,
+        solarPetSkillActionRecordCount: solarPetPatch.skillActionRecordCount,
+        solarPetSkillShowRecordCount: solarPetPatch.skillShowRecordCount,
+        solarPetSkillLearningRecordCount: solarPetPatch.skillLearningRecordCount,
+        solarPetSkillBaseId: SOLAR_PET_SKILL_BASE_ID,
+        solarPetSkillGroupCount: SOLAR_PET_SKILL_GROUP_COUNT,
+        solarPetSkillQualityCount: SOLAR_PET_SKILL_QUALITY_COUNT,
+        solarPetBulletAttack4ClassAlias: SOLAR_PET_BULLET_ATTACK4_CLASS_ALIAS,
       },
       null,
       2
