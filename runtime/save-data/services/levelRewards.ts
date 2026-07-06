@@ -101,6 +101,8 @@ export type EquipmentStrengtheningOptimizationState = {
   patchedAssetFile: string | null;
   patchedAssetReady: boolean;
   equipmentStrengtheningOptimized: boolean;
+  oneClickMaxLevel: boolean;
+  perfectLevelMaxed: boolean;
   successProbability: number;
   recordCount: number;
   probabilityRecordCount: number;
@@ -921,6 +923,8 @@ export function getEquipmentStrengtheningOptimizationState(): EquipmentStrengthe
       patchedAssetFile: null,
       patchedAssetReady: false,
       equipmentStrengtheningOptimized: false,
+      oneClickMaxLevel: true,
+      perfectLevelMaxed: true,
       successProbability: EQUIPMENT_STRENGTHEN_SUCCESS_PROBABILITY,
       recordCount: 0,
       probabilityRecordCount: 0,
@@ -951,6 +955,8 @@ export function getEquipmentStrengtheningOptimizationState(): EquipmentStrengthe
       patchedAssetFile,
       patchedAssetReady,
       equipmentStrengtheningOptimized: patchedAssetReady && targetsValid,
+      oneClickMaxLevel: true,
+      perfectLevelMaxed: true,
       successProbability: EQUIPMENT_STRENGTHEN_SUCCESS_PROBABILITY,
       recordCount: patched.recordCount,
       probabilityRecordCount: patched.targets.length,
@@ -971,6 +977,8 @@ export function getEquipmentStrengtheningOptimizationState(): EquipmentStrengthe
       patchedAssetFile: null,
       patchedAssetReady: false,
       equipmentStrengtheningOptimized: false,
+      oneClickMaxLevel: true,
+      perfectLevelMaxed: true,
       successProbability: EQUIPMENT_STRENGTHEN_SUCCESS_PROBABILITY,
       recordCount: 0,
       probabilityRecordCount: 0,
@@ -1274,6 +1282,8 @@ function patchedAssetSignature(sourceFile: string, achievementBoostEnabled: bool
         achievementBoostValue: LEVEL_REWARD_ACHIEVEMENT_BOOST_VALUE,
         equipmentStrengtheningOptimizationEnabled: true,
         equipmentStrengtheningBinaryId: STRENGTHEN_BINARY_ID,
+        equipmentStrengtheningOneClickMaxLevel: true,
+        equipmentStrengtheningPerfectLevelMaxed: true,
         equipmentStrengtheningSuccessProbability: EQUIPMENT_STRENGTHEN_SUCCESS_PROBABILITY,
         activityVisibilityEnabled: true,
         activityGiftBinaryId: ACTIVITY_GIFT_BINARY_ID,
@@ -1424,6 +1434,8 @@ export function ensurePatchedLevelRewardAsset(sourceFile = DATA_XML_SWF): string
         achievementBoostValue: LEVEL_REWARD_ACHIEVEMENT_BOOST_VALUE,
         equipmentStrengtheningOptimizationEnabled: true,
         equipmentStrengtheningBinaryId: STRENGTHEN_BINARY_ID,
+        equipmentStrengtheningOneClickMaxLevel: true,
+        equipmentStrengtheningPerfectLevelMaxed: true,
         equipmentStrengtheningSuccessProbability: EQUIPMENT_STRENGTHEN_SUCCESS_PROBABILITY,
         equipmentStrengtheningRecordCount: strengtheningPatch.recordCount,
         equipmentStrengtheningProbabilityRecordCount: strengtheningPatch.targets.length,

@@ -17,6 +17,10 @@ import { createGzip } from "node:zlib";
 import { patchBagItemSenderCompatibility } from "../../../src/swf/bagItemSenderPatch.js";
 import { patchCrossSwfEventCompatibility } from "../../../src/swf/crossSwfEventPatch.js";
 import { decodeSwf, encodeSwf, replaceDefineBinaryData } from "../../../src/swf/swf.js";
+import {
+  inspectEquipmentStrengtheningOptimization,
+  patchEquipmentStrengtheningOptimization,
+} from "../../../src/swf/strengtheningPatch.js";
 import { inspectZodiacSoulExpOptimization, patchZodiacSoulExpOptimization } from "../../../src/swf/zodiacSoulExpPatch.js";
 import { LocalSaveDatabase } from "../persistence/db.js";
 import { LegacyJsonSaveDatabase } from "../persistence/legacyJsonDb.js";
@@ -893,6 +897,8 @@ function patchedInnerGameSwfBytes(inputFile: string): Buffer {
   const swf = decodeSwf(readFileSync(inputFile));
   const eventPatchCount = patchCrossSwfEventCompatibility(swf);
   const bagPatchCount = patchBagItemSenderCompatibility(swf);
+  const strengtheningPatchCount = patchEquipmentStrengtheningOptimization(swf);
+  const strengtheningInspection = inspectEquipmentStrengtheningOptimization(swf);
   const zodiacSoulPatchCount = patchZodiacSoulExpOptimization(swf);
   const zodiacSoulInspection = inspectZodiacSoulExpOptimization(swf);
 
@@ -901,6 +907,12 @@ function patchedInnerGameSwfBytes(inputFile: string): Buffer {
   }
   if (bagPatchCount < 1) {
     throw new Error(`Expected bag item sender target in ${inputFile}, patched ${bagPatchCount}`);
+  }
+  if (
+    strengtheningPatchCount < 1 &&
+    (!strengtheningInspection.oneClickMaxLevel || !strengtheningInspection.perfectLevelMaxed)
+  ) {
+    throw new Error(`Expected equipment strengthening optimization target in ${inputFile}, patched ${strengtheningPatchCount}`);
   }
   if (zodiacSoulPatchCount < 1 && !zodiacSoulInspection.optimized) {
     throw new Error(`Expected zodiac soul exp optimization target in ${inputFile}, patched ${zodiacSoulPatchCount}`);

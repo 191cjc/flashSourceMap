@@ -5,6 +5,10 @@ import path from "node:path";
 import { deflateSync, inflateSync } from "node:zlib";
 import CryptoJS from "crypto-js";
 import { decodeSwf } from "../../../src/swf/swf.js";
+import {
+  inspectEquipmentStrengtheningOptimization,
+  patchEquipmentStrengtheningOptimization,
+} from "../../../src/swf/strengtheningPatch.js";
 import { inspectZodiacSoulExpOptimization, patchZodiacSoulExpOptimization } from "../../../src/swf/zodiacSoulExpPatch.js";
 import { LegacyJsonSaveDatabase } from "../persistence/legacyJsonDb.js";
 import { LocalSaveDatabase } from "../persistence/db.js";
@@ -361,6 +365,15 @@ try {
 
   assert.equal(existsSync(INNER_GAME_SWF), true);
   const innerGameSwf = decodeSwf(readFileSync(INNER_GAME_SWF));
+  const strengtheningInspectionBefore = inspectEquipmentStrengtheningOptimization(innerGameSwf);
+  assert.equal(strengtheningInspectionBefore.targetFound, true);
+  if (!strengtheningInspectionBefore.oneClickMaxLevel || !strengtheningInspectionBefore.perfectLevelMaxed) {
+    assert.equal(patchEquipmentStrengtheningOptimization(innerGameSwf), 1);
+  }
+  const strengtheningInspectionAfter = inspectEquipmentStrengtheningOptimization(innerGameSwf);
+  assert.deepEqual(strengtheningInspectionAfter, { targetFound: true, oneClickMaxLevel: true, perfectLevelMaxed: true });
+  assert.equal(patchEquipmentStrengtheningOptimization(innerGameSwf), 0);
+
   const zodiacInspectionBefore = inspectZodiacSoulExpOptimization(innerGameSwf);
   assert.equal(zodiacInspectionBefore.targetFound, true);
   if (!zodiacInspectionBefore.optimized) {

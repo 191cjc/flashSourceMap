@@ -301,7 +301,7 @@
     setOptimizationStatus(status, "✓", "is-ok", "已生效");
     setOptimizationDescription(
       "equipmentStrengthening",
-      `装备强化优化已生效：${recordCount} 条强化配置、${entryCount} 个强化等级成功率均为 ${probability}%。`,
+      `装备强化优化已生效：${recordCount} 条强化配置、${entryCount} 个强化等级成功率均为 ${probability}%，强化成功后会直接升至该装备满级，并把装备完美度提升到上限。`,
       false
     );
   }
