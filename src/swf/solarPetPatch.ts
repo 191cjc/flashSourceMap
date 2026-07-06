@@ -1,5 +1,6 @@
 import { type DecodedSwf, parseTags } from "./swf.js";
 
+export const SOLAR_PET_NAME = "太阳神";
 export const SOLAR_PET_RESOURCE_NAME = "c_taiyangshen_pet";
 export const SOLAR_PET_ASSET_NAME = "c_taiyangshen_petv1.swf";
 export const SOLAR_PET_INTERNAL_MODEL_CLASS = "m_taiyangshenBoss";
@@ -14,6 +15,7 @@ export const SOLAR_PET_FUSION_LEVEL_MAX = 70;
 const LOADER_MANAGER_CLASS = "hotpointgame.utils.gameloader::LoaderManager";
 const GAME_DATA_INIT_CLASS = "hotpointgame.Control::GameDataInit";
 const PET_MANAGER_CLASS = "hotpointgame.pet::PetManager";
+const PET_FIGHT_CLASS = "hotpointgame.pet::PetFight";
 
 type Multiname = {
   kind: number;
@@ -77,12 +79,18 @@ type FusionPatchTarget = {
   endOffset: number;
 };
 
+type PassiveSuperArmorPatchTarget = {
+  insertOffset: number;
+  targetOffset: number;
+};
+
 export type SolarPetRuntimePatchInspection = {
   targetFound: boolean;
   filenameMapping: boolean;
   classMappings: boolean;
   classAliases: boolean;
   fusionLevelMax: boolean;
+  passiveSuperArmor: boolean;
 };
 
 class Reader {
@@ -1189,13 +1197,119 @@ function patchPetManagerFusionLevelMax(abcBuffer: Buffer): { abcBuffer: Buffer; 
   };
 }
 
+function passiveSuperArmorStatus(
+  abc: Abc,
+  body: AbcMethodBody | null
+): { optimized: boolean; target: PassiveSuperArmorPatchTarget | null } {
+  if (!body) {
+    return { optimized: false, target: null };
+  }
+  if (bodyHasString(abc, body, SOLAR_PET_NAME)) {
+    return { optimized: true, target: null };
+  }
+
+  const instructions = instructionsFor(body);
+  const bingDongIndex = instructions.findIndex((decoded) => {
+    return decoded.name === "getproperty" && qname(abc.multinames[decoded.operands[0]]).endsWith("bingDong");
+  });
+  if (bingDongIndex <= 0) {
+    return { optimized: false, target: null };
+  }
+
+  const insertInstruction = instructions[bingDongIndex - 1];
+  if (insertInstruction.name !== "getlex" || !qname(abc.multinames[insertInstruction.operands[0]]).endsWith("_zCd")) {
+    return { optimized: false, target: null };
+  }
+
+  const xuanYunIndex = instructions.findIndex((decoded, index) => {
+    return (
+      index > bingDongIndex &&
+      decoded.name === "pushstring" &&
+      (abc.strings[decoded.operands[0]] ?? "") === "眩晕"
+    );
+  });
+  if (xuanYunIndex < 0) {
+    return { optimized: false, target: null };
+  }
+
+  const returnInstruction = instructions.find((decoded, index) => index > xuanYunIndex && decoded.name === "returnvoid");
+  if (!returnInstruction) {
+    return { optimized: false, target: null };
+  }
+
+  return {
+    optimized: false,
+    target: {
+      insertOffset: insertInstruction.offset,
+      targetOffset: returnInstruction.offset + returnInstruction.length,
+    },
+  };
+}
+
+function buildPassiveSuperArmorActionUpdateCode(
+  abc: Abc,
+  body: AbcMethodBody,
+  target: PassiveSuperArmorPatchTarget
+): Buffer {
+  const petdIndex = multinameIndexEndingWith(abc, "petd");
+  const getnameIndex = multinameIndexEndingWith(abc, "getname");
+  const parts: AssemblyPart[] = [
+    getLocal(0),
+    instruction(0x66, petdIndex),
+    instruction(0x46, getnameIndex, 0),
+    instruction(0x2c, stringIndexFor(abc, SOLAR_PET_NAME)),
+    Buffer.from([0xab]),
+    branch(0x11, "afterSolarControlStates"),
+    body.code.subarray(target.insertOffset, target.targetOffset),
+    label("afterSolarControlStates"),
+  ];
+
+  return Buffer.concat([
+    body.code.subarray(0, target.insertOffset),
+    assemble(parts),
+    body.code.subarray(target.targetOffset),
+  ]);
+}
+
+function patchPetFightPassiveSuperArmor(abcBuffer: Buffer): { abcBuffer: Buffer; patchCount: number } {
+  let abc = parseAbc(abcBuffer);
+  let body = methodBodyByName(abc, PET_FIGHT_CLASS, "actionUpdate", false);
+  let status = passiveSuperArmorStatus(abc, body);
+  if (!body || status.optimized || !status.target) {
+    return { abcBuffer, patchCount: 0 };
+  }
+
+  let nextAbcBuffer = ensureStringConstants(abcBuffer, [SOLAR_PET_NAME]);
+  abc = parseAbc(nextAbcBuffer);
+  body = methodBodyByName(abc, PET_FIGHT_CLASS, "actionUpdate", false);
+  status = passiveSuperArmorStatus(abc, body);
+  if (!body || status.optimized || !status.target) {
+    return { abcBuffer: nextAbcBuffer, patchCount: 0 };
+  }
+
+  const headers = methodBodyHeaders(nextAbcBuffer);
+  const code = buildPassiveSuperArmorActionUpdateCode(abc, body, status.target);
+  nextAbcBuffer = replaceMethodCode(nextAbcBuffer, headers, body, code, "solar pet passive super armor", {
+    maxStack: Math.max(body.maxStack, 4),
+  });
+
+  abc = parseAbc(nextAbcBuffer);
+  body = methodBodyByName(abc, PET_FIGHT_CLASS, "actionUpdate", false);
+  return {
+    abcBuffer: nextAbcBuffer,
+    patchCount: passiveSuperArmorStatus(abc, body).optimized ? 1 : 0,
+  };
+}
+
 function inspectAbcBuffer(abcBuffer: Buffer): SolarPetRuntimePatchInspection {
   const abc = parseAbc(abcBuffer);
   const filenameBody = methodBodyByName(abc, LOADER_MANAGER_CLASS, "initFilename", true);
   const classMappingBody = methodBodyByName(abc, GAME_DATA_INIT_CLASS, "swfClassNameInit", true);
   const classAliasBody = methodBodyByName(abc, LOADER_MANAGER_CLASS, "getSwfClass", true);
+  const passiveSuperArmorBody = methodBodyByName(abc, PET_FIGHT_CLASS, "actionUpdate", false);
   const fusionCandidates = petManagerFusionCandidateBodies(abc);
   const fusionLevelMax = fusionCandidates.some((body) => fusionLevelMaxStatus(abc, body).optimized);
+  const passiveSuperArmor = passiveSuperArmorStatus(abc, passiveSuperArmorBody).optimized;
   const filenameMapping = bodyHasString(abc, filenameBody, SOLAR_PET_RESOURCE_NAME) && bodyHasString(abc, filenameBody, SOLAR_PET_ASSET_NAME);
   const classMappings =
     bodyHasString(abc, classMappingBody, `${SOLAR_PET_RESOURCE_NAME}7`) &&
@@ -1204,11 +1318,17 @@ function inspectAbcBuffer(abcBuffer: Buffer): SolarPetRuntimePatchInspection {
     return bodyHasString(abc, classAliasBody, alias) && bodyHasString(abc, classAliasBody, internalClass);
   });
   return {
-    targetFound: filenameBody != null || classMappingBody != null || classAliasBody != null || fusionCandidates.length > 0,
+    targetFound:
+      filenameBody != null ||
+      classMappingBody != null ||
+      classAliasBody != null ||
+      fusionCandidates.length > 0 ||
+      passiveSuperArmorBody != null,
     filenameMapping,
     classMappings,
     classAliases,
     fusionLevelMax,
+    passiveSuperArmor,
   };
 }
 
@@ -1219,6 +1339,7 @@ function mergeInspection(left: SolarPetRuntimePatchInspection, right: SolarPetRu
     classMappings: left.classMappings || right.classMappings,
     classAliases: left.classAliases || right.classAliases,
     fusionLevelMax: left.fusionLevelMax || right.fusionLevelMax,
+    passiveSuperArmor: left.passiveSuperArmor || right.passiveSuperArmor,
   };
 }
 
@@ -1253,6 +1374,10 @@ function patchDoAbcData(data: Buffer): { data: Buffer; patchCount: number } {
   abcBuffer = patched.abcBuffer;
   patchCount += patched.patchCount;
 
+  patched = patchPetFightPassiveSuperArmor(abcBuffer);
+  abcBuffer = patched.abcBuffer;
+  patchCount += patched.patchCount;
+
   return {
     data: patchCount > 0 ? Buffer.concat([data.subarray(0, abcRelativeStart), abcBuffer]) : data,
     patchCount,
@@ -1279,6 +1404,7 @@ export function inspectSolarPetRuntimePatch(swf: DecodedSwf): SolarPetRuntimePat
     classMappings: false,
     classAliases: false,
     fusionLevelMax: false,
+    passiveSuperArmor: false,
   };
 
   for (const tag of parseTags(swf.body)) {

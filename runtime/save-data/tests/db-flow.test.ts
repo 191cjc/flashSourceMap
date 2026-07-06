@@ -39,6 +39,7 @@ import {
   SOLAR_PET_EGG_NAME,
   SOLAR_PET_ID,
   SOLAR_PET_NAME,
+  SOLAR_PET_PASSIVE_SKILL_NAME,
   SOLAR_PET_QUALITY,
   SOLAR_PET_RESOURCE_NAME,
   SOLAR_PET_SKILL_BASE_ID,
@@ -555,7 +556,7 @@ try {
   assert.equal(solarPetPatch.petRecordPresent, true);
   assert.equal(solarPetPatch.actionRecordCount, SOLAR_PET_APTITUDE + 1 + 5 + solarPetSkillActionRecordCount);
   assert.equal(solarPetPatch.bulletRecordCount, 3);
-  assert.equal(solarPetPatch.petBulletRecordCount, (SOLAR_PET_SKILL_GROUP_COUNT - 1) * SOLAR_PET_SKILL_QUALITY_COUNT);
+  assert.equal(solarPetPatch.petBulletRecordCount, (SOLAR_PET_SKILL_GROUP_COUNT - 2) * SOLAR_PET_SKILL_QUALITY_COUNT);
   assert.equal(solarPetPatch.skillActionRecordCount, solarPetSkillActionRecordCount);
   assert.equal(solarPetPatch.skillShowRecordCount, SOLAR_PET_SKILL_GROUP_COUNT * SOLAR_PET_SKILL_QUALITY_COUNT);
   assert.equal(solarPetPatch.skillLearningRecordCount, 7);
@@ -593,6 +594,10 @@ try {
   assert.ok(solarPetBulletRecords.every((record) => !record.includes("taiyangshenBoss")));
   assert.match(solarPetPatch.petSkillShowXml, new RegExp(`<技能编号>${SOLAR_PET_SKILL_BASE_ID}</技能编号>[\\s\\S]*?<技能名称>技能1</技能名称>`));
   assert.match(solarPetPatch.petSkillShowXml, /<针对的技能列表ID>技能1白<\/针对的技能列表ID>/);
+  assert.match(
+    solarPetPatch.petSkillShowXml,
+    new RegExp(`<技能名称>${SOLAR_PET_PASSIVE_SKILL_NAME}</技能名称>[\\s\\S]*?<针对的技能列表ID>${SOLAR_PET_PASSIVE_SKILL_NAME}橙</针对的技能列表ID>[\\s\\S]*?<等级成长的技能伤害系数>0</等级成长的技能伤害系数>[\\s\\S]*?<基数>1</基数>[\\s\\S]*?<技能说明>被动：永久霸体，免疫冰冻、石化、眩晕。稳定度Z%</技能说明>`)
+  );
   assert.match(solarPetPatch.petSkillShowXml, /<技能名称>技能7<\/技能名称>[\s\S]*?<针对的技能列表ID>技能7橙<\/针对的技能列表ID>/);
   assert.match(solarPetPatch.petSkillShowXml, /<最低资质限制>7<\/最低资质限制>/);
   assert.match(
@@ -605,6 +610,11 @@ try {
   );
   assert.match(solarPetPatch.petActionXml, /<技能名称>7技能7橙<\/技能名称>[\s\S]*?<技能等级>1<\/技能等级>/);
   assert.match(solarPetPatch.petActionXml, /<技能名称>7技能7橙<\/技能名称>[\s\S]*?<生成子弹>{"35":"技能7橙"}<\/生成子弹>/);
+  assert.match(
+    solarPetPatch.petActionXml,
+    new RegExp(`<技能名称>5${SOLAR_PET_PASSIVE_SKILL_NAME}橙</技能名称>[\\s\\S]*?<技能等级>1</技能等级>[\\s\\S]*?<技能CD>999999999</技能CD>[\\s\\S]*?<生成子弹>{}</生成子弹>`)
+  );
+  assert.doesNotMatch(solarPetPatch.petBulletXml, new RegExp(`<源名>${SOLAR_PET_PASSIVE_SKILL_NAME}`));
   assert.match(solarPetPatch.petBulletXml, /<源名>技能7橙<\/源名>[\s\S]*?<二名>10<\/二名>/);
   assert.match(solarPetPatch.petBulletXml, /<源名>技能7橙<\/源名>[\s\S]*?<伤害增幅>9.12\*0.5472<\/伤害增幅>/);
   assert.match(
@@ -681,9 +691,10 @@ try {
     !solarPetRuntimeBefore.filenameMapping ||
     !solarPetRuntimeBefore.classMappings ||
     !solarPetRuntimeBefore.classAliases ||
-    !solarPetRuntimeBefore.fusionLevelMax
+    !solarPetRuntimeBefore.fusionLevelMax ||
+    !solarPetRuntimeBefore.passiveSuperArmor
   ) {
-    assert.equal(patchSolarPetRuntime(innerGameSwf), 4);
+    assert.equal(patchSolarPetRuntime(innerGameSwf), 5);
   }
   const solarPetRuntimeAfter = inspectSolarPetRuntimePatch(innerGameSwf);
   assert.deepEqual(solarPetRuntimeAfter, {
@@ -692,6 +703,7 @@ try {
     classMappings: true,
     classAliases: true,
     fusionLevelMax: true,
+    passiveSuperArmor: true,
   });
   assert.equal(patchSolarPetRuntime(innerGameSwf), 0);
 
