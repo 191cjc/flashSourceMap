@@ -45,6 +45,16 @@ import {
 } from "../services/levelRewards.js";
 import { loadGameDataCatalog } from "../services/gameData.js";
 import { getZodiacSoulExpOptimizationState } from "../services/zodiacSoulExp.js";
+import {
+  LocalUnionMockService,
+  type UnionApply,
+  type UnionInfo,
+  type UnionListItem,
+  type UnionMember,
+  type UnionRole,
+  type UnionTask,
+  type UnionVariable,
+} from "../services/union.js";
 
 type ServerOptions = {
   host?: string;
@@ -242,6 +252,10 @@ class ThriftBinaryWriter {
     this.chunks.push(buffer);
   }
 
+  writeBool(value: boolean): void {
+    this.writeByte(value ? 1 : 0);
+  }
+
   writeMessageBegin(name: string, type: number, seqid: number): void {
     const version = Buffer.allocUnsafe(4);
     version.writeUInt32BE((THRIFT_VERSION_1 | type) >>> 0, 0);
@@ -339,6 +353,28 @@ class ThriftBinaryReader {
     return value;
   }
 
+  readI64(): number {
+    this.ensureAvailable(8);
+    const value = this.body.readBigInt64BE(this.offset);
+    this.offset += 8;
+    const numberValue = Number(value);
+    if (!Number.isSafeInteger(numberValue)) {
+      throw new Error(`Unsupported thrift i64 value: ${value.toString()}`);
+    }
+    return numberValue;
+  }
+
+  readBool(): boolean {
+    return this.readByte() !== 0;
+  }
+
+  readListBegin(): { elementType: number; size: number } {
+    return {
+      elementType: this.readByte(),
+      size: this.readI32(),
+    };
+  }
+
   readString(): string {
     const length = this.readI32();
     if (length < 0) {
@@ -416,8 +452,7 @@ class ThriftBinaryReader {
         }
       case THRIFT_TYPE.LIST:
       case THRIFT_TYPE.SET: {
-        const elementType = this.readByte();
-        const size = this.readI32();
+        const { elementType, size } = this.readListBegin();
         for (let index = 0; index < size; index += 1) {
           this.skip(elementType);
         }
@@ -508,43 +543,425 @@ function writeThriftI32Field(writer: ThriftBinaryWriter, id: number, value: numb
   writer.writeI32(value);
 }
 
+function writeThriftBoolField(writer: ThriftBinaryWriter, id: number, value: boolean): void {
+  writer.writeFieldBegin(THRIFT_TYPE.BOOL, id);
+  writer.writeBool(value);
+}
+
 function writeThriftStructField(writer: ThriftBinaryWriter, id: number, writeStruct: () => void): void {
   writer.writeFieldBegin(THRIFT_TYPE.STRUCT, id);
   writeStruct();
 }
 
-function thriftUnionListResponse(seqid: number): Buffer {
+function writeThriftListField<T>(
+  writer: ThriftBinaryWriter,
+  id: number,
+  elementType: number,
+  items: readonly T[],
+  writeItem: (item: T) => void
+): void {
+  writer.writeFieldBegin(THRIFT_TYPE.LIST, id);
+  writer.writeListBegin(elementType, items.length);
+  for (const item of items) {
+    writeItem(item);
+  }
+}
+
+type UnionApiHeader = {
+  tag?: string;
+  gameId?: string;
+  index?: number;
+};
+
+type UnionThriftRequest = {
+  message: ThriftMessageInfo;
+  header: UnionApiHeader;
+  fields: Map<number, unknown>;
+};
+
+type UnionThriftResponse = {
+  body: Buffer;
+  apiName: string;
+  result: string;
+  error?: {
+    message: string;
+  };
+  details?: Record<string, unknown>;
+};
+
+function writeUnionListItemStruct(writer: ThriftBinaryWriter, item: UnionListItem): void {
+  writeThriftI32Field(writer, 1, item.unionId);
+  writeThriftStringField(writer, 2, item.title);
+  writeThriftStringField(writer, 3, item.username);
+  writeThriftI32Field(writer, 4, item.level);
+  writeThriftStringField(writer, 5, item.count);
+  writeThriftStringField(writer, 6, item.extra);
+  writeThriftI32Field(writer, 7, item.experience);
+  writer.writeFieldStop();
+}
+
+function writeUnionInfoStruct(writer: ThriftBinaryWriter, union: UnionInfo | null): void {
+  if (union) {
+    writeThriftI32Field(writer, 1, union.id);
+    writeThriftI32Field(writer, 2, union.gameId);
+    writeThriftStringField(writer, 3, union.uId);
+    writeThriftStringField(writer, 4, union.userName);
+    writeThriftStringField(writer, 5, union.index);
+    writeThriftStringField(writer, 6, union.nickName);
+    writeThriftStringField(writer, 7, union.title);
+    writeThriftI32Field(writer, 8, union.level);
+    writeThriftI32Field(writer, 9, union.experience);
+    writeThriftI32Field(writer, 10, union.contribution);
+    writeThriftStringField(writer, 11, union.extra);
+    writeThriftStringField(writer, 12, union.extra2);
+    writeThriftStringField(writer, 13, union.dissolveDate);
+    writeThriftStringField(writer, 14, union.count);
+    writeThriftStringField(writer, 15, union.transfer);
+  }
+  writer.writeFieldStop();
+}
+
+function writeUnionMemberStruct(writer: ThriftBinaryWriter, member: UnionMember | null): void {
+  if (member) {
+    writeThriftI32Field(writer, 1, member.gameId);
+    writeThriftI32Field(writer, 2, member.unionId);
+    writeThriftStringField(writer, 3, member.uId);
+    writeThriftStringField(writer, 4, member.userName);
+    writeThriftStringField(writer, 5, member.index);
+    writeThriftStringField(writer, 6, member.nickName);
+    writeThriftI32Field(writer, 7, member.contribution);
+    writeThriftStringField(writer, 8, member.extra);
+    writeThriftStringField(writer, 9, member.extra2);
+    writeThriftStringField(writer, 10, member.active_time);
+    writeThriftStringField(writer, 11, member.roleId);
+    writeThriftStringField(writer, 12, member.roleName);
+  }
+  writer.writeFieldStop();
+}
+
+function writeUnionMeStruct(writer: ThriftBinaryWriter, unionInfo: UnionInfo | null, member: UnionMember | null): void {
+  writeThriftStructField(writer, 1, () => writeUnionInfoStruct(writer, unionInfo));
+  writeThriftStructField(writer, 2, () => writeUnionMemberStruct(writer, member));
+  writer.writeFieldStop();
+}
+
+function writeUnionApplyStruct(writer: ThriftBinaryWriter, apply: UnionApply): void {
+  writeThriftI32Field(writer, 1, apply.gameId);
+  writeThriftI32Field(writer, 2, apply.unionId);
+  writeThriftStringField(writer, 3, apply.uId);
+  writeThriftStringField(writer, 4, apply.userName);
+  writeThriftStringField(writer, 5, apply.index);
+  writeThriftStringField(writer, 6, apply.nickName);
+  writeThriftStringField(writer, 7, apply.extra);
+  writer.writeFieldStop();
+}
+
+function writeUnionVariableStruct(writer: ThriftBinaryWriter, variable: UnionVariable): void {
+  writeThriftStringField(writer, 1, variable.id);
+  writeThriftStringField(writer, 2, variable.value);
+  writer.writeFieldStop();
+}
+
+function writeUnionTaskStruct(writer: ThriftBinaryWriter, task: UnionTask): void {
+  writeThriftStringField(writer, 1, task.taskName);
+  writeThriftStringField(writer, 2, task.value);
+  writer.writeFieldStop();
+}
+
+function writeUnionRoleStruct(writer: ThriftBinaryWriter, role: UnionRole): void {
+  writeThriftI32Field(writer, 1, role.id);
+  writeThriftStringField(writer, 2, role.name);
+  writeThriftStringField(writer, 3, role.privilegeList);
+  writeThriftI32Field(writer, 4, role.create_time);
+  writeThriftStringField(writer, 5, role.memo);
+  writer.writeFieldStop();
+}
+
+function thriftUnionSuccessResponse(methodName: string, seqid: number, writeSuccess: (writer: ThriftBinaryWriter) => void): Buffer {
   const writer = new ThriftBinaryWriter();
-  writer.writeMessageBegin("unionList", THRIFT_MESSAGE_TYPE.REPLY, seqid);
+  writer.writeMessageBegin(methodName, THRIFT_MESSAGE_TYPE.REPLY, seqid);
   writeThriftStructField(writer, 0, () => {
-    writeThriftStringField(writer, 1, String(Date.now()));
-    writer.writeFieldBegin(THRIFT_TYPE.LIST, 2);
-    writer.writeListBegin(THRIFT_TYPE.STRUCT, 0);
-    writeThriftStringField(writer, 3, "0");
+    writeSuccess(writer);
     writer.writeFieldStop();
   });
   writer.writeFieldStop();
   return writer.toBuffer();
 }
 
-function thriftUnionOfMeResponse(seqid: number): Buffer {
-  const writer = new ThriftBinaryWriter();
-  writer.writeMessageBegin("unionOfMe", THRIFT_MESSAGE_TYPE.REPLY, seqid);
-  writeThriftStructField(writer, 0, () => {
-    writeThriftStringField(writer, 1, String(Date.now()));
-    writeThriftStructField(writer, 2, () => {
-      writeThriftStructField(writer, 1, () => {
-        writer.writeFieldStop();
-      });
-      writeThriftStructField(writer, 2, () => {
-        writer.writeFieldStop();
-      });
-      writer.writeFieldStop();
-    });
-    writer.writeFieldStop();
+function thriftUnionBoolResponse(methodName: string, seqid: number, tag: string, result: boolean): Buffer {
+  return thriftUnionSuccessResponse(methodName, seqid, (writer) => {
+    writeThriftStringField(writer, 1, tag);
+    writeThriftBoolField(writer, 2, result);
   });
-  writer.writeFieldStop();
-  return writer.toBuffer();
+}
+
+function thriftUnionIntResponse(methodName: string, seqid: number, tag: string, result: number): Buffer {
+  return thriftUnionSuccessResponse(methodName, seqid, (writer) => {
+    writeThriftStringField(writer, 1, tag);
+    writeThriftI32Field(writer, 2, result);
+  });
+}
+
+function thriftUnionStringResultResponse(methodName: string, seqid: number, tag: string, result: string): Buffer {
+  return thriftUnionSuccessResponse(methodName, seqid, (writer) => {
+    writeThriftStringField(writer, 1, tag);
+    writeThriftStringField(writer, 2, result);
+  });
+}
+
+function thriftUnionListResponse(methodName: string, seqid: number, tag: string, view: { unionList: UnionListItem[]; count: string }): Buffer {
+  return thriftUnionSuccessResponse(methodName, seqid, (writer) => {
+    writeThriftStringField(writer, 1, tag);
+    writeThriftListField(writer, 2, THRIFT_TYPE.STRUCT, view.unionList, (item) => writeUnionListItemStruct(writer, item));
+    writeThriftStringField(writer, 3, view.count);
+  });
+}
+
+function thriftUnionOfMeResponse(methodName: string, seqid: number, tag: string, unionInfo: UnionInfo | null, member: UnionMember | null): Buffer {
+  return thriftUnionSuccessResponse(methodName, seqid, (writer) => {
+    writeThriftStringField(writer, 1, tag);
+    writeThriftStructField(writer, 2, () => writeUnionMeStruct(writer, unionInfo, member));
+  });
+}
+
+function thriftUnionInfoResponse(methodName: string, seqid: number, tag: string, unionInfo: UnionInfo | null): Buffer {
+  return thriftUnionSuccessResponse(methodName, seqid, (writer) => {
+    writeThriftStringField(writer, 1, tag);
+    writeThriftStructField(writer, 2, () => writeUnionInfoStruct(writer, unionInfo));
+  });
+}
+
+function thriftUnionMembersResponse(methodName: string, seqid: number, tag: string, members: UnionMember[]): Buffer {
+  return thriftUnionSuccessResponse(methodName, seqid, (writer) => {
+    writeThriftStringField(writer, 1, tag);
+    writeThriftListField(writer, 2, THRIFT_TYPE.STRUCT, members, (member) => writeUnionMemberStruct(writer, member));
+  });
+}
+
+function thriftUnionVariablesResponse(methodName: string, seqid: number, tag: string, variables: UnionVariable[]): Buffer {
+  return thriftUnionSuccessResponse(methodName, seqid, (writer) => {
+    writeThriftStringField(writer, 1, tag);
+    writeThriftListField(writer, 2, THRIFT_TYPE.STRUCT, variables, (variable) => writeUnionVariableStruct(writer, variable));
+  });
+}
+
+function thriftUnionTaskValueResponse(
+  methodName: string,
+  seqid: number,
+  tag: string,
+  view: { value: UnionTask[]; exchange: string; total: string }
+): Buffer {
+  return thriftUnionSuccessResponse(methodName, seqid, (writer) => {
+    writeThriftStringField(writer, 1, tag);
+    writeThriftListField(writer, 2, THRIFT_TYPE.STRUCT, view.value, (task) => writeUnionTaskStruct(writer, task));
+    writeThriftStringField(writer, 3, view.exchange);
+    writeThriftStringField(writer, 4, view.total);
+  });
+}
+
+function thriftUnionApplyListResponse(methodName: string, seqid: number, tag: string, view: { applyList: UnionApply[]; count: string }): Buffer {
+  return thriftUnionSuccessResponse(methodName, seqid, (writer) => {
+    writeThriftStringField(writer, 1, tag);
+    writeThriftListField(writer, 2, THRIFT_TYPE.STRUCT, view.applyList, (apply) => writeUnionApplyStruct(writer, apply));
+    writeThriftStringField(writer, 3, view.count);
+  });
+}
+
+function thriftUnionLogListResponse(methodName: string, seqid: number, tag: string, view: { logList: string[]; count: string }): Buffer {
+  return thriftUnionSuccessResponse(methodName, seqid, (writer) => {
+    writeThriftStringField(writer, 1, tag);
+    writeThriftListField(writer, 2, THRIFT_TYPE.STRING, view.logList, (entry) => writer.writeString(entry));
+    writeThriftStringField(writer, 3, view.count);
+  });
+}
+
+function thriftUnionRoleListResponse(methodName: string, seqid: number, tag: string, view: { roleList: UnionRole[]; count: string }): Buffer {
+  return thriftUnionSuccessResponse(methodName, seqid, (writer) => {
+    writeThriftStringField(writer, 1, tag);
+    writeThriftListField(writer, 2, THRIFT_TYPE.STRUCT, view.roleList, (role) => writeUnionRoleStruct(writer, role));
+    writeThriftStringField(writer, 3, view.count);
+  });
+}
+
+function readUnionApiHeader(reader: ThriftBinaryReader): UnionApiHeader {
+  const header: UnionApiHeader = {};
+
+  while (true) {
+    const field = reader.readFieldBegin();
+    if (field.type === THRIFT_TYPE.STOP) {
+      return header;
+    }
+
+    switch (field.id) {
+      case 1:
+        header.tag = readStringLike(reader, field.type, "");
+        break;
+      case 2:
+        header.gameId = readStringLike(reader, field.type, "");
+        break;
+      case 3:
+        header.index = readIntegerLike(reader, field.type, 0);
+        break;
+      default:
+        reader.skip(field.type);
+    }
+  }
+}
+
+function readUnionValue(reader: ThriftBinaryReader, type: number): unknown {
+  switch (type) {
+    case THRIFT_TYPE.BOOL:
+      return reader.readBool();
+    case THRIFT_TYPE.BYTE:
+      return reader.readByte();
+    case THRIFT_TYPE.I16:
+      return reader.readI16();
+    case THRIFT_TYPE.I32:
+      return reader.readI32();
+    case THRIFT_TYPE.I64:
+      return reader.readI64();
+    case THRIFT_TYPE.STRING:
+      return reader.readString();
+    case THRIFT_TYPE.STRUCT: {
+      const output: Record<string, unknown> = {};
+      while (true) {
+        const field = reader.readFieldBegin();
+        if (field.type === THRIFT_TYPE.STOP) {
+          return output;
+        }
+        output[String(field.id)] = readUnionValue(reader, field.type);
+      }
+    }
+    case THRIFT_TYPE.LIST:
+    case THRIFT_TYPE.SET: {
+      const { elementType, size } = reader.readListBegin();
+      if (size < 0) {
+        throw new Error(`Invalid thrift list size: ${size}`);
+      }
+      const output: unknown[] = [];
+      for (let index = 0; index < size; index += 1) {
+        output.push(readUnionValue(reader, elementType));
+      }
+      return output;
+    }
+    default:
+      reader.skip(type);
+      return undefined;
+  }
+}
+
+function readUnionRequest(body: Buffer): UnionThriftRequest {
+  const reader = new ThriftBinaryReader(body);
+  const message = reader.readMessageBegin();
+  const fields = new Map<number, unknown>();
+  let header: UnionApiHeader = {};
+
+  while (true) {
+    const field = reader.readFieldBegin();
+    if (field.type === THRIFT_TYPE.STOP) {
+      return { message, header, fields };
+    }
+
+    if (field.id === 1 && field.type === THRIFT_TYPE.STRUCT) {
+      header = readUnionApiHeader(reader);
+    } else {
+      fields.set(field.id, readUnionValue(reader, field.type));
+    }
+  }
+}
+
+function readStringLike(reader: ThriftBinaryReader, type: number, fallback: string): string {
+  switch (type) {
+    case THRIFT_TYPE.STRING:
+      return reader.readString();
+    case THRIFT_TYPE.I32:
+      return String(reader.readI32());
+    case THRIFT_TYPE.I16:
+      return String(reader.readI16());
+    case THRIFT_TYPE.I64:
+      return String(reader.readI64());
+    case THRIFT_TYPE.BOOL:
+      return reader.readBool() ? "1" : "0";
+    default:
+      reader.skip(type);
+      return fallback;
+  }
+}
+
+function readIntegerLike(reader: ThriftBinaryReader, type: number, fallback: number): number {
+  switch (type) {
+    case THRIFT_TYPE.I32:
+      return reader.readI32();
+    case THRIFT_TYPE.I16:
+      return reader.readI16();
+    case THRIFT_TYPE.I64:
+      return reader.readI64();
+    case THRIFT_TYPE.BYTE:
+      return reader.readByte();
+    case THRIFT_TYPE.BOOL:
+      return reader.readBool() ? 1 : 0;
+    case THRIFT_TYPE.STRING:
+      return integerFromUnknown(reader.readString(), fallback);
+    default:
+      reader.skip(type);
+      return fallback;
+  }
+}
+
+function integerFromUnknown(value: unknown, fallback = 0): number {
+  const parsed = typeof value === "number" ? value : typeof value === "bigint" ? Number(value) : Number(String(value ?? "").trim());
+  return Number.isFinite(parsed) ? Math.trunc(parsed) : fallback;
+}
+
+function optionalIntegerField(request: UnionThriftRequest, id: number): number | undefined {
+  return request.fields.has(id) ? integerFromUnknown(request.fields.get(id), 0) : undefined;
+}
+
+function integerField(request: UnionThriftRequest, id: number, fallback = 0): number {
+  return request.fields.has(id) ? integerFromUnknown(request.fields.get(id), fallback) : fallback;
+}
+
+function stringFromUnknown(value: unknown, fallback = ""): string {
+  return value == null ? fallback : String(value);
+}
+
+function stringField(request: UnionThriftRequest, id: number, fallback = ""): string {
+  return request.fields.has(id) ? stringFromUnknown(request.fields.get(id), fallback) : fallback;
+}
+
+function integerListField(request: UnionThriftRequest, id: number): number[] {
+  const value = request.fields.get(id);
+  return Array.isArray(value) ? value.map((entry) => integerFromUnknown(entry, 0)).filter((entry) => entry > 0) : [];
+}
+
+function unionUsersField(request: UnionThriftRequest, id: number): Array<{ uId: number; index: number }> {
+  const value = request.fields.get(id);
+  if (!Array.isArray(value)) {
+    return [];
+  }
+  return value
+    .map((entry) => {
+      if (entry && typeof entry === "object" && !Array.isArray(entry)) {
+        const user = entry as Record<string, unknown>;
+        return {
+          uId: integerFromUnknown(user["1"] ?? user.uId, 0),
+          index: integerFromUnknown(user["2"] ?? user.index, 0),
+        };
+      }
+      return { uId: integerFromUnknown(entry, 0), index: 0 };
+    })
+    .filter((entry) => entry.uId > 0);
+}
+
+function unionHeaderArgs(request: UnionThriftRequest): { gameId?: string; index?: number } {
+  return {
+    gameId: request.header.gameId,
+    index: request.header.index,
+  };
+}
+
+function unionTag(request: UnionThriftRequest): string {
+  return request.header.tag || String(Date.now());
 }
 
 function readShopHead(reader: ThriftBinaryReader): ShopHeadPayload {
@@ -754,24 +1171,304 @@ function shopMockResponse(api: SaveDataMockApi, body: Buffer): ShopThriftRespons
   }
 }
 
-function unionMockResponse(body: Buffer): { body: Buffer; apiName: string; result: string } {
+function unionMockResponse(api: LocalUnionMockService, body: Buffer): UnionThriftResponse {
   const message = readThriftMessageInfo(body);
   const apiName = message?.name ?? "unknown";
   const seqid = message?.seqid ?? 0;
 
-  if (apiName === "unionList") {
-    return { apiName, result: "empty_union_list", body: thriftUnionListResponse(seqid) };
-  }
+  try {
+    const request = readUnionRequest(body);
+    const methodName = request.message.name;
+    const tag = unionTag(request);
+    const header = unionHeaderArgs(request);
 
-  if (apiName === "unionOfMe") {
-    return { apiName, result: "empty_own_union", body: thriftUnionOfMeResponse(seqid) };
+    switch (methodName) {
+      case "unionCreate":
+      case "createUnion": {
+        const result = api.createUnion({ ...header, title: stringField(request, 2), extra: stringField(request, 3) });
+        return {
+          apiName: methodName,
+          result: result ? "ok" : "false",
+          details: { title: stringField(request, 2) },
+          body: thriftUnionBoolResponse(methodName, request.message.seqid, tag, result),
+        };
+      }
+      case "unionList":
+      case "getUnionList": {
+        const view = api.listUnions({ ...header, pageId: integerField(request, 2, 1), pageShow: integerField(request, 3, 10) });
+        return {
+          apiName: methodName,
+          result: "ok",
+          details: { count: view.count },
+          body: thriftUnionListResponse(methodName, request.message.seqid, tag, view),
+        };
+      }
+      case "unionApply":
+      case "applyUnion": {
+        const result = api.applyUnion({
+          ...header,
+          unionId: integerField(request, 2, 0),
+          extra: stringField(request, 3),
+        });
+        return {
+          apiName: methodName,
+          result: result ? "ok" : "false",
+          body: thriftUnionBoolResponse(methodName, request.message.seqid, tag, result),
+        };
+      }
+      case "unionOfMe":
+      case "getOwnUnion": {
+        const view = api.unionOfMe(header);
+        return {
+          apiName: methodName,
+          result: view.unionInfo ? "ok" : "empty_own_union",
+          details: { unionId: view.unionInfo?.id },
+          body: thriftUnionOfMeResponse(methodName, request.message.seqid, tag, view.unionInfo, view.member),
+        };
+      }
+      case "unionInfo":
+      case "getUnionDetail": {
+        const unionInfo = api.unionInfo(integerField(request, 2, 0));
+        return {
+          apiName: methodName,
+          result: unionInfo ? "ok" : "not_found",
+          body: thriftUnionInfoResponse(methodName, request.message.seqid, tag, unionInfo),
+        };
+      }
+      case "unionMembers":
+      case "getUnionMembers": {
+        const members = api.unionMembers(integerField(request, 2, 0));
+        return {
+          apiName: methodName,
+          result: "ok",
+          details: { count: members.length },
+          body: thriftUnionMembersResponse(methodName, request.message.seqid, tag, members),
+        };
+      }
+      case "setMemberExtra":
+      case "setMemberExtraRevised": {
+        const result = api.setMemberExtra({
+          unionId: integerField(request, 4, 0),
+          uId: optionalIntegerField(request, 5),
+          index: optionalIntegerField(request, 6),
+          extra: stringField(request, 3),
+        });
+        return {
+          apiName: methodName,
+          result: result ? "ok" : "false",
+          body: thriftUnionBoolResponse(methodName, request.message.seqid, tag, result),
+        };
+      }
+      case "setUnionExtra": {
+        const result = api.setUnionExtra({ unionId: integerField(request, 4, 0), extra: stringField(request, 3) });
+        return {
+          apiName: methodName,
+          result: result ? "ok" : "false",
+          body: thriftUnionBoolResponse(methodName, request.message.seqid, tag, result),
+        };
+      }
+      case "unionLog":
+      case "getUnionLog": {
+        const view = api.unionLog({ ...header, pageId: integerField(request, 2, 1), pageShow: integerField(request, 3, 10) });
+        return {
+          apiName: methodName,
+          result: "ok",
+          details: { count: view.count },
+          body: thriftUnionLogListResponse(methodName, request.message.seqid, tag, view),
+        };
+      }
+      case "deleteContributionPersonal":
+      case "usePersonalContribution": {
+        const spent = api.deleteContributionPersonal({ ...header, contribution: integerField(request, 2, 0) });
+        return {
+          apiName: methodName,
+          result: "ok",
+          body: thriftUnionIntResponse(methodName, request.message.seqid, tag, spent),
+        };
+      }
+      case "unionQuit":
+      case "quitUnion":
+      case "quitUion": {
+        const result = api.unionQuit(header);
+        return {
+          apiName: methodName,
+          result: result ? "ok" : "false",
+          body: thriftUnionBoolResponse(methodName, request.message.seqid, tag, result),
+        };
+      }
+      case "setRole":
+      case "setRoleRevised": {
+        const result = api.setRole({
+          ...header,
+          uId: integerField(request, 2, 0),
+          targetIndex: integerField(request, 3, 0),
+          roleId: integerField(request, 4, 0),
+        });
+        return {
+          apiName: methodName,
+          result: result ? "ok" : "false",
+          body: thriftUnionBoolResponse(methodName, request.message.seqid, tag, result),
+        };
+      }
+      case "doTask": {
+        const result = api.doTask({ ...header, taskId: stringField(request, 2) });
+        return {
+          apiName: methodName,
+          result: result ? "ok" : "false",
+          body: thriftUnionBoolResponse(methodName, request.message.seqid, tag, result),
+        };
+      }
+      case "getTaskValue": {
+        const view = api.getTaskValue(header);
+        return {
+          apiName: methodName,
+          result: "ok",
+          body: thriftUnionTaskValueResponse(methodName, request.message.seqid, tag, view),
+        };
+      }
+      case "exchange":
+      case "doExchange": {
+        const result = api.exchange({ ...header, money: integerField(request, 2, 0) });
+        return {
+          apiName: methodName,
+          result: result ? "ok" : "false",
+          body: thriftUnionBoolResponse(methodName, request.message.seqid, tag, result),
+        };
+      }
+      case "applyList":
+      case "getApplyList": {
+        const view = api.applyList({ ...header, pageId: integerField(request, 2, 1), pageShow: integerField(request, 3, 6) });
+        return {
+          apiName: methodName,
+          result: "ok",
+          details: { count: view.count },
+          body: thriftUnionApplyListResponse(methodName, request.message.seqid, tag, view),
+        };
+      }
+      case "applyAudit":
+      case "auditMember":
+      case "auditMemberRevised": {
+        const result = api.applyAudit({
+          ...header,
+          uId: integerField(request, 2, 0),
+          targetIndex: integerField(request, 3, 0),
+          auditResult: integerField(request, 4, 0),
+        });
+        return {
+          apiName: methodName,
+          result: result ? "ok" : "false",
+          body: thriftUnionBoolResponse(methodName, request.message.seqid, tag, result),
+        };
+      }
+      case "memberRemove":
+      case "removeMember":
+      case "removeMemberRevised": {
+        const result = api.memberRemove({
+          ...header,
+          uId: integerField(request, 2, 0),
+          targetIndex: integerField(request, 3, 0),
+        });
+        return {
+          apiName: methodName,
+          result: result ? "ok" : "false",
+          body: thriftUnionBoolResponse(methodName, request.message.seqid, tag, result),
+        };
+      }
+      case "dissolve":
+      case "dissolveUnion": {
+        const result = api.dissolve({ ...header, actionType: integerField(request, 2, 0) });
+        return {
+          apiName: methodName,
+          result: result ? "ok" : "false",
+          body: thriftUnionStringResultResponse(methodName, request.message.seqid, tag, result),
+        };
+      }
+      case "deleteContributionUnion":
+      case "useUnionContribution": {
+        const spent = api.deleteContributionUnion({ ...header, contribution: integerField(request, 2, 0) });
+        return {
+          apiName: methodName,
+          result: "ok",
+          body: thriftUnionIntResponse(methodName, request.message.seqid, tag, spent),
+        };
+      }
+      case "applyAuditMuch":
+      case "applyMultiAudit": {
+        const users = unionUsersField(request, 2);
+        const auditResult = integerField(request, 3, 0);
+        const result =
+          users.length > 0 &&
+          users.every((user) => api.applyAudit({ ...header, uId: user.uId, targetIndex: user.index, auditResult }));
+        return {
+          apiName: methodName,
+          result: result ? "ok" : "false",
+          details: { count: users.length },
+          body: thriftUnionBoolResponse(methodName, request.message.seqid, tag, result),
+        };
+      }
+      case "transfer":
+      case "transferUnion":
+      case "transferUnionRevised": {
+        const result = api.transfer({
+          ...header,
+          uId: integerField(request, 2, 0),
+          targetIndex: integerField(request, 3, 0),
+          transferResult: integerField(request, 4, 0),
+        });
+        return {
+          apiName: methodName,
+          result: result ? "ok" : "false",
+          body: thriftUnionBoolResponse(methodName, request.message.seqid, tag, result),
+        };
+      }
+      case "getVariables": {
+        const variables = api.getVariables({ ...header, ids: integerListField(request, 2) });
+        return {
+          apiName: methodName,
+          result: "ok",
+          details: { count: variables.length },
+          body: thriftUnionVariablesResponse(methodName, request.message.seqid, tag, variables),
+        };
+      }
+      case "doVariable": {
+        const result = api.doVariable({ ...header, id: integerField(request, 2, 0) });
+        return {
+          apiName: methodName,
+          result: result ? "ok" : "false",
+          body: thriftUnionBoolResponse(methodName, request.message.seqid, tag, result),
+        };
+      }
+      case "getRoleList": {
+        const view = api.getRoleList();
+        return {
+          apiName: methodName,
+          result: "ok",
+          details: { count: view.count },
+          body: thriftUnionRoleListResponse(methodName, request.message.seqid, tag, view),
+        };
+      }
+      case "test":
+        return {
+          apiName: methodName,
+          result: "ok",
+          body: thriftUnionStringResultResponse(methodName, request.message.seqid, tag, "ok"),
+        };
+      default:
+        return {
+          apiName: methodName,
+          result: "unsupported",
+          body: thriftExceptionResponse(methodName, request.message.seqid, `Unsupported local union API: ${methodName}`),
+        };
+    }
+  } catch (error) {
+    const messageText = error instanceof Error ? error.message : String(error);
+    return {
+      apiName,
+      result: "invalid_request",
+      error: { message: messageText },
+      body: thriftExceptionResponse(apiName, seqid, messageText),
+    };
   }
-
-  return {
-    apiName,
-    result: "unsupported",
-    body: thriftExceptionResponse(apiName, seqid, `Unsupported local union API: ${apiName}`),
-  };
 }
 
 function acceptsGzip(req: IncomingMessage): boolean {
@@ -1146,6 +1843,7 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
   const db = createSaveDataStore(options);
   const logger = new SaveDataLogger({ enabled: saveDataLoggingEnabled() });
   const api = new SaveDataMockApi(db, undefined, logger);
+  const unionApi = new LocalUnionMockService(db, api.account);
 
   const server = createServer(async (req, res) => {
     try {
@@ -1436,7 +2134,7 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
       }
 
       if (url.pathname.startsWith("/api/4399/union/")) {
-        const response = unionMockResponse(bodyBuffer);
+        const response = unionMockResponse(unionApi, bodyBuffer);
         logger.appendSync({
           event: "platform.union",
           method: req.method ?? "GET",
@@ -1450,6 +2148,7 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
             requestBytes: bodyBuffer.length,
             responseBytes: response.body.length,
             query: Object.fromEntries(url.searchParams.entries()),
+            error: response.error,
           },
         });
         send(res, 200, "application/x-thrift", response.body);
