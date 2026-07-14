@@ -133,7 +133,7 @@
   }
 
   // ── 线上导入 ──────────────────────────────────────────────
-  let onlineSession = null; // { uid, nickname, cookie }
+  let onlineSession = null; // { uid, username, nickname, cookie }
 
   function setOnlineImportHint(msg, isError) {
     const el = document.getElementById("onlineImportHint");
@@ -174,7 +174,7 @@
       const res = await fetch("/api/online-import/saves", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ uid: onlineSession.uid, cookie: onlineSession.cookie }),
+        body: JSON.stringify({ uid: onlineSession.uid, username: onlineSession.username, cookie: onlineSession.cookie }),
       });
       const json = await readJsonResponse(res);
       if (!json.ok) throw new Error(json.error || "未知错误");
@@ -222,7 +222,7 @@
         });
         const json = await readJsonResponse(res);
         if (!json.ok) throw new Error(json.error || "登录失败");
-        onlineSession = { uid: json.uid, nickname: json.nickname, cookie: json.cookie };
+        onlineSession = { uid: json.uid, username: json.username, nickname: json.nickname, cookie: json.cookie };
         showOnlineSession();
         await fetchOnlineSaves();
       } catch (err) {

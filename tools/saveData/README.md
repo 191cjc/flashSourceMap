@@ -84,6 +84,20 @@
 
 线上存档外层接口返回的 `data` 是字符串，解码流程为 `Base64 -> zlib inflate -> AMF3 String -> saveXml`。因此接口层可以使用 `OnlineSaveSlot`，解码后再使用 `DecodedSaveSlot/GameSaveData`。
 
+### 线上账号导入协议
+
+4399 账号密码登录响应是 HTML 回调页，不是 JSON。有效登录信息位于响应 Cookie：`Pauth` 需要连续 URL 解码两次，再按 `|` 分隔，第一段是 UID；用户名和昵称分别来自 `Puser`/`ck_accname` 与 `Pnick`。不要假设存在 `Puid` Cookie，也不要仅凭响应设置了任意 Cookie 就判断登录成功。
+
+线上存档读取必须复现平台控制器的完整 HTTPS 握手，不能登录后直接调用 `get_list`：
+
+1. `auth/openapi.php?method=User.Authenticate` 校验 `uid/username/gameid`。
+2. `?ac=get_session` 使用派生的 `gamekey` 和三重 MD5 `verify` 创建存档会话。
+3. `index.php?ac=get_token` 获取本次操作 token；空 token 也是当前服务端可能返回的合法结果。
+4. `?ac=get_list` 使用 token、gamekey 和重新计算的 verify 拉取列表。
+5. 每次 `?ac=get` 详情读取前重新获取 token，并携带 `index/session/refer` 及包含 index 的 verify。
+
+线上槽位编号是 `1..6`，本地槽位编号是 `0..5`。导入 UI 必须保留这两个索引空间的区别。上述流程的实现位于 `runtime/save-data/platform4399/onlineSave.ts`，回归测试位于 `runtime/save-data/tests/online-save.test.ts`。
+
 ## 关键子结构
 
 `FlowInterface.save()` 实际代理到 `GoodsManger.save()`。其中保存的内容包括：

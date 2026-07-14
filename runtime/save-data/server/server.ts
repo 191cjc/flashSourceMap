@@ -1306,7 +1306,7 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
             cookie: typeof reqBody.cookie === "string" ? reqBody.cookie : undefined,
             uid: typeof reqBody.uid === "string" ? reqBody.uid : undefined,
           });
-          send(res, 200, "application/json; charset=utf-8", JSON.stringify({ ok: true, uid: session.uid, nickname: session.nickname, cookie: session.cookie }));
+          send(res, 200, "application/json; charset=utf-8", JSON.stringify({ ok: true, uid: session.uid, username: session.username, nickname: session.nickname, cookie: session.cookie }));
         } catch (error) {
           const result = error instanceof OnlineSaveError ? error.result : "error";
           send(res, 400, "application/json; charset=utf-8", JSON.stringify({ ok: false, result, error: error instanceof Error ? error.message : String(error) }));
@@ -1322,13 +1322,14 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
         try {
           const reqBody = parseJsonRequestBody(body) as Record<string, unknown>;
           const uid = typeof reqBody.uid === "string" ? reqBody.uid : "";
+          const username = typeof reqBody.username === "string" ? reqBody.username : uid;
           const cookie = typeof reqBody.cookie === "string" ? reqBody.cookie : "";
           const gameId = typeof reqBody.gameId === "string" ? reqBody.gameId : undefined;
           if (!uid || !cookie) {
             send(res, 400, "application/json; charset=utf-8", JSON.stringify({ ok: false, result: "missing_session", error: "缺少 uid 或 cookie" }));
             return;
           }
-          const session = { uid, username: uid, nickname: uid, cookie };
+          const session = { uid, username, nickname: username, cookie };
           const slots = await fetchOnlineSaveList(session, gameId);
           send(res, 200, "application/json; charset=utf-8", JSON.stringify({ ok: true, slots }));
         } catch (error) {
