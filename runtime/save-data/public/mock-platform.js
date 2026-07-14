@@ -132,6 +132,140 @@
     }
   }
 
+  // ── 线上导入 ──────────────────────────────────────────────
+  let onlineSession = null; // { uid, nickname, cookie }
+
+  function setOnlineImportHint(msg, isError) {
+    const el = document.getElementById("onlineImportHint");
+    if (!el) return;
+    el.textContent = msg;
+    el.className = "hint" + (isError ? " is-warning" : "");
+  }
+
+  function renderOnlineSlots(slots) {
+    const container = document.getElementById("onlineImportSlots");
+    if (!container) return;
+    if (!slots || slots.length === 0) {
+      container.innerHTML = "<p class=\"hint\">没有找到线上存档。</p>";
+      return;
+    }
+    container.innerHTML = slots.map((slot) => {
+      const hasData = slot.data && slot.data.length > 0;
+      const label = escapeHtml(slot.title || `存档 ${slot.index}`);
+      const time = escapeHtml(slot.datetime || "");
+      return `<div class="online-import-slot${hasData ? "" : " is-empty"}">
+        <div class="online-import-slot-info">
+          <strong>${label}</strong>${time ? ` <span class="hint">${time}</span>` : ""}
+          ${hasData ? "" : " <span class=\"hint\">(空)</span>"}
+        </div>
+        <div class="online-import-slot-actions">
+          ${[0,1,2,3,4,5].map((i) =>
+            `<button type="button" class="online-import-to-slot" data-source-index="${slot.index}" data-target-index="${i}" data-title="${escapeHtml(slot.title || `存档 ${slot.index}`)}" data-data="${escapeHtml(slot.data || "")}"${hasData ? "" : " disabled"}>→本地${i}</button>`
+          ).join("")}
+        </div>
+      </div>`;
+    }).join("");
+  }
+
+  async function fetchOnlineSaves() {
+    if (!onlineSession) return;
+    setOnlineImportHint("正在拉取存档列表…", false);
+    try {
+      const res = await fetch("/api/online-import/saves", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ uid: onlineSession.uid, cookie: onlineSession.cookie }),
+      });
+      const json = await readJsonResponse(res);
+      if (!json.ok) throw new Error(json.error || "未知错误");
+      renderOnlineSlots(json.slots);
+      setOnlineImportHint(`已加载 ${json.slots.length} 个存档槽。`, false);
+    } catch (err) {
+      setOnlineImportHint(`拉取失败：${err.message}`, true);
+    }
+  }
+
+  function showOnlineSession() {
+    const form = document.getElementById("onlineImportLoginForm");
+    const session = document.getElementById("onlineImportSession");
+    const nick = document.getElementById("onlineImportNick");
+    if (form) form.hidden = true;
+    if (session) session.hidden = false;
+    if (nick) nick.textContent = onlineSession ? onlineSession.nickname : "";
+  }
+
+  function showOnlineLoginForm() {
+    const form = document.getElementById("onlineImportLoginForm");
+    const session = document.getElementById("onlineImportSession");
+    const container = document.getElementById("onlineImportSlots");
+    if (form) form.hidden = false;
+    if (session) session.hidden = true;
+    if (container) container.innerHTML = "";
+    setOnlineImportHint("", false);
+  }
+
+  document.addEventListener("click", async function (e) {
+    const target = e.target;
+
+    if (target && target.id === "onlineImportLogin") {
+      const username = (document.getElementById("onlineImportUsername") || {}).value || "";
+      const password = (document.getElementById("onlineImportPassword") || {}).value || "";
+      const cookie = (document.getElementById("onlineImportCookie") || {}).value || "";
+      const uid = (document.getElementById("onlineImportUid") || {}).value || "";
+      target.disabled = true;
+      setOnlineImportHint("正在登录…", false);
+      try {
+        const res = await fetch("/api/online-import/login", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ username, password, cookie, uid }),
+        });
+        const json = await readJsonResponse(res);
+        if (!json.ok) throw new Error(json.error || "登录失败");
+        onlineSession = { uid: json.uid, nickname: json.nickname, cookie: json.cookie };
+        showOnlineSession();
+        await fetchOnlineSaves();
+      } catch (err) {
+        setOnlineImportHint(`登录失败：${err.message}`, true);
+      } finally {
+        target.disabled = false;
+      }
+    }
+
+    if (target && target.id === "onlineImportRefresh") {
+      await fetchOnlineSaves();
+    }
+
+    if (target && target.id === "onlineImportLogout") {
+      onlineSession = null;
+      showOnlineLoginForm();
+    }
+
+    if (target && target.classList && target.classList.contains("online-import-to-slot")) {
+      const data = target.dataset.data || "";
+      const title = target.dataset.title || "线上导入";
+      const targetIndex = Number(target.dataset.targetIndex ?? 0);
+      if (!data) return;
+      if (!confirm(`确认将"${title}"覆盖到本地存档槽 ${targetIndex}？此操作不可撤销。`)) return;
+      target.disabled = true;
+      try {
+        const res = await fetch("/api/online-import/import", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ data, title, targetIndex }),
+        });
+        const json = await readJsonResponse(res);
+        if (!json.ok) throw new Error(json.error || "导入失败");
+        setOnlineImportHint(`已成功导入到本地存档槽 ${targetIndex}。`, false);
+        window.__saveDataLog && window.__saveDataLog(`线上存档"${title}"已导入到本地槽 ${targetIndex}`);
+      } catch (err) {
+        setOnlineImportHint(`导入失败：${err.message}`, true);
+      } finally {
+        target.disabled = false;
+      }
+    }
+  });
+
   function rechargeBlockedMessage() {
     return "已进入游戏，充值暂不可用；请重载游戏后先充值，再进入存档。";
   }

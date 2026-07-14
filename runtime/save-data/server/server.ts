@@ -27,6 +27,7 @@ import { LegacyJsonSaveDatabase } from "../persistence/legacyJsonDb.js";
 import type { SaveDataStore } from "../persistence/store.js";
 import { SaveDataLogger } from "./logger.js";
 import { MockShopError, SaveDataMockApi } from "../platform4399/mockApi.js";
+import { loginTo4399, fetchOnlineSaveList, OnlineSaveError } from "../platform4399/onlineSave.js";
 import { saveDataPaths } from "./paths.js";
 import {
   clearLevelRewardAchievementBoost,
@@ -1289,6 +1290,76 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
           details: clientLog.details,
         });
         send(res, 200, "application/json; charset=utf-8", JSON.stringify({ ok: true }));
+        return;
+      }
+
+      if (url.pathname === "/api/online-import/login") {
+        if (req.method !== "POST") {
+          send(res, 405, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "method_not_allowed" }));
+          return;
+        }
+        try {
+          const reqBody = parseJsonRequestBody(body) as Record<string, unknown>;
+          const session = await loginTo4399({
+            username: typeof reqBody.username === "string" ? reqBody.username : undefined,
+            password: typeof reqBody.password === "string" ? reqBody.password : undefined,
+            cookie: typeof reqBody.cookie === "string" ? reqBody.cookie : undefined,
+            uid: typeof reqBody.uid === "string" ? reqBody.uid : undefined,
+          });
+          send(res, 200, "application/json; charset=utf-8", JSON.stringify({ ok: true, uid: session.uid, nickname: session.nickname, cookie: session.cookie }));
+        } catch (error) {
+          const result = error instanceof OnlineSaveError ? error.result : "error";
+          send(res, 400, "application/json; charset=utf-8", JSON.stringify({ ok: false, result, error: error instanceof Error ? error.message : String(error) }));
+        }
+        return;
+      }
+
+      if (url.pathname === "/api/online-import/saves") {
+        if (req.method !== "POST") {
+          send(res, 405, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "method_not_allowed" }));
+          return;
+        }
+        try {
+          const reqBody = parseJsonRequestBody(body) as Record<string, unknown>;
+          const uid = typeof reqBody.uid === "string" ? reqBody.uid : "";
+          const cookie = typeof reqBody.cookie === "string" ? reqBody.cookie : "";
+          const gameId = typeof reqBody.gameId === "string" ? reqBody.gameId : undefined;
+          if (!uid || !cookie) {
+            send(res, 400, "application/json; charset=utf-8", JSON.stringify({ ok: false, result: "missing_session", error: "缺少 uid 或 cookie" }));
+            return;
+          }
+          const session = { uid, username: uid, nickname: uid, cookie };
+          const slots = await fetchOnlineSaveList(session, gameId);
+          send(res, 200, "application/json; charset=utf-8", JSON.stringify({ ok: true, slots }));
+        } catch (error) {
+          const result = error instanceof OnlineSaveError ? error.result : "error";
+          send(res, 400, "application/json; charset=utf-8", JSON.stringify({ ok: false, result, error: error instanceof Error ? error.message : String(error) }));
+        }
+        return;
+      }
+
+      if (url.pathname === "/api/online-import/import") {
+        if (req.method !== "POST") {
+          send(res, 405, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "method_not_allowed" }));
+          return;
+        }
+        try {
+          const reqBody = parseJsonRequestBody(body) as Record<string, unknown>;
+          const localUid = api.account.uid;
+          const gameId = typeof reqBody.gameId === "string" ? reqBody.gameId : "100025235";
+          const targetIndex = typeof reqBody.targetIndex === "number" ? reqBody.targetIndex : Number(reqBody.targetIndex ?? 0);
+          const title = typeof reqBody.title === "string" ? reqBody.title : `线上导入`;
+          const data = typeof reqBody.data === "string" ? reqBody.data : "";
+          if (!data) {
+            send(res, 400, "application/json; charset=utf-8", JSON.stringify({ ok: false, result: "missing_data", error: "存档数据为空" }));
+            return;
+          }
+          db.saveSlot({ uid: localUid, gameid: gameId, index: targetIndex, title, data });
+          logger.appendSync({ event: "online_import.import", method: req.method, pathname: url.pathname, uid: localUid, gameid: gameId, slotIndex: targetIndex, title, result: "ok", dataLength: data.length });
+          send(res, 200, "application/json; charset=utf-8", JSON.stringify({ ok: true }));
+        } catch (error) {
+          send(res, 400, "application/json; charset=utf-8", JSON.stringify({ ok: false, result: "error", error: error instanceof Error ? error.message : String(error) }));
+        }
         return;
       }
 

@@ -21,6 +21,7 @@
           <button class="is-active" data-tab-button="wallet" type="button">钱包</button>
           <button data-tab-button="rewards" type="button">体验优化</button>
           <button data-tab-button="items" type="button">发送物品</button>
+          <button data-tab-button="onlineImport" type="button">线上导入</button>
         </nav>
         <section class="panel tab-panel is-active" data-tab-panel="wallet" aria-label="本地钱包">
           <h2>本地钱包</h2>
@@ -82,6 +83,39 @@
           </label>
           <div id="itemSearchResults" class="item-search-results" aria-label="物品搜索结果"></div>
           <p id="itemSendHint" class="hint">进入存档后点击 +1、+9、+99、+999 会直接发送；若按钮无效，请先重载游戏让补丁完成注册。</p>
+        </section>
+        <section class="panel tab-panel" data-tab-panel="onlineImport" aria-label="线上导入">
+          <h2>线上导入</h2>
+          <p class="hint is-warning">登录你的 4399 账号后，可拉取线上存档并覆盖到本地存档。请仅在本机使用，账号信息不会被保存。</p>
+          <div id="onlineImportLoginForm">
+            <label class="field">
+              <span>账号</span>
+              <input id="onlineImportUsername" type="text" autocomplete="off" placeholder="4399 账号" />
+            </label>
+            <label class="field">
+              <span>密码</span>
+              <input id="onlineImportPassword" type="password" autocomplete="off" placeholder="密码" />
+            </label>
+            <details class="online-import-advanced">
+              <summary>使用 Cookie 登录（可选）</summary>
+              <label class="field">
+                <span>Cookie</span>
+                <input id="onlineImportCookie" type="text" autocomplete="off" placeholder="Puid=...; ..." />
+              </label>
+              <label class="field">
+                <span>uid</span>
+                <input id="onlineImportUid" type="text" autocomplete="off" placeholder="使用 cookie 时需要" />
+              </label>
+            </details>
+            <button id="onlineImportLogin" type="button">登录并拉取存档</button>
+          </div>
+          <div id="onlineImportSession" class="online-import-session" hidden>
+            <p>已登录：<strong id="onlineImportNick"></strong></p>
+            <button id="onlineImportRefresh" type="button">刷新存档列表</button>
+            <button id="onlineImportLogout" type="button">退出登录</button>
+          </div>
+          <div id="onlineImportSlots" class="online-import-slots" aria-label="线上存档列表"></div>
+          <p id="onlineImportHint" class="hint"></p>
         </section>
         <dl>
           <dt>账号</dt>
