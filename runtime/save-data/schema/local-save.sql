@@ -1,6 +1,7 @@
 PRAGMA journal_mode = WAL;
 PRAGMA synchronous = NORMAL;
 PRAGMA busy_timeout = 3000;
+PRAGMA foreign_keys = ON;
 
 CREATE TABLE IF NOT EXISTS accounts (
   id INTEGER PRIMARY KEY,
@@ -134,8 +135,42 @@ CREATE TABLE IF NOT EXISTS union_log_mock (
   id INTEGER PRIMARY KEY,
   union_id INTEGER NOT NULL REFERENCES union_mock(id) ON DELETE CASCADE,
   message TEXT NOT NULL,
+  actor_username TEXT NOT NULL DEFAULT '',
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
+
+CREATE TRIGGER IF NOT EXISTS trg_union_title_unique_insert
+BEFORE INSERT ON union_mock
+WHEN EXISTS (
+  SELECT 1 FROM union_mock
+  WHERE game_id = NEW.game_id AND title = NEW.title COLLATE NOCASE
+)
+BEGIN
+  SELECT RAISE(ABORT, 'duplicate union title');
+END;
+
+CREATE TRIGGER IF NOT EXISTS trg_union_title_unique_update
+BEFORE UPDATE OF game_id, title ON union_mock
+WHEN EXISTS (
+  SELECT 1 FROM union_mock
+  WHERE game_id = NEW.game_id AND title = NEW.title COLLATE NOCASE AND id <> NEW.id
+)
+BEGIN
+  SELECT RAISE(ABORT, 'duplicate union title');
+END;
+
+CREATE TRIGGER IF NOT EXISTS trg_union_member_one_union_insert
+BEFORE INSERT ON union_member_mock
+WHEN EXISTS (
+  SELECT 1 FROM union_member_mock
+  WHERE game_id = NEW.game_id
+    AND uid = NEW.uid
+    AND slot_index = NEW.slot_index
+    AND union_id <> NEW.union_id
+)
+BEGIN
+  SELECT RAISE(ABORT, 'account slot already belongs to a union');
+END;
 
 CREATE INDEX IF NOT EXISTS idx_save_slots_account_game
 ON save_slots(account_id, game_id);

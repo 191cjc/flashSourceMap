@@ -94,6 +94,7 @@ export type UnionTaskValueView = {
 };
 
 type SqliteDatabase = {
+  exec(sql: string): void;
   prepare(sql: string): {
     get(...params: unknown[]): unknown;
     all(...params: unknown[]): unknown[];
@@ -149,13 +150,21 @@ type MemoryState = {
   applies: UnionApplyRow[];
   variables: Array<{ union_id: number; variable_id: number; value: number }>;
   tasks: Array<{ union_id: number; uid: string; slot_index: number; task_id: string; value: number }>;
-  logs: Array<{ union_id: number; message: string; created_at: string }>;
+  logs: Array<{ union_id: number; message: string; actor_username: string; created_at: string }>;
 };
 
 const DEFAULT_GAME_ID = "100025235";
 const DEFAULT_MEMBER_EXTRA = "1*0*本地机甲*0";
 const DEFAULT_UNION_EXTRA = "欢迎加入军团，大家可以加入QQ群:XX!*0";
 const LEVEL_EXP_STEP = 1000;
+const MAX_EXTRA_LENGTH = 1500;
+const KNOWN_TASK_CONTRIBUTIONS: Readonly<Record<string, number>> = {
+  "7": 20,
+  "9": 50,
+  "10": 100,
+  "20": 20,
+  "21": 13,
+};
 
 function nowMs(): string {
   return String(Date.now());
@@ -199,13 +208,13 @@ function levelFromExperience(experience: number): number {
   return Math.max(1, Math.floor(Math.max(0, experience) / LEVEL_EXP_STEP) + 1);
 }
 
-function toUnionInfo(row: UnionRow, memberCount: number): UnionInfo {
+function toUnionInfo(row: UnionRow, memberCount: number, ownerIndex: number): UnionInfo {
   return {
     id: row.id,
     gameId: Number(row.game_id),
     uId: row.owner_uid,
     userName: row.owner_username,
-    index: "0",
+    index: String(ownerIndex),
     nickName: row.owner_nickname,
     title: row.title,
     level: row.level,
@@ -271,6 +280,10 @@ function sqliteFromStore(store: SaveDataStore): SqliteDatabase | null {
   return maybe.db && typeof maybe.db.prepare === "function" ? maybe.db : null;
 }
 
+function validExtra(value: string): boolean {
+  return value.length <= MAX_EXTRA_LENGTH;
+}
+
 export class LocalUnionMockService {
   private readonly sqlite: SqliteDatabase | null;
   private readonly memory: MemoryState = {
@@ -298,37 +311,42 @@ export class LocalUnionMockService {
       return false;
     }
     const extra = normalizeExtra(request.extra, DEFAULT_UNION_EXTRA);
-    const union = this.insertUnion({
-      game_id: gameId,
-      owner_uid: this.account.uid,
-      owner_username: this.account.username,
-      owner_nickname: this.account.nickname,
-      title,
-      level: 1,
-      experience: 0,
-      contribution: 0,
-      extra,
-      extra2: "",
-      dissolve_date: "",
-      transfer: "",
+    if (!validExtra(extra) || this.findUnionByTitle(gameId, title)) {
+      return false;
+    }
+    return this.withTransaction(() => {
+      const union = this.insertUnion({
+        game_id: gameId,
+        owner_uid: this.account.uid,
+        owner_username: this.account.username,
+        owner_nickname: this.account.nickname,
+        title,
+        level: 1,
+        experience: 0,
+        contribution: 0,
+        extra,
+        extra2: "",
+        dissolve_date: "",
+        transfer: "",
+      });
+      this.insertMember({
+        union_id: union.id,
+        game_id: gameId,
+        uid: this.account.uid,
+        username: this.account.username,
+        nickname: this.account.nickname,
+        slot_index: index,
+        contribution: 0,
+        extra: DEFAULT_MEMBER_EXTRA,
+        extra2: "",
+        active_time: nowMs(),
+        role_id: "1",
+        role_name: "团长",
+      });
+      this.ensureVariables(union.id, defaultVariableIds());
+      this.addLog(union.id, `${this.account.nickname} 创建了军团`);
+      return true;
     });
-    this.insertMember({
-      union_id: union.id,
-      game_id: gameId,
-      uid: this.account.uid,
-      username: this.account.username,
-      nickname: this.account.nickname,
-      slot_index: index,
-      contribution: 0,
-      extra: DEFAULT_MEMBER_EXTRA,
-      extra2: "",
-      active_time: nowMs(),
-      role_id: "1",
-      role_name: "团长",
-    });
-    this.ensureVariables(union.id, defaultVariableIds());
-    this.addLog(union.id, `${this.account.nickname} 创建了军团`);
-    return true;
   }
 
   listUnions(request: { gameId?: string; pageId?: number; pageShow?: number }): UnionListView {
@@ -346,7 +364,16 @@ export class LocalUnionMockService {
     const gameId = normalizeGameId(request.gameId);
     const index = normalizeIndex(request.index);
     const union = this.getUnionById(request.unionId);
-    if (!union || union.game_id !== gameId || this.getOwnMember(gameId, index)) {
+    if (
+      !union ||
+      union.game_id !== gameId ||
+      this.getOwnMember(gameId, index) ||
+      this.findApply(union.id, this.account.uid, index)
+    ) {
+      return false;
+    }
+    const extra = normalizeExtra(request.extra, DEFAULT_MEMBER_EXTRA);
+    if (!validExtra(extra)) {
       return false;
     }
     this.upsertApply({
@@ -356,7 +383,7 @@ export class LocalUnionMockService {
       username: this.account.username,
       nickname: this.account.nickname,
       slot_index: index,
-      extra: normalizeExtra(request.extra, DEFAULT_MEMBER_EXTRA),
+      extra,
     });
     this.addLog(union.id, `${this.account.nickname} 申请加入军团`);
     return true;
@@ -374,14 +401,14 @@ export class LocalUnionMockService {
       return { unionInfo: null, member: null };
     }
     return {
-      unionInfo: toUnionInfo(union, this.countMembers(union.id)),
+      unionInfo: toUnionInfo(union, this.countMembers(union.id), this.getOwnerIndex(union)),
       member: toMember(member),
     };
   }
 
   unionInfo(unionId: number): UnionInfo | null {
     const union = this.getUnionById(unionId);
-    return union ? toUnionInfo(union, this.countMembers(union.id)) : null;
+    return union ? toUnionInfo(union, this.countMembers(union.id), this.getOwnerIndex(union)) : null;
   }
 
   unionMembers(unionId: number): UnionMember[] {
@@ -390,22 +417,41 @@ export class LocalUnionMockService {
       .map(toMember);
   }
 
-  setMemberExtra(request: { unionId: number; uId?: number; index?: number; extra: string }): boolean {
+  setMemberExtra(request: {
+    gameId?: string;
+    callerIndex?: number;
+    type?: number;
+    unionId: number;
+    uId?: number;
+    index?: number;
+    extra: string;
+  }): boolean {
+    const gameId = normalizeGameId(request.gameId);
+    const caller = this.getOwnMember(gameId, normalizeIndex(request.callerIndex));
     const member = this.findMember(request.unionId, String(request.uId ?? this.account.uid), normalizeIndex(request.index));
-    if (!member) {
+    const extra = normalizeExtra(request.extra, DEFAULT_MEMBER_EXTRA);
+    if (
+      !caller ||
+      caller.union_id !== request.unionId ||
+      !member ||
+      !validExtra(extra) ||
+      (member.uid !== this.account.uid && !this.isOwner(caller))
+    ) {
       return false;
     }
-    this.updateMemberExtra(member.union_id, member.uid, member.slot_index, normalizeExtra(request.extra, DEFAULT_MEMBER_EXTRA));
+    this.updateMemberExtra(member.union_id, member.uid, member.slot_index, extra);
     this.addLog(member.union_id, `${member.nickname} 更新了成员信息`);
     return true;
   }
 
-  setUnionExtra(request: { unionId: number; extra: string }): boolean {
+  setUnionExtra(request: { gameId?: string; index?: number; type?: number; unionId: number; extra: string }): boolean {
+    const owner = this.getOwnMember(normalizeGameId(request.gameId), normalizeIndex(request.index));
     const union = this.getUnionById(request.unionId);
-    if (!union) {
+    const extra = normalizeExtra(request.extra, DEFAULT_UNION_EXTRA);
+    if (!owner || owner.union_id !== request.unionId || !this.isOwner(owner) || !union || !validExtra(extra)) {
       return false;
     }
-    this.updateUnionExtra(union.id, normalizeExtra(request.extra, DEFAULT_UNION_EXTRA));
+    this.updateUnionExtra(union.id, extra);
     this.addLog(union.id, "军团公告已更新");
     return true;
   }
@@ -414,7 +460,7 @@ export class LocalUnionMockService {
     const unionId =
       request.unionId ?? this.getOwnMember(normalizeGameId(request.gameId), normalizeIndex(request.index))?.union_id ?? 0;
     const logs = this.listLogs(unionId).map((row) =>
-      JSON.stringify({ time: row.created_at, msg: row.message, userName: this.account.username })
+      JSON.stringify({ time: row.created_at, msg: row.message, userName: row.actor_username })
     );
     return {
       logList: paginate(logs, request.pageId ?? 1, request.pageShow ?? 10),
@@ -474,7 +520,7 @@ export class LocalUnionMockService {
 
   applyList(request: { gameId?: string; index?: number; pageId?: number; pageShow?: number }): UnionApplyListView {
     const member = this.getOwnMember(normalizeGameId(request.gameId), normalizeIndex(request.index));
-    const applies = member ? this.listApplyRows(member.union_id).map(toApply) : [];
+    const applies = member && this.isOwner(member) ? this.listApplyRows(member.union_id).map(toApply) : [];
     return {
       applyList: paginate(applies, request.pageId ?? 1, request.pageShow ?? 6),
       count: String(applies.length),
@@ -486,29 +532,31 @@ export class LocalUnionMockService {
     if (!owner || !this.isOwner(owner)) {
       return false;
     }
-    const apply = this.findApply(owner.union_id, String(request.uId), normalizeIndex(request.targetIndex));
-    if (!apply) {
+    if (!this.canAuditApplication(owner, request.uId, request.targetIndex, request.auditResult)) {
       return false;
     }
-    if (request.auditResult === 1) {
-      this.insertOrReplaceMember({
-        union_id: owner.union_id,
-        game_id: apply.game_id,
-        uid: apply.uid,
-        username: apply.username,
-        nickname: apply.nickname,
-        slot_index: apply.slot_index,
-        contribution: 0,
-        extra: normalizeExtra(apply.extra, DEFAULT_MEMBER_EXTRA),
-        extra2: "",
-        active_time: nowMs(),
-        role_id: "0",
-        role_name: "成员",
-      });
-      this.addLog(owner.union_id, `${apply.nickname} 加入了军团`);
+    return this.withTransaction(() => this.auditApplication(owner, request.uId, request.targetIndex, request.auditResult));
+  }
+
+  applyAuditMuch(request: {
+    gameId?: string;
+    index?: number;
+    users: Array<{ uId: number; index: number }>;
+    auditResult: number;
+  }): boolean {
+    const owner = this.getOwnMember(normalizeGameId(request.gameId), normalizeIndex(request.index));
+    if (!owner || !this.isOwner(owner) || request.users.length === 0) {
+      return false;
     }
-    this.deleteApply(owner.union_id, apply.uid, apply.slot_index);
-    return true;
+    if (!request.users.every((user) => this.canAuditApplication(owner, user.uId, user.index, request.auditResult))) {
+      return false;
+    }
+    return this.withTransaction(() => {
+      for (const user of request.users) {
+        this.auditApplication(owner, user.uId, user.index, request.auditResult);
+      }
+      return true;
+    });
   }
 
   memberRemove(request: { gameId?: string; index?: number; uId: number; targetIndex: number }): boolean {
@@ -517,7 +565,7 @@ export class LocalUnionMockService {
       return false;
     }
     const target = this.findMember(owner.union_id, String(request.uId), normalizeIndex(request.targetIndex));
-    if (!target) {
+    if (!target || target.uid === owner.uid) {
       return false;
     }
     this.deleteMember(owner.union_id, target.uid, target.slot_index);
@@ -577,12 +625,12 @@ export class LocalUnionMockService {
     return true;
   }
 
-  getRoleList(): { roleList: UnionRole[]; count: string } {
-    const roleList = [
+  getRoleList(request: { pageId?: number; pageShow?: number } = {}): { roleList: UnionRole[]; count: string } {
+    const roles = [
       { id: 1, name: "团长", privilegeList: "*", create_time: 0, memo: "local master" },
       { id: 0, name: "成员", privilegeList: "", create_time: 0, memo: "local member" },
     ];
-    return { roleList, count: String(roleList.length) };
+    return { roleList: paginate(roles, request.pageId ?? 1, request.pageShow ?? 10), count: String(roles.length) };
   }
 
   setRole(request: { gameId?: string; index?: number; uId: number; targetIndex: number; roleId: number }): boolean {
@@ -591,10 +639,10 @@ export class LocalUnionMockService {
       return false;
     }
     const target = this.findMember(owner.union_id, String(request.uId), normalizeIndex(request.targetIndex));
-    if (!target) {
+    if (!target || (request.roleId === 1 && target.uid !== owner.uid) || (request.roleId !== 0 && request.roleId !== 1)) {
       return false;
     }
-    this.updateMemberRole(owner.union_id, target.uid, target.slot_index, String(request.roleId), request.roleId === 1 ? "团长" : "成员");
+    this.updateMemberRole(owner.union_id, target.uid, target.slot_index, target.uid === owner.uid ? "1" : "0", target.uid === owner.uid ? "团长" : "成员");
     return true;
   }
 
@@ -607,11 +655,13 @@ export class LocalUnionMockService {
     if (!target || target.uid === owner.uid) {
       return false;
     }
-    this.updateUnionOwner(owner.union_id, target.uid, target.username, target.nickname);
-    this.updateMemberRole(owner.union_id, owner.uid, owner.slot_index, "0", "成员");
-    this.updateMemberRole(owner.union_id, target.uid, target.slot_index, "1", "团长");
-    this.addLog(owner.union_id, `${owner.nickname} 将团长转让给 ${target.nickname}`);
-    return true;
+    return this.withTransaction(() => {
+      this.updateUnionOwner(owner.union_id, target.uid, target.username, target.nickname);
+      this.updateMemberRole(owner.union_id, owner.uid, owner.slot_index, "0", "成员");
+      this.updateMemberRole(owner.union_id, target.uid, target.slot_index, "1", "团长");
+      this.addLog(owner.union_id, `${owner.nickname} 将团长转让给 ${target.nickname}`);
+      return true;
+    });
   }
 
   private insertUnion(row: Omit<UnionRow, "id">): UnionRow {
@@ -653,6 +703,18 @@ export class LocalUnionMockService {
         .all(gameId) as UnionRow[];
     }
     return this.memory.unions.filter((union) => union.game_id === gameId);
+  }
+
+  private findUnionByTitle(gameId: string, title: string): UnionRow | null {
+    if (this.sqlite) {
+      return (
+        (this.sqlite
+          .prepare("SELECT * FROM union_mock WHERE game_id = ? AND title = ? COLLATE NOCASE LIMIT 1")
+          .get(gameId, title) as UnionRow | undefined) ?? null
+      );
+    }
+    const normalizedTitle = title.toLocaleLowerCase();
+    return this.memory.unions.find((union) => union.game_id === gameId && union.title.toLocaleLowerCase() === normalizedTitle) ?? null;
   }
 
   private getUnionById(unionId: number): UnionRow | null {
@@ -775,6 +837,29 @@ export class LocalUnionMockService {
         (member) => member.game_id === gameId && member.uid === this.account.uid && member.slot_index === index
       ) ?? null
     );
+  }
+
+  private findAnyMembership(gameId: string, uid: string, index: number): UnionMemberRow | null {
+    if (this.sqlite) {
+      return (
+        (this.sqlite
+          .prepare("SELECT * FROM union_member_mock WHERE game_id = ? AND uid = ? AND slot_index = ? LIMIT 1")
+          .get(gameId, uid, index) as UnionMemberRow | undefined) ?? null
+      );
+    }
+    return (
+      this.memory.members.find((member) => member.game_id === gameId && member.uid === uid && member.slot_index === index) ?? null
+    );
+  }
+
+  private getOwnerIndex(union: UnionRow): number {
+    if (this.sqlite) {
+      const row = this.sqlite
+        .prepare("SELECT slot_index FROM union_member_mock WHERE union_id = ? AND uid = ? ORDER BY slot_index ASC LIMIT 1")
+        .get(union.id, union.owner_uid) as { slot_index: number } | undefined;
+      return row?.slot_index ?? 0;
+    }
+    return this.memory.members.find((member) => member.union_id === union.id && member.uid === union.owner_uid)?.slot_index ?? 0;
   }
 
   private findMember(unionId: number, uid: string, index: number): UnionMemberRow | null {
@@ -942,6 +1027,54 @@ export class LocalUnionMockService {
     );
   }
 
+  private deleteApplicationsForAccountSlot(gameId: string, uid: string, index: number): void {
+    if (this.sqlite) {
+      this.sqlite.prepare("DELETE FROM union_apply_mock WHERE game_id = ? AND uid = ? AND slot_index = ?").run(gameId, uid, index);
+      return;
+    }
+    this.memory.applies = this.memory.applies.filter(
+      (apply) => !(apply.game_id === gameId && apply.uid === uid && apply.slot_index === index)
+    );
+  }
+
+  private auditApplication(owner: UnionMemberRow, uId: number, targetIndex: number, auditResult: number): boolean {
+    const apply = this.findApply(owner.union_id, String(uId), normalizeIndex(targetIndex));
+    if (!apply || (auditResult !== 0 && auditResult !== 1)) {
+      return false;
+    }
+    if (auditResult === 1 && this.findAnyMembership(apply.game_id, apply.uid, apply.slot_index)) {
+      return false;
+    }
+    if (auditResult === 1) {
+      this.insertOrReplaceMember({
+        union_id: owner.union_id,
+        game_id: apply.game_id,
+        uid: apply.uid,
+        username: apply.username,
+        nickname: apply.nickname,
+        slot_index: apply.slot_index,
+        contribution: 0,
+        extra: normalizeExtra(apply.extra, DEFAULT_MEMBER_EXTRA),
+        extra2: "",
+        active_time: nowMs(),
+        role_id: "0",
+        role_name: "成员",
+      });
+      this.addLog(owner.union_id, `${apply.nickname} 加入了军团`);
+    }
+    this.deleteApplicationsForAccountSlot(apply.game_id, apply.uid, apply.slot_index);
+    return true;
+  }
+
+  private canAuditApplication(owner: UnionMemberRow, uId: number, targetIndex: number, auditResult: number): boolean {
+    const apply = this.findApply(owner.union_id, String(uId), normalizeIndex(targetIndex));
+    return Boolean(
+      apply &&
+        (auditResult === 0 || auditResult === 1) &&
+        (auditResult !== 1 || !this.findAnyMembership(apply.game_id, apply.uid, apply.slot_index))
+    );
+  }
+
   private ensureVariables(unionId: number, ids: number[]): void {
     for (const id of ids) {
       if (!Number.isSafeInteger(id) || id <= 0) {
@@ -1023,19 +1156,36 @@ export class LocalUnionMockService {
 
   private addLog(unionId: number, message: string): void {
     if (this.sqlite) {
-      this.sqlite.prepare("INSERT INTO union_log_mock (union_id, message) VALUES (?, ?)").run(unionId, message);
+      this.sqlite
+        .prepare("INSERT INTO union_log_mock (union_id, message, actor_username) VALUES (?, ?, ?)")
+        .run(unionId, message, this.account.username);
       return;
     }
-    this.memory.logs.push({ union_id: unionId, message, created_at: nowText() });
+    this.memory.logs.push({ union_id: unionId, message, actor_username: this.account.username, created_at: nowText() });
   }
 
-  private listLogs(unionId: number): Array<{ message: string; created_at: string }> {
+  private listLogs(unionId: number): Array<{ message: string; actor_username: string; created_at: string }> {
     if (this.sqlite) {
       return this.sqlite
-        .prepare("SELECT message, created_at FROM union_log_mock WHERE union_id = ? ORDER BY id DESC")
-        .all(unionId) as Array<{ message: string; created_at: string }>;
+        .prepare("SELECT message, actor_username, created_at FROM union_log_mock WHERE union_id = ? ORDER BY id DESC")
+        .all(unionId) as Array<{ message: string; actor_username: string; created_at: string }>;
     }
     return this.memory.logs.filter((log) => log.union_id === unionId).slice().reverse();
+  }
+
+  private withTransaction<T>(action: () => T): T {
+    if (!this.sqlite) {
+      return action();
+    }
+    this.sqlite.exec("BEGIN IMMEDIATE");
+    try {
+      const result = action();
+      this.sqlite.exec("COMMIT");
+      return result;
+    } catch (error) {
+      this.sqlite.exec("ROLLBACK");
+      throw error;
+    }
   }
 
   private isOwner(member: UnionMemberRow): boolean {
@@ -1048,6 +1198,10 @@ function defaultVariableIds(): number[] {
 }
 
 function taskContribution(taskId: string): number {
+  const knownValue = KNOWN_TASK_CONTRIBUTIONS[taskId];
+  if (knownValue !== undefined) {
+    return knownValue;
+  }
   const parsed = Number(taskId);
   if (Number.isFinite(parsed) && parsed > 0) {
     return Math.min(10000, Math.max(1, Math.floor(parsed)));

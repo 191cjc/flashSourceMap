@@ -576,7 +576,7 @@ type UnionThriftRequest = {
   fields: Map<number, unknown>;
 };
 
-type UnionThriftResponse = {
+export type UnionThriftResponse = {
   body: Buffer;
   apiName: string;
   result: string;
@@ -637,8 +637,12 @@ function writeUnionMemberStruct(writer: ThriftBinaryWriter, member: UnionMember 
 }
 
 function writeUnionMeStruct(writer: ThriftBinaryWriter, unionInfo: UnionInfo | null, member: UnionMember | null): void {
-  writeThriftStructField(writer, 1, () => writeUnionInfoStruct(writer, unionInfo));
-  writeThriftStructField(writer, 2, () => writeUnionMemberStruct(writer, member));
+  if (unionInfo) {
+    writeThriftStructField(writer, 1, () => writeUnionInfoStruct(writer, unionInfo));
+  }
+  if (member) {
+    writeThriftStructField(writer, 2, () => writeUnionMemberStruct(writer, member));
+  }
   writer.writeFieldStop();
 }
 
@@ -724,7 +728,9 @@ function thriftUnionOfMeResponse(methodName: string, seqid: number, tag: string,
 function thriftUnionInfoResponse(methodName: string, seqid: number, tag: string, unionInfo: UnionInfo | null): Buffer {
   return thriftUnionSuccessResponse(methodName, seqid, (writer) => {
     writeThriftStringField(writer, 1, tag);
-    writeThriftStructField(writer, 2, () => writeUnionInfoStruct(writer, unionInfo));
+    if (unionInfo) {
+      writeThriftStructField(writer, 2, () => writeUnionInfoStruct(writer, unionInfo));
+    }
   });
 }
 
@@ -1168,7 +1174,7 @@ function shopMockResponse(api: SaveDataMockApi, body: Buffer): ShopThriftRespons
   }
 }
 
-function unionMockResponse(api: LocalUnionMockService, body: Buffer): UnionThriftResponse {
+export function unionMockResponse(api: LocalUnionMockService, body: Buffer): UnionThriftResponse {
   const message = readThriftMessageInfo(body);
   const apiName = message?.name ?? "unknown";
   const seqid = message?.seqid ?? 0;
@@ -1245,6 +1251,9 @@ function unionMockResponse(api: LocalUnionMockService, body: Buffer): UnionThrif
       case "setMemberExtra":
       case "setMemberExtraRevised": {
         const result = api.setMemberExtra({
+          ...header,
+          callerIndex: header.index,
+          type: integerField(request, 2, 0),
           unionId: integerField(request, 4, 0),
           uId: optionalIntegerField(request, 5),
           index: optionalIntegerField(request, 6),
@@ -1257,7 +1266,12 @@ function unionMockResponse(api: LocalUnionMockService, body: Buffer): UnionThrif
         };
       }
       case "setUnionExtra": {
-        const result = api.setUnionExtra({ unionId: integerField(request, 4, 0), extra: stringField(request, 3) });
+        const result = api.setUnionExtra({
+          ...header,
+          type: integerField(request, 2, 0),
+          unionId: integerField(request, 4, 0),
+          extra: stringField(request, 3),
+        });
         return {
           apiName: methodName,
           result: result ? "ok" : "false",
@@ -1393,9 +1407,7 @@ function unionMockResponse(api: LocalUnionMockService, body: Buffer): UnionThrif
       case "applyMultiAudit": {
         const users = unionUsersField(request, 2);
         const auditResult = integerField(request, 3, 0);
-        const result =
-          users.length > 0 &&
-          users.every((user) => api.applyAudit({ ...header, uId: user.uId, targetIndex: user.index, auditResult }));
+        const result = api.applyAuditMuch({ ...header, users, auditResult });
         return {
           apiName: methodName,
           result: result ? "ok" : "false",
@@ -1436,7 +1448,7 @@ function unionMockResponse(api: LocalUnionMockService, body: Buffer): UnionThrif
         };
       }
       case "getRoleList": {
-        const view = api.getRoleList();
+        const view = api.getRoleList({ pageId: integerField(request, 2, 1), pageShow: integerField(request, 3, 10) });
         return {
           apiName: methodName,
           result: "ok",

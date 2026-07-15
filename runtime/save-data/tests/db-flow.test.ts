@@ -28,6 +28,7 @@ import {
 } from "../services/levelRewards.js";
 import { LocalUnionMockService } from "../services/union.js";
 import { SaveDataLogger } from "../server/logger.js";
+import { unionMockResponse } from "../server/server.js";
 import { DEFAULT_ACCOUNT, MockShopError, SaveDataMockApi } from "../platform4399/mockApi.js";
 
 const GAME_ID = "100025235";
@@ -50,6 +51,108 @@ function debugRequest(api: SaveDataMockApi, rawUrl: string, method = "GET", body
   assert.ok(response, `no debug response for ${rawUrl}`);
   assert.equal(response.status, 200);
   return response.body.toString();
+}
+
+const THRIFT = {
+  STOP: 0,
+  BOOL: 2,
+  I32: 8,
+  STRING: 11,
+  STRUCT: 12,
+  LIST: 15,
+} as const;
+
+function thriftI16(value: number): Buffer {
+  const buffer = Buffer.alloc(2);
+  buffer.writeInt16BE(value);
+  return buffer;
+}
+
+function thriftI32(value: number): Buffer {
+  const buffer = Buffer.alloc(4);
+  buffer.writeInt32BE(value);
+  return buffer;
+}
+
+function thriftString(value: string): Buffer {
+  const bytes = Buffer.from(value, "utf8");
+  return Buffer.concat([thriftI32(bytes.length), bytes]);
+}
+
+function thriftField(type: number, id: number, value: Buffer): Buffer {
+  return Buffer.concat([Buffer.from([type]), thriftI16(id), value]);
+}
+
+function thriftStruct(fields: Buffer[]): Buffer {
+  return Buffer.concat([...fields, Buffer.from([THRIFT.STOP])]);
+}
+
+function unionThriftRequest(methodName: string, fields: Buffer[] = []): Buffer {
+  const header = thriftStruct([
+    thriftField(THRIFT.STRING, 1, thriftString("test-tag")),
+    thriftField(THRIFT.STRING, 2, thriftString(GAME_ID)),
+    thriftField(THRIFT.STRING, 3, thriftString("0")),
+  ]);
+  const versionAndType = Buffer.alloc(4);
+  versionAndType.writeUInt32BE(0x80010001);
+  return Buffer.concat([
+    versionAndType,
+    thriftString(methodName),
+    thriftI32(1),
+    thriftStruct([thriftField(THRIFT.STRUCT, 1, header), ...fields]),
+  ]);
+}
+
+function readThriftStruct(buffer: Buffer, startOffset: number): { fields: Map<number, unknown>; offset: number } {
+  const fields = new Map<number, unknown>();
+  let offset = startOffset;
+  while (buffer[offset] !== THRIFT.STOP) {
+    const type = buffer[offset++];
+    const id = buffer.readInt16BE(offset);
+    offset += 2;
+    const value = readThriftValue(buffer, offset, type);
+    fields.set(id, value.value);
+    offset = value.offset;
+  }
+  return { fields, offset: offset + 1 };
+}
+
+function readThriftValue(buffer: Buffer, startOffset: number, type: number): { value: unknown; offset: number } {
+  if (type === THRIFT.BOOL) {
+    return { value: buffer[startOffset] !== 0, offset: startOffset + 1 };
+  }
+  if (type === THRIFT.I32) {
+    return { value: buffer.readInt32BE(startOffset), offset: startOffset + 4 };
+  }
+  if (type === THRIFT.STRING) {
+    const length = buffer.readInt32BE(startOffset);
+    const valueOffset = startOffset + 4;
+    return { value: buffer.subarray(valueOffset, valueOffset + length).toString("utf8"), offset: valueOffset + length };
+  }
+  if (type === THRIFT.STRUCT) {
+    const result = readThriftStruct(buffer, startOffset);
+    return { value: result.fields, offset: result.offset };
+  }
+  if (type === THRIFT.LIST) {
+    const elementType = buffer[startOffset];
+    const size = buffer.readInt32BE(startOffset + 1);
+    const values: unknown[] = [];
+    let offset = startOffset + 5;
+    for (let index = 0; index < size; index += 1) {
+      const item = readThriftValue(buffer, offset, elementType);
+      values.push(item.value);
+      offset = item.offset;
+    }
+    return { value: values, offset };
+  }
+  throw new Error(`Unsupported test thrift type: ${type}`);
+}
+
+function readUnionThriftResponse(body: Buffer): Map<number, unknown> {
+  let offset = 4;
+  const methodLength = body.readInt32BE(offset);
+  offset += 4 + methodLength + 4;
+  return readThriftStruct(body, offset).fields;
 }
 
 function decryptPaymentPayload(body: string): string {
@@ -239,6 +342,10 @@ try {
   const api = new SaveDataMockApi(db, DEFAULT_ACCOUNT, logger);
   const unionApi = new LocalUnionMockService(db, DEFAULT_ACCOUNT);
   assert.deepEqual(unionApi.unionOfMe({ gameId: GAME_ID, index: 0 }), { unionInfo: null, member: null });
+  const emptyUnionResponse = readUnionThriftResponse(unionMockResponse(unionApi, unionThriftRequest("unionOfMe")).body);
+  const emptyUnionSuccess = emptyUnionResponse.get(0) as Map<number, unknown>;
+  const emptyMe = emptyUnionSuccess.get(2) as Map<number, unknown>;
+  assert.deepEqual([...emptyMe.keys()], []);
   assert.equal(unionApi.createUnion({ gameId: GAME_ID, index: 0, title: "本地测试军团", extra: "测试公告*0" }), true);
   assert.equal(unionApi.createUnion({ gameId: GAME_ID, index: 0, title: "重复军团" }), false);
   const ownUnion = unionApi.unionOfMe({ gameId: GAME_ID, index: 0 });
@@ -249,6 +356,10 @@ try {
   assert.equal(ownUnion.unionInfo.experience, 0);
   assert.equal(ownUnion.unionInfo.count, "1");
   assert.equal(ownUnion.member.roleName, "团长");
+  const populatedUnionResponse = readUnionThriftResponse(unionMockResponse(unionApi, unionThriftRequest("unionOfMe")).body);
+  const populatedUnionSuccess = populatedUnionResponse.get(0) as Map<number, unknown>;
+  const populatedMe = populatedUnionSuccess.get(2) as Map<number, unknown>;
+  assert.deepEqual([...populatedMe.keys()], [1, 2]);
   const unionId = ownUnion.unionInfo.id;
   const unionList = unionApi.listUnions({ gameId: GAME_ID, pageId: 1, pageShow: 10 });
   assert.equal(unionList.count, "1");
@@ -259,17 +370,21 @@ try {
   ]);
   assert.equal(unionApi.doVariable({ gameId: GAME_ID, index: 0, id: 6 }), true);
   assert.equal(unionApi.getVariables({ gameId: GAME_ID, index: 0, ids: [6] })[0].value, "1");
-  assert.equal(unionApi.doTask({ gameId: GAME_ID, index: 0, taskId: "1200" }), true);
+  assert.equal(unionApi.doTask({ gameId: GAME_ID, index: 0, taskId: "21" }), true);
+  assert.deepEqual(unionApi.getTaskValue({ gameId: GAME_ID, index: 0 }).value, [{ taskName: "21", value: "13" }]);
   assert.equal(unionApi.exchange({ gameId: GAME_ID, index: 0, money: 50 }), true);
   const grownUnion = unionApi.unionOfMe({ gameId: GAME_ID, index: 0 });
-  assert.equal(grownUnion.unionInfo?.experience, 2200);
-  assert.equal(grownUnion.unionInfo?.level, 3);
-  assert.equal(grownUnion.unionInfo?.contribution, 2200);
-  assert.equal(grownUnion.member?.contribution, 2200);
+  assert.equal(grownUnion.unionInfo?.experience, 1013);
+  assert.equal(grownUnion.unionInfo?.level, 2);
+  assert.equal(grownUnion.unionInfo?.contribution, 1013);
+  assert.equal(grownUnion.member?.contribution, 1013);
   assert.equal(unionApi.deleteContributionPersonal({ gameId: GAME_ID, index: 0, contribution: 200 }), 200);
   assert.equal(unionApi.deleteContributionUnion({ gameId: GAME_ID, index: 0, contribution: 500 }), 500);
-  assert.equal(unionApi.setUnionExtra({ unionId, extra: "新公告*1" }), true);
-  assert.equal(unionApi.setMemberExtra({ unionId, extra: "9*8*测试职业*7" }), true);
+  assert.equal(unionApi.setUnionExtra({ gameId: GAME_ID, index: 0, type: 1, unionId, extra: "新公告*1" }), true);
+  assert.equal(
+    unionApi.setMemberExtra({ gameId: GAME_ID, callerIndex: 0, type: 1, unionId, extra: "9*8*测试职业*7" }),
+    true
+  );
   const editedUnion = unionApi.unionOfMe({ gameId: GAME_ID, index: 0 });
   assert.equal(editedUnion.unionInfo?.extra, "新公告*1");
   assert.equal(editedUnion.member?.extra, "9*8*测试职业*7");
@@ -280,13 +395,45 @@ try {
     nickname: "本地玩家2",
   });
   assert.equal(secondUnionApi.applyUnion({ gameId: GAME_ID, index: 0, unionId, extra: "1*0*候补*0" }), true);
+  assert.equal(secondUnionApi.applyUnion({ gameId: GAME_ID, index: 0, unionId, extra: "1*0*重复申请*0" }), false);
+  assert.equal(secondUnionApi.setUnionExtra({ gameId: GAME_ID, index: 0, type: 1, unionId, extra: "越权公告" }), false);
   const applyList = unionApi.applyList({ gameId: GAME_ID, index: 0, pageId: 1, pageShow: 6 });
   assert.equal(applyList.count, "1");
   assert.equal(applyList.applyList[0].uId, "10002");
   assert.equal(unionApi.applyAudit({ gameId: GAME_ID, index: 0, uId: 10002, targetIndex: 0, auditResult: 1 }), true);
   assert.equal(unionApi.applyList({ gameId: GAME_ID, index: 0, pageId: 1, pageShow: 6 }).count, "0");
   assert.equal(secondUnionApi.unionOfMe({ gameId: GAME_ID, index: 0 }).member?.roleName, "成员");
+  assert.equal(secondUnionApi.applyList({ gameId: GAME_ID, index: 0, pageId: 1, pageShow: 6 }).count, "0");
+  assert.equal(secondUnionApi.setUnionExtra({ gameId: GAME_ID, index: 0, type: 1, unionId, extra: "成员越权公告" }), false);
+  assert.equal(unionApi.setRole({ gameId: GAME_ID, index: 0, uId: 10002, targetIndex: 0, roleId: 1 }), false);
   assert.equal(unionApi.unionMembers(unionId).length, 2);
+
+  const thirdUnionApi = new LocalUnionMockService(db, { uid: "10003", username: "third_user", nickname: "本地玩家3" });
+  assert.equal(thirdUnionApi.createUnion({ gameId: GAME_ID, index: 0, title: "本地测试军团" }), false);
+  assert.equal(thirdUnionApi.createUnion({ gameId: GAME_ID, index: 0, title: "第二军团" }), true);
+  const secondUnionId = thirdUnionApi.unionOfMe({ gameId: GAME_ID, index: 0 }).unionInfo?.id;
+  assert.ok(secondUnionId);
+  const fourthUnionApi = new LocalUnionMockService(db, { uid: "10004", username: "fourth_user", nickname: "本地玩家4" });
+  assert.equal(fourthUnionApi.applyUnion({ gameId: GAME_ID, index: 0, unionId }), true);
+  assert.equal(fourthUnionApi.applyUnion({ gameId: GAME_ID, index: 0, unionId: secondUnionId }), true);
+  assert.equal(unionApi.applyAudit({ gameId: GAME_ID, index: 0, uId: 10004, targetIndex: 0, auditResult: 1 }), true);
+  assert.equal(thirdUnionApi.applyList({ gameId: GAME_ID, index: 0, pageId: 1, pageShow: 6 }).count, "0");
+  assert.equal(unionApi.memberRemove({ gameId: GAME_ID, index: 0, uId: 10004, targetIndex: 0 }), true);
+
+  const applicationLog = unionApi
+    .unionLog({ gameId: GAME_ID, index: 0, pageId: 1, pageShow: 50 })
+    .logList.map((entry) => JSON.parse(entry) as { msg: string; userName: string })
+    .find((entry) => entry.msg.includes("本地玩家2 申请加入军团"));
+  assert.equal(applicationLog?.userName, "second_user");
+
+  const slotOwnerApi = new LocalUnionMockService(db, { uid: "10005", username: "slot_user", nickname: "槽位玩家" });
+  assert.equal(slotOwnerApi.createUnion({ gameId: GAME_ID, index: 2, title: "槽位军团" }), true);
+  assert.equal(slotOwnerApi.unionOfMe({ gameId: GAME_ID, index: 2 }).unionInfo?.index, "2");
+  for (const taskId of ["7", "9", "10", "20", "21"]) {
+    assert.equal(slotOwnerApi.doTask({ gameId: GAME_ID, index: 2, taskId }), true);
+  }
+  assert.equal(slotOwnerApi.unionOfMe({ gameId: GAME_ID, index: 2 }).unionInfo?.experience, 203);
+
   assert.equal(unionApi.transfer({ gameId: GAME_ID, index: 0, uId: 10002, targetIndex: 0, transferResult: 1 }), true);
   assert.equal(secondUnionApi.unionOfMe({ gameId: GAME_ID, index: 0 }).member?.roleName, "团长");
   assert.equal(secondUnionApi.unionOfMe({ gameId: GAME_ID, index: 0 }).unionInfo?.uId, "10002");

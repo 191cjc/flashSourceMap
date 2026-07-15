@@ -58,10 +58,18 @@ export class LocalSaveDatabase implements SaveDataStore {
     mkdirSync(path.dirname(dbFile), { recursive: true });
     this.db = new DatabaseSync(dbFile);
     this.db.exec(readFileSync(saveDataPaths.schemaFile, "utf8"));
+    this.ensureColumn("union_log_mock", "actor_username", "TEXT NOT NULL DEFAULT ''");
   }
 
   close(): void {
     this.db.close();
+  }
+
+  private ensureColumn(tableName: string, columnName: string, definition: string): void {
+    const columns = this.db.prepare(`PRAGMA table_info(${tableName})`).all() as Array<{ name: string }>;
+    if (!columns.some((column) => column.name === columnName)) {
+      this.db.exec(`ALTER TABLE ${tableName} ADD COLUMN ${columnName} ${definition}`);
+    }
   }
 
   getOrCreateAccount(seed: AccountSeed): Account {
