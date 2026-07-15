@@ -26,6 +26,7 @@ import {
   applyPetSkillLearningOptimizationToXml,
   parseLevelRewardRecords,
 } from "../services/levelRewards.js";
+import { LocalUnionMockService } from "../services/union.js";
 import { SaveDataLogger } from "../server/logger.js";
 import { DEFAULT_ACCOUNT, MockShopError, SaveDataMockApi } from "../platform4399/mockApi.js";
 
@@ -236,6 +237,65 @@ try {
   assert.equal(existsSync(disabledLogFile), false);
 
   const api = new SaveDataMockApi(db, DEFAULT_ACCOUNT, logger);
+  const unionApi = new LocalUnionMockService(db, DEFAULT_ACCOUNT);
+  assert.deepEqual(unionApi.unionOfMe({ gameId: GAME_ID, index: 0 }), { unionInfo: null, member: null });
+  assert.equal(unionApi.createUnion({ gameId: GAME_ID, index: 0, title: "本地测试军团", extra: "测试公告*0" }), true);
+  assert.equal(unionApi.createUnion({ gameId: GAME_ID, index: 0, title: "重复军团" }), false);
+  const ownUnion = unionApi.unionOfMe({ gameId: GAME_ID, index: 0 });
+  assert.ok(ownUnion.unionInfo);
+  assert.ok(ownUnion.member);
+  assert.equal(ownUnion.unionInfo.title, "本地测试军团");
+  assert.equal(ownUnion.unionInfo.level, 1);
+  assert.equal(ownUnion.unionInfo.experience, 0);
+  assert.equal(ownUnion.unionInfo.count, "1");
+  assert.equal(ownUnion.member.roleName, "团长");
+  const unionId = ownUnion.unionInfo.id;
+  const unionList = unionApi.listUnions({ gameId: GAME_ID, pageId: 1, pageShow: 10 });
+  assert.equal(unionList.count, "1");
+  assert.equal(unionList.unionList[0].unionId, unionId);
+  assert.deepEqual(unionApi.getVariables({ gameId: GAME_ID, index: 0, ids: [6, 7] }), [
+    { id: "6", value: "0" },
+    { id: "7", value: "0" },
+  ]);
+  assert.equal(unionApi.doVariable({ gameId: GAME_ID, index: 0, id: 6 }), true);
+  assert.equal(unionApi.getVariables({ gameId: GAME_ID, index: 0, ids: [6] })[0].value, "1");
+  assert.equal(unionApi.doTask({ gameId: GAME_ID, index: 0, taskId: "1200" }), true);
+  assert.equal(unionApi.exchange({ gameId: GAME_ID, index: 0, money: 50 }), true);
+  const grownUnion = unionApi.unionOfMe({ gameId: GAME_ID, index: 0 });
+  assert.equal(grownUnion.unionInfo?.experience, 2200);
+  assert.equal(grownUnion.unionInfo?.level, 3);
+  assert.equal(grownUnion.unionInfo?.contribution, 2200);
+  assert.equal(grownUnion.member?.contribution, 2200);
+  assert.equal(unionApi.deleteContributionPersonal({ gameId: GAME_ID, index: 0, contribution: 200 }), 200);
+  assert.equal(unionApi.deleteContributionUnion({ gameId: GAME_ID, index: 0, contribution: 500 }), 500);
+  assert.equal(unionApi.setUnionExtra({ unionId, extra: "新公告*1" }), true);
+  assert.equal(unionApi.setMemberExtra({ unionId, extra: "9*8*测试职业*7" }), true);
+  const editedUnion = unionApi.unionOfMe({ gameId: GAME_ID, index: 0 });
+  assert.equal(editedUnion.unionInfo?.extra, "新公告*1");
+  assert.equal(editedUnion.member?.extra, "9*8*测试职业*7");
+
+  const secondUnionApi = new LocalUnionMockService(db, {
+    uid: "10002",
+    username: "second_user",
+    nickname: "本地玩家2",
+  });
+  assert.equal(secondUnionApi.applyUnion({ gameId: GAME_ID, index: 0, unionId, extra: "1*0*候补*0" }), true);
+  const applyList = unionApi.applyList({ gameId: GAME_ID, index: 0, pageId: 1, pageShow: 6 });
+  assert.equal(applyList.count, "1");
+  assert.equal(applyList.applyList[0].uId, "10002");
+  assert.equal(unionApi.applyAudit({ gameId: GAME_ID, index: 0, uId: 10002, targetIndex: 0, auditResult: 1 }), true);
+  assert.equal(unionApi.applyList({ gameId: GAME_ID, index: 0, pageId: 1, pageShow: 6 }).count, "0");
+  assert.equal(secondUnionApi.unionOfMe({ gameId: GAME_ID, index: 0 }).member?.roleName, "成员");
+  assert.equal(unionApi.unionMembers(unionId).length, 2);
+  assert.equal(unionApi.transfer({ gameId: GAME_ID, index: 0, uId: 10002, targetIndex: 0, transferResult: 1 }), true);
+  assert.equal(secondUnionApi.unionOfMe({ gameId: GAME_ID, index: 0 }).member?.roleName, "团长");
+  assert.equal(secondUnionApi.unionOfMe({ gameId: GAME_ID, index: 0 }).unionInfo?.uId, "10002");
+  assert.equal(unionApi.unionQuit({ gameId: GAME_ID, index: 0 }), true);
+  assert.equal(secondUnionApi.unionMembers(unionId).length, 1);
+  assert.match(secondUnionApi.dissolve({ gameId: GAME_ID, index: 0, actionType: 1 }), /^\d{4}-\d{2}-\d{2}$/);
+  assert.equal(secondUnionApi.dissolve({ gameId: GAME_ID, index: 0, actionType: 0 }), "0");
+  assert.ok(Number(secondUnionApi.unionLog({ gameId: GAME_ID, index: 0, pageId: 1, pageShow: 20 }).count) >= 1);
+
   const firstData = "compressed-save-payload-v1";
   const secondData = "compressed-save-payload-v2";
 
