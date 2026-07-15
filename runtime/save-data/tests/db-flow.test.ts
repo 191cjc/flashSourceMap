@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { DatabaseSync } from "node:sqlite";
 import { deflateSync, inflateSync } from "node:zlib";
 import CryptoJS from "crypto-js";
 import { decodeSwf } from "../../../src/swf/swf.js";
@@ -28,7 +29,7 @@ import {
 } from "../services/levelRewards.js";
 import { LocalUnionMockService } from "../services/union.js";
 import { SaveDataLogger } from "../server/logger.js";
-import { unionMockResponse } from "../server/server.js";
+import { rankScoreMockResponse, unionMockResponse } from "../server/server.js";
 import { DEFAULT_ACCOUNT, MockShopError, SaveDataMockApi } from "../platform4399/mockApi.js";
 
 const GAME_ID = "100025235";
@@ -37,6 +38,55 @@ const INNER_GAME_SWF = path.join(process.cwd(), "extracted", "swf", "L4399Main_g
 function tempDbFile(): { dir: string; dbFile: string } {
   const dir = mkdtempSync(path.join(os.tmpdir(), "flash-save-data-"));
   return { dir, dbFile: path.join(dir, "local-save.db") };
+}
+
+function createLegacyUnionDatabase(dbFile: string): void {
+  const legacyDb = new DatabaseSync(dbFile);
+  try {
+    legacyDb.exec(
+      [
+        "PRAGMA foreign_keys = ON;",
+        "CREATE TABLE accounts (",
+        "id INTEGER PRIMARY KEY, uid TEXT NOT NULL UNIQUE, username TEXT NOT NULL, nickname TEXT NOT NULL,",
+        "created_at TEXT NOT NULL DEFAULT (datetime('now')), updated_at TEXT NOT NULL DEFAULT (datetime('now'))",
+        ");",
+        "CREATE TABLE save_slots (",
+        "id INTEGER PRIMARY KEY, account_id INTEGER NOT NULL REFERENCES accounts(id) ON DELETE CASCADE,",
+        "game_id TEXT NOT NULL, slot_index INTEGER NOT NULL, title TEXT NOT NULL, raw_data TEXT NOT NULL,",
+        "status TEXT NOT NULL DEFAULT '0', checksum TEXT NOT NULL,",
+        "created_at TEXT NOT NULL DEFAULT (datetime('now')), updated_at TEXT NOT NULL DEFAULT (datetime('now')),",
+        "UNIQUE(account_id, game_id, slot_index)",
+        ");",
+        "CREATE TABLE union_mock (",
+        "id INTEGER PRIMARY KEY, game_id TEXT NOT NULL,",
+        "owner_account_id INTEGER NOT NULL REFERENCES accounts(id) ON DELETE CASCADE,",
+        "title TEXT NOT NULL, level INTEGER NOT NULL DEFAULT 1, experience INTEGER NOT NULL DEFAULT 0,",
+        "contribution INTEGER NOT NULL DEFAULT 0, extra TEXT NOT NULL DEFAULT '',",
+        "dissolve_date TEXT NOT NULL DEFAULT '', dissolve_state INTEGER NOT NULL DEFAULT 0,",
+        "created_at TEXT NOT NULL DEFAULT (datetime('now')), updated_at TEXT NOT NULL DEFAULT (datetime('now'))",
+        ");",
+      ].join(" ")
+    );
+
+    const insertAccount = legacyDb.prepare("INSERT INTO accounts (id, uid, username, nickname) VALUES (?, ?, ?, ?)");
+    insertAccount.run(1, DEFAULT_ACCOUNT.uid, DEFAULT_ACCOUNT.username, DEFAULT_ACCOUNT.nickname);
+    insertAccount.run(2, "20002", "ambiguous_user", "多槽玩家");
+
+    const insertSlot = legacyDb.prepare(
+      "INSERT INTO save_slots (account_id, game_id, slot_index, title, raw_data, checksum) VALUES (?, ?, ?, ?, ?, ?)"
+    );
+    insertSlot.run(1, GAME_ID, 1, "legacy-owner-slot", "legacy-save", "checksum-1");
+    insertSlot.run(2, GAME_ID, 1, "ambiguous-slot-1", "legacy-save-1", "checksum-2");
+    insertSlot.run(2, GAME_ID, 2, "ambiguous-slot-2", "legacy-save-2", "checksum-3");
+
+    const insertUnion = legacyDb.prepare(
+      "INSERT INTO union_mock (id, game_id, owner_account_id, title, extra) VALUES (?, ?, ?, ?, ?)"
+    );
+    insertUnion.run(1, GAME_ID, 1, "旧版唯一槽军团", "旧版公告*0");
+    insertUnion.run(2, GAME_ID, 2, "旧版多槽军团", "多槽公告*0");
+  } finally {
+    legacyDb.close();
+  }
 }
 
 function request(api: SaveDataMockApi, rawUrl: string, method = "GET", body = ""): string {
@@ -59,6 +109,7 @@ const THRIFT = {
   I32: 8,
   STRING: 11,
   STRUCT: 12,
+  MAP: 13,
   LIST: 15,
 } as const;
 
@@ -103,6 +154,36 @@ function unionThriftRequest(methodName: string, fields: Buffer[] = []): Buffer {
   ]);
 }
 
+function rankScoreThriftRequest(submissions: Array<{ rankListId: number; score: number; extra: string }>): Buffer {
+  const header = thriftStruct([
+    thriftField(THRIFT.STRING, 1, thriftString(DEFAULT_ACCOUNT.uid)),
+    thriftField(THRIFT.STRING, 2, thriftString(GAME_ID)),
+  ]);
+  const data = Buffer.concat([
+    Buffer.from([THRIFT.STRUCT]),
+    thriftI32(submissions.length),
+    ...submissions.map((submission) =>
+      thriftStruct([
+        thriftField(THRIFT.I32, 1, thriftI32(submission.rankListId)),
+        thriftField(THRIFT.I32, 2, thriftI32(submission.score)),
+        thriftField(THRIFT.STRING, 3, thriftString(submission.extra)),
+      ])
+    ),
+  ]);
+  const versionAndType = Buffer.alloc(4);
+  versionAndType.writeUInt32BE(0x80010001);
+  return Buffer.concat([
+    versionAndType,
+    thriftString("submit"),
+    thriftI32(1),
+    thriftStruct([
+      thriftField(THRIFT.STRUCT, 1, header),
+      thriftField(THRIFT.I32, 2, thriftI32(1)),
+      thriftField(THRIFT.LIST, 3, data),
+    ]),
+  ]);
+}
+
 function readThriftStruct(buffer: Buffer, startOffset: number): { fields: Map<number, unknown>; offset: number } {
   const fields = new Map<number, unknown>();
   let offset = startOffset;
@@ -133,6 +214,20 @@ function readThriftValue(buffer: Buffer, startOffset: number, type: number): { v
     const result = readThriftStruct(buffer, startOffset);
     return { value: result.fields, offset: result.offset };
   }
+  if (type === THRIFT.MAP) {
+    const keyType = buffer[startOffset];
+    const valueType = buffer[startOffset + 1];
+    const size = buffer.readInt32BE(startOffset + 2);
+    const values = new Map<unknown, unknown>();
+    let offset = startOffset + 6;
+    for (let index = 0; index < size; index += 1) {
+      const key = readThriftValue(buffer, offset, keyType);
+      const value = readThriftValue(buffer, key.offset, valueType);
+      values.set(key.value, value.value);
+      offset = value.offset;
+    }
+    return { value: values, offset };
+  }
   if (type === THRIFT.LIST) {
     const elementType = buffer[startOffset];
     const size = buffer.readInt32BE(startOffset + 1);
@@ -153,6 +248,169 @@ function readUnionThriftResponse(body: Buffer): Map<number, unknown> {
   const methodLength = body.readInt32BE(offset);
   offset += 4 + methodLength + 4;
   return readThriftStruct(body, offset).fields;
+}
+
+function testRankScoreThriftResponse(): void {
+  const firstBatch = [
+    { rankListId: 701, score: 11, extra: "A".repeat(48) },
+    { rankListId: 702, score: 22, extra: "B".repeat(48) },
+    { rankListId: 703, score: 33, extra: "C".repeat(48) },
+    { rankListId: 704, score: 44, extra: "D".repeat(48) },
+  ];
+  const request = rankScoreThriftRequest(firstBatch);
+  assert.equal(request.length, 346, "the regression request must match the captured first-batch size");
+
+  const encoded = rankScoreMockResponse(request);
+  assert.equal(encoded.apiName, "submit");
+  assert.equal(encoded.result, "ok");
+  assert.deepEqual(encoded.request?.submissions, firstBatch.map(({ rankListId, score }) => ({ rankListId, score })));
+
+  const response = readUnionThriftResponse(encoded.body);
+  const success = response.get(0) as Map<number, Map<number, unknown>>;
+  assert.deepEqual([...success.keys()], firstBatch.map((submission) => submission.rankListId));
+  for (const submission of firstBatch) {
+    const result = success.get(submission.rankListId);
+    assert.ok(result);
+    assert.equal(result.get(1), 10000);
+    const data = result.get(3) as Map<number, unknown>;
+    assert.equal(data.get(1), submission.score);
+    assert.equal(data.get(2), 1);
+    assert.equal(data.get(3), submission.score);
+    assert.equal(data.get(4), 1);
+  }
+
+  const secondBatch = rankScoreMockResponse(
+    rankScoreThriftRequest([
+      { rankListId: 705, score: 55, extra: "second-1" },
+      { rankListId: 706, score: 66, extra: "second-2" },
+      { rankListId: 707, score: 77, extra: "second-3" },
+    ])
+  );
+  const secondSuccess = readUnionThriftResponse(secondBatch.body).get(0) as Map<number, unknown>;
+  assert.deepEqual([...secondSuccess.keys()], [705, 706, 707]);
+}
+
+function testLegacyUnionMigration(): void {
+  const legacy = tempDbFile();
+  try {
+    createLegacyUnionDatabase(legacy.dbFile);
+    const migratedDb = new LocalSaveDatabase(legacy.dbFile);
+    let migratedSnapshot: unknown;
+    try {
+      const unionColumns = migratedDb.db.prepare("PRAGMA table_info(union_mock)").all() as Array<{ name: string }>;
+      const columnNames = new Set(unionColumns.map((column) => column.name));
+      for (const requiredColumn of ["owner_uid", "owner_username", "owner_nickname", "extra2", "transfer"]) {
+        assert.equal(columnNames.has(requiredColumn), true, `missing migrated union column ${requiredColumn}`);
+      }
+      assert.equal(columnNames.has("owner_account_id"), true);
+      assert.equal(columnNames.has("dissolve_state"), true);
+
+      const unionRows = (migratedDb.db
+        .prepare(
+          [
+            "SELECT id, title, extra, dissolve_date, dissolve_state,",
+            "owner_uid, owner_username, owner_nickname, extra2, transfer",
+            "FROM union_mock ORDER BY id ASC",
+          ].join(" ")
+        )
+        .all() as Array<{
+        id: number;
+        title: string;
+        extra: string;
+        dissolve_date: string;
+        dissolve_state: number;
+        owner_uid: string;
+        owner_username: string;
+        owner_nickname: string;
+        extra2: string;
+        transfer: string;
+      }>).map((row) => ({ ...row }));
+      assert.deepEqual(unionRows, [
+        {
+          id: 1,
+          title: "旧版唯一槽军团",
+          extra: "旧版公告*0",
+          dissolve_date: "",
+          dissolve_state: 0,
+          owner_uid: DEFAULT_ACCOUNT.uid,
+          owner_username: DEFAULT_ACCOUNT.username,
+          owner_nickname: DEFAULT_ACCOUNT.nickname,
+          extra2: "",
+          transfer: "",
+        },
+        {
+          id: 2,
+          title: "旧版多槽军团",
+          extra: "多槽公告*0",
+          dissolve_date: "",
+          dissolve_state: 0,
+          owner_uid: "20002",
+          owner_username: "ambiguous_user",
+          owner_nickname: "多槽玩家",
+          extra2: "",
+          transfer: "",
+        },
+      ]);
+
+      const memberRows = (migratedDb.db
+        .prepare("SELECT union_id, uid, slot_index, role_id, role_name FROM union_member_mock ORDER BY union_id ASC")
+        .all() as Array<{ union_id: number; uid: string; slot_index: number; role_id: string; role_name: string }>).map(
+        (row) => ({ ...row })
+      );
+      assert.deepEqual(memberRows, [
+        { union_id: 1, uid: DEFAULT_ACCOUNT.uid, slot_index: 1, role_id: "1", role_name: "团长" },
+      ]);
+
+      const legacyUnionApi = new LocalUnionMockService(migratedDb, DEFAULT_ACCOUNT);
+      const ownUnion = legacyUnionApi.unionOfMe({ gameId: GAME_ID, index: 1 });
+      assert.equal(ownUnion.unionInfo?.title, "旧版唯一槽军团");
+      assert.equal(ownUnion.unionInfo?.index, "1");
+      assert.equal(ownUnion.member?.roleName, "团长");
+
+      const encoded = unionMockResponse(legacyUnionApi, unionThriftRequest("unionList"));
+      assert.equal(encoded.apiName, "unionList");
+      assert.equal(encoded.result, "ok");
+      const response = readUnionThriftResponse(encoded.body);
+      const success = response.get(0) as Map<number, unknown>;
+      assert.equal(success.get(1), "test-tag");
+      assert.equal(success.get(3), "2");
+      const encodedUnions = success.get(2) as Array<Map<number, unknown>>;
+      assert.equal(encodedUnions.length, 2);
+      assert.equal(encodedUnions[0].get(1), 1);
+      assert.equal(encodedUnions[0].get(2), "旧版唯一槽军团");
+      assert.equal(encodedUnions[0].get(3), DEFAULT_ACCOUNT.username);
+      assert.equal(encodedUnions[1].get(1), 2);
+      assert.equal(encodedUnions[1].get(3), "ambiguous_user");
+
+      migratedSnapshot = { unionRows, memberRows };
+    } finally {
+      migratedDb.close();
+    }
+
+    const reopenedDb = new LocalSaveDatabase(legacy.dbFile);
+    try {
+      const totalChanges = reopenedDb.db.prepare("SELECT total_changes() AS count").get() as { count: number };
+      assert.equal(totalChanges.count, 0, "reopening a migrated database must not rewrite legacy rows");
+
+      const unionRows = (reopenedDb.db
+        .prepare(
+          [
+            "SELECT id, title, extra, dissolve_date, dissolve_state,",
+            "owner_uid, owner_username, owner_nickname, extra2, transfer",
+            "FROM union_mock ORDER BY id ASC",
+          ].join(" ")
+        )
+        .all() as Array<Record<string, unknown>>).map((row) => ({ ...row }));
+      const memberRows = (reopenedDb.db
+        .prepare("SELECT union_id, uid, slot_index, role_id, role_name FROM union_member_mock ORDER BY union_id ASC")
+        .all() as Array<Record<string, unknown>>).map((row) => ({ ...row }));
+      assert.deepEqual({ unionRows, memberRows }, migratedSnapshot);
+    } finally {
+      reopenedDb.close();
+    }
+  } finally {
+    rmSync(legacy.dir, { recursive: true, force: true });
+  }
 }
 
 function decryptPaymentPayload(body: string): string {
@@ -325,6 +583,9 @@ const PET_SKILL_LEARNING_XML = [
   "<宠物技能领悟><针对的宠物ID>1</针对的宠物ID><领悟等级>2</领悟等级><进入下一等级概率>5000</进入下一等级概率><领悟后获得技能与概率>3*500,4*1000,5*3000,\n10002*5500</领悟后获得技能与概率><领悟需求晶币>2500</领悟需求晶币></宠物技能领悟>",
   "</root>",
 ].join("");
+
+testLegacyUnionMigration();
+testRankScoreThriftResponse();
 
 const { dir, dbFile } = tempDbFile();
 const db = new LocalSaveDatabase(dbFile);

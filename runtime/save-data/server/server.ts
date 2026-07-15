@@ -275,6 +275,12 @@ class ThriftBinaryWriter {
     this.writeI32(size);
   }
 
+  writeMapBegin(keyType: number, valueType: number, size: number): void {
+    this.writeByte(keyType);
+    this.writeByte(valueType);
+    this.writeI32(size);
+  }
+
   writeString(value: string): void {
     const bytes = Buffer.from(value, "utf8");
     this.writeI32(bytes.length);
@@ -322,6 +328,27 @@ type ShopThriftResponse = {
     details?: Record<string, unknown>;
   };
   details?: Record<string, unknown>;
+};
+
+type RankScoreSubmission = {
+  rankListId: number;
+  score: number;
+};
+
+type RankScoreThriftRequest = {
+  message: ThriftMessageInfo;
+  index?: number;
+  submissions: RankScoreSubmission[];
+};
+
+export type RankScoreThriftResponse = {
+  body: Buffer;
+  apiName: string;
+  result: string;
+  request?: RankScoreThriftRequest;
+  error?: {
+    message: string;
+  };
 };
 
 class ThriftBinaryReader {
@@ -1170,6 +1197,120 @@ function shopMockResponse(api: SaveDataMockApi, body: Buffer): ShopThriftRespons
         message: error instanceof Error ? error.message : String(error),
       },
       body: thriftShopBuyPropErrorResponse(seqid, 20003, error instanceof Error ? error.message : String(error)),
+    };
+  }
+}
+
+function readRankScoreSubmission(reader: ThriftBinaryReader): RankScoreSubmission {
+  let rankListId: number | undefined;
+  let score: number | undefined;
+
+  while (true) {
+    const field = reader.readFieldBegin();
+    if (field.type === THRIFT_TYPE.STOP) {
+      if (rankListId == null || score == null) {
+        throw new Error("Rank score submission requires rId and score");
+      }
+      return { rankListId, score };
+    }
+
+    if (field.id === 1 && field.type === THRIFT_TYPE.I32) {
+      rankListId = reader.readI32();
+    } else if (field.id === 2 && field.type === THRIFT_TYPE.I32) {
+      score = reader.readI32();
+    } else {
+      reader.skip(field.type);
+    }
+  }
+}
+
+function readRankScoreRequest(body: Buffer): RankScoreThriftRequest {
+  const reader = new ThriftBinaryReader(body);
+  const message = reader.readMessageBegin();
+  let index: number | undefined;
+  const submissions: RankScoreSubmission[] = [];
+
+  while (true) {
+    const field = reader.readFieldBegin();
+    if (field.type === THRIFT_TYPE.STOP) {
+      if (submissions.length === 0) {
+        throw new Error("Rank score submit request has no scores");
+      }
+      return { message, index, submissions };
+    }
+
+    if (field.id === 2 && field.type === THRIFT_TYPE.I32) {
+      index = reader.readI32();
+      continue;
+    }
+    if (field.id !== 3 || field.type !== THRIFT_TYPE.LIST) {
+      reader.skip(field.type);
+      continue;
+    }
+
+    const list = reader.readListBegin();
+    if (list.elementType !== THRIFT_TYPE.STRUCT) {
+      throw new Error(`Unsupported rank score list element type: ${list.elementType}`);
+    }
+    for (let itemIndex = 0; itemIndex < list.size; itemIndex += 1) {
+      submissions.push(readRankScoreSubmission(reader));
+    }
+  }
+}
+
+function writeRankScoreResult(writer: ThriftBinaryWriter, submission: RankScoreSubmission): void {
+  writeThriftI32Field(writer, 1, 10000);
+  writeThriftStructField(writer, 3, () => {
+    writeThriftI32Field(writer, 1, submission.score);
+    writeThriftI32Field(writer, 2, 1);
+    writeThriftI32Field(writer, 3, submission.score);
+    writeThriftI32Field(writer, 4, 1);
+    writer.writeFieldStop();
+  });
+  writer.writeFieldStop();
+}
+
+function thriftRankScoreSubmitResponse(request: RankScoreThriftRequest): Buffer {
+  const writer = new ThriftBinaryWriter();
+  writer.writeMessageBegin(request.message.name, THRIFT_MESSAGE_TYPE.REPLY, request.message.seqid);
+  writer.writeFieldBegin(THRIFT_TYPE.MAP, 0);
+  writer.writeMapBegin(THRIFT_TYPE.I32, THRIFT_TYPE.STRUCT, request.submissions.length);
+  for (const submission of request.submissions) {
+    writer.writeI32(submission.rankListId);
+    writeRankScoreResult(writer, submission);
+  }
+  writer.writeFieldStop();
+  return writer.toBuffer();
+}
+
+export function rankScoreMockResponse(body: Buffer): RankScoreThriftResponse {
+  const message = readThriftMessageInfo(body);
+  const apiName = message?.name ?? "unknown";
+  const seqid = message?.seqid ?? 0;
+
+  if (apiName !== "submit") {
+    return {
+      apiName,
+      result: "unsupported",
+      body: thriftExceptionResponse(apiName, seqid, `Unsupported local rank score API: ${apiName}`),
+    };
+  }
+
+  try {
+    const request = readRankScoreRequest(body);
+    return {
+      apiName,
+      result: "ok",
+      request,
+      body: thriftRankScoreSubmitResponse(request),
+    };
+  } catch (error) {
+    const messageText = error instanceof Error ? error.message : String(error);
+    return {
+      apiName,
+      result: "invalid_request",
+      error: { message: messageText },
+      body: thriftExceptionResponse(apiName, seqid, messageText),
     };
   }
 }
@@ -2098,6 +2239,29 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
         return;
       }
 
+      if (url.pathname === "/api/4399/rank/FlashScoreApi") {
+        const response = rankScoreMockResponse(bodyBuffer);
+        logger.appendSync({
+          event: "platform.rank_score",
+          method: req.method ?? "GET",
+          pathname: url.pathname,
+          uid: api.account.uid,
+          gameid: "100025235",
+          status: 200,
+          result: response.result,
+          details: {
+            apiName: response.apiName,
+            requestBytes: bodyBuffer.length,
+            responseBytes: response.body.length,
+            index: response.request?.index,
+            rankListIds: response.request?.submissions.map((submission) => submission.rankListId),
+            error: response.error,
+          },
+        });
+        send(res, 200, "application/x-thrift", response.body);
+        return;
+      }
+
       if (url.pathname.startsWith("/api/4399/union/")) {
         const response = unionMockResponse(unionApi, bodyBuffer);
         logger.appendSync({
@@ -2153,6 +2317,17 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
           send(res, response.status, response.contentType, response.body);
           return;
         }
+        logger.appendSync({
+          event: "platform.unhandled",
+          method: req.method ?? "GET",
+          pathname: url.pathname,
+          status: 404,
+          result: "not_found",
+          details: {
+            apiName: readThriftMessageInfo(bodyBuffer)?.name ?? "unknown",
+            requestBytes: bodyBuffer.length,
+          },
+        });
       }
 
       if (url.hostname === "save.api.4399.com") {

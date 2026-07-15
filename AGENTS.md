@@ -142,6 +142,7 @@ temporary FFDec logs
 ### Runtime Behavior Notes
 
 - Local recharge and mall purchase mock data is stored in the SQLite database; it does not affect real 4399 accounts or real recharge totals.
+- Union bootstrap continues past `applyList` with two `FlashScoreApi.submit` batches. The local rank mock must return Thrift `submit_result.success` as `map<i32, FSR_Submit>` entries with `code=10000` and `FSRE_Submit` data, or `DataIngPanelXX` never closes.
 - Mall purchase mock must stay consistent with the game's anti-cheat expectations: current balance and cumulative recharge are separate concepts, and saved mall item value is compared against cumulative recharge.
 - The local recharge button is disabled after the page detects that a save slot has entered gameplay, because in-game recharge can leave SQLite `total_recharged` newer than the game's in-memory `allChongGod`.
 - The native Flash side panel uses fixed left-sidebar width and a game viewport matching the SWF stage (`960x600`). The CEF host must size the outer window from the desired client area and account for Windows DPI and window chrome; otherwise high-DPI screens can make the game appear half-sized.

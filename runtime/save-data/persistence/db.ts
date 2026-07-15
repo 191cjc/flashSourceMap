@@ -58,6 +58,7 @@ export class LocalSaveDatabase implements SaveDataStore {
     mkdirSync(path.dirname(dbFile), { recursive: true });
     this.db = new DatabaseSync(dbFile);
     this.db.exec(readFileSync(saveDataPaths.schemaFile, "utf8"));
+    this.migrateLegacyUnionSchema();
     this.ensureColumn("union_log_mock", "actor_username", "TEXT NOT NULL DEFAULT ''");
   }
 
@@ -65,10 +66,79 @@ export class LocalSaveDatabase implements SaveDataStore {
     this.db.close();
   }
 
-  private ensureColumn(tableName: string, columnName: string, definition: string): void {
+  private tableColumns(tableName: string): Set<string> {
     const columns = this.db.prepare(`PRAGMA table_info(${tableName})`).all() as Array<{ name: string }>;
-    if (!columns.some((column) => column.name === columnName)) {
+    return new Set(columns.map((column) => column.name));
+  }
+
+  private ensureColumn(tableName: string, columnName: string, definition: string): void {
+    if (!this.tableColumns(tableName).has(columnName)) {
       this.db.exec(`ALTER TABLE ${tableName} ADD COLUMN ${columnName} ${definition}`);
+    }
+  }
+
+  private migrateLegacyUnionSchema(): void {
+    const legacyColumns = this.tableColumns("union_mock");
+    const hasLegacyOwnerAccountId = legacyColumns.has("owner_account_id");
+
+    for (const [columnName, definition] of [
+      ["owner_uid", "TEXT NOT NULL DEFAULT ''"],
+      ["owner_username", "TEXT NOT NULL DEFAULT ''"],
+      ["owner_nickname", "TEXT NOT NULL DEFAULT ''"],
+      ["extra2", "TEXT NOT NULL DEFAULT ''"],
+      ["transfer", "TEXT NOT NULL DEFAULT ''"],
+    ] as const) {
+      this.ensureColumn("union_mock", columnName, definition);
+    }
+
+    if (!hasLegacyOwnerAccountId) {
+      return;
+    }
+
+    this.db.exec("BEGIN IMMEDIATE");
+    try {
+      this.db.exec(
+        [
+          "UPDATE union_mock",
+          "SET owner_uid = COALESCE(NULLIF(owner_uid, ''), (SELECT uid FROM accounts WHERE id = owner_account_id), ''),",
+          "owner_username = COALESCE(NULLIF(owner_username, ''), (SELECT username FROM accounts WHERE id = owner_account_id), ''),",
+          "owner_nickname = COALESCE(NULLIF(owner_nickname, ''), (SELECT nickname FROM accounts WHERE id = owner_account_id), '')",
+          "WHERE owner_account_id IS NOT NULL",
+          "AND (owner_uid = '' OR owner_username = '' OR owner_nickname = '')",
+        ].join(" ")
+      );
+      this.db.exec(
+        [
+          "INSERT INTO union_member_mock",
+          "(union_id, game_id, uid, username, nickname, slot_index, contribution, extra, extra2, active_time, role_id, role_name)",
+          "SELECT union_row.id, union_row.game_id, account.uid, account.username, account.nickname,",
+          "slot.slot_index, 0, '', '', '', '1', '团长'",
+          "FROM union_mock AS union_row",
+          "JOIN accounts AS account ON account.id = union_row.owner_account_id",
+          "JOIN save_slots AS slot ON slot.account_id = account.id AND slot.game_id = union_row.game_id",
+          "WHERE (",
+          "SELECT COUNT(*) FROM save_slots AS candidate_slot",
+          "WHERE candidate_slot.account_id = account.id AND candidate_slot.game_id = union_row.game_id",
+          ") = 1",
+          "AND (",
+          "SELECT COUNT(*) FROM union_mock AS owned_union",
+          "WHERE owned_union.game_id = union_row.game_id AND owned_union.owner_uid = account.uid",
+          ") = 1",
+          "AND NOT EXISTS (",
+          "SELECT 1 FROM union_member_mock AS owner_membership",
+          "WHERE owner_membership.union_id = union_row.id AND owner_membership.uid = account.uid",
+          ")",
+          "AND NOT EXISTS (",
+          "SELECT 1 FROM union_member_mock AS claimed_slot",
+          "WHERE claimed_slot.game_id = union_row.game_id",
+          "AND claimed_slot.uid = account.uid AND claimed_slot.slot_index = slot.slot_index",
+          ")",
+        ].join(" ")
+      );
+      this.db.exec("COMMIT");
+    } catch (error) {
+      this.db.exec("ROLLBACK");
+      throw error;
     }
   }
 
