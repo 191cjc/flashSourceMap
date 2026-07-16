@@ -41,7 +41,7 @@ import {
   LEVEL_REWARD_ASSET_NAME,
   setLevelRewardAchievementBoost,
 } from "../services/levelRewards.js";
-import { loadGameDataCatalog } from "../services/gameData.js";
+import { canonicalizeLocalSaveIdentity, loadGameDataCatalog } from "../services/gameData.js";
 import { getZodiacSoulExpOptimizationState } from "../services/zodiacSoulExp.js";
 import { OnlineModeError, OnlineModeService } from "../services/onlineMode.js";
 import {
@@ -2317,12 +2317,21 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
           const targetIndex = typeof reqBody.targetIndex === "number" ? reqBody.targetIndex : Number(reqBody.targetIndex ?? 0);
           const title = typeof reqBody.title === "string" ? reqBody.title : `4399导入`;
           const data = typeof reqBody.data === "string" ? reqBody.data : "";
+          if (!Number.isInteger(targetIndex) || targetIndex < 0 || targetIndex > 7) {
+            send(res, 400, "application/json; charset=utf-8", JSON.stringify({ ok: false, result: "invalid_slot", error: "目标存档位必须是 1 至 8" }));
+            return;
+          }
           if (!data) {
             send(res, 400, "application/json; charset=utf-8", JSON.stringify({ ok: false, result: "missing_data", error: "存档数据为空" }));
             return;
           }
-          db.saveSlot({ uid: localUid, gameid: gameId, index: targetIndex, title, data });
-          logger.appendSync({ event: "online_import.import", method: req.method, pathname: url.pathname, uid: localUid, gameid: gameId, slotIndex: targetIndex, title, result: "ok", dataLength: data.length });
+          const localData = canonicalizeLocalSaveIdentity(data, {
+            uid: localUid,
+            username: api.account.username,
+            slotIndex: targetIndex,
+          });
+          db.saveSlot({ uid: localUid, gameid: gameId, index: targetIndex, title, data: localData });
+          logger.appendSync({ event: "online_import.import", method: req.method, pathname: url.pathname, uid: localUid, gameid: gameId, slotIndex: targetIndex, title, result: "ok", dataLength: localData.length });
           send(res, 200, "application/json; charset=utf-8", JSON.stringify({ ok: true }));
         } catch (error) {
           send(res, 400, "application/json; charset=utf-8", JSON.stringify({ ok: false, result: "error", error: error instanceof Error ? error.message : String(error) }));

@@ -153,7 +153,7 @@
     }
     container.innerHTML = slots.map((slot) => {
       const hasData = slot.data && slot.data.length > 0;
-      const label = escapeHtml(slot.title || `存档 ${slot.index}`);
+      const label = escapeHtml(slot.title || savePositionLabel(slot.index));
       const time = escapeHtml(slot.datetime || "");
       return `<div class="online-import-slot${hasData ? "" : " is-empty"}">
         <div class="online-import-slot-info">
@@ -161,12 +161,16 @@
           ${hasData ? "" : " <span class=\"hint\">(空)</span>"}
         </div>
         <div class="online-import-slot-actions">
-          ${[0,1,2,3,4,5].map((i) =>
-            `<button type="button" class="online-import-to-slot" data-source-index="${slot.index}" data-target-index="${i}" data-title="${escapeHtml(slot.title || `存档 ${slot.index}`)}" data-data="${escapeHtml(slot.data || "")}"${hasData ? "" : " disabled"}>→本地${i}</button>`
+          ${Array.from({ length: 8 }, (_, i) =>
+            `<button type="button" class="online-import-to-slot" data-source-index="${slot.index}" data-target-index="${i}" data-title="${escapeHtml(slot.title || savePositionLabel(slot.index))}" data-data="${escapeHtml(slot.data || "")}" title="内部槽位 ${i}"${hasData ? "" : " disabled"}>→${savePositionLabel(i)}</button>`
           ).join("")}
         </div>
       </div>`;
     }).join("");
+  }
+
+  function savePositionLabel(index) {
+    return `存档位 ${String(Number(index) + 1).padStart(2, "0")}`;
   }
 
   async function fetchOnlineSaves() {
@@ -234,15 +238,15 @@
       return;
     }
     container.innerHTML = saves.map((save) => {
-      const title = escapeHtml(save.title || `存档 ${save.index}`);
+      const title = escapeHtml(save.title || savePositionLabel(save.index));
       const datetime = escapeHtml(save.datetime || "");
       return `<div class="online-import-slot${save.hasData ? "" : " is-empty"}">
         <div class="online-import-slot-info">
-          <strong>${title}</strong> · 槽位 ${save.index}${datetime ? ` <span class="hint">${datetime}</span>` : ""}
+          <strong>${title}</strong> · ${savePositionLabel(save.index)}${datetime ? ` <span class="hint">${datetime}</span>` : ""}
           <span class="hint">revision ${Number(save.revision || 0)}</span>
         </div>
         <div class="online-import-slot-actions">
-          <button type="button" class="backup-import-restore" data-slot-index="${save.index}" data-title="${title}"${save.hasData ? "" : " disabled"}>恢复到本地原槽位</button>
+          <button type="button" class="backup-import-restore" data-slot-index="${save.index}" data-title="${title}"${save.hasData ? "" : " disabled"}>恢复到${savePositionLabel(save.index)}</button>
         </div>
       </div>`;
     }).join("");
@@ -316,8 +320,9 @@
       const data = target.dataset.data || "";
       const title = target.dataset.title || "4399导入";
       const targetIndex = Number(target.dataset.targetIndex ?? 0);
+      const targetLabel = savePositionLabel(targetIndex);
       if (!data) return;
-      if (!confirm(`确认将"${title}"覆盖到本地存档槽 ${targetIndex}？此操作不可撤销。`)) return;
+      if (!confirm(`确认将“${title}”覆盖到${targetLabel}？此操作不可撤销。`)) return;
       target.disabled = true;
       try {
         const res = await fetch("/api/online-import/import", {
@@ -327,8 +332,8 @@
         });
         const json = await readJsonResponse(res);
         if (!json.ok) throw new Error(json.error || "导入失败");
-        setOnlineImportHint(`已成功导入到本地存档槽 ${targetIndex}。`, false);
-        window.__saveDataLog && window.__saveDataLog(`线上存档"${title}"已导入到本地槽 ${targetIndex}`);
+        setOnlineImportHint(`已成功导入到${targetLabel}。`, false);
+        window.__saveDataLog && window.__saveDataLog(`4399存档“${title}”已导入到${targetLabel}`);
       } catch (err) {
         setOnlineImportHint(`导入失败：${err.message}`, true);
       } finally {
@@ -338,10 +343,11 @@
 
     if (target && target.classList && target.classList.contains("backup-import-restore")) {
       const slotIndex = Number(target.dataset.slotIndex ?? -1);
-      const title = target.dataset.title || `存档 ${slotIndex}`;
-      if (!confirm(`确认使用服务器备份“${title}”覆盖本地存档槽 ${slotIndex}？当前本地存档会先自动生成快照。`)) return;
+      const title = target.dataset.title || savePositionLabel(slotIndex);
+      const slotLabel = savePositionLabel(slotIndex);
+      if (!confirm(`确认使用服务器备份“${title}”覆盖${slotLabel}？当前本地存档会先自动生成快照。`)) return;
       target.disabled = true;
-      setBackupImportHint(`正在恢复本地存档槽 ${slotIndex}……`, false);
+      setBackupImportHint(`正在恢复${slotLabel}……`, false);
       try {
         const response = await fetch("/api/saveData/backup-import/restore", {
           method: "POST",
@@ -353,11 +359,11 @@
         const pending = Number(result.sync && result.sync.pending || 0);
         setBackupImportHint(
           pending > 0
-            ? `槽位 ${slotIndex} 已恢复到本地；服务器重新同步仍有 ${pending} 个槽位待处理。`
-            : `槽位 ${slotIndex} 已从联机备份恢复，并重新同步到服务器。`,
+            ? `${slotLabel}已恢复到本地；服务器重新同步仍有 ${pending} 个槽位待处理。`
+            : `${slotLabel}已从联机备份恢复，并重新同步到服务器。`,
           pending > 0
         );
-        window.__saveDataLog && window.__saveDataLog(`联机备份“${title}”已恢复到本地槽 ${slotIndex}`);
+        window.__saveDataLog && window.__saveDataLog(`联机备份“${title}”已恢复到${slotLabel}`);
         await fetchBackupSaves();
       } catch (error) {
         setBackupImportHint(`恢复失败：${error instanceof Error ? error.message : String(error)}`, true);

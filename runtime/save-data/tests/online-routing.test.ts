@@ -113,8 +113,37 @@ try {
   });
   const joinBody = await joinResponse.text();
   assert.equal(joinResponse.status, 200, joinBody);
-  const joined = JSON.parse(joinBody) as { account: { uid: string } };
+  const joined = JSON.parse(joinBody) as { account: { uid: string; username: string } };
   assert.equal(joined.account.uid, "10000001");
+
+  const importResponse = await fetch(`${localServer.url}/api/online-import/import`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      gameId: GAME_ID,
+      targetIndex: 7,
+      title: "4399第一个存档",
+      data: SAVE_DATA,
+    }),
+  });
+  const importBody = await importResponse.text();
+  assert.equal(importResponse.status, 200, importBody);
+  const importedSlot = localDb.getSlot(joined.account.uid, GAME_ID, 7);
+  assert.ok(importedSlot);
+  assert.equal(importedSlot.index, 7);
+  assert.equal(importedSlot.title, "4399第一个存档");
+  assert.match(String(importedSlot.data), /<s type="Number" name="jxid">10000001<\/s>/);
+  assert.match(String(importedSlot.data), /<s type="Number" name="sidx">7<\/s>/);
+  assert.match(String(importedSlot.data), new RegExp(`<s type="String" name="idn">${joined.account.username}<\\/s>`));
+  assert.match(String(importedSlot.data), /<s type="Number" name="idai">80000008<\/s>/);
+
+  const invalidImportResponse = await fetch(`${localServer.url}/api/online-import/import`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ targetIndex: 8, data: SAVE_DATA }),
+  });
+  assert.equal(invalidImportResponse.status, 400);
+  assert.equal((await invalidImportResponse.json() as { result: string }).result, "invalid_slot");
 
   const backupListResponse = await fetch(`${localServer.url}/api/saveData/backup-import/saves`);
   assert.equal(backupListResponse.status, 200);
