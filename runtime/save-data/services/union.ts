@@ -347,6 +347,7 @@ export class LocalUnionMockService {
         role_id: "1",
         role_name: "团长",
       });
+      this.deleteApplicationsForAccountSlot(gameId, this.account.uid, index);
       this.ensureVariables(union.id, defaultVariableIds());
       this.addLog(union.id, `${this.account.nickname} 创建了军团`);
       return true;
@@ -524,7 +525,19 @@ export class LocalUnionMockService {
 
   applyList(request: { gameId?: string; index?: number; pageId?: number; pageShow?: number }): UnionApplyListView {
     const member = this.getOwnMember(normalizeGameId(request.gameId), normalizeIndex(request.index));
-    const applies = member && this.isOwner(member) ? this.listApplyRows(member.union_id).map(toApply) : [];
+    const applies = member && this.isOwner(member)
+      ? this.withTransaction(() => {
+          const valid: UnionApplyRow[] = [];
+          for (const apply of this.listApplyRows(member.union_id)) {
+            if (this.findAnyMembership(apply.game_id, apply.uid, apply.slot_index)) {
+              this.deleteApplicationsForAccountSlot(apply.game_id, apply.uid, apply.slot_index);
+            } else {
+              valid.push(apply);
+            }
+          }
+          return valid.map(toApply);
+        })
+      : [];
     return {
       applyList: paginate(applies, request.pageId ?? 1, request.pageShow ?? 6),
       count: String(applies.length),
@@ -1047,7 +1060,8 @@ export class LocalUnionMockService {
       return false;
     }
     if (auditResult === 1 && this.findAnyMembership(apply.game_id, apply.uid, apply.slot_index)) {
-      return false;
+      this.deleteApplicationsForAccountSlot(apply.game_id, apply.uid, apply.slot_index);
+      return true;
     }
     if (auditResult === 1) {
       this.insertOrReplaceMember({
@@ -1074,8 +1088,7 @@ export class LocalUnionMockService {
     const apply = this.findApply(owner.union_id, String(uId), normalizeIndex(targetIndex));
     return Boolean(
       apply &&
-        (auditResult === 0 || auditResult === 1) &&
-        (auditResult !== 1 || !this.findAnyMembership(apply.game_id, apply.uid, apply.slot_index))
+        (auditResult === 0 || auditResult === 1)
     );
   }
 

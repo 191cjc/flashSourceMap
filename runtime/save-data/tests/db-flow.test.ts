@@ -754,9 +754,51 @@ try {
 
   const thirdUnionApi = new LocalUnionMockService(db, { uid: "10003", username: "third_user", nickname: "本地玩家3" });
   assert.equal(thirdUnionApi.createUnion({ gameId: GAME_ID, index: 0, title: "本地测试军团" }), false);
+  assert.equal(thirdUnionApi.applyUnion({ gameId: GAME_ID, index: 0, unionId }), true);
+  assert.equal(unionApi.applyList({ gameId: GAME_ID, index: 0, pageId: 1, pageShow: 6 }).count, "1");
   assert.equal(thirdUnionApi.createUnion({ gameId: GAME_ID, index: 0, title: "第二军团" }), true);
+  assert.equal(unionApi.applyList({ gameId: GAME_ID, index: 0, pageId: 1, pageShow: 6 }).count, "0");
   const secondUnionId = thirdUnionApi.unionOfMe({ gameId: GAME_ID, index: 0 }).unionInfo?.id;
   assert.ok(secondUnionId);
+  const insertStaleApplication = () => db.db
+    .prepare(
+      [
+        "INSERT INTO union_apply_mock",
+        "(union_id, game_id, uid, username, nickname, slot_index, extra)",
+        "VALUES (?, ?, ?, ?, ?, ?, ?)",
+      ].join(" ")
+    )
+    .run(unionId, GAME_ID, "10003", "third_user", "本地玩家3", 0, "1*0*失效申请*0");
+  const countStaleApplications = () => (
+    db.db.prepare("SELECT COUNT(*) AS count FROM union_apply_mock WHERE uid = ? AND slot_index = ?").get("10003", 0) as {
+      count: number;
+    }
+  ).count;
+  insertStaleApplication();
+  assert.equal(unionApi.applyList({ gameId: GAME_ID, index: 0, pageId: 1, pageShow: 6 }).count, "0");
+  assert.equal(countStaleApplications(), 0);
+  insertStaleApplication();
+  const staleAuditResponse = readUnionThriftResponse(
+    unionMockResponse(
+      unionApi,
+      unionThriftRequest("applyAudit", [
+        thriftField(THRIFT.I32, 2, thriftI32(10003)),
+        thriftField(THRIFT.I32, 3, thriftI32(0)),
+        thriftField(THRIFT.I32, 4, thriftI32(1)),
+      ])
+    ).body
+  );
+  const staleAuditSuccess = staleAuditResponse.get(0) as Map<number, unknown>;
+  assert.equal(staleAuditSuccess.get(2), true);
+  assert.equal(countStaleApplications(), 0);
+  assert.equal(thirdUnionApi.unionOfMe({ gameId: GAME_ID, index: 0 }).unionInfo?.id, secondUnionId);
+  assert.equal(unionApi.unionMembers(unionId).some((member) => member.uId === "10003"), false);
+  insertStaleApplication();
+  assert.equal(
+    unionApi.applyAuditMuch({ gameId: GAME_ID, index: 0, users: [{ uId: 10003, index: 0 }], auditResult: 1 }),
+    true
+  );
+  assert.equal(countStaleApplications(), 0);
   const fourthUnionApi = new LocalUnionMockService(db, { uid: "10004", username: "fourth_user", nickname: "本地玩家4" });
   assert.equal(fourthUnionApi.applyUnion({ gameId: GAME_ID, index: 0, unionId }), true);
   assert.equal(fourthUnionApi.applyUnion({ gameId: GAME_ID, index: 0, unionId: secondUnionId }), true);

@@ -62,6 +62,14 @@ All aliases forward to global `/ranging.php/` with method, query, request body, 
 - Do not create an placeholder union or report a false positive count.
 - The SWF patch modifies only the second `getGameUList` argument and is idempotent.
 
+#### Union applications
+
+- A game/account/slot may submit applications to multiple unions only while it has no current membership.
+- Creating or joining a union deletes every pending application for the same game/account/slot.
+- `applyList` removes historical applications whose account slot already belongs to a union before pagination and count calculation.
+- Approving an existing stale application deletes it and returns Thrift boolean `true` without inserting a second membership. Flash only closes the audit loading layer on `true`.
+- Batch approval applies the same stale-row cleanup semantics.
+
 #### Arena refresh
 
 - Rank list `1093` `getRankingByArounds` uses `remote_save_slots` as eligibility and matching rank data as ordering/display metadata.
@@ -113,6 +121,8 @@ GLOBAL_DATA_URL=http://host:7778
 |-----------|-------------------|
 | Empty global union table | Thrift success, empty list, `count="0"` |
 | Flash union search total is zero | SWF sends positive `pageShow=10` |
+| Applicant already joined or created another union | Hide and delete its stale applications |
+| Owner approves an existing stale application | Delete it, do not add membership, return boolean `true` |
 | Rank entry has no matching cloud save | Exclude it from arena refresh candidates |
 | Fewer than 20 eligible arena slots | Repeat response-only candidates to requested/minimum size |
 | Only caller's current slot exists | Use an alternate-slot training entry |
