@@ -124,6 +124,31 @@ function createSaveDataStore(options: ServerOptions): SaveDataStore {
   return new LocalSaveDatabase(saveDataPaths.defaultDbFile);
 }
 
+async function forwardGlobalPlatformRequest(
+  globalDataUrl: string,
+  pathname: string,
+  method: string,
+  body: Buffer,
+  account: { uid: string; username: string; nickname: string }
+): Promise<{ status: number; contentType: string; body: Buffer }> {
+  const response = await fetch(new URL(pathname, globalDataUrl), {
+    method,
+    headers: {
+      "content-type": "application/x-thrift",
+      "x-flash-uid": account.uid,
+      "x-flash-username": account.username,
+      "x-flash-nickname": account.nickname,
+    },
+    body: method === "GET" || method === "HEAD" ? undefined : new Uint8Array(body),
+    signal: AbortSignal.timeout(10000),
+  });
+  return {
+    status: response.status,
+    contentType: response.headers.get("content-type") ?? "application/octet-stream",
+    body: Buffer.from(await response.arrayBuffer()),
+  };
+}
+
 function getContentType(filePath: string): string {
   return MIME_TYPES[path.extname(filePath).toLowerCase()] ?? "application/octet-stream";
 }
@@ -1887,6 +1912,7 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
   const api = new SaveDataMockApi(db, undefined, logger);
   const unionApi = new LocalUnionMockService(db, () => api.account);
   const onlineMode = new OnlineModeService(db, process.env.GLOBAL_DATA_URL ?? "http://127.0.0.1:8800");
+  const globalDataUrl = process.env.GLOBAL_DATA_URL ?? "http://127.0.0.1:8800";
   const onlineSyncTimer = setInterval(() => {
     void onlineMode.syncPending().catch(() => undefined);
   }, 30000);
@@ -2307,6 +2333,17 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
       }
 
       if (url.pathname.startsWith("/api/4399/union/")) {
+        if (api.account.uid !== "10001") {
+          const forwarded = await forwardGlobalPlatformRequest(
+            globalDataUrl,
+            url.pathname,
+            req.method ?? "POST",
+            bodyBuffer,
+            api.account
+          );
+          send(res, forwarded.status, forwarded.contentType, forwarded.body);
+          return;
+        }
         const response = unionMockResponse(unionApi, bodyBuffer);
         logger.appendSync({
           event: "platform.union",

@@ -4,6 +4,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { GlobalDataDatabase, GlobalDataError } from "../persistence/db.js";
 import type { PutRemoteSaveRequest, RegisterGlobalPlayerRequest } from "../types.js";
+import type { SaveDataStore } from "../../save-data/persistence/store.js";
+import { unionMockResponse } from "../../save-data/server/server.js";
+import { LocalUnionMockService } from "../../save-data/services/union.js";
 
 type GlobalDataServerOptions = {
   host?: string;
@@ -23,6 +26,17 @@ function sendJson(res: ServerResponse, status: number, value: unknown): void {
     "content-length": Buffer.byteLength(body),
     "access-control-allow-origin": "*",
     "access-control-allow-headers": "content-type",
+    "access-control-allow-methods": "GET,POST,PUT,PATCH,OPTIONS",
+  });
+  res.end(body);
+}
+
+function sendBinary(res: ServerResponse, status: number, contentType: string, body: Buffer): void {
+  res.writeHead(status, {
+    "content-type": contentType,
+    "content-length": body.length,
+    "access-control-allow-origin": "*",
+    "access-control-allow-headers": "*",
     "access-control-allow-methods": "GET,POST,PUT,PATCH,OPTIONS",
   });
   res.end(body);
@@ -74,7 +88,7 @@ export async function startGlobalDataServer(options: GlobalDataServerOptions = {
           sqlite: db.health().sqliteVersion,
           serverTime: Date.now(),
           uptimeMs: Date.now() - startedAt,
-          features: { registration: true, remoteSave: true, union: false, rank: false, arena: false },
+          features: { registration: true, remoteSave: true, union: true, rank: false, arena: false },
         });
         return;
       }
@@ -118,6 +132,23 @@ export async function startGlobalDataServer(options: GlobalDataServerOptions = {
         return;
       }
 
+      if (req.method === "POST" && url.pathname.startsWith("/api/4399/union/")) {
+        const uid = Number(req.headers["x-flash-uid"] ?? 0);
+        const player = db.getPlayerByUid(uid);
+        if (!player) {
+          throw new GlobalDataError("player_not_found", "联机玩家不存在", 404);
+        }
+        const requestBody = Buffer.concat(await readBodyChunks(req));
+        const unionApi = new LocalUnionMockService(db as unknown as SaveDataStore, {
+          uid: String(player.uid),
+          username: player.username,
+          nickname: player.nickname,
+        });
+        const response = unionMockResponse(unionApi, requestBody);
+        sendBinary(res, 200, "application/x-thrift", response.body);
+        return;
+      }
+
       sendJson(res, 404, { ok: false, error: "not_found" });
     } catch (error) {
       if (error instanceof GlobalDataError) {
@@ -141,6 +172,20 @@ export async function startGlobalDataServer(options: GlobalDataServerOptions = {
       db.close();
     },
   };
+}
+
+async function readBodyChunks(req: IncomingMessage): Promise<Buffer[]> {
+  const chunks: Buffer[] = [];
+  let length = 0;
+  for await (const chunk of req) {
+    const buffer = Buffer.from(chunk);
+    length += buffer.length;
+    if (length > MAX_BODY_BYTES) {
+      throw new GlobalDataError("body_too_large", "请求体过大", 413);
+    }
+    chunks.push(buffer);
+  }
+  return chunks;
 }
 
 if (process.argv[1] && path.resolve(fileURLToPath(import.meta.url)) === path.resolve(process.argv[1])) {
