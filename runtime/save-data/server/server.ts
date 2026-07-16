@@ -664,12 +664,8 @@ function writeUnionMemberStruct(writer: ThriftBinaryWriter, member: UnionMember 
 }
 
 function writeUnionMeStruct(writer: ThriftBinaryWriter, unionInfo: UnionInfo | null, member: UnionMember | null): void {
-  if (unionInfo) {
-    writeThriftStructField(writer, 1, () => writeUnionInfoStruct(writer, unionInfo));
-  }
-  if (member) {
-    writeThriftStructField(writer, 2, () => writeUnionMemberStruct(writer, member));
-  }
+  writeThriftStructField(writer, 1, () => writeUnionInfoStruct(writer, unionInfo));
+  writeThriftStructField(writer, 2, () => writeUnionMemberStruct(writer, member));
   writer.writeFieldStop();
 }
 

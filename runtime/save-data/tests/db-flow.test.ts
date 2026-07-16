@@ -89,6 +89,33 @@ function createLegacyUnionDatabase(dbFile: string): void {
   }
 }
 
+function createPreUnionDatabase(dbFile: string): void {
+  const legacyDb = new DatabaseSync(dbFile);
+  try {
+    legacyDb.exec(
+      [
+        "CREATE TABLE accounts (",
+        "id INTEGER PRIMARY KEY, uid TEXT NOT NULL UNIQUE, username TEXT NOT NULL, nickname TEXT NOT NULL,",
+        "created_at TEXT NOT NULL DEFAULT (datetime('now')), updated_at TEXT NOT NULL DEFAULT (datetime('now'))",
+        ");",
+        "CREATE TABLE save_slots (",
+        "id INTEGER PRIMARY KEY, account_id INTEGER NOT NULL REFERENCES accounts(id) ON DELETE CASCADE,",
+        "game_id TEXT NOT NULL, slot_index INTEGER NOT NULL, title TEXT NOT NULL, raw_data TEXT NOT NULL,",
+        "status TEXT NOT NULL DEFAULT '0', checksum TEXT NOT NULL,",
+        "created_at TEXT NOT NULL DEFAULT (datetime('now')), updated_at TEXT NOT NULL DEFAULT (datetime('now')),",
+        "UNIQUE(account_id, game_id, slot_index)",
+        ");",
+        "INSERT INTO accounts (id, uid, username, nickname)",
+        `VALUES (1, '${DEFAULT_ACCOUNT.uid}', '${DEFAULT_ACCOUNT.username}', '${DEFAULT_ACCOUNT.nickname}');`,
+        "INSERT INTO save_slots (account_id, game_id, slot_index, title, raw_data, checksum)",
+        `VALUES (1, '${GAME_ID}', 0, 'v3.0.3 存档', 'legacy-save-data', 'legacy-checksum');`,
+      ].join(" ")
+    );
+  } finally {
+    legacyDb.close();
+  }
+}
+
 function request(api: SaveDataMockApi, rawUrl: string, method = "GET", body = ""): string {
   const response = api.handleSaveApi(new URL(rawUrl), method, body);
   assert.ok(response, `no mock response for ${rawUrl}`);
@@ -413,6 +440,41 @@ function testLegacyUnionMigration(): void {
   }
 }
 
+function testPreUnionDatabaseUpgrade(): void {
+  const legacy = tempDbFile();
+  try {
+    createPreUnionDatabase(legacy.dbFile);
+    const upgradedDb = new LocalSaveDatabase(legacy.dbFile);
+    try {
+      assert.equal(upgradedDb.getSlot(DEFAULT_ACCOUNT.uid, GAME_ID, 0)?.data, "legacy-save-data");
+      const unionTableCount = upgradedDb.db
+        .prepare(
+          [
+            "SELECT COUNT(*) AS count FROM sqlite_master WHERE type = 'table' AND name IN (",
+            "'union_mock', 'union_member_mock', 'union_apply_mock',",
+            "'union_variable_mock', 'union_task_mock', 'union_log_mock'",
+            ")",
+          ].join(" ")
+        )
+        .get() as { count: number };
+      assert.equal(unionTableCount.count, 6);
+
+      const unionApi = new LocalUnionMockService(upgradedDb, DEFAULT_ACCOUNT);
+      assert.deepEqual(unionApi.unionOfMe({ gameId: GAME_ID, index: 0 }), { unionInfo: null, member: null });
+      const response = readUnionThriftResponse(unionMockResponse(unionApi, unionThriftRequest("unionOfMe")).body);
+      const success = response.get(0) as Map<number, unknown>;
+      const me = success.get(2) as Map<number, unknown>;
+      assert.deepEqual([...me.keys()], [1, 2]);
+      assert.deepEqual([...(me.get(1) as Map<number, unknown>).keys()], []);
+      assert.deepEqual([...(me.get(2) as Map<number, unknown>).keys()], []);
+    } finally {
+      upgradedDb.close();
+    }
+  } finally {
+    rmSync(legacy.dir, { recursive: true, force: true });
+  }
+}
+
 function decryptPaymentPayload(body: string): string {
   return CryptoJS.DES.decrypt(
     CryptoJS.lib.CipherParams.create({ ciphertext: CryptoJS.enc.Base64.parse(body) }),
@@ -585,6 +647,7 @@ const PET_SKILL_LEARNING_XML = [
 ].join("");
 
 testLegacyUnionMigration();
+testPreUnionDatabaseUpgrade();
 testRankScoreThriftResponse();
 
 const { dir, dbFile } = tempDbFile();
@@ -606,7 +669,9 @@ try {
   const emptyUnionResponse = readUnionThriftResponse(unionMockResponse(unionApi, unionThriftRequest("unionOfMe")).body);
   const emptyUnionSuccess = emptyUnionResponse.get(0) as Map<number, unknown>;
   const emptyMe = emptyUnionSuccess.get(2) as Map<number, unknown>;
-  assert.deepEqual([...emptyMe.keys()], []);
+  assert.deepEqual([...emptyMe.keys()], [1, 2]);
+  assert.deepEqual([...(emptyMe.get(1) as Map<number, unknown>).keys()], []);
+  assert.deepEqual([...(emptyMe.get(2) as Map<number, unknown>).keys()], []);
   assert.equal(unionApi.createUnion({ gameId: GAME_ID, index: 0, title: "本地测试军团", extra: "测试公告*0" }), true);
   assert.equal(unionApi.createUnion({ gameId: GAME_ID, index: 0, title: "重复军团" }), false);
   const ownUnion = unionApi.unionOfMe({ gameId: GAME_ID, index: 0 });
