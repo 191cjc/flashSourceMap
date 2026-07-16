@@ -198,6 +198,26 @@ try {
   assert.match(opponentData.data, /10000001/);
   assert.equal(opponentData.status, "0");
 
+  const persistedBeforeNativeMirror = globalServer.db.db
+    .prepare("SELECT (SELECT COUNT(*) FROM global_players) players, (SELECT COUNT(*) FROM remote_save_slots) saves, (SELECT COUNT(*) FROM rank_entries) ranks")
+    .get();
+  const nativeMirrorResponse = await fetch(
+    `${localServer.url}/api/4399/ranging.php/?ac=get&uid=71922639&gameid=${GAME_ID}&index=1`
+  );
+  assert.equal(nativeMirrorResponse.status, 200);
+  const nativeMirror = await nativeMirrorResponse.json() as { index: number; title: string; data: string; status: string };
+  assert.equal(nativeMirror.index, 1);
+  assert.match(nativeMirror.title, /训练镜像/);
+  assert.match(nativeMirror.data, /<s type="Number" name="jxid">71922639<\/s>/);
+  assert.match(nativeMirror.data, /<s type="Number" name="sidx">1<\/s>/);
+  assert.equal(nativeMirror.status, "0");
+  assert.deepEqual(
+    globalServer.db.db
+      .prepare("SELECT (SELECT COUNT(*) FROM global_players) players, (SELECT COUNT(*) FROM remote_save_slots) saves, (SELECT COUNT(*) FROM rank_entries) ranks")
+      .get(),
+    persistedBeforeNativeMirror
+  );
+
   const syncStatusResponse = await fetch(`${localServer.url}/api/saveData/online-mode/sync-status`);
   assert.equal(syncStatusResponse.status, 200);
   const syncStatus = await syncStatusResponse.json() as { pendingCount: number };

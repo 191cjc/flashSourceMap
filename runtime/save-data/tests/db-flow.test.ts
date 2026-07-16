@@ -11,6 +11,7 @@ import {
   patchEquipmentStrengtheningOptimization,
 } from "../../../src/swf/strengtheningPatch.js";
 import { inspectZodiacSoulExpOptimization, patchZodiacSoulExpOptimization } from "../../../src/swf/zodiacSoulExpPatch.js";
+import { inspectEmptyUnionListCompatibility, patchEmptyUnionListCompatibility } from "../../../src/swf/unionListPatch.js";
 import { LegacyJsonSaveDatabase } from "../persistence/legacyJsonDb.js";
 import { LocalSaveDatabase } from "../persistence/db.js";
 import {
@@ -315,6 +316,18 @@ function testRankScoreThriftResponse(): void {
   );
   const secondSuccess = readUnionThriftResponse(secondBatch.body).get(0) as Map<number, unknown>;
   assert.deepEqual([...secondSuccess.keys()], [705, 706, 707]);
+}
+
+function testEmptyUnionListCompatibilityPatch(): void {
+  assert.equal(existsSync(INNER_GAME_SWF), true);
+  const swf = decodeSwf(readFileSync(INNER_GAME_SWF));
+  const before = inspectEmptyUnionListCompatibility(swf);
+  assert.equal(before.targetFound, true);
+  if (!before.pageSizeSafe) {
+    assert.equal(patchEmptyUnionListCompatibility(swf), 1);
+  }
+  assert.deepEqual(inspectEmptyUnionListCompatibility(swf), { targetFound: true, pageSizeSafe: true });
+  assert.equal(patchEmptyUnionListCompatibility(swf), 0);
 }
 
 function testLegacyUnionMigration(): void {
@@ -649,6 +662,7 @@ const PET_SKILL_LEARNING_XML = [
 testLegacyUnionMigration();
 testPreUnionDatabaseUpgrade();
 testRankScoreThriftResponse();
+testEmptyUnionListCompatibilityPatch();
 
 const { dir, dbFile } = tempDbFile();
 const db = new LocalSaveDatabase(dbFile);
@@ -666,6 +680,10 @@ try {
   const api = new SaveDataMockApi(db, DEFAULT_ACCOUNT, logger);
   const unionApi = new LocalUnionMockService(db, DEFAULT_ACCOUNT);
   assert.deepEqual(unionApi.unionOfMe({ gameId: GAME_ID, index: 0 }), { unionInfo: null, member: null });
+  const emptyUnionListResponse = readUnionThriftResponse(unionMockResponse(unionApi, unionThriftRequest("unionList")).body);
+  const emptyUnionListSuccess = emptyUnionListResponse.get(0) as Map<number, unknown>;
+  assert.deepEqual(emptyUnionListSuccess.get(2), []);
+  assert.equal(emptyUnionListSuccess.get(3), "0");
   const emptyUnionResponse = readUnionThriftResponse(unionMockResponse(unionApi, unionThriftRequest("unionOfMe")).body);
   const emptyUnionSuccess = emptyUnionResponse.get(0) as Map<number, unknown>;
   const emptyMe = emptyUnionSuccess.get(2) as Map<number, unknown>;

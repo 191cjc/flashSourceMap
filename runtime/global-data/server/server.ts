@@ -10,6 +10,7 @@ import { unionMockResponse } from "../../save-data/server/server.js";
 import { LocalUnionMockService } from "../../save-data/services/union.js";
 import { handleGlobalRankRequest } from "../rank/protocol.js";
 import { GlobalRankService } from "../rank/service.js";
+import { canonicalizeLocalSaveIdentity } from "../../save-data/services/gameData.js";
 
 type GlobalDataServerOptions = {
   host?: string;
@@ -205,15 +206,26 @@ export async function startGlobalDataServer(options: GlobalDataServerOptions = {
         const gameId = params.get("gameid") ?? url.searchParams.get("gameid") ?? "100025235";
         const slotIndex = Number(params.get("index") ?? url.searchParams.get("index") ?? 0);
         const save = db.getSave(uid, gameId, slotIndex);
-        if (!save) {
+        const requesterUid = Number(req.headers["x-flash-uid"] ?? 0);
+        const requester = db.getPlayerByUid(requesterUid);
+        const mirrorSource = !save && requester ? db.getLatestSave(requester.uid, gameId) : null;
+        if (!save && !mirrorSource) {
           sendText(res, 200, "text/plain; charset=utf-8", "0");
           return;
         }
+        const responseSave = save ?? mirrorSource!;
+        const data = save
+          ? save.data
+          : canonicalizeLocalSaveIdentity(responseSave.data, {
+              uid: String(uid),
+              username: requester!.username,
+              slotIndex,
+            });
         sendJson(res, 200, {
-          index: save.slotIndex,
-          title: save.title,
-          datetime: save.updatedAt,
-          data: save.data,
+          index: slotIndex,
+          title: save ? save.title : `${responseSave.title}（训练镜像）`,
+          datetime: responseSave.updatedAt,
+          data,
           status: "0",
         });
         return;

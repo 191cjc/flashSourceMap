@@ -7,6 +7,8 @@ import { startGlobalDataServer } from "../server/server.js";
 const dir = mkdtempSync(path.join(tmpdir(), "flash-global-data-"));
 const server = await startGlobalDataServer({ host: "127.0.0.1", port: 0, dbFile: path.join(dir, "global.db") });
 const THRIFT = { STOP: 0, I32: 8, STRING: 11, STRUCT: 12, LIST: 15 } as const;
+const FIRST_SAVE_DATA = '<saveXml type="Object" game4399="true"><s type="Object" name="null"><s type="Number" name="jxid">10000001</s><s type="Number" name="sidx">0</s><s type="String" name="idn">player_a</s><s type="Number" name="idai">10000001</s></s></saveXml>';
+const SECOND_SAVE_DATA = '<saveXml type="Object" game4399="true"><s type="Object" name="null"><s type="Number" name="jxid">10000002</s><s type="Number" name="sidx">1</s><s type="String" name="idn">player_b</s><s type="Number" name="idai">20000004</s></s></saveXml>';
 
 function thriftI16(value: number): Buffer {
   const buffer = Buffer.alloc(2);
@@ -49,6 +51,55 @@ function unionRequest(methodName: string, fields: Buffer[] = []): Buffer {
   ]);
 }
 
+function readThriftStruct(buffer: Buffer, startOffset: number): { fields: Map<number, unknown>; offset: number } {
+  const fields = new Map<number, unknown>();
+  let offset = startOffset;
+  while (buffer[offset] !== THRIFT.STOP) {
+    const type = buffer[offset++];
+    const id = buffer.readInt16BE(offset);
+    offset += 2;
+    const value = readThriftValue(buffer, offset, type);
+    fields.set(id, value.value);
+    offset = value.offset;
+  }
+  return { fields, offset: offset + 1 };
+}
+
+function readThriftValue(buffer: Buffer, startOffset: number, type: number): { value: unknown; offset: number } {
+  if (type === THRIFT.I32) {
+    return { value: buffer.readInt32BE(startOffset), offset: startOffset + 4 };
+  }
+  if (type === THRIFT.STRING) {
+    const length = buffer.readInt32BE(startOffset);
+    const valueOffset = startOffset + 4;
+    return { value: buffer.subarray(valueOffset, valueOffset + length).toString("utf8"), offset: valueOffset + length };
+  }
+  if (type === THRIFT.STRUCT) {
+    const result = readThriftStruct(buffer, startOffset);
+    return { value: result.fields, offset: result.offset };
+  }
+  if (type === THRIFT.LIST) {
+    const elementType = buffer[startOffset];
+    const size = buffer.readInt32BE(startOffset + 1);
+    const values: unknown[] = [];
+    let offset = startOffset + 5;
+    for (let index = 0; index < size; index += 1) {
+      const item = readThriftValue(buffer, offset, elementType);
+      values.push(item.value);
+      offset = item.offset;
+    }
+    return { value: values, offset };
+  }
+  throw new Error(`Unsupported test thrift type: ${type}`);
+}
+
+function readThriftResponse(body: Buffer): Map<number, unknown> {
+  let offset = 4;
+  const methodLength = body.readInt32BE(offset);
+  offset += 4 + methodLength + 4;
+  return readThriftStruct(body, offset).fields;
+}
+
 function rankRequest(uid: number, methodName: string, fields: Buffer[]): Buffer {
   const header = thriftStruct([
     thriftField(THRIFT.STRING, 1, thriftString(String(uid))),
@@ -73,6 +124,14 @@ function rankSubmitRequest(uid: number, slotIndex: number, rankListId: number, s
   return rankRequest(uid, "submit", [
     thriftField(THRIFT.I32, 2, thriftI32(slotIndex)),
     thriftField(THRIFT.LIST, 3, Buffer.concat([Buffer.from([THRIFT.STRUCT]), thriftI32(1), submission])),
+  ]);
+}
+
+function rankAroundRequest(uid: number, slotIndex: number, count = 50): Buffer {
+  return rankRequest(uid, "getRankingByArounds", [
+    thriftField(THRIFT.I32, 2, thriftI32(slotIndex)),
+    thriftField(THRIFT.I32, 3, thriftI32(1093)),
+    thriftField(THRIFT.I32, 4, thriftI32(count)),
   ]);
 }
 
@@ -136,14 +195,14 @@ try {
 
   const save = await jsonRequest("/api/global/saves/10000001/0", {
     method: "PUT",
-    body: JSON.stringify({ gameId: "100025235", title: "角色一", data: "save-data-v1", checksum: "checksum-v1", revision: 1 }),
+    body: JSON.stringify({ gameId: "100025235", title: "角色一", data: FIRST_SAVE_DATA, checksum: "checksum-v1", revision: 1 }),
   });
   assert.equal(save.status, 200);
   assert.equal(save.body.ignored, false);
 
   const repeatedSave = await jsonRequest("/api/global/saves/10000001/0", {
     method: "PUT",
-    body: JSON.stringify({ gameId: "100025235", title: "角色一", data: "save-data-v1", checksum: "checksum-v1", revision: 1 }),
+    body: JSON.stringify({ gameId: "100025235", title: "角色一", data: FIRST_SAVE_DATA, checksum: "checksum-v1", revision: 1 }),
   });
   assert.equal(repeatedSave.body.ignored, true);
 
@@ -155,7 +214,7 @@ try {
   assert.equal(olderSave.body.save.revision, 1);
 
   const fetched = await jsonRequest("/api/global/saves/10000001/0?gameId=100025235");
-  assert.equal(fetched.body.save.data, "save-data-v1");
+  assert.equal(fetched.body.save.data, FIRST_SAVE_DATA);
 
   const conflict = await jsonRequest("/api/global/saves/10000001/0", {
     method: "PUT",
@@ -163,6 +222,12 @@ try {
   });
   assert.equal(conflict.status, 409);
   assert.equal(conflict.body.error, "revision_conflict");
+
+  const emptyUnionList = await unionApiRequest(10000001, unionRequest("unionList"));
+  assert.equal(emptyUnionList.status, 200);
+  const emptyUnionResult = readThriftResponse(Buffer.from(await emptyUnionList.arrayBuffer())).get(0) as Map<number, unknown>;
+  assert.deepEqual(emptyUnionResult.get(2), []);
+  assert.equal(emptyUnionResult.get(3), "0");
 
   const createUnion = await unionApiRequest(
     10000001,
@@ -207,6 +272,40 @@ try {
     { uid: 10000001, slot_index: 0, score: 1200, extra: "player-a-extra" },
   ]);
 
+  const persistedBeforeMirrorCandidates = server.db.db
+    .prepare("SELECT (SELECT COUNT(*) FROM global_players) players, (SELECT COUNT(*) FROM remote_save_slots) saves, (SELECT COUNT(*) FROM rank_entries) ranks")
+    .get();
+  const mirrorCandidatesResponse = await rankApiRequest(10000001, rankAroundRequest(10000001, 0));
+  const mirrorCandidatesResult = readThriftResponse(Buffer.from(await mirrorCandidatesResponse.arrayBuffer())).get(0) as Map<number, unknown>;
+  const mirrorCandidates = mirrorCandidatesResult.get(3) as Array<Map<number, unknown>>;
+  assert.equal(mirrorCandidates.length, 50);
+  assert.equal(mirrorCandidates.every((entry) => entry.get(2) === "10000001" && entry.get(1) === "1"), true);
+  const mirroredCandidateSaveResponse = await fetch(`${server.url}/ranging.php/?ac=get&uid=10000001&gameid=100025235&index=1`, {
+    headers: { "x-flash-uid": "10000001" },
+  });
+  const mirroredCandidateSave = await mirroredCandidateSaveResponse.json() as { index: number; data: string; status: string };
+  assert.equal(mirroredCandidateSave.index, 1);
+  assert.match(mirroredCandidateSave.data, /<s type="Number" name="jxid">10000001<\/s>/);
+  assert.match(mirroredCandidateSave.data, /<s type="Number" name="sidx">1<\/s>/);
+  assert.equal(mirroredCandidateSave.status, "0");
+  assert.deepEqual(
+    server.db.db
+      .prepare("SELECT (SELECT COUNT(*) FROM global_players) players, (SELECT COUNT(*) FROM remote_save_slots) saves, (SELECT COUNT(*) FROM rank_entries) ranks")
+      .get(),
+    persistedBeforeMirrorCandidates
+  );
+
+  const secondSave = await jsonRequest("/api/global/saves/10000002/1", {
+    method: "PUT",
+    body: JSON.stringify({ gameId: "100025235", title: "player-b", data: SECOND_SAVE_DATA, checksum: "checksum-b", revision: 1 }),
+  });
+  assert.equal(secondSave.status, 200);
+  const realCandidatesResponse = await rankApiRequest(10000001, rankAroundRequest(10000001, 0));
+  const realCandidatesResult = readThriftResponse(Buffer.from(await realCandidatesResponse.arrayBuffer())).get(0) as Map<number, unknown>;
+  const realCandidates = realCandidatesResult.get(3) as Array<Map<number, unknown>>;
+  assert.equal(realCandidates.length, 50);
+  assert.equal(realCandidates.every((entry) => entry.get(2) === "10000002" && entry.get(1) === "1"), true);
+
   const rankPage = await rankApiRequest(
     10000001,
     rankRequest(10000001, "getRankingByPage", [
@@ -219,6 +318,19 @@ try {
   const rankPageBody = Buffer.from(await rankPage.arrayBuffer());
   assert.ok(rankPageBody.includes(Buffer.from("player-b-extra")));
   assert.ok(rankPageBody.includes(Buffer.from("player-a-extra")));
+  const rankPageResult = readThriftResponse(rankPageBody).get(0) as Map<number, unknown>;
+  assert.equal((rankPageResult.get(3) as unknown[]).length, 2);
+
+  const initialArenaPage = await rankApiRequest(
+    10000001,
+    rankRequest(10000001, "getRankingByPage", [
+      thriftField(THRIFT.I32, 2, thriftI32(1093)),
+      thriftField(THRIFT.I32, 3, thriftI32(100)),
+      thriftField(THRIFT.I32, 4, thriftI32(95)),
+    ])
+  );
+  const initialArenaResult = readThriftResponse(Buffer.from(await initialArenaPage.arrayBuffer())).get(0) as Map<number, unknown>;
+  assert.equal((initialArenaResult.get(3) as unknown[]).length, 100);
 
   const rankToken = await fetch(`${server.url}/ranging.php/?ac=get_token`);
   assert.equal(await rankToken.text(), "global-rank-token");
@@ -231,9 +343,28 @@ try {
     index: 0,
     title: "角色一",
     datetime: fetched.body.save.updatedAt,
-    data: "save-data-v1",
+    data: FIRST_SAVE_DATA,
     status: "0",
   });
+
+  const persistedBeforeLegacyMirror = server.db.db
+    .prepare("SELECT (SELECT COUNT(*) FROM global_players) players, (SELECT COUNT(*) FROM remote_save_slots) saves, (SELECT COUNT(*) FROM rank_entries) ranks")
+    .get();
+  const legacyMirrorResponse = await fetch(`${server.url}/ranging.php/?ac=get&uid=71922639&gameid=100025235&index=1`, {
+    headers: { "x-flash-uid": "10000001" },
+  });
+  const legacyMirror = await legacyMirrorResponse.json() as { index: number; title: string; data: string; status: string };
+  assert.equal(legacyMirror.index, 1);
+  assert.match(legacyMirror.title, /训练镜像/);
+  assert.match(legacyMirror.data, /<s type="Number" name="jxid">71922639<\/s>/);
+  assert.match(legacyMirror.data, /<s type="Number" name="sidx">1<\/s>/);
+  assert.equal(legacyMirror.status, "0");
+  assert.deepEqual(
+    server.db.db
+      .prepare("SELECT (SELECT COUNT(*) FROM global_players) players, (SELECT COUNT(*) FROM remote_save_slots) saves, (SELECT COUNT(*) FROM rank_entries) ranks")
+      .get(),
+    persistedBeforeLegacyMirror
+  );
 
   const staffPage = await fetch(`${server.url}/staff`);
   assert.equal(staffPage.status, 200);
@@ -250,7 +381,7 @@ try {
   assert.equal(staffResponse.body.ok, true);
   assert.deepEqual(staffResponse.body.summary, {
     playerCount: 2,
-    saveSlotCount: 1,
+    saveSlotCount: 2,
     unionCount: 1,
     unionMemberCount: 1,
     unionApplicationCount: 0,

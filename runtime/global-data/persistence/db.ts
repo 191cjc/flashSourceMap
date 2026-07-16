@@ -474,6 +474,19 @@ export class GlobalDataDatabase {
     ).map(asSave);
   }
 
+  getLatestSave(uid: number, gameId: string): RemoteSaveSlot | null {
+    const row = this.db
+      .prepare(
+        [
+          "SELECT uid, game_id, slot_index, title, raw_data, checksum, revision, updated_at",
+          "FROM remote_save_slots WHERE uid = ? AND game_id = ?",
+          "ORDER BY updated_at DESC, slot_index ASC LIMIT 1",
+        ].join(" ")
+      )
+      .get(uid, gameId) as SaveRow | undefined;
+    return row ? asSave(row) : null;
+  }
+
   private allocateUid(): number {
     const row = this.db.prepare("SELECT next_uid FROM global_uid_sequence WHERE id = 1").get() as { next_uid: number };
     if (row.next_uid < MIN_ALLOCATED_UID || row.next_uid > MAX_GLOBAL_UID) {

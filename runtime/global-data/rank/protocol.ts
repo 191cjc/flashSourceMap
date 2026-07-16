@@ -1,5 +1,5 @@
 import type { GlobalPlayer } from "../types.js";
-import { GlobalRankService, type RankEntry, type RankSubmissionResult } from "./service.js";
+import { ARENA_RANK_LIST_ID, GlobalRankService, type RankEntry, type RankSubmissionResult } from "./service.js";
 
 const TYPE = { STOP: 0, BOOL: 2, BYTE: 3, DOUBLE: 4, I16: 6, I32: 8, I64: 10, STRING: 11, STRUCT: 12, MAP: 13, SET: 14, LIST: 15 } as const;
 const MESSAGE = { CALL: 1, REPLY: 2, EXCEPTION: 3 } as const;
@@ -318,10 +318,16 @@ export function handleGlobalRankRequest(service: GlobalRankService, player: Glob
       return { result: "ok", body: writeSubmitResult(method, seqid, results) };
     }
     if (method === "getRankingByArounds") {
-      return { result: "ok", body: writeGetResult(method, seqid, service.getAround(request.rankListId, player.uid, request.slotIndex, request.count)) };
+      const entries = request.rankListId === ARENA_RANK_LIST_ID
+        ? service.getArenaCandidates(request.gameId, player.uid, request.slotIndex, request.count)
+        : service.getAround(request.rankListId, player.uid, request.slotIndex, request.count);
+      return { result: "ok", body: writeGetResult(method, seqid, entries) };
     }
     if (method === "getRankingByPage") {
-      return { result: "ok", body: writeGetResult(method, seqid, service.getPage(request.rankListId, request.count, request.page)) };
+      const entries = request.rankListId === ARENA_RANK_LIST_ID && request.page === 95
+        ? service.getInitialArenaCandidates(request.gameId, request.count)
+        : service.getPage(request.rankListId, request.count, request.page);
+      return { result: "ok", body: writeGetResult(method, seqid, entries) };
     }
     if (method === "getRank") {
       return { result: "ok", body: writeGetResult(method, seqid, service.getByUsername(request.rankListId, request.username)) };

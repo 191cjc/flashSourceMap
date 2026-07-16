@@ -22,6 +22,7 @@ import {
   patchEquipmentStrengtheningOptimization,
 } from "../../../src/swf/strengtheningPatch.js";
 import { inspectZodiacSoulExpOptimization, patchZodiacSoulExpOptimization } from "../../../src/swf/zodiacSoulExpPatch.js";
+import { inspectEmptyUnionListCompatibility, patchEmptyUnionListCompatibility } from "../../../src/swf/unionListPatch.js";
 import { LocalSaveDatabase } from "../persistence/db.js";
 import { LegacyJsonSaveDatabase } from "../persistence/legacyJsonDb.js";
 import type { SaveDataStore } from "../persistence/store.js";
@@ -88,6 +89,7 @@ const GAME_ASSET_REFERER = `${GAME_ASSET_BASE_URL}jjxzfcms.htm`;
 const SWF_FILE_RE = /^[A-Za-z0-9_.-]+\.swf$/i;
 const GZIP_STATIC_EXTENSIONS = new Set([".css", ".html", ".js", ".json", ".wasm", ".xml"]);
 const LOG_ASSET_HITS = process.env.SAVE_DATA_LOG_ASSET_HITS === "1";
+const RANGING_PATH_RE = /^(?:\/api\/4399)?\/ranging\.php\/?$/;
 
 function saveDataLoggingEnabled(): boolean {
   const value = process.env.SAVE_DATA_LOGS?.trim().toLowerCase();
@@ -1776,6 +1778,8 @@ function patchedInnerGameSwfBytes(inputFile: string): Buffer {
   const strengtheningInspection = inspectEquipmentStrengtheningOptimization(swf);
   const zodiacSoulPatchCount = patchZodiacSoulExpOptimization(swf);
   const zodiacSoulInspection = inspectZodiacSoulExpOptimization(swf);
+  const unionListPatchCount = patchEmptyUnionListCompatibility(swf);
+  const unionListInspection = inspectEmptyUnionListCompatibility(swf);
 
   if (eventPatchCount < 1) {
     throw new Error(`Expected cross-SWF event compatibility target in ${inputFile}, patched ${eventPatchCount}`);
@@ -1791,6 +1795,9 @@ function patchedInnerGameSwfBytes(inputFile: string): Buffer {
   }
   if (zodiacSoulPatchCount < 1 && !zodiacSoulInspection.optimized) {
     throw new Error(`Expected zodiac soul exp optimization target in ${inputFile}, patched ${zodiacSoulPatchCount}`);
+  }
+  if (unionListPatchCount < 1 && !unionListInspection.pageSizeSafe) {
+    throw new Error(`Expected empty union list compatibility target in ${inputFile}, patched ${unionListPatchCount}`);
   }
 
   return encodeSwf(swf);
@@ -2435,10 +2442,10 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
         return;
       }
 
-      if (api.account.uid !== "10001" && (url.pathname === "/ranging.php" || url.pathname === "/ranging.php/")) {
+      if (api.account.uid !== "10001" && RANGING_PATH_RE.test(url.pathname)) {
         const forwarded = await forwardGlobalPlatformRequest(
           globalDataUrl,
-          `${url.pathname}${url.search}`,
+          `/ranging.php/${url.search}`,
           req.method ?? "GET",
           bodyBuffer,
           api.account,
