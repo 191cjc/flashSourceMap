@@ -6,7 +6,7 @@ import { startGlobalDataServer } from "../server/server.js";
 
 const dir = mkdtempSync(path.join(tmpdir(), "flash-global-data-"));
 const server = await startGlobalDataServer({ host: "127.0.0.1", port: 0, dbFile: path.join(dir, "global.db") });
-const THRIFT = { STOP: 0, I32: 8, STRING: 11, STRUCT: 12 } as const;
+const THRIFT = { STOP: 0, I32: 8, STRING: 11, STRUCT: 12, LIST: 15 } as const;
 
 function thriftI16(value: number): Buffer {
   const buffer = Buffer.alloc(2);
@@ -49,8 +49,43 @@ function unionRequest(methodName: string, fields: Buffer[] = []): Buffer {
   ]);
 }
 
+function rankRequest(uid: number, methodName: string, fields: Buffer[]): Buffer {
+  const header = thriftStruct([
+    thriftField(THRIFT.STRING, 1, thriftString(String(uid))),
+    thriftField(THRIFT.STRING, 2, thriftString("100025235")),
+  ]);
+  const versionAndType = Buffer.alloc(4);
+  versionAndType.writeUInt32BE(0x80010001);
+  return Buffer.concat([
+    versionAndType,
+    thriftString(methodName),
+    thriftI32(1),
+    thriftStruct([thriftField(THRIFT.STRUCT, 1, header), ...fields]),
+  ]);
+}
+
+function rankSubmitRequest(uid: number, slotIndex: number, rankListId: number, score: number, extra: string): Buffer {
+  const submission = thriftStruct([
+    thriftField(THRIFT.I32, 1, thriftI32(rankListId)),
+    thriftField(THRIFT.I32, 2, thriftI32(score)),
+    thriftField(THRIFT.STRING, 3, thriftString(extra)),
+  ]);
+  return rankRequest(uid, "submit", [
+    thriftField(THRIFT.I32, 2, thriftI32(slotIndex)),
+    thriftField(THRIFT.LIST, 3, Buffer.concat([Buffer.from([THRIFT.STRUCT]), thriftI32(1), submission])),
+  ]);
+}
+
 async function unionApiRequest(uid: number, requestBody: Buffer): Promise<Response> {
   return fetch(`${server.url}/api/4399/union/FlashUnionApi`, {
+    method: "POST",
+    headers: { "content-type": "application/x-thrift", "x-flash-uid": String(uid) },
+    body: new Uint8Array(requestBody),
+  });
+}
+
+async function rankApiRequest(uid: number, requestBody: Buffer): Promise<Response> {
+  return fetch(`${server.url}/api/4399/rank/FlashScoreApi`, {
     method: "POST",
     headers: { "content-type": "application/x-thrift", "x-flash-uid": String(uid) },
     body: new Uint8Array(requestBody),
@@ -156,6 +191,49 @@ try {
   const sharedUnionList = await unionApiRequest(10000002, unionRequest("unionList"));
   assert.equal(sharedUnionList.status, 200);
   assert.ok((await sharedUnionList.arrayBuffer()).byteLength > 0);
+
+  const firstRankSubmit = await rankApiRequest(10000001, rankSubmitRequest(10000001, 0, 1093, 1200, "player-a-extra"));
+  assert.equal(firstRankSubmit.status, 200);
+  assert.ok((await firstRankSubmit.arrayBuffer()).byteLength > 0);
+  const secondRankSubmit = await rankApiRequest(10000002, rankSubmitRequest(10000002, 1, 1093, 1500, "player-b-extra"));
+  assert.equal(secondRankSubmit.status, 200);
+  assert.ok((await secondRankSubmit.arrayBuffer()).byteLength > 0);
+
+  const rankRows = server.db.db
+    .prepare("SELECT uid, slot_index, score, extra FROM rank_entries WHERE rank_list_id = 1093 ORDER BY score DESC")
+    .all() as Array<{ uid: number; slot_index: number; score: number; extra: string }>;
+  assert.deepEqual(rankRows.map((row) => ({ ...row })), [
+    { uid: 10000002, slot_index: 1, score: 1500, extra: "player-b-extra" },
+    { uid: 10000001, slot_index: 0, score: 1200, extra: "player-a-extra" },
+  ]);
+
+  const rankPage = await rankApiRequest(
+    10000001,
+    rankRequest(10000001, "getRankingByPage", [
+      thriftField(THRIFT.I32, 2, thriftI32(1093)),
+      thriftField(THRIFT.I32, 3, thriftI32(100)),
+      thriftField(THRIFT.I32, 4, thriftI32(1)),
+    ])
+  );
+  assert.equal(rankPage.status, 200);
+  const rankPageBody = Buffer.from(await rankPage.arrayBuffer());
+  assert.ok(rankPageBody.includes(Buffer.from("player-b-extra")));
+  assert.ok(rankPageBody.includes(Buffer.from("player-a-extra")));
+
+  const rankToken = await fetch(`${server.url}/ranging.php/?ac=get_token`);
+  assert.equal(await rankToken.text(), "global-rank-token");
+  const opponentSave = await fetch(`${server.url}/ranging.php/?ac=get`, {
+    method: "POST",
+    headers: { "content-type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({ uid: "10000001", gameid: "100025235", index: "0" }),
+  });
+  assert.deepEqual(await opponentSave.json(), {
+    index: 0,
+    title: "角色一",
+    datetime: fetched.body.save.updatedAt,
+    data: "save-data-v1",
+    status: "0",
+  });
 
   console.log("global data flow ok");
 } finally {

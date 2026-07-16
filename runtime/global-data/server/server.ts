@@ -7,6 +7,8 @@ import type { PutRemoteSaveRequest, RegisterGlobalPlayerRequest } from "../types
 import type { SaveDataStore } from "../../save-data/persistence/store.js";
 import { unionMockResponse } from "../../save-data/server/server.js";
 import { LocalUnionMockService } from "../../save-data/services/union.js";
+import { handleGlobalRankRequest } from "../rank/protocol.js";
+import { GlobalRankService } from "../rank/service.js";
 
 type GlobalDataServerOptions = {
   host?: string;
@@ -42,6 +44,10 @@ function sendBinary(res: ServerResponse, status: number, contentType: string, bo
   res.end(body);
 }
 
+function sendText(res: ServerResponse, status: number, contentType: string, body: string): void {
+  sendBinary(res, status, contentType, Buffer.from(body, "utf8"));
+}
+
 async function readJson<T>(req: IncomingMessage): Promise<T> {
   const chunks: Buffer[] = [];
   let length = 0;
@@ -69,6 +75,7 @@ export async function startGlobalDataServer(options: GlobalDataServerOptions = {
   const port = options.port ?? Number(process.env.GLOBAL_DATA_PORT ?? 8800);
   const dbFile = options.dbFile ?? process.env.GLOBAL_DATA_DB ?? defaultDbFile;
   const db = new GlobalDataDatabase(dbFile);
+  const rankService = new GlobalRankService(db);
   const startedAt = Date.now();
 
   const server = createServer(async (req, res) => {
@@ -88,7 +95,7 @@ export async function startGlobalDataServer(options: GlobalDataServerOptions = {
           sqlite: db.health().sqliteVersion,
           serverTime: Date.now(),
           uptimeMs: Date.now() - startedAt,
-          features: { registration: true, remoteSave: true, union: true, rank: false, arena: false },
+          features: { registration: true, remoteSave: true, union: true, rank: true, arena: true },
         });
         return;
       }
@@ -146,6 +153,43 @@ export async function startGlobalDataServer(options: GlobalDataServerOptions = {
         });
         const response = unionMockResponse(unionApi, requestBody);
         sendBinary(res, 200, "application/x-thrift", response.body);
+        return;
+      }
+
+      if (req.method === "POST" && url.pathname === "/api/4399/rank/FlashScoreApi") {
+        const uid = Number(req.headers["x-flash-uid"] ?? 0);
+        const player = db.getPlayerByUid(uid);
+        if (!player) {
+          throw new GlobalDataError("player_not_found", "联机玩家不存在", 404);
+        }
+        const response = handleGlobalRankRequest(rankService, player, Buffer.concat(await readBodyChunks(req)));
+        sendBinary(res, 200, "application/x-thrift", response.body);
+        return;
+      }
+
+      if ((url.pathname === "/ranging.php" || url.pathname === "/ranging.php/") && url.searchParams.get("ac") === "get_token") {
+        sendText(res, 200, "text/plain; charset=utf-8", "global-rank-token");
+        return;
+      }
+
+      if ((url.pathname === "/ranging.php" || url.pathname === "/ranging.php/") && url.searchParams.get("ac") === "get") {
+        const requestBody = req.method === "POST" ? Buffer.concat(await readBodyChunks(req)).toString("utf8") : "";
+        const params = new URLSearchParams(requestBody);
+        const uid = Number(params.get("uid") ?? url.searchParams.get("uid") ?? 0);
+        const gameId = params.get("gameid") ?? url.searchParams.get("gameid") ?? "100025235";
+        const slotIndex = Number(params.get("index") ?? url.searchParams.get("index") ?? 0);
+        const save = db.getSave(uid, gameId, slotIndex);
+        if (!save) {
+          sendText(res, 200, "text/plain; charset=utf-8", "0");
+          return;
+        }
+        sendJson(res, 200, {
+          index: save.slotIndex,
+          title: save.title,
+          datetime: save.updatedAt,
+          data: save.data,
+          status: "0",
+        });
         return;
       }
 

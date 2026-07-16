@@ -126,15 +126,16 @@ function createSaveDataStore(options: ServerOptions): SaveDataStore {
 
 async function forwardGlobalPlatformRequest(
   globalDataUrl: string,
-  pathname: string,
+  pathAndQuery: string,
   method: string,
   body: Buffer,
-  account: { uid: string; username: string; nickname: string }
+  account: { uid: string; username: string; nickname: string },
+  contentType = "application/x-thrift"
 ): Promise<{ status: number; contentType: string; body: Buffer }> {
-  const response = await fetch(new URL(pathname, globalDataUrl), {
+  const response = await fetch(new URL(pathAndQuery, globalDataUrl), {
     method,
     headers: {
-      "content-type": "application/x-thrift",
+      "content-type": contentType,
       "x-flash-uid": account.uid,
       "x-flash-username": account.username,
       "x-flash-nickname": account.nickname,
@@ -2310,6 +2311,22 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
       }
 
       if (url.pathname === "/api/4399/rank/FlashScoreApi") {
+        if (api.account.uid !== "10001") {
+          const syncResult = await onlineMode.syncPending();
+          if (syncResult.pending > 0) {
+            send(res, 503, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "remote_save_sync_pending" }));
+            return;
+          }
+          const forwarded = await forwardGlobalPlatformRequest(
+            globalDataUrl,
+            `${url.pathname}${url.search}`,
+            req.method ?? "POST",
+            bodyBuffer,
+            api.account
+          );
+          send(res, forwarded.status, forwarded.contentType, forwarded.body);
+          return;
+        }
         const response = rankScoreMockResponse(bodyBuffer);
         logger.appendSync({
           event: "platform.rank_score",
@@ -2336,7 +2353,7 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
         if (api.account.uid !== "10001") {
           const forwarded = await forwardGlobalPlatformRequest(
             globalDataUrl,
-            url.pathname,
+            `${url.pathname}${url.search}`,
             req.method ?? "POST",
             bodyBuffer,
             api.account
@@ -2362,6 +2379,19 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
           },
         });
         send(res, 200, "application/x-thrift", response.body);
+        return;
+      }
+
+      if (api.account.uid !== "10001" && (url.pathname === "/ranging.php" || url.pathname === "/ranging.php/")) {
+        const forwarded = await forwardGlobalPlatformRequest(
+          globalDataUrl,
+          `${url.pathname}${url.search}`,
+          req.method ?? "GET",
+          bodyBuffer,
+          api.account,
+          req.headers["content-type"] ?? "application/x-www-form-urlencoded"
+        );
+        send(res, forwarded.status, forwarded.contentType, forwarded.body);
         return;
       }
 

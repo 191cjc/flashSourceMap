@@ -154,3 +154,17 @@ ON union_apply_mock(union_id, updated_at ASC);
 
 CREATE INDEX IF NOT EXISTS idx_union_log_mock_union
 ON union_log_mock(union_id, id DESC);
+
+CREATE TABLE IF NOT EXISTS rank_entries (
+  rank_list_id INTEGER NOT NULL,
+  uid INTEGER NOT NULL REFERENCES global_players(uid) ON DELETE CASCADE,
+  slot_index INTEGER NOT NULL,
+  score INTEGER NOT NULL DEFAULT 0,
+  extra TEXT NOT NULL DEFAULT '',
+  created_at TEXT NOT NULL DEFAULT (datetime('now')),
+  updated_at TEXT NOT NULL DEFAULT (datetime('now')),
+  PRIMARY KEY(rank_list_id, uid, slot_index)
+);
+
+CREATE INDEX IF NOT EXISTS idx_rank_entries_order
+ON rank_entries(rank_list_id, score DESC, updated_at ASC, uid ASC, slot_index ASC);
