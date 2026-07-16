@@ -364,6 +364,7 @@
     const uidInput = document.getElementById("onlineModeUid");
     const usernameInput = document.getElementById("onlineModeUsername");
     const joinButton = document.getElementById("onlineModeJoin");
+    const repairButton = document.getElementById("onlineModeRepair");
     const profileButton = document.getElementById("onlineModeSaveProfile");
     const syncButton = document.getElementById("onlineModeSync");
     const refreshButton = document.getElementById("onlineModeRefresh");
@@ -378,6 +379,10 @@
     if (joinButton) {
       joinButton.hidden = mode !== "eligible";
       joinButton.disabled = onlineModeBusy || !server.healthy;
+    }
+    if (repairButton) {
+      repairButton.hidden = mode !== "identity_conflict" && mode !== "migration_failed";
+      repairButton.disabled = onlineModeBusy || !server.healthy;
     }
     if (profileButton) {
       profileButton.hidden = !joined;
@@ -467,6 +472,25 @@
       await refreshAccount();
       await refreshOnlineMode();
       reloadGameAfterIdentityChange(`联机用户名已修改为 ${account.username}`);
+    } catch (error) {
+      setOnlineModeHint(error instanceof Error ? error.message : String(error), true);
+    } finally {
+      onlineModeBusy = false;
+      refreshOnlineMode().catch(() => undefined);
+    }
+  }
+
+  async function repairOnlineMode() {
+    if (onlineModeBusy) return;
+    if (window.confirm && !window.confirm("修复会以服务器绑定的 UID 和用户名重写所有当前存档身份。是否继续？")) return;
+    onlineModeBusy = true;
+    renderOnlineMode(onlineModeStatus || {});
+    setOnlineModeHint("正在核对服务器绑定并修复本地存档身份……", false);
+    try {
+      await postOnlineMode("/api/saveData/online-mode/repair");
+      await refreshAccount();
+      await refreshOnlineMode();
+      reloadGameAfterIdentityChange(`联机身份已修复，当前 UID ${account.uid}`);
     } catch (error) {
       setOnlineModeHint(error instanceof Error ? error.message : String(error), true);
     } finally {
@@ -1331,6 +1355,8 @@
   }
   const onlineModeJoin = document.getElementById("onlineModeJoin");
   if (onlineModeJoin) onlineModeJoin.addEventListener("click", joinOnlineMode);
+  const onlineModeRepair = document.getElementById("onlineModeRepair");
+  if (onlineModeRepair) onlineModeRepair.addEventListener("click", repairOnlineMode);
   const onlineModeSaveProfile = document.getElementById("onlineModeSaveProfile");
   if (onlineModeSaveProfile) onlineModeSaveProfile.addEventListener("click", saveOnlineUsername);
   const onlineModeSync = document.getElementById("onlineModeSync");

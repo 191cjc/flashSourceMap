@@ -37,6 +37,13 @@ type SyncRow = {
   raw_data: string;
 };
 
+type RegistrationResponse = {
+  ok: boolean;
+  uid: number;
+  username: string;
+  player: { nickname: string };
+};
+
 export class OnlineModeError extends Error {
   constructor(readonly code: string, message: string, readonly status = 400) {
     super(message);
@@ -84,6 +91,8 @@ export class OnlineModeService {
     let mode = "eligible";
     if (identityConflict) {
       mode = "identity_conflict";
+    } else if (state.migration_state === "failed") {
+      mode = "migration_failed";
     } else if (account?.uid !== DEFAULT_UID || state.enabled === 1) {
       mode = pendingCount > 0 ? "sync_pending" : "online";
     } else if (!server.healthy) {
@@ -122,31 +131,40 @@ export class OnlineModeService {
       throw new OnlineModeError("identity_conflict", "本地账号 UID 与存档 UID 不一致", 409);
     }
 
-    const health = await this.health();
-    if (!health.healthy) {
-      throw new OnlineModeError("server_offline", "Linux 联机服务器不可用", 503);
+    sqlite.db.prepare("UPDATE online_mode_state SET migration_state = 'joining', last_error = '' WHERE id = 1").run();
+    try {
+      await this.ensureServerAvailable();
+      const registration = await this.register(state, account);
+      const nextUid = String(registration.uid);
+      if (account.uid !== nextUid || account.username !== registration.username || state.enabled !== 1) {
+        this.migrateIdentity(account, nextUid, registration.username, registration.player.nickname);
+      }
+      await this.syncPending();
+      return this.status(false);
+    } catch (error) {
+      this.markMigrationFailed(error);
+      throw error;
     }
+  }
 
-    const registration = await this.requestJson<{
-      ok: boolean;
-      uid: number;
-      username: string;
-      player: { nickname: string };
-    }>("/api/global/register", {
-      method: "POST",
-      body: JSON.stringify({
-        instanceId: state.instance_id,
-        sourceUid: account.uid,
-        username: account.username,
-        nickname: account.nickname,
-      }),
-    });
-    const nextUid = String(registration.uid);
-    if (account.uid !== nextUid || account.username !== registration.username || state.enabled !== 1) {
-      this.migrateIdentity(account, nextUid, registration.username, registration.player.nickname);
+  async repair(): Promise<Record<string, unknown>> {
+    const sqlite = this.requireSqlite();
+    const state = this.ensureState();
+    const account = this.store.getCurrentAccount();
+    if (!account) {
+      throw new OnlineModeError("account_not_found", "本地账号不存在", 404);
     }
-    await this.syncPending();
-    return this.status(false);
+    sqlite.db.prepare("UPDATE online_mode_state SET migration_state = 'repairing', last_error = '' WHERE id = 1").run();
+    try {
+      await this.ensureServerAvailable();
+      const registration = await this.register(state, account);
+      this.migrateIdentity(account, String(registration.uid), registration.username, registration.player.nickname);
+      await this.syncPending();
+      return this.status(false);
+    } catch (error) {
+      this.markMigrationFailed(error);
+      throw error;
+    }
   }
 
   async updateUsername(username: string): Promise<Record<string, unknown>> {
@@ -274,6 +292,49 @@ export class OnlineModeService {
     return { ok: errors.length === 0, synced, pending, errors };
   }
 
+  syncStatus(): Record<string, unknown> {
+    const sqlite = this.requireSqlite();
+    const account = this.store.getCurrentAccount();
+    if (!account) {
+      return { ok: true, account: null, pendingCount: 0, slots: [] };
+    }
+    const rows = sqlite.db
+      .prepare(
+        [
+          "SELECT game_id, slot_index, local_revision, uploaded_revision, pending, retry_count,",
+          "last_attempt_at, last_success_at, last_error",
+          "FROM remote_save_sync WHERE account_id = ? ORDER BY game_id, slot_index",
+        ].join(" ")
+      )
+      .all(account.id) as Array<{
+      game_id: string;
+      slot_index: number;
+      local_revision: number;
+      uploaded_revision: number;
+      pending: number;
+      retry_count: number;
+      last_attempt_at: string;
+      last_success_at: string;
+      last_error: string;
+    }>;
+    return {
+      ok: true,
+      account: { uid: account.uid, username: account.username },
+      pendingCount: rows.filter((row) => row.pending === 1).length,
+      slots: rows.map((row) => ({
+        gameId: row.game_id,
+        slotIndex: row.slot_index,
+        localRevision: row.local_revision,
+        uploadedRevision: row.uploaded_revision,
+        pending: row.pending === 1,
+        retryCount: row.retry_count,
+        lastAttemptAt: row.last_attempt_at,
+        lastSuccessAt: row.last_success_at,
+        lastError: row.last_error,
+      })),
+    };
+  }
+
   private ensureState(): OnlineStateRow {
     const sqlite = this.requireSqlite();
     const existing = sqlite.db.prepare("SELECT * FROM online_mode_state WHERE id = 1").get() as OnlineStateRow | undefined;
@@ -394,6 +455,32 @@ export class OnlineModeService {
       this.requireSqlite().db.prepare("UPDATE online_mode_state SET last_error = ? WHERE id = 1").run(message);
       return { reachable: false, healthy: false, latencyMs: Date.now() - startedAt, error: message };
     }
+  }
+
+  private async ensureServerAvailable(): Promise<void> {
+    const health = await this.health();
+    if (!health.healthy) {
+      throw new OnlineModeError("server_offline", "Linux 联机服务器不可用", 503);
+    }
+  }
+
+  private register(state: OnlineStateRow, account: Account): Promise<RegistrationResponse> {
+    return this.requestJson<RegistrationResponse>("/api/global/register", {
+      method: "POST",
+      body: JSON.stringify({
+        instanceId: state.instance_id,
+        sourceUid: account.uid,
+        username: account.username,
+        nickname: account.nickname,
+      }),
+    });
+  }
+
+  private markMigrationFailed(error: unknown): void {
+    const message = error instanceof Error ? error.message : String(error);
+    this.requireSqlite().db
+      .prepare("UPDATE online_mode_state SET migration_state = 'failed', last_error = ? WHERE id = 1")
+      .run(message);
   }
 
   private async requestJson<T = Record<string, unknown>>(pathname: string, init: RequestInit): Promise<T> {

@@ -60,6 +60,7 @@ type ServerOptions = {
   port?: number;
   dbFile?: string;
   legacySavesFile?: string;
+  globalDataUrl?: string;
 };
 
 const MIME_TYPES: Record<string, string> = {
@@ -137,8 +138,8 @@ async function forwardGlobalPlatformRequest(
     headers: {
       "content-type": contentType,
       "x-flash-uid": account.uid,
-      "x-flash-username": account.username,
-      "x-flash-nickname": account.nickname,
+      "x-flash-username": encodeURIComponent(account.username),
+      "x-flash-nickname": encodeURIComponent(account.nickname),
     },
     body: method === "GET" || method === "HEAD" ? undefined : new Uint8Array(body),
     signal: AbortSignal.timeout(10000),
@@ -1912,8 +1913,8 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
   const logger = new SaveDataLogger({ enabled: saveDataLoggingEnabled() });
   const api = new SaveDataMockApi(db, undefined, logger);
   const unionApi = new LocalUnionMockService(db, () => api.account);
-  const onlineMode = new OnlineModeService(db, process.env.GLOBAL_DATA_URL ?? "http://127.0.0.1:8800");
-  const globalDataUrl = process.env.GLOBAL_DATA_URL ?? "http://127.0.0.1:8800";
+  const globalDataUrl = options.globalDataUrl ?? process.env.GLOBAL_DATA_URL ?? "http://127.0.0.1:8800";
+  const onlineMode = new OnlineModeService(db, globalDataUrl);
   const onlineSyncTimer = setInterval(() => {
     void onlineMode.syncPending().catch(() => undefined);
   }, 30000);
@@ -2029,6 +2030,24 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
           return;
         }
         send(res, 200, "application/json; charset=utf-8", JSON.stringify(await onlineMode.syncPending()));
+        return;
+      }
+
+      if (url.pathname === "/api/saveData/online-mode/repair") {
+        if (req.method !== "POST") {
+          send(res, 405, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "method_not_allowed" }));
+          return;
+        }
+        send(res, 200, "application/json; charset=utf-8", JSON.stringify(await onlineMode.repair()));
+        return;
+      }
+
+      if (url.pathname === "/api/saveData/online-mode/sync-status") {
+        if (req.method !== "GET") {
+          send(res, 405, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "method_not_allowed" }));
+          return;
+        }
+        send(res, 200, "application/json; charset=utf-8", JSON.stringify(onlineMode.syncStatus()));
         return;
       }
 

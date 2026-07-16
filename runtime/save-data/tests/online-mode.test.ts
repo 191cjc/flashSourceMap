@@ -5,7 +5,7 @@ import path from "node:path";
 import { startGlobalDataServer } from "../../global-data/server/server.js";
 import { LocalSaveDatabase } from "../persistence/db.js";
 import { DEFAULT_ACCOUNT, SaveDataMockApi } from "../platform4399/mockApi.js";
-import { readLocalSaveIdentity } from "../services/gameData.js";
+import { canonicalizeLocalSaveIdentity, readLocalSaveIdentity } from "../services/gameData.js";
 import { OnlineModeService } from "../services/onlineMode.js";
 
 const SAVE_DATA = [
@@ -67,6 +67,61 @@ try {
   assert.equal(readLocalSaveIdentity(String(localDb.getSlot("10000001", "100025235", 0)?.data)).username, "联机玩家_1");
   assert.equal(globalServer.db.getPlayerByUid(10000001)?.username, "联机玩家_1");
   assert.equal(globalServer.db.getSave(10000001, "100025235", 0)?.revision, 3);
+
+  const corruptedData = canonicalizeLocalSaveIdentity(
+    String(localDb.getSlot("10000001", "100025235", 0)?.data),
+    { uid: "99999999", username: "错误身份", slotIndex: 0 }
+  );
+  localDb.db.prepare("UPDATE save_slots SET raw_data = ? WHERE account_id = ? AND game_id = ? AND slot_index = ?").run(
+    corruptedData,
+    localDb.getCurrentAccount()!.id,
+    "100025235",
+    0
+  );
+  assert.equal((await onlineMode.status(false)).mode, "identity_conflict");
+
+  const repaired = await onlineMode.repair();
+  assert.equal(repaired.mode, "online");
+  assert.deepEqual(readLocalSaveIdentity(String(localDb.getSlot("10000001", "100025235", 0)?.data)), {
+    uid: "10000001",
+    username: "联机玩家_1",
+  });
+  assert.equal(globalServer.db.getSave(10000001, "100025235", 0)?.revision, 4);
+
+  const syncStatus = onlineMode.syncStatus() as {
+    pendingCount: number;
+    slots: Array<{
+      gameId: string;
+      slotIndex: number;
+      localRevision: number;
+      uploadedRevision: number;
+      pending: boolean;
+      retryCount: number;
+      lastError: string;
+    }>;
+  };
+  assert.equal(syncStatus.pendingCount, 0);
+  assert.equal(syncStatus.slots.length, 1);
+  assert.deepEqual(
+    {
+      gameId: syncStatus.slots[0].gameId,
+      slotIndex: syncStatus.slots[0].slotIndex,
+      localRevision: syncStatus.slots[0].localRevision,
+      uploadedRevision: syncStatus.slots[0].uploadedRevision,
+      pending: syncStatus.slots[0].pending,
+      retryCount: syncStatus.slots[0].retryCount,
+      lastError: syncStatus.slots[0].lastError,
+    },
+    {
+      gameId: "100025235",
+      slotIndex: 0,
+      localRevision: 4,
+      uploadedRevision: 4,
+      pending: false,
+      retryCount: 0,
+      lastError: "",
+    }
+  );
 
   console.log("online mode flow ok");
 } finally {
