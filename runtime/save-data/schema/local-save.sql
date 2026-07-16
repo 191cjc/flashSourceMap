@@ -64,6 +64,36 @@ CREATE TABLE IF NOT EXISTS recharge_records (
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
+CREATE TABLE IF NOT EXISTS online_mode_state (
+  id INTEGER PRIMARY KEY CHECK (id = 1),
+  instance_id TEXT NOT NULL,
+  enabled INTEGER NOT NULL DEFAULT 0,
+  server_url TEXT NOT NULL,
+  assigned_uid TEXT NOT NULL DEFAULT '10001',
+  username TEXT NOT NULL DEFAULT 'local_user',
+  migration_state TEXT NOT NULL DEFAULT 'none',
+  registered_at TEXT NOT NULL DEFAULT '',
+  last_health_at TEXT NOT NULL DEFAULT '',
+  last_sync_at TEXT NOT NULL DEFAULT '',
+  last_error TEXT NOT NULL DEFAULT ''
+);
+
+CREATE TABLE IF NOT EXISTS remote_save_sync (
+  account_id INTEGER NOT NULL REFERENCES accounts(id) ON DELETE CASCADE,
+  game_id TEXT NOT NULL,
+  slot_index INTEGER NOT NULL,
+  local_revision INTEGER NOT NULL DEFAULT 0,
+  uploaded_revision INTEGER NOT NULL DEFAULT 0,
+  local_checksum TEXT NOT NULL DEFAULT '',
+  uploaded_checksum TEXT NOT NULL DEFAULT '',
+  pending INTEGER NOT NULL DEFAULT 1,
+  retry_count INTEGER NOT NULL DEFAULT 0,
+  last_attempt_at TEXT NOT NULL DEFAULT '',
+  last_success_at TEXT NOT NULL DEFAULT '',
+  last_error TEXT NOT NULL DEFAULT '',
+  PRIMARY KEY(account_id, game_id, slot_index)
+);
+
 CREATE TABLE IF NOT EXISTS union_mock (
   id INTEGER PRIMARY KEY,
   game_id TEXT NOT NULL,
@@ -180,6 +210,9 @@ ON save_snapshots(save_slot_id, created_at DESC);
 
 CREATE INDEX IF NOT EXISTS idx_recharge_records_account
 ON recharge_records(account_id, created_at DESC);
+
+CREATE INDEX IF NOT EXISTS idx_remote_save_sync_pending
+ON remote_save_sync(pending, last_attempt_at);
 
 CREATE INDEX IF NOT EXISTS idx_union_mock_game
 ON union_mock(game_id, level DESC, experience DESC);

@@ -464,6 +464,16 @@ export function decodeSaveXml(rawData: string): string | null {
   return decodeSaveXmlParts(rawData)?.xml ?? null;
 }
 
+export function readLocalSaveIdentity(rawData: string): { uid: string | null; username: string | null } {
+  const xml = decodeSaveXml(rawData);
+  if (!xml) {
+    return { uid: null, username: null };
+  }
+  const uid = /<s type="Number" name="jxid">([^<]*)<\/s>/.exec(xml)?.[1]?.trim() || null;
+  const username = /<s type="String" name="idn">([\s\S]*?)<\/s>/.exec(xml)?.[1]?.trim() || null;
+  return { uid, username };
+}
+
 function replaceNumberField(xml: string, name: string, value: number): string {
   const field = `<s type="Number" name="${name}">${value}</s>`;
   const fieldRe = new RegExp(`<s type="Number" name="${name}">[^<]*</s>`);

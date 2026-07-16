@@ -14,6 +14,7 @@ export type SaveDataStore = {
   close(): void;
   getOrCreateAccount(seed: AccountSeed): Account;
   getAccountByUid(uid: string): Account | null;
+  getCurrentAccount(): Account | null;
   ensureAccount(uid: string): Account;
   saveSlot(payload: SavePayload): boolean;
   getSlot(uid: string, gameId: string, slotIndex: number): SaveSlot | null;

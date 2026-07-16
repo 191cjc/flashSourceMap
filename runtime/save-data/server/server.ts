@@ -43,6 +43,7 @@ import {
 } from "../services/levelRewards.js";
 import { loadGameDataCatalog } from "../services/gameData.js";
 import { getZodiacSoulExpOptimizationState } from "../services/zodiacSoulExp.js";
+import { OnlineModeError, OnlineModeService } from "../services/onlineMode.js";
 import {
   LocalUnionMockService,
   type UnionApply,
@@ -1884,7 +1885,12 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
   const db = createSaveDataStore(options);
   const logger = new SaveDataLogger({ enabled: saveDataLoggingEnabled() });
   const api = new SaveDataMockApi(db, undefined, logger);
-  const unionApi = new LocalUnionMockService(db, api.account);
+  const unionApi = new LocalUnionMockService(db, () => api.account);
+  const onlineMode = new OnlineModeService(db, process.env.GLOBAL_DATA_URL ?? "http://127.0.0.1:8800");
+  const onlineSyncTimer = setInterval(() => {
+    void onlineMode.syncPending().catch(() => undefined);
+  }, 30000);
+  onlineSyncTimer.unref();
 
   const server = createServer(async (req, res) => {
     try {
@@ -1954,6 +1960,48 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
       const debugResponse = api.handleDebugApi(url, req.method ?? "GET", body);
       if (debugResponse) {
         send(res, debugResponse.status, debugResponse.contentType, debugResponse.body);
+        return;
+      }
+
+      if (url.pathname === "/api/saveData/online-mode/status") {
+        if (req.method !== "GET") {
+          send(res, 405, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "method_not_allowed" }));
+          return;
+        }
+        send(res, 200, "application/json; charset=utf-8", JSON.stringify(await onlineMode.status()));
+        return;
+      }
+
+      if (url.pathname === "/api/saveData/online-mode/join") {
+        if (req.method !== "POST") {
+          send(res, 405, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "method_not_allowed" }));
+          return;
+        }
+        send(res, 200, "application/json; charset=utf-8", JSON.stringify(await onlineMode.join()));
+        return;
+      }
+
+      if (url.pathname === "/api/saveData/online-mode/profile") {
+        if (req.method !== "POST") {
+          send(res, 405, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "method_not_allowed" }));
+          return;
+        }
+        const request = parseJsonRequestBody(body) as { username?: unknown };
+        send(
+          res,
+          200,
+          "application/json; charset=utf-8",
+          JSON.stringify(await onlineMode.updateUsername(typeof request.username === "string" ? request.username : ""))
+        );
+        return;
+      }
+
+      if (url.pathname === "/api/saveData/online-mode/sync") {
+        if (req.method !== "POST") {
+          send(res, 405, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "method_not_allowed" }));
+          return;
+        }
+        send(res, 200, "application/json; charset=utf-8", JSON.stringify(await onlineMode.syncPending()));
         return;
       }
 
@@ -2311,6 +2359,10 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
         const response = api.handleSaveApi(forwarded, req.method ?? "GET", body);
         if (response) {
           send(res, response.status, response.contentType, response.body);
+          const ac = forwarded.searchParams.get("ac") ?? new URLSearchParams(body).get("ac");
+          if (ac === "save") {
+            void onlineMode.syncPending().catch(() => undefined);
+          }
           return;
         }
         logger.appendSync({
@@ -2351,6 +2403,15 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
 
       sendNotFound(res);
     } catch (error) {
+      if (error instanceof OnlineModeError) {
+        send(
+          res,
+          error.status,
+          "application/json; charset=utf-8",
+          JSON.stringify({ ok: false, error: error.code, message: error.message })
+        );
+        return;
+      }
       send(res, 500, "text/plain; charset=utf-8", error instanceof Error ? error.stack ?? error.message : String(error));
     }
   });
@@ -2367,6 +2428,7 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
     db,
     server,
     close: async () => {
+      clearInterval(onlineSyncTimer);
       await new Promise<void>((resolve, reject) => {
         server.close((error) => (error ? reject(error) : resolve()));
       });

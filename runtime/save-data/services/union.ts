@@ -296,8 +296,12 @@ export class LocalUnionMockService {
     logs: [],
   };
 
-  constructor(readonly store: SaveDataStore, readonly account: AccountSeed) {
+  constructor(readonly store: SaveDataStore, private readonly accountSource: AccountSeed | (() => AccountSeed)) {
     this.sqlite = sqliteFromStore(store);
+  }
+
+  private get account(): AccountSeed {
+    return typeof this.accountSource === "function" ? this.accountSource() : this.accountSource;
   }
 
   createUnion(request: { gameId?: string; index?: number; title: string; extra?: string }): boolean {

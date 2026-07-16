@@ -101,6 +101,10 @@ export class LegacyJsonSaveDatabase implements SaveDataStore {
     return this.accounts.get(uid) ?? null;
   }
 
+  getCurrentAccount(): Account | null {
+    return this.accounts.values().next().value ?? null;
+  }
+
   ensureAccount(uid: string): Account {
     return (
       this.getAccountByUid(uid) ??

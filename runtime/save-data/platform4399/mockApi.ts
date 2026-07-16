@@ -145,11 +145,15 @@ function encryptedPaymentPayload(params: URLSearchParams, amount: number): { enc
 }
 
 export class SaveDataMockApi {
-  readonly account: AccountSeed;
+  private readonly initialAccount: AccountSeed;
 
   constructor(readonly db: SaveDataStore, account: AccountSeed = DEFAULT_ACCOUNT, readonly logger?: SaveDataLogger) {
-    this.account = account;
+    this.initialAccount = account;
     this.db.getOrCreateAccount(account);
+  }
+
+  get account(): AccountSeed {
+    return this.db.getCurrentAccount() ?? this.initialAccount;
   }
 
   private log(event: Omit<SaveDataLogEvent, "ts">): void {

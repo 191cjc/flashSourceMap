@@ -175,6 +175,26 @@ export class LocalSaveDatabase implements SaveDataStore {
     return row ? asAccount(row) : null;
   }
 
+  getCurrentAccount(): Account | null {
+    const state = this.db.prepare("SELECT assigned_uid FROM online_mode_state WHERE id = 1").get() as
+      | { assigned_uid: string }
+      | undefined;
+    if (state) {
+      const assigned = this.getAccountByUid(state.assigned_uid);
+      if (assigned) {
+        return assigned;
+      }
+    }
+    const defaultAccount = this.getAccountByUid("10001");
+    if (defaultAccount) {
+      return defaultAccount;
+    }
+    const row = this.db
+      .prepare("SELECT id, uid, username, nickname FROM accounts ORDER BY id ASC LIMIT 1")
+      .get() as AccountRow | undefined;
+    return row ? asAccount(row) : null;
+  }
+
   ensureAccount(uid: string): Account {
     return this.getAccountByUid(uid) ?? this.getOrCreateAccount({
       uid,
@@ -186,43 +206,66 @@ export class LocalSaveDatabase implements SaveDataStore {
   saveSlot(payload: SavePayload): boolean {
     const account = this.ensureAccount(payload.uid);
     const checksum = sha256(payload.data);
+    this.db.exec("BEGIN IMMEDIATE");
+    try {
+      const existing = this.db
+        .prepare("SELECT id FROM save_slots WHERE account_id = ? AND game_id = ? AND slot_index = ?")
+        .get(account.id, payload.gameid, payload.index) as { id: number } | undefined;
 
-    const existing = this.db
-      .prepare("SELECT id FROM save_slots WHERE account_id = ? AND game_id = ? AND slot_index = ?")
-      .get(account.id, payload.gameid, payload.index) as { id: number } | undefined;
+      if (existing) {
+        const old = this.db
+          .prepare("SELECT title, raw_data, checksum FROM save_slots WHERE id = ?")
+          .get(existing.id) as { title: string; raw_data: string; checksum: string } | undefined;
+        if (old) {
+          this.db
+            .prepare("INSERT INTO save_snapshots (save_slot_id, title, raw_data, checksum) VALUES (?, ?, ?, ?)")
+            .run(existing.id, old.title, old.raw_data, old.checksum);
+        }
 
-    if (existing) {
-      const old = this.db
-        .prepare("SELECT title, raw_data, checksum FROM save_slots WHERE id = ?")
-        .get(existing.id) as { title: string; raw_data: string; checksum: string } | undefined;
-      if (old) {
         this.db
-          .prepare("INSERT INTO save_snapshots (save_slot_id, title, raw_data, checksum) VALUES (?, ?, ?, ?)")
-          .run(existing.id, old.title, old.raw_data, old.checksum);
+          .prepare(
+            [
+              "UPDATE save_slots",
+              "SET title = ?, raw_data = ?, checksum = ?, status = '0', updated_at = datetime('now')",
+              "WHERE id = ?",
+            ].join(" ")
+          )
+          .run(payload.title, payload.data, checksum, existing.id);
+      } else {
+        this.db
+          .prepare(
+            [
+              "INSERT INTO save_slots",
+              "(account_id, game_id, slot_index, title, raw_data, checksum)",
+              "VALUES (?, ?, ?, ?, ?, ?)",
+            ].join(" ")
+          )
+          .run(account.id, payload.gameid, payload.index, payload.title, payload.data, checksum);
       }
 
-      this.db
-        .prepare(
-          [
-            "UPDATE save_slots",
-            "SET title = ?, raw_data = ?, checksum = ?, status = '0', updated_at = datetime('now')",
-            "WHERE id = ?",
-          ].join(" ")
-        )
-        .run(payload.title, payload.data, checksum, existing.id);
+      const online = this.db.prepare("SELECT enabled FROM online_mode_state WHERE id = 1").get() as
+        | { enabled: number }
+        | undefined;
+      if (online?.enabled === 1) {
+        this.db
+          .prepare(
+            [
+              "INSERT INTO remote_save_sync",
+              "(account_id, game_id, slot_index, local_revision, local_checksum, pending)",
+              "VALUES (?, ?, ?, 1, ?, 1)",
+              "ON CONFLICT(account_id, game_id, slot_index) DO UPDATE SET",
+              "local_revision = remote_save_sync.local_revision + 1,",
+              "local_checksum = excluded.local_checksum, pending = 1, last_error = ''",
+            ].join(" ")
+          )
+          .run(account.id, payload.gameid, payload.index, checksum);
+      }
+      this.db.exec("COMMIT");
       return true;
+    } catch (error) {
+      this.db.exec("ROLLBACK");
+      throw error;
     }
-
-    this.db
-      .prepare(
-        [
-          "INSERT INTO save_slots",
-          "(account_id, game_id, slot_index, title, raw_data, checksum)",
-          "VALUES (?, ?, ?, ?, ?, ?)",
-        ].join(" ")
-      )
-      .run(account.id, payload.gameid, payload.index, payload.title, payload.data, checksum);
-    return true;
   }
 
   getSlot(uid: string, gameId: string, slotIndex: number): SaveSlot | null {
