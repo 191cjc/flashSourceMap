@@ -7,6 +7,12 @@ import type {
   PutRemoteSaveRequest,
   RegisterGlobalPlayerRequest,
   RemoteSaveSlot,
+  StaffOverview,
+  StaffPlayerOverview,
+  StaffRankOverview,
+  StaffUnionApplication,
+  StaffUnionMember,
+  StaffUnionOverview,
 } from "../types.js";
 
 const moduleDir = path.dirname(fileURLToPath(import.meta.url));
@@ -37,6 +43,58 @@ type SaveRow = {
   updated_at: string;
 };
 
+type StaffPlayerRow = PlayerRow & {
+  save_count: number;
+  latest_save_at: string | null;
+  union_membership_count: number;
+  rank_entry_count: number;
+};
+
+type StaffUnionRow = {
+  id: number;
+  game_id: string;
+  owner_uid: string;
+  owner_username: string;
+  owner_nickname: string;
+  title: string;
+  level: number;
+  experience: number;
+  contribution: number;
+  created_at: string;
+  updated_at: string;
+};
+
+type StaffUnionMemberRow = {
+  union_id: number;
+  uid: string;
+  username: string;
+  nickname: string;
+  slot_index: number;
+  contribution: number;
+  role_id: string;
+  role_name: string;
+  active_time: string;
+  created_at: string;
+  updated_at: string;
+};
+
+type StaffUnionApplicationRow = {
+  union_id: number;
+  uid: string;
+  username: string;
+  nickname: string;
+  slot_index: number;
+  created_at: string;
+  updated_at: string;
+};
+
+type StaffRankRow = {
+  rank_list_id: number;
+  entry_count: number;
+  top_score: number;
+  updated_at: string;
+};
+
 export class GlobalDataError extends Error {
   constructor(readonly code: string, message: string, readonly status = 400) {
     super(message);
@@ -64,6 +122,42 @@ function asSave(row: SaveRow): RemoteSaveSlot {
     data: row.raw_data,
     checksum: row.checksum,
     revision: row.revision,
+    updatedAt: row.updated_at,
+  };
+}
+
+function asStaffPlayer(row: StaffPlayerRow): StaffPlayerOverview {
+  return {
+    ...asPlayer(row),
+    saveCount: row.save_count,
+    latestSaveAt: row.latest_save_at,
+    unionMembershipCount: row.union_membership_count,
+    rankEntryCount: row.rank_entry_count,
+  };
+}
+
+function asStaffUnionMember(row: StaffUnionMemberRow): StaffUnionMember {
+  return {
+    uid: row.uid,
+    username: row.username,
+    nickname: row.nickname,
+    slotIndex: row.slot_index,
+    contribution: row.contribution,
+    roleId: row.role_id,
+    roleName: row.role_name,
+    activeTime: row.active_time,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  };
+}
+
+function asStaffUnionApplication(row: StaffUnionApplicationRow): StaffUnionApplication {
+  return {
+    uid: row.uid,
+    username: row.username,
+    nickname: row.nickname,
+    slotIndex: row.slot_index,
+    createdAt: row.created_at,
     updatedAt: row.updated_at,
   };
 }
@@ -116,6 +210,128 @@ export class GlobalDataDatabase {
   health(): { sqliteVersion: string } {
     const row = this.db.prepare("SELECT sqlite_version() AS version").get() as { version: string };
     return { sqliteVersion: row.version };
+  }
+
+  touchPlayer(uid: number): void {
+    this.db.prepare("UPDATE global_players SET last_seen_at = datetime('now') WHERE uid = ?").run(normalizedUid(uid));
+  }
+
+  getStaffOverview(): StaffOverview {
+    const summary = this.db
+      .prepare(
+        [
+          "SELECT",
+          "(SELECT COUNT(*) FROM global_players) AS player_count,",
+          "(SELECT COUNT(*) FROM remote_save_slots) AS save_slot_count,",
+          "(SELECT COUNT(*) FROM union_mock) AS union_count,",
+          "(SELECT COUNT(*) FROM union_member_mock) AS union_member_count,",
+          "(SELECT COUNT(*) FROM union_apply_mock) AS union_application_count,",
+          "(SELECT COUNT(*) FROM rank_entries) AS rank_entry_count",
+        ].join(" ")
+      )
+      .get() as {
+      player_count: number;
+      save_slot_count: number;
+      union_count: number;
+      union_member_count: number;
+      union_application_count: number;
+      rank_entry_count: number;
+    };
+    const players = (
+      this.db
+        .prepare(
+          [
+            "SELECT player.uid, player.instance_id, player.username, player.nickname,",
+            "player.created_at, player.updated_at, player.last_seen_at,",
+            "(SELECT COUNT(*) FROM remote_save_slots save WHERE save.uid = player.uid) AS save_count,",
+            "(SELECT MAX(save.updated_at) FROM remote_save_slots save WHERE save.uid = player.uid) AS latest_save_at,",
+            "(SELECT COUNT(*) FROM union_member_mock member WHERE member.uid = CAST(player.uid AS TEXT)) AS union_membership_count,",
+            "(SELECT COUNT(*) FROM rank_entries rank WHERE rank.uid = player.uid) AS rank_entry_count",
+            "FROM global_players player ORDER BY player.last_seen_at DESC, player.uid ASC",
+          ].join(" ")
+        )
+        .all() as StaffPlayerRow[]
+    ).map(asStaffPlayer);
+    const unionRows = this.db
+      .prepare(
+        [
+          "SELECT id, game_id, owner_uid, owner_username, owner_nickname, title, level, experience, contribution, created_at, updated_at",
+          "FROM union_mock ORDER BY level DESC, experience DESC, id ASC",
+        ].join(" ")
+      )
+      .all() as StaffUnionRow[];
+    const memberRows = this.db
+      .prepare(
+        [
+          "SELECT union_id, uid, username, nickname, slot_index, contribution, role_id, role_name, active_time, created_at, updated_at",
+          "FROM union_member_mock ORDER BY union_id ASC, role_id DESC, contribution DESC, created_at ASC",
+        ].join(" ")
+      )
+      .all() as StaffUnionMemberRow[];
+    const applicationRows = this.db
+      .prepare(
+        [
+          "SELECT union_id, uid, username, nickname, slot_index, created_at, updated_at",
+          "FROM union_apply_mock ORDER BY union_id ASC, created_at ASC",
+        ].join(" ")
+      )
+      .all() as StaffUnionApplicationRow[];
+    const membersByUnion = new Map<number, StaffUnionMember[]>();
+    for (const row of memberRows) {
+      const members = membersByUnion.get(row.union_id) ?? [];
+      members.push(asStaffUnionMember(row));
+      membersByUnion.set(row.union_id, members);
+    }
+    const applicationsByUnion = new Map<number, StaffUnionApplication[]>();
+    for (const row of applicationRows) {
+      const applications = applicationsByUnion.get(row.union_id) ?? [];
+      applications.push(asStaffUnionApplication(row));
+      applicationsByUnion.set(row.union_id, applications);
+    }
+    const unions: StaffUnionOverview[] = unionRows.map((row) => ({
+      id: row.id,
+      gameId: row.game_id,
+      title: row.title,
+      ownerUid: row.owner_uid,
+      ownerUsername: row.owner_username,
+      ownerNickname: row.owner_nickname,
+      level: row.level,
+      experience: row.experience,
+      contribution: row.contribution,
+      createdAt: row.created_at,
+      updatedAt: row.updated_at,
+      members: membersByUnion.get(row.id) ?? [],
+      applications: applicationsByUnion.get(row.id) ?? [],
+    }));
+    const ranks: StaffRankOverview[] = (
+      this.db
+        .prepare(
+          [
+            "SELECT rank_list_id, COUNT(*) AS entry_count, MAX(score) AS top_score, MAX(updated_at) AS updated_at",
+            "FROM rank_entries GROUP BY rank_list_id ORDER BY rank_list_id ASC",
+          ].join(" ")
+        )
+        .all() as StaffRankRow[]
+    ).map((row) => ({
+      rankListId: row.rank_list_id,
+      entryCount: row.entry_count,
+      topScore: row.top_score,
+      updatedAt: row.updated_at,
+    }));
+    return {
+      generatedAt: new Date().toISOString(),
+      summary: {
+        playerCount: summary.player_count,
+        saveSlotCount: summary.save_slot_count,
+        unionCount: summary.union_count,
+        unionMemberCount: summary.union_member_count,
+        unionApplicationCount: summary.union_application_count,
+        rankEntryCount: summary.rank_entry_count,
+      },
+      players,
+      unions,
+      ranks,
+    };
   }
 
   getPlayerByUid(uid: number): GlobalPlayer | null {
@@ -197,6 +413,7 @@ export class GlobalDataDatabase {
     if (!player) {
       throw new GlobalDataError("player_not_found", "玩家不存在", 404);
     }
+    this.touchPlayer(player.uid);
     if (!Number.isInteger(slotIndex) || slotIndex < 0 || slotIndex > 7) {
       throw new GlobalDataError("invalid_slot", "存档槽位必须是 0 至 7");
     }

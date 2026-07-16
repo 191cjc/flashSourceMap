@@ -1,5 +1,6 @@
 import { createServer, type IncomingMessage, type ServerResponse } from "node:http";
 import type { AddressInfo } from "node:net";
+import { readFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { GlobalDataDatabase, GlobalDataError } from "../persistence/db.js";
@@ -19,6 +20,7 @@ type GlobalDataServerOptions = {
 const moduleDir = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(moduleDir, "../../..");
 const defaultDbFile = path.join(projectRoot, "workspace", "globalData", "global-game.db");
+const publicDir = path.resolve(moduleDir, "../public");
 const MAX_BODY_BYTES = 32 * 1024 * 1024;
 
 function sendJson(res: ServerResponse, status: number, value: unknown): void {
@@ -77,6 +79,11 @@ export async function startGlobalDataServer(options: GlobalDataServerOptions = {
   const db = new GlobalDataDatabase(dbFile);
   const rankService = new GlobalRankService(db);
   const startedAt = Date.now();
+  const staffAssets = {
+    html: readFileSync(path.join(publicDir, "staff.html")),
+    css: readFileSync(path.join(publicDir, "staff.css")),
+    js: readFileSync(path.join(publicDir, "staff.js")),
+  };
 
   const server = createServer(async (req, res) => {
     try {
@@ -90,13 +97,30 @@ export async function startGlobalDataServer(options: GlobalDataServerOptions = {
         sendJson(res, 200, {
           ok: true,
           service: "flash-global-data",
-          version: "1.0.0",
+          version: "1.1.0",
           database: "ok",
           sqlite: db.health().sqliteVersion,
           serverTime: Date.now(),
           uptimeMs: Date.now() - startedAt,
           features: { registration: true, remoteSave: true, union: true, rank: true, arena: true },
         });
+        return;
+      }
+
+      if (req.method === "GET" && (url.pathname === "/staff" || url.pathname === "/staff/")) {
+        sendBinary(res, 200, "text/html; charset=utf-8", staffAssets.html);
+        return;
+      }
+      if (req.method === "GET" && url.pathname === "/staff/styles.css") {
+        sendBinary(res, 200, "text/css; charset=utf-8", staffAssets.css);
+        return;
+      }
+      if (req.method === "GET" && url.pathname === "/staff/app.js") {
+        sendBinary(res, 200, "text/javascript; charset=utf-8", staffAssets.js);
+        return;
+      }
+      if (req.method === "GET" && url.pathname === "/api/staff/overview") {
+        sendJson(res, 200, { ok: true, ...db.getStaffOverview() });
         return;
       }
 
@@ -145,6 +169,7 @@ export async function startGlobalDataServer(options: GlobalDataServerOptions = {
         if (!player) {
           throw new GlobalDataError("player_not_found", "联机玩家不存在", 404);
         }
+        db.touchPlayer(player.uid);
         const requestBody = Buffer.concat(await readBodyChunks(req));
         const unionApi = new LocalUnionMockService(db as unknown as SaveDataStore, {
           uid: String(player.uid),
@@ -162,6 +187,7 @@ export async function startGlobalDataServer(options: GlobalDataServerOptions = {
         if (!player) {
           throw new GlobalDataError("player_not_found", "联机玩家不存在", 404);
         }
+        db.touchPlayer(player.uid);
         const response = handleGlobalRankRequest(rankService, player, Buffer.concat(await readBodyChunks(req)));
         sendBinary(res, 200, "application/x-thrift", response.body);
         return;

@@ -235,6 +235,45 @@ try {
     status: "0",
   });
 
+  const staffPage = await fetch(`${server.url}/staff`);
+  assert.equal(staffPage.status, 200);
+  assert.match(staffPage.headers.get("content-type") ?? "", /text\/html/);
+  assert.match(await staffPage.text(), /联机数据控制台/);
+
+  const staffScript = await fetch(`${server.url}/staff/app.js`);
+  assert.equal(staffScript.status, 200);
+  assert.match(staffScript.headers.get("content-type") ?? "", /javascript/);
+  assert.match(await staffScript.text(), /api\/staff\/overview/);
+
+  const staffResponse = await jsonRequest("/api/staff/overview");
+  assert.equal(staffResponse.status, 200);
+  assert.equal(staffResponse.body.ok, true);
+  assert.deepEqual(staffResponse.body.summary, {
+    playerCount: 2,
+    saveSlotCount: 1,
+    unionCount: 1,
+    unionMemberCount: 1,
+    unionApplicationCount: 0,
+    rankEntryCount: 2,
+  });
+  assert.equal(staffResponse.body.players.length, 2);
+  const staffPlayer = staffResponse.body.players.find((player: { uid: number }) => player.uid === 10000001);
+  assert.deepEqual(
+    {
+      username: staffPlayer.username,
+      saveCount: staffPlayer.saveCount,
+      unionMembershipCount: staffPlayer.unionMembershipCount,
+      rankEntryCount: staffPlayer.rankEntryCount,
+    },
+    { username: "测试玩家_A", saveCount: 1, unionMembershipCount: 1, rankEntryCount: 1 }
+  );
+  assert.equal(staffResponse.body.unions[0].title, "Linux测试军团");
+  assert.equal(staffResponse.body.unions[0].members[0].uid, "10000001");
+  assert.deepEqual(staffResponse.body.ranks, [
+    { rankListId: 1093, entryCount: 2, topScore: 1500, updatedAt: staffResponse.body.ranks[0].updatedAt },
+  ]);
+  assert.equal(JSON.stringify(staffResponse.body).includes("save-data-v1"), false);
+
   console.log("global data flow ok");
 } finally {
   await server.close();
