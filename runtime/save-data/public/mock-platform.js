@@ -75,6 +75,8 @@
   let itemSearchTerm = "";
   let itemPopover = null;
   let optimizationPopover = null;
+  let onlineModeBusy = false;
+  let onlineModeStatus = null;
 
   window.__saveDataLog = function (message) {
     const log = document.getElementById("log");
@@ -308,17 +310,186 @@
     }
   };
 
-  fetch("/api/unilogin/account")
-    .then((response) => response.json())
-    .then((serverAccount) => {
-      Object.assign(account, serverAccount);
-    })
-    .finally(() => {
-      const el = document.getElementById("account");
-      if (el) {
-        el.textContent = `${account.nickname} (${account.uid})`;
-      }
+  async function refreshAccount() {
+    const response = await fetch("/api/unilogin/account", { cache: "no-store" });
+    if (!response.ok) {
+      throw new Error(`账号读取失败 HTTP ${response.status}`);
+    }
+    Object.assign(account, await response.json());
+    const el = document.getElementById("account");
+    if (el) {
+      el.textContent = `${account.nickname} (${account.uid})`;
+    }
+    return account;
+  }
+
+  refreshAccount().catch((error) => window.__saveDataLog && window.__saveDataLog(error instanceof Error ? error.message : String(error)));
+
+  function setOnlineModeHint(message, warning) {
+    const hint = document.getElementById("onlineModeHint");
+    if (!hint) {
+      return;
+    }
+    hint.textContent = message;
+    hint.classList.toggle("is-warning", Boolean(warning));
+  }
+
+  function onlineModeLabel(mode) {
+    return {
+      eligible: "单机模式，可接入",
+      online: "联机模式，已同步",
+      sync_pending: "联机模式，等待同步",
+      server_offline: "服务器不可用",
+      identity_conflict: "本地 UID 不一致",
+      migration_failed: "UID 迁移失败",
+      unsupported: "当前存档后端不支持",
+    }[mode] || mode || "未知";
+  }
+
+  function renderOnlineMode(result) {
+    onlineModeStatus = result;
+    const server = result && result.server ? result.server : {};
+    const currentAccount = result && result.account ? result.account : account;
+    const mode = result && result.mode ? result.mode : "server_offline";
+    const enabled = Boolean(result && result.online && result.online.enabled);
+    const joined = enabled || String(currentAccount && currentAccount.uid) !== "10001";
+    const serverText = server.healthy
+      ? `正常 · ${Number(server.latencyMs || 0)}ms`
+      : server.reachable
+        ? `异常 · HTTP ${server.status || "?"}`
+        : "无法连接";
+    const serverElement = document.getElementById("onlineModeServer");
+    const stateElement = document.getElementById("onlineModeState");
+    const pendingElement = document.getElementById("onlineModePending");
+    const uidInput = document.getElementById("onlineModeUid");
+    const usernameInput = document.getElementById("onlineModeUsername");
+    const joinButton = document.getElementById("onlineModeJoin");
+    const profileButton = document.getElementById("onlineModeSaveProfile");
+    const syncButton = document.getElementById("onlineModeSync");
+    const refreshButton = document.getElementById("onlineModeRefresh");
+    if (serverElement) serverElement.textContent = serverText;
+    if (stateElement) stateElement.textContent = onlineModeLabel(mode);
+    if (pendingElement) pendingElement.textContent = String((result && result.sync && result.sync.pendingCount) || 0);
+    if (uidInput) uidInput.value = String((currentAccount && currentAccount.uid) || "10001");
+    if (usernameInput) {
+      usernameInput.value = String((currentAccount && currentAccount.username) || "local_user");
+      usernameInput.disabled = !joined || onlineModeBusy;
+    }
+    if (joinButton) {
+      joinButton.hidden = mode !== "eligible";
+      joinButton.disabled = onlineModeBusy || !server.healthy;
+    }
+    if (profileButton) {
+      profileButton.hidden = !joined;
+      profileButton.disabled = onlineModeBusy || !server.healthy;
+    }
+    if (syncButton) {
+      syncButton.hidden = !joined;
+      syncButton.disabled = onlineModeBusy || !server.healthy;
+    }
+    if (refreshButton) refreshButton.disabled = onlineModeBusy;
+
+    if (mode === "eligible") {
+      setOnlineModeHint("点击接入后，服务器会分配永久 UID，并重写本地存档身份。", false);
+    } else if (mode === "identity_conflict") {
+      setOnlineModeHint("检测到账号 UID 与存档 UID 不一致，远程同步已暂停。", true);
+    } else if (!server.healthy) {
+      setOnlineModeHint("Linux 服务不可用，本地读取、保存、钱包和充值仍可正常使用。", true);
+    } else if (mode === "sync_pending") {
+      setOnlineModeHint("本地存档已经保存，远程副本正在等待同步。", true);
+    } else if (joined) {
+      setOnlineModeHint("UID 不可修改；用户名修改后会重写本地存档并重载游戏。", false);
+    }
+  }
+
+  async function refreshOnlineMode() {
+    const response = await fetch("/api/saveData/online-mode/status", { cache: "no-store" });
+    const result = await readJsonResponse(response);
+    if (!response.ok || result.ok === false) {
+      throw new Error(result.message || result.error || `HTTP ${response.status}`);
+    }
+    renderOnlineMode(result);
+    return result;
+  }
+
+  async function postOnlineMode(pathname, payload) {
+    const response = await fetch(pathname, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload || {}),
     });
+    const result = await readJsonResponse(response);
+    if (!response.ok || result.ok === false) {
+      throw new Error(result.message || result.error || `HTTP ${response.status}`);
+    }
+    return result;
+  }
+
+  function reloadGameAfterIdentityChange(message) {
+    window.__saveDataLog && window.__saveDataLog(message);
+    window.setTimeout(() => {
+      if (window.__saveDataSetGameState) {
+        window.__saveDataSetGameState("selecting");
+      }
+      if (window.__nativeFlashMount) {
+        window.__nativeFlashMount();
+      }
+    }, 800);
+  }
+
+  async function joinOnlineMode() {
+    if (onlineModeBusy) return;
+    if (window.confirm && !window.confirm("接入后会获得永久 UID，并重写当前本地存档身份。是否继续？")) return;
+    onlineModeBusy = true;
+    renderOnlineMode(onlineModeStatus || {});
+    setOnlineModeHint("正在注册 UID、迁移本地存档并上传服务器……", false);
+    try {
+      await postOnlineMode("/api/saveData/online-mode/join");
+      await refreshAccount();
+      await refreshOnlineMode();
+      reloadGameAfterIdentityChange(`已接入联机模式，当前 UID ${account.uid}`);
+    } catch (error) {
+      setOnlineModeHint(error instanceof Error ? error.message : String(error), true);
+    } finally {
+      onlineModeBusy = false;
+      refreshOnlineMode().catch(() => undefined);
+    }
+  }
+
+  async function saveOnlineUsername() {
+    if (onlineModeBusy) return;
+    const input = document.getElementById("onlineModeUsername");
+    const username = input ? input.value.trim() : "";
+    onlineModeBusy = true;
+    renderOnlineMode(onlineModeStatus || {});
+    try {
+      await postOnlineMode("/api/saveData/online-mode/profile", { username });
+      await refreshAccount();
+      await refreshOnlineMode();
+      reloadGameAfterIdentityChange(`联机用户名已修改为 ${account.username}`);
+    } catch (error) {
+      setOnlineModeHint(error instanceof Error ? error.message : String(error), true);
+    } finally {
+      onlineModeBusy = false;
+      refreshOnlineMode().catch(() => undefined);
+    }
+  }
+
+  async function syncOnlineMode() {
+    if (onlineModeBusy) return;
+    onlineModeBusy = true;
+    renderOnlineMode(onlineModeStatus || {});
+    try {
+      const result = await postOnlineMode("/api/saveData/online-mode/sync");
+      window.__saveDataLog && window.__saveDataLog(`远程存档同步完成：${result.synced || 0} 个`);
+      await refreshOnlineMode();
+    } catch (error) {
+      setOnlineModeHint(error instanceof Error ? error.message : String(error), true);
+    } finally {
+      onlineModeBusy = false;
+      refreshOnlineMode().catch(() => undefined);
+    }
+  }
 
   function setOptimizationStatus(status, text, className, label) {
     if (!status) {
@@ -1125,6 +1296,9 @@
     for (const panel of document.querySelectorAll("[data-tab-panel]")) {
       panel.classList.toggle("is-active", panel.getAttribute("data-tab-panel") === tabName);
     }
+    if (tabName === "onlineMode") {
+      refreshOnlineMode().catch((error) => setOnlineModeHint(error instanceof Error ? error.message : String(error), true));
+    }
   }
 
   function setupTabs() {
@@ -1153,6 +1327,18 @@
   if (localRechargeButton) {
     localRechargeButton.addEventListener("click", () => {
       rechargeLocally();
+    });
+  }
+  const onlineModeJoin = document.getElementById("onlineModeJoin");
+  if (onlineModeJoin) onlineModeJoin.addEventListener("click", joinOnlineMode);
+  const onlineModeSaveProfile = document.getElementById("onlineModeSaveProfile");
+  if (onlineModeSaveProfile) onlineModeSaveProfile.addEventListener("click", saveOnlineUsername);
+  const onlineModeSync = document.getElementById("onlineModeSync");
+  if (onlineModeSync) onlineModeSync.addEventListener("click", syncOnlineMode);
+  const onlineModeRefresh = document.getElementById("onlineModeRefresh");
+  if (onlineModeRefresh) {
+    onlineModeRefresh.addEventListener("click", () => {
+      refreshOnlineMode().catch((error) => setOnlineModeHint(error instanceof Error ? error.message : String(error), true));
     });
   }
   const optimizationList = document.querySelector(".optimization-list");
@@ -1253,6 +1439,7 @@
     setItemHint(error instanceof Error ? error.message : String(error), true);
     window.__saveDataLog && window.__saveDataLog(error instanceof Error ? error.message : String(error));
   });
+  refreshOnlineMode().catch((error) => setOnlineModeHint(error instanceof Error ? error.message : String(error), true));
   window.addEventListener("resize", () => {
     hideItemPopover();
     hideOptimizationPopover();
@@ -1264,4 +1451,10 @@
   window.setInterval(() => {
     refreshWallet().catch(() => undefined);
   }, 3000);
+  window.setInterval(() => {
+    const panel = document.querySelector('[data-tab-panel="onlineMode"]');
+    if (panel && panel.classList.contains("is-active") && !onlineModeBusy) {
+      refreshOnlineMode().catch(() => undefined);
+    }
+  }, 15000);
 })();

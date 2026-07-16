@@ -21,6 +21,7 @@
           <button class="is-active" data-tab-button="wallet" type="button">钱包</button>
           <button data-tab-button="rewards" type="button">体验优化</button>
           <button data-tab-button="items" type="button">发送物品</button>
+          <button data-tab-button="onlineMode" type="button">联机模式</button>
         </nav>
         <section class="panel tab-panel is-active" data-tab-panel="wallet" aria-label="本地钱包">
           <h2>本地钱包</h2>
@@ -82,6 +83,23 @@
           </label>
           <div id="itemSearchResults" class="item-search-results" aria-label="物品搜索结果"></div>
           <p id="itemSendHint" class="hint">进入存档后点击 +1、+9、+99、+999 会直接发送；若按钮无效，请先重载游戏让补丁完成注册。</p>
+        </section>
+        <section class="panel tab-panel" data-tab-panel="onlineMode" aria-label="联机模式">
+          <h2>联机模式</h2>
+          <dl class="online-mode-summary">
+            <dt>服务器</dt><dd id="onlineModeServer">检测中</dd>
+            <dt>状态</dt><dd id="onlineModeState">读取中</dd>
+            <dt>待同步</dt><dd id="onlineModePending">0</dd>
+          </dl>
+          <label class="field"><span>UID</span><input id="onlineModeUid" type="text" value="10001" readonly /></label>
+          <label class="field"><span>用户名</span><input id="onlineModeUsername" type="text" maxlength="20" autocomplete="off" disabled /></label>
+          <div class="online-mode-actions">
+            <button id="onlineModeJoin" type="button" hidden>接入联机功能</button>
+            <button id="onlineModeSaveProfile" type="button" hidden>修改用户名</button>
+            <button id="onlineModeSync" type="button" hidden>立即同步</button>
+            <button id="onlineModeRefresh" type="button">检测服务器</button>
+          </div>
+          <p id="onlineModeHint" class="hint">联机模式不会影响本地存档、钱包和充值。</p>
         </section>
         <dl>
           <dt>账号</dt>
