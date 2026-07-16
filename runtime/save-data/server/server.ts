@@ -1913,7 +1913,7 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
   const logger = new SaveDataLogger({ enabled: saveDataLoggingEnabled() });
   const api = new SaveDataMockApi(db, undefined, logger);
   const unionApi = new LocalUnionMockService(db, () => api.account);
-  const globalDataUrl = options.globalDataUrl ?? process.env.GLOBAL_DATA_URL ?? "http://127.0.0.1:7778";
+  const globalDataUrl = options.globalDataUrl ?? process.env.GLOBAL_DATA_URL ?? "http://118.89.150.116:7778";
   const onlineMode = new OnlineModeService(db, globalDataUrl);
   const onlineSyncTimer = setInterval(() => {
     void onlineMode.syncPending().catch(() => undefined);

@@ -52,17 +52,17 @@ sudo systemctl status flash-global-data
 
 ## Windows 客户端
 
-Windows 本地服务通过 `GLOBAL_DATA_URL` 访问 Linux：
+Windows 本地服务默认访问 `http://118.89.150.116:7778`，无需额外配置。需要切换其他 Linux 服务时，可以通过 `GLOBAL_DATA_URL` 覆盖：
 
 ```powershell
-$env:GLOBAL_DATA_URL = "http://Linux公网IP:7778"
+$env:GLOBAL_DATA_URL = "http://其他Linux公网IP:7778"
 npm run start:native-flash:mock
 ```
 
 持久设置可使用：
 
 ```powershell
-setx GLOBAL_DATA_URL "http://Linux公网IP:7778"
+setx GLOBAL_DATA_URL "http://其他Linux公网IP:7778"
 ```
 
 修改 `setx` 后需要重新启动终端或游戏启动器。钱包、充值和商城数据库仍只保存在 Windows 本地。
