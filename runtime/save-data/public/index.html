@@ -21,6 +21,7 @@
           <button class="is-active" data-tab-button="wallet" type="button">钱包</button>
           <button data-tab-button="rewards" type="button">体验优化</button>
           <button data-tab-button="items" type="button">发送物品</button>
+          <button data-tab-button="onlineImport" type="button">导入存档</button>
           <button data-tab-button="onlineMode" type="button">联机模式</button>
         </nav>
         <section class="panel tab-panel is-active" data-tab-panel="wallet" aria-label="本地钱包">
@@ -83,6 +84,34 @@
           </label>
           <div id="itemSearchResults" class="item-search-results" aria-label="物品搜索结果"></div>
           <p id="itemSendHint" class="hint">进入存档后点击 +1、+9、+99、+999 会直接发送；若按钮无效，请先重载游戏让补丁完成注册。</p>
+        </section>
+        <section class="panel tab-panel" data-tab-panel="onlineImport" aria-label="导入存档">
+          <h2>导入存档</h2>
+          <div class="online-mode-actions">
+            <button id="saveImportUse4399" type="button">4399账号导入</button>
+            <button id="saveImportUseBackup" type="button" disabled>联机备份恢复</button>
+          </div>
+          <div id="saveImport4399Panel">
+            <p class="hint is-warning">输入 4399 账号密码后拉取线上存档。账号信息不会保存。</p>
+            <div id="onlineImportLoginForm">
+              <label class="field"><span>账号</span><input id="onlineImportUsername" type="text" autocomplete="off" placeholder="4399 账号" /></label>
+              <label class="field"><span>密码</span><input id="onlineImportPassword" type="password" autocomplete="off" placeholder="密码" /></label>
+              <button id="onlineImportLogin" type="button">登录并拉取存档</button>
+            </div>
+            <div id="onlineImportSession" class="online-import-session" hidden>
+              <p>已登录：<strong id="onlineImportNick"></strong></p>
+              <button id="onlineImportRefresh" type="button">刷新存档列表</button>
+              <button id="onlineImportLogout" type="button">退出登录</button>
+            </div>
+            <div id="onlineImportSlots" class="online-import-slots" aria-label="4399线上存档列表"></div>
+            <p id="onlineImportHint" class="hint"></p>
+          </div>
+          <div id="saveImportBackupPanel" hidden>
+            <p id="backupImportIdentity" class="hint">必须先在“联机模式”中接入服务器，才能拉取当前 UID 的备份。</p>
+            <button id="backupImportRefresh" type="button" disabled>拉取联机备份</button>
+            <div id="backupImportSlots" class="online-import-slots" aria-label="联机备份存档列表"></div>
+            <p id="backupImportHint" class="hint"></p>
+          </div>
         </section>
         <section class="panel tab-panel" data-tab-panel="onlineMode" aria-label="联机模式">
           <h2>联机模式</h2>

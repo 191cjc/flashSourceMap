@@ -134,7 +134,7 @@
     }
   }
 
-  // ── 线上导入 ──────────────────────────────────────────────
+  // ── 导入存档 ──────────────────────────────────────────────
   let onlineSession = null; // { uid, username, nickname, cookie }
 
   function setOnlineImportHint(msg, isError) {
@@ -206,21 +206,90 @@
     setOnlineImportHint("", false);
   }
 
+  function setBackupImportHint(message, warning) {
+    const hint = document.getElementById("backupImportHint");
+    if (!hint) return;
+    hint.textContent = message;
+    hint.classList.toggle("is-warning", Boolean(warning));
+  }
+
+  function setSaveImportSource(source) {
+    const use4399 = source !== "backup";
+    const accountPanel = document.getElementById("saveImport4399Panel");
+    const backupPanel = document.getElementById("saveImportBackupPanel");
+    const accountButton = document.getElementById("saveImportUse4399");
+    const backupButton = document.getElementById("saveImportUseBackup");
+    if (!use4399 && backupButton && backupButton.disabled) return;
+    if (accountPanel) accountPanel.hidden = !use4399;
+    if (backupPanel) backupPanel.hidden = use4399;
+    if (accountButton) accountButton.setAttribute("aria-pressed", use4399 ? "true" : "false");
+    if (backupButton) backupButton.setAttribute("aria-pressed", use4399 ? "false" : "true");
+  }
+
+  function renderBackupSlots(saves) {
+    const container = document.getElementById("backupImportSlots");
+    if (!container) return;
+    if (!saves || saves.length === 0) {
+      container.innerHTML = '<p class="hint">当前 UID 没有服务器备份。</p>';
+      return;
+    }
+    container.innerHTML = saves.map((save) => {
+      const title = escapeHtml(save.title || `存档 ${save.index}`);
+      const datetime = escapeHtml(save.datetime || "");
+      return `<div class="online-import-slot${save.hasData ? "" : " is-empty"}">
+        <div class="online-import-slot-info">
+          <strong>${title}</strong> · 槽位 ${save.index}${datetime ? ` <span class="hint">${datetime}</span>` : ""}
+          <span class="hint">revision ${Number(save.revision || 0)}</span>
+        </div>
+        <div class="online-import-slot-actions">
+          <button type="button" class="backup-import-restore" data-slot-index="${save.index}" data-title="${title}"${save.hasData ? "" : " disabled"}>恢复到本地原槽位</button>
+        </div>
+      </div>`;
+    }).join("");
+  }
+
+  async function fetchBackupSaves() {
+    const refreshButton = document.getElementById("backupImportRefresh");
+    if (refreshButton && refreshButton.disabled) return;
+    if (refreshButton) refreshButton.disabled = true;
+    setBackupImportHint("正在拉取当前 UID 的联机备份……", false);
+    try {
+      const response = await fetch("/api/saveData/backup-import/saves", { cache: "no-store" });
+      const result = await readJsonResponse(response);
+      if (!response.ok || result.ok === false) throw new Error(result.message || result.error || `HTTP ${response.status}`);
+      renderBackupSlots(result.saves);
+      setBackupImportHint(`已加载 UID ${result.uid} 的 ${result.saves.length} 个备份槽。`, false);
+    } catch (error) {
+      setBackupImportHint(`拉取失败：${error instanceof Error ? error.message : String(error)}`, true);
+    } finally {
+      const enabled = Boolean(onlineModeStatus && onlineModeStatus.online && onlineModeStatus.online.enabled);
+      const healthy = Boolean(onlineModeStatus && onlineModeStatus.server && onlineModeStatus.server.healthy);
+      if (refreshButton) refreshButton.disabled = !enabled || !healthy;
+    }
+  }
+
   document.addEventListener("click", async function (e) {
     const target = e.target;
+
+    if (target && target.id === "saveImportUse4399") {
+      setSaveImportSource("4399");
+    }
+
+    if (target && target.id === "saveImportUseBackup") {
+      setSaveImportSource("backup");
+      await fetchBackupSaves();
+    }
 
     if (target && target.id === "onlineImportLogin") {
       const username = (document.getElementById("onlineImportUsername") || {}).value || "";
       const password = (document.getElementById("onlineImportPassword") || {}).value || "";
-      const cookie = (document.getElementById("onlineImportCookie") || {}).value || "";
-      const uid = (document.getElementById("onlineImportUid") || {}).value || "";
       target.disabled = true;
       setOnlineImportHint("正在登录…", false);
       try {
         const res = await fetch("/api/online-import/login", {
           method: "POST",
           headers: { "content-type": "application/json" },
-          body: JSON.stringify({ username, password, cookie, uid }),
+          body: JSON.stringify({ username, password }),
         });
         const json = await readJsonResponse(res);
         if (!json.ok) throw new Error(json.error || "登录失败");
@@ -245,7 +314,7 @@
 
     if (target && target.classList && target.classList.contains("online-import-to-slot")) {
       const data = target.dataset.data || "";
-      const title = target.dataset.title || "线上导入";
+      const title = target.dataset.title || "4399导入";
       const targetIndex = Number(target.dataset.targetIndex ?? 0);
       if (!data) return;
       if (!confirm(`确认将"${title}"覆盖到本地存档槽 ${targetIndex}？此操作不可撤销。`)) return;
@@ -262,6 +331,36 @@
         window.__saveDataLog && window.__saveDataLog(`线上存档"${title}"已导入到本地槽 ${targetIndex}`);
       } catch (err) {
         setOnlineImportHint(`导入失败：${err.message}`, true);
+      } finally {
+        target.disabled = false;
+      }
+    }
+
+    if (target && target.classList && target.classList.contains("backup-import-restore")) {
+      const slotIndex = Number(target.dataset.slotIndex ?? -1);
+      const title = target.dataset.title || `存档 ${slotIndex}`;
+      if (!confirm(`确认使用服务器备份“${title}”覆盖本地存档槽 ${slotIndex}？当前本地存档会先自动生成快照。`)) return;
+      target.disabled = true;
+      setBackupImportHint(`正在恢复本地存档槽 ${slotIndex}……`, false);
+      try {
+        const response = await fetch("/api/saveData/backup-import/restore", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ slotIndex }),
+        });
+        const result = await readJsonResponse(response);
+        if (!response.ok || result.ok === false) throw new Error(result.message || result.error || "恢复失败");
+        const pending = Number(result.sync && result.sync.pending || 0);
+        setBackupImportHint(
+          pending > 0
+            ? `槽位 ${slotIndex} 已恢复到本地；服务器重新同步仍有 ${pending} 个槽位待处理。`
+            : `槽位 ${slotIndex} 已从联机备份恢复，并重新同步到服务器。`,
+          pending > 0
+        );
+        window.__saveDataLog && window.__saveDataLog(`联机备份“${title}”已恢复到本地槽 ${slotIndex}`);
+        await fetchBackupSaves();
+      } catch (error) {
+        setBackupImportHint(`恢复失败：${error instanceof Error ? error.message : String(error)}`, true);
       } finally {
         target.disabled = false;
       }
@@ -368,6 +467,9 @@
     const profileButton = document.getElementById("onlineModeSaveProfile");
     const syncButton = document.getElementById("onlineModeSync");
     const refreshButton = document.getElementById("onlineModeRefresh");
+    const backupSourceButton = document.getElementById("saveImportUseBackup");
+    const backupRefreshButton = document.getElementById("backupImportRefresh");
+    const backupIdentity = document.getElementById("backupImportIdentity");
     if (serverElement) serverElement.textContent = serverText;
     if (stateElement) stateElement.textContent = onlineModeLabel(mode);
     if (pendingElement) pendingElement.textContent = String((result && result.sync && result.sync.pendingCount) || 0);
@@ -393,6 +495,14 @@
       syncButton.disabled = onlineModeBusy || !server.healthy;
     }
     if (refreshButton) refreshButton.disabled = onlineModeBusy;
+    if (backupSourceButton) backupSourceButton.disabled = !enabled || onlineModeBusy || !server.healthy;
+    if (backupRefreshButton) backupRefreshButton.disabled = !enabled || onlineModeBusy || !server.healthy;
+    if (backupIdentity) {
+      backupIdentity.textContent = enabled
+        ? `当前联机 UID：${String((currentAccount && currentAccount.uid) || "")}`
+        : "必须先在“联机模式”中接入服务器，才能拉取当前 UID 的备份。";
+      backupIdentity.classList.toggle("is-warning", !enabled);
+    }
 
     if (mode === "eligible") {
       setOnlineModeHint("点击接入后，服务器会分配永久 UID，并重写本地存档身份。", false);

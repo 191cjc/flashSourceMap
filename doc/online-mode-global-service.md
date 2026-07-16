@@ -190,6 +190,11 @@ POST  /ranging.php/?ac=get
 
 Windows 默认连接 `http://118.89.150.116:7778`。如需切换服务器，可通过 `GLOBAL_DATA_URL=http://其他Linux地址:7778` 覆盖。Linux 默认监听 `0.0.0.0:7778`，可使用 `runtime/global-data/deploy/flash-global-data.service.example` 作为 `systemd` 服务模板。
 
+左侧“导入存档”提供两种来源：
+
+- `4399账号导入`：仅支持输入 4399 账号和密码登录，不再提供直接填写 Cookie/UID 的入口；登录成功后可将任意线上槽位导入到本地目标槽位。
+- `联机备份恢复`：只有当前 Windows 已接入联机模式且 Linux 服务健康时可用，只列出当前永久 UID 的远程备份，并恢复到对应的本地原槽位。覆盖前本地数据库自动生成快照，恢复后以更高 revision 重新同步服务器。
+
 ## 本地数据表扩展
 
 ```sql

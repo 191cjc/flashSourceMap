@@ -88,6 +88,29 @@ try {
   });
   assert.equal(globalServer.db.getSave(10000001, "100025235", 0)?.revision, 4);
 
+  const backups = await onlineMode.listRemoteBackups() as {
+    uid: string;
+    saves: Array<{ index: number; title: string; datetime: string; revision: number; hasData: boolean }>;
+  };
+  assert.equal(backups.uid, "10000001");
+  assert.deepEqual(backups.saves, [{ index: 0, title: "更新角色", datetime: backups.saves[0].datetime, revision: 4, hasData: true }]);
+
+  const backupData = String(localDb.getSlot("10000001", "100025235", 0)?.data);
+  const divergentData = backupData.replace("</saveXml>", '<s type="Number" name="localOnly">999</s></saveXml>');
+  localDb.saveSlot({ uid: "10000001", gameid: "100025235", index: 0, title: "本地错误版本", data: divergentData });
+  assert.match(String(localDb.getSlot("10000001", "100025235", 0)?.data), /localOnly/);
+
+  const restored = await onlineMode.restoreRemoteBackup(0) as {
+    ok: boolean;
+    slot: { index: number; title: string; revision: number };
+    sync: { pending: number };
+  };
+  assert.equal(restored.ok, true);
+  assert.deepEqual(restored.slot, { index: 0, title: "更新角色", revision: 6 });
+  assert.equal(restored.sync.pending, 0);
+  assert.equal(String(localDb.getSlot("10000001", "100025235", 0)?.data).includes("localOnly"), false);
+  assert.equal(globalServer.db.getSave(10000001, "100025235", 0)?.revision, 6);
+
   const syncStatus = onlineMode.syncStatus() as {
     pendingCount: number;
     slots: Array<{
@@ -115,8 +138,8 @@ try {
     {
       gameId: "100025235",
       slotIndex: 0,
-      localRevision: 4,
-      uploadedRevision: 4,
+      localRevision: 6,
+      uploadedRevision: 6,
       pending: false,
       retryCount: 0,
       lastError: "",

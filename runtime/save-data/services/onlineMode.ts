@@ -44,6 +44,17 @@ type RegistrationResponse = {
   player: { nickname: string };
 };
 
+type RemoteBackupSave = {
+  uid: number;
+  gameId: string;
+  slotIndex: number;
+  title: string;
+  data: string;
+  checksum: string;
+  revision: number;
+  updatedAt: string;
+};
+
 export class OnlineModeError extends Error {
   constructor(readonly code: string, message: string, readonly status = 400) {
     super(message);
@@ -335,6 +346,72 @@ export class OnlineModeService {
     };
   }
 
+  async listRemoteBackups(gameId = DEFAULT_GAME_ID): Promise<Record<string, unknown>> {
+    const account = this.requireOnlineAccount();
+    const response = await this.requestJson<{ ok: boolean; saves: RemoteBackupSave[] }>(
+      `/api/global/saves/${account.uid}?gameId=${encodeURIComponent(gameId)}`,
+      { method: "GET" }
+    );
+    return {
+      ok: true,
+      uid: account.uid,
+      username: account.username,
+      saves: response.saves.map((save) => ({
+        index: save.slotIndex,
+        title: save.title,
+        datetime: save.updatedAt,
+        revision: save.revision,
+        hasData: Boolean(save.data),
+      })),
+    };
+  }
+
+  async restoreRemoteBackup(slotIndex: number, gameId = DEFAULT_GAME_ID): Promise<Record<string, unknown>> {
+    const sqlite = this.requireSqlite();
+    const account = this.requireOnlineAccount();
+    if (!Number.isInteger(slotIndex) || slotIndex < 0 || slotIndex > 7) {
+      throw new OnlineModeError("invalid_slot", "存档槽位必须是 0 至 7", 400);
+    }
+    const response = await this.requestJson<{ ok: boolean; save: RemoteBackupSave }>(
+      `/api/global/saves/${account.uid}/${slotIndex}?gameId=${encodeURIComponent(gameId)}`,
+      { method: "GET" }
+    );
+    const save = response.save;
+    const data = canonicalizeLocalSaveIdentity(save.data, {
+      uid: account.uid,
+      username: account.username,
+      slotIndex,
+    });
+    const checksum = sha256(data);
+    this.store.saveSlot({ uid: account.uid, gameid: gameId, index: slotIndex, title: save.title, data });
+    const syncRow = sqlite.db
+      .prepare(
+        "SELECT local_revision FROM remote_save_sync WHERE account_id = ? AND game_id = ? AND slot_index = ?"
+      )
+      .get(account.id, gameId, slotIndex) as { local_revision: number } | undefined;
+    const nextRevision = Math.max(syncRow?.local_revision ?? 0, save.revision + 1);
+    sqlite.db
+      .prepare(
+        [
+          "INSERT INTO remote_save_sync",
+          "(account_id, game_id, slot_index, local_revision, uploaded_revision, local_checksum, uploaded_checksum, pending)",
+          "VALUES (?, ?, ?, ?, ?, ?, ?, 1)",
+          "ON CONFLICT(account_id, game_id, slot_index) DO UPDATE SET",
+          "local_revision = excluded.local_revision, uploaded_revision = excluded.uploaded_revision,",
+          "local_checksum = excluded.local_checksum, uploaded_checksum = excluded.uploaded_checksum,",
+          "pending = 1, retry_count = 0, last_error = ''",
+        ].join(" ")
+      )
+      .run(account.id, gameId, slotIndex, nextRevision, save.revision, checksum, save.checksum);
+    const sync = await this.syncPending();
+    return {
+      ok: true,
+      uid: account.uid,
+      slot: { index: slotIndex, title: save.title, revision: nextRevision },
+      sync,
+    };
+  }
+
   private ensureState(): OnlineStateRow {
     const sqlite = this.requireSqlite();
     const existing = sqlite.db.prepare("SELECT * FROM online_mode_state WHERE id = 1").get() as OnlineStateRow | undefined;
@@ -462,6 +539,15 @@ export class OnlineModeService {
     if (!health.healthy) {
       throw new OnlineModeError("server_offline", "Linux 联机服务器不可用", 503);
     }
+  }
+
+  private requireOnlineAccount(): Account {
+    const state = this.ensureState();
+    const account = this.store.getCurrentAccount();
+    if (!account || account.uid === DEFAULT_UID || state.enabled !== 1) {
+      throw new OnlineModeError("not_online", "必须先接入联机模式才能恢复服务器备份", 409);
+    }
+    return account;
   }
 
   private register(state: OnlineStateRow, account: Account): Promise<RegistrationResponse> {

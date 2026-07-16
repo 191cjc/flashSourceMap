@@ -102,6 +102,10 @@ try {
   const localDb = localServer.db as LocalSaveDatabase;
   localDb.saveSlot({ uid: "10001", gameid: GAME_ID, index: 0, title: "联调角色", data: SAVE_DATA });
 
+  const unavailableBackup = await fetch(`${localServer.url}/api/saveData/backup-import/saves`);
+  assert.equal(unavailableBackup.status, 409);
+  assert.equal((await unavailableBackup.json() as { error: string }).error, "not_online");
+
   const joinResponse = await fetch(`${localServer.url}/api/saveData/online-mode/join`, {
     method: "POST",
     headers: { "content-type": "application/json" },
@@ -111,6 +115,23 @@ try {
   assert.equal(joinResponse.status, 200, joinBody);
   const joined = JSON.parse(joinBody) as { account: { uid: string } };
   assert.equal(joined.account.uid, "10000001");
+
+  const backupListResponse = await fetch(`${localServer.url}/api/saveData/backup-import/saves`);
+  assert.equal(backupListResponse.status, 200);
+  const backupList = await backupListResponse.json() as { uid: string; saves: Array<{ index: number; revision: number }> };
+  assert.equal(backupList.uid, "10000001");
+  assert.deepEqual(backupList.saves.map((save) => ({ index: save.index, revision: save.revision })), [{ index: 0, revision: 1 }]);
+
+  const restoreResponse = await fetch(`${localServer.url}/api/saveData/backup-import/restore`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ slotIndex: 0 }),
+  });
+  assert.equal(restoreResponse.status, 200);
+  const restore = await restoreResponse.json() as { ok: boolean; slot: { revision: number } };
+  assert.equal(restore.ok, true);
+  assert.equal(restore.slot.revision, 2);
+  assert.equal(globalServer.db.getSave(10000001, GAME_ID, 0)?.revision, 2);
 
   const unionResponse = await thriftRequest(
     localServer.url,

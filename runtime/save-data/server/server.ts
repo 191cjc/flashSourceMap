@@ -2051,6 +2051,33 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
         return;
       }
 
+      if (url.pathname === "/api/saveData/backup-import/saves") {
+        if (req.method !== "GET") {
+          send(res, 405, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "method_not_allowed" }));
+          return;
+        }
+        const gameId = url.searchParams.get("gameId") ?? "100025235";
+        send(res, 200, "application/json; charset=utf-8", JSON.stringify(await onlineMode.listRemoteBackups(gameId)));
+        return;
+      }
+
+      if (url.pathname === "/api/saveData/backup-import/restore") {
+        if (req.method !== "POST") {
+          send(res, 405, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "method_not_allowed" }));
+          return;
+        }
+        const request = parseJsonRequestBody(body) as { slotIndex?: unknown; gameId?: unknown };
+        const slotIndex = typeof request.slotIndex === "number" ? request.slotIndex : Number(request.slotIndex ?? -1);
+        const gameId = typeof request.gameId === "string" ? request.gameId : "100025235";
+        send(
+          res,
+          200,
+          "application/json; charset=utf-8",
+          JSON.stringify(await onlineMode.restoreRemoteBackup(slotIndex, gameId))
+        );
+        return;
+      }
+
       if (url.pathname === "/api/saveData/level-rewards") {
         if (req.method === "GET") {
           send(res, 200, "application/json; charset=utf-8", JSON.stringify(getLevelRewardState()));
@@ -2244,8 +2271,6 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
           const session = await loginTo4399({
             username: typeof reqBody.username === "string" ? reqBody.username : undefined,
             password: typeof reqBody.password === "string" ? reqBody.password : undefined,
-            cookie: typeof reqBody.cookie === "string" ? reqBody.cookie : undefined,
-            uid: typeof reqBody.uid === "string" ? reqBody.uid : undefined,
           });
           send(res, 200, "application/json; charset=utf-8", JSON.stringify({ ok: true, uid: session.uid, username: session.username, nickname: session.nickname, cookie: session.cookie }));
         } catch (error) {
@@ -2267,7 +2292,7 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
           const cookie = typeof reqBody.cookie === "string" ? reqBody.cookie : "";
           const gameId = typeof reqBody.gameId === "string" ? reqBody.gameId : undefined;
           if (!uid || !cookie) {
-            send(res, 400, "application/json; charset=utf-8", JSON.stringify({ ok: false, result: "missing_session", error: "缺少 uid 或 cookie" }));
+            send(res, 400, "application/json; charset=utf-8", JSON.stringify({ ok: false, result: "missing_session", error: "4399 登录会话已失效，请重新登录" }));
             return;
           }
           const session = { uid, username, nickname: username, cookie };
@@ -2290,7 +2315,7 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
           const localUid = api.account.uid;
           const gameId = typeof reqBody.gameId === "string" ? reqBody.gameId : "100025235";
           const targetIndex = typeof reqBody.targetIndex === "number" ? reqBody.targetIndex : Number(reqBody.targetIndex ?? 0);
-          const title = typeof reqBody.title === "string" ? reqBody.title : `线上导入`;
+          const title = typeof reqBody.title === "string" ? reqBody.title : `4399导入`;
           const data = typeof reqBody.data === "string" ? reqBody.data : "";
           if (!data) {
             send(res, 400, "application/json; charset=utf-8", JSON.stringify({ ok: false, result: "missing_data", error: "存档数据为空" }));
