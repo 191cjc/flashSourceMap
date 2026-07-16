@@ -42,7 +42,8 @@ Linux 特有代码放在独立目录：
 ```text
 runtime/global-data/
   persistence/
-  services/
+  rank/
+  deploy/
   server/
   schema/
   tests/
@@ -180,11 +181,14 @@ PUT   /api/global/saves/:uid/:slot
 GET   /api/global/saves/:uid/:slot
 GET   /api/global/saves/:uid
 POST  /api/4399/union/*
-POST  /api/4399/rank/*
-POST  /api/4399/score/*
+POST  /api/4399/rank/FlashScoreApi
+GET   /ranging.php/?ac=get_token
+POST  /ranging.php/?ac=get
 ```
 
-第一阶段实现健康检查、注册、玩家资料和远程存档双写。军团、排行榜和竞技场协议在同一独立 Linux 运行时中继续扩展。
+已实现健康检查、注册、玩家资料、远程存档双写、军团、排行榜和竞技场对手存档读取。排行榜支持游戏当前使用的 `submit`、`getRankingByArounds`、`getRankingByPage` 和 `getRank` Thrift 方法。Windows 在访问排行榜前先重试所有待上传存档；仍有待同步数据时拒绝进入竞技场。
+
+Windows 通过 `GLOBAL_DATA_URL=http://Linux地址:8800` 指向全局服务。Linux 默认监听 `0.0.0.0:8800`，可使用 `runtime/global-data/deploy/flash-global-data.service.example` 作为 `systemd` 服务模板。
 
 ## 本地数据表扩展
 
