@@ -72,7 +72,7 @@ function routeMatch(pathname: string, pattern: RegExp): RegExpExecArray | null {
 
 export async function startGlobalDataServer(options: GlobalDataServerOptions = {}) {
   const host = options.host ?? process.env.GLOBAL_DATA_HOST ?? "0.0.0.0";
-  const port = options.port ?? Number(process.env.GLOBAL_DATA_PORT ?? 8800);
+  const port = options.port ?? Number(process.env.GLOBAL_DATA_PORT ?? 7778);
   const dbFile = options.dbFile ?? process.env.GLOBAL_DATA_DB ?? defaultDbFile;
   const db = new GlobalDataDatabase(dbFile);
   const rankService = new GlobalRankService(db);
