@@ -91,6 +91,7 @@ export type LocalSaveIdentity = {
   uid: string;
   username: string;
   slotIndex: number;
+  displayName?: string;
 };
 
 type SaveXmlContext = {
@@ -166,6 +167,25 @@ function encodeAmf3U29(value: number): Buffer {
     (Math.floor(value / 0x100) & 0x7f) | 0x80,
     value & 0xff,
   ]);
+}
+
+export function encodeAmf3StringBase64(value: string): string {
+  const bytes = Buffer.from(value, "utf8");
+  return Buffer.concat([Buffer.from([0x06]), encodeAmf3U29(bytes.length * 2 + 1), bytes]).toString("base64");
+}
+
+export function decodeAmf3StringBase64(value: string): string | null {
+  const buffer = Buffer.from(value, "base64");
+  if (buffer[0] !== 0x06) {
+    return null;
+  }
+  const header = readAmf3U29(buffer, 1);
+  if (!header || (header.value & 1) === 0) {
+    return null;
+  }
+  const byteLength = Math.floor(header.value / 2);
+  const end = header.offset + byteLength;
+  return end === buffer.length ? buffer.subarray(header.offset, end).toString("utf8") : null;
 }
 
 function decodeAmf3SaveXml(buffer: Buffer): string | null {
@@ -562,6 +582,10 @@ export function canonicalizeLocalSaveIdentity(rawData: string, identity: LocalSa
   xml = replaceNumberField(xml, "jxid", uidNumber);
   xml = replaceNumberField(xml, "sidx", identity.slotIndex);
   xml = replaceStringField(xml, "idn", identity.username);
+  if (identity.displayName !== undefined) {
+    xml = replaceStringField(xml, "newnn", encodeAmf3StringBase64(identity.displayName));
+    xml = replaceStringField(xml, "jxname", identity.displayName);
+  }
   xml = replaceNumberField(xml, "idai", expectedIdAndIndex);
   xml = removeLocalIdentityFlags(xml);
 

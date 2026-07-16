@@ -138,8 +138,8 @@ export async function startGlobalDataServer(options: GlobalDataServerOptions = {
         return;
       }
       if (playerMatch && req.method === "PATCH") {
-        const body = await readJson<{ username?: string }>(req);
-        const player = db.updatePlayer(Number(playerMatch[1]), body.username ?? "");
+        const body = await readJson<{ username?: string; nickname?: string }>(req);
+        const player = db.updatePlayer(Number(playerMatch[1]), body.username ?? "", body.nickname);
         sendJson(res, 200, { ok: true, player });
         return;
       }

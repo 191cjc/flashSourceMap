@@ -169,7 +169,7 @@ export class OnlineModeService {
     try {
       await this.ensureServerAvailable();
       const registration = await this.register(state, account);
-      this.migrateIdentity(account, String(registration.uid), registration.username, registration.player.nickname);
+      this.migrateIdentity(account, String(registration.uid), registration.username, registration.username);
       await this.syncPending();
       return this.status(false);
     } catch (error) {
@@ -186,16 +186,22 @@ export class OnlineModeService {
       throw new OnlineModeError("not_online", "尚未接入联机模式", 409);
     }
     const normalized = normalizedUsername(username);
-    await this.requestJson(`/api/global/players/${account.uid}`, {
-      method: "PATCH",
-      body: JSON.stringify({ username: normalized }),
-    });
+    const profile = await this.requestJson<{ ok: boolean; player: { username: string; nickname: string } }>(
+      `/api/global/players/${account.uid}`,
+      {
+        method: "PATCH",
+        body: JSON.stringify({ username: normalized, nickname: normalized }),
+      }
+    );
+    if (profile.player.username !== normalized) {
+      throw new OnlineModeError("remote_profile_mismatch", "Linux 服务未确认新的联机用户名", 502);
+    }
 
     sqlite.db.exec("BEGIN IMMEDIATE");
     try {
       sqlite.db
-        .prepare("UPDATE accounts SET username = ?, updated_at = datetime('now') WHERE id = ?")
-        .run(normalized, account.id);
+        .prepare("UPDATE accounts SET username = ?, nickname = ?, updated_at = datetime('now') WHERE id = ?")
+        .run(normalized, normalized, account.id);
       const rows = sqlite.db
         .prepare("SELECT id, game_id, slot_index, title, raw_data, checksum FROM save_slots WHERE account_id = ?")
         .all(account.id) as Array<{
@@ -214,6 +220,7 @@ export class OnlineModeService {
           uid: account.uid,
           username: normalized,
           slotIndex: row.slot_index,
+          displayName: normalized,
         });
         const checksum = sha256(data);
         sqlite.db
@@ -467,7 +474,12 @@ export class OnlineModeService {
         sqlite.db
           .prepare("INSERT INTO save_snapshots (save_slot_id, title, raw_data, checksum) VALUES (?, ?, ?, ?)")
           .run(row.id, `UID迁移前备份 - ${row.title}`, row.raw_data, row.checksum);
-        const data = canonicalizeLocalSaveIdentity(row.raw_data, { uid, username, slotIndex: row.slot_index });
+        const data = canonicalizeLocalSaveIdentity(row.raw_data, {
+          uid,
+          username,
+          slotIndex: row.slot_index,
+          displayName: nickname,
+        });
         const checksum = sha256(data);
         sqlite.db
           .prepare("UPDATE save_slots SET raw_data = ?, checksum = ?, updated_at = datetime('now') WHERE id = ?")

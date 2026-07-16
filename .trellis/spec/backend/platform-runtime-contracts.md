@@ -178,3 +178,38 @@ return repeatEntries(candidates, Math.max(20, requestedCount));
 ```actionscript
 getGameUList(1, 10);
 ```
+
+## Scenario: Online profile rename and save display identity
+
+### 1. Scope / Trigger
+
+Apply this contract when changing the online player profile endpoint, local account identity, or save canonicalization.
+
+### 2. Contracts
+
+- `PATCH /api/global/players/:uid` accepts `username` and an optional `nickname`. Username-only callers preserve the existing nickname.
+- The local rename flow sends the same normalized value for username and nickname so platform login and in-game display agree.
+- The global response must confirm the normalized username before any local account or save is changed.
+- During a rolling upgrade, an older global server may preserve its old nickname. The local display name still follows the confirmed global username; do not fail after the remote username has already changed.
+- After remote success, update `accounts.username`, `accounts.nickname`, owned save slots, snapshots, sync revisions, and `online_mode_state.username` in one local SQLite transaction.
+- Only slots owned by the active online account are rewritten.
+- Preserve UID, slot index, title, and unrelated save fields.
+
+Save identity mapping:
+
+| Field | Encoding | Value |
+|---|---|---|
+| `idn` | save XML string | normalized username |
+| `newnn` | Base64 of AMF3 string (`0x06`, inline U29 UTF-8 byte length, UTF-8 payload) | display name |
+| `jxname` | save XML string, when already present | display name |
+
+`newnn` is produced by the game's `DeepCopyUtil.encode()`, which calls `ByteArray.writeObject(String)`. Plain UTF-8 or Base64 of plain UTF-8 is not compatible.
+
+### 3. Validation
+
+- Rename an online account with multiple local slots and assert every slot has the new `idn`, decoded `newnn`, and existing `jxname`.
+- Assert every rewritten slot gains one snapshot and one local/remote revision while retaining its title.
+- Assert another local account and its slots are unchanged.
+- Force a remote username conflict and assert local account fields, slots, snapshots, and revisions remain unchanged.
+- Simulate a username-only legacy global PATCH and assert local nickname and save display fields still follow the confirmed username.
+- Verify username-only global PATCH requests keep the old nickname.

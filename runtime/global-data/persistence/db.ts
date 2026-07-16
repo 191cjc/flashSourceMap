@@ -385,12 +385,13 @@ export class GlobalDataDatabase {
     }
   }
 
-  updatePlayer(uid: number, username: string): GlobalPlayer {
+  updatePlayer(uid: number, username: string, nickname?: string): GlobalPlayer {
     const player = this.getPlayerByUid(normalizedUid(uid));
     if (!player) {
       throw new GlobalDataError("player_not_found", "玩家不存在", 404);
     }
     const normalized = normalizedUsername(username);
+    const normalizedDisplayName = nickname === undefined ? player.nickname : normalizedNickname(nickname);
     const owner = this.db
       .prepare("SELECT uid FROM global_players WHERE username = ? COLLATE NOCASE")
       .get(normalized) as { uid: number } | undefined;
@@ -399,9 +400,9 @@ export class GlobalDataDatabase {
     }
     this.db
       .prepare(
-        "UPDATE global_players SET username = ?, updated_at = datetime('now'), last_seen_at = datetime('now') WHERE uid = ?"
+        "UPDATE global_players SET username = ?, nickname = ?, updated_at = datetime('now'), last_seen_at = datetime('now') WHERE uid = ?"
       )
-      .run(normalized, uid);
+      .run(normalized, normalizedDisplayName, uid);
     return this.getPlayerByUid(uid)!;
   }
 

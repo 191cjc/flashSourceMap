@@ -17,7 +17,9 @@ import { LocalSaveDatabase } from "../persistence/db.js";
 import {
   antiCheatRequiredRecharge,
   canonicalizeLocalSaveIdentity,
+  decodeAmf3StringBase64,
   decodeSaveXml,
+  encodeAmf3StringBase64,
   estimateSaveShopValue,
   loadGameDataCatalog,
   type GameDataCatalog,
@@ -907,6 +909,8 @@ try {
   const canonicalStats = amf3SaveXmlStats(canonicalSave);
   assert.equal(canonicalStats.declaredBytes, canonicalStats.actualBytes);
   assert.equal(canonicalStats.actualBytes, Buffer.byteLength(canonicalXml, "utf8"));
+  assert.equal(decodeAmf3StringBase64(encodeAmf3StringBase64("联机显示名_1")), "联机显示名_1");
+  assert.equal(decodeAmf3StringBase64("not-amf3"), null);
 
   const levelRewards = parseLevelRewardRecords(LEVEL_REWARD_XML);
   assert.equal(levelRewards.length, 2);

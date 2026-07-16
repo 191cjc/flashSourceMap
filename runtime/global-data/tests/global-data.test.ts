@@ -266,6 +266,15 @@ try {
   });
   assert.equal(renamed.status, 200);
   assert.equal(renamed.body.player.username, "测试玩家_A");
+  assert.equal(renamed.body.player.nickname, "玩家A");
+
+  const displayRenamed = await jsonRequest("/api/global/players/10000001", {
+    method: "PATCH",
+    body: JSON.stringify({ username: "测试玩家_A", nickname: "显示玩家_A" }),
+  });
+  assert.equal(displayRenamed.status, 200);
+  assert.equal(displayRenamed.body.player.username, "测试玩家_A");
+  assert.equal(displayRenamed.body.player.nickname, "显示玩家_A");
 
   const save = await jsonRequest("/api/global/saves/10000001/0", {
     method: "PUT",
