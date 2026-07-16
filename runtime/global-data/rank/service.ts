@@ -1,8 +1,8 @@
 import type { GlobalDataDatabase } from "../persistence/db.js";
+import { DEFAULT_ARENA_EXTRA, isEncodedArenaExtra } from "./arenaExtra.js";
 
 export const ARENA_RANK_LIST_ID = 1093;
 const MIN_ARENA_REFRESH_CANDIDATES = 20;
-const DEFAULT_ARENA_EXTRA = JSON.stringify({ qsl: 0, qsb: 0, qls: 0, lv: 1, ca: 0, cb: 0, tx: [], jo: 1, fe: [] });
 
 export type RankEntry = {
   rankListId: number;
@@ -151,7 +151,7 @@ export class GlobalRankService {
       .prepare(
         [
           "SELECT save.uid, player.username, save.slot_index,",
-          "COALESCE(rank.score, 1) AS score, COALESCE(NULLIF(rank.extra, ''), ?) AS extra,",
+          "COALESCE(rank.score, 1) AS score, COALESCE(rank.extra, '') AS extra,",
           "COALESCE(rank.updated_at, save.updated_at) AS updated_at",
           "FROM remote_save_slots save",
           "JOIN global_players player ON player.uid = save.uid",
@@ -160,7 +160,7 @@ export class GlobalRankService {
           "ORDER BY score DESC, updated_at ASC, save.uid ASC, save.slot_index ASC",
         ].join(" ")
       )
-      .all(DEFAULT_ARENA_EXTRA, ARENA_RANK_LIST_ID, gameId) as Array<Omit<RankRow, "rank_list_id">>;
+      .all(ARENA_RANK_LIST_ID, gameId) as Array<Omit<RankRow, "rank_list_id">>;
     return rows.map((row, index) => ({
       rankListId: ARENA_RANK_LIST_ID,
       uid: row.uid,
@@ -169,7 +169,7 @@ export class GlobalRankService {
       score: row.score,
       rank: index + 1,
       timestamp: row.updated_at,
-      extra: row.extra,
+      extra: isEncodedArenaExtra(row.extra) ? row.extra : DEFAULT_ARENA_EXTRA,
     }));
   }
 }

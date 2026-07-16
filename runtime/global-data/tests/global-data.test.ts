@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
+import { inflateSync } from "node:zlib";
 import { startGlobalDataServer } from "../server/server.js";
 
 const dir = mkdtempSync(path.join(tmpdir(), "flash-global-data-"));
@@ -98,6 +99,79 @@ function readThriftResponse(body: Buffer): Map<number, unknown> {
   const methodLength = body.readInt32BE(offset);
   offset += 4 + methodLength + 4;
   return readThriftStruct(body, offset).fields;
+}
+
+function readAmf3U29(buffer: Buffer, startOffset: number): { value: number; offset: number } {
+  let value = 0;
+  let offset = startOffset;
+  for (let index = 0; index < 3; index += 1) {
+    const byte = buffer[offset++];
+    value = (value << 7) | (byte & 0x7f);
+    if ((byte & 0x80) === 0) return { value, offset };
+  }
+  return { value: (value << 8) | buffer[offset++], offset };
+}
+
+function readAmf3String(buffer: Buffer, startOffset: number): { value: string; offset: number } {
+  const header = readAmf3U29(buffer, startOffset);
+  assert.equal(header.value & 1, 1);
+  const length = header.value >> 1;
+  return {
+    value: buffer.subarray(header.offset, header.offset + length).toString("utf8"),
+    offset: header.offset + length,
+  };
+}
+
+function readAmf3Value(buffer: Buffer, startOffset: number): { value: unknown; offset: number } {
+  const marker = buffer[startOffset];
+  if (marker === 0x01) return { value: null, offset: startOffset + 1 };
+  if (marker === 0x02) return { value: false, offset: startOffset + 1 };
+  if (marker === 0x03) return { value: true, offset: startOffset + 1 };
+  if (marker === 0x04) {
+    const encoded = readAmf3U29(buffer, startOffset + 1);
+    return { value: encoded.value & 0x10000000 ? encoded.value - 0x20000000 : encoded.value, offset: encoded.offset };
+  }
+  if (marker === 0x05) return { value: buffer.readDoubleBE(startOffset + 1), offset: startOffset + 9 };
+  if (marker === 0x06) return readAmf3String(buffer, startOffset + 1);
+  if (marker === 0x09) {
+    const header = readAmf3U29(buffer, startOffset + 1);
+    assert.equal(header.value & 1, 1);
+    const length = header.value >> 1;
+    const associativeEnd = readAmf3String(buffer, header.offset);
+    assert.equal(associativeEnd.value, "");
+    const values: unknown[] = [];
+    let offset = associativeEnd.offset;
+    for (let index = 0; index < length; index += 1) {
+      const entry = readAmf3Value(buffer, offset);
+      values.push(entry.value);
+      offset = entry.offset;
+    }
+    return { value: values, offset };
+  }
+  if (marker === 0x0a) {
+    const traits = readAmf3U29(buffer, startOffset + 1);
+    assert.equal(traits.value, 0x0b);
+    const className = readAmf3String(buffer, traits.offset);
+    assert.equal(className.value, "");
+    const value: Record<string, unknown> = {};
+    let offset = className.offset;
+    while (true) {
+      const key = readAmf3String(buffer, offset);
+      offset = key.offset;
+      if (!key.value) return { value, offset };
+      const entry = readAmf3Value(buffer, offset);
+      value[key.value] = entry.value;
+      offset = entry.offset;
+    }
+  }
+  throw new Error(`Unsupported test AMF3 marker: ${marker}`);
+}
+
+function decodeArenaExtra(value: string): Record<string, unknown> {
+  const decoded = readAmf3Value(inflateSync(Buffer.from(value, "base64")), 0).value;
+  assert.equal(typeof decoded, "object");
+  assert.ok(decoded);
+  return decoded as Record<string, unknown>;
 }
 
 function rankRequest(uid: number, methodName: string, fields: Buffer[]): Buffer {
@@ -280,6 +354,17 @@ try {
   const mirrorCandidates = mirrorCandidatesResult.get(3) as Array<Map<number, unknown>>;
   assert.equal(mirrorCandidates.length, 50);
   assert.equal(mirrorCandidates.every((entry) => entry.get(2) === "10000001" && entry.get(1) === "1"), true);
+  assert.deepEqual(decodeArenaExtra(String(mirrorCandidates[0].get(8))), {
+    qsl: 0,
+    qsb: 0,
+    qls: 0,
+    lv: 1,
+    ca: 0,
+    cb: 0,
+    tx: [],
+    jo: 1,
+    fe: [],
+  });
   const mirroredCandidateSaveResponse = await fetch(`${server.url}/ranging.php/?ac=get&uid=10000001&gameid=100025235&index=1`, {
     headers: { "x-flash-uid": "10000001" },
   });
@@ -305,6 +390,24 @@ try {
   const realCandidates = realCandidatesResult.get(3) as Array<Map<number, unknown>>;
   assert.equal(realCandidates.length, 50);
   assert.equal(realCandidates.every((entry) => entry.get(2) === "10000002" && entry.get(1) === "1"), true);
+  assert.equal(decodeArenaExtra(String(realCandidates[0].get(8))).qsl, 0);
+
+  const thirdRegistration = await jsonRequest("/api/global/register", {
+    method: "POST",
+    body: JSON.stringify({ instanceId: "instance-c", sourceUid: 10000003, username: "player_c", nickname: "玩家C" }),
+  });
+  assert.equal(thirdRegistration.status, 200);
+  const thirdSave = await jsonRequest("/api/global/saves/10000003/1", {
+    method: "PUT",
+    body: JSON.stringify({ gameId: "100025235", title: "player-c", data: SECOND_SAVE_DATA, checksum: "checksum-c", revision: 1 }),
+  });
+  assert.equal(thirdSave.status, 200);
+  const noRankCandidateResponse = await rankApiRequest(10000001, rankAroundRequest(10000001, 0));
+  const noRankCandidateResult = readThriftResponse(Buffer.from(await noRankCandidateResponse.arrayBuffer())).get(0) as Map<number, unknown>;
+  const noRankCandidate = (noRankCandidateResult.get(3) as Array<Map<number, unknown>>).find((entry) => entry.get(2) === "10000003");
+  assert.ok(noRankCandidate);
+  assert.equal(decodeArenaExtra(String(noRankCandidate.get(8))).qsl, 0);
+  server.db.db.prepare("DELETE FROM global_players WHERE uid = 10000003").run();
 
   const rankPage = await rankApiRequest(
     10000001,

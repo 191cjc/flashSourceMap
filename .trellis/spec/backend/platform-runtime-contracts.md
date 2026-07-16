@@ -70,6 +70,9 @@ All aliases forward to global `/ranging.php/` with method, query, request body, 
 - Repeat eligible entries transiently when fewer than 20 real slots exist.
 - If only the caller's current slot exists, expose a transient alternate-slot entry so Flash does not self-filter the whole result.
 - Do not insert repeated or alternate-slot entries into `rank_entries`, `remote_save_slots`, or `global_players`.
+- Candidate `extra` must use the Flash SDK wire format: AMF3 `ByteArray.writeObject`, zlib compression, then Base64.
+- Plain JSON is not a valid fallback. `TopData.createS` reads `extra.qsl`, `extra.qsb`, and `extra.qls` after the SDK decoder runs.
+- Missing, empty, or malformed rank `extra` values must be replaced in the candidate response with a valid encoded object; do not persist response-only fallback data.
 
 #### Arena initial list
 
@@ -113,6 +116,8 @@ GLOBAL_DATA_URL=http://host:7778
 | Rank entry has no matching cloud save | Exclude it from arena refresh candidates |
 | Fewer than 20 eligible arena slots | Repeat response-only candidates to requested/minimum size |
 | Only caller's current slot exists | Use an alternate-slot training entry |
+| Arena save has no rank 1093 row | Return a valid AMF3/zlib/Base64 fallback `extra` |
+| Arena rank `extra` is plain JSON or malformed | Replace it in the candidate response with the valid fallback |
 | Native `/api/4399/ranging.php/` request | Normalize and forward to global `/ranging.php/` |
 | Exact opponent save exists | Return exact save |
 | Exact opponent save missing, caller save exists | Return canonicalized training mirror |
