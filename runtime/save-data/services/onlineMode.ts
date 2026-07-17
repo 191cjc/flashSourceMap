@@ -81,6 +81,7 @@ function normalizedUsername(value: string): string {
 
 export class OnlineModeService {
   private readonly sqlite: LocalSaveDatabase | null;
+  private pendingArenaReloadSeason = 0;
   readonly serverUrl: string;
 
   constructor(readonly store: SaveDataStore, serverUrl: string) {
@@ -125,6 +126,7 @@ export class OnlineModeService {
         registeredAt: state.registered_at,
         lastSyncAt: state.last_sync_at,
         arenaSettledSeason: state.arena_settled_season,
+        arenaReloadSeason: this.pendingArenaReloadSeason,
         lastError: state.last_error,
       },
       sync: { pendingCount },
@@ -352,6 +354,12 @@ export class OnlineModeService {
       throw error;
     }
     return { ok: true, cleared, sync: await this.syncPending() };
+  }
+
+  acknowledgeArenaReload(): { ok: boolean; acknowledgedSeason: number } {
+    const acknowledgedSeason = this.pendingArenaReloadSeason;
+    this.pendingArenaReloadSeason = 0;
+    return { ok: true, acknowledgedSeason };
   }
 
   syncStatus(): Record<string, unknown> {
@@ -600,6 +608,7 @@ export class OnlineModeService {
         .prepare("UPDATE online_mode_state SET arena_settled_season = ?, last_error = '' WHERE id = 1")
         .run(season.lastSettledSeason);
       sqlite.db.exec("COMMIT");
+      this.pendingArenaReloadSeason = season.lastSettledSeason;
     } catch (error) {
       sqlite.db.exec("ROLLBACK");
       throw error;

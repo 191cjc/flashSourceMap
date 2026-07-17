@@ -2058,6 +2058,15 @@ export async function startSaveDataServer(options: ServerOptions = {}) {
         return;
       }
 
+      if (url.pathname === "/api/saveData/online-mode/arena-reload/ack") {
+        if (req.method !== "POST") {
+          send(res, 405, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "method_not_allowed" }));
+          return;
+        }
+        send(res, 200, "application/json; charset=utf-8", JSON.stringify(onlineMode.acknowledgeArenaReload()));
+        return;
+      }
+
       if (url.pathname === "/api/saveData/online-mode/sync-status") {
         if (req.method !== "GET") {
           send(res, 405, "application/json; charset=utf-8", JSON.stringify({ ok: false, error: "method_not_allowed" }));

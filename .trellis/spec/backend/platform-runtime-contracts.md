@@ -98,6 +98,7 @@ All aliases forward to global `/ranging.php/` with method, query, request body, 
 - Historical rows in `arena_season_results` are append-only; replacing `975` must not delete prior season history.
 - The settlement command requires the expected current season number and rejects mismatches to prevent accidental double settlement.
 - Windows clients compare `lastSettledSeason` with local `online_mode_state.arena_settled_season`. On advancement they snapshot local saves, set `oldpkb=-1`, `oldawb=0`, and `sxb=1`, then upload the revised saves.
+- The same advancement clears persisted arena opponent arrays `pkl.ea`, `pkl.wa`, and `pkl.gup`, raises a one-shot local reload signal, and remounts Flash so `ApiInterface.top100`, `last100`, `pkDataself`, and in-memory enemies cannot retain the previous season.
 - Keep `oldatb` during cache invalidation so an already earned title remains equipped until the player claims a newer season reward.
 
 #### Opponent save
