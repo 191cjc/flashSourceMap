@@ -1,7 +1,8 @@
 import type { GlobalDataDatabase } from "../persistence/db.js";
-import { DEFAULT_ARENA_EXTRA, isEncodedArenaExtra } from "./arenaExtra.js";
+import { normalizeArenaExtra, resetArenaExtraForNewSeason } from "./arenaExtra.js";
 
 export const ARENA_RANK_LIST_ID = 1093;
+export const PREVIOUS_ARENA_RANK_LIST_ID = 975;
 const MIN_ARENA_REFRESH_CANDIDATES = 20;
 
 export type RankEntry = {
@@ -21,6 +22,18 @@ export type RankSubmissionResult = {
   rank: number;
   scoreLast: number;
   rankLast: number;
+};
+
+export type ArenaSeasonState = {
+  currentSeason: number;
+  lastSettledSeason: number;
+  lastSettledAt: string;
+};
+
+export type ArenaSeasonSettlement = ArenaSeasonState & {
+  settledSeason: number;
+  entryCount: number;
+  topScore: number;
 };
 
 type RankRow = {
@@ -119,6 +132,95 @@ export class GlobalRankService {
     return this.listRank(rankListId).filter((entry) => entry.username.toLocaleLowerCase() === normalized);
   }
 
+  getArenaSeasonState(): ArenaSeasonState {
+    const row = this.database.db
+      .prepare("SELECT current_season, last_settled_season, last_settled_at FROM arena_season_state WHERE id = 1")
+      .get() as { current_season: number; last_settled_season: number; last_settled_at: string };
+    return {
+      currentSeason: row.current_season,
+      lastSettledSeason: row.last_settled_season,
+      lastSettledAt: row.last_settled_at,
+    };
+  }
+
+  settleArenaSeason(expectedSeason: number): ArenaSeasonSettlement {
+    if (!Number.isSafeInteger(expectedSeason) || expectedSeason < 1) {
+      throw new Error("结算赛季号必须是正整数");
+    }
+    this.database.db.exec("BEGIN IMMEDIATE");
+    try {
+      const state = this.getArenaSeasonState();
+      if (state.currentSeason !== expectedSeason) {
+        throw new Error(`赛季号不匹配：当前为第 ${state.currentSeason} 赛季，拒绝结算第 ${expectedSeason} 赛季`);
+      }
+      const entries = this.listRank(ARENA_RANK_LIST_ID);
+      if (entries.length === 0) {
+        throw new Error("当前竞技场排行榜为空，不能结算赛季");
+      }
+      const settledAt = new Date().toISOString();
+      const insertHistory = this.database.db.prepare(
+        [
+          "INSERT INTO arena_season_results",
+          "(season_id, rank, uid, username, slot_index, score, extra, settled_at)",
+          "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+        ].join(" ")
+      );
+      const upsertPrevious = this.database.db.prepare(
+        [
+          "INSERT INTO rank_entries (rank_list_id, uid, slot_index, score, extra, created_at, updated_at)",
+          "VALUES (?, ?, ?, ?, ?, datetime('now'), datetime('now'))",
+        ].join(" ")
+      );
+      const resetCurrent = this.database.db.prepare(
+        "UPDATE rank_entries SET score = 1, extra = ?, updated_at = datetime('now') WHERE rank_list_id = ? AND uid = ? AND slot_index = ?"
+      );
+
+      this.database.db.prepare("DELETE FROM rank_entries WHERE rank_list_id = ?").run(PREVIOUS_ARENA_RANK_LIST_ID);
+      for (const entry of entries) {
+        insertHistory.run(
+          state.currentSeason,
+          entry.rank,
+          entry.uid,
+          entry.username,
+          entry.slotIndex,
+          entry.score,
+          entry.extra,
+          settledAt
+        );
+        upsertPrevious.run(
+          PREVIOUS_ARENA_RANK_LIST_ID,
+          entry.uid,
+          entry.slotIndex,
+          entry.score,
+          entry.extra
+        );
+        resetCurrent.run(
+          resetArenaExtraForNewSeason(entry.extra, entry.username),
+          ARENA_RANK_LIST_ID,
+          entry.uid,
+          entry.slotIndex
+        );
+      }
+      this.database.db
+        .prepare(
+          "UPDATE arena_season_state SET current_season = ?, last_settled_season = ?, last_settled_at = ? WHERE id = 1"
+        )
+        .run(state.currentSeason + 1, state.currentSeason, settledAt);
+      this.database.db.exec("COMMIT");
+      return {
+        currentSeason: state.currentSeason + 1,
+        lastSettledSeason: state.currentSeason,
+        lastSettledAt: settledAt,
+        settledSeason: state.currentSeason,
+        entryCount: entries.length,
+        topScore: entries[0].score,
+      };
+    } catch (error) {
+      this.database.db.exec("ROLLBACK");
+      throw error;
+    }
+  }
+
   private findEntry(rankListId: number, uid: number, slotIndex: number): RankEntry | null {
     return this.listRank(rankListId).find((entry) => entry.uid === uid && entry.slotIndex === slotIndex) ?? null;
   }
@@ -169,7 +271,7 @@ export class GlobalRankService {
       score: row.score,
       rank: index + 1,
       timestamp: row.updated_at,
-      extra: isEncodedArenaExtra(row.extra) ? row.extra : DEFAULT_ARENA_EXTRA,
+      extra: normalizeArenaExtra(row.extra, row.username),
     }));
   }
 }

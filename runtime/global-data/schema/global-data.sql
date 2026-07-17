@@ -168,3 +168,28 @@ CREATE TABLE IF NOT EXISTS rank_entries (
 
 CREATE INDEX IF NOT EXISTS idx_rank_entries_order
 ON rank_entries(rank_list_id, score DESC, updated_at ASC, uid ASC, slot_index ASC);
+
+CREATE TABLE IF NOT EXISTS arena_season_state (
+  id INTEGER PRIMARY KEY CHECK (id = 1),
+  current_season INTEGER NOT NULL DEFAULT 1,
+  last_settled_season INTEGER NOT NULL DEFAULT 0,
+  last_settled_at TEXT NOT NULL DEFAULT ''
+);
+
+INSERT OR IGNORE INTO arena_season_state (id, current_season, last_settled_season)
+VALUES (1, 1, 0);
+
+CREATE TABLE IF NOT EXISTS arena_season_results (
+  season_id INTEGER NOT NULL,
+  rank INTEGER NOT NULL,
+  uid INTEGER NOT NULL,
+  username TEXT NOT NULL,
+  slot_index INTEGER NOT NULL,
+  score INTEGER NOT NULL,
+  extra TEXT NOT NULL DEFAULT '',
+  settled_at TEXT NOT NULL,
+  PRIMARY KEY(season_id, uid, slot_index)
+);
+
+CREATE INDEX IF NOT EXISTS idx_arena_season_results_rank
+ON arena_season_results(season_id, rank ASC);

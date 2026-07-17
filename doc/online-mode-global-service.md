@@ -188,6 +188,14 @@ POST  /ranging.php/?ac=get
 
 已实现健康检查、注册、玩家资料、远程存档双写、军团、排行榜和竞技场对手存档读取。排行榜支持游戏当前使用的 `submit`、`getRankingByArounds`、`getRankingByPage` 和 `getRank` Thrift 方法。Windows 在访问排行榜前先重试所有待上传存档；仍有待同步数据时拒绝进入竞技场。
 
+竞技场赛季使用榜单 `1093` 作为当前赛季、`975` 作为最近一次结算结果。结算命令为：
+
+```bash
+GLOBAL_DATA_DB=/path/to/global-game.db npm run globalData:arena:settle -- --season <当前赛季号>
+```
+
+结算会保留历史快照，将当前榜复制到 `975`，并把 `1093` 参赛人的积分重置为 `1`。Windows 客户端下次联机同步时会根据 `/api/global/arena/season` 失效角色存档中的旧排名缓存；已经加载进游戏内存的角色需要重新读档或重启客户端。
+
 Windows 默认连接 `http://118.89.150.116:7778`。如需切换服务器，可通过 `GLOBAL_DATA_URL=http://其他Linux地址:7778` 覆盖。Linux 默认监听 `0.0.0.0:7778`，可使用 `runtime/global-data/deploy/flash-global-data.service.example` 作为 `systemd` 服务模板。
 
 左侧“导入存档”提供两种来源：

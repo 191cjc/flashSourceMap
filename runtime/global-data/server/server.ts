@@ -125,6 +125,32 @@ export async function startGlobalDataServer(options: GlobalDataServerOptions = {
         return;
       }
 
+      if (req.method === "GET" && url.pathname === "/api/global/arena/season") {
+        sendJson(res, 200, { ok: true, ...rankService.getArenaSeasonState() });
+        return;
+      }
+
+      if (req.method === "POST" && url.pathname === "/api/staff/arena/settle") {
+        const request = await readJson<{ expectedSeason?: number; confirmation?: string }>(req);
+        const expectedSeason = Number(request.expectedSeason);
+        if (!Number.isSafeInteger(expectedSeason) || expectedSeason < 1) {
+          throw new GlobalDataError("invalid_arena_season", "结算赛季号必须是正整数");
+        }
+        if (request.confirmation !== `SETTLE_SEASON_${expectedSeason}`) {
+          throw new GlobalDataError("arena_settlement_not_confirmed", "赛季结算确认信息不匹配", 409);
+        }
+        try {
+          sendJson(res, 200, { ok: true, ...rankService.settleArenaSeason(expectedSeason) });
+        } catch (error) {
+          throw new GlobalDataError(
+            "arena_settlement_rejected",
+            error instanceof Error ? error.message : String(error),
+            409
+          );
+        }
+        return;
+      }
+
       if (req.method === "POST" && url.pathname === "/api/global/register") {
         const result = db.registerPlayer(await readJson<RegisterGlobalPlayerRequest>(req));
         sendJson(res, 200, { ok: true, ...result, uid: result.player.uid, username: result.player.username });

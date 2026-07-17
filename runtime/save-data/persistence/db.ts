@@ -60,6 +60,7 @@ export class LocalSaveDatabase implements SaveDataStore {
     this.db.exec(readFileSync(saveDataPaths.schemaFile, "utf8"));
     this.migrateLegacyUnionSchema();
     this.ensureColumn("union_log_mock", "actor_username", "TEXT NOT NULL DEFAULT ''");
+    this.ensureColumn("online_mode_state", "arena_settled_season", "INTEGER NOT NULL DEFAULT 0");
   }
 
   close(): void {

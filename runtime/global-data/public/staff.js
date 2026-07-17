@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const state = { overview: null, view: "players", search: "", loading: false };
+  const state = { overview: null, season: null, view: "players", search: "", loading: false, settling: false };
   const elements = {
     summary: document.getElementById("summaryCards"),
     players: document.getElementById("playersView"),
@@ -135,18 +135,31 @@
 
   function renderRanks() {
     const ranks = state.overview?.ranks ?? [];
-    if (!ranks.length) {
-      elements.ranks.innerHTML = '<div class="empty">当前还没有排行榜数据</div>';
-      return;
-    }
-    elements.ranks.innerHTML = `<div class="rank-grid">${ranks.map((rank) => `
+    const season = state.season;
+    const currentRank = ranks.find((rank) => Number(rank.rankListId) === 1093);
+    const seasonCard = season ? `
+      <article class="season-card">
+        <div>
+          <span class="section-kicker">竞技场赛季</span>
+          <h2>第 ${Number(season.currentSeason).toLocaleString("zh-CN")} 赛季</h2>
+          <p>上次结算：${season.lastSettledSeason > 0 ? `第 ${season.lastSettledSeason} 赛季 · ${formatTime(season.lastSettledAt)}` : "尚未结算"}</p>
+        </div>
+        <div class="season-actions">
+          <span>${currentRank ? `${currentRank.entryCount} 名参赛者，最高 ${Number(currentRank.topScore).toLocaleString("zh-CN")} 分` : "当前榜单为空"}</span>
+          <button class="danger-button" id="settleSeasonButton" type="button"${state.settling || !currentRank?.entryCount ? " disabled" : ""}>
+            ${state.settling ? "正在结算…" : `结算第 ${season.currentSeason} 赛季`}
+          </button>
+        </div>
+      </article>` : "";
+    const rankCards = ranks.length ? `<div class="rank-grid">${ranks.map((rank) => `
       <article class="rank-card">
         <h2>排行榜 ${rank.rankListId}</h2>
         <div class="rank-score">${Number(rank.topScore).toLocaleString("zh-CN")}</div>
         <div class="subtle">当前最高分</div>
         <div class="rank-meta"><span>${rank.entryCount} 条记录</span><span>${relativeTime(rank.updatedAt)}更新</span></div>
       </article>
-    `).join("")}</div>`;
+    `).join("")}</div>` : '<div class="empty">当前还没有排行榜数据</div>';
+    elements.ranks.innerHTML = `${seasonCard}${rankCards}`;
   }
 
   function render() {
@@ -172,13 +185,18 @@
     elements.notice.hidden = true;
     setConnectionState("loading", "正在刷新");
     try {
-      const response = await fetch("/api/staff/overview", { cache: "no-store" });
-      const result = await response.json();
-      if (!response.ok || !result.ok) throw new Error(result.message || result.error || `HTTP ${response.status}`);
-      state.overview = result;
+      const [overviewResponse, seasonResponse] = await Promise.all([
+        fetch("/api/staff/overview", { cache: "no-store" }),
+        fetch("/api/global/arena/season", { cache: "no-store" }),
+      ]);
+      const [overview, season] = await Promise.all([overviewResponse.json(), seasonResponse.json()]);
+      if (!overviewResponse.ok || !overview.ok) throw new Error(overview.message || overview.error || `HTTP ${overviewResponse.status}`);
+      if (!seasonResponse.ok || !season.ok) throw new Error(season.message || season.error || `HTTP ${seasonResponse.status}`);
+      state.overview = overview;
+      state.season = season;
       render();
       setConnectionState("online", "服务正常");
-      elements.lastUpdated.textContent = `数据生成于 ${formatTime(result.generatedAt)}`;
+      elements.lastUpdated.textContent = `数据生成于 ${formatTime(overview.generatedAt)}`;
     } catch (error) {
       setConnectionState("error", "连接失败");
       elements.notice.textContent = `无法读取 Staff 数据：${error instanceof Error ? error.message : String(error)}`;
@@ -186,6 +204,41 @@
     } finally {
       state.loading = false;
       elements.refresh.disabled = false;
+    }
+  }
+
+  async function settleSeason() {
+    if (state.settling || !state.season) return;
+    const expectedSeason = Number(state.season.currentSeason);
+    const currentRank = (state.overview?.ranks ?? []).find((rank) => Number(rank.rankListId) === 1093);
+    if (!currentRank?.entryCount) return;
+    const confirmed = window.confirm(
+      `确认结算第 ${expectedSeason} 赛季？\n\n当前 ${currentRank.entryCount} 名参赛者将写入上赛季榜单 975，当前榜单 1093 会重置为 1 分。此操作不可直接撤销。`
+    );
+    if (!confirmed) return;
+
+    state.settling = true;
+    renderRanks();
+    elements.notice.hidden = true;
+    try {
+      const response = await fetch("/api/staff/arena/settle", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ expectedSeason, confirmation: `SETTLE_SEASON_${expectedSeason}` }),
+      });
+      const result = await response.json();
+      if (!response.ok || !result.ok) throw new Error(result.message || result.error || `HTTP ${response.status}`);
+      await refresh();
+      elements.notice.className = "notice is-success";
+      elements.notice.textContent = `第 ${result.settledSeason} 赛季结算完成：${result.entryCount} 名玩家，最高 ${Number(result.topScore).toLocaleString("zh-CN")} 分；当前已进入第 ${result.currentSeason} 赛季。`;
+      elements.notice.hidden = false;
+    } catch (error) {
+      elements.notice.className = "notice";
+      elements.notice.textContent = `赛季结算失败：${error instanceof Error ? error.message : String(error)}`;
+      elements.notice.hidden = false;
+    } finally {
+      state.settling = false;
+      renderRanks();
     }
   }
 
@@ -198,6 +251,9 @@
   });
   elements.search.addEventListener("input", () => { state.search = elements.search.value; renderPlayers(); });
   elements.refresh.addEventListener("click", refresh);
+  elements.ranks.addEventListener("click", (event) => {
+    if (event.target.closest("#settleSeasonButton")) settleSeason();
+  });
 
   render();
   refresh();

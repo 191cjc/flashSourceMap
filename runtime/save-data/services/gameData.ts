@@ -566,6 +566,31 @@ function removeLocalIdentityFlags(xml: string): string {
   return filtered === inner ? xml : `${xml.slice(0, fa.innerStart)}${filtered}${xml.slice(fa.innerEnd)}`;
 }
 
+function encodeUpdatedSaveXml(rawData: string, decoded: SaveXmlParts, xml: string): string {
+  if (xml === decoded.xml) {
+    return rawData;
+  }
+  if (!decoded.compressed) {
+    const prefix = decoded.encoding.kind === "raw-prefix" ? decoded.encoding.prefix : Buffer.alloc(0);
+    return Buffer.concat([prefix, Buffer.from(xml, "utf8")]).toString("utf8");
+  }
+  const payload =
+    decoded.encoding.kind === "amf3-string"
+      ? encodeAmf3SaveXml(xml)
+      : Buffer.concat([decoded.encoding.prefix, Buffer.from(xml, "utf8")]);
+  return deflateSync(payload).toString("base64");
+}
+
+export function resetArenaSeasonSaveData(rawData: string): string {
+  const decoded = decodeSaveXmlParts(rawData);
+  if (!decoded) return rawData;
+  let xml = decoded.xml;
+  xml = replaceNumberField(xml, "oldpkb", -1);
+  xml = replaceNumberField(xml, "oldawb", 0);
+  xml = replaceNumberField(xml, "sxb", 1);
+  return encodeUpdatedSaveXml(rawData, decoded, xml);
+}
+
 export function canonicalizeLocalSaveIdentity(rawData: string, identity: LocalSaveIdentity): string {
   const decoded = decodeSaveXmlParts(rawData);
   const uidNumber = Number(identity.uid);
@@ -589,19 +614,7 @@ export function canonicalizeLocalSaveIdentity(rawData: string, identity: LocalSa
   xml = replaceNumberField(xml, "idai", expectedIdAndIndex);
   xml = removeLocalIdentityFlags(xml);
 
-  if (xml === decoded.xml) {
-    return rawData;
-  }
-  if (!decoded.compressed) {
-    const prefix = decoded.encoding.kind === "raw-prefix" ? decoded.encoding.prefix : Buffer.alloc(0);
-    return Buffer.concat([prefix, Buffer.from(xml, "utf8")]).toString("utf8");
-  }
-
-  const payload =
-    decoded.encoding.kind === "amf3-string"
-      ? encodeAmf3SaveXml(xml)
-      : Buffer.concat([decoded.encoding.prefix, Buffer.from(xml, "utf8")]);
-  return deflateSync(payload).toString("base64");
+  return encodeUpdatedSaveXml(rawData, decoded, xml);
 }
 
 function parseSaveTagAttributes(tag: string): { name: string; type: string } | null {

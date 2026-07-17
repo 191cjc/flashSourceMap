@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
+import { GlobalRankService } from "../../global-data/rank/service.js";
 import { startGlobalDataServer } from "../../global-data/server/server.js";
 import { LocalSaveDatabase } from "../persistence/db.js";
 import { DEFAULT_ACCOUNT, SaveDataMockApi } from "../platform4399/mockApi.js";
@@ -23,6 +24,10 @@ const SAVE_DATA = [
   `    <s type="String" name="newnn">${encodeAmf3StringBase64("本地玩家")}</s>`,
   '    <s type="String" name="jxname">本地玩家</s>',
   '    <s type="Number" name="idai">10001</s>',
+  '    <s type="Number" name="oldpkb">251</s>',
+  '    <s type="Number" name="oldawb">1</s>',
+  '    <s type="Number" name="oldatb">5</s>',
+  '    <s type="Number" name="sxb">1014</s>',
   '  </s>',
   '</saveXml>',
 ].join("");
@@ -35,6 +40,12 @@ function saveStringField(rawData: string, name: string): string | null {
 function saveDisplayName(rawData: string): string | null {
   const encoded = saveStringField(rawData, "newnn");
   return encoded ? decodeAmf3StringBase64(encoded) : null;
+}
+
+function saveNumberField(rawData: string, name: string): number | null {
+  const xml = decodeSaveXml(rawData);
+  const value = xml ? new RegExp(`<s type="Number" name="${name}">([^<]*)</s>`).exec(xml)?.[1] : null;
+  return value == null ? null : Number(value);
 }
 
 const dir = mkdtempSync(path.join(tmpdir(), "flash-online-mode-"));
@@ -240,6 +251,24 @@ try {
     },
     { gameId: "100025235", slotIndex: 1, localRevision: 3, uploadedRevision: 3, pending: false }
   );
+
+  new GlobalRankService(globalServer.db).submit(10000001, 0, [
+    { rankListId: 1093, score: 1014, extra: "legacy-arena-extra" },
+  ]);
+  const settlement = new GlobalRankService(globalServer.db).settleArenaSeason(1);
+  assert.equal(settlement.lastSettledSeason, 1);
+  const snapshotsBeforeSeasonReset = localDb.countSnapshots("10000001", "100025235", 0);
+  const seasonSync = await onlineMode.syncPending();
+  assert.equal(seasonSync.pending, 0);
+  const seasonResetData = String(localDb.getSlot("10000001", "100025235", 0)?.data);
+  assert.equal(saveNumberField(seasonResetData, "oldpkb"), -1);
+  assert.equal(saveNumberField(seasonResetData, "oldawb"), 0);
+  assert.equal(saveNumberField(seasonResetData, "oldatb"), 5);
+  assert.equal(saveNumberField(seasonResetData, "sxb"), 1);
+  assert.equal(localDb.countSnapshots("10000001", "100025235", 0), snapshotsBeforeSeasonReset + 1);
+  assert.equal(saveNumberField(globalServer.db.getSave(10000001, "100025235", 0)?.data ?? "", "oldpkb"), -1);
+  const seasonStatus = await onlineMode.status(false) as { online: { arenaSettledSeason: number } };
+  assert.equal(seasonStatus.online.arenaSettledSeason, 1);
 
   console.log("online mode flow ok");
 } finally {

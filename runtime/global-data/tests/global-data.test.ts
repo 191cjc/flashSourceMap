@@ -3,6 +3,7 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { inflateSync } from "node:zlib";
+import { encodeArenaExtra } from "../rank/arenaExtra.js";
 import { startGlobalDataServer } from "../server/server.js";
 
 const dir = mkdtempSync(path.join(tmpdir(), "flash-global-data-"));
@@ -368,11 +369,15 @@ try {
     qsb: 0,
     qls: 0,
     lv: 1,
-    ca: 0,
-    cb: 0,
-    tx: [],
+    ca: -1,
+    cb: -1,
+    tx: [
+      ["0", "0", "0", "0", "0", "0"],
+      ["0", "0", "0", "0", "0", "0"],
+    ],
     jo: 1,
-    fe: [],
+    fe: Array.from({ length: 17 }, () => -1),
+    ne: "测试玩家_A",
   });
   const mirroredCandidateSaveResponse = await fetch(`${server.url}/ranging.php/?ac=get&uid=10000001&gameid=100025235&index=1`, {
     headers: { "x-flash-uid": "10000001" },
@@ -394,12 +399,49 @@ try {
     body: JSON.stringify({ gameId: "100025235", title: "player-b", data: SECOND_SAVE_DATA, checksum: "checksum-b", revision: 1 }),
   });
   assert.equal(secondSave.status, 200);
+  const malformedArenaExtra = encodeArenaExtra({
+    qsl: 0,
+    qsb: 0,
+    qls: 0,
+    lv: 65,
+    ca: 0,
+    cb: 0,
+    tx: [],
+    jo: 1,
+    fe: [],
+  });
+  server.db.db
+    .prepare("UPDATE rank_entries SET extra = ? WHERE rank_list_id = 1093 AND uid = 10000002 AND slot_index = 1")
+    .run(malformedArenaExtra);
   const realCandidatesResponse = await rankApiRequest(10000001, rankAroundRequest(10000001, 0));
   const realCandidatesResult = readThriftResponse(Buffer.from(await realCandidatesResponse.arrayBuffer())).get(0) as Map<number, unknown>;
   const realCandidates = realCandidatesResult.get(3) as Array<Map<number, unknown>>;
   assert.equal(realCandidates.length, 50);
   assert.equal(realCandidates.every((entry) => entry.get(2) === "10000002" && entry.get(1) === "1"), true);
-  assert.equal(decodeArenaExtra(String(realCandidates[0].get(8))).qsl, 0);
+  assert.deepEqual(decodeArenaExtra(String(realCandidates[0].get(8))), {
+    qsl: 0,
+    qsb: 0,
+    qls: 0,
+    lv: 65,
+    ca: -1,
+    cb: -1,
+    tx: [
+      ["0", "0", "0", "0", "0", "0"],
+      ["0", "0", "0", "0", "0", "0"],
+    ],
+    jo: 1,
+    fe: Array.from({ length: 17 }, () => -1),
+    ne: "player_10000002",
+  });
+  assert.equal(
+    (server.db.db
+      .prepare("SELECT extra FROM rank_entries WHERE rank_list_id = 1093 AND uid = 10000002 AND slot_index = 1")
+      .get() as { extra: string }).extra,
+    malformedArenaExtra
+  );
+  server.db.db
+    .prepare("UPDATE rank_entries SET extra = ? WHERE rank_list_id = 1093 AND uid = 10000002 AND slot_index = 1")
+    .run("player-b-extra");
 
   const thirdRegistration = await jsonRequest("/api/global/register", {
     method: "POST",
@@ -486,7 +528,10 @@ try {
   const staffScript = await fetch(`${server.url}/staff/app.js`);
   assert.equal(staffScript.status, 200);
   assert.match(staffScript.headers.get("content-type") ?? "", /javascript/);
-  assert.match(await staffScript.text(), /api\/staff\/overview/);
+  const staffScriptBody = await staffScript.text();
+  assert.match(staffScriptBody, /api\/staff\/overview/);
+  assert.match(staffScriptBody, /api\/staff\/arena\/settle/);
+  assert.match(staffScriptBody, /settleSeasonButton/);
 
   const staffResponse = await jsonRequest("/api/staff/overview");
   assert.equal(staffResponse.status, 200);
@@ -516,6 +561,69 @@ try {
     { rankListId: 1093, entryCount: 2, topScore: 1500, updatedAt: staffResponse.body.ranks[0].updatedAt },
   ]);
   assert.equal(JSON.stringify(staffResponse.body).includes("save-data-v1"), false);
+
+  const initialSeason = await jsonRequest("/api/global/arena/season");
+  assert.deepEqual(initialSeason.body, {
+    ok: true,
+    currentSeason: 1,
+    lastSettledSeason: 0,
+    lastSettledAt: "",
+  });
+  const rejectedSettlement = await jsonRequest("/api/staff/arena/settle", {
+    method: "POST",
+    body: JSON.stringify({ expectedSeason: 2, confirmation: "SETTLE_SEASON_2" }),
+  });
+  assert.equal(rejectedSettlement.status, 409);
+  assert.equal(rejectedSettlement.body.error, "arena_settlement_rejected");
+  const settlementResponse = await jsonRequest("/api/staff/arena/settle", {
+    method: "POST",
+    body: JSON.stringify({ expectedSeason: 1, confirmation: "SETTLE_SEASON_1" }),
+  });
+  assert.equal(settlementResponse.status, 200);
+  const settlement = settlementResponse.body;
+  assert.deepEqual(
+    {
+      currentSeason: settlement.currentSeason,
+      lastSettledSeason: settlement.lastSettledSeason,
+      settledSeason: settlement.settledSeason,
+      entryCount: settlement.entryCount,
+      topScore: settlement.topScore,
+    },
+    { currentSeason: 2, lastSettledSeason: 1, settledSeason: 1, entryCount: 2, topScore: 1500 }
+  );
+  assert.deepEqual(
+    server.db.db
+      .prepare("SELECT season_id, rank, uid, slot_index, score FROM arena_season_results ORDER BY rank")
+      .all()
+      .map((row) => ({ ...row })),
+    [
+      { season_id: 1, rank: 1, uid: 10000002, slot_index: 1, score: 1500 },
+      { season_id: 1, rank: 2, uid: 10000001, slot_index: 0, score: 1200 },
+    ]
+  );
+  assert.deepEqual(
+    server.db.db
+      .prepare("SELECT rank_list_id, uid, slot_index, score FROM rank_entries WHERE rank_list_id IN (975, 1093) ORDER BY rank_list_id, score DESC, uid")
+      .all()
+      .map((row) => ({ ...row })),
+    [
+      { rank_list_id: 975, uid: 10000002, slot_index: 1, score: 1500 },
+      { rank_list_id: 975, uid: 10000001, slot_index: 0, score: 1200 },
+      { rank_list_id: 1093, uid: 10000001, slot_index: 0, score: 1 },
+      { rank_list_id: 1093, uid: 10000002, slot_index: 1, score: 1 },
+    ]
+  );
+  const resetExtra = server.db.db
+    .prepare("SELECT extra FROM rank_entries WHERE rank_list_id = 1093 AND uid = 10000001 AND slot_index = 0")
+    .get() as { extra: string };
+  assert.deepEqual(
+    {
+      qsl: decodeArenaExtra(resetExtra.extra).qsl,
+      qsb: decodeArenaExtra(resetExtra.extra).qsb,
+      qls: decodeArenaExtra(resetExtra.extra).qls,
+    },
+    { qsl: 0, qsb: 0, qls: 0 }
+  );
 
   console.log("global data flow ok");
 } finally {

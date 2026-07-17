@@ -80,12 +80,23 @@ All aliases forward to global `/ranging.php/` with method, query, request body, 
 - Do not insert repeated or alternate-slot entries into `rank_entries`, `remote_save_slots`, or `global_players`.
 - Candidate `extra` must use the Flash SDK wire format: AMF3 `ByteArray.writeObject`, zlib compression, then Base64.
 - Plain JSON is not a valid fallback. `TopData.createS` reads `extra.qsl`, `extra.qsb`, and `extra.qls` after the SDK decoder runs.
-- Missing, empty, or malformed rank `extra` values must be replaced in the candidate response with a valid encoded object; do not persist response-only fallback data.
+- Missing, empty, malformed, or display-incomplete rank `extra` values must be repaired in the candidate response with a valid encoded object; do not persist response-only fallback data.
+- `SjPkPanel` requires `extra.tx` to contain two rows of six display values and `extra.fe` to contain at least 17 frame values. Empty arrays are wire-valid but crash the client attribute view.
+- Pet frames must use `ca=-1, cb=-1` for no pet, or positive integer frame numbers for both values. Frame `0` is not display-safe.
 
 #### Arena initial list
 
 - The client-specific rank `1093` page `95` request may be padded from the same cloud-save pool.
 - Ordinary page `1` and other rank pages remain real and unpadded.
+
+#### Arena season settlement
+
+- Rank list `1093` is the current arena season and rank list `975` is the most recently settled season consumed by `GPkOldAw`.
+- Settlement must run in one immediate transaction: archive ordered results, replace `975`, reset retained `1093` entries to score `1`, clear win/loss streak fields in current `extra`, then advance the season state.
+- Historical rows in `arena_season_results` are append-only; replacing `975` must not delete prior season history.
+- The settlement command requires the expected current season number and rejects mismatches to prevent accidental double settlement.
+- Windows clients compare `lastSettledSeason` with local `online_mode_state.arena_settled_season`. On advancement they snapshot local saves, set `oldpkb=-1`, `oldawb=0`, and `sxb=1`, then upload the revised saves.
+- Keep `oldatb` during cache invalidation so an already earned title remains equipped until the player claims a newer season reward.
 
 #### Opponent save
 

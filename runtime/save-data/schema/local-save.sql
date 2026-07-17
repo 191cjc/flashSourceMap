@@ -75,6 +75,7 @@ CREATE TABLE IF NOT EXISTS online_mode_state (
   registered_at TEXT NOT NULL DEFAULT '',
   last_health_at TEXT NOT NULL DEFAULT '',
   last_sync_at TEXT NOT NULL DEFAULT '',
+  arena_settled_season INTEGER NOT NULL DEFAULT 0,
   last_error TEXT NOT NULL DEFAULT ''
 );
 

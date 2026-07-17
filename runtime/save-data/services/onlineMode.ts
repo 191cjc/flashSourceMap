@@ -2,7 +2,7 @@ import { createHash, randomUUID } from "node:crypto";
 import type { Account } from "../types.js";
 import { LocalSaveDatabase } from "../persistence/db.js";
 import type { SaveDataStore } from "../persistence/store.js";
-import { canonicalizeLocalSaveIdentity, readLocalSaveIdentity } from "./gameData.js";
+import { canonicalizeLocalSaveIdentity, readLocalSaveIdentity, resetArenaSeasonSaveData } from "./gameData.js";
 
 const DEFAULT_UID = "10001";
 const DEFAULT_GAME_ID = "100025235";
@@ -17,6 +17,7 @@ type OnlineStateRow = {
   registered_at: string;
   last_health_at: string;
   last_sync_at: string;
+  arena_settled_season: number;
   last_error: string;
 };
 
@@ -123,6 +124,7 @@ export class OnlineModeService {
         migrationState: state.migration_state,
         registeredAt: state.registered_at,
         lastSyncAt: state.last_sync_at,
+        arenaSettledSeason: state.arena_settled_season,
         lastError: state.last_error,
       },
       sync: { pendingCount },
@@ -250,6 +252,7 @@ export class OnlineModeService {
     if (!account) {
       throw new OnlineModeError("account_not_found", "本地账号不存在", 404);
     }
+    await this.reconcileArenaSeason(account, state);
     const rows = sqlite.db
       .prepare(
         [
@@ -514,6 +517,52 @@ export class OnlineModeService {
         ].join(" ")
       )
       .run(accountId, gameId, slotIndex, checksum);
+  }
+
+  private async reconcileArenaSeason(account: Account, state: OnlineStateRow): Promise<void> {
+    const season = await this.requestJson<{
+      ok: boolean;
+      currentSeason: number;
+      lastSettledSeason: number;
+      lastSettledAt: string;
+    }>("/api/global/arena/season", { method: "GET" });
+    if (season.lastSettledSeason <= state.arena_settled_season) {
+      return;
+    }
+
+    const sqlite = this.requireSqlite();
+    const rows = sqlite.db
+      .prepare("SELECT id, game_id, slot_index, title, raw_data, checksum FROM save_slots WHERE account_id = ?")
+      .all(account.id) as Array<{
+      id: number;
+      game_id: string;
+      slot_index: number;
+      title: string;
+      raw_data: string;
+      checksum: string;
+    }>;
+    sqlite.db.exec("BEGIN IMMEDIATE");
+    try {
+      for (const row of rows) {
+        const data = resetArenaSeasonSaveData(row.raw_data);
+        if (data === row.raw_data) continue;
+        sqlite.db
+          .prepare("INSERT INTO save_snapshots (save_slot_id, title, raw_data, checksum) VALUES (?, ?, ?, ?)")
+          .run(row.id, `竞技场第 ${season.lastSettledSeason} 赛季结算前备份 - ${row.title}`, row.raw_data, row.checksum);
+        const checksum = sha256(data);
+        sqlite.db
+          .prepare("UPDATE save_slots SET raw_data = ?, checksum = ?, updated_at = datetime('now') WHERE id = ?")
+          .run(data, checksum, row.id);
+        this.upsertSync(sqlite, account.id, row.game_id, row.slot_index, checksum);
+      }
+      sqlite.db
+        .prepare("UPDATE online_mode_state SET arena_settled_season = ?, last_error = '' WHERE id = 1")
+        .run(season.lastSettledSeason);
+      sqlite.db.exec("COMMIT");
+    } catch (error) {
+      sqlite.db.exec("ROLLBACK");
+      throw error;
+    }
   }
 
   private pendingCount(): number {
