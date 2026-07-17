@@ -1,5 +1,5 @@
 import type { GlobalDataDatabase } from "../persistence/db.js";
-import { normalizeArenaExtra, resetArenaExtraForNewSeason } from "./arenaExtra.js";
+import { hasCompleteArenaDisplay, normalizeArenaExtra, resetArenaExtraForNewSeason } from "./arenaExtra.js";
 
 export const ARENA_RANK_LIST_ID = 1093;
 export const PREVIOUS_ARENA_RANK_LIST_ID = 975;
@@ -90,7 +90,7 @@ export class GlobalRankService {
   }
 
   getAround(rankListId: number, uid: number, slotIndex: number, arounds: number): RankEntry[] {
-    const entries = this.listRank(rankListId);
+    const entries = this.listClientRank(rankListId);
     const ownIndex = entries.findIndex((entry) => entry.uid === uid && entry.slotIndex === slotIndex);
     if (ownIndex < 0) {
       return entries.slice(0, Math.max(1, arounds));
@@ -124,12 +124,12 @@ export class GlobalRankService {
   getPage(rankListId: number, pageSize: number, page: number): RankEntry[] {
     const size = Math.max(1, Math.min(100, pageSize));
     const pageNumber = Math.max(1, page);
-    return this.listRank(rankListId).slice((pageNumber - 1) * size, pageNumber * size);
+    return this.listClientRank(rankListId).slice((pageNumber - 1) * size, pageNumber * size);
   }
 
   getByUsername(rankListId: number, username: string): RankEntry[] {
     const normalized = username.trim().toLocaleLowerCase();
-    return this.listRank(rankListId).filter((entry) => entry.username.toLocaleLowerCase() === normalized);
+    return this.listClientRank(rankListId).filter((entry) => entry.username.toLocaleLowerCase() === normalized);
   }
 
   getArenaSeasonState(): ArenaSeasonState {
@@ -248,6 +248,18 @@ export class GlobalRankService {
     }));
   }
 
+  private listClientRank(rankListId: number): RankEntry[] {
+    const entries = this.listRank(rankListId);
+    if (rankListId !== ARENA_RANK_LIST_ID) {
+      return entries;
+    }
+    const completeEntries = entries.filter((entry) => hasCompleteArenaDisplay(entry.extra));
+    if (completeEntries.length > 0) {
+      return completeEntries;
+    }
+    return entries.map((entry) => ({ ...entry, extra: normalizeArenaExtra(entry.extra, entry.username) }));
+  }
+
   private listArenaSaves(gameId: string): RankEntry[] {
     const rows = this.database.db
       .prepare(
@@ -263,7 +275,7 @@ export class GlobalRankService {
         ].join(" ")
       )
       .all(ARENA_RANK_LIST_ID, gameId) as Array<Omit<RankRow, "rank_list_id">>;
-    return rows.map((row, index) => ({
+    const entries = rows.map((row, index) => ({
       rankListId: ARENA_RANK_LIST_ID,
       uid: row.uid,
       username: row.username,
@@ -271,7 +283,12 @@ export class GlobalRankService {
       score: row.score,
       rank: index + 1,
       timestamp: row.updated_at,
-      extra: normalizeArenaExtra(row.extra, row.username),
+      extra: row.extra,
     }));
+    const completeEntries = entries.filter((entry) => hasCompleteArenaDisplay(entry.extra));
+    if (completeEntries.length > 0) {
+      return completeEntries;
+    }
+    return entries.map((entry) => ({ ...entry, extra: normalizeArenaExtra(entry.extra, entry.username) }));
   }
 }

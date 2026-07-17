@@ -413,26 +413,37 @@ try {
   server.db.db
     .prepare("UPDATE rank_entries SET extra = ? WHERE rank_list_id = 1093 AND uid = 10000002 AND slot_index = 1")
     .run(malformedArenaExtra);
+  const completeArenaExtra = encodeArenaExtra({
+    qsl: 8,
+    qsb: 2,
+    qls: 3,
+    lv: 65,
+    ca: 18,
+    cb: 7,
+    tx: [
+      ["123450", "1838", "3963", "81239", "9", "62.6%"],
+      ["0", "1099", "0", "660", "1099", "3244"],
+    ],
+    jo: 1,
+    fe: [500, 534, 574, -1, 609, 654, 689, 721, 963, -1, 2428, 2668, 2909, -1, -1, -1, 3501],
+  });
+  const completeRegistration = await jsonRequest("/api/global/register", {
+    method: "POST",
+    body: JSON.stringify({ instanceId: "instance-d", sourceUid: 10000004, username: "player_d", nickname: "玩家D" }),
+  });
+  assert.equal(completeRegistration.status, 200);
+  const completeSave = await jsonRequest("/api/global/saves/10000004/1", {
+    method: "PUT",
+    body: JSON.stringify({ gameId: "100025235", title: "player-d", data: SECOND_SAVE_DATA, checksum: "checksum-d", revision: 1 }),
+  });
+  assert.equal(completeSave.status, 200);
+  assert.equal((await rankApiRequest(10000004, rankSubmitRequest(10000004, 1, 1093, 1600, completeArenaExtra))).status, 200);
   const realCandidatesResponse = await rankApiRequest(10000001, rankAroundRequest(10000001, 0));
   const realCandidatesResult = readThriftResponse(Buffer.from(await realCandidatesResponse.arrayBuffer())).get(0) as Map<number, unknown>;
   const realCandidates = realCandidatesResult.get(3) as Array<Map<number, unknown>>;
   assert.equal(realCandidates.length, 50);
-  assert.equal(realCandidates.every((entry) => entry.get(2) === "10000002" && entry.get(1) === "1"), true);
-  assert.deepEqual(decodeArenaExtra(String(realCandidates[0].get(8))), {
-    qsl: 0,
-    qsb: 0,
-    qls: 0,
-    lv: 65,
-    ca: -1,
-    cb: -1,
-    tx: [
-      ["0", "0", "0", "0", "0", "0"],
-      ["0", "0", "0", "0", "0", "0"],
-    ],
-    jo: 1,
-    fe: Array.from({ length: 17 }, () => -1),
-    ne: "player_10000002",
-  });
+  assert.equal(realCandidates.every((entry) => entry.get(2) === "10000004" && entry.get(1) === "1"), true);
+  assert.deepEqual(decodeArenaExtra(String(realCandidates[0].get(8))), decodeArenaExtra(completeArenaExtra));
   assert.equal(
     (server.db.db
       .prepare("SELECT extra FROM rank_entries WHERE rank_list_id = 1093 AND uid = 10000002 AND slot_index = 1")
@@ -456,8 +467,7 @@ try {
   const noRankCandidateResponse = await rankApiRequest(10000001, rankAroundRequest(10000001, 0));
   const noRankCandidateResult = readThriftResponse(Buffer.from(await noRankCandidateResponse.arrayBuffer())).get(0) as Map<number, unknown>;
   const noRankCandidate = (noRankCandidateResult.get(3) as Array<Map<number, unknown>>).find((entry) => entry.get(2) === "10000003");
-  assert.ok(noRankCandidate);
-  assert.equal(decodeArenaExtra(String(noRankCandidate.get(8))).qsl, 0);
+  assert.equal(noRankCandidate, undefined);
   server.db.db.prepare("DELETE FROM global_players WHERE uid = 10000003").run();
 
   const rankPage = await rankApiRequest(
@@ -470,10 +480,11 @@ try {
   );
   assert.equal(rankPage.status, 200);
   const rankPageBody = Buffer.from(await rankPage.arrayBuffer());
-  assert.ok(rankPageBody.includes(Buffer.from("player-b-extra")));
-  assert.ok(rankPageBody.includes(Buffer.from("player-a-extra")));
+  assert.ok(rankPageBody.includes(Buffer.from(completeArenaExtra)));
+  assert.equal(rankPageBody.includes(Buffer.from("player-b-extra")), false);
+  assert.equal(rankPageBody.includes(Buffer.from("player-a-extra")), false);
   const rankPageResult = readThriftResponse(rankPageBody).get(0) as Map<number, unknown>;
-  assert.equal((rankPageResult.get(3) as unknown[]).length, 2);
+  assert.equal((rankPageResult.get(3) as unknown[]).length, 1);
 
   const initialArenaPage = await rankApiRequest(
     10000001,
@@ -484,7 +495,10 @@ try {
     ])
   );
   const initialArenaResult = readThriftResponse(Buffer.from(await initialArenaPage.arrayBuffer())).get(0) as Map<number, unknown>;
-  assert.equal((initialArenaResult.get(3) as unknown[]).length, 100);
+  const initialArenaEntries = initialArenaResult.get(3) as Array<Map<number, unknown>>;
+  assert.equal(initialArenaEntries.length, 100);
+  assert.equal(initialArenaEntries.every((entry) => entry.get(2) === "10000004"), true);
+  server.db.db.prepare("DELETE FROM global_players WHERE uid = 10000004").run();
 
   const rankToken = await fetch(`${server.url}/ranging.php/?ac=get_token`);
   assert.equal(await rankToken.text(), "global-rank-token");

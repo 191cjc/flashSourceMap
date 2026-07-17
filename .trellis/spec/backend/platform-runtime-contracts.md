@@ -80,7 +80,8 @@ All aliases forward to global `/ranging.php/` with method, query, request body, 
 - Do not insert repeated or alternate-slot entries into `rank_entries`, `remote_save_slots`, or `global_players`.
 - Candidate `extra` must use the Flash SDK wire format: AMF3 `ByteArray.writeObject`, zlib compression, then Base64.
 - Plain JSON is not a valid fallback. `TopData.createS` reads `extra.qsl`, `extra.qsb`, and `extra.qls` after the SDK decoder runs.
-- Missing, empty, malformed, or display-incomplete rank `extra` values must be repaired in the candidate response with a valid encoded object; do not persist response-only fallback data.
+- When at least one genuine display-complete rank `extra` exists, exclude missing, malformed, display-incomplete, and all-zero placeholder entries from arena candidate and current-rank responses.
+- Only when no genuine display-complete entry exists may missing or malformed values be repaired transiently to keep the arena request from aborting; do not persist response-only fallback data.
 - `SjPkPanel` requires `extra.tx` to contain two rows of six display values and `extra.fe` to contain at least 17 frame values. Empty arrays are wire-valid but crash the client attribute view.
 - Pet frames must use `ca=-1, cb=-1` for no pet, or positive integer frame numbers for both values. Frame `0` is not display-safe.
 

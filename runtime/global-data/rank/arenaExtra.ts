@@ -276,6 +276,32 @@ function isDisplaySafe(value: ArenaExtraObject): boolean {
   );
 }
 
+function hasVisibleStats(value: ArenaExtraObject): boolean {
+  if (!Array.isArray(value.tx)) return false;
+  return value.tx.slice(0, 2).some((row) => {
+    if (!Array.isArray(row)) return false;
+    return row.slice(0, 6).some((entry) => {
+      if (typeof entry === "number") return Number.isFinite(entry) && entry !== 0;
+      if (typeof entry !== "string") return false;
+      const numeric = Number(entry.replace(/%$/, "").trim());
+      return Number.isFinite(numeric) && numeric !== 0;
+    });
+  });
+}
+
+function hasVisibleEquipment(value: ArenaExtraObject): boolean {
+  return Array.isArray(value.fe) && value.fe.slice(0, 17).some((frame) => typeof frame === "number" && frame >= 1);
+}
+
+export function hasCompleteArenaDisplay(value: string): boolean {
+  try {
+    const decoded = decodeArenaExtra(value);
+    return isArenaExtraObject(decoded) && isDisplaySafe(decoded) && (hasVisibleStats(decoded) || hasVisibleEquipment(decoded));
+  } catch {
+    return false;
+  }
+}
+
 export function normalizeArenaExtra(value: string, username = ""): string {
   let decoded: ArenaExtraObject = {};
   try {
