@@ -581,11 +581,23 @@ function encodeUpdatedSaveXml(rawData: string, decoded: SaveXmlParts, xml: strin
   return deflateSync(payload).toString("base64");
 }
 
-function clearArenaOpponentCacheXml(xml: string): string {
-  const pkl = findNamedSaveElement(xml, "pkl");
-  if (!pkl || pkl.innerStart === pkl.innerEnd) return xml;
+export function resetArenaSeasonSaveData(rawData: string): string {
+  const decoded = decodeSaveXmlParts(rawData);
+  if (!decoded) return rawData;
+  let xml = decoded.xml;
+  xml = replaceNumberField(xml, "oldpkb", -1);
+  xml = replaceNumberField(xml, "oldawb", 0);
+  xml = replaceNumberField(xml, "sxb", 1);
+  return encodeUpdatedSaveXml(rawData, decoded, xml);
+}
 
-  const pklInner = xml.slice(pkl.innerStart, pkl.innerEnd);
+export function clearArenaOpponentCache(rawData: string): string {
+  const decoded = decodeSaveXmlParts(rawData);
+  if (!decoded) return rawData;
+  const pkl = findNamedSaveElement(decoded.xml, "pkl");
+  if (!pkl || pkl.innerStart === pkl.innerEnd) return rawData;
+
+  const pklInner = decoded.xml.slice(pkl.innerStart, pkl.innerEnd);
   const replacements = ["ea", "wa", "gup"]
     .map((name) => {
       const element = findNamedSaveElement(pklInner, name);
@@ -601,27 +613,10 @@ function clearArenaOpponentCacheXml(xml: string): string {
     .filter((replacement): replacement is { start: number; end: number; value: string } => replacement !== null)
     .sort((left, right) => right.start - left.start);
 
+  let xml = decoded.xml;
   for (const replacement of replacements) {
     xml = `${xml.slice(0, replacement.start)}${replacement.value}${xml.slice(replacement.end)}`;
   }
-  return xml;
-}
-
-export function resetArenaSeasonSaveData(rawData: string): string {
-  const decoded = decodeSaveXmlParts(rawData);
-  if (!decoded) return rawData;
-  let xml = decoded.xml;
-  xml = replaceNumberField(xml, "oldpkb", -1);
-  xml = replaceNumberField(xml, "oldawb", 0);
-  xml = replaceNumberField(xml, "sxb", 1);
-  xml = clearArenaOpponentCacheXml(xml);
-  return encodeUpdatedSaveXml(rawData, decoded, xml);
-}
-
-export function clearArenaOpponentCache(rawData: string): string {
-  const decoded = decodeSaveXmlParts(rawData);
-  if (!decoded) return rawData;
-  const xml = clearArenaOpponentCacheXml(decoded.xml);
   return encodeUpdatedSaveXml(rawData, decoded, xml);
 }
 

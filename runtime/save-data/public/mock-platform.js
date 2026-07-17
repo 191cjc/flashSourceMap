@@ -77,7 +77,6 @@
   let optimizationPopover = null;
   let onlineModeBusy = false;
   let onlineModeStatus = null;
-  let arenaSeasonReloadBusy = false;
 
   window.__saveDataLog = function (message) {
     const log = document.getElementById("log");
@@ -536,21 +535,7 @@
       throw new Error(result.message || result.error || `HTTP ${response.status}`);
     }
     renderOnlineMode(result);
-    await reloadForSettledArenaSeason(result);
     return result;
-  }
-
-  async function reloadForSettledArenaSeason(result) {
-    const settledSeason = Number(result && result.online && result.online.arenaReloadSeason || 0);
-    if (settledSeason <= 0 || arenaSeasonReloadBusy) return;
-    arenaSeasonReloadBusy = true;
-    try {
-      await postOnlineMode("/api/saveData/online-mode/arena-reload/ack");
-      reloadGameAfterIdentityChange(`竞技场第 ${settledSeason} 赛季已结算，正在刷新排行榜`);
-    } catch (error) {
-      arenaSeasonReloadBusy = false;
-      throw error;
-    }
   }
 
   async function postOnlineMode(pathname, payload) {
@@ -1632,7 +1617,8 @@
     refreshWallet().catch(() => undefined);
   }, 3000);
   window.setInterval(() => {
-    if (!onlineModeBusy) {
+    const panel = document.querySelector('[data-tab-panel="onlineMode"]');
+    if (panel && panel.classList.contains("is-active") && !onlineModeBusy) {
       refreshOnlineMode().catch(() => undefined);
     }
   }, 15000);

@@ -13,7 +13,6 @@ import {
   decodeSaveXml,
   encodeAmf3StringBase64,
   readLocalSaveIdentity,
-  resetArenaSeasonSaveData,
 } from "../services/gameData.js";
 import { OnlineModeError, OnlineModeService } from "../services/onlineMode.js";
 
@@ -43,7 +42,6 @@ const CLEARED_ARENA_CACHE_DATA = clearArenaOpponentCache(SAVE_DATA);
 assert.match(decodeSaveXml(CLEARED_ARENA_CACHE_DATA) ?? "", /<s type="Array" name="ea"\/>/);
 assert.match(decodeSaveXml(CLEARED_ARENA_CACHE_DATA) ?? "", /<s type="Array" name="wa"\/>/);
 assert.match(decodeSaveXml(CLEARED_ARENA_CACHE_DATA) ?? "", /<s type="Array" name="gup"\/>/);
-assert.match(decodeSaveXml(resetArenaSeasonSaveData(SAVE_DATA)) ?? "", /<s type="Array" name="ea"\/>/);
 
 function saveStringField(rawData: string, name: string): string | null {
   const xml = decodeSaveXml(rawData);
@@ -278,24 +276,19 @@ try {
   assert.equal(saveNumberField(seasonResetData, "oldawb"), 0);
   assert.equal(saveNumberField(seasonResetData, "oldatb"), 5);
   assert.equal(saveNumberField(seasonResetData, "sxb"), 1);
-  assert.match(decodeSaveXml(seasonResetData) ?? "", /<s type="Array" name="ea"\/>/);
   assert.equal(localDb.countSnapshots("10000001", "100025235", 0), snapshotsBeforeSeasonReset + 1);
   assert.equal(saveNumberField(globalServer.db.getSave(10000001, "100025235", 0)?.data ?? "", "oldpkb"), -1);
   const seasonStatus = await onlineMode.status(false) as { online: { arenaSettledSeason: number } };
   assert.equal(seasonStatus.online.arenaSettledSeason, 1);
-  const seasonReloadStatus = await onlineMode.status(false) as { online: { arenaReloadSeason: number } };
-  assert.equal(seasonReloadStatus.online.arenaReloadSeason, 1);
-  assert.deepEqual(onlineMode.acknowledgeArenaReload(), { ok: true, acknowledgedSeason: 1 });
-  assert.equal(((await onlineMode.status(false) as { online: { arenaReloadSeason: number } }).online.arenaReloadSeason), 0);
 
   const snapshotsBeforeArenaRefresh = localDb.countSnapshots("10000001", "100025235", 0);
   const arenaRefresh = await onlineMode.refreshArenaCache();
   assert.equal(arenaRefresh.ok, true);
-  assert.equal(arenaRefresh.cleared, 0);
+  assert.equal(arenaRefresh.cleared, 2);
   assert.equal(arenaRefresh.sync.pending, 0);
   const refreshedArenaData = String(localDb.getSlot("10000001", "100025235", 0)?.data);
   assert.match(decodeSaveXml(refreshedArenaData) ?? "", /<s type="Array" name="ea"\/>/);
-  assert.equal(localDb.countSnapshots("10000001", "100025235", 0), snapshotsBeforeArenaRefresh);
+  assert.equal(localDb.countSnapshots("10000001", "100025235", 0), snapshotsBeforeArenaRefresh + 1);
   assert.match(
     decodeSaveXml(globalServer.db.getSave(10000001, "100025235", 0)?.data ?? "") ?? "",
     /<s type="Array" name="ea"\/>/
