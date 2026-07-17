@@ -89,6 +89,7 @@ All aliases forward to global `/ranging.php/` with method, query, request body, 
 
 - The client-specific rank `1093` page `95` request may be padded from the same cloud-save pool.
 - Ordinary page `1` and other rank pages remain real and unpadded.
+- Arena opponents are persisted in save field `asaved.pkl.ea`; clearing a stale opponent cache must also clear sibling arrays `wa` and `gup`, snapshot the local save, sync the revised save, and reload Flash so in-memory `top100`/enemy data is discarded.
 
 #### Arena season settlement
 

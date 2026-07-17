@@ -472,6 +472,7 @@
     const repairButton = document.getElementById("onlineModeRepair");
     const profileButton = document.getElementById("onlineModeSaveProfile");
     const syncButton = document.getElementById("onlineModeSync");
+    const arenaCacheButton = document.getElementById("onlineModeArenaCache");
     const refreshButton = document.getElementById("onlineModeRefresh");
     const backupSourceButton = document.getElementById("saveImportUseBackup");
     const backupRefreshButton = document.getElementById("backupImportRefresh");
@@ -499,6 +500,10 @@
     if (syncButton) {
       syncButton.hidden = !joined;
       syncButton.disabled = onlineModeBusy || !server.healthy;
+    }
+    if (arenaCacheButton) {
+      arenaCacheButton.hidden = !joined;
+      arenaCacheButton.disabled = onlineModeBusy || !server.healthy;
     }
     if (refreshButton) refreshButton.disabled = onlineModeBusy;
     if (backupSourceButton) backupSourceButton.disabled = !enabled || onlineModeBusy || !server.healthy;
@@ -623,6 +628,22 @@
       const result = await postOnlineMode("/api/saveData/online-mode/sync");
       window.__saveDataLog && window.__saveDataLog(`远程存档同步完成：${result.synced || 0} 个`);
       await refreshOnlineMode();
+    } catch (error) {
+      setOnlineModeHint(error instanceof Error ? error.message : String(error), true);
+    } finally {
+      onlineModeBusy = false;
+      refreshOnlineMode().catch(() => undefined);
+    }
+  }
+
+  async function refreshArenaCache() {
+    if (onlineModeBusy) return;
+    onlineModeBusy = true;
+    renderOnlineMode(onlineModeStatus || {});
+    setOnlineModeHint("正在备份存档并清理竞技场对手缓存……", false);
+    try {
+      const result = await postOnlineMode("/api/saveData/online-mode/arena-cache");
+      reloadGameAfterIdentityChange(`竞技场缓存已刷新：处理 ${result.cleared || 0} 个存档`);
     } catch (error) {
       setOnlineModeHint(error instanceof Error ? error.message : String(error), true);
     } finally {
@@ -1477,6 +1498,8 @@
   if (onlineModeSaveProfile) onlineModeSaveProfile.addEventListener("click", saveOnlineUsername);
   const onlineModeSync = document.getElementById("onlineModeSync");
   if (onlineModeSync) onlineModeSync.addEventListener("click", syncOnlineMode);
+  const onlineModeArenaCache = document.getElementById("onlineModeArenaCache");
+  if (onlineModeArenaCache) onlineModeArenaCache.addEventListener("click", refreshArenaCache);
   const onlineModeRefresh = document.getElementById("onlineModeRefresh");
   if (onlineModeRefresh) {
     onlineModeRefresh.addEventListener("click", () => {

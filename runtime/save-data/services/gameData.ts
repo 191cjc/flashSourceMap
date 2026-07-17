@@ -591,6 +591,35 @@ export function resetArenaSeasonSaveData(rawData: string): string {
   return encodeUpdatedSaveXml(rawData, decoded, xml);
 }
 
+export function clearArenaOpponentCache(rawData: string): string {
+  const decoded = decodeSaveXmlParts(rawData);
+  if (!decoded) return rawData;
+  const pkl = findNamedSaveElement(decoded.xml, "pkl");
+  if (!pkl || pkl.innerStart === pkl.innerEnd) return rawData;
+
+  const pklInner = decoded.xml.slice(pkl.innerStart, pkl.innerEnd);
+  const replacements = ["ea", "wa", "gup"]
+    .map((name) => {
+      const element = findNamedSaveElement(pklInner, name);
+      if (!element) return null;
+      const original = pklInner.slice(element.start, element.end);
+      if (!original.startsWith(`<s type="Array" name="${name}"`)) return null;
+      return {
+        start: pkl.innerStart + element.start,
+        end: pkl.innerStart + element.end,
+        value: `<s type="Array" name="${name}"/>`,
+      };
+    })
+    .filter((replacement): replacement is { start: number; end: number; value: string } => replacement !== null)
+    .sort((left, right) => right.start - left.start);
+
+  let xml = decoded.xml;
+  for (const replacement of replacements) {
+    xml = `${xml.slice(0, replacement.start)}${replacement.value}${xml.slice(replacement.end)}`;
+  }
+  return encodeUpdatedSaveXml(rawData, decoded, xml);
+}
+
 export function canonicalizeLocalSaveIdentity(rawData: string, identity: LocalSaveIdentity): string {
   const decoded = decodeSaveXmlParts(rawData);
   const uidNumber = Number(identity.uid);

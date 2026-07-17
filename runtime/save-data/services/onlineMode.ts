@@ -2,7 +2,7 @@ import { createHash, randomUUID } from "node:crypto";
 import type { Account } from "../types.js";
 import { LocalSaveDatabase } from "../persistence/db.js";
 import type { SaveDataStore } from "../persistence/store.js";
-import { canonicalizeLocalSaveIdentity, readLocalSaveIdentity, resetArenaSeasonSaveData } from "./gameData.js";
+import { canonicalizeLocalSaveIdentity, clearArenaOpponentCache, readLocalSaveIdentity, resetArenaSeasonSaveData } from "./gameData.js";
 
 const DEFAULT_UID = "10001";
 const DEFAULT_GAME_ID = "100025235";
@@ -311,6 +311,47 @@ export class OnlineModeService {
       )
       .run(pending, errors[0] ?? "");
     return { ok: errors.length === 0, synced, pending, errors };
+  }
+
+  async refreshArenaCache(): Promise<{
+    ok: boolean;
+    cleared: number;
+    sync: { ok: boolean; synced: number; pending: number; errors: string[] };
+  }> {
+    const account = this.requireOnlineAccount();
+    const sqlite = this.requireSqlite();
+    const rows = sqlite.db
+      .prepare("SELECT id, game_id, slot_index, title, raw_data, checksum FROM save_slots WHERE account_id = ?")
+      .all(account.id) as Array<{
+      id: number;
+      game_id: string;
+      slot_index: number;
+      title: string;
+      raw_data: string;
+      checksum: string;
+    }>;
+    let cleared = 0;
+    sqlite.db.exec("BEGIN IMMEDIATE");
+    try {
+      for (const row of rows) {
+        const data = clearArenaOpponentCache(row.raw_data);
+        if (data === row.raw_data) continue;
+        sqlite.db
+          .prepare("INSERT INTO save_snapshots (save_slot_id, title, raw_data, checksum) VALUES (?, ?, ?, ?)")
+          .run(row.id, `竞技场缓存刷新前备份 - ${row.title}`, row.raw_data, row.checksum);
+        const checksum = sha256(data);
+        sqlite.db
+          .prepare("UPDATE save_slots SET raw_data = ?, checksum = ?, updated_at = datetime('now') WHERE id = ?")
+          .run(data, checksum, row.id);
+        this.upsertSync(sqlite, account.id, row.game_id, row.slot_index, checksum);
+        cleared += 1;
+      }
+      sqlite.db.exec("COMMIT");
+    } catch (error) {
+      sqlite.db.exec("ROLLBACK");
+      throw error;
+    }
+    return { ok: true, cleared, sync: await this.syncPending() };
   }
 
   syncStatus(): Record<string, unknown> {

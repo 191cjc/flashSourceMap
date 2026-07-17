@@ -8,6 +8,7 @@ import { LocalSaveDatabase } from "../persistence/db.js";
 import { DEFAULT_ACCOUNT, SaveDataMockApi } from "../platform4399/mockApi.js";
 import {
   canonicalizeLocalSaveIdentity,
+  clearArenaOpponentCache,
   decodeAmf3StringBase64,
   decodeSaveXml,
   encodeAmf3StringBase64,
@@ -28,9 +29,19 @@ const SAVE_DATA = [
   '    <s type="Number" name="oldawb">1</s>',
   '    <s type="Number" name="oldatb">5</s>',
   '    <s type="Number" name="sxb">1014</s>',
+  '    <s type="Object" name="pkl">',
+  '      <s type="Array" name="ea"><s type="Object" name="null"><s type="Number" name="id">10000002</s></s></s>',
+  '      <s type="Array" name="wa"><s type="Number" name="null">0</s></s>',
+  '      <s type="Array" name="gup"><s type="Number" name="null">20</s></s>',
+  '    </s>',
   '  </s>',
   '</saveXml>',
 ].join("");
+
+const CLEARED_ARENA_CACHE_DATA = clearArenaOpponentCache(SAVE_DATA);
+assert.match(decodeSaveXml(CLEARED_ARENA_CACHE_DATA) ?? "", /<s type="Array" name="ea"\/>/);
+assert.match(decodeSaveXml(CLEARED_ARENA_CACHE_DATA) ?? "", /<s type="Array" name="wa"\/>/);
+assert.match(decodeSaveXml(CLEARED_ARENA_CACHE_DATA) ?? "", /<s type="Array" name="gup"\/>/);
 
 function saveStringField(rawData: string, name: string): string | null {
   const xml = decodeSaveXml(rawData);
@@ -269,6 +280,19 @@ try {
   assert.equal(saveNumberField(globalServer.db.getSave(10000001, "100025235", 0)?.data ?? "", "oldpkb"), -1);
   const seasonStatus = await onlineMode.status(false) as { online: { arenaSettledSeason: number } };
   assert.equal(seasonStatus.online.arenaSettledSeason, 1);
+
+  const snapshotsBeforeArenaRefresh = localDb.countSnapshots("10000001", "100025235", 0);
+  const arenaRefresh = await onlineMode.refreshArenaCache();
+  assert.equal(arenaRefresh.ok, true);
+  assert.equal(arenaRefresh.cleared, 2);
+  assert.equal(arenaRefresh.sync.pending, 0);
+  const refreshedArenaData = String(localDb.getSlot("10000001", "100025235", 0)?.data);
+  assert.match(decodeSaveXml(refreshedArenaData) ?? "", /<s type="Array" name="ea"\/>/);
+  assert.equal(localDb.countSnapshots("10000001", "100025235", 0), snapshotsBeforeArenaRefresh + 1);
+  assert.match(
+    decodeSaveXml(globalServer.db.getSave(10000001, "100025235", 0)?.data ?? "") ?? "",
+    /<s type="Array" name="ea"\/>/
+  );
 
   console.log("online mode flow ok");
 } finally {
