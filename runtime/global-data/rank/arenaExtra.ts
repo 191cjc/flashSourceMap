@@ -302,6 +302,20 @@ export function hasCompleteArenaDisplay(value: string): boolean {
   }
 }
 
+export function cloneArenaDisplayForUsername(value: string, username: string): string {
+  const decoded = decodeArenaExtra(value);
+  if (!isArenaExtraObject(decoded) || !isDisplaySafe(decoded) || (!hasVisibleStats(decoded) && !hasVisibleEquipment(decoded))) {
+    throw new Error("Source arena extra is not display-complete");
+  }
+  const cloned: ArenaExtraObject = { ...decoded };
+  delete cloned.newne;
+  cloned.ne = username;
+  cloned.qsl = 0;
+  cloned.qsb = 0;
+  cloned.qls = 0;
+  return encodeArenaExtra(cloned);
+}
+
 export function normalizeArenaExtra(value: string, username = ""): string {
   let decoded: ArenaExtraObject = {};
   try {

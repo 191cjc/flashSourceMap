@@ -3,7 +3,7 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { inflateSync } from "node:zlib";
-import { encodeArenaExtra } from "../rank/arenaExtra.js";
+import { cloneArenaDisplayForUsername, encodeArenaExtra } from "../rank/arenaExtra.js";
 import { startGlobalDataServer } from "../server/server.js";
 
 const dir = mkdtempSync(path.join(tmpdir(), "flash-global-data-"));
@@ -426,6 +426,21 @@ try {
     ],
     jo: 1,
     fe: [500, 534, 574, -1, 609, 654, 689, 721, 963, -1, 2428, 2668, 2909, -1, -1, -1, 3501],
+  });
+  assert.deepEqual(decodeArenaExtra(cloneArenaDisplayForUsername(completeArenaExtra, "竞技场测试角色")), {
+    qsl: 0,
+    qsb: 0,
+    qls: 0,
+    lv: 65,
+    ca: 18,
+    cb: 7,
+    tx: [
+      ["123450", "1838", "3963", "81239", "9", "62.6%"],
+      ["0", "1099", "0", "660", "1099", "3244"],
+    ],
+    jo: 1,
+    fe: [500, 534, 574, -1, 609, 654, 689, 721, 963, -1, 2428, 2668, 2909, -1, -1, -1, 3501],
+    ne: "竞技场测试角色",
   });
   const completeRegistration = await jsonRequest("/api/global/register", {
     method: "POST",
